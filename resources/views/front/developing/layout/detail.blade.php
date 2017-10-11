@@ -75,7 +75,7 @@ desired effect
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>企</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>{{$company->name or ''}}</b></span>
+            <span class="logo-lg"><b>{{$org->name or ''}}</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -273,22 +273,22 @@ desired effect
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="treeview">
-                    <a href="{{url(config('common.website.front.prefix').'/'.$data->company->website_name)}}"><i class="fa fa-home"></i> <span>首页</span></a>
+                    <a href="{{url(config('common.website.front.prefix').'/'.$data->org->website_name)}}"><i class="fa fa-home"></i> <span>首页</span></a>
                 </li>
                 <li class="treeview">
-                    <a href="{{url(config('common.website.front.prefix').'/'.$data->company->website_name.'/product')}}"><i class="fa fa-th"></i> <span>企业产品</span></a>
+                    <a href="{{url(config('common.website.front.prefix').'/'.$data->org->website_name.'/product')}}"><i class="fa fa-th"></i> <span>企业产品</span></a>
                 </li>
                 <li class="treeview">
-                    <a href="{{url(config('common.website.front.prefix').'/'.$data->company->website_name.'/activity')}}"><i class="fa fa-th"></i> <span>企业活动</span></a>
+                    <a href="{{url(config('common.website.front.prefix').'/'.$data->org->website_name.'/activity')}}"><i class="fa fa-th"></i> <span>企业活动</span></a>
                 </li>
                 <li class="treeview">
-                    <a href="{{url(config('common.website.front.prefix').'/'.$data->company->website_name.'/slide')}}"><i class="fa fa-th"></i> <span>企业幻灯片</span></a>
+                    <a href="{{url(config('common.website.front.prefix').'/'.$data->org->website_name.'/slide')}}"><i class="fa fa-th"></i> <span>企业幻灯片</span></a>
                 </li>
                 <li class="treeview">
-                    <a href="{{url(config('common.website.front.prefix').'/'.$data->company->website_name.'/survey')}}"><i class="fa fa-th"></i> <span>企业问卷</span></a>
+                    <a href="{{url(config('common.website.front.prefix').'/'.$data->org->website_name.'/survey')}}"><i class="fa fa-th"></i> <span>企业问卷</span></a>
                 </li>
                 <li class="treeview">
-                    <a href="{{url(config('common.website.front.prefix').'/'.$data->company->website_name.'/article')}}"><i class="fa fa-th"></i> <span>企业文章博客</span></a>
+                    <a href="{{url(config('common.website.front.prefix').'/'.$data->org->website_name.'/article')}}"><i class="fa fa-th"></i> <span>企业文章博客</span></a>
                 </li>
             </ul>
             <!-- /.sidebar-menu -->

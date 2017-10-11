@@ -1,12 +1,12 @@
 @extends('admin.layout.layout')
 
-@section('title','文章首页')
-@section('header','文章首页')
-@section('description','文章首页')
+@section('title','问卷首页')
+@section('header','问卷首页')
+@section('description','问卷首页')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{url('/admin/article/list')}}"><i class="fa "></i>文章列表</a></li>
-    <li><a href="#"><i class="fa "></i> Level</a></li>
+    <li><a href="{{url('/admin/question/list')}}"><i class="fa "></i>问卷列表</a></li>
+    <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
 
@@ -16,7 +16,7 @@
         <!-- BEGIN PORTLET-->
         <div class="box box-info">
 
-            <div class="box-header with-border" style="margin: 15px 0;">
+            <div class="box-header with-border" style="margin:16px 0;">
                 <h3 class="box-title"></h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
@@ -30,7 +30,7 @@
             </div>
 
             <div class="box-footer">
-                <div class="row" style="margin: 15px 0;">
+                <div class="row" style="margin:16px 0;">
                     <div class="col-md-offset-3 col-md-9">
                         <button type="button" onclick="" class="btn btn-primary"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>

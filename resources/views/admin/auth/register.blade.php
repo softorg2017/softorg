@@ -5,7 +5,7 @@
 @section('content')
 <div class="register-box">
     <div class="register-logo">
-        <a href="/admin"><b>企业站</b>后台</a>
+        <a href="/admin"><b>轻机构</b> 后台注册</a>
     </div>
 
     <div class="register-box-body">

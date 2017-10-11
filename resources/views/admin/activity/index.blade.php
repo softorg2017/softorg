@@ -4,9 +4,9 @@
 @section('header','活动首页')
 @section('description','活动首页')
 @section('breadcrumb')
-    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-    <li><a href="{{url('/admin/company/product/list')}}"><i class="fa "></i> 产品列表</a></li>
-    <li><a href="#"><i class="fa "></i> Level</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url('/admin/product/list')}}"><i class="fa "></i>产品列表</a></li>
+    <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
 

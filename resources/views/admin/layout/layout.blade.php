@@ -73,9 +73,9 @@ desired effect
         <!-- Logo -->
         <a href="{{url('/admin')}}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>企</b></span>
+            <span class="logo-mini"><b>轻</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>企业站</b></span>
+            <span class="logo-lg"><b>轻机构</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -273,15 +273,15 @@ desired effect
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="treeview">
-                    <a href=""><i class="fa fa-th"></i> <span>企业管理</span>
+                    <a href=""><i class="fa fa-th"></i> <span>机构(企业)管理</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/company/index')}}"><i class="fa fa-circle-o text-aqua"></i>基本信息</a></li>
-                        <li><a href="{{url('/admin/company/edit')}}"><i class="fa fa-circle-o text-aqua"></i>编辑基本信息</a></li>
-                        <li><a href="{{url('/admin/company/administrator/list')}}"><i class="fa fa-circle-o text-aqua"></i>管理员列表</a></li>
+                        <li><a href="{{url('/admin/softorg/index')}}"><i class="fa fa-circle-o text-aqua"></i>基本信息</a></li>
+                        <li><a href="{{url('/admin/softorg/edit')}}"><i class="fa fa-circle-o text-aqua"></i>编辑基本信息</a></li>
+                        <li><a href="{{url('/admin/administrator/list')}}"><i class="fa fa-circle-o text-aqua"></i>管理员列表</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -291,7 +291,7 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/company/website/edit')}}"><i class="fa fa-circle-o text-aqua"></i>首页编辑</a></li>
+                        <li><a href="{{url('/admin/website/edit')}}"><i class="fa fa-circle-o text-aqua"></i>首页编辑</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -301,10 +301,10 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/company/product/list')}}"><i class="fa fa-circle-o text-red"></i>产品列表</a></li>
-                        <li><a href="{{url('/admin/company/product/create')}}"><i class="fa fa-circle-o text-red"></i>添加产品</a></li>
-                        <li><a href="{{url('/admin/company/menu/list')}}"><i class="fa fa-circle-o text-aqua"></i>产品目录列表</a></li>
-                        <li><a href="{{url('/admin/company/menu/create')}}"><i class="fa fa-circle-o text-aqua"></i>添加产品目录</a></li>
+                        <li><a href="{{url('/admin/product/list')}}"><i class="fa fa-circle-o text-red"></i>产品列表</a></li>
+                        <li><a href="{{url('/admin/product/create')}}"><i class="fa fa-circle-o text-red"></i>添加产品</a></li>
+                        <li><a href="{{url('/admin/menu/list')}}"><i class="fa fa-circle-o text-aqua"></i>产品目录列表</a></li>
+                        <li><a href="{{url('/admin/menu/create')}}"><i class="fa fa-circle-o text-aqua"></i>添加产品目录</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

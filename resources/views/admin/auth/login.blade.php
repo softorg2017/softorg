@@ -5,11 +5,11 @@
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="/admin"><b>企业站</b>后台</a>
+        <a href="/admin"><b>轻机构</b> 后台登录</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">企业管理员登陆</p>
+        <p class="login-box-msg">管理员登陆</p>
 
         <form action="/admin/login" method="post" id="form-admin-login">
             {{ csrf_field() }}

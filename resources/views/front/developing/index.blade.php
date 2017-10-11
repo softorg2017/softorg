@@ -1,17 +1,17 @@
 @extends('front.'.config('common.view.front.template').'.layout.layout')
 
 @section('title')
-    {{$company->name or ''}}
+    {{$org->name or ''}}
 @endsection
 @section('header')
-    {{$company->name or ''}}
+    {{$org->name or ''}}
 @endsection
 @section('description')
-    {{$company->name or ''}}
+    {{$org->name or ''}}
 @endsection
 @section('breadcrumb')
-    <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-    <li><a href="{{url('/admin/company/product/list')}}"><i class="fa "></i>列表</a></li>
+    <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+    <li><a href="{{url('/admin/product/list')}}"><i class="fa "></i>列表</a></li>
     <li><a href="#"><i class="fa "></i> Level</a></li>
 @endsection
 
@@ -33,11 +33,11 @@
             </div>
 
             <div class="box-body">
-                <div class="col-md-12">企业名称：{{$company->name or ''}}</div>
-                <div class="col-md-12">企业描述：{{$company->description or ''}}</div>
-                <div class="col-md-12">企业标语：{{$company->slogan or ''}}</div>
-                <div class="col-md-12">企业电话：{{$company->telephone or ''}}</div>
-                <div class="col-md-12">企业邮箱：{{$company->email or ''}}</div>
+                <div class="col-md-12">企业名称：{{$org->name or ''}}</div>
+                <div class="col-md-12">企业描述：{{$org->description or ''}}</div>
+                <div class="col-md-12">企业标语：{{$org->slogan or ''}}</div>
+                <div class="col-md-12">企业电话：{{$org->telephone or ''}}</div>
+                <div class="col-md-12">企业邮箱：{{$org->email or ''}}</div>
             </div>
 
             <div class="box-footer">
@@ -61,7 +61,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    @foreach($company->products as $v)
+                    @foreach($org->products as $v)
                         <div class="col-md-3">
                             <div class="box box-warning">
                                 <div class="box-header with-border">
@@ -99,7 +99,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    @foreach($company->activities as $v)
+                    @foreach($org->activities as $v)
                         <div class="col-md-3">
                             <div class="box box-success">
                                 <div class="box-header with-border">
@@ -137,7 +137,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    @foreach($company->slides as $v)
+                    @foreach($org->slides as $v)
                         <div class="col-md-3">
                             <div class="box box-info">
                                 <div class="box-header with-border">
@@ -175,7 +175,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    @foreach($company->surveys as $v)
+                    @foreach($org->surveys as $v)
                         <div class="col-md-3">
                             <div class="box box-info">
                                 <div class="box-header with-border">
@@ -213,7 +213,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    @foreach($company->articles as $v)
+                    @foreach($org->articles as $v)
                         <div class="col-md-3">
                             <div class="box box-danger">
                                 <div class="box-header with-border">

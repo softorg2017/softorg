@@ -1,11 +1,11 @@
 @extends('admin.layout.layout')
 
-@section('title','幻灯片列表')
-@section('header','幻灯片列表')
-@section('description','幻灯片列表')
+@section('title','产品列表')
+@section('header','产品列表')
+@section('description','产品列表')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{url('/admin/slide/list')}}"><i class="fa "></i>幻灯片列表</a></li>
+    <li><a href="{{url('/admin/product/list')}}"><i class="fa "></i>产品列表</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -17,18 +17,14 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title"></h3>
-
-                <div class="pull-right">
-                    <a href="{{url('/admin/slide/create')}}">
-                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加幻灯片</button>
+                <div class="caption">
+                    <i class="icon-pin font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase"></span>
+                    <a href="{{url('/admin/product/create')}}">
+                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加商品</button>
                     </a>
                 </div>
-                <div class="pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
-                        <i class="fa fa-times"></i></button>
+                <div class="actions">
                 </div>
             </div>
 
@@ -38,15 +34,17 @@
                     <thead>
                     <tr role='row' class='heading'>
                         <th>#</th>
-                        <th>标题</th>
+                        <th>名称</th>
                         <th>描述</th>
                         <th>类型</th>
+                        <th>目录</th>
                         <th>状态</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -91,6 +89,7 @@
 @endsection
 
 
+
 @section('js')
 <script>
     var TableDatatablesAjax = function () {
@@ -103,7 +102,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': '/admin/slide/list',
+                    'url': '/admin/product/list',
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -135,7 +134,7 @@
                         "data": "encode_id",
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/slide?id='+data+'">'+row.name+'</a>';
+                            return '<a target="_blank" href="/product?id='+data+'">'+row.name+'</a>';
                         }
                     },
                     {
@@ -150,6 +149,13 @@
                         'orderable': true,
                         render: function(type) {
                             return type == null ? '' : type;
+                        }
+                    },
+                    {
+                        'data': 'menu_id',
+                        'orderable': true,
+                        render: function(data, type, row, meta) {
+                            return row.menu == null ? '未分类' : row.menu.name;
                         }
                     },
                     {
@@ -184,44 +190,24 @@
                         'orderable': false,
                         render: function(value) {
                             var html =
-                            '<div class="btn-group">'+
-                            '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
-                            '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
-                            '<span class="caret"></span>'+
-                            '<span class="sr-only">Toggle Dropdown</span>'+
-                            '</button>'+
-                            '<ul class="dropdown-menu" role="menu">'+
-                            '<li><a href="/admin/slide/edit?id='+value+'">编辑</a></li>'+
-                            '<li><a href="/admin/slide/delete/'+value+'">删除</a></li>'+
-                            '<li><a href="#">启用</a></li>'+
-                            '<li><a href="#">禁用</a></li>'+
-                            '<li class="divider"></li>'+
-                            '<li><a href="#">Separated link</a></li>'+
-                            '</ul>'+
-                            '</div>';
+                                    '<div class="btn-group">'+
+                                    '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
+                                    '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
+                                    '<span class="caret"></span>'+
+                                    '<span class="sr-only">Toggle Dropdown</span>'+
+                                    '</button>'+
+                                    '<ul class="dropdown-menu" role="menu">'+
+                                    '<li><a href="/admin/product/edit?id='+value+'">编辑</a></li>'+
+                                    '<li><a href="/admin/product/delete/'+value+'">删除</a></li>'+
+                                    '<li><a href="#">启用</a></li>'+
+                                    '<li><a href="#">禁用</a></li>'+
+                                    '<li class="divider"></li>'+
+                                    '<li><a href="#">Separated link</a></li>'+
+                                    '</ul>'+
+                                    '</div>';
                             return html;
                         }
-                    },
-//                    {
-                        {{--'data': 'ext',--}}
-                        {{--'orderable': false,--}}
-                        {{--render: function(ext) {--}}
-                            {{--if(ext == null) return '认证缺失';--}}
-                            {{--// if(ext.certificate_file.length < 1) return '文件不存在';--}}
-                            {{--console.log(ext);--}}
-                            {{--files = ext.certificate_file;--}}
-
-                            {{--var storage = [];--}}
-                            {{--files.forEach(function(file){--}}
-                                {{--storage.push("<span data-url='@url' class='item'></span>"--}}
-                                        {{--.replace('@url', file));--}}
-                            {{--});--}}
-                            {{--return '<div class="img-strage" data->'--}}
-                                    {{--+ storage.join('')--}}
-                                    {{--+ "<button class='btn btn-primary view-image' data-info="+ JSON.stringify(ext)+">认证信息</button>"--}}
-                                    {{--+ "<div>";--}}
-                        {{--}--}}
-//                    }
+                    }
                 ],
                 "drawCallback": function (settings) {
                     ajax_datatable.$('.tooltips').tooltip({placement: 'top', html: true});
@@ -259,7 +245,7 @@
                                             } else {
                                                 layer.alert(json['response_data'], {time: 10000});
                                             }
-                                    }, 'json');
+                                        }, 'json');
                             }
                         });
                     });
