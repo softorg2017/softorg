@@ -33,7 +33,7 @@ class SurveyController extends Controller
 
     public function createAction()
     {
-        if(request()->isMethod('get')) return view('admin.survey.edit');
+        if(request()->isMethod('get')) return view('admin.survey.create');
         else if (request()->isMethod('post')) return $this->repo->save(request()->all());
     }
 

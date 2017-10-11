@@ -33,11 +33,11 @@
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
                     <tr role='row' class='heading'>
-                        <th>#</th>
                         <th>名称</th>
                         <th>描述</th>
                         <th>类型</th>
                         <th>目录</th>
+                        <th>管理员</th>
                         <th>状态</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
@@ -124,13 +124,6 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
-                        "data": "id",
-                        'orderable': true,
-                        render: function(data) {
-                            return (data == null) ? 0 : '';
-                        }
-                    },
-                    {
                         "data": "encode_id",
                         'orderable': false,
                         render: function(data, type, row, meta) {
@@ -159,6 +152,13 @@
                         }
                     },
                     {
+                        "data": "id",
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+                            return row.admin == null ? '未知' : row.admin.nickname;
+                        }
+                    },
+                    {
                         'data': 'active',
                         'orderable': false,
                         render: function(val) {
@@ -169,7 +169,7 @@
                     },
                     {
                         'data': 'created_at',
-                        'orderable': false,
+                        'orderable': true,
                         render: function(data) {
                             newDate = new Date();
                             newDate.setTime(data * 1000);

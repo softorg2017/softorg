@@ -7,7 +7,7 @@ class Slide extends Model
     //
     protected $table = "slide";
     protected $fillable = [
-        'sort', 'type','org_id',  'name', 'title', 'description', 'content'
+        'sort', 'type', 'org_id', 'admin_id', 'name', 'title', 'description', 'content'
     ];
     protected $dateFormat = 'U';
 

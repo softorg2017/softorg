@@ -17,7 +17,7 @@ class ActivityRepository {
     public function get_list_datatable($post_data)
     {
         $org_id = Auth::guard("admin")->user()->org_id;
-        $query = Activity::select("*")->where('org_id',$org_id);
+        $query = Activity::select("*")->where('org_id',$org_id)->with(['admin']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
