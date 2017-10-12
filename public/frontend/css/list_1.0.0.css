@@ -1,0 +1,7 @@
+.list-banner {
+    position: relative;
+    height: 350px;
+    background: url("../images/bg_01.jpg") no-repeat center/cover fixed;
+    overflow: hidden;
+    width: 100%;
+}
