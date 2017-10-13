@@ -4,7 +4,7 @@ Source Host     : localhost:3306
 Source Database : db_company
 Target Host     : localhost:3306
 Target Database : db_company
-Date: 2017-10-11 00:34:15
+Date: 2017-10-14 03:38:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
-  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属企业',
+  `org_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属机构',
   `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '管理员',
   `name` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -26,13 +26,14 @@ CREATE TABLE `activity` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='活动表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='活动表';
 
 -- ----------------------------
 -- Records of activity
 -- ----------------------------
 INSERT INTO `activity` VALUES ('1', '0', '1', '1', '活动1', '活动1', '描述1', null, null, null, '1506169971', '1506419867');
 INSERT INTO `activity` VALUES ('2', '0', '2', '2', '活动1', null, null, null, null, null, '1506340200', '1506340200');
+INSERT INTO `activity` VALUES ('3', '0', '1', '1', '活动2', null, '描述2', null, '0', '0', '1507742102', '1507742111');
 
 -- ----------------------------
 -- Table structure for activity_slide
@@ -57,7 +58,7 @@ CREATE TABLE `activity_slide` (
 DROP TABLE IF EXISTS `administrator`;
 CREATE TABLE `administrator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` int(11) NOT NULL,
+  `org_id` int(11) NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '管理员类型 0 超级管理员',
   `role_id` int(11) NOT NULL,
   `mobile` varchar(11) DEFAULT NULL,
@@ -103,7 +104,7 @@ DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
-  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属企业',
+  `org_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属机构',
   `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '管理员',
   `name` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -112,46 +113,16 @@ CREATE TABLE `article` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='活动表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='活动表';
 
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES ('1', '0', '1', '1', '文章1', '中华医学会第十四次全国白血病·淋巴瘤学术会议', '描述1', '<p style=\"text-align: center;\"><br/></p><p style=\"text-align: center;\"><img src=\"http://7n.medsci.cn/uploads/ueditor/php/upload/image/20170818/1503043458806450.png\" title=\"1503043458806450.png\" alt=\"image.png\" width=\"600\" height=\"130\"/></p><p><br/></p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp;中华医学会第十四次全国白血病·淋巴瘤学术会议于2017年7月13日-7月15日在哈尔滨市举办。会议由中华医学会、中华医学会血液学分会主办，哈尔滨血液病肿瘤研究所、中国医学科学院血液病医院、北京大学血液病研究所、苏州大学附属第一医院血研所、北京白求恩公益基金会协办。有来自国内外著名学者就白血病及淋巴瘤、骨髓瘤等领域相关基础及临床做专题报告；美国、欧洲、日本等学者对白血病、淋巴瘤、骨髓瘤、造血干细胞移植、MDS及MPN进行了专题研讨；分为白血病、淋巴瘤、骨髓瘤、恶性血液病的免疫治疗、造血干细胞移植、MDS及MPN等专场进行学术论文交流。</p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp; &nbsp;中华医学会王大方副秘书长致辞时表示，此次会议将对白血病和淋巴瘤的临床热点及难点进行全方位、深层次和多角度讨论，为进一步提高我国血液病防治水平做出新的更大贡献，为改善全民健康水平发挥了极其重大的作用。</p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"font-size: 14px; line-height: normal;\"><strong><span style=\"font-size: 16px;\"></span></strong></p><p style=\"white-space: normal; font-size: 14px; line-height: normal; text-align: center;\"><span style=\"font-size: 16px;\"><strong>如需了解更多淋巴瘤的前沿信息<span style=\"line-height: normal;\">&nbsp;</span>请扫描二维码访问<span style=\"line-height: normal;\">“</span>淋巴瘤亿刻<span style=\"line-height: normal;\">”</span>网站。</strong></span></p><p style=\"white-space: normal; text-align: center;\"><img src=\"http://image.135editor.com/files/users/286/2865052/201708/VzeRSUnA_kKgB.png\" alt=\"WechatIMG1466.png\"/></p><p><br/></p>', '1506243480', '1506608130');
+INSERT INTO `article` VALUES ('1', '0', '1', '1', '文章1', '中华医学会第十四次全国白血病·淋巴瘤学术会议', '描述1111', '<p style=\"text-align: center;\"><br/></p><p style=\"text-align: center;\"><img src=\"http://7n.medsci.cn/uploads/ueditor/php/upload/image/20170818/1503043458806450.png\" title=\"1503043458806450.png\" alt=\"image.png\" width=\"600\" height=\"130\"/></p><p><br/></p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp;中华医学会第十四次全国白血病·淋巴瘤学术会议于2017年7月13日-7月15日在哈尔滨市举办。会议由中华医学会、中华医学会血液学分会主办，哈尔滨血液病肿瘤研究所、中国医学科学院血液病医院、北京大学血液病研究所、苏州大学附属第一医院血研所、北京白求恩公益基金会协办。有来自国内外著名学者就白血病及淋巴瘤、骨髓瘤等领域相关基础及临床做专题报告；美国、欧洲、日本等学者对白血病、淋巴瘤、骨髓瘤、造血干细胞移植、MDS及MPN进行了专题研讨；分为白血病、淋巴瘤、骨髓瘤、恶性血液病的免疫治疗、造血干细胞移植、MDS及MPN等专场进行学术论文交流。</p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp; &nbsp;中华医学会王大方副秘书长致辞时表示，此次会议将对白血病和淋巴瘤的临床热点及难点进行全方位、深层次和多角度讨论，为进一步提高我国血液病防治水平做出新的更大贡献，为改善全民健康水平发挥了极其重大的作用。</p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"font-size: 14px; line-height: normal;\"><strong><span style=\"font-size: 16px;\"></span></strong></p><p style=\"white-space: normal; font-size: 14px; line-height: normal; text-align: center;\"><span style=\"font-size: 16px;\"><strong>如需了解更多淋巴瘤的前沿信息<span style=\"line-height: normal;\">&nbsp;</span>请扫描二维码访问<span style=\"line-height: normal;\">“</span>淋巴瘤亿刻<span style=\"line-height: normal;\">”</span>网站。</strong></span></p><p style=\"white-space: normal; text-align: center;\"><img src=\"http://image.135editor.com/files/users/286/2865052/201708/VzeRSUnA_kKgB.png\" alt=\"WechatIMG1466.png\"/></p><p><br/></p>', '1506243480', '1507741666');
 INSERT INTO `article` VALUES ('2', '0', '1', '1', '文章2', '2017天津How I Treat和淋巴瘤转化医学国际研讨会', '描述2', '<p style=\"white-space: normal; text-align: center; line-height: 1.75em;\"><br/></p><p style=\"white-space: normal; line-height: 1.75em;\"><img src=\"http://image.135editor.com/files/users/162/1625396/201708/GbPeBZPf_xSp9.png\" alt=\"15018096601201.png\"/></p><p style=\"white-space: normal; line-height: 1.75em;\">&nbsp; &nbsp; &nbsp;</p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 2em;\">2017年8月19~20日，由天津市抗癌协会淋巴瘤专业委员会、天津市抗衰老学会主办，天津医科大学肿瘤医院、中美淋巴血液肿瘤诊治中心和《中国肿瘤临床》与《Cancer Biology &amp; Medicine》杂志社共同承办的2017天津How I Treat和淋巴瘤转化医学国际研讨会将在天津凯悦酒店隆重举行。</p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 2em;\">刚刚结束不久的Lugano国际淋巴瘤大会(ICML)，美国临床肿瘤学大会（ASCO），欧洲血液学协会年会(EHA)等国际著名学术会议上淋巴瘤的研究成果层出不穷，本届会议以“为淋巴瘤医师提供兼具专业性和实用性的基础及临床科研前沿”为宗旨，围绕淋巴瘤的&quot;How I Treat&quot;和转化医学两个主题进行学术报告和讨论，分享国内外淋巴瘤诊治的新进展、新理念、新方法。</p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong style=\"text-indent: 2em;\"><br/></strong></p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong>大会主席：张会来教授，孟斌教授</strong></p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong>会议时间：8月19~20日</strong></p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong>会议地点：天津凯悦酒店</strong></p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong>会议日程：</strong></p><p style=\"white-space: normal; line-height: 1.75em; text-align: center;\"><img src=\"http://7n.medsci.cn/uploads/ueditor/php/upload/image/20170818/1503059029858553.jpeg\" title=\"1503059029858553.jpeg\" alt=\"天津11.jpg\"/><br/></p><p style=\"font-size: 13px; line-height: normal;\"><strong><span style=\"color: rgb(85, 85, 85);\"></span></strong></p><p style=\"font-size: 14px; line-height: normal;\"><span style=\"font-size: 16px;\"><strong><br/></strong></span></p><p style=\"font-size: 14px; line-height: normal;\"><span style=\"font-size: 16px;\"><strong><br/></strong></span></p><p style=\"font-size: 14px; line-height: normal; text-align: center;\"><span style=\"font-size: 16px;\"><strong>如需了解更多淋巴瘤的前沿信息<span style=\"line-height: normal;\"> </span>请扫描二维码访问<span style=\"line-height: normal;\">“</span>淋巴瘤亿刻<span style=\"line-height: normal;\">”</span>网站。</strong></span></p><p style=\"text-align: center;\"><img src=\"http://image.135editor.com/files/users/286/2865052/201708/VzeRSUnA_kKgB.png\" alt=\"WechatIMG1466.png\"/></p><p style=\"white-space: normal; line-height: 1.75em;\"><br/></p>', '1506243626', '1506607914');
 INSERT INTO `article` VALUES ('3', '0', '1', '1', '文章3', '文章3的标题', '描述3', '<p><img src=\"http://res.cdn.bioon.com/application/live/cover_picture/2017/09/21/c5785df23d91993bf40486ba55710ca4.jpg\"/></p>', '1506243697', '1506526136');
 INSERT INTO `article` VALUES ('4', '0', '2', '2', '文章1', null, null, null, '1506340164', '1506340164');
-
--- ----------------------------
--- Table structure for company
--- ----------------------------
-DROP TABLE IF EXISTS `company`;
-CREATE TABLE `company` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
-  `website_name` varchar(64) NOT NULL DEFAULT '' COMMENT '企业网站域名地址名称',
-  `name` varchar(255) DEFAULT NULL COMMENT '企业名称',
-  `short` varchar(255) DEFAULT NULL COMMENT '企业简称',
-  `description` varchar(255) DEFAULT NULL COMMENT '企业描述',
-  `slogan` varchar(255) DEFAULT NULL COMMENT '企业标语',
-  `logo` varchar(255) DEFAULT NULL COMMENT '业企logo图片url',
-  `telephone` varchar(32) DEFAULT NULL COMMENT '企业电话（座机）',
-  `mobile` varchar(11) DEFAULT NULL COMMENT '手机',
-  `email` varchar(64) DEFAULT NULL COMMENT '业企邮箱',
-  `qq` varchar(16) DEFAULT NULL COMMENT '企业QQ',
-  `wechat` varchar(64) DEFAULT NULL COMMENT '企业微信',
-  `title` varchar(255) DEFAULT NULL,
-  `created_at` int(11) DEFAULT NULL COMMENT '创建时间',
-  `updated_at` int(11) DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `website_name` (`website_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='企业表';
-
--- ----------------------------
--- Records of company
--- ----------------------------
-INSERT INTO `company` VALUES ('1', '1', 'lotus', '莲花树互联网科技有限公司', '莲花树', '这是一家创造未来de企业', '让企业更出众', '', '021-88886668', '15800689433', 'admin@softorg.cn', '123456789', 'qing_qiye', null, null, '1507545147');
-INSERT INTO `company` VALUES ('2', '1', 'qingbo', '轻博吧', null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `article` VALUES ('5', '0', '1', '1', '文章4', null, null, null, '1507745817', '1507745817');
 
 -- ----------------------------
 -- Table structure for menu
@@ -160,7 +131,7 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
-  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属企业',
+  `org_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属机构',
   `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '管理员',
   `name` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -169,7 +140,7 @@ CREATE TABLE `menu` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='产品目录表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='产品目录表';
 
 -- ----------------------------
 -- Records of menu
@@ -181,6 +152,7 @@ INSERT INTO `menu` VALUES ('4', '0', '1', '1', '产品目录4', '产品目录4',
 INSERT INTO `menu` VALUES ('5', '0', '1', '1', '产品目录5', '产品目录5', '描述5', null, '1506151823', '1507560612');
 INSERT INTO `menu` VALUES ('6', '0', '1', '1', '产品目录6', '产品目录6', '描述6', null, '1506168455', '1506226471');
 INSERT INTO `menu` VALUES ('7', '0', '2', '2', '产品目录1', '产品目录1', null, null, '1506339322', '1506339322');
+INSERT INTO `menu` VALUES ('8', '0', '1', '1', '产品目录7', null, '描述7', null, '1507742073', '1507742083');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -208,14 +180,25 @@ CREATE TABLE `option` (
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
   `question_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='调研问题选项表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='调研问题选项表';
 
 -- ----------------------------
 -- Records of option
 -- ----------------------------
+INSERT INTO `option` VALUES ('1', '1', '1003', '1', '选项 1', '1', '1', '1');
+INSERT INTO `option` VALUES ('2', '1', '1003', '2', '选项 2', '2', '1', '2');
+INSERT INTO `option` VALUES ('3', '0', '1003', '3', '选项 3', null, null, null);
+INSERT INTO `option` VALUES ('4', '0', '1004', null, '选项 4', null, null, null);
+INSERT INTO `option` VALUES ('5', '0', '1004', null, '选项 5', null, null, null);
+INSERT INTO `option` VALUES ('6', '0', '1004', null, '选项 6', null, null, null);
+INSERT INTO `option` VALUES ('7', '0', '1005', null, '选项 7', null, null, null);
+INSERT INTO `option` VALUES ('8', '0', '1005', null, '选项 8', null, null, null);
+INSERT INTO `option` VALUES ('9', '0', '1005', null, '选项 9', null, null, null);
 
 -- ----------------------------
 -- Table structure for page
@@ -275,7 +258,7 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
-  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属企业',
+  `org_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属机构',
   `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '管理员',
   `menu_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属目录',
   `name` varchar(255) DEFAULT NULL,
@@ -308,21 +291,28 @@ DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
-  `survey_id` int(11) NOT NULL DEFAULT '0',
+  `org_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属机构',
+  `survey_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属调研',
+  `page_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属幻灯片页',
   `order` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
-  `descrption` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `content` text,
-  `correct` varchar(32) DEFAULT NULL,
+  `correct_option` varchar(32) DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='调研问题表';
+) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='调研问题表';
 
 -- ----------------------------
 -- Records of question
 -- ----------------------------
+INSERT INTO `question` VALUES ('1001', '1', '1', '4', '0', '0', '2', '问题题目 1', null, null, null, null, null);
+INSERT INTO `question` VALUES ('1002', '2', '1', '4', '0', '0', '1', '问题题目 2', '说明 2', '内容 4', null, null, null);
+INSERT INTO `question` VALUES ('1003', '3', '1', '4', '0', '0', '3', '问题题目 选择题 单选题', '单选题 说明3', null, null, null, null);
+INSERT INTO `question` VALUES ('1004', '4', '1', '4', '0', '0', '4', '问题题目 选择题 下拉题', '下拉题 说明4', null, null, null, null);
+INSERT INTO `question` VALUES ('1005', '5', '1', '4', '0', '0', '5', '问题题目 选择题 多选题', '多选题 说明5', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for slide
@@ -331,7 +321,7 @@ DROP TABLE IF EXISTS `slide`;
 CREATE TABLE `slide` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
-  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属企业',
+  `org_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属机构',
   `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '管理员',
   `active` tinyint(4) NOT NULL DEFAULT '0' COMMENT '激活状态 0.未激活 1.激活启用',
   `name` varchar(255) DEFAULT NULL,
@@ -341,7 +331,7 @@ CREATE TABLE `slide` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='幻灯片表';
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='幻灯片表';
 
 -- ----------------------------
 -- Records of slide
@@ -359,7 +349,7 @@ INSERT INTO `slide` VALUES ('10', '0', '1', '1', '0', '幻灯片10', '幻灯片1
 INSERT INTO `slide` VALUES ('11', '0', '1', '1', '0', '幻灯片11', '幻灯片11的标题', '说明11', '123', '1505661702', '1505661702');
 INSERT INTO `slide` VALUES ('12', '0', '1', '1', '0', '幻灯片12', '幻灯片12的标题', '说明12', '123', '1505661808', '1505661808');
 INSERT INTO `slide` VALUES ('13', '0', '1', '1', '0', '幻灯片13', '幻灯片13的标题', '说明13', '123', '1505663419', '1505663419');
-INSERT INTO `slide` VALUES ('14', '0', '1', '1', '0', '幻灯片14', '幻灯片14的标题', '说明14', '<p>内容</p>', '1505663568', '1506611085');
+INSERT INTO `slide` VALUES ('14', '0', '1', '1', '0', '幻灯片14', '幻灯片14的标题', '说明14141414', '<p>内容</p>', '1505663568', '1507742006');
 INSERT INTO `slide` VALUES ('15', '0', '1', '1', '0', '幻灯片15', '幻灯片15的标题', '说明15', '内容15', '1505664520', '1505995195');
 INSERT INTO `slide` VALUES ('16', '0', '1', '1', '0', '幻灯片16', '幻灯片16的标题', '说明16', '内容16', '1505664625', '1505828378');
 INSERT INTO `slide` VALUES ('17', '1', '1', '1', '0', '幻灯片17', '幻灯片17的标题', '说明17', '内容17', '1505664705', '1506479783');
@@ -369,6 +359,8 @@ INSERT INTO `slide` VALUES ('20', '0', '1', '1', '0', '幻灯片20', '幻灯片2
 INSERT INTO `slide` VALUES ('21', '0', '1', '1', '0', '幻灯片21', '幻灯片21的标题', '描述21', '内容21', '1506009798', '1506094400');
 INSERT INTO `slide` VALUES ('22', '0', '1', '1', '0', '幻灯片22', '幻灯片22的标题', '描述22', '幻灯片22的内容', '1506168494', '1506444550');
 INSERT INTO `slide` VALUES ('23', '0', '2', '0', '0', '幻灯片1', null, null, null, '1506340279', '1506340279');
+INSERT INTO `slide` VALUES ('24', '0', '1', '1', '0', '幻灯片23', '幻灯片23', '描述23', '<p>内容23</p>', '1507742052', '1507745861');
+INSERT INTO `slide` VALUES ('25', '0', '1', '1', '0', '幻灯片24', null, null, null, '1507745943', '1507745943');
 
 -- ----------------------------
 -- Table structure for slide_page
@@ -388,13 +380,44 @@ CREATE TABLE `slide_page` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for softorg
+-- ----------------------------
+DROP TABLE IF EXISTS `softorg`;
+CREATE TABLE `softorg` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
+  `website_name` varchar(64) NOT NULL DEFAULT '' COMMENT '企业网站域名地址名称',
+  `name` varchar(255) DEFAULT NULL COMMENT '企业名称',
+  `short` varchar(255) DEFAULT NULL COMMENT '企业简称',
+  `description` varchar(255) DEFAULT NULL COMMENT '企业描述',
+  `slogan` varchar(255) DEFAULT NULL COMMENT '企业标语',
+  `logo` varchar(255) DEFAULT NULL COMMENT '业企logo图片url',
+  `telephone` varchar(32) DEFAULT NULL COMMENT '企业电话（座机）',
+  `mobile` varchar(11) DEFAULT NULL COMMENT '手机',
+  `email` varchar(64) DEFAULT NULL COMMENT '业企邮箱',
+  `qq` varchar(16) DEFAULT NULL COMMENT '企业QQ',
+  `wechat` varchar(64) DEFAULT NULL COMMENT '企业微信',
+  `title` varchar(255) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL COMMENT '创建时间',
+  `updated_at` int(11) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `website_name` (`website_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='企业表';
+
+-- ----------------------------
+-- Records of softorg
+-- ----------------------------
+INSERT INTO `softorg` VALUES ('1', '1', 'lotus', '莲花树互联网科技有限公司', '莲花树', '这是一家创造未来de企业', '让企业更出众', '', '021-88886668', '15800689433', 'admin@softorg.cn', '123456789', 'qing_qiye', null, null, '1507738160');
+INSERT INTO `softorg` VALUES ('2', '1', 'qingbo', '轻博吧', null, null, null, null, null, null, null, null, null, null, null, null);
+
+-- ----------------------------
 -- Table structure for survey
 -- ----------------------------
 DROP TABLE IF EXISTS `survey`;
 CREATE TABLE `survey` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型',
-  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属企业',
+  `org_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属机构',
   `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '管理员',
   `name` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -403,14 +426,15 @@ CREATE TABLE `survey` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='调研表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='调研表';
 
 -- ----------------------------
 -- Records of survey
 -- ----------------------------
 INSERT INTO `survey` VALUES ('1', '0', '1', '1', '调研问卷1', '问卷1', '描述1', '内容1', '1506173760', '1506442144');
-INSERT INTO `survey` VALUES ('2', '0', '1', '1', '调研问卷2', '标题2', '描述2', '内容2', '1506175708', '1506442153');
+INSERT INTO `survey` VALUES ('2', '0', '1', '1', '调研问卷2', '标题2', '描述2222', '<p>内容2</p>', '1506175708', '1507741874');
 INSERT INTO `survey` VALUES ('3', '0', '2', '2', '问卷1', '标题1', null, null, '1506335012', '1506335270');
+INSERT INTO `survey` VALUES ('4', '0', '1', '1', '问卷3', '问卷测试', '描述3', null, '1507746192', '1507881650');
 
 -- ----------------------------
 -- Table structure for survey_question
@@ -505,7 +529,7 @@ DROP TABLE IF EXISTS `website`;
 CREATE TABLE `website` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(4) NOT NULL DEFAULT '0',
-  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属企业',
+  `org_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属机构',
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)

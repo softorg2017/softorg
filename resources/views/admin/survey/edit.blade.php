@@ -430,8 +430,6 @@ $(function() {
         form.ajaxSubmit(options);
     });
 
-
-
 });
 </script>
 @endsection
