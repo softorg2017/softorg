@@ -1,5 +1,6 @@
 <?php
 
+require __DIR__.'/frontend.php';
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -232,4 +233,3 @@ Route::group(['prefix' => 'user', 'namespace' => 'Front'], function () {
         Route::match(['get','post'], 'logout','AuthController@logout');
     });
 });
-
