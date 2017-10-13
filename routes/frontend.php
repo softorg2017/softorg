@@ -12,5 +12,5 @@ Route::group(['prefix' => 'frontend'], function () {
     //详情页
     Route::get('/detail',function(){
        return view('frontend.home.detail');
-    });
+    })->name('frontend.detail');
 });

@@ -283,5 +283,6 @@
 @endsection
 
 @section('js')
+    <script src="{{asset('/frontend/libs/jquery.fullPage.min.js')}}"></script>
     <script src="{{asset('/frontend/js/index.js')}}"></script>
 @endsection
