@@ -149,6 +149,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('delete', $controller.'@deleteAction');
         });
 
+        // 调研
+        Route::group(['prefix' => 'question'], function () {
+            $controller = "QuestionController";
+            
+            Route::get('create', $controller.'@createAction');
+            Route::match(['get','post'], 'edit', $controller.'@editAction');
+            Route::get('delete', $controller.'@deleteAction');
+        });
+
         // 文章模块
         Route::group(['prefix' => 'article'], function () {
             $controller = "ArticleController";

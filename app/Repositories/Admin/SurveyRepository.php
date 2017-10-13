@@ -55,7 +55,7 @@ class SurveyRepository {
         else
         {
             $survey = Survey::with(['questions'=>function($query) {
-                    $query->orderBy('order', 'asc');
+                    $query->with(['options'])->orderBy('order', 'asc');
                 }])->find($decode_id);
             if($survey)
             {

@@ -114,56 +114,5 @@ $(function() {
     });
 });
 
-
-function question_html(key)
-{
-    var html =
-            '<div class="box-body page-container page-option">'+
-            '<div class="form-group">'+
-            '<input type="hidden" name="question['+key+'][id]">'+
-            '<label class="control-label col-md-2">问题名称</label>'+
-            '<div class="col-md-8">'+
-            '<div><input type="text" class="form-control" name="page['+key+'][name]" placeholder="请输入名称"></div>'+
-            '</div>'+
-            '</div>'+
-            '<div class="form-group">'+
-            '<div class="col-md-8 col-md-offset-2">'+
-//            '<button type="button" class="btn btn-xs btn-primary edit-this-page">编辑内容</button>'+
-            '<button type="button" class="btn btn-xs btn-success create-next-page">添加</button>'+
-            '<button type="button" class="btn btn-xs btn-danger delete-this-page">删除</button>'+
-            '<button type="button" class="btn btn-xs moveup-this-page">上移</button>'+
-            '<button type="button" class="btn btn-xs movedown-this-page">下移</button>'+
-            '</div>'+
-            '</div>'+
-            '</div>';
-    return html;
-}
-
-function option_html(key)
-{
-    var html =
-            '<div class="box-body page-container page-option">'+
-            '<div class="form-group">'+
-            '<input type="hidden" name="option['+key+'][id]">'+
-            '<label class="control-label col-md-2">问题名称</label>'+
-            '<div class="col-md-8">'+
-            '<div><input type="text" class="form-control" name="page['+key+'][name]" placeholder="请输入名称"></div>'+
-            '</div>'+
-            '</div>'+
-            '<div class="form-group">'+
-            '<div class="col-md-8 col-md-offset-2">'+
-//                        '<button type="button" class="btn btn-xs btn-primary edit-this-page">编辑内容</button>'+
-            '<button type="button" class="btn btn-xs btn-success create-next-page">添加</button>'+
-            '<button type="button" class="btn btn-xs btn-danger delete-this-page">删除</button>'+
-            '<button type="button" class="btn btn-xs moveup-this-page">上移</button>'+
-            '<button type="button" class="btn btn-xs movedown-this-page">下移</button>'+
-            '</div>'+
-            '</div>'+
-            '</div>';
-    return html;
-    ;
-
-}
-
 </script>
 @endsection

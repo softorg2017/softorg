@@ -71,6 +71,7 @@ class QuestionRepository {
     //
     public function save($post_data)
     {
+        dd($post_data);
         $admin = Auth::guard('admin')->user();
 
         $id = decode($post_data["id"]);

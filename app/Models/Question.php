@@ -31,5 +31,10 @@ class Question extends Model
         return $this->belongsTo('App\Models\Page','page_id','id');
     }
 
+    function options()
+    {
+        return $this->hasMany('App\Models\Option','question_id','id');
+    }
+
 
 }
