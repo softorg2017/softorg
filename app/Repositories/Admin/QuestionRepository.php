@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Question;
+use App\Models\Option;
 use Response, Auth, Validator, DB, Excepiton;
 
 class QuestionRepository {
@@ -71,14 +72,18 @@ class QuestionRepository {
     //
     public function save($post_data)
     {
-        dd($post_data);
         $admin = Auth::guard('admin')->user();
 
-        $id = decode($post_data["id"]);
-        $operate = decode($post_data["operate"]);
-        if(intval($id) !== 0 && !$id) return response_error();
+        $operate = $post_data["operate"];
+        $container = $post_data["container"];
+        if($container == "survey")
+        {
+            $survey_id = decode($post_data["survey_id"]);
+            if(intval($survey_id) !== 0 && !$survey_id) return response_error();
+            $post_data["survey_id"] = $survey_id;
+        }
 
-        if($id == 0) // $id==0，创建一个新的调研
+        if($operate == "create") // $id==0，创建一个新的调研
         {
             $question = new Question;
             $post_data["admin_id"] = $admin->id;
@@ -86,12 +91,23 @@ class QuestionRepository {
         }
         else // 修改调研
         {
+            $id = decode($post_data["id"]);
             $question = Question::find($id);
             if(!$question) return response_error();
             if($question->admin_id != $admin->id) return response_error([],"你没有操作权限");
         }
+//        dd($post_data);
 
         $bool = $question->fill($post_data)->save();
+        if(!$bool) return response_fail();
+
+        $type = $post_data["type"];
+        if($type == 3 || $type == 4 || $type == 5 || $type == 6)
+        {
+            $options = $question->options()->createMany($post_data["option"]);
+            if(!$options) return response_fail();
+        }
+
         if($bool) return response_success();
         else return response_fail();
     }

@@ -1,2 +1,5 @@
-.question-option {padding:24px 0 0 0;margin:16px 0;background-color:#f4f4f4}
+.question-option {position:relative;padding:16px 0 0 0;margin:16px 0;}
 .question-option textarea {width:100%;height:60px;}
+.question-option:hover {background-color:#f4f4f4}
+
+.control_mask {position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%;cursor:pointer;z-index:11;}

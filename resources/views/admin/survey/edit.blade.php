@@ -57,21 +57,22 @@
                     </div>
                 </div>
                 {{--内容--}}
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <label class="control-label col-md-2">内容详情</label>
                     <div class="col-md-8 ">
-                        <div>
-                            @include('UEditor::head')
-                            <!-- 加载编辑器的容器 -->
-                            <script id="container" name="content" type="text/plain" style="width:100%;">{!! $data->content or '' !!}</script>
-                            <!-- 实例化编辑器 -->
-                            <script type="text/javascript">
-                                var ue = UE.getEditor('container');
-                                ue.ready(function() {
-                                    ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
-                                });
-                            </script>
-                        </div>
+                        {{--<div>--}}
+                            {{--@include('UEditor::head')--}}
+                            {{--<!-- 加载编辑器的容器 -->--}}
+                            {{--<script id="container" name="content" type="text/plain" style="width:100%;">{!! $data->content or '' !!}</script>--}}
+                            {{--<!-- 实例化编辑器 -->--}}
+                            {{--<script type="text/javascript">--}}
+                                {{--var ue = UE.getEditor('container');--}}
+                                {{--ue.ready(function() {--}}
+                                    {{--ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.--}}
+                                {{--});--}}
+                            {{--</script>--}}
+                        {{--</div>--}}
+                        <div><input type="text" class="form-control" name="content" placeholder="描述" value="{{$data->content or ''}}"></div>
                     </div>
                 </div>
 
@@ -134,37 +135,46 @@
                         </div>
                     </div>
 
-                    @foreach($data->questions as $v)
+                    @foreach($data->questions as $k => $v)
                         <div class="box-body question-container question-option" data-id="{{$v->encode_id or ''}}">
                             {{--标题--}}
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-2">{{$v->title or ''}}</div>
+                                <div class="col-md-8 col-md-offset-2">
+                                    <h4>
+                                        <small></small><b>{{$v->title or ''}}</b>
+                                        <small>
+                                        @if($v->type == 1) (单行文本题)
+                                        @elseif($v->type == 2) (多行文本题)
+                                        @elseif($v->type == 3) (单选题)
+                                        @elseif($v->type == 4) (下拉题)
+                                        @elseif($v->type == 5) (多选题)
+                                        @elseif($v->type == 6) (量标题)
+                                        @endif
+                                        </small>
+                                    </h4>
+                                </div>
                             </div>
                             {{--描述--}}
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-2">{{$v->description or ''}}</div>
+                                <div class="col-md-8 col-md-offset-2">{{$v->description or ''}}</div>
                             </div>
-                            @if($v->type == 1)
-                                {{--单行文本题--}}
+                            @if($v->type == 1) {{--单行文本题--}}
                                 <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-2"><input type="text" class="form-control"></div>
+                                    <div class="col-md-8 col-md-offset-2"><input type="text" class="form-control"></div>
                                 </div>
-                            @elseif($v->type == 2)
-                                {{--单行文本题--}}
+                            @elseif($v->type == 2) {{--单行文本题--}}
                                 <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-2"><textarea></textarea></div>
+                                    <div class="col-md-8 col-md-offset-2"><textarea></textarea></div>
                                 </div>
-                            @elseif($v->type == 3)
-                                {{--单选题--}}
+                            @elseif($v->type == 3) {{--单选题--}}
                                 @foreach($v->options as $o)
                                     <div class="form-group">
-                                        <div class="col-md-offset-2"><input type="radio" name="radio"> {{$o->title or ''}}</div>
+                                        <div class="col-md-8 col-md-offset-2"><input type="radio" name="radio"> {{$o->title or ''}}</div>
                                     </div>
                                 @endforeach
-                            @elseif($v->type == 4)
-                                {{--下拉题--}}
+                            @elseif($v->type == 4) {{--下拉题--}}
                                 <div class="form-group">
-                                <div class="col-md-offset-2">
+                                <div class="col-md-8 col-md-offset-2">
                                 <select name="" id="">
                                 @foreach($v->options as $o)
                                     <option value="">{{$o->title or ''}}</option>
@@ -172,11 +182,10 @@
                                 </select>
                                 </div>
                                 </div>
-                            @elseif($v->type == 5)
-                                {{--多选题--}}
+                            @elseif($v->type == 5) {{--多选题--}}
                                 @foreach($v->options as $o)
                                     <div class="form-group">
-                                        <div class="col-md-offset-2"><input type="checkbox" name="checkbox"> {{$o->title or ''}}</div>
+                                        <div class="col-md-8 col-md-offset-2"><input type="checkbox" name="checkbox"> {{$o->title or ''}}</div>
                                     </div>
                                 @endforeach
                             @endif
@@ -194,6 +203,8 @@
                                     <button type="button" class="btn btn-xs movedown-this-question">下移</button>
                                 </div>
                             </div>
+                            {{--面具--}}
+                            <div class="control_mask"></div>
                         </div>
                     @endforeach
                 </div>
@@ -213,6 +224,7 @@
 
             <form action="" method="post" class="form-horizontal form-bordered form-edit-question">
                 {{csrf_field()}}
+                <input type="hidden" readonly name="operate" value="create">
                 <input type="hidden" readonly name="container" value="survey">
                 <input type="hidden" readonly name="survey_id" value="{{$encode_id or encode(0)}}">
                 <input type="hidden" readonly name="type" value="1" class="question-type">
@@ -252,6 +264,7 @@
 
             <form action="" method="post" class="form-horizontal form-bordered form-edit-question" data-key="2">
                 {{csrf_field()}}
+                <input type="hidden" readonly name="operate" value="create">
                 <input type="hidden" readonly name="container" value="survey">
                 <input type="hidden" readonly name="survey_id" value="{{$encode_id or encode(0)}}">
                 <input type="hidden" readonly name="type" value="3" class="question-type">
@@ -279,19 +292,21 @@
                 </div>
 
                 <div class="form-group option-container">
-                    <div class="col-md-6 col-md-offset-2">
-                        <div><input type="text" class="form-control" name="option[0]" placeholder="请输入选项" value="选项"></div>
+                    <div class="col-md-8 col-md-offset-2">
+                        <input type="hidden" name="option[0][id]" value="0">
+                        <div><input type="text" class="form-control" name="option[0][title]" placeholder="请输入选项" value="选项"></div>
                     </div>
                 </div>
 
                 <div class="form-group option-container">
-                    <div class="col-md-6 col-md-offset-2">
-                        <div><input type="text" class="form-control" name="option[1]" placeholder="请输入选项" value="选项"></div>
+                    <div class="col-md-8 col-md-offset-2">
+                        <input type="hidden" name="option[1][id]" value="0">
+                        <div><input type="text" class="form-control" name="option[1][title]" placeholder="请输入选项" value="选项"></div>
                     </div>
                 </div>
 
                 <div class="form-group add-option-container">
-                    <div class="col-md-6 col-md-offset-2">
+                    <div class="col-md-8 col-md-offset-2">
                         <div><input type="text" readonly class="form-control create-new-option" placeholder="" value="新增选项"></div>
                     </div>
                 </div>
@@ -309,8 +324,9 @@
 
     <div id="option-cloner">
         <div class="form-group option-container">
-            <div class="col-md-6 col-md-offset-2">
-                <div><input type="text" class="form-control" name="option[0]" placeholder="请输入选项" value="选项"></div>
+            <div class="col-md-8 col-md-offset-2">
+                <input type="hidden" class="form-control option-id" name="option[0][id]" value="0">
+                <div><input type="text" class="form-control option-title" name="option[0][title]" placeholder="请输入选项" value="选项"></div>
             </div>
         </div>
     </div>
@@ -355,6 +371,7 @@ $(function() {
         html.find(".question-type").val(1);
         html.find(".question-title").html("单行文本题");
         $('#question-container .question-container:last').after(html);
+        html.find('input[name=title]').focus();
         $('#question-container .question-option').show();
     });
     // 新建一个多行文本题
@@ -364,7 +381,7 @@ $(function() {
         html.find(".question-type").val(2);
         html.find(".question-title").html("多行文本题");
         $('#question-container .question-container:last').after(html);
-        $('#question-container .question-option').show();
+        html.find('input[name=title]').focus();
     });
 
     // 新建一个单选题
@@ -374,9 +391,8 @@ $(function() {
         html.find(".question-type").val(3);
         html.find(".question-title").html("单选题");
         $('#question-container .question-container:last').after(html);
-        $('#question-container .question-option').show();
+        html.find('input[name=title]').focus();
     });
-
     // 新建一个下拉题
     $("#form-edit-question").on('click', '.create-new-select', function () {
 
@@ -384,9 +400,8 @@ $(function() {
         html.find(".question-type").val(4);
         html.find(".question-title").html("下拉题");
         $('#question-container .question-container:last').after(html);
-        $('#question-container .question-option').show();
+        html.find('input[name=title]').focus();
     });
-
     // 新建一个多选题
     $("#form-edit-question").on('click', '.create-new-checkbox', function () {
 
@@ -394,7 +409,7 @@ $(function() {
         html.find(".question-type").val(5);
         html.find(".question-title").html("多选题");
         $('#question-container .question-container:last').after(html);
-        $('#question-container .question-option').show();
+        html.find('input[name=title]').focus();
     });
 
     // 添加一个选项
@@ -405,9 +420,9 @@ $(function() {
         form.attr("data-key",key+1);
 
         var html = $("#option-cloner .option-container").clone();
-        html.find('input').attr("name","option["+key+"]");
+        html.find('.option-id').attr("name","option["+key+"][id]");
+        html.find('.option-title').attr("name","option["+key+"][title]");
         form.find(".option-container:last").after(html);
-        form.find(".option-container").show();
     });
 
     // 添加or修改一个问题
@@ -423,6 +438,7 @@ $(function() {
                 else
                 {
                     layer.msg(data.msg);
+                    location.href = location.href;
                 }
             }
         };

@@ -41,6 +41,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables/dataTables.bootstrap.css')}}">
 
+    <link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{asset('css/common.css')}}">
 
     @yield('style')
@@ -490,6 +492,8 @@ desired effect
 
 <script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+
+<script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
 
 
 <script src="{{asset('js/admin/index.js')}}"></script>
