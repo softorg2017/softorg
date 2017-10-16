@@ -59,11 +59,11 @@ class SoftorgRepository {
     {
         $query = Softorg::with([
             'administrators','websites','menus',
-            'products' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(4); },
-            'activities' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(4); },
-            'slides' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(4); },
-            'surveys' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(4); },
-            'articles' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(4); }
+            'products' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(3); },
+            'activities' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(3); },
+            'slides' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(3); },
+            'surveys' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(3); },
+            'articles' => function ($query) { $query->orderBy('updated_at', 'desc')->limit(3); }
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
@@ -79,7 +79,10 @@ class SoftorgRepository {
     // 返回（前台）产品页视图
     public function view_product($org)
     {
-        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+//        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+        $query = Softorg::with(['administrators','websites',
+            'products' => function ($query) { $query->orderBy('updated_at', 'desc'); }
+        ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
 
@@ -108,7 +111,10 @@ class SoftorgRepository {
     // 返回（前台）活动页视图
     public function view_activity($org)
     {
-        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+//        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+        $query = Softorg::with(['administrators','websites',
+            'activities' => function ($query) { $query->orderBy('updated_at', 'desc'); }
+        ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
 
@@ -138,6 +144,9 @@ class SoftorgRepository {
     public function view_slide($org)
     {
         $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+        $query = Softorg::with(['administrators','websites',
+            'slides' => function ($query) { $query->orderBy('updated_at', 'desc'); }
+        ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
 
@@ -166,7 +175,10 @@ class SoftorgRepository {
     // 返回（前台）调研列表页视图
     public function view_survey($org)
     {
-        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+//        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+        $query = Softorg::with(['administrators','websites',
+            'surveys' => function ($query) { $query->orderBy('updated_at', 'desc'); }
+        ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
 
@@ -195,7 +207,10 @@ class SoftorgRepository {
     // 返回（前台）文章列表页视图
     public function view_article($org)
     {
-        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+//        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+        $query = Softorg::with(['administrators','websites',
+            'articles' => function ($query) { $query->orderBy('updated_at', 'desc'); }
+        ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
 

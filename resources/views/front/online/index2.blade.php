@@ -68,7 +68,7 @@
                                     <a target="_blank" href="/product?id={{encode($v->id)}}">{{$v->title or ''}}</a>
                                 </div>
                                 <div class="box-body">
-                                    {{ $v->description or '' }}
+                                    {!! $v->content or '' !!}
                                 </div>
                                 <div class="box-footer">
                                 </div>
@@ -106,7 +106,7 @@
                                     <a target="_blank" href="/activity?id={{encode($v->id)}}">{{$v->title or ''}}</a>
                                 </div>
                                 <div class="box-body">
-                                    {{ $v->description or '' }}
+                                    {!! $v->content or '' !!}
                                 </div>
                                 <div class="box-footer">
                                 </div>
@@ -144,7 +144,7 @@
                                     <a target="_blank" href="/slide?id={{encode($v->id)}}">{{$v->title or ''}}</a>
                                 </div>
                                 <div class="box-body">
-                                    {{ $v->description or '' }}
+                                    {!! $v->content or '' !!}
                                 </div>
                                 <div class="box-footer">
                                 </div>
@@ -182,7 +182,7 @@
                                     <a target="_blank" href="/survey?id={{encode($v->id)}}">{{$v->title or ''}}</a>
                                 </div>
                                 <div class="box-body">
-                                    {{ $v->description or '' }}
+                                    {!! $v->content or '' !!}
                                 </div>
                                 <div class="box-footer">
                                 </div>
@@ -220,7 +220,7 @@
                                     <a target="_blank" href="/article?id={{encode($v->id)}}">{{$v->title or ''}}</a>
                                 </div>
                                 <div class="box-body">
-                                    {{ $v->description or '' }}
+                                    {!! $v->content or '' !!}
                                 </div>
                                 <div class="box-footer">
                                 </div>

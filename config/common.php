@@ -4,7 +4,7 @@
 
         'view' => [
             'front' => [
-                'template' => 'developing'
+                'template' => 'online'
             ],
         ],
 

@@ -28,6 +28,17 @@ Route::get('/home', function () {
     return view('front.'.config('common.view.front.template').'.index');
 });
 
+Route::group(['prefix' => 'test'], function () {
+    Route::get('/index', function () {
+        return view('frontend.home.index');
+    });
+    Route::get('/detail', function () {
+        return view('frontend.home.detail');
+    });
+    Route::get('/list', function () {
+        return view('frontend.home.list');
+    });
+});
 
 
 /*后台*/
@@ -179,6 +190,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
 
 });
+
 
 
 /*前台*/
