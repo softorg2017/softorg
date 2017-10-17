@@ -8,7 +8,7 @@
 
 @section('data-content')
     @foreach($org->surveys as $v)
-        <a  href="{{url('/survey?id='.encode($v->id))}}" class="project-item masonry-brick" data-images="{{asset('/frontend/images/bg_05.jpg')}}">
+        <a  href="{{url('/survey?id='.encode($v->id))}}" class="project-item masonry-brick" data-images="{{asset('/frontend/images/bg_03.jpg')}}">
             <img class="img-responsive project-image" src="{{asset('/frontend/images/bg_05.jpg')}}" alt="">
             <div class="hover-mask">
                 <h2 class="project-title">{{$v->title or ''}}</h2>

@@ -79,6 +79,7 @@
         <div id="business" class="section business ">
             <div class="business-container clearfix js-load">
                 @foreach($org->products as $v)
+                    <a href="{{url('/product?id=').encode($v->id)}}">
                     <div class="col-4">
                         <div class="business-icon">
                             <img src="{{asset('/frontend/images/img_02.png')}}" alt="">
@@ -90,6 +91,7 @@
                             {{$v->description or ''}}
                         </p>
                     </div>
+                    </a>
                 @endforeach
             </div>
         </div>
@@ -97,12 +99,14 @@
         <div id="activity" class="section advantage " style="background-color: #fff">
             <div class="advantage-container">
                 @foreach($org->activities as $v)
+                    <a href="{{url('/activity?id=').encode($v->id)}}">
                     <div class="col-4">
                         <div class="title">{{$v->title or ''}}</div>
                         <div class="content">
                             {{$v->description or ''}}
                         </div>
                     </div>
+                    </a>
                 @endforeach
             </div>
         </div>
@@ -110,6 +114,7 @@
         <div id="survey" class="section case ">
             <div class="case-container js-load">
                 @foreach($org->surveys as $v)
+                    <a href="{{url('/survey?id=').encode($v->id)}}">
                     <div class="col-4">
                         <div class="case-img">
                             <img src="{{asset('/frontend/images/img_05.png')}}" alt="">
@@ -121,6 +126,7 @@
                             {{$v->description or ''}}
                         </div>
                     </div>
+                    </a>
                 @endforeach
             </div>
         </div>
@@ -128,6 +134,7 @@
         <div id="article" class="section case ">
             <div class="case-container js-load">
                 @foreach($org->articles as $v)
+                    <a href="{{url('/article?id=').encode($v->id)}}">
                     <div class="col-4">
                         <div class="case-img">
                             <img src="{{asset('/frontend/images/img_05.png')}}" alt="">
@@ -139,6 +146,7 @@
                             {{$v->description or ''}}
                         </div>
                     </div>
+                    </a>
                 @endforeach
             </div>
         </div>

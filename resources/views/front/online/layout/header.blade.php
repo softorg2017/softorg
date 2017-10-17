@@ -10,7 +10,7 @@
             </a>
         </li>
         <li>
-            <a href="javascript:void(0);" class="js-nav-link" data-scroll-id="introduction" data-text="简介"
+            <a href="@yield('index-url')" class="js-nav-link" data-scroll-id="introduction" data-text="简介"
                data-black="1">
                 简介<span class="line"></span>
             </a>
@@ -63,7 +63,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0);" class="js-nav-s-link" >
+                <a href="@yield('index-url')" class="js-nav-s-link" >
                     简介
                 </a>
             </li>
@@ -88,7 +88,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0);" class="js-nav-s-link" >
+                <a href="@yield('index-url')" class="js-nav-s-link" >
                     我们
                 </a>
             </li>
