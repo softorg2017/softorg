@@ -62,7 +62,7 @@
                     首页
                 </a>
             </li>
-            <li>
+            <li style="display: none">
                 <a href="@yield('index-url')" class="js-nav-s-link" >
                     简介
                 </a>
