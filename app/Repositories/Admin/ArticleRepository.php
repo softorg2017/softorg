@@ -3,6 +3,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Article;
 use Response, Auth, Validator, DB, Excepiton;
+use QrCode;
 
 class ArticleRepository {
 
@@ -78,6 +79,7 @@ class ArticleRepository {
             $article = new Article;
             $post_data["admin_id"] = $admin->id;
             $post_data["org_id"] = $admin->org_id;
+
         }
         else // 编辑文章
         {
@@ -87,7 +89,21 @@ class ArticleRepository {
         }
 
         $bool = $article->fill($post_data)->save();
-        if($bool) return response_success(['id'=>encode($article->id)]);
+        if($bool)
+        {
+            $encode_id = encode($article->id);
+            // 目标URL
+            $url = 'http://www.softorg.cn:8088/article?id='.$encode_id;
+            // 保存位置
+            $qrcodes_path = 'resource/org/'.$admin->id.'/qrcodes/articles';
+            if(!file_exists(storage_path($qrcodes_path)))
+                mkdir(storage_path($qrcodes_path), 777, true);
+            // qrcode图片文件
+            $qrcode = $qrcodes_path.'/'.$encode_id.'.png';
+            QrCode::format('png')->size(150)->generate($url,storage_path($qrcode));
+
+            return response_success(['id'=>$encode_id]);
+        }
         else return response_fail();
     }
 

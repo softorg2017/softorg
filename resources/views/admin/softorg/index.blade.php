@@ -81,6 +81,13 @@
                         <div><label class="control-label">{{$org->wechat or ''}}</label></div>
                     </div>
                 </div>
+                {{--微信--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">logo：</label>
+                    <div class="col-md-8 ">
+                        <div style="width:150px;height:150px;"><img src="{{url('http://cdn.softorg.cn:8088/'.$org->logo)}}" alt=""></div>
+                    </div>
+                </div>
             </div>
             </form>
 

@@ -9,6 +9,7 @@ use App\Models\Activity;
 use App\Models\Slide;
 use App\Models\Survey;
 use App\Models\Article;
+use App\Repositories\Common\UploadRepository;
 use Response, Auth, Validator, DB, Excepiton;
 
 class SoftorgRepository {
@@ -46,6 +47,14 @@ class SoftorgRepository {
         $admin = Auth::guard('admin')->user();
         $org_id = $admin->org_id;
         $org = Softorg::find($org_id);
+
+        if(!empty($post_data["logo"]))
+        {
+            $upload = new UploadRepository;
+            $result = $upload->create($post_data["logo"], 'org-'. $admin->id . '-common-logo');
+            if($result["status"]) $post_data["logo"] = $result["data"];
+            else return response_fail();
+        }
 
         $bool = $org->fill($post_data)->save();
         if($bool) return response_success();

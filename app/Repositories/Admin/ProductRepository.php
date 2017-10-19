@@ -4,6 +4,7 @@ namespace App\Repositories\Admin;
 use App\Models\Softorg;
 use App\Models\Product;
 use Response, Auth, Validator, DB, Excepiton;
+use QrCode;
 
 class ProductRepository {
 
@@ -100,7 +101,21 @@ class ProductRepository {
         }
 
         $bool = $product->fill($post_data)->save();
-        if($bool) return response_success(['id'=>encode($product->id)]);
+        if($bool)
+        {
+            $encode_id = encode($product->id);
+            // 目标URL
+            $url = 'http://www.softorg.cn:8088/product?id='.$encode_id;
+            // 保存位置
+            $qrcodes_path = 'resource/org/'.$admin->id.'/qrcodes/products';
+            if(!file_exists(storage_path($qrcodes_path)))
+                mkdir(storage_path($qrcodes_path), 777, true);
+            // qrcode图片文件
+            $qrcode = $qrcodes_path.'/'.$encode_id.'.png';
+            QrCode::format('png')->size(150)->generate($url,storage_path($qrcode));
+
+            return response_success(['id'=>$encode_id]);
+        }
         else return response_fail();
     }
 
