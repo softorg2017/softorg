@@ -112,6 +112,20 @@ class SurveyRepository {
         else return response_fail();
     }
 
+    // 删除
+    public function delete($post_data)
+    {
+        $admin = Auth::guard('admin')->user();
+        $id = decode($post_data["id"]);
+        if(intval($id) !== 0 && !$id) return response_error([],"该问卷不存在，刷新页面试试");
+
+        $survey = Survey::find($id);
+        if($survey->admin_id != $admin->id) return response_error([],"你没有操作权限");
+        $bool = $survey->delete();
+        if(!$bool) return response_fail([],"删除失败，请重试");
+        else return response_success([]);
+    }
+
 
 
 }

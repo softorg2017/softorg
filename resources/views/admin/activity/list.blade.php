@@ -191,7 +191,7 @@
                                     '</button>'+
                                     '<ul class="dropdown-menu" role="menu">'+
                                     '<li><a href="/admin/activity/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a href="/admin/activity/delete/'+value+'">删除</a></li>'+
+                                    '<li><a class="activity-delete-submit" data-id="'+value+'" >删除</a></li>'+
                                     '<li><a href="#">启用</a></li>'+
                                     '<li><a href="#">禁用</a></li>'+
                                     '<li class="divider"></li>'+
@@ -268,6 +268,34 @@
     }();
     $(function () {
         TableDatatablesAjax.init();
+    });
+</script>
+<script>
+    $(function() {
+
+        // 删除活动
+        $(document).on('click', ".activity-delete-submit", function() {
+            var that = $(this);
+            layer.msg('确定要删除该"活动"么', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/activity/delete",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
     });
 </script>
 @endsection
