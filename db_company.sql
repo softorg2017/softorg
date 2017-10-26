@@ -1,16 +1,8 @@
-/*
-Navicat MySQL Data Transfer
-Source Host     : localhost:3306
-Source Database : db_company
-Target Host     : localhost:3306
-Target Database : db_company
-Date: 2017-10-14 03:38:25
-*/
+
 
 SET FOREIGN_KEY_CHECKS=0;
--- ----------------------------
--- Table structure for activity
--- ----------------------------
+
+
 DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -28,16 +20,12 @@ CREATE TABLE `activity` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='活动表';
 
--- ----------------------------
--- Records of activity
--- ----------------------------
+
 INSERT INTO `activity` VALUES ('1', '0', '1', '1', '活动1', '活动1', '描述1', null, null, null, '1506169971', '1506419867');
 INSERT INTO `activity` VALUES ('2', '0', '2', '2', '活动1', null, null, null, null, null, '1506340200', '1506340200');
 INSERT INTO `activity` VALUES ('3', '0', '1', '1', '活动2', null, '描述2', null, '0', '0', '1507742102', '1507742111');
 
--- ----------------------------
--- Table structure for activity_slide
--- ----------------------------
+
 DROP TABLE IF EXISTS `activity_slide`;
 CREATE TABLE `activity_slide` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -48,13 +36,7 @@ CREATE TABLE `activity_slide` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of activity_slide
--- ----------------------------
 
--- ----------------------------
--- Table structure for administrator
--- ----------------------------
 DROP TABLE IF EXISTS `administrator`;
 CREATE TABLE `administrator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -73,15 +55,11 @@ CREATE TABLE `administrator` (
   UNIQUE KEY `administrator_email_unique` (`email`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='管理员表';
 
--- ----------------------------
--- Records of administrator
--- ----------------------------
+
 INSERT INTO `administrator` VALUES ('1', '1', '0', '1', '15800689433', 'longyun.cui88@gmail.com', '$2y$10$Aqu.dd890ZVA0CasV1Zk0OmWjlyqhFVg3pE1jc5XxMLskq2EIIEM2', 'longyun', '崔龙云', null, null, 'BewW3UpXhVI9dAaUjC079C6YOZF6Gli0ogGwvG5DuY2NrvP1mdeySLqhSGRq');
 INSERT INTO `administrator` VALUES ('2', '2', '0', '2', '15800689433', 'longyun-cui@163.com', '$2y$10$Aqu.dd890ZVA0CasV1Zk0OmWjlyqhFVg3pE1jc5XxMLskq2EIIEM2', 'longyun163', '龙云', null, null, 'K18l61KYWkFT5lGW6114rSc0HRcoOgQ3BpZhFgC73BVpmw7sekNV8hpFVSED');
 
--- ----------------------------
--- Table structure for apply
--- ----------------------------
+
 DROP TABLE IF EXISTS `apply`;
 CREATE TABLE `apply` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -93,13 +71,7 @@ CREATE TABLE `apply` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='活动报名表';
 
--- ----------------------------
--- Records of apply
--- ----------------------------
 
--- ----------------------------
--- Table structure for article
--- ----------------------------
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -115,18 +87,14 @@ CREATE TABLE `article` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='活动表';
 
--- ----------------------------
--- Records of article
--- ----------------------------
+
 INSERT INTO `article` VALUES ('1', '0', '1', '1', '文章1', '中华医学会第十四次全国白血病·淋巴瘤学术会议', '描述1111', '<p style=\"text-align: center;\"><br/></p><p style=\"text-align: center;\"><img src=\"http://7n.medsci.cn/uploads/ueditor/php/upload/image/20170818/1503043458806450.png\" title=\"1503043458806450.png\" alt=\"image.png\" width=\"600\" height=\"130\"/></p><p><br/></p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp;中华医学会第十四次全国白血病·淋巴瘤学术会议于2017年7月13日-7月15日在哈尔滨市举办。会议由中华医学会、中华医学会血液学分会主办，哈尔滨血液病肿瘤研究所、中国医学科学院血液病医院、北京大学血液病研究所、苏州大学附属第一医院血研所、北京白求恩公益基金会协办。有来自国内外著名学者就白血病及淋巴瘤、骨髓瘤等领域相关基础及临床做专题报告；美国、欧洲、日本等学者对白血病、淋巴瘤、骨髓瘤、造血干细胞移植、MDS及MPN进行了专题研讨；分为白血病、淋巴瘤、骨髓瘤、恶性血液病的免疫治疗、造血干细胞移植、MDS及MPN等专场进行学术论文交流。</p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp; &nbsp;中华医学会王大方副秘书长致辞时表示，此次会议将对白血病和淋巴瘤的临床热点及难点进行全方位、深层次和多角度讨论，为进一步提高我国血液病防治水平做出新的更大贡献，为改善全民健康水平发挥了极其重大的作用。</p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"font-size: 14px; line-height: normal;\"><strong><span style=\"font-size: 16px;\"></span></strong></p><p style=\"white-space: normal; font-size: 14px; line-height: normal; text-align: center;\"><span style=\"font-size: 16px;\"><strong>如需了解更多淋巴瘤的前沿信息<span style=\"line-height: normal;\">&nbsp;</span>请扫描二维码访问<span style=\"line-height: normal;\">“</span>淋巴瘤亿刻<span style=\"line-height: normal;\">”</span>网站。</strong></span></p><p style=\"white-space: normal; text-align: center;\"><img src=\"http://image.135editor.com/files/users/286/2865052/201708/VzeRSUnA_kKgB.png\" alt=\"WechatIMG1466.png\"/></p><p><br/></p>', '1506243480', '1507741666');
 INSERT INTO `article` VALUES ('2', '0', '1', '1', '文章2', '2017天津How I Treat和淋巴瘤转化医学国际研讨会', '描述2', '<p style=\"white-space: normal; text-align: center; line-height: 1.75em;\"><br/></p><p style=\"white-space: normal; line-height: 1.75em;\"><img src=\"http://image.135editor.com/files/users/162/1625396/201708/GbPeBZPf_xSp9.png\" alt=\"15018096601201.png\"/></p><p style=\"white-space: normal; line-height: 1.75em;\">&nbsp; &nbsp; &nbsp;</p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 2em;\">2017年8月19~20日，由天津市抗癌协会淋巴瘤专业委员会、天津市抗衰老学会主办，天津医科大学肿瘤医院、中美淋巴血液肿瘤诊治中心和《中国肿瘤临床》与《Cancer Biology &amp; Medicine》杂志社共同承办的2017天津How I Treat和淋巴瘤转化医学国际研讨会将在天津凯悦酒店隆重举行。</p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 2em;\">刚刚结束不久的Lugano国际淋巴瘤大会(ICML)，美国临床肿瘤学大会（ASCO），欧洲血液学协会年会(EHA)等国际著名学术会议上淋巴瘤的研究成果层出不穷，本届会议以“为淋巴瘤医师提供兼具专业性和实用性的基础及临床科研前沿”为宗旨，围绕淋巴瘤的&quot;How I Treat&quot;和转化医学两个主题进行学术报告和讨论，分享国内外淋巴瘤诊治的新进展、新理念、新方法。</p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong style=\"text-indent: 2em;\"><br/></strong></p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong>大会主席：张会来教授，孟斌教授</strong></p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong>会议时间：8月19~20日</strong></p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong>会议地点：天津凯悦酒店</strong></p><p style=\"white-space: normal; line-height: 1.75em; text-indent: 0em;\"><strong>会议日程：</strong></p><p style=\"white-space: normal; line-height: 1.75em; text-align: center;\"><img src=\"http://7n.medsci.cn/uploads/ueditor/php/upload/image/20170818/1503059029858553.jpeg\" title=\"1503059029858553.jpeg\" alt=\"天津11.jpg\"/><br/></p><p style=\"font-size: 13px; line-height: normal;\"><strong><span style=\"color: rgb(85, 85, 85);\"></span></strong></p><p style=\"font-size: 14px; line-height: normal;\"><span style=\"font-size: 16px;\"><strong><br/></strong></span></p><p style=\"font-size: 14px; line-height: normal;\"><span style=\"font-size: 16px;\"><strong><br/></strong></span></p><p style=\"font-size: 14px; line-height: normal; text-align: center;\"><span style=\"font-size: 16px;\"><strong>如需了解更多淋巴瘤的前沿信息<span style=\"line-height: normal;\"> </span>请扫描二维码访问<span style=\"line-height: normal;\">“</span>淋巴瘤亿刻<span style=\"line-height: normal;\">”</span>网站。</strong></span></p><p style=\"text-align: center;\"><img src=\"http://image.135editor.com/files/users/286/2865052/201708/VzeRSUnA_kKgB.png\" alt=\"WechatIMG1466.png\"/></p><p style=\"white-space: normal; line-height: 1.75em;\"><br/></p>', '1506243626', '1506607914');
 INSERT INTO `article` VALUES ('3', '0', '1', '1', '文章3', '文章3的标题', '描述3', '<p><img src=\"http://res.cdn.bioon.com/application/live/cover_picture/2017/09/21/c5785df23d91993bf40486ba55710ca4.jpg\"/></p>', '1506243697', '1506526136');
 INSERT INTO `article` VALUES ('4', '0', '2', '2', '文章1', null, null, null, '1506340164', '1506340164');
 INSERT INTO `article` VALUES ('5', '0', '1', '1', '文章4', null, null, null, '1507745817', '1507745817');
 
--- ----------------------------
--- Table structure for menu
--- ----------------------------
+
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -142,9 +110,7 @@ CREATE TABLE `menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='产品目录表';
 
--- ----------------------------
--- Records of menu
--- ----------------------------
+
 INSERT INTO `menu` VALUES ('1', '0', '1', '1', '目录1', '目录1', '描述1', '内容1', '1506149860', '1506150122');
 INSERT INTO `menu` VALUES ('2', '0', '1', '1', '目录2', '目录2', '描述2', '内容2', '1506150151', '1506150446');
 INSERT INTO `menu` VALUES ('3', '0', '1', '1', '目录3', '目录3', '描述3', '内容3', '1506151005', '1506151005');
@@ -154,9 +120,7 @@ INSERT INTO `menu` VALUES ('6', '0', '1', '1', '产品目录6', '产品目录6',
 INSERT INTO `menu` VALUES ('7', '0', '2', '2', '产品目录1', '产品目录1', null, null, '1506339322', '1506339322');
 INSERT INTO `menu` VALUES ('8', '0', '1', '1', '产品目录7', null, '描述7', null, '1507742073', '1507742083');
 
--- ----------------------------
--- Table structure for migrations
--- ----------------------------
+
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -165,15 +129,11 @@ CREATE TABLE `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of migrations
--- ----------------------------
+
 INSERT INTO `migrations` VALUES ('1', '2014_10_12_000000_create_users_table', '1');
 INSERT INTO `migrations` VALUES ('2', '2014_10_12_100000_create_password_resets_table', '1');
 
--- ----------------------------
--- Table structure for option
--- ----------------------------
+
 DROP TABLE IF EXISTS `option`;
 CREATE TABLE `option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -187,9 +147,7 @@ CREATE TABLE `option` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='调研问题选项表';
 
--- ----------------------------
--- Records of option
--- ----------------------------
+
 INSERT INTO `option` VALUES ('1', '1', '1003', '1', '选项 1', '1', '1', '1');
 INSERT INTO `option` VALUES ('2', '1', '1003', '2', '选项 2', '2', '1', '2');
 INSERT INTO `option` VALUES ('3', '0', '1003', '3', '选项 3', null, null, null);
@@ -200,9 +158,7 @@ INSERT INTO `option` VALUES ('7', '0', '1005', null, '选项 7', null, null, nul
 INSERT INTO `option` VALUES ('8', '0', '1005', null, '选项 8', null, null, null);
 INSERT INTO `option` VALUES ('9', '0', '1005', null, '选项 9', null, null, null);
 
--- ----------------------------
--- Table structure for page
--- ----------------------------
+
 DROP TABLE IF EXISTS `page`;
 CREATE TABLE `page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -220,9 +176,7 @@ CREATE TABLE `page` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='幻灯页表';
 
--- ----------------------------
--- Records of page
--- ----------------------------
+
 INSERT INTO `page` VALUES ('10', '0', '1', '1', '17', '0', '第一页名称', '第一页', '第一页描述', '<p style=\"text-align: center;\"><br/></p><p style=\"text-align: center;\"><img src=\"http://7n.medsci.cn/uploads/ueditor/php/upload/image/20170818/1503043458806450.png\" title=\"1503043458806450.png\" alt=\"image.png\" width=\"600\" height=\"130\"/></p><p><br/></p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp;中华医学会第十四次全国白血病·淋巴瘤学术会议于2017年7月13日-7月15日在哈尔滨市举办。会议由中华医学会、中华医学会血液学分会主办，哈尔滨血液病肿瘤研究所、中国医学科学院血液病医院、北京大学血液病研究所、苏州大学附属第一医院血研所、北京白求恩公益基金会协办。有来自国内外著名学者就白血病及淋巴瘤、骨髓瘤等领域相关基础及临床做专题报告；美国、欧洲、日本等学者对白血病、淋巴瘤、骨髓瘤、造血干细胞移植、MDS及MPN进行了专题研讨；分为白血病、淋巴瘤、骨髓瘤、恶性血液病的免疫治疗、造血干细胞移植、MDS及MPN等专场进行学术论文交流。</p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp; &nbsp;中华医学会王大方副秘书长致辞时表示，此次会议将对白血病和淋巴瘤的临床热点及难点进行全方位、深层次和多角度讨论，为进一步提高我国血液病防治水平做出新的更大贡献，为改善全民健康水平发挥了极其重大的作用。</p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"font-size: 14px; line-height: normal;\"><strong><span style=\"font-size: 16px;\"></span></strong></p><p style=\"white-space: normal; font-size: 14px; line-height: normal; text-align: center;\"><span style=\"font-size: 16px;\"><strong>如需了解更多淋巴瘤的前沿信息<span style=\"line-height: normal;\">&nbsp;</span>请扫描二维码访问<span style=\"line-height: normal;\">“</span>淋巴瘤亿刻<span style=\"line-height: normal;\">”</span>网站。</strong></span></p><p style=\"white-space: normal; text-align: center;\"><img src=\"http://image.135editor.com/files/users/286/2865052/201708/VzeRSUnA_kKgB.png\" alt=\"WechatIMG1466.png\"/></p><p><br/></p>', '1505809788', '1507508712');
 INSERT INTO `page` VALUES ('11', '0', '1', '1', '17', '1', '第二页名称', '第二页标题', '第二页描述', '<p style=\"text-align: center;\"><br/></p><p style=\"text-align: center;\"><img src=\"http://7n.medsci.cn/uploads/ueditor/php/upload/image/20170818/1503043458806450.png\" title=\"1503043458806450.png\" alt=\"image.png\" width=\"600\" height=\"130\"/></p><p><br/></p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp;中华医学会第十四次全国白血病·淋巴瘤学术会议于2017年7月13日-7月15日在哈尔滨市举办。会议由中华医学会、中华医学会血液学分会主办，哈尔滨血液病肿瘤研究所、中国医学科学院血液病医院、北京大学血液病研究所、苏州大学附属第一医院血研所、北京白求恩公益基金会协办。有来自国内外著名学者就白血病及淋巴瘤、骨髓瘤等领域相关基础及临床做专题报告；美国、欧洲、日本等学者对白血病、淋巴瘤、骨髓瘤、造血干细胞移植、MDS及MPN进行了专题研讨；分为白血病、淋巴瘤、骨髓瘤、恶性血液病的免疫治疗、造血干细胞移植、MDS及MPN等专场进行学术论文交流。</p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp; &nbsp;中华医学会王大方副秘书长致辞时表示，此次会议将对白血病和淋巴瘤的临床热点及难点进行全方位、深层次和多角度讨论，为进一步提高我国血液病防治水平做出新的更大贡献，为改善全民健康水平发挥了极其重大的作用。</p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"font-size: 14px; line-height: normal;\"><strong><span style=\"font-size: 16px;\"></span></strong></p><p style=\"white-space: normal; font-size: 14px; line-height: normal; text-align: center;\"><span style=\"font-size: 16px;\"><strong>如需了解更多淋巴瘤的前沿信息<span style=\"line-height: normal;\">&nbsp;</span>请扫描二维码访问<span style=\"line-height: normal;\">“</span>淋巴瘤亿刻<span style=\"line-height: normal;\">”</span>网站。</strong></span></p><p style=\"white-space: normal; text-align: center;\"><img src=\"http://image.135editor.com/files/users/286/2865052/201708/VzeRSUnA_kKgB.png\" alt=\"WechatIMG1466.png\"/></p><p><br/></p>', '1505809788', '1507508819');
 INSERT INTO `page` VALUES ('12', '0', '1', '1', '17', '2', '第三页名称', '第三页', '第三页描述', '<p style=\"text-align: center;\"><br/></p><p style=\"text-align: center;\"><img src=\"http://7n.medsci.cn/uploads/ueditor/php/upload/image/20170818/1503043458806450.png\" title=\"1503043458806450.png\" alt=\"image.png\" width=\"600\" height=\"130\"/></p><p><br/></p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp;中华医学会第十四次全国白血病·淋巴瘤学术会议于2017年7月13日-7月15日在哈尔滨市举办。会议由中华医学会、中华医学会血液学分会主办，哈尔滨血液病肿瘤研究所、中国医学科学院血液病医院、北京大学血液病研究所、苏州大学附属第一医院血研所、北京白求恩公益基金会协办。有来自国内外著名学者就白血病及淋巴瘤、骨髓瘤等领域相关基础及临床做专题报告；美国、欧洲、日本等学者对白血病、淋巴瘤、骨髓瘤、造血干细胞移植、MDS及MPN进行了专题研讨；分为白血病、淋巴瘤、骨髓瘤、恶性血液病的免疫治疗、造血干细胞移植、MDS及MPN等专场进行学术论文交流。</p><p style=\"line-height: 1.75em;\">&nbsp; &nbsp; &nbsp; &nbsp;中华医学会王大方副秘书长致辞时表示，此次会议将对白血病和淋巴瘤的临床热点及难点进行全方位、深层次和多角度讨论，为进一步提高我国血液病防治水平做出新的更大贡献，为改善全民健康水平发挥了极其重大的作用。</p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"line-height: 1.75em;\"><br/></p><p style=\"font-size: 14px; line-height: normal;\"><strong><span style=\"font-size: 16px;\"></span></strong></p><p style=\"white-space: normal; font-size: 14px; line-height: normal; text-align: center;\"><span style=\"font-size: 16px;\"><strong>如需了解更多淋巴瘤的前沿信息<span style=\"line-height: normal;\">&nbsp;</span>请扫描二维码访问<span style=\"line-height: normal;\">“</span>淋巴瘤亿刻<span style=\"line-height: normal;\">”</span>网站。</strong></span></p><p style=\"white-space: normal; text-align: center;\"><img src=\"http://image.135editor.com/files/users/286/2865052/201708/VzeRSUnA_kKgB.png\" alt=\"WechatIMG1466.png\"/></p><p><br/></p>', '1505819156', '1507508831');
@@ -236,9 +190,7 @@ INSERT INTO `page` VALUES ('19', '0', '2', '2', '23', '0', '首页', '这是第�
 INSERT INTO `page` VALUES ('20', '0', '2', '2', '23', '1', '第二页', null, null, null, '1506348585', '1506348585');
 INSERT INTO `page` VALUES ('21', '0', '2', '2', '23', '2', '第三页', null, null, null, '1506348585', '1506348585');
 
--- ----------------------------
--- Table structure for password_resets
--- ----------------------------
+
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets` (
   `email` varchar(255) NOT NULL,
@@ -247,13 +199,8 @@ CREATE TABLE `password_resets` (
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of password_resets
--- ----------------------------
 
--- ----------------------------
--- Table structure for product
--- ----------------------------
+
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -270,9 +217,7 @@ CREATE TABLE `product` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='企业产品表';
 
--- ----------------------------
--- Records of product
--- ----------------------------
+
 INSERT INTO `product` VALUES ('1', '0', '1', '1', '0', '产品1', '产品1', '说明1', '内容1', '1505919213', '1506419617');
 INSERT INTO `product` VALUES ('2', '0', '1', '1', '2', '产品2', '产品2', '说明2', '<p>内容2</p>', '1505919424', '1507564802');
 INSERT INTO `product` VALUES ('3', '0', '1', '1', '3', '产品3', '产品3', '说明3', '<p>产品3</p>', '1505919537', '1507564847');
@@ -284,9 +229,7 @@ INSERT INTO `product` VALUES ('8', '0', '1', '1', '3', '产品8', '产品8', '�
 INSERT INTO `product` VALUES ('9', '0', '2', '2', '0', '产品1', null, null, null, '1506339300', '1506339300');
 INSERT INTO `product` VALUES ('10', '0', '1', '1', '2', '产品9', '产品9', '描述9', '<p>123</p>', '1507563556', '1507563556');
 
--- ----------------------------
--- Table structure for question
--- ----------------------------
+
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -305,18 +248,14 @@ CREATE TABLE `question` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='调研问题表';
 
--- ----------------------------
--- Records of question
--- ----------------------------
+
 INSERT INTO `question` VALUES ('1001', '1', '1', '4', '0', '0', '2', '问题题目 1', null, null, null, null, null);
 INSERT INTO `question` VALUES ('1002', '2', '1', '4', '0', '0', '1', '问题题目 2', '说明 2', '内容 4', null, null, null);
 INSERT INTO `question` VALUES ('1003', '3', '1', '4', '0', '0', '3', '问题题目 选择题 单选题', '单选题 说明3', null, null, null, null);
 INSERT INTO `question` VALUES ('1004', '4', '1', '4', '0', '0', '4', '问题题目 选择题 下拉题', '下拉题 说明4', null, null, null, null);
 INSERT INTO `question` VALUES ('1005', '5', '1', '4', '0', '0', '5', '问题题目 选择题 多选题', '多选题 说明5', null, null, null, null);
 
--- ----------------------------
--- Table structure for slide
--- ----------------------------
+
 DROP TABLE IF EXISTS `slide`;
 CREATE TABLE `slide` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -333,9 +272,7 @@ CREATE TABLE `slide` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='幻灯片表';
 
--- ----------------------------
--- Records of slide
--- ----------------------------
+
 INSERT INTO `slide` VALUES ('1', '1', '1', '1', '0', '幻灯片1', '幻灯片1的标题', '说明1', '幻灯片1', '1505661159', '1505820219');
 INSERT INTO `slide` VALUES ('2', '2', '1', '1', '0', '幻灯片2', '幻灯片2的标题', '说明2', null, '1505661211', '1505661211');
 INSERT INTO `slide` VALUES ('3', '0', '1', '1', '0', '幻灯片3', '幻灯片3的标题', '说明3', '123', '1505661263', '1505661263');
@@ -362,9 +299,7 @@ INSERT INTO `slide` VALUES ('23', '0', '2', '0', '0', '幻灯片1', null, null, 
 INSERT INTO `slide` VALUES ('24', '0', '1', '1', '0', '幻灯片23', '幻灯片23', '描述23', '<p>内容23</p>', '1507742052', '1507745861');
 INSERT INTO `slide` VALUES ('25', '0', '1', '1', '0', '幻灯片24', null, null, null, '1507745943', '1507745943');
 
--- ----------------------------
--- Table structure for slide_page
--- ----------------------------
+
 DROP TABLE IF EXISTS `slide_page`;
 CREATE TABLE `slide_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -375,13 +310,7 @@ CREATE TABLE `slide_page` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of slide_page
--- ----------------------------
 
--- ----------------------------
--- Table structure for softorg
--- ----------------------------
 DROP TABLE IF EXISTS `softorg`;
 CREATE TABLE `softorg` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -404,15 +333,11 @@ CREATE TABLE `softorg` (
   UNIQUE KEY `website_name` (`website_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='企业表';
 
--- ----------------------------
--- Records of softorg
--- ----------------------------
+
 INSERT INTO `softorg` VALUES ('1', '1', 'lotus', '莲花树互联网科技有限公司', '莲花树', '这是一家创造未来de企业', '让企业更出众', '', '021-88886668', '15800689433', 'admin@softorg.cn', '123456789', 'qing_qiye', null, null, '1507738160');
 INSERT INTO `softorg` VALUES ('2', '1', 'qingbo', '轻博吧', null, null, null, null, null, null, null, null, null, null, null, null);
 
--- ----------------------------
--- Table structure for survey
--- ----------------------------
+
 DROP TABLE IF EXISTS `survey`;
 CREATE TABLE `survey` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -428,17 +353,13 @@ CREATE TABLE `survey` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='调研表';
 
--- ----------------------------
--- Records of survey
--- ----------------------------
+
 INSERT INTO `survey` VALUES ('1', '0', '1', '1', '调研问卷1', '问卷1', '描述1', '内容1', '1506173760', '1506442144');
 INSERT INTO `survey` VALUES ('2', '0', '1', '1', '调研问卷2', '标题2', '描述2222', '<p>内容2</p>', '1506175708', '1507741874');
 INSERT INTO `survey` VALUES ('3', '0', '2', '2', '问卷1', '标题1', null, null, '1506335012', '1506335270');
 INSERT INTO `survey` VALUES ('4', '0', '1', '1', '问卷3', '问卷测试', '描述3', null, '1507746192', '1507881650');
 
--- ----------------------------
--- Table structure for survey_question
--- ----------------------------
+
 DROP TABLE IF EXISTS `survey_question`;
 CREATE TABLE `survey_question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -449,13 +370,6 @@ CREATE TABLE `survey_question` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='调研-问题表 多对多表';
 
--- ----------------------------
--- Records of survey_question
--- ----------------------------
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -472,13 +386,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
 
--- ----------------------------
--- Records of user
--- ----------------------------
 
--- ----------------------------
--- Table structure for user_ext
--- ----------------------------
 DROP TABLE IF EXISTS `user_ext`;
 CREATE TABLE `user_ext` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -489,16 +397,12 @@ CREATE TABLE `user_ext` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of user_ext
--- ----------------------------
+
 INSERT INTO `user_ext` VALUES ('1', '1', 'longyun.cui', null, null);
 INSERT INTO `user_ext` VALUES ('2', '2', 'longyun.c', '1506327015', '1506327015');
 INSERT INTO `user_ext` VALUES ('3', '3', 'longyun', '1506327309', '1506327309');
 
--- ----------------------------
--- Table structure for users
--- ----------------------------
+
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -515,16 +419,12 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
--- ----------------------------
--- Records of users
--- ----------------------------
+
 INSERT INTO `users` VALUES ('1', 'longyun.cui', null, 'longyun.cui88@gmail.com', '$2y$10$Aqu.dd890ZVA0CasV1Zk0OmWjlyqhFVg3pE1jc5XxMLskq2EIIEM2', null, null, 'MWDj7UIjf5lDytqHKL4yBS8fTkLL12HqKqwCzQ7pcTKtF3xEHRVuIhuYcSQ7', null, null);
 INSERT INTO `users` VALUES ('2', 'longyun.c', null, 'longyun-cui@163.com', '$2y$10$y8vfB.L2kL..LjnB1ZpDpezEykyjKjAhG8zFF9PseET0D1nPJ2pk2', null, null, 't7F8kaxmhu8ITqUEYn7KgJRfha0IROYJmK8a3mhCHNvAhoniHdKQJrvVUElR', '1506327015', '1506327015');
 INSERT INTO `users` VALUES ('3', 'longyun', null, 'longyun-cui@qq.com', '$2y$10$jWmmOxjfWj3wHLzm3iGZDOreJLl.QdDRrjA8sEM6jltCx.DVroAVK', null, null, null, '1506327309', '1506327309');
 
--- ----------------------------
--- Table structure for website
--- ----------------------------
+
 DROP TABLE IF EXISTS `website`;
 CREATE TABLE `website` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -535,6 +435,4 @@ CREATE TABLE `website` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of website
--- ----------------------------
+

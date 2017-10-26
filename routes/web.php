@@ -234,10 +234,6 @@ Route::group(['prefix' => config('common.website.front.prefix').'/{org_name}', '
 });
 
 
-
-
-
-
 /*前台注册与登录*/
 Route::group(['prefix' => 'user', 'namespace' => 'Front'], function () {
     // 注册登录
