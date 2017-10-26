@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title')</title>
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=10,Chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="author" content="">
@@ -40,6 +41,10 @@
 <script src="{{asset('/frontend/libs/jquery-2.1.4.min.js')}}"></script>
 <script src="https://cdn.bootcss.com/modernizr/2010.07.06dev/modernizr.min.js"></script>
 <script src="https://cdn.bootcss.com/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+
+<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
+
 
 @yield('js')
 

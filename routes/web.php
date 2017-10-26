@@ -85,7 +85,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::get('delete', $controller.'@deleteAction');
+            Route::post('delete', $controller.'@deleteAction');
         });
 
         // 产品模块
@@ -97,7 +97,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::get('delete', $controller.'@deleteAction');
+            Route::post('delete', $controller.'@deleteAction');
         });
 
         // 目录模块
@@ -109,7 +109,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::get('delete', $controller.'@deleteAction');
+            Route::post('delete', $controller.'@deleteAction');
         });
 
         // 活动模块
@@ -121,7 +121,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::get('delete', $controller.'@deleteAction');
+            Route::post('delete', $controller.'@deleteAction');
         });
 
         // 幻灯片模块
@@ -133,7 +133,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit/{id?}', $controller.'@editAction');
-            Route::get('delete', $controller.'@deleteAction');
+            Route::post('delete', $controller.'@deleteAction');
 
             // 幻灯页模块
             Route::group(['prefix' => 'page'], function () {
@@ -158,7 +158,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::get('delete', $controller.'@deleteAction');
+            Route::post('delete', $controller.'@deleteAction');
         });
 
         // 调研
@@ -167,7 +167,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::get('delete', $controller.'@deleteAction');
+            Route::post('delete', $controller.'@deleteAction');
         });
 
         // 文章模块
@@ -179,7 +179,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::get('delete', $controller.'@deleteAction');
+            Route::post('delete', $controller.'@deleteAction');
         });
 
         Route::group(['middleware' => 'page-mine'], function () {
@@ -200,9 +200,11 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::get('/product', $controller.'@view_product_detail');
     Route::get('/activity', $controller.'@view_activity_detail');
-    Route::get('/survey', $controller.'@view_survey_detail');
     Route::get('/slide', $controller.'@view_slide_detail');
+    Route::get('/survey', $controller.'@view_survey_detail');
     Route::get('/article', $controller.'@view_article_detail');
+
+    Route::match(['get','post'], '/answer', $controller.'@answer');
 
 });
 

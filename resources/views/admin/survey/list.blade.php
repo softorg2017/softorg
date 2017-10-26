@@ -192,7 +192,7 @@
                                     '</button>'+
                                     '<ul class="dropdown-menu" role="menu">'+
                                     '<li><a href="/admin/survey/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a href="/admin/survey/delete/'+value+'">删除</a></li>'+
+                                    '<li><a class="survey-delete-submit" data-id="'+value+'" >删除</a></li>'+
                                     '<li><a href="#">启用</a></li>'+
                                     '<li><a href="#">禁用</a></li>'+
                                     '<li class="divider"></li>'+
@@ -289,6 +289,34 @@
     }();
     $(function () {
         TableDatatablesAjax.init();
+    });
+</script>
+<script>
+    $(function() {
+
+        // 删除调研问卷
+        $(document).on('click', ".survey-delete-submit", function() {
+            var that = $(this);
+            layer.msg('确定要删除该"问卷"么', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/survey/delete",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
     });
 </script>
 @endsection
