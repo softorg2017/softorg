@@ -9,6 +9,8 @@ use App\Models\Activity;
 use App\Models\Slide;
 use App\Models\Survey;
 use App\Models\Article;
+use App\Models\Answer;
+use App\Models\Choice;
 use App\Repositories\Common\UploadRepository;
 use Response, Auth, Validator, DB, Excepiton;
 
@@ -243,5 +245,110 @@ class SoftorgRepository {
         }
         else dd("文章不存在");
     }
+
+
+    // 回答
+    public function answer($post_data)
+    {
+        $allow = false;
+        foreach($post_data["questions"] as $k => $v)
+        {
+            if(empty($v["value"]))
+            {
+                $allow = false;
+                return response_error([],"有问题没有回答");
+            }
+            else $allow = true;
+        }
+
+        if($allow)
+        {
+            $id = decode($post_data["id"]);
+            if(intval($id) !== 0 && !$id) return response_error([],"参数错误");
+//
+            $type = $post_data["type"];
+            if($type == "survey")
+            {
+                $survey = Survey::find($id);
+                if(!$survey) return response_error([],"该调研不存在，刷新页面试试");
+                $answer_param["type"] = 1;
+                $answer_param["survey_id"] = $id;
+            }
+            else if($type == "slide")
+            {
+                $page = Page::find($id);
+                if(!$page) return response_error([],"该页面不存在，刷新页面试试");
+                $answer_param["type"] = 2;
+                $answer_param["page_id"] = $id;
+            }
+
+            $answer = new Answer;
+            $answer_param["user_id"] = Auth::check() ? Auth::user()->id : 0;
+            $bool = $answer->fill($answer_param)->save();
+            if(!$bool) return response_fail();
+
+            foreach($post_data["questions"] as $k => $v)
+            {
+                $question_id = decode($k);
+                if(intval($question_id) !== 0 && !$question_id) return response_error([],"问题有误，请刷新重试");
+
+//                unset($choice_param);
+
+//                if($v["type"] == "text")
+//                {
+//                    $choice_param["answer_id"] = $answer->id;
+//                    $choice_param["question_id"] = $question_id;
+//                    $choice_param["text"] = $v["value"];
+//                    $choice = new Choice;
+//                    $bool = $choice->fill($choice_param)->save();
+//                }
+//                else if($v["type"] == "radio")
+//                {
+//                    $choice_param["answer_id"] = $answer->id;
+//                    $choice_param["question_id"] = $question_id;
+//                    $choice_param["option_id"] = $v["value"];
+//                    $choice = new Choice;
+//                    $bool = $choice->fill($choice_param)->save();
+//                }
+//                else if($v["type"] == "checkbox")
+//                {
+//                    $choice_param["answer_id"] = $answer->id;
+//                    $choice_param["question_id"] = $question_id;
+//                    foreach($v["value"] as $ks => $vs)
+//                    {
+//                        $choice_param["option_id"] = $vs;
+//                        $choice = new Choice;
+//                        $bool = $choice->fill($choice_param)->save();
+//                    }
+//                }
+
+                if($v["type"] == "text")
+                {
+                    $choice_param[$k]["question_id"] = $question_id;
+                    $choice_param[$k]["text"] = $v["value"];
+                }
+                else if($v["type"] == "radio")
+                {
+                    $choice_param[$k]["question_id"] = $question_id;
+                    $choice_param[$k]["option_id"] = $v["value"];
+                }
+                else if($v["type"] == "checkbox")
+                {
+                    foreach($v["value"] as $ks => $vs)
+                    {
+                        $choice_param[$k.$ks]["question_id"] = $question_id;
+                        $choice_param[$k.$ks]["option_id"] = $vs;
+                    }
+                }
+
+            }
+            $choices = $answer->choices()->createMany($choice_param); //
+            if(!$choices) return response_fail();
+            else return response_success([]);
+        }
+
+    }
+
+
 
 }

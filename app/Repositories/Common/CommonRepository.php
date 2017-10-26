@@ -6,7 +6,7 @@ use QrCode;
 /**
  * Description of UploadRepository
  */
-class UploadRepository {
+class CommonRepository {
     
     public function create($file, $namespace, $size='', $allowed_extensions=["png", "jpg", "gif", "jpeg", "PNG", "JPG", "GIF", "JPEG"]) {
         if(empty($file)) return ["status" => false, "info" => "请上传图片!", "data" => ""];
