@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\SoftorgService;
 use App\Repositories\Admin\SoftorgRepository;
+use App\Repositories\Admin\SurveyRepository;
 
 class SoftorgController extends Controller
 {
@@ -89,6 +90,14 @@ class SoftorgController extends Controller
     public function view_article_detail()
     {
         return $this->repo->view_article_detail();
+    }
+
+
+
+    // 调研回答
+    public function answer()
+    {
+        return $this->repo->answer(request()->all());
     }
 
 

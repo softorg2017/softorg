@@ -200,9 +200,11 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::get('/product', $controller.'@view_product_detail');
     Route::get('/activity', $controller.'@view_activity_detail');
-    Route::get('/survey', $controller.'@view_survey_detail');
     Route::get('/slide', $controller.'@view_slide_detail');
+    Route::get('/survey', $controller.'@view_survey_detail');
     Route::get('/article', $controller.'@view_article_detail');
+
+    Route::match(['get','post'], '/answer', $controller.'@answer');
 
 });
 

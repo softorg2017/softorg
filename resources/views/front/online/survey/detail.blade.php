@@ -20,15 +20,20 @@
 @endsection
 
 @section('data-content-ext')
+    <form method="POST" action="" id="form-question">
+        {{ csrf_field() }}
+        <input type="hidden" name="type" value="survey">
+        <input type="hidden" name="id" value="{{encode($data->id)}}">
+
     @foreach($data->questions as $k => $v)
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="detail-left">
                     <div class="detail-left-cont">
-                        <div class="box-body question-container question-option" data-id="{{$v->encode_id or ''}}">
+                        <div class="row" data-id="{{$v->encode_id or ''}}">
                             {{--标题--}}
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2">
+                                <div class="col-md-10 col-md-offset-1">
                                     <h4>
                                         <small></small><b>{{$v->title or ''}}</b>
                                         <small>
@@ -45,36 +50,54 @@
                             </div>
                             {{--描述--}}
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2">{{$v->description or ''}}</div>
+                                <div class="col-md-10 col-md-offset-1">{{$v->description or ''}}</div>
                             </div>
                             @if($v->type == 1) {{--单行文本题--}}
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2"><input type="text" class="form-control"></div>
+                                <div class="col-md-10 col-md-offset-1">
+                                    <input type="hidden" name="questions[{{encode($v->id)}}][type]" value="text">
+                                    <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="input">
+                                    <input type="text" class="form-control" name="questions[{{encode($v->id)}}][value]">
+                                </div>
                             </div>
-                            @elseif($v->type == 2) {{--单行文本题--}}
+                            @elseif($v->type == 2) {{--多行文本题--}}
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2"><textarea></textarea></div>
+                                <div class="col-md-10 col-md-offset-1">
+                                    <input type="hidden" name="questions[{{encode($v->id)}}][type]" value="text">
+                                    <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="textarea">
+                                    <textarea name="questions[{{encode($v->id)}}][value]"></textarea>
+                                </div>
                             </div>
                             @elseif($v->type == 3) {{--单选题--}}
+                            <input type="hidden" name="questions[{{encode($v->id)}}][type]" value="radio">
+                            <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="radio">
                             @foreach($v->options as $o)
                                 <div class="form-group">
-                                    <div class="col-md-8 col-md-offset-2"><input type="radio" name="radio"> {{$o->title or ''}}</div>
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <input type="radio" name="questions[{{encode($v->id)}}][value]" value="{{$o->id or ''}}"> {{$o->title or ''}}
+                                    </div>
                                 </div>
                             @endforeach
                             @elseif($v->type == 4) {{--下拉题--}}
+                            <input type="hidden" name="questions[{{encode($v->id)}}][type]" value="radio">
+                            <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="option">
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2">
-                                    <select name="" id="">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <select  name="questions[{{encode($v->id)}}][value]">
                                         @foreach($v->options as $o)
-                                            <option value="">{{$o->title or ''}}</option>
+                                            <option value="{{$o->id or ''}}">{{$o->title or ''}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             @elseif($v->type == 5) {{--多选题--}}
+                            <input type="hidden" name="questions[{{encode($v->id)}}][type]" value="checkbox">
+                            <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="checkbox">
                             @foreach($v->options as $o)
                                 <div class="form-group">
-                                    <div class="col-md-8 col-md-offset-2"><input type="checkbox" name="checkbox"> {{$o->title or ''}}</div>
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <input type="checkbox" name="questions[{{encode($v->id)}}][value][{{$o->id or ''}}]" value="{{$o->id or ''}}"> {{$o->title or ''}}
+                                    </div>
                                 </div>
                             @endforeach
                             @endif
@@ -84,6 +107,55 @@
             </div>
         </div>
     @endforeach
+    </form>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="detail-left">
+                <div class="detail-left-cont">
+                    <div class="row" style="margin:16px 0;">
+                        <div class="col-md-8 col-md-offset-2">
+                            <button type="button" class="btn btn-primary" id="answer-question-submit"><i class="fa fa-check"></i> 提交</button>
+                            {{--<button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>--}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
+
+@section('js—ext')
+    <script>
+        $(function () {
+            // 回答问题
+            $("#answer-question-submit").on('click', function() {
+                var form = $("#form-question");
+//                $.post('/survey/answer', form.serialize(), function(data){
+//                }, 'json');
+
+                var options = {
+                    url: "/answer",
+                    type: "post",
+                    dataType: "json",
+                    // target: "#div2",
+                    success: function (data) {
+                        if(!data.success) layer.msg(data.msg);
+                        else
+                        {
+                            form.find("input:text").val("");
+                            form.find("textarea").val("");
+                            form.find("input:radio").removeAttr('checked');
+                            form.find("input:checkbox").removeAttr('checked');
+                            layer.msg("提交成功");
+                        }
+                    }
+                };
+                form.ajaxSubmit(options);
+
+            });
+        })
+    </script>
+@endsection
