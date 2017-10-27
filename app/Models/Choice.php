@@ -33,7 +33,7 @@ class Choice extends Model
 
     function option()
     {
-        return $this->hasMany('App\Models\Option','question_id','id');
+        return $this->belongsTo('App\Models\Option','option_id','id');
     }
 
 
