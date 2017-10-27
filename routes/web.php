@@ -182,6 +182,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('delete', $controller.'@deleteAction');
         });
 
+        // 回答模块
+        Route::group(['prefix' => 'answer'], function () {
+            $controller = "AnswerController";
+            Route::match(['get','post'], 'list', $controller.'@viewList');
+            Route::match(['get','post'], 'detail', $controller.'@view_detail');
+        });
+
         Route::group(['middleware' => 'page-mine'], function () {
             Route::get('delete','DisplayController@item_delete');
             Route::get('share','DisplayController@item_share');

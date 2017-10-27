@@ -1,11 +1,11 @@
 @extends('admin.layout.layout')
 
-@section('title','问卷列表')
-@section('header','问卷列表')
-@section('description','问卷列表')
+@section('title',$title)
+@section('header',$title)
+@section('description','')
 @section('breadcrumb')
-    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i>首页</a></li>
-    <li><a href="{{url('/admin/survey/list')}}"><i class="fa "></i>问卷列表</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url('/admin/survey/list')}}"><i class="fa "></i>问卷列表 </a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -16,14 +16,9 @@
         <!-- BEGIN PORTLET-->
         <div class="box box-info">
 
-            <div class="box-header with-border" style="margin: 15px 0;">
-                <h3 class="box-title">问卷列表</h3>
+            <div class="box-header with-border" style="margin:16px 0;">
+                <h3 class="box-title">{{$title or ''}}</h3>
 
-                <div class="pull-right">
-                    <a href="{{url('/admin/survey/create')}}">
-                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加问卷</button>
-                    </a>
-                </div>
                 <div class="pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -37,18 +32,15 @@
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
                     <tr role='row' class='heading'>
-                        <th>名称</th>
+                        <th>#</th>
+                        <th>who</th>
                         <th>描述</th>
                         <th>类型</th>
-                        <th>回答次数</th>
                         <th>状态</th>
-                        <th>创建时间</th>
-                        <th>修改时间</th>
+                        <th>时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -78,7 +70,7 @@
             </div>
 
             <div class="box-footer">
-                <div class="row" style="margin: 15px 0;">
+                <div class="row" style="margin:16px 0;">
                     <div class="col-md-offset-3 col-md-9">
                         <button type="button" onclick="" class="btn btn-primary"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
@@ -90,6 +82,7 @@
     </div>
 </div>
 @endsection
+
 
 
 @section('js')
@@ -104,21 +97,13 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': '/admin/survey/list',
+                    'url': '/admin/answer/list',
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
                         d._token = $('meta[name="_token"]').attr('content');
-//                        d.nickname 	= $('input[name="nickname"]').val();
-//                        d.certificate_type_id = $('select[name="certificate_type_id"]').val();
-//                        d.certificate_state = $('select[name="certificate_state"]').val();
-//                        d.admin_name = $('input[name="admin_name"]').val();
-//
-//                        d.created_at_from = $('input[name="created_at_from"]').val();
-//                        d.created_at_to = $('input[name="created_at_to"]').val();
-//                        d.updated_at_from = $('input[name="updated_at_from"]').val();
-//                        d.updated_at_to = $('input[name="updated_at_to"]').val();
-
+                        d.type = "{{$type or ''}}";
+                        d.id = "{{$encode_id or ''}}";
                     },
                 },
                 "pagingType": "simple_numbers",
@@ -129,7 +114,14 @@
                         "data": "encode_id",
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/survey?id='+data+'">'+row.name+'</a>';
+                            return '<a target="_blank" href="/admin/answer/detail?id='+data+'">'+row.id+'</a>';
+                        }
+                    },
+                    {
+                        "data": "id",
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+                            return row.user == null ? '游客' : row.user.nickname;
                         }
                     },
                     {
@@ -143,21 +135,10 @@
                         'data': 'type',
                         'orderable': true,
                         render: function(type) {
-                            return type == null ? '' : type;
-                        }
-                    },
-                    {
-                        "data": "id",
-                        'orderable': false,
-                        render: function(data, type, row, meta) {
-                            return row.admin == null ? '未知' : row.admin.nickname;
-                        }
-                    },
-                    {
-                        'data': 'answer_num',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
+                            if(type == 0) return "未知类型";
+                            else if(type == 1) return "问卷";
+                            else if(type == 2) return "幻灯片";
+                            else return "其他";
                         }
                     },
                     {
@@ -177,40 +158,7 @@
                             newDate.setTime(data * 1000);
                             return newDate.toLocaleString('chinese',{hour12:false});
                         }
-                    },
-                    {
-                        'data': 'updated_at',
-                        'orderable': true,
-                        render: function(data) {
-                            newDate = new Date();
-                            newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
-                        }
-                    },
-                    {
-                        'data': 'encode_id',
-                        'orderable': false,
-                        render: function(value) {
-                            var html =
-                                    '<div class="btn-group">'+
-                                    '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
-                                    '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
-                                    '<span class="caret"></span>'+
-                                    '<span class="sr-only">Toggle Dropdown</span>'+
-                                    '</button>'+
-                                    '<ul class="dropdown-menu" role="menu">'+
-                                    '<li><a href="/admin/survey/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a class="survey-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a href="#">启用</a></li>'+
-                                    '<li><a href="#">禁用</a></li>'+
-                                    '<li><a href="/admin/answer/list?type=survey&id='+value+'">回答列表</a></li>'+
-                                    '<li class="divider"></li>'+
-                                    '<li><a href="#">Separated link</a></li>'+
-                                    '</ul>'+
-                                    '</div>';
-                            return html;
-                        }
-                    },
+                    }
                 ],
                 "drawCallback": function (settings) {
                     ajax_datatable.$('.tooltips').tooltip({placement: 'top', html: true});
@@ -283,15 +231,15 @@
 <script>
     $(function() {
 
-        // 删除调研问卷
-        $(document).on('click', ".survey-delete-submit", function() {
+        // 删除文章
+        $(document).on('click', ".article-delete-submit", function() {
             var that = $(this);
-            layer.msg('确定要删除该"问卷"么', {
+            layer.msg('确定要删除该"文章"么', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "/admin/survey/delete",
+                            "/admin/article/delete",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')

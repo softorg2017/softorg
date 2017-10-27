@@ -36,5 +36,10 @@ class Question extends Model
         return $this->hasMany('App\Models\Option','question_id','id');
     }
 
+    function choices()
+    {
+        return $this->hasMany('App\Models\Choice','question_id','id');
+    }
+
 
 }

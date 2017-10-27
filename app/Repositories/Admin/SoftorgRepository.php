@@ -344,7 +344,18 @@ class SoftorgRepository {
             }
             $choices = $answer->choices()->createMany($choice_param); //
             if(!$choices) return response_fail();
-            else return response_success([]);
+            else
+            {
+                if($type == "survey")
+                {
+                    $survey->increment('answer_num', 1);
+                }
+                else if($type == "slide")
+                {
+                    //$page->increment('answer_num', 1);
+                }
+                return response_success([]);
+            }
         }
 
     }

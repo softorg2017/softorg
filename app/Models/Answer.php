@@ -26,5 +26,15 @@ class Answer extends Model
         return $this->hasMany('App\Models\Choice','answer_id','id');
     }
 
+    function survey()
+    {
+        return $this->belongsTo('App\Models\Survey','survey_id','id');
+    }
+
+    function page()
+    {
+        return $this->belongsTo('App\Models\Page','page_id','id');
+    }
+
 
 }
