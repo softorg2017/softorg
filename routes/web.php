@@ -186,6 +186,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::group(['prefix' => 'answer'], function () {
             $controller = "AnswerController";
             Route::match(['get','post'], 'list', $controller.'@viewList');
+            Route::match(['get','post'], 'analysis', $controller.'@view_analysis');
             Route::match(['get','post'], 'detail', $controller.'@view_detail');
         });
 

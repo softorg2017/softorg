@@ -16,7 +16,7 @@ class AnswerRepository {
         $this->model = new Answer;
     }
 
-    // 返回列表shitu
+    // 返回列表视图
     public function view_list($post_data)
     {
         $type = $post_data['type'];
@@ -72,7 +72,7 @@ class AnswerRepository {
         return datatable_response($list, $draw, $total);
     }
 
-    // 返回编辑视图
+    // 返回回答详情视图
     public function view_detail()
     {
         $id = request("id",0);
@@ -91,8 +91,28 @@ class AnswerRepository {
             }])->find($decode_id);
             if($answer)
             {
-//                dd($answer->toArray());
                 return view('admin.answer.detail')->with(['data'=>$answer->survey]);
+            }
+            else return response("回答不存在！", 404);
+        }
+    }
+
+    // 返回回答数据分析视图
+    public function view_analysis()
+    {
+        $id = request("id",0);
+        $decode_id = decode($id);
+        if($decode_id == 0 && !$decode_id) return response("参数有误", 404);
+        else
+        {
+            $survey = Survey::with(['questions'=>function($queryX) {
+                    $queryX->with(['options'=>function($queryY) {
+                        $queryY->withCount(['choices']);
+                    }]);
+                }])->find($decode_id);
+            if($survey)
+            {
+                return view('admin.answer.analysis')->with(['data'=>$survey]);
             }
             else return response("回答不存在！", 404);
         }

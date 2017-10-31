@@ -1,11 +1,11 @@
 @extends('admin.layout.layout')
 
-@section('title','回答详情')
-@section('header','回答详情')
-@section('description','回答详情')
+@section('title','问卷分析')
+@section('header','问卷分析')
+@section('description','问卷分析')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{url('/admin/survey/list')}}"><i class="fa "></i>问卷列表</a></li>
+    <li><a href="{{url('/admin/survey/list')}}"><i class="fa "></i>问卷分析</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -20,7 +20,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">问卷信息</h3>
+                <h3 class="box-title">问卷数据分析</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -79,14 +79,6 @@
             </div>
             </form>
 
-            <div class="box-footer">
-                <div class="row" style="margin:16px 0;">
-                    <div class="col-md-8 col-md-offset-2">
-                        <button type="button" class="btn btn-primary" id="edit-survey-submit"><i class="fa fa-check"></i> 提交</button>
-                        <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- END PORTLET-->
     </div>
@@ -98,7 +90,7 @@
         <div class="box box-warning">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">问题与回答信息</h3>
+                <h3 class="box-title">问卷选项数据分析</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
@@ -138,20 +130,20 @@
                             @if($v->type == 1) {{--单行文本题--}}
                                 <div class="form-group">
                                     <div class="col-md-8 col-md-offset-2">
-                                        <input type="text" class="form-control" value="{{$v->choices[0]->text}}">
+                                        <input type="text" class="form-control" value="">
                                     </div>
                                 </div>
                             @elseif($v->type == 2) {{--单行文本题--}}
                                 <div class="form-group">
                                     <div class="col-md-8 col-md-offset-2">
-                                        <textarea>{{$v->choices[0]->text}}</textarea>
+                                        <textarea></textarea>
                                     </div>
                                 </div>
                             @elseif($v->type == 3) {{--单选题--}}
                                 @foreach($v->options as $o)
                                     <div class="form-group">
                                         <div class="col-md-8 col-md-offset-2">
-                                            <input type="radio" name="" @if($o->id == $v->choices[0]->option_id) checked="checked" @endif> {{$o->title or ''}}
+                                            <input type="radio" name="radio-{{$v->id or ''}}"> {{$o->title or ''}}
                                         </div>
                                     </div>
                                 @endforeach
@@ -160,7 +152,7 @@
                                 <div class="col-md-8 col-md-offset-2">
                                 <select name="" id="">
                                 @foreach($v->options as $o)
-                                    <option value="" @if($o->id == $v->choices[0]->option_id) selected="selected" @endif>{{$o->title or ''}}</option>
+                                    <option value="">{{$o->title or ''}}</option>
                                 @endforeach
                                 </select>
                                 </div>
@@ -168,18 +160,19 @@
                             @elseif($v->type == 5) {{--多选题--}}
                                 @foreach($v->options as $o)
                                     <div class="form-group">
-                                        <div class="col-md-8 col-md-offset-2"><input type="checkbox" name=""
-                                            @foreach($v->choices as $c)
-                                                @if($o->id == $c->option_id)
-                                                    checked="checked"
-                                                @endif
-                                            @endforeach
-                                            > {{$o->title or ''}}</div>
+                                        <div class="col-md-8 col-md-offset-2"><input type="checkbox" name="checkbox-{{$v->id or ''}}" > {{$o->title or ''}}</div>
                                     </div>
                                 @endforeach
                             @endif
                             {{--面具--}}
-                            <div class="control_mask"></div>
+                            {{--<div class="control_mask"></div>--}}
+                            @if($v->type == 3 || $v->type == 4 || $v->type == 5)
+                            <div class="row with-border">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div id="echart-{{$v->id}}" style="width:100%;height:300px;"></div>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     @endforeach
                 </div>
@@ -193,6 +186,7 @@
 
 
 @section('js')
+<script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js"></script>
 <script>
 $(function() {
 
@@ -201,108 +195,85 @@ $(function() {
         radioClass: 'iradio_square-blue',
         increaseArea: '20%' // optional
     });
-    
-    // 添加or修改调研问卷信息
-    $("#edit-survey-submit").on('click', function() {
-        var options = {
-            url: "/admin/survey/edit",
-            type: "post",
-            dataType: "json",
-            // target: "#div2",
-            success: function (data) {
-                if(!data.success) layer.msg(data.msg);
-                else
-                {
-                    layer.msg(data.msg);
-//                    location.href = "/admin/survey/list";
-                }
-            }
-        };
-        $("#form-edit-survey").ajaxSubmit(options);
-    });
 
-    // 新建一个单行文本题
-    $("#form-edit-question").on('click', '.create-new-text', function () {
-
-        var html = $("#text-cloner .question-option").clone();
-        html.find(".question-type").val(1);
-        html.find(".question-title").html("单行文本题");
-        $('#question-container .question-container:last').after(html);
-        html.find('input[name=title]').focus();
-        $('#question-container .question-option').show();
-    });
-    // 新建一个多行文本题
-    $("#form-edit-question").on('click', '.create-new-textarea', function () {
-
-        var html = $("#text-cloner .question-option").clone();
-        html.find(".question-type").val(2);
-        html.find(".question-title").html("多行文本题");
-        $('#question-container .question-container:last').after(html);
-        html.find('input[name=title]').focus();
-    });
-
-    // 新建一个单选题
-    $("#form-edit-question").on('click', '.create-new-radio', function () {
-
-        var html = $("#choice-cloner .question-option").clone();
-        html.find(".question-type").val(3);
-        html.find(".question-title").html("单选题");
-        $('#question-container .question-container:last').after(html);
-        html.find('input[name=title]').focus();
-    });
-    // 新建一个下拉题
-    $("#form-edit-question").on('click', '.create-new-select', function () {
-
-        var html = $("#choice-cloner .question-option").clone();
-        html.find(".question-type").val(4);
-        html.find(".question-title").html("下拉题");
-        $('#question-container .question-container:last').after(html);
-        html.find('input[name=title]').focus();
-    });
-    // 新建一个多选题
-    $("#form-edit-question").on('click', '.create-new-checkbox', function () {
-
-        var html = $("#choice-cloner .question-option").clone();
-        html.find(".question-type").val(5);
-        html.find(".question-title").html("多选题");
-        $('#question-container .question-container:last').after(html);
-        html.find('input[name=title]').focus();
-    });
-
-    // 添加一个选项
-    $("#form-edit-question").on('click', '.create-new-option', function () {
-
-        var form = $(this).parents("form");
-        var key = parseInt(form.attr("data-key"));
-        form.attr("data-key",key+1);
-
-        var html = $("#option-cloner .option-container").clone();
-        html.find('.option-id').attr("name","option["+key+"][id]");
-        html.find('.option-title').attr("name","option["+key+"][title]");
-        form.find(".option-container:last").after(html);
-    });
-
-    // 添加or修改一个问题
-    $("#form-edit-question").on('click', '.create-this-question', function () {
-
-        var options = {
-            url: "/admin/question/edit",
-            type: "post",
-            dataType: "json",
-            // target: "#div2",
-            success: function (data) {
-                if(!data.success) layer.msg(data.msg);
-                else
-                {
-                    layer.msg(data.msg);
-                    location.href = location.href;
-                }
-            }
-        };
-        var form = $(this).parents('form');
-        form.ajaxSubmit(options);
-    });
 
 });
 </script>
+
+<script>
+    $(function(){
+
+        var myChart;
+        var option;
+        @foreach($data->questions as $k => $v)
+        @if($v->type == 3 || $v->type == 4 || $v->type == 5)
+            option = {
+                title : {
+                    text: '{{$v->title}}',
+                    subtext: '{{$v->description}}',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{{$v->title}} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'left',
+                    data: [
+                            @foreach($v->options as $nv)
+                                @if (!$loop->last) '{{$nv->title}}', @else '{{$nv->title}}' @endif
+                            @endforeach
+                    ]
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'访问来源',
+                        type:'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data: [
+                            @foreach($v->options as $vv)
+                                @if (!$loop->last)
+                                    {value:{{$vv->choices_count}},name:'{{$vv->title}}'},
+                                @else
+                                    {value:{{$vv->choices_count}},name:'{{$vv->title}}'}
+                                @endif
+                            @endforeach
+                        ]
+                    }
+                ]
+            };
+            myChart = echarts.init(document.getElementById('echart-{{$v->id}}'));
+            myChart.setOption(option);
+            @endif
+        @endforeach
+
+    });
+</script>
+
 @endsection
+
+

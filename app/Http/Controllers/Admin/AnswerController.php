@@ -25,6 +25,12 @@ class AnswerController extends Controller
         return view('admin.answer.index');
     }
 
+    // 数据分析
+    public function view_analysis()
+    {
+        return $this->repo->view_analysis(request()->all());
+    }
+
     // 列表
     public function viewList()
     {
@@ -32,7 +38,7 @@ class AnswerController extends Controller
         else if(request()->isMethod('post')) return $this->repo->get_list_datatable(request()->all());
     }
 
-    // 列表
+    // 单次回答详情
     public function view_detail()
     {
         return $this->repo->view_detail(request()->all());

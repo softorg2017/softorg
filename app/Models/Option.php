@@ -26,5 +26,10 @@ class Option extends Model
         return $this->belongsTo('App\Models\Question','question_id','id');
     }
 
+    function choices()
+    {
+        return $this->hasMany('App\Models\Choice','option_id','id');
+    }
+
 
 }
