@@ -107,7 +107,7 @@
             </div>
 
             <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-question">
-                <div class="box-body">
+                <div class="box-body" id="sortable">
                     {{csrf_field()}}
                     <input type="hidden" readonly name="operate" value="{{$operate or ''}}">
                     <input type="hidden" readonly name="survey_id" value="{{$encode_id or encode(0)}}">
@@ -137,6 +137,7 @@
 
                     @foreach($data->questions as $k => $v)
                         <div class="box-body question-container question-option" data-id="{{$v->encode_id or ''}}">
+                            <input type="hidden" name="question[{{$k}}][id]" value="{{$v->id or ''}}">
                             {{--标题--}}
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2">
@@ -195,12 +196,9 @@
                                     <a href="/admin/slide/page/edit/{{$v->encode_id or ''}}" target="_blank">
                                         <button type="button" class="btn btn-xs btn-primary edit-this-page">编辑内容</button>
                                     </a>
-                                    <button type="button" class="btn btn-xs btn-success create-next-page">添加</button>
                                     @if(false)
                                         <button type="button" class="btn btn-xs btn-danger delete-this-question">删除</button>
                                     @endif
-                                    <button type="button" class="btn btn-xs moveup-this-question">上移</button>
-                                    <button type="button" class="btn btn-xs movedown-this-question">下移</button>
                                 </div>
                             </div>
                             {{--面具--}}
@@ -209,6 +207,15 @@
                     @endforeach
                 </div>
             </form>
+
+            <div class="box-footer">
+                <div class="row" style="margin:16px 0;">
+                    <div class="col-md-8 col-md-offset-2">
+                        <button type="button" class="btn btn-primary" id="sort-question-submit"><i class="fa fa-check"></i> 保存排序</button>
+                        <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <!-- END PORTLET-->
@@ -445,6 +452,29 @@ $(function() {
         var form = $(this).parents('form');
         form.ajaxSubmit(options);
     });
+
+    // 排序
+    $("#sortable").sortable();
+
+    // 修改排序
+    $("#sort-question-submit").on('click', function() {
+        var options = {
+            url: "/admin/survey/sort",
+            type: "post",
+            dataType: "json",
+            // target: "#div2",
+            success: function (data) {
+                if(!data.success) layer.msg(data.msg);
+                else
+                {
+                    layer.msg(data.msg);
+//                    location.href = "/admin/survey/list";
+                }
+            }
+        };
+        $("#form-edit-question").ajaxSubmit(options);
+    });
+
 
 });
 </script>

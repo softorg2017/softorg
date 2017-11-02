@@ -6,6 +6,9 @@
 
 @section('index-url',url(config('common.website.front.prefix').'/'.$data->org->website_name))
 
+@section('data-header-ext')
+    <b>{{date("Y.m.d H:i",$data->start_time)}}</b> -- <b>{{date("Y.m.d H:i",$data->end_time)}}</b>
+@endsection
 
 @section('data-updated_at')
     {{$data->updated_at or ''}}

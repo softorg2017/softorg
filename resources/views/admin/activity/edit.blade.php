@@ -66,24 +66,24 @@
                 {{--开始时间--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">开始时间</label>
-                    <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="start" placeholder="请输入开始时间" value="{{$data->start_time or ''}}"></div>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control time-picker" name="start" placeholder="请输入开始时间" value="{{date("Y-m-d H:i",$data->start_time)}}">
+                        </div>
                     </div>
                 </div>
                 {{--结束时间--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">结束时间</label>
-                    <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="end" placeholder="请输入结束时间" value="{{$data->end_time or ''}}"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-8">
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" class="form-control" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask="">
+                            <input type="text" class="form-control time-picker" name="end" placeholder="请输入结束时间" value="{{date("Y-m-d H:i",$data->end_time)}}">
                         </div>
                     </div>
                 </div>
@@ -144,6 +144,14 @@
                 }
             };
             $("#form-edit-activity").ajaxSubmit(options);
+        });
+
+
+        // 修改幻灯片信息
+        $('.time-picker').datetimepicker({
+            format: 'YYYY-MM-DD HH:ss',
+            showClear: true,
+            showClose: true
         });
     });
 </script>

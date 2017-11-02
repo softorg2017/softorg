@@ -206,7 +206,9 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $survey = Survey::with(['org','admin'])->whereId($decode_id)->first();
+        $survey = Survey::with(['org','admin',
+            'questions' => function ($query) { $query->orderBy('order', 'asc'); }
+        ])->whereId($decode_id)->first();
         if($survey)
         {
             return view('front.'.config('common.view.front.template').'.survey.detail')->with('data',$survey);

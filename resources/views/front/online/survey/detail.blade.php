@@ -127,9 +127,23 @@
 
 
 
+@section('css—ext')
+    <link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
+@endsection
+
+
+
 @section('js—ext')
+    <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
     <script>
         $(function () {
+
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+
             // 回答问题
             $("#answer-question-submit").on('click', function() {
                 var form = $("#form-question");

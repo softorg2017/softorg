@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Survey;
+use App\Models\Question;
 use Response, Auth, Validator, DB, Excepiton;
 use QrCode;
 
@@ -110,6 +111,25 @@ class SurveyRepository {
             return response_success(['id'=>$encode_id]);
         }
         else return response_fail();
+    }
+
+    // 问题排序
+    public function sort($post_data)
+    {
+        $survey_id = decode($post_data["survey_id"]);
+        if(!$survey_id) return response_error();
+
+        $questions = collect($post_data['question'])->values()->toArray();
+
+        foreach($questions as $k => $v)
+        {
+            $id = $v['id'];
+            $question = Question::find($id);
+            if(!$question) return response_error();
+            $order['order'] = $k;
+            $bool = $question->fill($order)->save();
+        }
+        return response_success();
     }
 
     // 删除

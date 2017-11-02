@@ -43,6 +43,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
 
+    <script src="https://cdn.bootcss.com/moment.js/2.19.0/moment.min.js"></script>
+
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{asset('css/common.css')}}">
 
     @yield('style')
@@ -482,6 +486,8 @@ desired effect
 {{--<!-- AdminLTE App -->--}}
 <script src="/AdminLTE/dist/js/app.min.js"></script>
 
+<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
 <script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
 
 <script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
@@ -494,6 +500,8 @@ desired effect
 <script src="{{asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
 
 <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 
 <script src="{{asset('js/admin/index.js')}}"></script>

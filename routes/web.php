@@ -158,6 +158,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
+            Route::post('sort', $controller.'@sortAction');
             Route::post('delete', $controller.'@deleteAction');
         });
 

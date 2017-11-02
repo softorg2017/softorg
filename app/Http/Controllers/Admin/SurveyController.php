@@ -43,6 +43,11 @@ class SurveyController extends Controller
         else if (request()->isMethod('post')) return $this->repo->save(request()->all());
     }
 
+    public function sortAction()
+    {
+        return $this->repo->sort(request()->all());
+    }
+
     public function deleteAction()
     {
         return $this->repo->delete(request()->all());

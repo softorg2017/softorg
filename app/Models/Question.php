@@ -7,7 +7,7 @@ class Question extends Model
     //
     protected $table = "question";
     protected $fillable = [
-        'sort', 'type', 'org_id', 'admin_id', 'survey_id', 'page_id', 'name', 'title', 'description', 'content'
+        'sort', 'type', 'org_id', 'admin_id', 'survey_id', 'page_id', 'order', 'name', 'title', 'description', 'content'
     ];
     protected $dateFormat = 'U';
 

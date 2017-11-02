@@ -6,6 +6,7 @@
     <style>
         img {max-width: 100%;}
     </style>
+    @yield('css—ext')
 @endsection
 
 @section('content')
@@ -18,6 +19,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="detail-left">
                         <h1 class="title">@yield('data—title')</h1>
+                        <h4 class="title" style="color:#36a;">@yield('data-header-ext')</h4>
                         <div class="sub-tag clearfix">
                             <span class="sub-tag-time"><i class="iconfont icon-eye"></i>已被浏览 521431 次</span>
                             <p>@yield('data-updated_at')</p>

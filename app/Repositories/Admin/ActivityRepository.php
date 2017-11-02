@@ -68,6 +68,24 @@ class ActivityRepository {
     // 保存数据
     public function save($post_data)
     {
+        $start = $post_data["start"];
+        $end = $post_data["end"];
+        if(!empty($start) && !empty($end))
+        {
+            $start_time = strtotime($post_data["start"]);
+            $end_time = strtotime($post_data["end"]);
+            if($start_time >= $end_time)
+            {
+                return response_error([],"时间有误，开始时间大于结束时间！");
+            }
+            else
+            {
+                $post_data["start_time"] = $start_time;
+                $post_data["end_time"] = $end_time;
+            }
+        }
+        else return response_error([],"时间有误！");
+
         $admin = Auth::guard('admin')->user();
 
         $id = decode($post_data["id"]);

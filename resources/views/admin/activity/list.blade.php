@@ -39,12 +39,16 @@
                         <th>描述</th>
                         <th>类型</th>
                         <th>管理员</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
                         <th>状态</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -149,6 +153,24 @@
                         'orderable': false,
                         render: function(data, type, row, meta) {
                             return row.admin == null ? '未知' : row.admin.nickname;
+                        }
+                    },
+                    {
+                        'data': 'start_time',
+                        'orderable': true,
+                        render: function(data) {
+                            newDate = new Date();
+                            newDate.setTime(data * 1000);
+                            return newDate.toLocaleString('chinese',{hour12:false});
+                        }
+                    },
+                    {
+                        'data': 'end_time',
+                        'orderable': true,
+                        render: function(data) {
+                            newDate = new Date();
+                            newDate.setTime(data * 1000);
+                            return newDate.toLocaleString('chinese',{hour12:false});
                         }
                     },
                     {
