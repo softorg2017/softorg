@@ -45,7 +45,7 @@ class PageRepository {
         if(!$page) return response_error();
 
         $post_data["admin_id"] = $admin->id;
-        $post_data["org_id"] = $admin->org_id;
+//        $post_data["org_id"] = $admin->org_id;
 
         $bool = $page->fill($post_data)->save();
         if($bool) return response_success();

@@ -154,7 +154,6 @@ class SoftorgRepository {
     // 返回（前台）幻灯片列表页视图
     public function view_slide($org)
     {
-        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
         $query = Softorg::with(['administrators','websites',
             'slides' => function ($query) { $query->orderBy('updated_at', 'desc'); }
         ]);
@@ -174,7 +173,9 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $slide = Slide::with(['org','admin','pages'])->whereId($decode_id)->first();
+        $slide = Slide::with(['org','admin',
+            'pages' => function ($query) { $query->orderBy('order', 'asc'); }
+        ])->whereId($decode_id)->first();
         if($slide)
         {
             return view('front.'.config('common.view.front.template').'.slide.detail')->with('data',$slide);
@@ -186,7 +187,6 @@ class SoftorgRepository {
     // 返回（前台）调研列表页视图
     public function view_survey($org)
     {
-//        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
         $query = Softorg::with(['administrators','websites',
             'surveys' => function ($query) { $query->orderBy('updated_at', 'desc'); }
         ]);
