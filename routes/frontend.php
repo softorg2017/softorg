@@ -13,4 +13,8 @@ Route::group(['prefix' => 'frontend'], function () {
     Route::get('/detail',function(){
        return view('frontend.home.detail');
     })->name('frontend.detail');
+
+    Route::get('/index-new',function(){
+        return view('frontend.theme.home.index')
+    })
 });
