@@ -157,7 +157,7 @@
                         'orderable': false,
                         render: function(val) {
                             if(val == 0) return '<small class="label bg-teal">未启用</small>';
-                            else if(val == 0) return '<small class="label bg-green">启</small>';
+                            else if(val == 1) return '<small class="label bg-green">启</small>';
                             else return '<small class="label bg-red">禁</small>';
                         }
                     },
