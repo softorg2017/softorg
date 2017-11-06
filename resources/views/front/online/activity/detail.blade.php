@@ -14,6 +14,10 @@
     {{$data->updated_at or ''}}
 @endsection
 
+@section('visit')
+    已被浏览 {{$data->visit_num or ''}} 次
+@endsection
+
 @section('data—title')
     {{$data->title or ''}}
 @endsection

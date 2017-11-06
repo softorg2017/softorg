@@ -194,8 +194,21 @@ if(!function_exists('Get_IP'))
 		return($ip);
 	}
 }
+if(!function_exists('GetIP'))
+{
+    function GetIP()
+    {
+        if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        else if (isset($_SERVER["HTTP_CLIENT_IP"])) $ip = $_SERVER["HTTP_CLIENT_IP"];
+        else if (isset($_SERVER["REMOTE_ADDR"])) $ip = $_SERVER["REMOTE_ADDR"];
+        else if (getenv("HTTP_X_FORWARDED_FOR")) $ip = getenv("HTTP_X_FORWARDED_FOR");
+        else if (getenv("HTTP_CLIENT_IP")) $ip = getenv("HTTP_CLIENT_IP");
+        else if (getenv("REMOTE_ADDR")) $ip = getenv("REMOTE_ADDR");
+        else $ip = "Unknown";
 
-
+        return $ip;
+    }
+}
 
 
 if(!function_exists('encode')) {

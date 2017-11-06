@@ -7,7 +7,7 @@ class Record extends Model
     //
     protected $table = "records";
     protected $fillable = [
-        'sort', 'type', 'form', 'org_id', 'page_id', 'user_id'
+        'sort', 'type', 'form', 'org_id', 'page_id', 'user_id', 'from', 'ip'
     ];
     protected $dateFormat = 'U';
 

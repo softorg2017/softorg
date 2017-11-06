@@ -21,7 +21,7 @@
                         <h1 class="title">@yield('data—title')</h1>
                         <h4 class="title" style="color:#36a;">@yield('data-header-ext')</h4>
                         <div class="sub-tag clearfix">
-                            <span class="sub-tag-time"><i class="iconfont icon-eye"></i>已被浏览 521431 次</span>
+                            <span class="sub-tag-time"><i class="iconfont icon-eye"></i>@yield('visit')</span>
                             <p>@yield('data-updated_at')</p>
                         </div>
                         <div class="detail-left-cont">

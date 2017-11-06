@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Softorg;
+use App\Models\Record;
 use App\Models\Website;
 use App\Models\Menu;
 use App\Models\Product;
@@ -81,13 +82,23 @@ class SoftorgRepository {
 
         if($org)
         {
+            // 访问数量+1
+            $org->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1;
+            $record["sort"] = "index";
+            $record["org_id"] = $org->id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.index')->with('org',$org);
         }
         else dd("企业不存在");
     }
 
 
-    // 返回（前台）【产品】页视图
+    // 返回（前台）【产品】列表页视图
     public function view_product($org)
     {
 //        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
@@ -99,11 +110,19 @@ class SoftorgRepository {
 
         if($org)
         {
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 2;
+            $record["sort"] = "product";
+            $record["org_id"] = $org->id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.product.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
-    // 返回（前台）【产品】详情页视图
+    // 返回（前台）【产品】【详情页】视图
     public function view_product_detail()
     {
         $encode_id = request('id');
@@ -113,16 +132,26 @@ class SoftorgRepository {
         $product = Product::with(['org','admin'])->whereId($decode_id)->first();
         if($product)
         {
+            // 访问数量+1
+            $product->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 3;
+            $record["sort"] = "product";
+            $record["org_id"] = $product->org->id;
+            $record["page_id"] = $decode_id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.product.detail')->with('data',$product);
         }
         else dd("产品不存在");
     }
 
 
-    // 返回（前台）【活动】页视图
+    // 返回（前台）【活动】列表页视图
     public function view_activity($org)
     {
-//        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
         $query = Softorg::with(['administrators','websites',
             'activities' => function ($query) { $query->orderBy('updated_at', 'desc'); }
         ]);
@@ -131,11 +160,19 @@ class SoftorgRepository {
 
         if($org)
         {
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 2;
+            $record["sort"] = "activity";
+            $record["org_id"] = $org->id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.activity.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
-    // 返回（前台）【活动详情页视图
+    // 返回（前台）【活动】【详情】页视图
     public function view_activity_detail()
     {
         $encode_id = request('id');
@@ -145,6 +182,17 @@ class SoftorgRepository {
         $activity = Activity::with(['org','admin'])->whereId($decode_id)->first();
         if($activity)
         {
+            // 访问数量+1
+            $activity->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 3;
+            $record["sort"] = "activity";
+            $record["org_id"] = $activity->org->id;
+            $record["page_id"] = $decode_id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.activity.detail')->with('data',$activity);
         }
         else dd("活动不存在");
@@ -162,11 +210,19 @@ class SoftorgRepository {
 
         if($org)
         {
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 2;
+            $record["sort"] = "slide";
+            $record["org_id"] = $org->id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.slide.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
-    // 返回（前台）【幻灯片】详情页视图
+    // 返回（前台）【幻灯片】【详情】页视图
     public function view_slide_detail()
     {
         $encode_id = request('id');
@@ -178,6 +234,17 @@ class SoftorgRepository {
         ])->whereId($decode_id)->first();
         if($slide)
         {
+            // 访问数量+1
+            $slide->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 3;
+            $record["sort"] = "slide";
+            $record["org_id"] = $slide->org->id;
+            $record["page_id"] = $decode_id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.slide.detail')->with('data',$slide);
         }
         else dd("幻灯片不存在");
@@ -195,11 +262,19 @@ class SoftorgRepository {
 
         if($org)
         {
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 2;
+            $record["sort"] = "survey";
+            $record["org_id"] = $org->id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.survey.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
-    // 返回（前台）【调研问卷】详情页视图
+    // 返回（前台）【调研问卷】【详情】页视图
     public function view_survey_detail()
     {
         $encode_id = request('id');
@@ -211,6 +286,17 @@ class SoftorgRepository {
         ])->whereId($decode_id)->first();
         if($survey)
         {
+            // 访问数量+1
+            $survey->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 3;
+            $record["sort"] = "survey";
+            $record["org_id"] = $survey->org->id;
+            $record["page_id"] = $decode_id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.survey.detail')->with('data',$survey);
         }
         else dd("调研不存在");
@@ -229,11 +315,19 @@ class SoftorgRepository {
 
         if($org)
         {
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 2;
+            $record["sort"] = "article";
+            $record["org_id"] = $org->id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.article.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
-    // 返回（前台）【文章】详情页视图
+    // 返回（前台）【文章】【详情】页视图
     public function view_article_detail()
     {
         $encode_id = request('id');
@@ -243,6 +337,17 @@ class SoftorgRepository {
         $article = Article::with(['org','admin'])->whereId($decode_id)->first();
         if($article)
         {
+            // 访问数量+1
+            $article->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 3;
+            $record["sort"] = "article";
+            $record["org_id"] = $article->org->id;
+            $record["page_id"] = $decode_id;
+            $record["ip"] = Get_IP();
+            $this->record($record);
+
             return view('front.'.config('common.view.front.template').'.article.detail')->with('data',$article);
         }
         else dd("文章不存在");
@@ -363,5 +468,12 @@ class SoftorgRepository {
     }
 
 
+    public function record($post_data)
+    {
+        $record = new Record();
+        $bool = $record->fill($post_data)->save();
+        if($bool) return true;
+        else return false;
+    }
 
 }

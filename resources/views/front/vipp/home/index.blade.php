@@ -107,13 +107,13 @@
             </li>
             <li>
                 <ul class="first-nav">
-                    <li><a href="#" class="big-txt" data-submenu="submenu-1">Products<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
+                    <li><a href="@yield('index-url')/product" class="big-txt" data-submenu="submenu-1">产品<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="https://www.vipp.com/en-us/kitchen/vipp-kitchen" class="big-txt">Kitchen</a></li>
+                    <li><a href="@yield('index-url')/activity" class="big-txt">活动<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="https://www.vipp.com/en-us/hotel" class="big-txt">Hotel</a></li>
+                    <li><a href="@yield('index-url')/survey" class="big-txt">调研问卷<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="#" class="big-txt" data-submenu="submenu-2">Stories<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
+                    <li><a href="@yield('index-url')/article" class="big-txt" data-submenu="submenu-2">文章<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
                     <li class="padder">&nbsp;</li>
                 </ul>
             </li>
@@ -255,7 +255,7 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                         </div>
                         <div class="hero-product-description white" fade-onload>
                             <h4>Pedal bin 14 L / 4 gal - USD 349.00</h4>
-                            <h1 class="hero-heading">78-years-old and ageless</h1>
+                            <h1 class="hero-heading">{{$org->name or 'name'}}</h1>
                             <a href="https://www.vipp.com/en-us/node/241" class="btn-md"><span>SHOP NOW</span></a>
                         </div>
                     </div>
@@ -279,8 +279,8 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <span>Pedal bin 8 L / 2 gal</span>
-                                            <span class="price">USD 289.00</span>
+                                            <span>产品1</span>
+                                            <span class="price">说明1</span>
                                         </div>
                                         <div class="container portrait">
                                             <div class="img-wrapper">
@@ -297,92 +297,12 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                     </div>
                                 </a>
                             </li>
-                            <li class="col-md-6 ">
-                                <a href="https://www.vipp.com/en-us/products/pedal-bin-14-l-4-gal">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-15-bin-0.jpg.pagespeed.ic.raT7sEhdfh.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-15-bin-0.jpg.pagespeed.ic.raT7sEhdfh.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Pedal bin 14 L / 4 gal</span>
-                                            <span class="price">USD 349.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-15-pedal-bin-white-1_0.jpg.pagespeed.ic.L6m0X3RlTi.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp15</p>
-                                            <div class="color-indicator">
-                                                <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
-                                                <div class="color" style="background: #000000; border-color: #000000 ;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="col-md-6 ">
-                                <a href="https://www.vipp.com/en-us/products/pedal-bin-18-l-5-gal">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-black-topview-0_0.jpg.pagespeed.ic.uIVjfVKkYq.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-black-topview-0_0.jpg.pagespeed.ic.uIVjfVKkYq.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Pedal bin 18 L / 5 gal</span>
-                                            <span class="price">USD 379.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-white-1_0.jpg.pagespeed.ic.lswrbD6wGk.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp16</p>
-                                            <div class="color-indicator">
-                                                <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
-                                                <div class="color" style="background: #000000; border-color: #000000 ;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="col-md-6 ">
-                                <a href="https://www.vipp.com/en-us/products/pedal-bin-30-l-8-gal">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-17-bin-detail.jpg.pagespeed.ic.cqQ2GbZ3c8.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-17-bin-detail.jpg.pagespeed.ic.cqQ2GbZ3c8.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Pedal bin 30 L / 8 gal</span>
-                                            <span class="price">USD 499.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-17-pedal-bin-white-1.jpg.pagespeed.ic.EaqQVRmQRY.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp17</p>
-                                            <div class="color-indicator">
-                                                <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
-                                                <div class="color" style="background: #000000; border-color: #000000 ;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
-                        <a href="https://www.vipp.com/en-us/shop/bins" class="view-more visible-xs">View all bins</a>
+                        <a href="https://www.vipp.com/en-us/shop/bins" class="view-more visible-xs">更多产品</a>
                     </div>
                 </div>
             </div>
+            {{--3栏--}}
             <div class="row full wrapper-content product-column product-four-column product-four-column--wide slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
@@ -443,36 +363,12 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                     </div>
                                 </a>
                             </li>
-                            <li class="col-md-6">
-                                <a href="https://www.vipp.com/en-us/products/salt-and-pepper">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-263-salt-and-pepper-mills-interior-0_0.jpg.pagespeed.ic.bV0v6zfSO2.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-263-salt-and-pepper-mills-interior-0_0.jpg.pagespeed.ic.bV0v6zfSO2.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Salt and pepper</span>
-                                            <span class="price">USD 229.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-263-salt-pepper-1.jpg.pagespeed.ic.ZkN_aQt53t.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp263</p>
-                                            <div class="color-indicator">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
-                        <a href="https://www.vipp.com/en-us/shop/kitchen" class="view-more visible-xs">View kitchen products</a>
+                        <a href="https://www.vipp.com/en-us/shop/kitchen" class="view-more visible-xs">更多活动</a>
                     </div>
                 </div>
             </div>
+            {{--4栏--}}
             <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
@@ -618,6 +514,7 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                     </div>
                 </div>
             </div>
+            {{--3栏--}}
             <div class="row full wrapper-content product-column product-four-column product-four-column--wide slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
@@ -848,7 +745,25 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
     <div class="footer">
         <div class="bt-scroll-top"><i class="icon-arrow-down"></i> </div>
         <div class="social-links">
-            <a href="https://www.instagram.com/vipp/" target="_blank"><img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-04,402x.png.pagespeed.ic.R7xJIzYmlQ.webp" alt="instagram"/></a><a href="https://www.facebook.com/vippdotcom/" target="_blank"><img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-01,402x.png.pagespeed.ic.Q_m8ogUuva.webp" alt="facebook"/></a><a href="https://www.pinterest.com/vippdotcom/" target="_blank"><img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-03,402x.png.pagespeed.ic.rvBLV3p0t6.webp" alt="pinterest"/></a><a href="https://www.linkedin.com/company/vipp" target="_blank"><img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-06,402x.png.pagespeed.ic.V75jyaK8lS.webp" alt="linkedin"/></a><a href="https://www.youtube.com/user/vippdesign" target="_blank"><img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-05,402x.png.pagespeed.ic.sxUgfdJLti.webp" alt="youtube"/></a><a href="https://twitter.com/vipp" target="_blank"><img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-02,402x.png.pagespeed.ic.rUGHLlzbZU.webp" alt="twitter"/></a> </div>
+            <a href="https://www.instagram.com/vipp/" target="_blank">
+                <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-04,402x.png.pagespeed.ic.R7xJIzYmlQ.webp" alt="instagram"/>
+            </a>
+            <a href="https://www.facebook.com/vippdotcom/" target="_blank">
+                <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-01,402x.png.pagespeed.ic.Q_m8ogUuva.webp" alt="facebook"/>
+            </a>
+            <a href="https://www.pinterest.com/vippdotcom/" target="_blank">
+                <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-03,402x.png.pagespeed.ic.rvBLV3p0t6.webp" alt="pinterest"/>
+            </a>
+            <a href="https://www.linkedin.com/company/vipp" target="_blank">
+                <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-06,402x.png.pagespeed.ic.V75jyaK8lS.webp" alt="linkedin"/>
+            </a>
+            <a href="https://www.youtube.com/user/vippdesign" target="_blank">
+                <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-05,402x.png.pagespeed.ic.sxUgfdJLti.webp" alt="youtube"/>
+            </a>
+            <a href="https://twitter.com/vipp" target="_blank">
+                <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-02,402x.png.pagespeed.ic.rUGHLlzbZU.webp" alt="twitter"/>
+            </a>
+        </div>
         <ul>
             <li><a href="https://www.vipp.com/en-us/content/contact">Contact</a></li>
             <li><a href="http://eepurl.com/bG5Zhv">Newsletter</a></li>
