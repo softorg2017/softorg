@@ -65,7 +65,7 @@ class SoftorgRepository {
 
 
 
-    // 返回（前台）主页视图
+    // 返回（前台）【主页】视图
     public function view_index($org)
     {
         $query = Softorg::with([
@@ -87,7 +87,7 @@ class SoftorgRepository {
     }
 
 
-    // 返回（前台）产品页视图
+    // 返回（前台）【产品】页视图
     public function view_product($org)
     {
 //        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
@@ -103,7 +103,7 @@ class SoftorgRepository {
         }
         else dd("企业不存在");
     }
-    // 返回（前台）产品详情页视图
+    // 返回（前台）【产品】详情页视图
     public function view_product_detail()
     {
         $encode_id = request('id');
@@ -119,7 +119,7 @@ class SoftorgRepository {
     }
 
 
-    // 返回（前台）活动页视图
+    // 返回（前台）【活动】页视图
     public function view_activity($org)
     {
 //        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
@@ -135,7 +135,7 @@ class SoftorgRepository {
         }
         else dd("企业不存在");
     }
-    // 返回（前台）活动详情页视图
+    // 返回（前台）【活动详情页视图
     public function view_activity_detail()
     {
         $encode_id = request('id');
@@ -151,7 +151,7 @@ class SoftorgRepository {
     }
 
 
-    // 返回（前台）幻灯片列表页视图
+    // 返回（前台）【幻灯片】列表页视图
     public function view_slide($org)
     {
         $query = Softorg::with(['administrators','websites',
@@ -166,7 +166,7 @@ class SoftorgRepository {
         }
         else dd("企业不存在");
     }
-    // 返回（前台）幻灯片详情页视图
+    // 返回（前台）【幻灯片】详情页视图
     public function view_slide_detail()
     {
         $encode_id = request('id');
@@ -184,7 +184,7 @@ class SoftorgRepository {
     }
 
 
-    // 返回（前台）调研列表页视图
+    // 返回（前台）【调研问卷】列表页视图
     public function view_survey($org)
     {
         $query = Softorg::with(['administrators','websites',
@@ -199,7 +199,7 @@ class SoftorgRepository {
         }
         else dd("企业不存在");
     }
-    // 返回（前台）调研详情页视图
+    // 返回（前台）【调研问卷】详情页视图
     public function view_survey_detail()
     {
         $encode_id = request('id');
@@ -217,7 +217,7 @@ class SoftorgRepository {
     }
 
 
-    // 返回（前台）文章列表页视图
+    // 返回（前台）【文章】列表页视图
     public function view_article($org)
     {
 //        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
@@ -233,7 +233,7 @@ class SoftorgRepository {
         }
         else dd("企业不存在");
     }
-    // 返回（前台）文章详情页视图
+    // 返回（前台）【文章】详情页视图
     public function view_article_detail()
     {
         $encode_id = request('id');

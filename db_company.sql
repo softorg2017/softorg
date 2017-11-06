@@ -2,6 +2,7 @@
 
 SET FOREIGN_KEY_CHECKS=0;
 
+
 DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -421,6 +422,7 @@ CREATE TABLE `records` (
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1.主页 2.录目 3.详情页',
   `sort` varchar(64) NOT NULL DEFAULT '0',
   `form` int(11) NOT NULL DEFAULT '0',
+  `org_id` int(11) NOT NULL DEFAULT '0',
   `page_id` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '0.游客',
   `created_at` int(11) DEFAULT NULL COMMENT '创建时间',
