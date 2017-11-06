@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="box-body">
+            <div class="box-body" id="product-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
@@ -163,7 +163,7 @@
                         'orderable': false,
                         render: function(val) {
                             return val == 1
-                                    ? '<small class="label bg-red">启</small>'
+                                    ? '<small class="label bg-green">启</small>'
                                     : '<small class="label bg-red">禁</small>';
                         }
                     },
@@ -199,8 +199,8 @@
                                     '<ul class="dropdown-menu" role="menu">'+
                                     '<li><a href="/admin/product/edit?id='+value+'">编辑</a></li>'+
                                     '<li><a class="product-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a href="#">启用</a></li>'+
-                                    '<li><a href="#">禁用</a></li>'+
+                                    '<li><a class="product-enable-submit" data-id="'+value+'">启用</a></li>'+
+                                    '<li><a class="product-disable-submit" data-id="'+value+'">禁用</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+
@@ -280,8 +280,8 @@
 <script>
     $(function() {
 
-        // 删除产品
-        $(document).on('click', ".product-delete-submit", function() {
+        // 【删除】 产品
+        $("#product-main-body").on('click', ".product-delete-submit", function() {
             var that = $(this);
             layer.msg('确定要删除该"产品"么', {
                 time: 0
@@ -289,6 +289,52 @@
                 ,yes: function(index){
                     $.post(
                             "/admin/product/delete",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
+        // 【启用】 产品
+        $("#product-main-body").on('click', ".product-enable-submit", function() {
+            var that = $(this);
+            layer.msg('确定启用该"产品"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/product/enable",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
+        // 【禁用】 产品
+        $("#product-main-body").on('click', ".product-disable-submit", function() {
+            var that = $(this);
+            layer.msg('确定禁用该"产品"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/product/disable",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')

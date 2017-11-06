@@ -117,32 +117,47 @@
                     </div>
                 </div>
 
+                <div id="sortable">
                 @foreach($data->pages as $v)
                 <div class="box-body page-container page-option" data-id="{{$v->encode_id or ''}}">
-                    {{--标题--}}
+                    {{--信息--}}
                     <div class="form-group">
                         <input type="hidden" name="page[{{$v->order}}][id]" value="{{$v->id or ''}}">
-                        <label class="control-label col-md-2">幻灯页名称</label>
-                        <div class="col-md-8">
-                            <div><input type="text" class="form-control" name="page[{{$v->order}}][name]" placeholder="请输入幻灯页名称" value="{{$v->name or ''}}"></div>
+                        <label class="col-md-8 col-md-offset-2">幻灯页 ({{$loop->index+1}})</label>
+                    </div>
+                    {{--标题--}}
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="control-label col-md-2">名称</label>
+                            <div class="col-md-8"><input type="text" readonly class="form-control" name="" value="{{$v->name or ''}}"></div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-md-2">标题</label>
+                            <div class="col-md-8"><input type="text" readonly class="form-control" name="" value="{{$v->title or ''}}"></div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-md-2">描述</label>
+                            <div class="col-md-8"><input type="text" readonly class="form-control" name="" value="{{$v->description or ''}}"></div>
                         </div>
                     </div>
                     {{--操作--}}
                     <div class="form-group">
                         <div class="col-md-8 col-md-offset-2">
                             <a href="/admin/slide/page/edit/{{$v->encode_id or ''}}" target="_blank">
-                                <button type="button" class="btn btn-xs btn-primary edit-this-page">编辑内容</button>
+                                <button type="button" class="btn btn-sm btn-primary edit-this-page">编辑该页</button>
                             </a>
-                            <button type="button" class="btn btn-xs btn-success create-next-page">添加</button>
                             @if(false)
+                            <button type="button" class="btn btn-xs btn-success create-next-page">添加</button>
                             <button type="button" class="btn btn-xs btn-danger delete-this-page">删除</button>
-                            @endif
                             <button type="button" class="btn btn-xs moveup-this-page">上移</button>
                             <button type="button" class="btn btn-xs movedown-this-page">下移</button>
+                            @endif
                         </div>
                     </div>
                 </div>
                 @endforeach
+                </div>
+
             </div>
             </form>
 
@@ -214,6 +229,7 @@ $(function() {
         var html = page_html(key);
         $('.page-container:last').after(html);
         $('.page-option').show();
+        $('.input-focus').focus();
     });
     $(".delete-all-page").on('click', function () {
         $(".page-option").remove();
@@ -240,6 +256,9 @@ $(function() {
         else that.next().after(that);
     });
 
+    // 排序
+    $("#sortable").sortable();
+
 });
 
 
@@ -250,18 +269,20 @@ function page_html(key)
             '<div class="box-body page-container page-option">'+
                 '<div class="form-group">'+
                     '<input type="hidden" name="page['+key+'][id]">'+
-                        '<label class="control-label col-md-2">幻灯页名称</label>'+
+                        '<label class="control-label col-md-2">添加幻灯页</label>'+
                         '<div class="col-md-8">'+
-                            '<div><input type="text" class="form-control" name="page['+key+'][name]" placeholder="请输入名称"></div>'+
+                            '<div><input type="text" class="form-control input-focus" name="page['+key+'][name]" placeholder="请输入名称"></div>'+
+                            '<div><input type="text" class="form-control" name="page['+key+'][title]" placeholder="请输入标题"></div>'+
+                            '<div><input type="text" class="form-control" name="page['+key+'][description]" placeholder="请输入说明"></div>'+
                         '</div>'+
                 '</div>'+
                 '<div class="form-group">'+
                     '<div class="col-md-8 col-md-offset-2">'+
-//                        '<button type="button" class="btn btn-xs btn-primary edit-this-page">编辑内容</button>'+
-                        '<button type="button" class="btn btn-xs btn-success create-next-page">添加</button>'+
-                        '<button type="button" class="btn btn-xs btn-danger delete-this-page">删除</button>'+
-                        '<button type="button" class="btn btn-xs moveup-this-page">上移</button>'+
-                        '<button type="button" class="btn btn-xs movedown-this-page">下移</button>'+
+//                        '<button type="button" class="btn btn-sm btn-primary edit-this-page">编辑内容</button>'+
+//                        '<button type="button" class="btn btn-sm btn-success create-next-page">添加</button>'+
+                        '<button type="button" class="btn btn-sm btn-danger delete-this-page">取消添加</button>'+
+//                        '<button type="button" class="btn btn-sm moveup-this-page">上移</button>'+
+//                        '<button type="button" class="btn btn-sm movedown-this-page">下移</button>'+
                     '</div>'+
                 '</div>'+
             '</div>';

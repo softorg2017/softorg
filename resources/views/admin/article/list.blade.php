@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="box-body">
+            <div class="box-body" id="article-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
@@ -158,7 +158,7 @@
                         'orderable': false,
                         render: function(val) {
                             return val == 1
-                                    ? '<small class="label bg-red">启</small>'
+                                    ? '<small class="label bg-green">启</small>'
                                     : '<small class="label bg-red">禁</small>';
                         }
                     },
@@ -194,8 +194,8 @@
                                     '<ul class="dropdown-menu" role="menu">'+
                                     '<li><a href="/admin/article/edit?id='+value+'">编辑</a></li>'+
                                     '<li><a class="article-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a href="#">启用</a></li>'+
-                                    '<li><a href="#">禁用</a></li>'+
+                                    '<li><a class="article-enable-submit" data-id="'+value+'">启用</a></li>'+
+                                    '<li><a class="article-disable-submit" data-id="'+value+'">禁用</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+
@@ -275,8 +275,8 @@
 <script>
     $(function() {
 
-        // 删除文章
-        $(document).on('click', ".article-delete-submit", function() {
+        // 【删除】 文章
+        $("#article-main-body").on('click', ".article-delete-submit", function() {
             var that = $(this);
             layer.msg('确定要删除该"文章"么', {
                 time: 0
@@ -284,6 +284,52 @@
                 ,yes: function(index){
                     $.post(
                             "/admin/article/delete",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
+        // 【启用】 文章
+        $("#article-main-body").on('click', ".article-enable-submit", function() {
+            var that = $(this);
+            layer.msg('确定启用该"文章"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/article/enable",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
+        // 【禁用】 文章
+        $("#article-main-body").on('click', ".article-disable-submit", function() {
+            var that = $(this);
+            layer.msg('确定禁用该"文章"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/article/disable",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')

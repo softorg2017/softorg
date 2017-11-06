@@ -131,6 +131,36 @@ class SlideRepository {
         else return response_success();
     }
 
+    // 启用
+    public function enable($post_data)
+    {
+        $admin = Auth::guard('admin')->user();
+        $id = decode($post_data["id"]);
+        if(intval($id) !== 0 && !$id) return response_error([],"该幻灯片不存在，刷新页面试试");
+
+        $slide = Slide::find($id);
+        if($slide->admin_id != $admin->id) return response_error([],"你没有操作权限");
+        $update["active"] = 1;
+        $bool = $slide->fill($update)->save();
+        if(!$bool) return response_fail([],"启用失败，请重试");
+        else return response_success();
+    }
+
+    // 禁用
+    public function disable($post_data)
+    {
+        $admin = Auth::guard('admin')->user();
+        $id = decode($post_data["id"]);
+        if(intval($id) !== 0 && !$id) return response_error([],"该幻灯片不存在，刷新页面试试");
+
+        $slide = Slide::find($id);
+        if($slide->admin_id != $admin->id) return response_error([],"你没有操作权限");
+        $update["active"] = 9;
+        $bool = $slide->fill($update)->save();
+        if(!$bool) return response_fail([],"禁用失败，请重试");
+        else return response_success();
+    }
+
 
 
 }

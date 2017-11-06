@@ -98,6 +98,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
             Route::post('delete', $controller.'@deleteAction');
+            Route::post('enable', $controller.'@enableAction');
+            Route::post('disable', $controller.'@disableAction');
         });
 
         // 目录模块
@@ -122,6 +124,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
             Route::post('delete', $controller.'@deleteAction');
+            Route::post('enable', $controller.'@enableAction');
+            Route::post('disable', $controller.'@disableAction');
         });
 
         // 幻灯片模块
@@ -134,6 +138,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit/{id?}', $controller.'@editAction');
             Route::post('delete', $controller.'@deleteAction');
+            Route::post('enable', $controller.'@enableAction');
+            Route::post('disable', $controller.'@disableAction');
 
             // 幻灯页模块
             Route::group(['prefix' => 'page'], function () {
@@ -160,9 +166,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'edit', $controller.'@editAction');
             Route::post('sort', $controller.'@sortAction');
             Route::post('delete', $controller.'@deleteAction');
+            Route::post('enable', $controller.'@enableAction');
+            Route::post('disable', $controller.'@disableAction');
         });
 
-        // 调研
+        // 问题
         Route::group(['prefix' => 'question'], function () {
             $controller = "QuestionController";
             
@@ -181,6 +189,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
             Route::post('delete', $controller.'@deleteAction');
+            Route::post('enable', $controller.'@enableAction');
+            Route::post('disable', $controller.'@disableAction');
         });
 
         // 回答模块

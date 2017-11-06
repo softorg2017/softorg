@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="box-body">
+            <div class="box-body" id="activity-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
@@ -178,7 +178,7 @@
                         'orderable': false,
                         render: function(val) {
                             return val == 1
-                                    ? '<small class="label bg-red">启</small>'
+                                    ? '<small class="label bg-green">启</small>'
                                     : '<small class="label bg-red">禁</small>';
                         }
                     },
@@ -214,8 +214,8 @@
                                     '<ul class="dropdown-menu" role="menu">'+
                                     '<li><a href="/admin/activity/edit?id='+value+'">编辑</a></li>'+
                                     '<li><a class="activity-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a href="#">启用</a></li>'+
-                                    '<li><a href="#">禁用</a></li>'+
+                                    '<li><a class="activity-enable-submit" data-id="'+value+'">启用</a></li>'+
+                                    '<li><a class="activity-disable-submit" data-id="'+value+'">禁用</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+
@@ -295,8 +295,8 @@
 <script>
     $(function() {
 
-        // 删除活动
-        $(document).on('click', ".activity-delete-submit", function() {
+        // 【删除】 活动
+        $("#activity-main-body").on('click', ".activity-delete-submit", function() {
             var that = $(this);
             layer.msg('确定要删除该"活动"么', {
                 time: 0
@@ -304,6 +304,52 @@
                 ,yes: function(index){
                     $.post(
                             "/admin/activity/delete",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
+        // 【启用】 活动
+        $("#activity-main-body").on('click', ".activity-enable-submit", function() {
+            var that = $(this);
+            layer.msg('确定启用该"活动"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/activity/enable",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
+        // 【禁用】 活动
+        $("#activity-main-body").on('click', ".activity-disable-submit", function() {
+            var that = $(this);
+            layer.msg('确定禁用该"活动"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/activity/disable",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')

@@ -194,10 +194,10 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2">
                                     <a href="/admin/slide/page/edit/{{$v->encode_id or ''}}" target="_blank">
-                                        <button type="button" class="btn btn-xs btn-primary edit-this-page">编辑内容</button>
+                                        <button type="button" class="btn btn-sm btn-primary edit-this-page">编辑问题</button>
                                     </a>
                                     @if(false)
-                                        <button type="button" class="btn btn-xs btn-danger delete-this-question">删除</button>
+                                        <button type="button" class="btn btn-sm btn-danger delete-this-question">删除</button>
                                     @endif
                                 </div>
                             </div>

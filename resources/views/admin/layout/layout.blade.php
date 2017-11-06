@@ -48,6 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('css/common.css')}}">
+    <link rel="stylesheet" href="{{asset('css/admin/index.css')}}">
 
     @yield('style')
 
@@ -83,7 +84,7 @@ desired effect
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>轻</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>轻机构</b></span>
+            <span class="logo-lg"><b>Softorg</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -303,7 +304,7 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href=""><i class="fa fa-th"></i> <span>产品管理</span>
+                    <a href=""><i class="fa fa-th"></i> <span>业务/产品管理</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>

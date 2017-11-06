@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="box-body">
+            <div class="box-body" id="survey-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
@@ -40,6 +40,7 @@
                         <th>名称</th>
                         <th>描述</th>
                         <th>类型</th>
+                        <th>管理员</th>
                         <th>回答次数</th>
                         <th>状态</th>
                         <th>创建时间</th>
@@ -165,7 +166,7 @@
                         'orderable': false,
                         render: function(val) {
                             return val == 1
-                                    ? '<small class="label bg-red">启</small>'
+                                    ? '<small class="label bg-green">启</small>'
                                     : '<small class="label bg-red">禁</small>';
                         }
                     },
@@ -200,9 +201,9 @@
                                     '</button>'+
                                     '<ul class="dropdown-menu" role="menu">'+
                                     '<li><a href="/admin/survey/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a class="survey-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a href="#">启用</a></li>'+
-                                    '<li><a href="#">禁用</a></li>'+
+                                    '<li><a class="survey-delete-submit" data-id="'+value+'">删除</a></li>'+
+                                    '<li><a class="survey-enable-submit" data-id="'+value+'">启用</a></li>'+
+                                    '<li><a class="survey-disable-submit" data-id="'+value+'">禁用</a></li>'+
                                     '<li><a href="/admin/answer/analysis?type=survey&id='+value+'">数据分析</a></li>'+
                                     '<li><a href="/admin/answer/list?type=survey&id='+value+'">回答列表</a></li>'+
                                     '<li class="divider"></li>'+
@@ -284,10 +285,10 @@
 <script>
     $(function() {
 
-        // 删除调研问卷
-        $(document).on('click', ".survey-delete-submit", function() {
+        // 【删除】 调研问卷
+        $("#survey-main-body").on('click', ".survey-delete-submit", function() {
             var that = $(this);
-            layer.msg('确定要删除该"问卷"么', {
+            layer.msg('确定删除该"问卷"？', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
@@ -306,6 +307,53 @@
                 }
             });
         });
+
+        // 【启用】 调研问卷
+        $("#survey-main-body").on('click', ".survey-enable-submit", function() {
+            var that = $(this);
+            layer.msg('确定启用该"问卷"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/survey/enable",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
+        // 【禁用】 调研问卷
+        $("#survey-main-body").on('click', ".survey-disable-submit", function() {
+            var that = $(this);
+            layer.msg('确定禁用该"问卷"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                            "/admin/survey/disable",
+                            {
+                                _token: $('meta[name="_token"]').attr('content'),
+                                id:that.attr('data-id')
+                            },
+                            function(data){
+                                if(!data.success) layer.msg(data.msg);
+                                else location.reload();
+                            },
+                            'json'
+                    );
+                }
+            });
+        });
+
 
     });
 </script>

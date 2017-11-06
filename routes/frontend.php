@@ -15,6 +15,10 @@ Route::group(['prefix' => 'frontend'], function () {
     })->name('frontend.detail');
 
     Route::get('/index-new',function(){
-        return view('frontend.theme.home.index')
-    })
+        return view('frontend.theme.home.index');
+    });
+
+    Route::get('/index-vipp',function(){
+        return view('front.vipp.home.index');
+    });
 });
