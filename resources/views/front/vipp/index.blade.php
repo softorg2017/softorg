@@ -18,7 +18,7 @@
     <meta property="og:updated_time" content="2017-11-01T13:12:48+01:00" />
     <meta property="article:published_time" content="2017-06-20T09:38:22+02:00" />
     <meta property="article:modified_time" content="2017-11-01T13:12:48+01:00" />
-    <title>首页</title>
+    <title>{{$org->name or '首页'}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="google" content="notranslate" />
     <link rel="shortcut icon" href="https://www.vipp.com/sites/all/themes/vipp/assets/img/favicons/favicon.ico">
@@ -72,15 +72,15 @@
         <div class="top primary menu sticky">
             <div class="wrap">
                 <a fade-onload href="https://www.vipp.com/en-us" title="Home" rel="home" id="logo">
-<img class="logo logo-black" src="https://www.vipp.com/sites/all/themes/vipp/logo.svg" alt="Home"/>
-<img class="logo logo-white" src="https://www.vipp.com/sites/all/themes/vipp/logo_white.svg" alt="Home"/>
-</a>
+                    <img class="logo logo-black" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
+                    <img class="logo logo-white" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
+                </a>
                 <div class="right" fade-onload>
-                    <a href="org//product" class="hidden-sm text-item">产品</a>
-                    <a href="org//activity" class="hidden-sm text-item">活动</a>
-                    <a href="org//survey" class="hidden-sm text-item">问卷</a>
-                    <a href="org//article" class="hidden-sm text-item">文章</a>
-                    <a href="https://www.vipp.com/en-us/cart">
+                    <a href="/org/{{$org->website_name or '1'}}/product" class="hidden-sm text-item">产品</a>
+                    <a href="/org/{{$org->website_name or '1'}}/activity" class="hidden-sm text-item">活动</a>
+                    <a href="/org/{{$org->website_name or '1'}}/survey" class="hidden-sm text-item">问卷</a>
+                    <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-sm text-item">文章</a>
+                    <a href="https://www.vipp.com/en-us/cart" style="display: none;">
                         <img class="basket-icn basket-icn--black" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-basket,402x.png.pagespeed.ic.eypaa_o6wG.webp" alt="basket">
                         <img class="basket-icn basket-icn--white" src="data:image/webp;base64,UklGRtwAAABXRUJQVlA4TM8AAAAvHMAFEP+BoG3bmD/pbc9BzP/8s20kSWr+umfuAQ8P4aK2bRsGnnpyB8YMCChEARaKjQdFMREAEYAb4sMLMBEUE0HwA2yAYPYbEvsAIUTLAQBXkm2bznovtl/8YtvOmf+4onOj74j+TwDPRkr9w2lQjqIan2/PcjkuVo5GcLzpFEKBXLu7jikUpekHCAx7rkJLMtzNL0cKewnfC19PCiI8FHkXMbn7R3YmpjRMuDgmUvi2ejMb6npVIKuXBLxrrakNUNOqcJvWStzxLHQmFgAA" alt="basket">
                         <span id="number-item-in-cart"></span>
@@ -99,43 +99,36 @@
         <ul class="main menu-level menu-current menu-in">
             <li>
                 <div>
-                    <img class="logo" src="https://www.vipp.com/sites/all/themes/vipp/xlogo.png.pagespeed.ic.xrGDJOuAF8.webp" alt="Home">
+                    <img class="logo" src="" alt="{{$org->short or 'Home'}}">
                 </div>
                 <div>
-                    <img class="basket-icn" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-basket,402x.png.pagespeed.ic.eypaa_o6wG.webp" alt="basket">
+                    <img class="logo" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}">
                 </div>
             </li>
             <li>
                 <ul class="first-nav">
-                    <li><a href="@yield('index-url')/product" class="big-txt" data-submenu="submenu-1">产品<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/product" class="big-txt" data-submenu="submenu-1">产品<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="@yield('index-url')/activity" class="big-txt">活动<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/activity" class="big-txt">活动</a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="@yield('index-url')/survey" class="big-txt">调研问卷<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/survey" class="big-txt">问卷</a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="@yield('index-url')/article" class="big-txt" data-submenu="submenu-2">文章<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/article" class="big-txt" data-submenu="submenu-2">文章</a></li>
                     <li class="padder">&nbsp;</li>
                 </ul>
             </li>
             <li class="padder">&nbsp;</li>
             <li>
                 <ul class="second-nav">
-                    <li><a href="https://www.vipp.com/en-us/content/contact" class="">Contact</a></li>
-                    <li><a href="https://www.vipp.com/en-us/content/press" class="">Press</a></li>
-                    <li><a href="https://www.vipp.com/en-us/content/partners" class="">Partners</a></li>
-                    <li><a href="https://www.vipp.com/en-us/content/about-vipp" class="">About Vipp</a></li>
-                    <li><a href="https://www.vipp.com/en-us/content/store-locator" class="">Store locator</a></li>
-                    <li><a href="https://www.vipp.com/en-us/user" class="">My account</a></li>
+                    <li><a href="#" class="">Contact</a></li>
+                    <li><a href="#" class="">Press</a></li>
+                    <li><a href="#" class="">Partners</a></li>
+                    <li><a href="#" class="">About Vipp</a></li>
+                    <li><a href="#" class="">Store locator</a></li>
+                    <li><a href="#" class="">关于我们</a></li>
                 </ul>
             </li>
             <li class="padder">&nbsp;</li>
-            <li>
-                <ul class="third-nav">
-                    <li><a href="#" data-submenu="submenu-3" class="normal-txt">
-English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
-                    <li><a href="#" data-submenu="submenu-4" class="normal-txt">United States – USD<img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-right.png.pagespeed.ic.VqnBNRFswJ.webp" alt="arrow"></a></li>
-                </ul>
-            </li>
         </ul>
         <ul class="tray-menu--submenu menu-level submenu-1">
             <li>
@@ -246,6 +239,7 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
             </div>
         </ul>
     </div>
+    {{--main--}}
     <div class="wrapper-main-content">
         <div class="container-fluid ">
             <div class="row full has-fold">
@@ -254,7 +248,7 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                         <div class="hero-product-container-xs" style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-black-topview-0.jpg.pagespeed.ic.uIVjfVKkYq.webp)">
                         </div>
                         <div class="hero-product-description white" fade-onload>
-                            <h4>Pedal bin 14 L / 4 gal - USD 349.00</h4>
+                            <h4>{{$org->slogan or ''}}</h4>
                             <h1 class="hero-heading">{{$org->name or 'name'}}</h1>
                             <a href="https://www.vipp.com/en-us/node/241" class="btn-md"><span>SHOP NOW</span></a>
                         </div>
@@ -267,11 +261,12 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>产品展示</h3>
-                            <a href="https://www.vipp.com/en-us/shop/bins" class="hidden-xs">更多产品</a>
+                            <a href="/org/{{$org->website_name or '1'}}/product" class="hidden-xs">更多产品</a>
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->products as $v)
                             <li class="col-md-6 ">
-                                <a href="https://www.vipp.com/en-us/products/pedal-bin-8-l-2-gal">
+                                <a href="{{url('/product?id=').encode($v->id)}}">
                                     <div class="item ">
                                         <div class="mo">
                                             <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-14-pedal-bin-1.jpg.pagespeed.ic.wFQ-DleBAd.webp)">
@@ -279,8 +274,8 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <span>产品1</span>
-                                            <span class="price">说明1</span>
+                                            <span>{{$v->title or ''}}</span>
+                                            <span class="price">{{$v->description or ''}}</span>
                                         </div>
                                         <div class="container portrait">
                                             <div class="img-wrapper">
@@ -288,7 +283,7 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <p class="seriesnumber">Vipp14</p>
+                                            <p class="seriesnumber">产品</p>
                                             <div class="color-indicator">
                                                 <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
                                                 <div class="color" style="background: #000000; border-color: #000000 ;"></div>
@@ -297,8 +292,9 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                     </div>
                                 </a>
                             </li>
+                            @endforeach
                         </ul>
-                        <a href="https://www.vipp.com/en-us/shop/bins" class="view-more visible-xs">更多产品</a>
+                        <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs">更多产品</a>
                     </div>
                 </div>
             </div>
@@ -308,11 +304,12 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>活动</h3>
-                            <a href="https://www.vipp.com/en-us/shop/kitchen" class="hidden-xs">更多活动</a>
+                            <a href="/org/{{$org->website_name or '1'}}/activity" class="hidden-xs">更多活动</a>
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->activities as $v)
                             <li class="col-md-6">
-                                <a href="https://www.vipp.com/en-us/products/breadbox">
+                                <a href="{{url('/activity?id=').encode($v->id)}}">
                                     <div class="item no-hover">
                                         <div class="mo">
                                             <div class="super-img" nid style="background-image: url('');">
@@ -320,8 +317,8 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <span>Breadbox</span>
-                                            <span class="price">USD 229.00</span>
+                                            <span>{{$v->title or ''}}</span>
+                                            <span class="price">{{$v->description or ''}}</span>
                                         </div>
                                         <div class="container landscape">
                                             <div class="img-wrapper">
@@ -329,7 +326,7 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <p class="seriesnumber">Vipp270</p>
+                                            <p class="seriesnumber">活动</p>
                                             <div class="color-indicator">
                                                 <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
                                                 <div class="color" style="background: #000000; border-color: #000000 ;"></div>
@@ -338,33 +335,9 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                     </div>
                                 </a>
                             </li>
-                            <li class="col-md-6">
-                                <a href="https://www.vipp.com/en-us/products/trivet">
-                                    <div class="item no-hover">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image: url('');">
-                                                <img src="">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Trivet 2 pcs.</span>
-                                            <span class="price">USD 85.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-268-trivet-3_0.jpg.pagespeed.ic.LJkxOeapw8.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp268</p>
-                                            <div class="color-indicator">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
-                        <a href="https://www.vipp.com/en-us/shop/kitchen" class="view-more visible-xs">更多活动</a>
+                        <a href="/org/{{$org->website_name or '1'}}/activity" class="view-more visible-xs">更多活动</a>
                     </div>
                 </div>
             </div>
@@ -374,45 +347,21 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>问卷</h3>
-                            <a href="https://www.vipp.com/en-us/shop/lighting" class="hidden-xs">更多</a>
+                            <a href="/org/{{$org->website_name or '1'}}/survey" class="hidden-xs">更多</a>
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->surveys as $v)
                             <li class="col-md-6 ">
-                                <a href="https://www.vipp.com/en-us/products/pendant">
+                                <a href="{{url('/survey?id=').encode($v->id)}}">
                                     <div class="item ">
                                         <div class="mo">
                                             <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-526-pendant-detail_0.jpg.pagespeed.ic.Z1bcj6PfFZ.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-526-pendant-detail_0.jpg.pagespeed.ic.Z1bcj6PfFZ.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Pendant</span>
-                                            <span class="price">USD 500.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-526-pendant_0.jpg.pagespeed.ic.s5r5Ai2kAR.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp526</p>
-                                            <div class="color-indicator">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="col-md-6 ">
-                                <a href="https://www.vipp.com/en-us/products/wall-lamp">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-522-wall-lamp_0.jpg.pagespeed.ic.zcqIwLxVko.webp)">
                                                 <img src="https://www.vipp.com/sites/default/files/xvipp-522-wall-lamp_0.jpg.pagespeed.ic.zcqIwLxVko.webp">
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <span>Wall lamp</span>
-                                            <span class="price">USD 425.00</span>
+                                            <span>{{$v->title or ''}}</span>
+                                            <span class="price">调研问卷</span>
                                         </div>
                                         <div class="container portrait">
                                             <div class="img-wrapper">
@@ -420,70 +369,20 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <p class="seriesnumber">Vipp522</p>
+                                            <p class="seriesnumber">{{$v->description or ''}}</p>
                                             <div class="color-indicator">
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                             </li>
-                            <li class="col-md-6 ">
-                                <a href="https://www.vipp.com/en-us/products/desk-lamp">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-521-desk-lamp-0.jpg.pagespeed.ic.aQY9rykyS-.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-521-desk-lamp-0.jpg.pagespeed.ic.aQY9rykyS-.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Desk lamp</span>
-                                            <span class="price">USD 500.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-521-table-lamp-3_0.jpg.pagespeed.ic.kzLLKV0LDr.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp521</p>
-                                            <div class="color-indicator">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="col-md-6 ">
-                                <a href="https://www.vipp.com/en-us/products/wall-spot">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/vipp-524-wall-spot-black-interior-1-00.jpg)">
-                                                <img src="https://www.vipp.com/sites/default/files/vipp-524-wall-spot-black-interior-1-00.jpg">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Wall spot</span>
-                                            <span class="price">USD 325.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-524-wall-spot-black-3_0.jpg.pagespeed.ic.cUyG23A8aK.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp524</p>
-                                            <div class="color-indicator">
-                                                <div class="color" style="background: #000000; border-color: #000000 ;"></div>
-                                                <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
-                        <a href="https://www.vipp.com/en-us/shop/lighting" class="view-more visible-xs">View lighting</a>
+                        <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs">View lighting</a>
                     </div>
                 </div>
             </div>
+            {{--2栏--}}
             <div class="row full collection-teaser slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
@@ -515,41 +414,17 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                 </div>
             </div>
             {{--3栏--}}
-            <div class="row full wrapper-content product-column product-four-column product-four-column--wide slide-to-top">
+            <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>文章</h3>
-                            <a href="https://www.vipp.com/en-us/shop/furniture" class="hidden-xs">更多文章</a>
+                            <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-xs">更多文章</a>
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->articles as $v)
                             <li class="col-md-6">
-                                <a href="https://www.vipp.com/en-us/products/bath-module-large">
-                                    <div class="item no-hover">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image: url('');">
-                                                <img src="">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Bath module, large</span>
-                                            <span class="price">USD 7,250.00</span>
-                                        </div>
-                                        <div class="container landscape">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-983-bath-module.jpg.pagespeed.ic.l3z_SxpG4r.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp983</p>
-                                            <div class="color-indicator">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="col-md-6">
-                                <a href="https://www.vipp.com/en-us/products/rack-tall">
+                                <a href="{{url('/article?id=').encode($v->id)}}">
                                     <div class="item ">
                                         <div class="mo">
                                             <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-473-rack-interior-0.jpg.pagespeed.ic.hBsfdHPEoP.webp)">
@@ -557,8 +432,8 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <span>Rack, tall</span>
-                                            <span class="price">USD 3,999.00</span>
+                                            <span>{{$v->title or ''}}</span>
+                                            <span class="price">文章</span>
                                         </div>
                                         <div class="container portrait">
                                             <div class="img-wrapper">
@@ -566,40 +441,16 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
                                             </div>
                                         </div>
                                         <div class="line">
-                                            <p class="seriesnumber">Vipp475</p>
+                                            <p class="seriesnumber">{{$v->description or ''}}</p>
                                             <div class="color-indicator">
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                             </li>
-                            <li class="col-md-6">
-                                <a href="https://www.vipp.com/en-us/products/side-table">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-421-side-table-interior-0.jpg.pagespeed.ic.1J0THFg2Uv.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-421-side-table-interior-0.jpg.pagespeed.ic.1J0THFg2Uv.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <span>Side table</span>
-                                            <span class="price">USD 399.00</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-421-side-table-1_0.jpg.pagespeed.ic._nJfiTgg2Y.webp">
-                                            </div>
-                                        </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">Vipp421</p>
-                                            <div class="color-indicator">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
-                        <a href="https://www.vipp.com/en-us/shop/furniture" class="view-more visible-xs">View furniture</a>
+                        <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs">更多文章</a>
                     </div>
                 </div>
             </div>
@@ -773,7 +624,7 @@ English US <img class="icon-arrow" src="https://www.vipp.com/sites/all/themes/vi
         <div class="term">
             <a href="https://www.vipp.com/en-us/content/terms-and-conditions">Terms and conditions</a> </div>
     </div>
-    <div id="cookie" class="clearfix">
+    <div id="cookie" class="clearfix" style="display: none;">
         <div class="f_left">
             <p>We use cookies to improve our site and your shopping experience. By continuing to browse our site you accept our cookie policy. <a href="https://www.vipp.com/en-us/content/terms-and-conditions" target="_blank">Find out more&nbsp;</a></p>
         </div>

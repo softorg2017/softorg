@@ -38,12 +38,14 @@
                         <th>类型</th>
                         <th>目录</th>
                         <th>管理员</th>
+                        <th>浏览次数</th>
                         <th>状态</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -156,6 +158,13 @@
                         'orderable': false,
                         render: function(data, type, row, meta) {
                             return row.admin == null ? '未知' : row.admin.nickname;
+                        }
+                    },
+                    {
+                        'data': 'visit_num',
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? 0 : val;
                         }
                     },
                     {

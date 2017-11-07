@@ -19,6 +19,6 @@ Route::group(['prefix' => 'frontend'], function () {
     });
 
     Route::get('/index-vipp',function(){
-        return view('front.vipp.home.index');
+        return view('front.vipp.index');
     });
 });

@@ -4,7 +4,10 @@
 
         'view' => [
             'front' => [
-                'template' => 'online'
+                'template' => 'online',
+                'index' => 'vipp',
+                'list' => 'online',
+                'detail' => 'online'
             ],
         ],
 

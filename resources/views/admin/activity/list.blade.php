@@ -41,12 +41,14 @@
                         <th>管理员</th>
                         <th>开始时间</th>
                         <th>结束时间</th>
+                        <th>浏览次数</th>
                         <th>状态</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -171,6 +173,13 @@
                             newDate = new Date();
                             newDate.setTime(data * 1000);
                             return newDate.toLocaleString('chinese',{hour12:false});
+                        }
+                    },
+                    {
+                        'data': 'visit_num',
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? 0 : val;
                         }
                     },
                     {

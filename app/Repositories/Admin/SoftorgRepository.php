@@ -92,7 +92,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.index')->with('org',$org);
+            return view('front.'.config('common.view.front.index').'.index')->with('org',$org);
         }
         else dd("企业不存在");
     }
@@ -118,7 +118,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.product.list')->with('org',$org);
+            return view('front.'.config('common.view.front.list').'.product.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
@@ -143,7 +143,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.product.detail')->with('data',$product);
+            return view('front.'.config('common.view.front.detail').'.product.detail')->with('data',$product);
         }
         else dd("产品不存在");
     }
@@ -168,7 +168,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.activity.list')->with('org',$org);
+            return view('front.'.config('common.view.front.list').'.activity.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
@@ -193,7 +193,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.activity.detail')->with('data',$activity);
+            return view('front.'.config('common.view.front.detail').'.activity.detail')->with('data',$activity);
         }
         else dd("活动不存在");
     }
@@ -218,7 +218,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.slide.list')->with('org',$org);
+            return view('front.'.config('common.view.front.list').'.slide.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
@@ -245,7 +245,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.slide.detail')->with('data',$slide);
+            return view('front.'.config('common.view.front.detail').'.slide.detail')->with('data',$slide);
         }
         else dd("幻灯片不存在");
     }
@@ -270,7 +270,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.survey.list')->with('org',$org);
+            return view('front.'.config('common.view.front.list').'.survey.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
@@ -297,7 +297,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.survey.detail')->with('data',$survey);
+            return view('front.'.config('common.view.front.detail').'.survey.detail')->with('data',$survey);
         }
         else dd("调研不存在");
     }
@@ -323,7 +323,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.article.list')->with('org',$org);
+            return view('front.'.config('common.view.front.list').'.article.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
@@ -348,7 +348,7 @@ class SoftorgRepository {
             $record["ip"] = Get_IP();
             $this->record($record);
 
-            return view('front.'.config('common.view.front.template').'.article.detail')->with('data',$article);
+            return view('front.'.config('common.view.front.detail').'.article.detail')->with('data',$article);
         }
         else dd("文章不存在");
     }
