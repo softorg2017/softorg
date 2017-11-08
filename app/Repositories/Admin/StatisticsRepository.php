@@ -46,8 +46,31 @@ class StatisticsRepository {
                 ->where($where)
                 ->get();
 
+            $open_type = Record::select('open_type',DB::raw('count(*) as count'))
+                ->groupBy('open_type')
+                ->where($where)
+                ->get();
+            foreach($open_type as $k => $v)
+            {
+                if($v->open_type == 1) $open_type[$k]->name = "移动端";
+                else $open_type[$k]->name = "PC端";
+            }
+
+            $open_app = Record::select('open_app',DB::raw('count(*) as count'))
+                ->groupBy('open_app')
+                ->where($where)
+                ->get();
+
+            $open_system = Record::select('open_system',DB::raw('count(*) as count'))
+                ->groupBy('open_system')
+                ->where($where)
+                ->get();
+
             $view["info"] = $info;
             $view["data"] = $data;
+            $view["open_type"] = $open_type;
+            $view["open_app"] = $open_app;
+            $view["open_system"] = $open_system;
 
             return view('admin.layout.statistics')->with($view);
         }

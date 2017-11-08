@@ -45,13 +45,13 @@
     </div>
 </div>
 
-<div class="row" id="question-container">
+<div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
         <div class="box box-warning">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">主页流量统计</h3>
+                <h3 class="box-title">目录页流量统计</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
@@ -65,6 +65,99 @@
                         <div id="echart-menu" style="width:100%;height:400px;"></div>
                     </div>
                 </div>
+            </div>
+
+            <div class="box-footer">
+            </div>
+
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="box box-warning">
+
+            <div class="box-header with-border" style="margin:16px 0;">
+                <h3 class="box-title">PC端/移动端占比</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
+                </div>
+                <input type="hidden" id="survey-question-marking" data-key="1000">
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-type" style="width:100%;height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+            </div>
+
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="box box-warning">
+
+            <div class="box-header with-border" style="margin:16px 0;">
+                <h3 class="box-title">打开APP占比</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
+                </div>
+                <input type="hidden" id="survey-question-marking" data-key="1000">
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-app" style="width:100%;height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+            </div>
+
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="box box-warning">
+
+            <div class="box-header with-border" style="margin:16px 0;">
+                <h3 class="box-title">打开系统占比</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
+                </div>
+                <input type="hidden" id="survey-question-marking" data-key="1000">
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-system" style="width:100%;height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
             </div>
 
         </div>
@@ -92,8 +185,6 @@ $(function() {
 <script>
     $(function(){
 
-        var myChart;
-        var option;
         var option_index = {
             title: {
                 text: '主页流量'
@@ -166,6 +257,11 @@ $(function() {
                 }
             ]
         };
+        var myChart_index = echarts.init(document.getElementById('echart-index'));
+        myChart_index.setOption(option_index);
+
+
+
         var option_menu = {
             title: {
                 text: '目录流量图'
@@ -270,108 +366,200 @@ $(function() {
                 }
             ]
         };
-        option1 = {
-            title: {
-                text: '流量统计'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['总流量', '主页流量', '目录流量']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            xAxis: {
-                type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [
-                {
-                    name:'总流量',
-                    type:'line',
-                    data:[
-                        @foreach($all as $v)
-                                @if (!$loop->last) '{{$v->count}}', @else '{{$v->count}}' @endif
-                        @endforeach
-                    ]
-                },
-                {
-                    name:'主页流量',
-                    type:'line',
-                    data:[220, 282]
-                },
-                {
-                    name:'目录流量',
-                    type:'line',
-                    data:[450, 432]
-                }
-            ]
-        };
-        option2 = {
-            title: {
-                text: '对数轴示例',
-                left: 'center'
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b} : {c}'
-            },
-            legend: {
-                left: 'left',
-                data: ['2的指数', '3的指数']
-            },
-            xAxis: {
-                type: 'category',
-                name: 'x',
-                splitLine: {show: false},
-                data: ['一', '二', '三', '四', '五', '六', '七', '八', '九']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            yAxis: {
-                type: 'log',
-                name: 'y'
-            },
-            series: [
-                {
-                    name: '3的指数',
-                    type: 'line',
-                    data: [1, 9, 6]
-                },
-                {
-                    name: '2的指数',
-                    type: 'line',
-                    data: [1, 2, 6]
-                },
-                {
-                    name: '1/2的指数',
-                    type: 'line',
-                    data: [1/2, 512, 22]
-                }
-            ]
-        };
-
-        var myChart_index = echarts.init(document.getElementById('echart-index'));
-        myChart_index.setOption(option_index);
         var myChart_menu = echarts.init(document.getElementById('echart-menu'));
         myChart_menu.setOption(option_menu);
+
+
+
+        var option_type = {
+            title : {
+                text: '移动端占比',
+                subtext: '移动端占比',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data: [
+                    @foreach($open_type as $v)
+                            @if (!$loop->last) '{{$v->name}}', @else '{{$v->name}}' @endif
+                    @endforeach
+                ]
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'访问来源',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                            @foreach($open_type as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->name}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->name}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_type = echarts.init(document.getElementById('echart-type'));
+        myChart_type.setOption(option_type);
+
+
+        var option_app = {
+            title : {
+                text: '打开App占比',
+                subtext: '打开App占比',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data: [
+                    @foreach($open_type as $v)
+                            @if (!$loop->last) '{{$v->open_app}}', @else '{{$v->open_app}}' @endif
+                    @endforeach
+                ]
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'访问来源',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                            @foreach($open_app as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->open_app}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->open_app}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_app = echarts.init(document.getElementById('echart-app'));
+        myChart_app.setOption(option_app);
+
+
+        var option_system = {
+            title : {
+                text: '打开系统占比',
+                subtext: '打开系统占比',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data: [
+                    @foreach($open_system as $v)
+                            @if (!$loop->last) '{{$v->open_system}}', @else '{{$v->open_system}}' @endif
+                    @endforeach
+                ]
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'访问来源',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                            @foreach($open_system as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->open_system}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->open_system}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_system = echarts.init(document.getElementById('echart-system'));
+        myChart_system.setOption(option_system);
+
+
 
     });
 </script>
