@@ -210,6 +210,47 @@ if(!function_exists('GetIP'))
     }
 }
 
+//获取浏览器
+if(!function_exists('getBrowserInfo'))
+{
+    function getBrowserInfo()
+    {
+        global $_SERVER;
+        $Agent = $_SERVER['HTTP_USER_AGENT'];
+//        dd($Agent);
+
+        $info=[];
+
+        $info['type'] = 'PC';
+        if(stripos($Agent, 'Mobile')) $info['type'] = 'Mobile';
+
+        $info['system'] = 'Unknown';
+        if(stripos($Agent, 'Windows')) $info['system'] = 'Windows';
+        if(stripos($Agent, 'Windows Phone')) $info['system'] = 'WinPhone';
+        if(stripos($Agent, 'Android')) $info['system'] = 'Android';
+        if(stripos($Agent, 'Mac')) $info['system'] = 'Mac';
+        if(stripos($Agent, 'iPad')) $info['system'] = 'iPad';
+        if(stripos($Agent, 'iPhone')) $info['system'] = 'iPhone';
+
+        $info['browser'] = 'Ohters';
+        if(stripos($Agent, 'Mozilla') && !stripos($Agent, 'MSIE')) $info['browser'] = 'Netscape';
+        if(stripos($Agent, 'Mozilla') && stripos($Agent, 'MSIE')) $info['browser'] = 'IExplorer';
+        if(stripos($Agent, 'Safari')) $info['browser'] = 'Safari';
+        if(stripos($Agent, 'Chrome')) $info['browser'] = "Chrome";
+        if(stripos($Agent, 'Firefox')) $info['browser'] = 'Firefox';
+        if(stripos($Agent, 'FxiOS')) $info['browser'] = 'Firefox';
+        if(stripos($Agent, 'Opera')) $info['browser'] = 'Opera';
+        if(stripos($Agent, 'QQBroser')) $info['browser'] = 'QQBroser';
+
+        $info['app'] = 'default';
+        if(stripos($Agent, 'MicroMessenger')) $info['app'] = 'WeChat';
+        if(stripos($Agent, 'QQ') && !stripos($Agent, 'MQQBrowser')) $info['app'] = 'QQ';
+        if(stripos($Agent, 'QQ/')) $info['app'] = 'QQ';
+
+        return $info;
+    }
+}
+
 
 if(!function_exists('encode')) {
     function encode($str, $key = '')

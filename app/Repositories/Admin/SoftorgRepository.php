@@ -89,7 +89,6 @@ class SoftorgRepository {
             $record["type"] = 1;
             $record["sort"] = "index";
             $record["org_id"] = $org->id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -116,7 +115,6 @@ class SoftorgRepository {
             $record["type"] = 2;
             $record["sort"] = "product";
             $record["org_id"] = $org->id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -142,7 +140,6 @@ class SoftorgRepository {
             $record["sort"] = "product";
             $record["org_id"] = $product->org->id;
             $record["page_id"] = $decode_id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -168,7 +165,6 @@ class SoftorgRepository {
             $record["type"] = 2;
             $record["sort"] = "activity";
             $record["org_id"] = $org->id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -194,7 +190,6 @@ class SoftorgRepository {
             $record["sort"] = "activity";
             $record["org_id"] = $activity->org->id;
             $record["page_id"] = $decode_id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -220,7 +215,6 @@ class SoftorgRepository {
             $record["type"] = 2;
             $record["sort"] = "slide";
             $record["org_id"] = $org->id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -248,7 +242,6 @@ class SoftorgRepository {
             $record["sort"] = "slide";
             $record["org_id"] = $slide->org->id;
             $record["page_id"] = $decode_id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -274,7 +267,6 @@ class SoftorgRepository {
             $record["type"] = 2;
             $record["sort"] = "survey";
             $record["org_id"] = $org->id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -302,7 +294,6 @@ class SoftorgRepository {
             $record["sort"] = "survey";
             $record["org_id"] = $survey->org->id;
             $record["page_id"] = $decode_id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -329,7 +320,6 @@ class SoftorgRepository {
             $record["type"] = 2;
             $record["sort"] = "article";
             $record["org_id"] = $org->id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -355,7 +345,6 @@ class SoftorgRepository {
             $record["sort"] = "article";
             $record["org_id"] = $article->org->id;
             $record["page_id"] = $decode_id;
-            $record["ip"] = Get_IP();
             $record["from"] = request('from',NULL);
             $this->record($record);
 
@@ -483,6 +472,17 @@ class SoftorgRepository {
     public function record($post_data)
     {
         $record = new Record();
+
+        $browseInfo = getBrowserInfo();
+        $type = $browseInfo['type'];
+        if($type == "PC") $post_data["open_type"] = 0;
+        else if($type == "Mobile") $post_data["open_type"] = 1;
+
+        $post_data["open_system"] = $browseInfo['system'];
+        $post_data["open_browser"] = $browseInfo['browser'];
+        $post_data["open_app"] = $browseInfo['app'];
+
+        $post_data["ip"] = Get_IP();
         $bool = $record->fill($post_data)->save();
         if($bool) return true;
         else return false;

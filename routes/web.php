@@ -13,6 +13,7 @@ require __DIR__.'/frontend.php';
 */
 
 Route::get('/', function () {
+    dd(getBrowseInfo());
     return view('welcome');
 });
 
