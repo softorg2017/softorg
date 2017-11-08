@@ -54,8 +54,6 @@
         <div class="top extra menu sticky">
             <div class="wrap">
                 <div class="settings">
-                    <a href="#" class="open-popup" data-target="language_popup"><span class="label">Language:</span><span class="dropdown">English US</span></a>
-                    <a href="#" class="open-popup" data-target="country_popup"><span class="label">Country:</span><span class="dropdown">United States – USD</span></a>
                 </div>
                 <div class="right">
                     <a href="https://www.vipp.com/en-us/content/contact" class="hidden-sm">Contact</a>
@@ -63,7 +61,7 @@
                     <a href="https://www.vipp.com/en-us/content/partners" class="hidden-sm">Partners</a>
                     <a href="https://www.vipp.com/en-us/content/about-vipp" class="hidden-sm">About Vipp</a>
                     <a href="https://www.vipp.com/en-us/content/store-locator" class="hidden-sm">Store locator</a>
-                    <a href="https://www.vipp.com/en-us/user" class="hidden-sm">My account</a>
+                    <a href="https://www.vipp.com/en-us/user" class="hidden-sm">关于我们</a>
                     <a href="#" class="btn-icon-close"><i class="icon-close"></i></a></div>
             </div>
         </div>
@@ -80,11 +78,6 @@
                     <a href="/org/{{$org->website_name or '1'}}/activity" class="hidden-sm text-item">活动</a>
                     <a href="/org/{{$org->website_name or '1'}}/survey" class="hidden-sm text-item">问卷</a>
                     <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-sm text-item">文章</a>
-                    <a href="https://www.vipp.com/en-us/cart" style="display: none;">
-                        <img class="basket-icn basket-icn--black" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-basket,402x.png.pagespeed.ic.eypaa_o6wG.webp" alt="basket">
-                        <img class="basket-icn basket-icn--white" src="data:image/webp;base64,UklGRtwAAABXRUJQVlA4TM8AAAAvHMAFEP+BoG3bmD/pbc9BzP/8s20kSWr+umfuAQ8P4aK2bRsGnnpyB8YMCChEARaKjQdFMREAEYAb4sMLMBEUE0HwA2yAYPYbEvsAIUTLAQBXkm2bznovtl/8YtvOmf+4onOj74j+TwDPRkr9w2lQjqIan2/PcjkuVo5GcLzpFEKBXLu7jikUpekHCAx7rkJLMtzNL0cKewnfC19PCiI8FHkXMbn7R3YmpjRMuDgmUvi2ejMb6npVIKuXBLxrrakNUNOqcJvWStzxLHQmFgAA" alt="basket">
-                        <span id="number-item-in-cart"></span>
-                    </a>
                     <a class="btn-menu-burger" href="#">
                         <img class="icon-menu icon-menu--white" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/icon-menu-white@2x.svg" alt="menu">
                         <img class="icon-menu icon-menu--black" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/icon-menu@2x.svg" alt="menu">
@@ -113,7 +106,7 @@
                     <li class="padder">&nbsp;</li>
                     <li><a href="/org/{{$org->website_name or '1'}}/survey" class="big-txt">问卷</a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="/org/{{$org->website_name or '1'}}/article" class="big-txt" data-submenu="submenu-2">文章</a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/article" class="big-txt">文章</a></li>
                     <li class="padder">&nbsp;</li>
                 </ul>
             </li>
@@ -149,94 +142,6 @@
             <li><a href="https://www.vipp.com/en-us/shop/spare-parts">Spare parts</a></li>
             <li class="padder">&nbsp;</li>
             <li class="spaceabove large"><a href="https://www.vipp.com/en-us/kitchen/vipp-kitchen">Vipp kitchen</a></li>
-        </ul>
-        <ul class="tray-menu--submenu menu-level submenu-2">
-            <li>
-                <ul class="top-menu">
-                    <li><a href="#" class="btn-back normal-txt"><img class="icon-arrow icon-arrow--left" alt="arrow-left" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-left.png.pagespeed.ic.4jzcTwkUzf.webp">Back</a></li>
-                </ul>
-            </li>
-            <li><a href="javascript:void(0);" class="normal-txt">Select Stories</a></li>
-            <li class="padder">&nbsp;</li>
-            <li class="cate-stories active"><a href="https://www.vipp.com/en-us/content/stories-list-us" data-cate-id='0'>All stories</a></li>
-            <li class="padder">&nbsp;</li>
-            <li class="cate-stories"><a href="" data-cate-link="" data-cate-id="31">Vipp history</a></li>
-            <li class="cate-stories"><a href="" data-cate-link="" data-cate-id="27">Kitchen stories</a></li>
-        </ul>
-        <ul class="tray-menu--submenu menu-level submenu-3">
-            <li>
-                <ul class="top-menu">
-                    <li><a href="#" class="btn-back normal-txt"><img class="icon-arrow icon-arrow--left" alt="arrow-left" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-left.png.pagespeed.ic.4jzcTwkUzf.webp">Back</a></li>
-                </ul>
-            </li>
-            <li><a href="#" class="normal-txt">Select Language</a></li>
-            <li class="padder">&nbsp;</li>
-            <li><a class="" href="/da">Danish</a></li>
-            <li><a class="" href="/en">English</a></li>
-            <li><a class="active" href="https://www.vipp.com/en-us">English US</a></li>
-            <li><a class="" href="/fr">French</a></li>
-            <li><a class="" href="/de">German</a></li>
-            <li><a class="" href="/no">Norwegian Bokmål</a></li>
-        </ul>
-        <ul class="tray-menu--submenu menu-level submenu-4">
-            <li>
-                <ul class="top-menu">
-                    <li><a href="#" class="btn-back normal-txt"><img class="icon-arrow icon-arrow--left" alt="arrow-left" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-arrow-left.png.pagespeed.ic.4jzcTwkUzf.webp">Back</a></li>
-                </ul>
-            </li>
-            <li><a href="#" class="normal-txt">SELECT country – currency</a></li>
-            <li class="padder">&nbsp;</li>
-            <form action="/en-us" method="post" id="e-common-form-change-country" accept-charset="UTF-8">
-                <div>
-                    <div class="form-item form-type-select form-item-country">
-                        <label for="edit-country">Country </label>
-                        <select id="edit-country" name="country" class="form-select">
-                            <option value="AT">Austria - EUR</option>
-                            <option value="BE">Belgium - EUR</option>
-                            <option value="CZ">Czech Republic - EUR</option>
-                            <option value="DK">Denmark - DKK</option>
-                            <option value="FI">Finland - EUR</option>
-                            <option value="FR">France - EUR</option>
-                            <option value="DE">Germany - EUR</option>
-                            <option value="GR">Greece - EUR</option>
-                            <option value="IE">Ireland - EUR</option>
-                            <option value="IT">Italy - EUR</option>
-                            <option value="LU">Luxembourg - EUR</option>
-                            <option value="NL">Netherlands - EUR</option>
-                            <option value="NO">Norway - NOK</option>
-                            <option value="PL">Poland - EUR</option>
-                            <option value="PT">Portugal - EUR</option>
-                            <option value="ES">Spain - EUR</option>
-                            <option value="SE">Sweden - SEK</option>
-                            <option value="GB">United Kingdom - GBP</option>
-                            <option value="US">United States - USD</option>
-                        </select>
-                    </div>
-                    <input id="current-link" type="hidden" name="current_link" value="" />
-                    <input type="submit" id="edit-submit--2" name="op" value="OK" class="form-submit" />
-                    <input type="hidden" name="form_build_id" value="form-WMCxAqedee3v8dgq2L2QerCZMaLC36FlsAYAa-xkB74" />
-                    <input type="hidden" name="form_id" value="e_common_form_change_country" />
-                </div>
-            </form>
-        </ul>
-        <ul class="tray-menu--submenu menu-level submenu-5">
-            <li>
-                <ul class="top-menu">
-                    <li><a href="#" class="btn-back normal-txt">Back</a></li>
-                </ul>
-            </li>
-            <div class="popup-box notification">
-                <div class="popup-title normal-txt">
-                    <h3>You are about to change your shipping location</h3> </div>
-                <div class="popup-content">
-                    <p>You are about to change your shipping location. &nbsp;This might result in some products being removed from your cart.</p>
-                    <p>For more information, please read our <a href="/en/content/terms-and-conditions" target="_blank">terms &amp; conditions</a></p>
-                </div>
-                <div class="wrap-bottom">
-                    <a href="#" class="button grey">Continue</a>
-                    <a href="#" class="underline">Back</a>
-                </div>
-            </div>
         </ul>
     </div>
     {{--main--}}
@@ -378,7 +283,7 @@
                             </li>
                             @endforeach
                         </ul>
-                        <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs">View lighting</a>
+                        <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs">更多</a>
                     </div>
                 </div>
             </div>
@@ -386,30 +291,30 @@
             <div class="row full collection-teaser slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
+                        @foreach($org->surveys as $v)
                         <div class="col-xs-7">
-                            <div class="hero-story-container fade-onscroll" style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-9-soap-dispencer-frontpage.jpg.pagespeed.ic.vFd904nBnJ.webp)">
+                            <div class="hero-story-container fade-onscroll" style="background-image:url(
+                                @if(($loop->index)%2 == 0)
+                                https://www.vipp.com/sites/default/files/xvipp-9-soap-dispencer-frontpage.jpg.pagespeed.ic.vFd904nBnJ.webp
+                                @else
+                                https://www.vipp.com/sites/default/files/xvipp-421-side-table-frontpage.jpg.pagespeed.ic.EE_FzpGT5J.webp
+                                @endif
+                                )">
+                                @if(($loop->index)%2 == 0)
                                 <img src="https://www.vipp.com/sites/default/files/xvipp-9-soap-dispencer-frontpage.jpg.pagespeed.ic.vFd904nBnJ.webp" alt="">
-                                <div class="hero-story-description">
-                                    <div class="hero-story-description__wrapper">
-                                        <h4>Bathroom</h4>
-                                        <h1>Shower gear</h1>
-                                        <a href="https://www.vipp.com/en-us/shop/bathroom" class="button white view-now">Shop now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-7">
-                            <div class="hero-story-container fade-onscroll" style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-421-side-table-frontpage.jpg.pagespeed.ic.EE_FzpGT5J.webp)">
+                                @else
                                 <img src="https://www.vipp.com/sites/default/files/xvipp-421-side-table-frontpage.jpg.pagespeed.ic.EE_FzpGT5J.webp" alt="">
+                                @endif
                                 <div class="hero-story-description">
                                     <div class="hero-story-description__wrapper">
-                                        <h4>Furniture</h4>
-                                        <h1>Home equipment</h1>
-                                        <a href="https://www.vipp.com/en-us/shop/furniture" class="button white view-now">Shop now</a>
+                                        <h4>{{$v->description or ''}}</h4>
+                                        <h1>{{$v->title or ''}}</h1>
+                                        <a href="/org/{{$org->website_name or '1'}}/survey" class="button white view-now">查看</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

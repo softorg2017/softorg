@@ -294,13 +294,14 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href=""><i class="fa fa-th"></i> <span>网站首页管理</span>
+                    <a href=""><i class="fa fa-th"></i> <span>网站管理</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{url('/admin/website/edit')}}"><i class="fa fa-circle-o text-aqua"></i>首页编辑</a></li>
+                        <li><a href="{{url('/admin/website/statistics')}}"><i class="fa fa-circle-o text-aqua"></i>流量统计</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

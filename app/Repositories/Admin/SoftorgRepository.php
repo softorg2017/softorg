@@ -90,6 +90,7 @@ class SoftorgRepository {
             $record["sort"] = "index";
             $record["org_id"] = $org->id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.index').'.index')->with('org',$org);
@@ -116,6 +117,7 @@ class SoftorgRepository {
             $record["sort"] = "product";
             $record["org_id"] = $org->id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.list').'.product.list')->with('org',$org);
@@ -141,6 +143,7 @@ class SoftorgRepository {
             $record["org_id"] = $product->org->id;
             $record["page_id"] = $decode_id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.detail').'.product.detail')->with('data',$product);
@@ -166,6 +169,7 @@ class SoftorgRepository {
             $record["sort"] = "activity";
             $record["org_id"] = $org->id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.list').'.activity.list')->with('org',$org);
@@ -191,6 +195,7 @@ class SoftorgRepository {
             $record["org_id"] = $activity->org->id;
             $record["page_id"] = $decode_id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.detail').'.activity.detail')->with('data',$activity);
@@ -216,6 +221,7 @@ class SoftorgRepository {
             $record["sort"] = "slide";
             $record["org_id"] = $org->id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.list').'.slide.list')->with('org',$org);
@@ -243,6 +249,7 @@ class SoftorgRepository {
             $record["org_id"] = $slide->org->id;
             $record["page_id"] = $decode_id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.detail').'.slide.detail')->with('data',$slide);
@@ -268,6 +275,7 @@ class SoftorgRepository {
             $record["sort"] = "survey";
             $record["org_id"] = $org->id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.list').'.survey.list')->with('org',$org);
@@ -295,6 +303,7 @@ class SoftorgRepository {
             $record["org_id"] = $survey->org->id;
             $record["page_id"] = $decode_id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.detail').'.survey.detail')->with('data',$survey);
@@ -321,6 +330,7 @@ class SoftorgRepository {
             $record["sort"] = "article";
             $record["org_id"] = $org->id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.list').'.article.list')->with('org',$org);
@@ -346,6 +356,7 @@ class SoftorgRepository {
             $record["org_id"] = $article->org->id;
             $record["page_id"] = $decode_id;
             $record["ip"] = Get_IP();
+            $record["from"] = request('from',NULL);
             $this->record($record);
 
             return view('front.'.config('common.view.front.detail').'.article.detail')->with('data',$article);
@@ -468,6 +479,7 @@ class SoftorgRepository {
     }
 
 
+    // 记录访问
     public function record($post_data)
     {
         $record = new Record();

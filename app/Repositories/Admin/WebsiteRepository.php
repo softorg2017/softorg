@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Website;
+use App\Models\Record;
 use Response, Auth, Validator, DB, Excepiton;
 
 class WebsiteRepository {
@@ -92,6 +93,107 @@ class WebsiteRepository {
         if($bool) return response_success();
         else return response_fail();
     }
+
+    public function view_statistics()
+    {
+//        $sql = "select count(*) from db_company.records group by date(created_at)";
+//        $results = DB::select($sql);
+//        dd($results);
+
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+        $sql = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id);
+
+        $all = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->get();
+
+        $index = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->whereType(1)
+            ->get();
+
+        $product = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->where(['type'=>2,'sort'=>'product'])
+            ->get();
+
+        $activity = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->where(['type'=>2,'sort'=>'activity'])
+            ->get();
+
+        $survey = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->where(['type'=>2,'sort'=>'survey'])
+            ->get();
+
+        $article = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->where(['type'=>2,'sort'=>'article'])
+            ->get();
+
+        $view["all"] = $all;
+        $view["index"] = $index;
+        $view["product"] = $product;
+        $view["activity"] = $activity;
+        $view["survey"] = $survey;
+        $view["article"] = $article;
+
+        return view('admin.website.statistics')->with($view);
+    }
+
+    public function view_page_statistics()
+    {
+//        $sql = "select count(*) from db_company.records group by date(created_at)";
+//        $results = DB::select($sql);
+//        dd($results);
+
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+        $sql = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id);
+
+        $all = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->get();
+
+        $index = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->whereType(1)
+            ->get();
+
+        $product = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->where(['type'=>2,'sort'=>'product'])
+            ->get();
+
+        $activity = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->where(['type'=>2,'sort'=>'activity'])
+            ->get();
+
+        $survey = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->where(['type'=>2,'sort'=>'survey'])
+            ->get();
+
+        $article = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))->where("org_id",$org_id)
+            ->where(['type'=>2,'sort'=>'article'])
+            ->get();
+
+        $view["all"] = $all;
+        $view["index"] = $index;
+        $view["product"] = $product;
+        $view["activity"] = $activity;
+        $view["survey"] = $survey;
+        $view["article"] = $article;
+
+        return view('admin.website.statistics')->with($view);
+    }
+
 
 
 }

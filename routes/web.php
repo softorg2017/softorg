@@ -76,12 +76,23 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
         });
 
+        // 流量统计
+        Route::group(['prefix' => 'statistics'], function () {
+            $controller = "StatisticsController";
+
+            Route::get('/', $controller.'@index');
+            Route::get('index', $controller.'@index');
+            Route::get('page', $controller.'@page');
+        });
+
         // 网站模块
         Route::group(['prefix' => 'website'], function () {
             $controller = "WebsiteController";
 
             Route::get('/', $controller.'@index');
             Route::get('index', $controller.'@index');
+            Route::get('statistics', $controller.'@statistics');
+
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');

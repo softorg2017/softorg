@@ -210,6 +210,7 @@
                                     '<li><a class="product-delete-submit" data-id="'+value+'" >删除</a></li>'+
                                     '<li><a class="product-enable-submit" data-id="'+value+'">启用</a></li>'+
                                     '<li><a class="product-disable-submit" data-id="'+value+'">禁用</a></li>'+
+                                    '<li><a href="/admin/statistics/page?sort=product&id='+value+'">流量统计</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+

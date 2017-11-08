@@ -25,6 +25,13 @@ class WebsiteController extends Controller
         return view('admin.website.index');
     }
 
+    public function statistics()
+    {
+        return $this->repo->view_statistics(request()->all());
+//        if(request()->isMethod('get')) return $this->repo->view_statistics(request()->all());
+//        else if (request()->isMethod('post')) return $this->repo->statistics(request()->all());
+    }
+
     public function createAction()
     {
         if(request()->isMethod('get')) return view('admin.website.edit');

@@ -215,6 +215,7 @@
                                     '<li><a class="survey-disable-submit" data-id="'+value+'">禁用</a></li>'+
                                     '<li><a href="/admin/answer/analysis?type=survey&id='+value+'">数据分析</a></li>'+
                                     '<li><a href="/admin/answer/list?type=survey&id='+value+'">回答列表</a></li>'+
+                                    '<li><a href="/admin/statistics/page?sort=survey&id='+value+'">流量统计</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+
