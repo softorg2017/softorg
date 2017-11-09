@@ -21,20 +21,20 @@
     <meta property="article:modified_time" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="google" content="notranslate" />
-    <link rel="shortcut icon" href="https://www.vipp.com/sites/all/themes/vipp/assets/img/favicons/favicon.ico">
-    <link rel="icon" sizes="16x16 32x32 64x64" href="https://www.vipp.com/sites/all/themes/vipp/assets/img/favicons/favicon.ico">
-    <link rel="icon" type="image/png" sizes="196x196" href="https://www.vipp.com/sites/all/themes/vipp/assets/img/favicons/xandroid-chrome-192x192.png.pagespeed.ic.l39NsN9ROb.webp">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.vipp.com/sites/all/themes/vipp/assets/img/favicons/xfavicon-32x32.png.pagespeed.ic.qzt0Ee10fj.webp">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://www.vipp.com/sites/all/themes/vipp/assets/img/favicons/xfavicon-16x16.png.pagespeed.ic.6120S2FYAg.webp">
-    <link rel="icon" sizes="any" mask href="https://www.vipp.com/sites/all/themes/vipp/assets/img/favicons/safari-pinned-tab.svg">
-    <link rel="apple-touch-icon" sizes="60x60" href="https://www.vipp.com/sites/all/themes/vipp/assets/img/favicons/xapple-touch-icon.png.pagespeed.ic.YJd6i7sD4P.webp">
-    <link rel="apple-touch-icon" sizes="72x72" href="">
-    <link rel="apple-touch-icon" sizes="76x76" href="">
-    <link rel="apple-touch-icon" sizes="114x114" href="">
-    <link rel="apple-touch-icon" sizes="120x120" href="">
-    <link rel="apple-touch-icon" sizes="144x144" href="">
-    <link rel="apple-touch-icon" sizes="152x152" href="">
-    <link rel="apple-touch-icon" sizes="180x180" href="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="196x196" href="/favicon-196.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="icon" sizes="any" mask href="/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-32.png">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="/sites/all/themes/vipp/assets/img/favicons/mstile-150x150.png">
     <meta name="msapplication-config" content="/sites/all/themes/vipp/assets/img/favicons/browserconfig.xml">

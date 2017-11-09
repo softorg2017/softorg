@@ -1,45 +1,53 @@
-@extends('front.'.config('common.view.front.template').'.layout.detail')
+@extends('front.'.config('common.view.front.detail').'.layout.detail')
 
-@section('title','问卷详情')
+@section('title')
+    问卷 - {{$data->title or ''}}
+@endsection
 @section('header','问卷详情')
 @section('description','问卷详情')
 
-@section('index-url',url(config('common.website.front.prefix').'/'.$data->org->website_name))
-
+@section('detail-name','问卷详情')
 
 @section('data-updated_at')
-    {{$data->updated_at or ''}}
+    {{date("Y-n-j H:i",strtotime($data->updated_at))}}
 @endsection
 
-@section('visit')
-    已被浏览 {{$data->visit_num or ''}} 次
+@section('data-visit')
+    阅读 {{$data->visit_num or ''}} &nbsp;
 @endsection
 
-@section('data—title')
+@section('data-title')
     {{$data->title or ''}}
 @endsection
 
-@section('data-content')
-    {!! $data->content or '' !!}
-@endsection
+@section('content')
+    <div class="row full wrapper-content product-column product-four-column slide-to-top">
 
-@section('data-content-ext')
-    <form method="POST" action="" id="form-question">
-        {{ csrf_field() }}
-        <input type="hidden" name="type" value="survey">
-        <input type="hidden" name="id" value="{{encode($data->id)}}">
+        <div class="col-md-14">
+            <div class="row full">
+                <div class="col-xs-12 col-xs-offset-1 col-md-8 col-md-offset-3">
+                    <h1>{{$data->title or ''}}</h1>
+                    <div class="text">@yield('data-updated_at') <span style="float: right;">@yield('data-visit')</span></div>
+                    <div class="text">{!! $data->content or '' !!}</div>
+                </div>
+            </div>
+        </div>
 
-    @foreach($data->questions as $k => $v)
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="detail-left">
-                    <div class="detail-left-cont">
+
+        <form method="POST" action="" id="form-question">
+            {{ csrf_field() }}
+            <input type="hidden" name="type" value="survey">
+            <input type="hidden" name="id" value="{{encode($data->id)}}">
+
+            @foreach($data->questions as $k => $v)
+                <div class="row full">
+                    <div class="col-xs-12 col-xs-offset-1 col-md-8 col-md-offset-3" style="border-bottom:1px solid #ddd; margin-top:8px">
                         <div class="row" data-id="{{$v->encode_id or ''}}">
                             {{--标题--}}
                             <div class="form-group">
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="row">
                                     <h4>
-                                        <small></small><b>{{$v->title or ''}}</b>
+                                        <small>{{$loop->index + 1}}.</small><b>{{$v->title or ''}}</b>
                                         <small>
                                             @if($v->type == 1) (单行文本题)
                                             @elseif($v->type == 2) (多行文本题)
@@ -54,11 +62,11 @@
                             </div>
                             {{--描述--}}
                             <div class="form-group">
-                                <div class="col-md-10 col-md-offset-1">{{$v->description or ''}}</div>
+                                <div class="row">{{$v->description or ''}}</div>
                             </div>
                             @if($v->type == 1) {{--单行文本题--}}
                             <div class="form-group">
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="row">
                                     <input type="hidden" name="questions[{{encode($v->id)}}][type]" value="text">
                                     <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="input">
                                     <input type="text" class="form-control" name="questions[{{encode($v->id)}}][value]">
@@ -66,7 +74,7 @@
                             </div>
                             @elseif($v->type == 2) {{--多行文本题--}}
                             <div class="form-group">
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="row">
                                     <input type="hidden" name="questions[{{encode($v->id)}}][type]" value="text">
                                     <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="textarea">
                                     <textarea name="questions[{{encode($v->id)}}][value]"></textarea>
@@ -77,7 +85,7 @@
                             <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="radio">
                             @foreach($v->options as $o)
                                 <div class="form-group">
-                                    <div class="col-md-10 col-md-offset-1">
+                                    <div class="">
                                         <input type="radio" name="questions[{{encode($v->id)}}][value]" value="{{$o->id or ''}}"> {{$o->title or ''}}
                                     </div>
                                 </div>
@@ -86,7 +94,7 @@
                             <input type="hidden" name="questions[{{encode($v->id)}}][type]" value="radio">
                             <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="option">
                             <div class="form-group">
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="row">
                                     <select  name="questions[{{encode($v->id)}}][value]">
                                         @foreach($v->options as $o)
                                             <option value="{{$o->id or ''}}">{{$o->title or ''}}</option>
@@ -99,7 +107,7 @@
                             <input type="hidden" name="questions[{{encode($v->id)}}][q_type]" value="checkbox">
                             @foreach($v->options as $o)
                                 <div class="form-group">
-                                    <div class="col-md-10 col-md-offset-1">
+                                    <div class="row">
                                         <input type="checkbox" name="questions[{{encode($v->id)}}][value][{{$o->id or ''}}]" value="{{$o->id or ''}}"> {{$o->title or ''}}
                                     </div>
                                 </div>
@@ -108,45 +116,45 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    @endforeach
-    </form>
+            @endforeach
+        </form>
 
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="detail-left">
-                <div class="detail-left-cont">
-                    <div class="row" style="margin:16px 0;">
-                        <div class="col-md-8 col-md-offset-2">
-                            <button type="button" class="btn btn-primary" id="answer-question-submit"><i class="fa fa-check"></i> 提交</button>
-                            {{--<button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>--}}
-                        </div>
-                    </div>
+        <div class="row full">
+            <div class="col-xs-12 col-xs-offset-1 col-md-8 col-md-offset-3">
+                <div class="row">
+                        <button type="button" class="btn btn-primary" id="answer-question-submit"><i class="fa fa-check"></i> 提交</button>
+                        {{--<button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>--}}
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
 
 
 
-@section('css—ext')
+
+@section('data-content-ext')
+@endsection
+
+
+
+@section('css')
     <link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
 @endsection
 
 
 
-@section('js—ext')
+@section('js')
     <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
     <script>
         $(function () {
 
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
+//            $('input').iCheck({
+//                checkboxClass: 'icheckbox_square-blue',
+//                radioClass: 'iradio_square-blue',
+//                increaseArea: '20%' // optional
+//            });
 
             // 回答问题
             $("#answer-question-submit").on('click', function() {

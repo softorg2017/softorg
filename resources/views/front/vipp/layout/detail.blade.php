@@ -44,6 +44,8 @@
     <script src="https://www.vipp.com/sites/default/files/js/js_SLyXq4zcOYrRlJ8NMZcdVCadUvi6vXyeJgA1IkziDwE.js.pagespeed.jm.KiaDCMyCJY.js"></script>
     <script src="https://www.vipp.com/sites/all,_themes,_vipp,_assets,_js,_plugins,_modernizr.custom.js,qoys8tt+default,_files,_js,_js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js.pagespeed.jc.E10rRAYkAy.js"></script>
 
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    @yield('css')
 </head>
 
 <body class="html front not-logged-in one-sidebar sidebar-first page-node page-node- page-node-1864 node-type-front-page i18n-en-us has-cookie front-page">
@@ -73,8 +75,8 @@
     <div class="top primary menu sticky">
         <div class="wrap">
             <a fade-onload href="/org/@yield('website-name')" title="Home" rel="home" id="logo">
-                <img class="logo logo-black" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
-                <img class="logo logo-white" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
+                <img class="logo logo-black" src="http://cdn.softorg.cn:8088/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
+                <img class="logo logo-white" src="http://cdn.softorg.cn:8088/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
             </a>
             <div class="right" fade-onload>
                 <a class="hidden-sm text-item" href="/org/@yield('website-name')/product">产品</a>
@@ -138,9 +140,9 @@
                     <div class="hero-product-container-xs" style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-black-topview-0.jpg.pagespeed.ic.uIVjfVKkYq.webp)">
                     </div>
                     <div class="hero-product-description white" fade-onload>
-                        <h4>{{$org->short or ''}}</h4>
-                        <h1 class="hero-heading">@yield('menu-name')</h1>
-                        <a href="#" class="btn-md"><span>SHOP NOW</span></a>
+                        <h4>{{$data->org->short or ''}}</h4>
+                        <h1 class="hero-heading">@yield('data-title')</h1>
+                        <a href="javascript:void(0);" class="btn-md"><span>@yield('detail-name')</span></a>
                     </div>
                 </div>
             </div>
@@ -183,6 +185,9 @@
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ asset('frontend/themes/vipp/js/all.js') }}"></script>
+<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
+@yield('js')
 </body>
 
 </html>

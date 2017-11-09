@@ -7,7 +7,7 @@
                 'template' => 'online',
                 'index' => 'vipp',
                 'list' => 'vipp',
-                'detail' => 'online'
+                'detail' => 'vipp'
             ],
         ],
 
