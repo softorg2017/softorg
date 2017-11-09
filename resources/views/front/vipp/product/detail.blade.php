@@ -1,5 +1,7 @@
 @extends('front.'.config('common.view.front.detail').'.layout.detail')
 
+@section('website-name',$data->org->website_name)
+
 @section('title')
     产品 - {{$data->title or ''}}
 @endsection

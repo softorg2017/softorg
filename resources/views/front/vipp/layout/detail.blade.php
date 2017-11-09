@@ -101,7 +101,7 @@
                 <img class="logo" src="" alt="{{$org->short or 'Home'}}">
             </div>
             <div>
-                <img class="logo" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}">
+                <img class="logo" src="http://cdn.softorg.cn:8088/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
             </div>
         </li>
         <li>
