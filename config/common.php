@@ -6,7 +6,7 @@
             'front' => [
                 'template' => 'online',
                 'index' => 'vipp',
-                'list' => 'online',
+                'list' => 'vipp',
                 'detail' => 'online'
             ],
         ],
