@@ -294,7 +294,7 @@ $(function() {
                     type : 'category',
                     boundaryGap : false,
                     data : [
-                        @foreach($all as $v)
+                        @foreach($product as $v)
                             @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
                         @endforeach
                     ]
@@ -419,11 +419,11 @@ $(function() {
                     radius : '55%',
                     center: ['50%', '60%'],
                     data: [
-                            @foreach($open_type as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->name}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->name}}'}
+                        @foreach($open_type as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->name}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->name}}'}
                         @endif
                         @endforeach
                     ]
@@ -482,11 +482,11 @@ $(function() {
                     radius : '55%',
                     center: ['50%', '60%'],
                     data: [
-                            @foreach($open_app as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->open_app}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->open_app}}'}
+                        @foreach($open_app as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->open_app}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->open_app}}'}
                         @endif
                         @endforeach
                     ]
@@ -545,11 +545,11 @@ $(function() {
                     radius : '55%',
                     center: ['50%', '60%'],
                     data: [
-                            @foreach($open_system as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->open_system}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->open_system}}'}
+                        @foreach($open_system as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->open_system}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->open_system}}'}
                         @endif
                         @endforeach
                     ]

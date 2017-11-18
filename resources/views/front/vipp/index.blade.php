@@ -91,8 +91,8 @@
         </div>
     </div>
     <div class="tray-menu--mask"></div>
+    {{--侧边栏--}}
     <div class="tray-menu">
-        {{--侧边栏--}}
         <ul class="main menu-level menu-current menu-in">
             <li>
                 <div>
@@ -273,7 +273,7 @@
                 </div>
             </div>
             {{--图片 2栏--}}
-            <div class="row full collection-teaser slide-to-top">
+            <div class="row full collection-teaser slide-to-top" style="display: none;">
                 <div class="col-md-14">
                     <div class="row full">
                         @foreach($org->surveys as $v)
@@ -345,7 +345,7 @@
                 </div>
             </div>
             {{--图片 3栏--}}
-            <div class="row full slide-to-top">
+            <div class="row full slide-to-top" style="display: none;">
                 <div class="col-xs-14">
                     <div class="mod-stories-thumb no-margin stories-three-columns">
                         <ul class="row">
