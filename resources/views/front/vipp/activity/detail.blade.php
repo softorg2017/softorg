@@ -37,7 +37,7 @@
     <div class="row full wrapper-content product-column product-four-column slide-to-top">
         <div class="col-md-14">
             <div class="row full">
-                <div class="col-xs-12 col-xs-offset-1 col-md-10">
+                <div class="col-xs-12 col-xs-offset-1 col-md-8 col-md-offset-3">
                     <h1>{{$data->title or ''}}</h1>
                     <div class="text">@yield('data-updated_at') <span style="float: right;">@yield('data-visit')</span></div>
                     <h2>@yield('data-activit-time')</h2>

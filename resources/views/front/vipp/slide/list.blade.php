@@ -20,27 +20,15 @@
                     @foreach($org->slides as $v)
                         <li class="col-md-6 ">
                             <a href="{{url('/slide?id=').encode($v->id)}}">
-                                <div class="item ">
-                                    <div class="mo">
-                                        <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-14-pedal-bin-1.jpg.pagespeed.ic.wFQ-DleBAd.webp)">
-                                            <img src="https://www.vipp.com/sites/default/files/xvipp-14-pedal-bin-1.jpg.pagespeed.ic.wFQ-DleBAd.webp">
-                                        </div>
+                                <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                    <div class="line">
+                                        <p class="seriesnumber"><b>{{$v->title or ''}}</b></p>
                                     </div>
                                     <div class="line">
-                                        <span>{{$v->title or ''}}</span>
-                                        <span class="price">{{$v->description or ''}}</span>
-                                    </div>
-                                    <div class="container portrait">
-                                        <div class="img-wrapper">
-                                            <img src="https://www.vipp.com/sites/default/files/xvipp-14-pedal-bin-white-1_0.jpg.pagespeed.ic.SKuYRz75B2.webp">
-                                        </div>
+                                        <p class="seriesnumber">{{$v->description or ''}}</p>
                                     </div>
                                     <div class="line">
                                         <p class="seriesnumber">幻灯片</p>
-                                        <div class="color-indicator">
-                                            <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
-                                            <div class="color" style="background: #000000; border-color: #000000 ;"></div>
-                                        </div>
                                     </div>
                                 </div>
                             </a>

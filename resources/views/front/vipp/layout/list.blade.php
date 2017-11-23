@@ -134,8 +134,8 @@
         {{--首页--}}
         <div class="row full has-fold">
             <div class="col-xs-14">
-                <div class="hero-product-container" style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-4.jpg.pagespeed.ic.00ERKzT-Z_.webp)">
-                    <div class="hero-product-container-xs" style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-black-topview-0.jpg.pagespeed.ic.uIVjfVKkYq.webp)">
+                <div class="hero-product-container" style="background-image:url(/images/black-v.jpg)">
+                    <div class="hero-product-container-xs" style="background-image:url(/images/black-v.jpg)">
                     </div>
                     <div class="hero-product-description white" fade-onload>
                         <h4>{{$org->short or ''}}</h4>

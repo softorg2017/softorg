@@ -157,27 +157,15 @@
                             @foreach($org->products as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/product?id=').encode($v->id)}}">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-14-pedal-bin-1.jpg.pagespeed.ic.wFQ-DleBAd.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-14-pedal-bin-1.jpg.pagespeed.ic.wFQ-DleBAd.webp">
-                                            </div>
+                                    <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                        <div class="line">
+                                            <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
                                         </div>
                                         <div class="line">
-                                            <span>{{$v->title or ''}}</span>
-                                            <span class="price">{{$v->description or ''}}</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-14-pedal-bin-white-1_0.jpg.pagespeed.ic.SKuYRz75B2.webp">
-                                            </div>
+                                            <p class="seriesnumber">{{$v->description or ''}}</p>
                                         </div>
                                         <div class="line">
                                             <p class="seriesnumber">产品</p>
-                                            <div class="color-indicator">
-                                                <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
-                                                <div class="color" style="background: #000000; border-color: #000000 ;"></div>
-                                            </div>
                                         </div>
                                     </div>
                                 </a>
@@ -200,27 +188,15 @@
                             @foreach($org->activities as $v)
                             <li class="col-md-6">
                                 <a href="{{url('/activity?id=').encode($v->id)}}">
-                                    <div class="item no-hover">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image: url('');">
-                                                <img src="">
-                                            </div>
+                                    <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                        <div class="line">
+                                            <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
                                         </div>
                                         <div class="line">
-                                            <span>{{$v->title or ''}}</span>
-                                            <span class="price">{{$v->description or ''}}</span>
-                                        </div>
-                                        <div class="container landscape">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-270-breadbox-white-1_0.jpg.pagespeed.ic.EeJ8X5SIxO.webp">
-                                            </div>
+                                            <p class="seriesnumber">{{$v->description or ''}}</p>
                                         </div>
                                         <div class="line">
                                             <p class="seriesnumber">活动</p>
-                                            <div class="color-indicator">
-                                                <div class="color" style="background: #FFFFFF; border-color: #a0a0a0 ;"></div>
-                                                <div class="color" style="background: #000000; border-color: #000000 ;"></div>
-                                            </div>
                                         </div>
                                     </div>
                                 </a>
@@ -232,6 +208,7 @@
                 </div>
             </div>
             {{--4栏--}}
+            {{--问卷--}}
             <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
@@ -243,25 +220,15 @@
                             @foreach($org->surveys as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/survey?id=').encode($v->id)}}">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-526-pendant-detail_0.jpg.pagespeed.ic.Z1bcj6PfFZ.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-522-wall-lamp_0.jpg.pagespeed.ic.zcqIwLxVko.webp">
-                                            </div>
-                                        </div>
+                                    <div class="item " style="background-image:url(/images/black-v.jpg)">
                                         <div class="line">
-                                            <span>{{$v->title or ''}}</span>
-                                            <span class="price">调研问卷</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-522-wall-lamp-3_0.jpg.pagespeed.ic.sVk_M5nlgg.webp">
-                                            </div>
+                                            <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
                                         </div>
                                         <div class="line">
                                             <p class="seriesnumber">{{$v->description or ''}}</p>
-                                            <div class="color-indicator">
-                                            </div>
+                                        </div>
+                                        <div class="line">
+                                            <span class="price">调研问卷</span>
                                         </div>
                                     </div>
                                 </a>
@@ -280,15 +247,15 @@
                         <div class="col-xs-7">
                             <div class="hero-story-container fade-onscroll" style="background-image:url(
                                 @if(($loop->index)%2 == 0)
-                                https://www.vipp.com/sites/default/files/xvipp-9-soap-dispencer-frontpage.jpg.pagespeed.ic.vFd904nBnJ.webp
+                                    /images/black-v.jpg
                                 @else
-                                https://www.vipp.com/sites/default/files/xvipp-421-side-table-frontpage.jpg.pagespeed.ic.EE_FzpGT5J.webp
+                                    /images/black-v.jpg
                                 @endif
                                 )">
                                 @if(($loop->index)%2 == 0)
-                                <img src="https://www.vipp.com/sites/default/files/xvipp-9-soap-dispencer-frontpage.jpg.pagespeed.ic.vFd904nBnJ.webp" alt="">
+                                <img src="/images/black-v.jpg" alt="">
                                 @else
-                                <img src="https://www.vipp.com/sites/default/files/xvipp-421-side-table-frontpage.jpg.pagespeed.ic.EE_FzpGT5J.webp" alt="">
+                                <img src="/images/black-v.jpg" alt="">
                                 @endif
                                 <div class="hero-story-description">
                                     <div class="hero-story-description__wrapper">
@@ -304,6 +271,7 @@
                 </div>
             </div>
             {{--3栏--}}
+            {{--文章--}}
             <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
@@ -315,25 +283,15 @@
                             @foreach($org->articles as $v)
                             <li class="col-md-6">
                                 <a href="{{url('/article?id=').encode($v->id)}}">
-                                    <div class="item ">
-                                        <div class="mo">
-                                            <div class="super-img" nid style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-473-rack-interior-0.jpg.pagespeed.ic.hBsfdHPEoP.webp)">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-473-rack-interior-0.jpg.pagespeed.ic.hBsfdHPEoP.webp">
-                                            </div>
-                                        </div>
+                                    <div class="item " style="background-image:url(/images/black-v.jpg)">
                                         <div class="line">
-                                            <span>{{$v->title or ''}}</span>
-                                            <span class="price">文章</span>
-                                        </div>
-                                        <div class="container portrait">
-                                            <div class="img-wrapper">
-                                                <img src="https://www.vipp.com/sites/default/files/xvipp-475-rack-tall-1_0.jpg.pagespeed.ic.mhnDjOewJo.webp">
-                                            </div>
+                                            <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
                                         </div>
                                         <div class="line">
                                             <p class="seriesnumber">{{$v->description or ''}}</p>
-                                            <div class="color-indicator">
-                                            </div>
+                                        </div>
+                                        <div class="line">
+                                            <span class="price">文章</span>
                                         </div>
                                     </div>
                                 </a>
