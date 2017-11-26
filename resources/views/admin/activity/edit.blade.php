@@ -46,14 +46,14 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">名称</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="name" placeholder="请输入名称" value="{{$data->name or ''}}"></div>
+                        <div><input type="text" class="form-control" name="name" placeholder="后台管理名称" value="{{$data->name or ''}}"></div>
                     </div>
                 </div>
                 {{--标题--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">标题</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="title" placeholder="请输入标题" value="{{$data->title or ''}}"></div>
+                        <div><input type="text" class="form-control" name="title" placeholder="标题" value="{{$data->title or ''}}"></div>
                     </div>
                 </div>
                 {{--说明--}}
@@ -61,6 +61,24 @@
                     <label class="control-label col-md-2">描述</label>
                     <div class="col-md-8 ">
                         <div><input type="text" class="form-control" name="description" placeholder="描述" value="{{$data->description or ''}}"></div>
+                    </div>
+                </div>
+                {{--内容--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">活动详情</label>
+                    <div class="col-md-8 ">
+                        <div>
+                        @include('UEditor::head')
+                        <!-- 加载编辑器的容器 -->
+                            <script id="container" name="content" type="text/plain" style="width:100%;"> {!! $data->content or '' !!} </script>
+                            <!-- 实例化编辑器 -->
+                            <script type="text/javascript">
+                            var ue = UE.getEditor('container');
+                            ue.ready(function() {
+                                ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
+                            });
+                            </script>
+                        </div>
                     </div>
                 </div>
                 {{--开始时间--}}
@@ -71,7 +89,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" class="form-control time-picker" name="start" placeholder="请输入开始时间" value="{{date("Y-m-d H:i",$data->start_time)}}">
+                            <input type="text" class="form-control time-picker" name="start" placeholder="请输入开始时间" value="{{empty($data->start_time) ? '' : date("Y-m-d H:i",$data->start_time)}}">
                         </div>
                     </div>
                 </div>
@@ -83,25 +101,92 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" class="form-control time-picker" name="end" placeholder="请输入结束时间" value="{{date("Y-m-d H:i",$data->end_time)}}">
+                            <input type="text" class="form-control time-picker" name="end" placeholder="请输入结束时间" value="{{empty($data->end_time) ? '' : date("Y-m-d H:i",$data->end_time)}}">
                         </div>
                     </div>
                 </div>
-                {{--内容--}}
+
+                {{--是否报名--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">活动详情</label>
+                    <label class="control-label col-md-2">报名功能</label>
                     <div class="col-md-8 ">
-                        <div>
-                            @include('UEditor::head')
-                            <!-- 加载编辑器的容器 -->
-                            <script id="container" name="content" type="text/plain" style="width:100%;">{!! $data->content or '' !!}</script>
-                            <!-- 实例化编辑器 -->
-                            <script type="text/javascript">
-                                var ue = UE.getEditor('container');
-                                ue.ready(function() {
-                                    ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
-                                });
-                            </script>
+                        <div class="switch" data-size="small">
+                            <input type="checkbox" name="apply-switch" @if(!empty($data->is_apply)) @if($data->is_apply == 1) checked @endif @endif />
+                        </div>
+                    </div>
+                    <input type="hidden" value="{{$data->is_apply or 0}}" name="is_apply" id="apply-selected">
+                </div>
+                {{--报名开始时间--}}
+                <div class="form-group apply-timer @if(!empty($data->is_apply)) @if($data->is_apply != 1) _none @endif @else _none @endif ">
+                    <label class="control-label col-md-2">报名开始时间</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control time-picker" name="apply_start" placeholder="请输入报名开始时间" value="{{empty($data->apply_start_time) ? '' : date("Y-m-d H:i",$data->apply_start_time)}}">
+                        </div>
+                    </div>
+                </div>
+                {{--报名结束时间--}}
+                <div class="form-group apply-timer @if(!empty($data->is_apply)) @if($data->is_apply != 1) _none @endif @else _none @endif ">
+                    <label class="control-label col-md-2">报名结束时间</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control time-picker" name="apply_end" placeholder="请输入报名结束时间" value="{{empty($data->apply_end_time) ? '' : date("Y-m-d H:i",$data->apply_end_time)}}">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {{--是否签到--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">签到功能</label>
+                    <div class="col-md-8 ">
+                        <div class="switch" data-size="small">
+                            <input type="checkbox" name="sign-switch" @if(!empty($data->is_sign)) @if($data->is_sign == 1) checked @endif @endif />
+                        </div>
+                    </div>
+                    <input type="hidden" value="{{$data->is_sign or 0}}" name="is_sign" id="sign-selected">
+                </div>
+
+                {{--签到类型--}}
+                <div class="form-group sign-module @if(!empty($data->is_sign)) @if($data->is_sign != 1) _none @endif @else _none @endif">
+                    <label class="control-label col-md-2">签到类型</label>
+                    <div class="col-md-8">
+                        <select class="form-control" onchange="sign_type_change" name="sign_type" id="sign-type">
+                            <option value="1">所有人均可以签到</option>
+                            <option value="2">仅报名者可以签到</option>
+                        </select>
+                        <input type="hidden" value="">
+                    </div>
+                </div>
+
+                {{--签到开始时间--}}
+                <div class="form-group sign-module @if(!empty($data->is_sign)) @if($data->is_sign != 1) _none @endif @else _none @endif">
+                    <label class="control-label col-md-2">签到开始时间</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control time-picker" name="sign_start" placeholder="请输入报名开始时间" value="{{empty($data->sign_start_time) ? '' : date("Y-m-d H:i",$data->sign_start_time)}}">
+                        </div>
+                    </div>
+                </div>
+                {{--签到结束时间--}}
+                <div class="form-group sign-module @if(!empty($data->is_sign)) @if($data->is_sign != 1) _none @endif @else _none @endif">
+                    <label class="control-label col-md-2">签到结束时间</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control time-picker" name="sign_end" placeholder="请输入报名结束时间" value="{{empty($data->sign_end_time) ? '' : date("Y-m-d H:i",$data->sign_end_time)}}">
                         </div>
                     </div>
                 </div>
@@ -153,6 +238,61 @@
             showClear: true,
             showClose: true
         });
+
+        $("[name='apply-switch']").bootstrapSwitch({
+            size:"small",
+            onColor:"success",
+            onSwitchChange:function(event,state){
+//                console.log(this); // DOM element
+//                console.log(event); // jQuery event
+//                console.log(state); // true | false
+
+                var is_sign = $("input[name=is_sign]").val();
+                if(state)
+                {
+                    $("#apply-selected").val(1);
+                    $(".apply-timer").show();
+                    if(is_sign == 1)
+                    {
+                        $("#sign-type").find("option[value=2]").show();
+                    }
+                }
+                else
+                {
+                    $("#apply-selected").val(0);
+                    $(".apply-timer").hide();
+                    if(is_sign == 1)
+                    {
+                        $("#sign-type").val(1);
+                        $("#sign-type").find("option[value=1]").attr("selected",true);
+                        $("#sign-type").find("option[value=2]").hide();
+                    }
+                }
+            }
+        });
+
+        $("[name='sign-switch']").bootstrapSwitch({
+            size:"small",
+            onColor:"success",
+            onSwitchChange:function(event,state){
+                if(state)
+                {
+                    $("#sign-selected").val(1);
+                    $(".sign-module").show();
+//                    $("#sign-type").find("option[value=2]").attr("selected",true);
+                }
+                else
+                {
+                    $("#sign-selected").val(0);
+                    $(".sign-module").hide();
+                }
+            }
+        });
     });
+
+    function sign_type_change()
+    {
+        var is_apply = $("input[name=is_sign]").val();
+    }
 </script>
 @endsection

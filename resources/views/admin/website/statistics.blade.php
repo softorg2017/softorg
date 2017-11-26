@@ -59,10 +59,38 @@
                 <input type="hidden" id="survey-question-marking" data-key="1000">
             </div>
 
+            {{--产品目录--}}
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-menu" style="width:100%;height:400px;"></div>
+                        <div id="echart-menu-product" style="width:100%;height:240px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{--活动目录--}}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-menu-activity" style="width:100%;height:240px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{--问卷目录--}}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-menu-survey" style="width:100%;height:240px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{--文章目录--}}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-menu-article" style="width:100%;height:240px;"></div>
                     </div>
                 </div>
             </div>
@@ -185,6 +213,7 @@ $(function() {
 <script>
     $(function(){
 
+        // 主页访问数
         var option_index = {
             title: {
                 text: '主页流量'
@@ -262,9 +291,10 @@ $(function() {
 
 
 
-        var option_menu = {
+        // 产品目录访问数
+        var option_menu_product = {
             title: {
-                text: '目录流量图'
+                text: '产品目录流量图'
             },
             tooltip : {
                 trigger: 'axis',
@@ -276,7 +306,7 @@ $(function() {
                 }
             },
             legend: {
-                data:['产品目录','活动目录','问卷目录','文章目录']
+                data:['产品目录']
             },
             toolbox: {
                 feature: {
@@ -318,33 +348,183 @@ $(function() {
                         @endif
                         @endforeach
                     ]
-                },
+                }
+            ]
+        };
+        var myChart_menu_product = echarts.init(document.getElementById('echart-menu-product'));
+        myChart_menu_product.setOption(option_menu_product);
+
+        // 活动目录访问数
+        var option_menu_activity = {
+            title: {
+                text: '活动目录流量图'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['活动目录']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : [
+                        @foreach($activity as $v)
+                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                        @endforeach
+                    ]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
                 {
                     name:'活动目录',
                     type:'line',
                     data:[
-                        @foreach($activity as $v)
-                        @if (!$loop->last)
-                            {value:{{$v->count}},name:'{{$v->date}}'},
-                        @else
-                            {value:{{$v->count}},name:'{{$v->date}}'}
+                            @foreach($activity as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->date}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
-                },
+                }
+            ]
+        };
+        var myChart_menu_activity = echarts.init(document.getElementById('echart-menu-activity'));
+        myChart_menu_activity.setOption(option_menu_activity);
+
+        // 问卷目录访问数
+        var option_menu_survey = {
+            title: {
+                text: '问卷目录流量图'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['问卷目录']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : [
+                        @foreach($survey as $v)
+                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                        @endforeach
+                    ]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
                 {
                     name:'问卷目录',
                     type:'line',
                     data:[
-                        @foreach($survey as $v)
-                        @if (!$loop->last)
-                            {value:{{$v->count}},name:'{{$v->date}}'},
-                        @else
-                            {value:{{$v->count}},name:'{{$v->date}}'}
+                            @foreach($survey as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->date}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
-                },
+                }
+            ]
+        };
+        var myChart_menu_survey = echarts.init(document.getElementById('echart-menu-survey'));
+        myChart_menu_survey.setOption(option_menu_survey);
+
+        // 文章目录访问数
+        var option_menu_article = {
+            title: {
+                text: '文章目录流量图'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['文章目录']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : [
+                        @foreach($article as $v)
+                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                        @endforeach
+                    ]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
                 {
                     name:'文章目录',
                     type:'line',
@@ -355,22 +535,23 @@ $(function() {
                         }
                     },
                     data:[
-                        @foreach($article as $v)
-                        @if (!$loop->last)
-                            {value:{{$v->count}},name:'{{$v->date}}'},
-                        @else
-                            {value:{{$v->count}},name:'{{$v->date}}'}
+                            @foreach($article as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->date}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
                 }
             ]
         };
-        var myChart_menu = echarts.init(document.getElementById('echart-menu'));
-        myChart_menu.setOption(option_menu);
+        var myChart_menu_article = echarts.init(document.getElementById('echart-menu-article'));
+        myChart_menu_article.setOption(option_menu_article);
 
 
 
+        // 移动端占比
         var option_type = {
             title : {
                 text: '移动端占比',
@@ -434,6 +615,7 @@ $(function() {
         myChart_type.setOption(option_type);
 
 
+        // APP占比
         var option_app = {
             title : {
                 text: '打开App占比',
@@ -497,6 +679,7 @@ $(function() {
         myChart_app.setOption(option_app);
 
 
+        // 打开系统占比
         var option_system = {
             title : {
                 text: '打开系统占比',

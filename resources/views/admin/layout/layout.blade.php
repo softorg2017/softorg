@@ -47,6 +47,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
+    <link href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{asset('css/common.css')}}">
     <link rel="stylesheet" href="{{asset('css/admin/index.css')}}">
 
@@ -504,6 +506,8 @@ desired effect
 <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
 
 <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
 
 
 <script src="{{asset('js/admin/index.js')}}"></script>

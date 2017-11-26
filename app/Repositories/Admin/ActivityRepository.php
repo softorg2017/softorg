@@ -86,6 +86,54 @@ class ActivityRepository {
         }
         else return response_error([],"时间有误！");
 
+//        是否报名功能
+        $is_apply = $post_data["is_apply"];
+        if($is_apply == 1)
+        {
+            $apply_start = $post_data["apply_start"];
+            $apply_end = $post_data["apply_end"];
+            if(!empty($apply_start) && !empty($apply_end))
+            {
+                $apply_start_time = strtotime($post_data["apply_start"]);
+                $apply_end_time = strtotime($post_data["apply_end"]);
+                if($apply_start_time >= $apply_end_time)
+                {
+                    return response_error([],"报名时间有误，开始时间大于结束时间！");
+                }
+                else
+                {
+                    $post_data["apply_start_time"] = $apply_start_time;
+                    $post_data["apply_end_time"] = $apply_end_time;
+                }
+            }
+            else return response_error([],"报名时间有误！");
+        }
+
+//        是否签到功能
+        $is_sign = $post_data["is_sign"];
+        if($is_sign == 1)
+        {
+            $sign_start = $post_data["sign_start"];
+            $sign_end = $post_data["sign_end"];
+            if(!empty($sign_start) && !empty($sign_end))
+            {
+                $sign_start_time = strtotime($post_data["sign_start"]);
+                $sign_end_time = strtotime($post_data["sign_end"]);
+                if($sign_start_time >= $sign_end_time)
+                {
+                    return response_error([],"签到时间有误，开始时间大于结束时间！");
+                }
+                else
+                {
+                    $post_data["sign_start_time"] = $sign_start_time;
+                    $post_data["sign_end_time"] = $sign_end_time;
+                }
+            }
+            else return response_error([],"签到时间有误！");
+        }
+        else unset($post_data["sign_type"]);
+
+
         $admin = Auth::guard('admin')->user();
 
         $id = decode($post_data["id"]);

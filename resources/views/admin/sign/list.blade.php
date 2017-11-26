@@ -1,11 +1,10 @@
 @extends('admin.layout.layout')
 
-@section('title','活动列表')
-@section('header','活动列表')
-@section('description','活动列表')
+@section('title','签到列表')
+@section('header','签到列表')
+@section('description','签到列表')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{url('/admin/activity/list')}}"><i class="fa "></i>活动列表</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -17,42 +16,29 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">活动列表</h3>
+                <h3 class="box-title">{{$title or ''}}</h3>
 
                 <div class="pull-right">
-                    <a href="{{url('/admin/activity/create')}}">
-                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加活动</button>
-                    </a>
-                </div>
-                <div class="pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+                        <i class="fa fa-times"></i></button>
                 </div>
             </div>
 
-            <div class="box-body" id="activity-main-body">
+            <div class="box-body" id="article-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
                     <tr role='row' class='heading'>
-                        <th>名称</th>
-                        <th>描述</th>
-                        <th>类型</th>
-                        <th>管理员</th>
-                        <th>开始时间</th>
-                        <th>结束时间</th>
-                        <th>浏览次数</th>
-                        <th>状态</th>
-                        <th>创建时间</th>
-                        <th>修改时间</th>
+                        <th>签到类型</th>
+                        <th>注册用户</th>
+                        <th>非注册用户姓名</th>
+                        <th>非注册用户手机</th>
+                        <th>签到时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -108,11 +94,13 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': '/admin/activity/list',
+                    'url': '/admin/sign/list',
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
                         d._token = $('meta[name="_token"]').attr('content');
+                        d.sort = "{{$sort or ''}}";
+                        d.id = "{{$encode_id or ''}}";
                     },
                 },
                 "pagingType": "simple_numbers",
@@ -120,65 +108,34 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
-                        "data": "encode_id",
-                        'orderable': false,
-                        render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/activity?id='+data+'">'+row.name+'</a>';
-                        }
-                    },
-                    {
-                        'data': 'description',
-                        'orderable': false,
-                        render: function(description) {
-                            return description == null ? '' : description;
-                        }
-                    },
-                    {
                         'data': 'type',
                         'orderable': true,
-                        render: function(type) {
-                            return type == null ? '' : type;
+                        render: function(val) {
+                            if(val == 1) return '<small class="label bg-teal">非注册用户</small>';
+                            else if(val == 2) return '<small class="label bg-green">注册用户</small>';
+                            else return '<small class="label bg-red">未知</small>';
                         }
                     },
                     {
-                        "data": "id",
+                        'data': 'user_id',
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return row.admin == null ? '未知' : row.admin.nickname;
+                            if(row.user_id == 0) return '';
+                            else return row.user.nickname;
                         }
                     },
                     {
-                        'data': 'start_time',
-                        'orderable': true,
-                        render: function(data) {
-                            newDate = new Date();
-                            newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
-                        }
-                    },
-                    {
-                        'data': 'end_time',
-                        'orderable': true,
-                        render: function(data) {
-                            newDate = new Date();
-                            newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
-                        }
-                    },
-                    {
-                        'data': 'visit_num',
+                        'data': 'name',
                         'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
+                        render: function(data, type, row, meta) {
+                            return row.name;
                         }
                     },
                     {
-                        'data': 'active',
+                        "data": "mobile",
                         'orderable': false,
-                        render: function(val) {
-                            if(val == 0) return '<small class="label bg-teal">未启用</small>';
-                            else if(val == 1) return '<small class="label bg-green">启</small>';
-                            else return '<small class="label bg-red">禁</small>';
+                        render: function(data, type, row, meta) {
+                            return row.mobile;
                         }
                     },
                     {
@@ -191,27 +148,9 @@
                         }
                     },
                     {
-                        'data': 'updated_at',
-                        'orderable': true,
-                        render: function(data) {
-                            newDate = new Date();
-                            newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
-                        }
-                    },
-                    {
-                        'data': 'encode_id',
+                        'data': 'id',
                         'orderable': false,
-                        render: function(data, type, row, meta) {
-
-                            var value = row.encode_id;
-
-                            var apply_html= "";
-                            if(row.is_apply == 1) apply_html = '<li><a href="/admin/apply/list?sort=activity&id='+value+'">报名列表</a></li>';
-
-                            var sign_html= "";
-                            if(row.is_sign == 1) sign_html = '<li><a href="/admin/sign/list?sort=activity&id='+value+'">签到列表</a></li>';
-
+                        render: function(value) {
                             var html =
                                     '<div class="btn-group">'+
                                     '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
@@ -220,13 +159,7 @@
                                     '<span class="sr-only">Toggle Dropdown</span>'+
                                     '</button>'+
                                     '<ul class="dropdown-menu" role="menu">'+
-                                    '<li><a href="/admin/activity/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a class="activity-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a class="activity-enable-submit" data-id="'+value+'">启用</a></li>'+
-                                    '<li><a class="activity-disable-submit" data-id="'+value+'">禁用</a></li>'+
-                                    apply_html+
-                                    sign_html+
-                                    '<li><a href="/admin/statistics/page?sort=activity&id='+value+'">流量统计</a></li>'+
+                                    '<li><a class="send-message" data-id="'+value+'" >发送短信</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+
@@ -305,75 +238,6 @@
 </script>
 <script>
     $(function() {
-
-        // 【删除】 活动
-        $("#activity-main-body").on('click', ".activity-delete-submit", function() {
-            var that = $(this);
-            layer.msg('确定要删除该"活动"么', {
-                time: 0
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    $.post(
-                            "/admin/activity/delete",
-                            {
-                                _token: $('meta[name="_token"]').attr('content'),
-                                id:that.attr('data-id')
-                            },
-                            function(data){
-                                if(!data.success) layer.msg(data.msg);
-                                else location.reload();
-                            },
-                            'json'
-                    );
-                }
-            });
-        });
-
-        // 【启用】 活动
-        $("#activity-main-body").on('click', ".activity-enable-submit", function() {
-            var that = $(this);
-            layer.msg('确定启用该"活动"？', {
-                time: 0
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    $.post(
-                            "/admin/activity/enable",
-                            {
-                                _token: $('meta[name="_token"]').attr('content'),
-                                id:that.attr('data-id')
-                            },
-                            function(data){
-                                if(!data.success) layer.msg(data.msg);
-                                else location.reload();
-                            },
-                            'json'
-                    );
-                }
-            });
-        });
-
-        // 【禁用】 活动
-        $("#activity-main-body").on('click', ".activity-disable-submit", function() {
-            var that = $(this);
-            layer.msg('确定禁用该"活动"？', {
-                time: 0
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    $.post(
-                            "/admin/activity/disable",
-                            {
-                                _token: $('meta[name="_token"]').attr('content'),
-                                id:that.attr('data-id')
-                            },
-                            function(data){
-                                if(!data.success) layer.msg(data.msg);
-                                else location.reload();
-                            },
-                            'json'
-                    );
-                }
-            });
-        });
 
     });
 </script>

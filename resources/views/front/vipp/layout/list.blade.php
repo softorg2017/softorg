@@ -7,6 +7,7 @@
 
 <head profile="http://www.w3.org/1999/xhtml/vocab">
     <title>@yield('title')</title>
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="" type="" />
     <meta name="description" content="" />
@@ -178,7 +179,7 @@
         <li><a href="#">FB</a></li>
         <li><a href="#">FC</a></li>
     </ul>
-    <div class="copyright">COPYRIGHT© Softorg 2017</div>
+    <div class="copyright">COPYRIGHT© 如哉网络科技有限公司 2017</div>
     <div class="term"><a href="#">Terms and conditions</a></div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>

@@ -207,9 +207,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // 回答模块
         Route::group(['prefix' => 'answer'], function () {
             $controller = "AnswerController";
+
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::match(['get','post'], 'analysis', $controller.'@view_analysis');
             Route::match(['get','post'], 'detail', $controller.'@view_detail');
+        });
+
+        // 报名模块
+        Route::group(['prefix' => 'apply'], function () {
+            $controller = "ApplyController";
+
+            Route::match(['get','post'], 'list', $controller.'@viewList');
+        });
+
+        // 签到模块
+        Route::group(['prefix' => 'sign'], function () {
+            $controller = "SignController";
+
+            Route::match(['get','post'], 'list', $controller.'@viewList');
         });
 
         Route::group(['middleware' => 'page-mine'], function () {
@@ -230,10 +245,13 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::get('/product', $controller.'@view_product_detail');
     Route::get('/activity', $controller.'@view_activity_detail');
+    Route::get('/activity/apply', $controller.'@view_activity_apply');
     Route::get('/slide', $controller.'@view_slide_detail');
     Route::get('/survey', $controller.'@view_survey_detail');
     Route::get('/article', $controller.'@view_article_detail');
 
+    Route::match(['get','post'], '/apply', $controller.'@apply');
+    Route::match(['get','post'], '/sign', $controller.'@sign');
     Route::match(['get','post'], '/answer', $controller.'@answer');
 
 });

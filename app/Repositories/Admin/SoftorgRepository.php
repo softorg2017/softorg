@@ -10,6 +10,8 @@ use App\Models\Activity;
 use App\Models\Slide;
 use App\Models\Survey;
 use App\Models\Article;
+use App\Models\Apply;
+use App\Models\Sign;
 use App\Models\Answer;
 use App\Models\Choice;
 use App\Repositories\Common\UploadRepository;
@@ -193,7 +195,33 @@ class SoftorgRepository {
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view('front.'.config('common.view.front.detail').'.activity.detail')->with('data',$activity);
+            return view('front.'.config('common.view.front.detail').'.activity.detail')
+                ->with(['data'=>$activity,'encode_id'=>$encode_id]);
+        }
+        else dd("活动不存在");
+    }
+    // 返回（前台）【活动】【详情】页视图
+    public function view_activity_apply()
+    {
+        $encode_id = request('id');
+        $decode_id = decode($encode_id);
+        if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
+
+        $activity = Activity::with(['org','admin'])->whereId($decode_id)->first();
+        if($activity)
+        {
+            // 访问数量+1
+            $activity->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 3;
+            $record["sort"] = "activity";
+            $record["org_id"] = $activity->org->id;
+            $record["page_id"] = $decode_id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.detail').'.activity.apply')->with('data',$activity);
         }
         else dd("活动不存在");
     }
@@ -353,8 +381,83 @@ class SoftorgRepository {
         else dd("文章不存在");
     }
 
+    // 活动报名
+    public function apply($post_data)
+    {
+        $v = Validator::make($post_data, [
+            'type' => 'required|in:1,2',
+            'id' => 'required'
+        ]);
+        if ($v->fails()) return response_error([],"参数错误");
 
-    // 回答
+        $id = decode($post_data["id"]);
+        if(intval($id) !== 0 && !$id) return response_error([],"参数错误");
+
+        $type = $post_data['type'];
+        $apply = new Apply();
+        $insert['activity_id'] = $id;
+        $insert['type'] = $type;
+        if($type == 1)
+        {
+            $v2 = Validator::make($post_data, [
+                'name' => 'required',
+                'mobile' => 'required|numeric',
+            ]);
+            if ($v2->fails()) return response_error([],"参数错误");
+
+            $insert['name'] = $post_data['name'];
+            $insert['mobile'] = $post_data['mobile'];
+        }
+        else if($type == 2)
+        {
+            if(Auth::check()) $insert['user_id'] = Auth::id();
+            return response_error([],"请先登录！");
+        }
+        $bool = $apply->fill($insert)->save();
+        if($bool) return response_success([]);
+        return response_fail([]);
+    }
+
+    // 活动签到
+    public function sign($post_data)
+    {
+        $v = Validator::make($post_data, [
+            'type' => 'required|in:1,2',
+            'id' => 'required'
+        ]);
+        if ($v->fails()) return response_error([],"参数错误");
+
+        $id = decode($post_data["id"]);
+        if(intval($id) !== 0 && !$id) return response_error([],"参数错误");
+
+        $type = $post_data['type'];
+        $sign = new Sign();
+        $insert['activity_id'] = $id;
+        $insert['type'] = $type;
+        if($type == 1)
+        {
+            $v2 = Validator::make($post_data, [
+                'name' => 'required',
+                'mobile' => 'required|numeric',
+            ]);
+            if ($v2->fails()) return response_error([],"参数错误");
+
+            $insert['name'] = $post_data['name'];
+            $insert['mobile'] = $post_data['mobile'];
+        }
+        else if($type == 2)
+        {
+            if(Auth::check()) $insert['user_id'] = Auth::id();
+            return response_error([],"请先登录！");
+        }
+        $bool = $sign->fill($insert)->save();
+        if($bool) return response_success([]);
+        return response_fail([]);
+    }
+
+
+
+    // 问卷回答
     public function answer($post_data)
     {
         $allow = false;

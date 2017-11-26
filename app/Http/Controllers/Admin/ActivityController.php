@@ -44,6 +44,7 @@ class ActivityController extends Controller
     {
         if(request()->isMethod('get')) return $this->repo->view_edit(request()->all());
         else if (request()->isMethod('post')) return $this->repo->save(request()->all());
+
     }
 
     // 【删除】

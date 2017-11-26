@@ -52,6 +52,11 @@ class SoftorgController extends Controller
     {
         return $this->repo->view_activity_detail();
     }
+    // 返回活动报名视图
+    public function view_activity_apply()
+    {
+        return $this->repo->view_activity_apply();
+    }
 
 
 
@@ -92,6 +97,19 @@ class SoftorgController extends Controller
         return $this->repo->view_article_detail();
     }
 
+
+
+    // 活动报名
+    public function apply()
+    {
+        return $this->repo->apply(request()->all());
+    }
+
+    // 活动签到
+    public function sign()
+    {
+        return $this->repo->sign(request()->all());
+    }
 
 
     // 调研回答
