@@ -7,8 +7,10 @@ class Activity extends Model
     //
     protected $table = "activity";
     protected $fillable = [
-        'sort', 'type', 'org_id', 'admin_id', 'active', 'name', 'title', 'description', 'content', 'start_time', 'end_time',
-        'is_apply', 'apply_start_time', 'apply_end_time', 'is_sign', 'sign_type', 'sign_start_time', 'sign_end_time'
+        'sort', 'type', 'org_id', 'admin_id', 'active', 'name', 'title', 'description', 'content', 'cover_pic',
+        'start_time', 'end_time',
+        'is_apply', 'apply_start_time', 'apply_end_time',
+        'is_sign', 'sign_type', 'sign_start_time', 'sign_end_time'
     ];
     protected $dateFormat = 'U';
 

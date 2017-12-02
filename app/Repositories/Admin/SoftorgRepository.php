@@ -14,7 +14,8 @@ use App\Models\Apply;
 use App\Models\Sign;
 use App\Models\Answer;
 use App\Models\Choice;
-use App\Repositories\Common\UploadRepository;
+use App\Repositories\Common\CommonRepository;
+
 use Response, Auth, Validator, DB, Excepiton;
 
 class SoftorgRepository {
@@ -55,7 +56,7 @@ class SoftorgRepository {
 
         if(!empty($post_data["logo"]))
         {
-            $upload = new UploadRepository;
+            $upload = new CommonRepository();
             $result = $upload->create($post_data["logo"], 'org-'. $admin->id . '-common-logo');
             if($result["status"]) $post_data["logo"] = $result["data"];
             else return response_fail();

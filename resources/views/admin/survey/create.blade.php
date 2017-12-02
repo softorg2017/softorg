@@ -1,8 +1,8 @@
 @extends('admin.layout.layout')
 
-@section('title','添加问卷')
-@section('header','添加问卷')
-@section('description','添加问卷')
+@section('title','创建新问卷')
+@section('header','创建新问卷')
+@section('description','创建新问卷')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="{{url('/admin/survey/list')}}"><i class="fa "></i>问卷列表</a></li>
@@ -69,6 +69,13 @@
                                 });
                             </script>
                         </div>
+                    </div>
+                </div>
+                {{--封面图片--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">封面图片</label>
+                    <div class="col-md-8 ">
+                        <div><input type="file" name="cover" placeholder="请上传封面图片" value="{{$data->cover or ''}}"></div>
                     </div>
                 </div>
 

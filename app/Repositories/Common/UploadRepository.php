@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories\Common;
 
+use QrCode;
+
 /**
  * Description of UploadRepository
  */

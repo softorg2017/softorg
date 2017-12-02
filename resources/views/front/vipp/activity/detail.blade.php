@@ -246,7 +246,6 @@
                     },
                     'json');
             });
-
             // 活动报名（非注册用户）
             $("#activity-apply-mobile-submit").on('click', function() {
                 var form = $("#form-activity-apply");
@@ -285,8 +284,7 @@
                     },
                     'json');
             });
-
-            // 活动签到
+            // 活动签到（非注册用户）
             $("#activity-sign-mobile-submit").on('click', function() {
                 var form = $("#form-activity-sign");
                 var options = {

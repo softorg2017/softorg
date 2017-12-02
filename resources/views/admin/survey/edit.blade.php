@@ -75,6 +75,13 @@
                         <div><input type="text" class="form-control" name="content" placeholder="描述" value="{{$data->content or ''}}"></div>
                     </div>
                 </div>
+                {{--封面图片--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">封面图片</label>
+                    <div class="col-md-8 ">
+                        <div><input type="file" name="cover" placeholder="请上传封面图片" value="{{$data->cover or ''}}"></div>
+                    </div>
+                </div>
 
             </div>
             </form>
@@ -193,16 +200,14 @@
                             {{--操作--}}
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2">
-                                    <a href="/admin/slide/page/edit/{{$v->encode_id or ''}}" target="_blank">
-                                        <button type="button" class="btn btn-sm btn-primary edit-this-page">编辑问题</button>
-                                    </a>
+                                    <button type="button" class="btn btn-sm btn-primary edit-this-question" data-toggle="modal" data-target="#edit-modal">编辑问题</button>
                                     @if(false)
                                         <button type="button" class="btn btn-sm btn-danger delete-this-question">删除</button>
                                     @endif
                                 </div>
                             </div>
                             {{--面具--}}
-                            <div class="control_mask"></div>
+                            {{--<div class="control_mask"></div>--}}
                         </div>
                     @endforeach
                 </div>
@@ -222,6 +227,9 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit-modal">
+
+</div>
 
 <div class="clone-container" style="display: none">
 
@@ -451,6 +459,13 @@ $(function() {
         };
         var form = $(this).parents('form');
         form.ajaxSubmit(options);
+    });
+
+
+    // 添加or修改一个问题
+    $("#form-edit-question").on('click', '.edit-this-question', function () {
+//        $('#edit-modal').modal();
+
     });
 
     // 排序

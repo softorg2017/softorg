@@ -7,7 +7,7 @@ class Survey extends Model
     //
     protected $table = "survey";
     protected $fillable = [
-        'sort', 'type', 'org_id', 'admin_id', 'active', 'name', 'title', 'description', 'content'
+        'sort', 'type', 'org_id', 'admin_id', 'active', 'name', 'title', 'description', 'content', 'cover_pic'
     ];
     protected $dateFormat = 'U';
 

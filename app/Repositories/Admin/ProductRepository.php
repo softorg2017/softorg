@@ -3,6 +3,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Softorg;
 use App\Models\Product;
+use App\Repositories\Common\CommonRepository;
 use Response, Auth, Validator, DB, Excepiton;
 use QrCode;
 
@@ -107,12 +108,25 @@ class ProductRepository {
             // 目标URL
             $url = 'http://www.softorg.cn:8088/product?id='.$encode_id;
             // 保存位置
-            $qrcodes_path = 'resource/org/'.$admin->id.'/qrcodes/products';
+            $qrcodes_path = 'resource/org/'.$admin->id.'/unique/products';
             if(!file_exists(storage_path($qrcodes_path)))
-                mkdir(storage_path($qrcodes_path), 777, true);
+                mkdir(storage_path($qrcodes_path), 0777, true);
             // qrcode图片文件
-            $qrcode = $qrcodes_path.'/'.$encode_id.'.png';
+            $qrcode = $qrcodes_path.'/qrcode_product_'.$encode_id.'.png';
             QrCode::format('png')->size(150)->generate($url,storage_path($qrcode));
+
+
+            if(!empty($post_data["cover"]))
+            {
+                $upload = new CommonRepository();
+                $result = $upload->upload($post_data["cover"], 'org-'. $admin->id.'-unique-products' , 'cover_product_'.$encode_id);
+                if($result["status"])
+                {
+                    $product->cover_pic = $result["data"];
+                    $product->save();
+                }
+                //else return response_fail();
+            }
 
             return response_success(['id'=>$encode_id]);
         }

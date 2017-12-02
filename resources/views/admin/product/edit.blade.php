@@ -1,15 +1,15 @@
 @extends('admin.layout.layout')
 
 @section('title')
-    @if(empty($encode_id)) 添加产品 @else 编辑产品 @endif
+    @if(empty($encode_id)) 创建新产品 @else 编辑产品 @endif
 @endsection
 
 @section('header')
-    @if(empty($encode_id)) 添加产品 @else 编辑产品 @endif
+    @if(empty($encode_id)) 创建新产品 @else 编辑产品 @endif
 @endsection
 
 @section('description')
-    @if(empty($encode_id)) 添加产品 @else 编辑产品 @endif
+    @if(empty($encode_id)) 创建新产品 @else 编辑产品 @endif
 @endsection
 
 @section('breadcrumb')
@@ -98,6 +98,13 @@
                                 });
                             </script>
                         </div>
+                    </div>
+                </div>
+                {{--封面图片--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">封面图片</label>
+                    <div class="col-md-8 ">
+                        <div><input type="file" name="cover" placeholder="请上传封面图片" value="{{$data->cover or ''}}"></div>
                     </div>
                 </div>
 

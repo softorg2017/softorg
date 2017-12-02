@@ -81,6 +81,13 @@
                         </div>
                     </div>
                 </div>
+                {{--封面图片--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">封面图片</label>
+                    <div class="col-md-8 ">
+                        <div><input type="file" name="cover" placeholder="请上传封面图片" value="{{$data->cover or ''}}"></div>
+                    </div>
+                </div>
 
             </div>
             </form>

@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Article;
+use App\Repositories\Common\CommonRepository;
 use Response, Auth, Validator, DB, Excepiton;
 use QrCode;
 
@@ -95,12 +96,25 @@ class ArticleRepository {
             // 目标URL
             $url = 'http://www.softorg.cn:8088/article?id='.$encode_id;
             // 保存位置
-            $qrcodes_path = 'resource/org/'.$admin->id.'/qrcodes/articles';
+            $qrcodes_path = 'resource/org/'.$admin->id.'/unique/articles';
             if(!file_exists(storage_path($qrcodes_path)))
-                mkdir(storage_path($qrcodes_path), 777, true);
+                mkdir(storage_path($qrcodes_path), 0777, true);
             // qrcode图片文件
-            $qrcode = $qrcodes_path.'/'.$encode_id.'.png';
+            $qrcode = $qrcodes_path.'/qrcode_article_'.$encode_id.'.png';
             QrCode::format('png')->size(150)->generate($url,storage_path($qrcode));
+
+
+            if(!empty($post_data["cover"]))
+            {
+                $upload = new CommonRepository();
+                $result = $upload->upload($post_data["cover"], 'org-'. $admin->id.'-unique-articles' , 'cover_article_'.$encode_id);
+                if($result["status"])
+                {
+                    $article->cover_pic = $result["data"];
+                    $article->save();
+                }
+                //else return response_fail();
+            }
 
             return response_success(['id'=>$encode_id]);
         }
