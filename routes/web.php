@@ -188,6 +188,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
             Route::post('delete', $controller.'@deleteAction');
+            Route::post('option/delete', $controller.'@deleteOptionAction');
         });
 
         // 文章模块

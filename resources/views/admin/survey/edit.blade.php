@@ -11,6 +11,9 @@
 
 @section('style')
     <link rel="stylesheet" href="{{asset('css/admin/question.css')}}">
+    <style>
+        .option-remove{position:absolute;top:0;right:16px;width:32px;height:100%;}
+    </style>
 @endsection
 
 @section('content')
@@ -143,13 +146,13 @@
                     </div>
 
                     @foreach($data->questions as $k => $v)
-                        <div class="box-body question-container question-option" data-id="{{$v->encode_id or ''}}">
+                        <div class="box-body question-container question-option" data-id="{{$v->encode_id or ''}}" data-type="{{$v->type or ''}}">
                             <input type="hidden" name="question[{{$k}}][id]" value="{{$v->id or ''}}">
                             {{--标题--}}
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2">
                                     <h4>
-                                        <small></small><b>{{$v->title or ''}}</b>
+                                        <small></small><b><span class="title">{{$v->title or ''}}</span></b>
                                         <small>
                                         @if($v->type == 1) (单行文本题)
                                         @elseif($v->type == 2) (多行文本题)
@@ -164,7 +167,7 @@
                             </div>
                             {{--描述--}}
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2">{{$v->description or ''}}</div>
+                                <div class="col-md-8 col-md-offset-2"><span class="description">{{$v->description or ''}}</span></div>
                             </div>
                             @if($v->type == 1) {{--单行文本题--}}
                                 <div class="form-group">
@@ -180,6 +183,19 @@
                                         <div class="col-md-8 col-md-offset-2"><input type="radio" name="radio"> {{$o->title or ''}}</div>
                                     </div>
                                 @endforeach
+
+                                <div class="edit-html _none">
+                                    @foreach($v->options as $o)
+                                        <div class="form-group option-container">
+                                            <div class="col-md-8 col-md-offset-2">
+                                                <input type="hidden" name="option[{{$loop->index}}][id]" value="{{$o->id or ''}}" class="option-id">
+                                                <div><input type="text" class="form-control" name="option[{{$loop->index}}][title]" placeholder="请输入选项" value="{{$o->title or ''}}"></div>
+                                                <button type="button" class="btn btn-box-tool option-remove remove-the-option"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+
                             @elseif($v->type == 4) {{--下拉题--}}
                                 <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2">
@@ -190,20 +206,44 @@
                                 </select>
                                 </div>
                                 </div>
+
+                                <div class="edit-html _none">
+                                    @foreach($v->options as $o)
+                                        <div class="form-group option-container">
+                                            <div class="col-md-8 col-md-offset-2">
+                                                <input type="hidden" name="option[{{$loop->index}}][id]" value="{{$o->id or ''}}" class="option-id">
+                                                <div><input type="text" class="form-control" name="option[{{$loop->index}}][title]" placeholder="请输入选项" value="{{$o->title or ''}}"></div>
+                                                <button type="button" class="btn btn-box-tool option-remove remove-the-option"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+
                             @elseif($v->type == 5) {{--多选题--}}
                                 @foreach($v->options as $o)
                                     <div class="form-group">
                                         <div class="col-md-8 col-md-offset-2"><input type="checkbox" name="checkbox"> {{$o->title or ''}}</div>
                                     </div>
                                 @endforeach
+
+                                <div class="edit-html _none">
+                                    @foreach($v->options as $o)
+                                    <div class="form-group option-container">
+                                        <div class="col-md-8 col-md-offset-2">
+                                            <input type="hidden" name="option[{{$loop->index}}][id]" value="{{$o->id or ''}}" class="option-id">
+                                            <div><input type="text" class="form-control" name="option[{{$loop->index}}][title]" placeholder="请输入选项" value="{{$o->title or ''}}"></div>
+                                            <button type="button" class="btn btn-box-tool option-remove remove-the-option"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+
                             @endif
                             {{--操作--}}
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2">
-                                    <button type="button" class="btn btn-sm btn-primary edit-this-question" data-toggle="modal" data-target="#edit-modal">编辑问题</button>
-                                    @if(false)
-                                        <button type="button" class="btn btn-sm btn-danger delete-this-question">删除</button>
-                                    @endif
+                                    <button type="button" class="btn btn-sm btn-primary edit-this-question" data-toggle="modals" data-target="#edit-modals">编辑问题</button>
+                                    <button type="button" class="btn btn-sm btn-danger delete-this-question">删除问题</button>
                                 </div>
                             </div>
                             {{--面具--}}
@@ -228,9 +268,10 @@
 </div>
 
 <div class="modal fade" id="edit-modal">
-
+    <div class="col-md-8 col-md-offset-2" id="edit-ctn" style="margin-top:64px;margin-bottom:64px;background:#fff;"></div>
 </div>
 
+{{--clone--}}
 <div class="clone-container" style="display: none">
 
     {{--单行/多行文本题--}}
@@ -242,6 +283,7 @@
                 <input type="hidden" readonly name="operate" value="create">
                 <input type="hidden" readonly name="container" value="survey">
                 <input type="hidden" readonly name="survey_id" value="{{$encode_id or encode(0)}}">
+                <input type="hidden" readonly name="question_id" value="{{encode(0)}}">
                 <input type="hidden" readonly name="type" value="1" class="question-type">
 
                 <div class="form-group">
@@ -282,6 +324,7 @@
                 <input type="hidden" readonly name="operate" value="create">
                 <input type="hidden" readonly name="container" value="survey">
                 <input type="hidden" readonly name="survey_id" value="{{$encode_id or encode(0)}}">
+                <input type="hidden" readonly name="question_id" value="{{encode(0)}}">
                 <input type="hidden" readonly name="type" value="3" class="question-type">
 
                 <div class="form-group">
@@ -308,15 +351,17 @@
 
                 <div class="form-group option-container">
                     <div class="col-md-8 col-md-offset-2">
-                        <input type="hidden" name="option[0][id]" value="0">
-                        <div><input type="text" class="form-control" name="option[0][title]" placeholder="请输入选项" value="选项"></div>
+                        <input type="hidden" name="option[0][id]" value="0" class="option-id">
+                        <div><input type="text" class="form-control" name="option[0][title]" placeholder="请输入选项" value="选项1"></div>
+                        <button type="button" class="btn btn-box-tool option-remove remove-the-option"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
 
                 <div class="form-group option-container">
                     <div class="col-md-8 col-md-offset-2">
-                        <input type="hidden" name="option[1][id]" value="0">
-                        <div><input type="text" class="form-control" name="option[1][title]" placeholder="请输入选项" value="选项"></div>
+                        <input type="hidden" name="option[1][id]" value="0" class="option-id">
+                        <div><input type="text" class="form-control" name="option[1][title]" placeholder="请输入选项" value="选项2"></div>
+                        <button type="button" class="btn btn-box-tool option-remove remove-the-option"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
 
@@ -340,8 +385,9 @@
     <div id="option-cloner">
         <div class="form-group option-container">
             <div class="col-md-8 col-md-offset-2">
-                <input type="hidden" class="form-control option-id" name="option[0][id]" value="0">
+                <input type="hidden" name="option[0][id]" value="0" class="option-id">
                 <div><input type="text" class="form-control option-title" name="option[0][title]" placeholder="请输入选项" value="选项"></div>
+                <button type="button" class="btn btn-box-tool option-remove remove-the-option"><i class="fa fa-times"></i></button>
             </div>
         </div>
     </div>
@@ -385,7 +431,9 @@ $(function() {
         var html = $("#text-cloner .question-option").clone();
         html.find(".question-type").val(1);
         html.find(".question-title").html("单行文本题");
-        $('#question-container .question-container:last').after(html);
+//        $('#question-container .question-container:last').after(html);
+        $('#edit-ctn').html(html);
+        $('#edit-modal').modal('show');
         html.find('input[name=title]').focus();
         $('#question-container .question-option').show();
     });
@@ -395,7 +443,9 @@ $(function() {
         var html = $("#text-cloner .question-option").clone();
         html.find(".question-type").val(2);
         html.find(".question-title").html("多行文本题");
-        $('#question-container .question-container:last').after(html);
+//        $('#question-container .question-container:last').after(html);
+        $('#edit-ctn').html(html);
+        $('#edit-modal').modal('show');
         html.find('input[name=title]').focus();
     });
 
@@ -405,7 +455,9 @@ $(function() {
         var html = $("#choice-cloner .question-option").clone();
         html.find(".question-type").val(3);
         html.find(".question-title").html("单选题");
-        $('#question-container .question-container:last').after(html);
+//        $('#question-container .question-container:last').after(html);
+        $('#edit-ctn').html(html);
+        $('#edit-modal').modal('show');
         html.find('input[name=title]').focus();
     });
     // 新建一个下拉题
@@ -414,7 +466,9 @@ $(function() {
         var html = $("#choice-cloner .question-option").clone();
         html.find(".question-type").val(4);
         html.find(".question-title").html("下拉题");
-        $('#question-container .question-container:last').after(html);
+//        $('#question-container .question-container:last').after(html);
+        $('#edit-ctn').html(html);
+        $('#edit-modal').modal('show');
         html.find('input[name=title]').focus();
     });
     // 新建一个多选题
@@ -423,12 +477,14 @@ $(function() {
         var html = $("#choice-cloner .question-option").clone();
         html.find(".question-type").val(5);
         html.find(".question-title").html("多选题");
-        $('#question-container .question-container:last').after(html);
+//        $('#question-container .question-container:last').after(html);
+        $('#edit-ctn').html(html);
+        $('#edit-modal').modal('show');
         html.find('input[name=title]').focus();
     });
 
     // 添加一个选项
-    $("#form-edit-question").on('click', '.create-new-option', function () {
+    $("#edit-modal").on('click', '.create-new-option', function () {
 
         var form = $(this).parents("form");
         var key = parseInt(form.attr("data-key"));
@@ -437,11 +493,56 @@ $(function() {
         var html = $("#option-cloner .option-container").clone();
         html.find('.option-id').attr("name","option["+key+"][id]");
         html.find('.option-title').attr("name","option["+key+"][title]");
-        form.find(".option-container:last").after(html);
+//        form.find(".option-container:last").after(html);
+        form.find(".add-option-container").before(html);
+    });
+
+    // 删除一个选项
+    $("#edit-modal").on('click', '.remove-the-option', function () {
+
+        var form = $(this).parents("form");
+        var survey_id = form.find("input[name=survey_id]").val();
+        var question_id = form.find("input[name=question_id]").val();
+
+        var option = $(this).parents(".option-container");
+        var option_id = option.find('.option-id').val();
+
+//         方案1
+        if(option_id == 0) option.remove();
+        else
+        {
+            layer.msg('确定要删除该"选项"么', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                        "/admin/question/option/delete",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            survey_id:survey_id,
+                            question_id:question_id,
+                            option_id:option_id
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else
+                            {
+                                option.remove();
+                                layer.close(index);
+                            }
+                        },
+                        'json'
+                    );
+                }
+            });
+        }
+
+        // 方案2
+//        option.remove();
     });
 
     // 添加or修改一个问题
-    $("#form-edit-question").on('click', '.create-this-question', function () {
+    $("#edit-modal").on('click', '.create-this-question', function () {
 
         var options = {
             url: "/admin/question/edit",
@@ -461,10 +562,97 @@ $(function() {
         form.ajaxSubmit(options);
     });
 
+    // 取消添加or编辑
+    $("#edit-modal").on('click', '.cansel-this-question', function () {
+        $('#edit-ctn').html('');
+        $('#edit-modal').modal('hide');
+    });
 
-    // 添加or修改一个问题
+
+
+
+    // 编辑一个问题
     $("#form-edit-question").on('click', '.edit-this-question', function () {
-//        $('#edit-modal').modal();
+
+        var question = $(this).parents('.question-option');
+        var id = question.attr('data-id');
+        var type = question.attr('data-type');
+        var title = question.find('.title').html();
+        var description = question.find('.description').html();
+
+        if(type == 1 || type == 2)
+        {
+            var html = $("#text-cloner .question-option").clone();
+        }
+        else if(type == 3 || type == 4 || type == 5)
+        {
+            var html = $("#choice-cloner .question-option").clone();
+            html.find(".option-container").remove();
+            var edit_html = question.find(".edit-html");
+            edit_html.removeClass("_none");
+            html.find(".add-option-container").before(edit_html);
+        }
+
+        if(type == 1)
+        {
+            html.find(".question-title").html("单行文本题");
+        }
+        else if(type == 2)
+        {
+            html.find(".question-title").html("多行文本题");
+        }
+        else if(type == 3)
+        {
+            html.find(".question-title").html("单选题");
+        }
+        else if(type == 4)
+        {
+            html.find(".question-title").html("下拉提");
+        }
+        else if(type == 5)
+        {
+            html.find(".question-title").html("多选题");
+        }
+
+        html.find(".question-type").val(type);
+        html.find("form").attr("data-key",1000);
+        html.find("input[name=operate]").val("edit");
+        html.find("input[name=question_id]").val(id);
+
+        html.find("input[name=title]").val(title);
+        html.find("input[name=description]").val(description);
+
+        $('#edit-ctn').html(html);
+        $('#edit-modal').modal('show');
+
+    });
+
+    // 删除一个问题
+    $("#form-edit-question").on('click', '.delete-this-question', function () {
+
+        var question = $(this).parents('.question-option');
+        var question_id = question.attr('data-id');
+        var survey_id = $('input[name=survey_id]').val();
+
+        layer.msg('确定要删除该"问题"么', {
+            time: 0
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                $.post(
+                    "/admin/question/delete",
+                    {
+                        _token: $('meta[name="_token"]').attr('content'),
+                        question_id:question_id,
+                        survey_id:survey_id
+                    },
+                    function(data){
+                        if(!data.success) layer.msg(data.msg);
+                        else location.reload();
+                    },
+                    'json'
+                );
+            }
+        });
 
     });
 

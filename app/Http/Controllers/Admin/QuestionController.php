@@ -48,6 +48,11 @@ class QuestionController extends Controller
         return $this->repo->delete(request()->all());
     }
 
+    public function deleteOptionAction()
+    {
+        return $this->repo->delete_option(request()->all());
+    }
+
     public function getAction()
     {
         return $this->repo->get(request()->all());

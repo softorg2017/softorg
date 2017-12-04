@@ -7,7 +7,7 @@ class Option extends Model
     //
     protected $table = "option";
     protected $fillable = [
-        'sort', 'type', 'org_id', 'admin_id', 'question_id', 'name', 'title', 'description', 'content'
+        'sort', 'type', 'org_id', 'admin_id', 'survey_id', 'question_id', 'name', 'title', 'description', 'content'
     ];
     protected $dateFormat = 'U';
 

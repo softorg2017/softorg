@@ -3,6 +3,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Survey;
 use App\Models\Question;
+use App\Models\Option;
 use App\Repositories\Common\CommonRepository;
 use Response, Auth, Validator, DB, Excepiton;
 use QrCode;
@@ -157,7 +158,12 @@ class SurveyRepository {
         if($survey->admin_id != $admin->id) return response_error([],"你没有操作权限");
         $bool = $survey->delete();
         if(!$bool) return response_fail([],"删除失败，请重试");
-        else return response_success([]);
+        else
+        {
+            $bool = Question::where('survey_id',$id)->delete();
+            $bool = Option::where('survey_id',$id)->delete();
+            return response_success([]);
+        }
     }
 
     // 启用
