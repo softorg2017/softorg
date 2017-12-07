@@ -3,7 +3,7 @@
 @section('website-name',$data->org->website_name)
 
 {{--分享内容--}}
-@section('share_title')幻灯片 - {{$data->title or ''}}@endsection
+@section('share_title')【幻灯片】{{$data->title or ''}}@endsection
 @section('share_desc'){{$data->description or ''}}@endsection
 
 @section('title')
