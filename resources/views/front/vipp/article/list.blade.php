@@ -3,6 +3,7 @@
 {{--分享内容--}}
 @section('share_title',$org->website_name)
 @section('share_desc','文章列表')
+@section('share_img'){{asset('/favicon-192.png')}}@endsection
 
 @section('title','文章列表')
 @section('header','文章列表')

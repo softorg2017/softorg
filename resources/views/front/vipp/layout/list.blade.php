@@ -217,31 +217,31 @@
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     ink: link,
-                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                    imgUrl: '@yield('share_img')'
                 });
                 wx.onMenuShareTimeline({
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     link: link,
-                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                    imgUrl: '@yield('share_img')'
                 });
                 wx.onMenuShareQQ({
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     link: link,
-                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                    imgUrl: '@yield('share_img')'
                 });
                 wx.onMenuShareQZone({
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     link: link,
-                    imgUrl: '{{asset('/ysi/images/yk.png')}}',
+                    imgUrl: '@yield('share_img')'
                 });
                 wx.onMenuShareWeibo({
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     link: link,
-                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                    imgUrl: '@yield('share_img')'
                 });
             })   ;
         }
