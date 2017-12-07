@@ -181,13 +181,79 @@
         <li><a href="#">FB</a></li>
         <li><a href="#">FC</a></li>
     </ul>
-    <div class="copyright">COPYRIGHT© 如哉网络科技有限公司 2017</div>
+    <div class="copyright">COPYRIGHT© 如哉网络科技有限公司 2017 沪ICP备17052782号-1</div>
     <div class="term"><a href="#">Terms and conditions</a></div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ asset('frontend/themes/vipp/js/all.js') }}"></script>
 <script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+ <script>  
+    $(function(){ 
+
+        var link = window.location.href; 
+
+        if(typeof wx != "undefined") wxFn();
+
+        function wxFn() {  
+
+            wx.config({
+                debug: true,
+                appId: 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识
+                timestamp: 1512624767, // 必填，生成签名的时间戳
+                nonceStr: 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串
+                signature: "{{$signature or ''}}",// 必填，签名，见附录1
+                jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareQZone',
+                    'onMenuShareWeibo'
+                ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            }) ;
+
+            wx.ready(function(){ 
+                wx.onMenuShareAppMessage({ 
+                    title: '@yield('title_info')', // 分享标题 
+                    desc: '@yield('desc_info')', // 分享描述 
+                    ink: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致 
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}' // 分享图标 
+                }); 
+                wx.onMenuShareTimeline({ 
+                    title: '@yield('title_info')',
+                    desc: '@yield('desc_info')',
+                    link: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                }); 
+                wx.onMenuShareQQ({ 
+                    title: '@yield('title_info')',
+                    desc: '@yield('desc_info')',
+                    link: link, 
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                }); 
+                wx.onMenuShareQZone({ 
+                    title: '@yield('title_info')',
+                    desc: '@yield('desc_info')',
+                    link: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}',
+                });
+                wx.onMenuShareWeibo({
+                    title: '@yield('title_info')',
+                    desc: '@yield('desc_info')',
+                    link: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                });
+            })   ;
+        } 
+    }); 
+</script>
+
+
+
+
 @yield('js')
 </body>
 

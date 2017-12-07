@@ -8,6 +8,26 @@ return [
      */
     'debug'  => true,
 
+
+    /**
+     * 分享配置
+     */
+    'share' => [
+        'debug' => true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        'appId' => 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识
+        'timestamp' => '1512624767', // 必填，生成签名的时间戳
+        'nonceStr' => 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串
+        'signature' => 'fbe9de980adc2524d487ac916640d736d1af8311', // 必填，签名，见附录1
+        'jsApiList' => [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareQZone',
+            'onMenuShareWeibo'
+        ], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    ],
+
     /*
      * 使用 Laravel 的缓存系统
      */

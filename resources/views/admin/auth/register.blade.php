@@ -5,20 +5,22 @@
 @section('content')
 <div class="register-box">
     <div class="register-logo">
-        <a href="/admin"><b>轻机构</b> 后台注册</a>
+        <a href="/admin"><b>Softorg</b> 注册</a>
     </div>
 
     <div class="register-box-body">
-        <p class="login-box-msg">注册一个管理员账户</p>
+        <p class="login-box-msg">注册一个机构</p>
 
-        <form action="/admin/register" method="post" id="form-admin-register">
+        <form action="" method="post" id="form-admin-register">
+
             {{ csrf_field() }}
+
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="name" placeholder="用户名">
+                <input type="text" class="form-control" name="website_name" placeholder="机构域名，仅限英文字符">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" name="email" placeholder="邮箱">
+                <input type="email" class="form-control" name="email" placeholder="超级管理员邮箱">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
@@ -39,7 +41,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat" id="admin-register-submit">注册</button>
+                    <button type="button" class="btn btn-primary btn-block btn-flat" id="admin-register-submit">注册</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -70,7 +72,7 @@
         // 提交表单
         $("#admin-register-submit").on('click', function() {
             var options = {
-                url: "/admin/login",
+                url: "/admin/register/org",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -79,7 +81,8 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "/admin";
+                        $("#form-admin-register").find('input').val('')；
+
                     }
                 }
             };

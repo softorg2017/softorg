@@ -4,17 +4,22 @@ namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Services\Admin\AuthService;
+use App\Repositories\Admin\AuthRepository;
+use App\Models\Softorg;
 use App\Administrator;
-use Auth;
+use Response, Auth, Validator, DB, Excepiton;
 
 
 class AuthController extends Controller
 {
     //
-    private $model;
+    private $service;
+    private $repo;
     public function __construct()
     {
-        $this->model = new Administrator;
+        $this->service = new AuthService;
+        $this->repo = new AuthRepository;
     }
 
     // 登陆
@@ -60,8 +65,13 @@ class AuthController extends Controller
         }
         else if(request()->isMethod('post'))
         {
-            return $this->repo->get_list_datatable(request()->all());
         }
+    }
+
+    // 注册新机构
+    public function register_org()
+    {
+        return $this->repo->register_org(request()->all());
     }
 
 

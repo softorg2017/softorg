@@ -511,6 +511,10 @@ desired effect
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 
+<script>
+
+</script>
+
 
 <script src="{{asset('js/admin/index.js')}}"></script>
 
