@@ -241,7 +241,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 
 /*前台*/
-Route::group(['namespace' => 'Front'], function () {
+Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
 
     $controller = "SoftorgController";
 
@@ -259,7 +259,7 @@ Route::group(['namespace' => 'Front'], function () {
 });
 
 /*前台*/
-Route::group(['prefix' => config('common.website.front.prefix').'/{org_name}', 'namespace' => 'Front'], function () {
+Route::group(['prefix' => config('common.website.front.prefix').'/{org_name}', 'namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
 
     $controller = "SoftorgController";
 

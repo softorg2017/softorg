@@ -184,6 +184,70 @@
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ asset('frontend/themes/vipp/js/all.js') }}"></script>
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+ <script>
+    $(function(){
+
+        var link = window.location.href;
+
+        if(typeof wx != "undefined") wxFn();
+
+        function wxFn() {
+
+            wx.config({
+                debug: true,
+                appId: 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识
+                timestamp: 1512624767, // 必填，生成签名的时间戳
+                nonceStr: 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串
+                signature: "{{$signature or ''}}",// 必填，签名，见附录1
+                jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareQZone',
+                    'onMenuShareWeibo'
+                ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            }) ;
+
+            wx.ready(function(){
+                wx.onMenuShareAppMessage({
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
+                    ink: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                });
+                wx.onMenuShareTimeline({
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
+                    link: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                });
+                wx.onMenuShareQQ({
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
+                    link: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                });
+                wx.onMenuShareQZone({
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
+                    link: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}',
+                });
+                wx.onMenuShareWeibo({
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
+                    link: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
+                });
+            })   ;
+        }
+    });
+</script>
+
 </body>
 
 </html>

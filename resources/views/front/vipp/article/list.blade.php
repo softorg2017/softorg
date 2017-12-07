@@ -1,5 +1,9 @@
 @extends('front.'.config('common.view.front.list').'.layout.list')
 
+{{--分享内容--}}
+@section('share_title',$org->website_name)
+@section('share_desc','文章列表')
+
 @section('title','文章列表')
 @section('header','文章列表')
 @section('description','文章列表')

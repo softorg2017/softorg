@@ -217,32 +217,32 @@
 
             wx.ready(function(){ 
                 wx.onMenuShareAppMessage({ 
-                    title: '@yield('title_info')', // 分享标题 
-                    desc: '@yield('desc_info')', // 分享描述 
-                    ink: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致 
-                    imgUrl: '{{asset('/ysi/images/yk.png')}}' // 分享图标 
+                    title: '@yield('share_title')', 
+                    desc: '@yield('share_desc')',
+                    ink: link,
+                    imgUrl: '{{asset('/ysi/images/yk.png')}}'
                 }); 
                 wx.onMenuShareTimeline({ 
-                    title: '@yield('title_info')',
-                    desc: '@yield('desc_info')',
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
                     link: link,
                     imgUrl: '{{asset('/ysi/images/yk.png')}}'
                 }); 
                 wx.onMenuShareQQ({ 
-                    title: '@yield('title_info')',
-                    desc: '@yield('desc_info')',
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
                     link: link, 
                     imgUrl: '{{asset('/ysi/images/yk.png')}}'
                 }); 
                 wx.onMenuShareQZone({ 
-                    title: '@yield('title_info')',
-                    desc: '@yield('desc_info')',
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
                     link: link,
                     imgUrl: '{{asset('/ysi/images/yk.png')}}',
                 });
                 wx.onMenuShareWeibo({
-                    title: '@yield('title_info')',
-                    desc: '@yield('desc_info')',
+                    title: '@yield('share_title')',
+                    desc: '@yield('share_desc')',
                     link: link,
                     imgUrl: '{{asset('/ysi/images/yk.png')}}'
                 });
