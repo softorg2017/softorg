@@ -149,7 +149,6 @@ class SoftorgRepository {
             $string = "jsapi_ticket=HoagFKDcsGMVCIY2vOjf9nzhkKortt07_TqfuxtJ_AUc8rukR4TLzJVXm8EwEi43gyiVaYBvVJzHZSKiAMvGIg&noncestr=Softorg20171010Softorg20171207&timestamp=1512624767&url=".url()->full();
             request()->url();
             $signature = sha1($string);
-            var_dump($signature);die();
             return view('front.'.config('common.view.front.detail').'.product.detail')->with(['data'=>$product,'signature'=>$signature]);
         }
         else dd("产品不存在");
