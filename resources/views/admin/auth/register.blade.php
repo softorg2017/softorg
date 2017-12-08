@@ -81,7 +81,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        $("#form-admin-register").find('input').val('')；
+                        $("#form-admin-register").find('input').val('');
 
                     }
                 }

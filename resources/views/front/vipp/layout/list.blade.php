@@ -197,7 +197,7 @@
         function wxFn() {
 
             wx.config({
-                debug: true,
+                debug: false,
                 appId: 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识
                 timestamp: 1512624767, // 必填，生成签名的时间戳
                 nonceStr: 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串

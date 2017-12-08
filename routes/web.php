@@ -29,6 +29,9 @@ Route::get('/home', function () {
 });
 
 Route::group(['prefix' => 'test'], function () {
+
+    $controller = "TestController";
+
     Route::get('/index', function () {
         return view('frontend.home.index');
     });
@@ -38,6 +41,7 @@ Route::group(['prefix' => 'test'], function () {
     Route::get('/list', function () {
         return view('frontend.home.list');
     });
+    Route::get('/send/email', $controller.'@send_email');
 });
 
 
@@ -49,10 +53,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     // 注册登录
     Route::group(['namespace' => 'Auth'], function () {
-        Route::match(['get','post'], 'register','AuthController@register');
-        Route::match(['get','post'], 'register/org','AuthController@register_org');
-        Route::match(['get','post'], 'login','AuthController@login');
-        Route::match(['get','post'], 'logout','AuthController@logout');
+        $controller = "AuthController";
+        Route::match(['get','post'], 'register', $controller.'@register');
+        Route::match(['get','post'], 'register/org', $controller.'@register_org');
+        Route::match(['get','post'], 'login', $controller.'@login');
+        Route::match(['get','post'], 'logout', $controller.'@logout');
+        Route::match(['get','post'], 'activation', $controller.'@activation');
     });
 
     Route::group(['middleware' => 'admin'], function () {

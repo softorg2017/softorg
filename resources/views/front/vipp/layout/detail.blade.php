@@ -220,6 +220,7 @@
                     title: '@yield('share_title')', 
                     desc: '@yield('share_desc')',
                     ink: link,
+                    dataUrl: '',
                     imgUrl: '@yield('share_img')'
                 }); 
                 wx.onMenuShareTimeline({ 

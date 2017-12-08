@@ -38,12 +38,16 @@ class AuthController extends Controller
             $admin = Administrator::whereEmail($email)->first();
             if($admin)
             {
-                if(password_check($password,$admin->password))
+                if($admin->active == 1)
                 {
-                    Auth::guard('admin')->login($admin,true);
-                    return response_success();
+                    if(password_check($password,$admin->password))
+                    {
+                        Auth::guard('admin')->login($admin,true);
+                        return response_success();
+                    }
+                    else return response_error([],'账户or密码不正确 ');
                 }
-                else return response_error([],'账户or密码不正确 ');
+                else return response_error([],'账户尚未激活，请先去邮箱激活。');
             }
             else return response_error([],'账户不存在');
         }
@@ -72,6 +76,11 @@ class AuthController extends Controller
     public function register_org()
     {
         return $this->repo->register_org(request()->all());
+    }
+
+    public function activation()
+    {
+        return $this->repo->activation(request()->all());
     }
 
 
