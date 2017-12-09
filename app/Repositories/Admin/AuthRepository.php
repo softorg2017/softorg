@@ -19,11 +19,14 @@ class AuthRepository {
     public function register_org($post_data)
     {
         $messages = [
+            'captcha.required' => '请输入验证码',
+            'captcha.captcha' => '验证码有误',
             'website_name.unique' => '企业域名已经存在，请更换一个名字',
             'website_name.alpha' => '企业域名必须是英文字符',
             'email.unique' => '管理员邮箱已存在，请更换邮箱',
         ];
         $v = Validator::make($post_data, [
+            'captcha' => 'required|captcha',
             'website_name' => 'required|alpha|unique:softorg',
             'email' => 'required|email|unique:administrator',
             'password' => 'required',
@@ -34,6 +37,8 @@ class AuthRepository {
             $messages = $v->errors();
             return response_error([],$messages->first());
         }
+
+        //return response_success([],'YANZ');
 
         $website_name = $post_data['website_name'];
         $email = $post_data['email'];

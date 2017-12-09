@@ -41,9 +41,17 @@ Route::group(['prefix' => 'test'], function () {
     Route::get('/list', function () {
         return view('frontend.home.list');
     });
-    Route::get('/send/email', $controller.'@send_email');
+    // Route::get('/send/email', $controller.'@send_email');
 
-    Route::get('/send_sms', "{$controller}@send_sms");
+    // Route::get('/send_sms', "{$controller}@send_sms");
+});
+
+/*后台*/
+Route::group(['prefix' => 'common'], function () {
+
+    $controller = "CommonController";
+
+    Route::match(['get','post'], 'change_captcha', $controller.'@change_captcha');
 });
 
 

@@ -31,6 +31,10 @@
                 <input type="password" class="form-control" name="password_confirm" placeholder="确认密码">
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" name="captcha" placeholder="验证码">
+                <span class="_pointer change_captcha" style="cursor: pointer;">{!! captcha_img() !!}</span>
+            </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
@@ -84,9 +88,20 @@
                         $("#form-admin-register").find('input').val('');
 
                     }
+                    $('input[name=captcha]').val('');
+                    $("#form-admin-register .change_captcha").click();
                 }
             };
             $("#form-admin-register").ajaxSubmit(options);
+        });
+
+        // 更换验证码
+        $(".change_captcha").on('click', function() {
+            var that = $(this);
+            $.get("/common/change_captcha", function(result) {
+                that.find('img').attr('src', result.data.src);
+//                that.html(result.data.img);
+            }, 'json');
         });
     });
 </script>
