@@ -185,6 +185,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class,
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
 
     ],
 
@@ -240,7 +241,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'UEditor'=>Stevenyangecho\UEditor\UEditorServiceProvider::class,
-        'Wechat' => Overtrue\LaravelWechat\Facade::class
+        'Wechat' => Overtrue\LaravelWechat\Facade::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 
