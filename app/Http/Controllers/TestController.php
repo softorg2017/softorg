@@ -8,12 +8,18 @@ use App\Http\Controllers\Controller;
 
 use App\Repositories\Admin\MailRepository;
 
+//发送短信的模块
+use App\Services\MessageService;
+
 class TestController extends Controller
 {
     //
     private $repo;
+    private $sms;
+
     public function __construct()
     {
+        $this->sms = new MessageService();
     }
 
 
@@ -31,5 +37,8 @@ class TestController extends Controller
         $send->send_admin_activation_email($post_data);
     }
 
-
+    public function send_sms()
+    {
+        dd($this->sms->send_SMS('15800689433', 'verification_code', ['code' => 664664]));
+    }
 }

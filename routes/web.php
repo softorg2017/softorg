@@ -42,6 +42,8 @@ Route::group(['prefix' => 'test'], function () {
         return view('frontend.home.list');
     });
     Route::get('/send/email', $controller.'@send_email');
+
+    Route::get('/send_sms', "{$controller}@send_sms");
 });
 
 
