@@ -139,9 +139,9 @@
                     <div class="hero-product-container-xs" style="background-image:url(/images/black-v.jpg)">
                     </div>
                     <div class="hero-product-description white" fade-onload>
-                        <h4>{{$org->short or ''}}</h4>
-                        <h1 class="hero-heading">@yield('menu-name')</h1>
-                        <a href="#" class="btn-md"><span>SHOP NOW</span></a>
+                        <h4>{{$org->slogan or ''}}</h4>
+                        <h1 class="hero-heading">{{$org->name or ''}}</h1>
+                        <a href="#" class="btn-md"><span>@yield('menu-name')</span></a>
                     </div>
                 </div>
             </div>
