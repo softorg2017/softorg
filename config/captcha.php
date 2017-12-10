@@ -8,7 +8,10 @@ return [
         'length'    => 5,
         'width'     => 120,
         'height'    => 36,
-        'quality'   => 90,
+        'quality'   => 0,
+        'contrast'  => -10,
+        'bgColor'   => '#ffffff',
+        'fontColors'=> ['#111111', '#2c3e50', '#222222', '#2e6da4', '#16a085', '#303f9f'],
     ],
 
     'flat'   => [

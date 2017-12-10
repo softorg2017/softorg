@@ -115,7 +115,7 @@
                 </ul>
             </li>
             <li class="padder">&nbsp;</li>
-            <li>
+            <li style="display: none">
                 <ul class="second-nav">
                     <li><a href="#" class="">A</a></li>
                     <li><a href="#" class="">B</a></li>
@@ -134,8 +134,8 @@
             {{--首页--}}
             <div class="row full has-fold">
                 <div class="col-xs-14">
-                    <div class="hero-product-container" style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-4.jpg.pagespeed.ic.00ERKzT-Z_.webp)">
-                        <div class="hero-product-container-xs" style="background-image:url(https://www.vipp.com/sites/default/files/xvipp-16-pedal-bin-black-topview-0.jpg.pagespeed.ic.uIVjfVKkYq.webp)">
+                    <div class="hero-product-container" style="background-image:url(/images/black.jpg)">
+                        <div class="hero-product-container-xs" style="background-image:url(/images/black.jpg)">
                         </div>
                         <div class="hero-product-description white" fade-onload>
                             <h4>{{$org->slogan or ''}}</h4>
@@ -150,7 +150,7 @@
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3>产品展示</h3>
+                            <h3>产品</h3>
                             <a href="/org/{{$org->website_name or '1'}}/product" class="hidden-xs">更多产品</a>
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
@@ -360,7 +360,7 @@
     {{--footer--}}
     <div class="footer">
         <div class="bt-scroll-top"><i class="icon-arrow-down"></i> </div>
-        <div class="social-links">
+        <div class="social-links" style="display: none">
             <a href="https://www.instagram.com/vipp/" target="_blank">
                 <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-04,402x.png.pagespeed.ic.R7xJIzYmlQ.webp" alt="instagram"/>
             </a>
@@ -381,11 +381,12 @@
             </a>
         </div>
         <ul>
-            <li><a href="#">FA</a></li>
-            <li><a href="#">FB</a></li>
-            <li><a href="#">FC</a></li>
+            <li><a href="/org/{{$org->website_name or '1'}}/product">产品</a></li>
+            <li><a href="/org/{{$org->website_name or '1'}}/activity">活动</a></li>
+            <li><a href="/org/{{$org->website_name or '1'}}/survey">问卷</a></li>
+            <li><a href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
         </ul>
-        <div class="copyright">COPYRIGHT© Softorg 2017</div>
+        <div class="copyright">COPYRIGHT© 上海如哉网络科技有限公司 2017 沪ICP备17052782号-1</div>
         <div class="term"><a href="#">Terms and conditions</a></div>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>

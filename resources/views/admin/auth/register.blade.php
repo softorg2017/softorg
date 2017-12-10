@@ -98,7 +98,7 @@
         // 更换验证码
         $(".change_captcha").on('click', function() {
             var that = $(this);
-            $.get("/common/change_captcha", function(result) {
+            $.post("/common/change_captcha", {'_token': $('meta[name="_token"]').attr('content')}, function(result) {
                 that.find('img').attr('src', result.data.src);
 //                that.html(result.data.img);
             }, 'json');

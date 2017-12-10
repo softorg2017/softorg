@@ -118,7 +118,7 @@
             </ul>
         </li>
         <li class="padder">&nbsp;</li>
-        <li>
+        <li style="display: none">
             <ul class="second-nav">
                 <li><a href="#" class="">A</a></li>
                 <li><a href="#" class="">B</a></li>
@@ -177,9 +177,10 @@
         </a>
     </div>
     <ul>
-        <li><a href="#">FA</a></li>
-        <li><a href="#">FB</a></li>
-        <li><a href="#">FC</a></li>
+        <li><a href="/org/@yield('website-name')/product">产品</a></li>
+        <li><a href="/org/@yield('website-name')/activity">活动</a></li>
+        <li><a href="/org/@yield('website-name')/survey">问卷</a></li>
+        <li><a href="/org/@yield('website-name')/article">文章</a></li>
     </ul>
     <div class="copyright">COPYRIGHT© 如哉网络科技有限公司 2017 沪ICP备17052782号-1</div>
     <div class="term"><a href="#">Terms and conditions</a></div>
