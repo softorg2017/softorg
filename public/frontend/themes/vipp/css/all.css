@@ -5802,7 +5802,7 @@ html.resized body.node-type-hotel-list-page .top-wrapper .top.primary .right a:f
     }
     .top-wrapper .top .logo {
         margin-left: 15px;
-        height: 15px;
+        height: 30px;
         width: auto
     }
     .top-wrapper .top .hamburger-btn {
@@ -5821,7 +5821,7 @@ html.resized body.node-type-hotel-list-page .top-wrapper .top.primary .right a:f
         height: 50px
     }
     .top-wrapper .top.resized .logo {
-        height: 15px
+        height: 30px
     }
     .top-wrapper .top.primary .hidden-sm {
         display: none
@@ -6625,8 +6625,8 @@ screen and (min-device-pixel-ratio:1.5) {
 .hero-product-description {
     position: absolute;
     top: 0;
-    width: 65%;
-    max-width: 240px;
+    width: 75%;
+    max-width: 80%;
     color: #282828
 }
 
@@ -8385,7 +8385,7 @@ body.open-tray-menu .tray-menu {
 }
 
 .tray-menu .main>li:first-child>div:first-of-type img {
-    width: 46px
+    width: 36px
 }
 
 .tray-menu .main>li:first-child div:nth-of-type(2) {
@@ -8393,7 +8393,7 @@ body.open-tray-menu .tray-menu {
 }
 
 .tray-menu .main>li:first-child div:nth-of-type(2) img {
-    width: 17px
+    width: 24px
 }
 
 .tray-menu .main .first-nav .padder {

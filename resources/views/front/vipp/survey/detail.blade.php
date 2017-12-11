@@ -5,7 +5,7 @@
 {{--分享内容--}}
 @section('share_title')【问卷】{{$data->title or ''}}@endsection
 @section('share_desc'){{$data->description or ''}}@endsection
-@section('share_img'){{asset('/favicon-192.png')}}@endsection
+@section('share_img')http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}@endsection
 
 @section('title')
     问卷 - {{$data->title or ''}}

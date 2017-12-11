@@ -42,8 +42,10 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link type="text/css" rel="stylesheet" href="{{ asset('frontend/themes/vipp/css/all.css') }}" media="all" />
-    <script src="https://www.vipp.com/sites/default/files/js/js_SLyXq4zcOYrRlJ8NMZcdVCadUvi6vXyeJgA1IkziDwE.js.pagespeed.jm.KiaDCMyCJY.js"></script>
-    <script src="https://www.vipp.com/sites/all,_themes,_vipp,_assets,_js,_plugins,_modernizr.custom.js,qoys8tt+default,_files,_js,_js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js.pagespeed.jc.E10rRAYkAy.js"></script>
+    <script src="{{asset('/frontend/themes/vipp/js/jm.js')}}"></script>
+    <script src="{{asset('/frontend/themes/vipp/js/jc.js')}}"></script>
+    {{--<script src="https://www.vipp.com/sites/default/files/js/js_SLyXq4zcOYrRlJ8NMZcdVCadUvi6vXyeJgA1IkziDwE.js.pagespeed.jm.KiaDCMyCJY.js"></script>--}}
+    {{--<script src="https://www.vipp.com/sites/all,_themes,_vipp,_assets,_js,_plugins,_modernizr.custom.js,qoys8tt+default,_files,_js,_js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js.pagespeed.jc.E10rRAYkAy.js"></script>--}}
 
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     @yield('css')
@@ -86,8 +88,8 @@
                 <a class="hidden-sm text-item" href="/org/@yield('website-name')/survey">问卷</a>
                 <a class="hidden-sm text-item" href="/org/@yield('website-name')/article">文章</a>
                 <a class="btn-menu-burger" href="#">
-                    <img class="icon-menu icon-menu--white" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/icon-menu-white@2x.svg" alt="目录">
-                    <img class="icon-menu icon-menu--black" src="https://www.vipp.com/sites/all/themes/vipp/assets/img/icon-menu@2x.svg" alt="目录">
+                    <img class="icon-menu icon-menu--white" src="{{asset('/frontend/themes/vipp/assets/img/icon-menu-white@2x.svg')}}" alt="目录">
+                    <img class="icon-menu icon-menu--black" src="{{asset('/frontend/themes/vipp/assets/img/icon-menu@2x.svg')}}" alt="目录">
                     <i class="icon-close"></i>
                 </a>
             </div>
@@ -100,10 +102,10 @@
     <ul class="main menu-level menu-current menu-in">
         <li>
             <div>
-                <img class="logo" src="" alt="{{$org->short or 'Home'}}">
+                <img class="logo" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
             </div>
             <div>
-                <img class="logo" src="http://cdn.softorg.cn:8088/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
+                <img class="logo" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
             </div>
         </li>
         <li>
@@ -161,22 +163,22 @@
     <div class="bt-scroll-top"><i class="icon-arrow-down"></i> </div>
     <div class="social-links" style="display: none">
         <a href="https://www.instagram.com/vipp/" target="_blank">
-            <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-04,402x.png.pagespeed.ic.R7xJIzYmlQ.webp" alt="instagram"/>
+            <img src="{{asset('/frontend/themes/vipp/assets/img/instagram.webp')}}" alt="instagram"/>
         </a>
-        <a href="https://www.facebook.com/vippdotcom/" target="_blank">
-            <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-01,402x.png.pagespeed.ic.Q_m8ogUuva.webp" alt="facebook"/>
+        <a href="https://www.facebook.com/softorgdotcom/" target="_blank">
+            <img src="{{asset('/frontend/themes/vipp/assets/img/facebook.webp')}}" alt="facebook"/>
         </a>
-        <a href="https://www.pinterest.com/vippdotcom/" target="_blank">
-            <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-03,402x.png.pagespeed.ic.rvBLV3p0t6.webp" alt="pinterest"/>
+        <a href="https://www.pinterest.com/softorgdotcom/" target="_blank">
+            <img src="{{asset('/frontend/themes/vipp/assets/img/pinterest.webp')}}" alt="pinterest"/>
         </a>
-        <a href="https://www.linkedin.com/company/vipp" target="_blank">
-            <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-06,402x.png.pagespeed.ic.V75jyaK8lS.webp" alt="linkedin"/>
+        <a href="https://www.linkedin.com/company/softorg" target="_blank">
+            <img src="{{asset('/frontend/themes/vipp/assets/img/linkedin.webp')}}" alt="linkedin"/>
         </a>
-        <a href="https://www.youtube.com/user/vippdesign" target="_blank">
-            <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-05,402x.png.pagespeed.ic.sxUgfdJLti.webp" alt="youtube"/>
+        <a href="https://www.youtube.com/user/softorgdesign" target="_blank">
+            <img src="{{asset('/frontend/themes/vipp/assets/img/youtube.webp')}}" alt="youtube"/>
         </a>
-        <a href="https://twitter.com/vipp" target="_blank">
-            <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-02,402x.png.pagespeed.ic.rUGHLlzbZU.webp" alt="twitter"/>
+        <a href="https://twitter.com/softorg" target="_blank">
+            <img src="{{asset('/frontend/themes/vipp/assets/img/twitter.webp')}}" alt="twitter"/>
         </a>
     </div>
     <ul>

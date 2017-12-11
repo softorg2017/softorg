@@ -3,7 +3,7 @@
 {{--分享内容--}}
 @section('share_title',$org->website_name)
 @section('share_desc','产品列表')
-@section('share_img'){{asset('/favicon-192.png')}}@endsection
+@section('share_img')http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}@endsection
 
 @section('title','产品列表')
 @section('header','产品列表')
