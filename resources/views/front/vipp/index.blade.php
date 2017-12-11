@@ -57,11 +57,6 @@
                 <div class="settings">
                 </div>
                 <div class="right">
-                    <a href="#" class="hidden-sm">E</a>
-                    <a href="#" class="hidden-sm">D</a>
-                    <a href="#" class="hidden-sm">C</a>
-                    <a href="#" class="hidden-sm">B</a>
-                    <a href="#" class="hidden-sm">A</a>
                     <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}">首页</a>
                     <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/product">产品</a>
                     <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/activity">活动</a>
@@ -78,8 +73,8 @@
         <div class="top primary menu sticky">
             <div class="wrap">
                 <a fade-onload href="/org/{{$org->website_name or '1'}}" title="Home" rel="home" id="logo">
-                    <img class="logo logo-black" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
-                    <img class="logo logo-white" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
+                    <img class="logo logo-black" src="http://cdn.softorg.cn/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
+                    <img class="logo logo-white" src="http://cdn.softorg.cn/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
                 </a>
                 <div class="right" fade-onload>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}">首页</a>
@@ -110,24 +105,23 @@
             </li>
             <li>
                 <ul class="first-nav">
-                    <li><a href="/org/{{$org->website_name or '1'}}/product" class="big-txt">产品</a></li>
+                    <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/product">产品</a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="/org/{{$org->website_name or '1'}}/activity" class="big-txt">活动</a></li>
+                    <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/activity">活动</a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="/org/{{$org->website_name or '1'}}/survey" class="big-txt">问卷</a></li>
+                    <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/survey">问卷</a></li>
                     <li class="padder">&nbsp;</li>
-                    <li><a href="/org/{{$org->website_name or '1'}}/article" class="big-txt">文章</a></li>
+                    <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
                     <li class="padder">&nbsp;</li>
                 </ul>
             </li>
             <li class="padder">&nbsp;</li>
             <li style="display: none">
                 <ul class="second-nav">
-                    <li><a href="#" class="">A</a></li>
-                    <li><a href="#" class="">B</a></li>
-                    <li><a href="#" class="">C</a></li>
-                    <li><a href="#" class="">D</a></li>
-                    <li><a href="#" class="">E</a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/product">产品</a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/activity">活动</a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/survey">问卷</a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
                     <li><a href="#" class="">关于我们</a></li>
                 </ul>
             </li>
