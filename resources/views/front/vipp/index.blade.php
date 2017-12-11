@@ -41,8 +41,6 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link type="text/css" rel="stylesheet" href="{{ asset('frontend/themes/vipp/css/all.css') }}" media="all" />
-    <script src="{{asset('/frontend/themes/vipp/js/jm.js')}}"></script>
-    <script src="{{asset('/frontend/themes/vipp/js/jc.js')}}"></script>
     {{--<script src="https://www.vipp.com/sites/default/files/js/js_SLyXq4zcOYrRlJ8NMZcdVCadUvi6vXyeJgA1IkziDwE.js.pagespeed.jm.KiaDCMyCJY.js"></script>--}}
     {{--<script src="https://www.vipp.com/sites/all,_themes,_vipp,_assets,_js,_plugins,_modernizr.custom.js,qoys8tt+default,_files,_js,_js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js.pagespeed.jc.E10rRAYkAy.js"></script>--}}
     
@@ -389,11 +387,79 @@
             <li><a href="/org/{{$org->website_name or '1'}}/survey">问卷</a></li>
             <li><a href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
         </ul>
-        <div class="copyright">COPYRIGHT© 上海如哉网络科技有限公司 2017 沪ICP备17052782号-1</div>
-        <div class="term"><a href="#">Terms and conditions</a></div>
+        <div class="copyright">COPYRIGHT©如哉网络科技有限公司 (2017) 沪ICP备17052782号-1</div>
+        <div class="term" style="display: none"><a href="#">Terms and conditions</a></div>
+        <div class="term" style="display: none">COPYRIGHT© 上海如哉网络科技有限公司 (2017)</div>
+        <div class="term" style="display: none">沪ICP备17052782号-1</div>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="{{ asset('/frontend/themes/vipp/js/jm.js') }}"></script>
+    <script src="{{ asset('/frontend/themes/vipp/js/jc.js') }}"></script>
     <script src="{{ asset('frontend/themes/vipp/js/all.js') }}"></script>
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+     <script>
+        $(function(){
+
+            var link = window.location.href;
+
+            if(typeof wx != "undefined") wxFn();
+
+            function wxFn() {
+
+                wx.config({
+                    debug: false,
+                    appId: 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识
+                    timestamp: 1512624767, // 必填，生成签名的时间戳
+                    nonceStr: 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串
+                    signature: "{{$signature or ''}}",// 必填，签名，见附录1
+                    jsApiList: [
+                        'checkJsApi',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'onMenuShareQQ',
+                        'onMenuShareQZone',
+                        'onMenuShareWeibo'
+                    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                }) ;
+
+                wx.ready(function(){
+                    wx.onMenuShareAppMessage({
+                        title: "{{$org->name or ''}}",
+                        desc: "{{$org->slogan or ''}}",
+                        ink: link,
+                        imgUrl: "http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}"
+                    });
+                    wx.onMenuShareTimeline({
+                        title: "{{$org->name or ''}}",
+                        desc: "{{$org->slogan or ''}}",
+                        link: link,
+                        imgUrl: "http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}"
+                    });
+                    wx.onMenuShareQQ({
+                        title: "{{$org->name or ''}}",
+                        desc: "{{$org->slogan or ''}}",
+                        link: link,
+                        imgUrl: "http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}"
+                    });
+                    wx.onMenuShareQZone({
+                        title: "{{$org->name or ''}}",
+                        desc: "{{$org->slogan or ''}}",
+                        link: link,
+                        imgUrl: "http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}"
+                    });
+                    wx.onMenuShareWeibo({
+                        title: "{{$org->name or ''}}",
+                        desc: "{{$org->slogan or ''}}",
+                        link: link,
+                        imgUrl: "http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}"
+                    });
+                })   ;
+            }
+        });
+    </script>
+
 </body>
 
 </html>

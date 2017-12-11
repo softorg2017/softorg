@@ -42,8 +42,6 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link type="text/css" rel="stylesheet" href="{{ asset('frontend/themes/vipp/css/all.css') }}" media="all" />
-    <script src="{{asset('/frontend/themes/vipp/js/jm.js')}}"></script>
-    <script src="{{asset('/frontend/themes/vipp/js/jc.js')}}"></script>
     {{--<script src="https://www.vipp.com/sites/default/files/js/js_SLyXq4zcOYrRlJ8NMZcdVCadUvi6vXyeJgA1IkziDwE.js.pagespeed.jm.KiaDCMyCJY.js"></script>--}}
     {{--<script src="https://www.vipp.com/sites/all,_themes,_vipp,_assets,_js,_plugins,_modernizr.custom.js,qoys8tt+default,_files,_js,_js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js.pagespeed.jc.E10rRAYkAy.js"></script>--}}
 
@@ -188,11 +186,15 @@
         <li><a href="/org/@yield('website-name')/survey">问卷</a></li>
         <li><a href="/org/@yield('website-name')/article">文章</a></li>
     </ul>
-    <div class="copyright">COPYRIGHT© 如哉网络科技有限公司 (2017) 沪ICP备17052782号-1</div>
+    <div class="copyright">COPYRIGHT©如哉网络科技有限公司 (2017) 沪ICP备17052782号-1</div>
     <div class="term" style="display: none"><a href="#">Terms and conditions</a></div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="{{ asset('/frontend/themes/vipp/js/jm.js') }}"></script>
+<script src="{{ asset('/frontend/themes/vipp/js/jc.js') }}"></script>
 <script src="{{ asset('frontend/themes/vipp/js/all.js') }}"></script>
+
 <script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
 
