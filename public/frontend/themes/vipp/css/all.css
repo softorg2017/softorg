@@ -5413,7 +5413,7 @@ body.has-cookie .wrapper-main-content {
     background-color: #fff;
     z-index: 100;
     font-size: 14px;
-    line-height: 30px;
+    line-height: 36px;
     text-transform: uppercase;
     font-weight: 600;
     box-sizing: border-box
@@ -5477,7 +5477,7 @@ body.has-cookie .wrapper-main-content {
 }
 
 .top-wrapper .top .logo {
-    height: 26px;
+    height: 36px;
     width: auto;
     margin-left: 35px;
     -webkit-transition: all .3s cubic-bezier(.25, .46, .45, .94);
@@ -5850,7 +5850,7 @@ html.resized body.node-type-hotel-list-page .top-wrapper .top.primary .right a:f
         height: 60px
     }
     .top-wrapper .top.resized .logo {
-        height: 18px;
+        height: 36px;
         width: auto
     }
     .top-wrapper .top.resized.extra {
@@ -20658,16 +20658,16 @@ input:-webkit-autofill:focus {
 
 @media (min-width:1024px) {
     h1 {
-        font-size: 28px;
-        line-height: 34px
+        font-size: 30px;
+        line-height: 36px
     }
     h1.hero-heading {
-        font-size: 42px;
-        line-height: 46px
+        font-size: 36px;
+        line-height: 48px
     }
     h2,
     h3 {
-        font-size: 22px;
+        font-size: 24px;
         line-height: 28px
     }
     h4 {
