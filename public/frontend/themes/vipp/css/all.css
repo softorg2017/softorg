@@ -5137,7 +5137,7 @@ body.page-stories .wrapper-main-content.load-footer>div,
 
 @media (min-width:1024px) {
     .footer {
-        padding: 22px 30px;
+        padding: 36px 30px;
         overflow: hidden;
         height: 60px
     }
@@ -6588,7 +6588,7 @@ screen and (min-device-pixel-ratio:1.5) {
     position: relative;
     float: left;
     width: 100%;
-    padding-top: 100vh;
+    padding-top: 80vh;
     background-position: center center;
     background-size: cover;
     overflow: hidden
@@ -6658,7 +6658,7 @@ screen and (min-device-pixel-ratio:1.5) {
         width: -moz-calc(100% - 75px);
         width: -webkit-calc(100% - 75px);
         width: calc(100% - 75px);
-        max-width: 365px;
+        max-width: 720px;
         color: #282828
     }
     .hero-product-description h4 {
@@ -6686,7 +6686,7 @@ screen and (min-device-pixel-ratio:1.5) {
         width: -moz-calc(100% - 100px);
         width: -webkit-calc(100% - 100px);
         width: calc(100% - 100px);
-        max-width: 500px;
+        max-width: 720px;
         color: #282828;
         margin-left: 7.1428571429%;
         padding-top: 193px
@@ -10214,7 +10214,7 @@ body.front-page .product-list li .item.in-view .container {
 .seriesnumber,
 .price {
     color: #9e9e9e;
-    text-align: right
+    text-align: left
 }
 
 .products {
@@ -11881,8 +11881,8 @@ body.product-page #notify-modal-link a:after {
     color: #000;
     cursor: pointer;
     padding: 9px 10px 0 10px;
-    font-size: 8px;
-    line-height: 10px;
+    font-size: 12px;
+    line-height: 14px;
     text-transform: uppercase;
     flex-direction: column;
     -webkit-flex-direction: column;
@@ -12261,8 +12261,8 @@ html.desktop .wrapper-content ul.product-list .item:not(.no-hover).text:hover>.l
     }
     .wrapper-content ul.product-list .item {
         padding: 17px 20px 10px 20px;
-        font-size: 11px;
-        line-height: 11px;
+        font-size: 14px;
+        line-height: 16px;
         letter-spacing: .1px
     }
     .wrapper-content ul.product-list.pattern-1 li:nth-child(22n+8) {
@@ -20477,8 +20477,8 @@ h3 {
 }
 
 h1 {
-    font-size: 23px;
-    line-height: 25px
+    font-size: 24px;
+    line-height: 26px
 }
 
 h1.hero-heading {
@@ -20488,13 +20488,13 @@ h1.hero-heading {
 
 h2,
 h3 {
-    font-size: 14px;
-    line-height: 17px
+    font-size: 18px;
+    line-height: 20px
 }
 
 h4 {
-    font-size: 8px;
-    line-height: 10px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 300;
     text-transform: uppercase
 }
@@ -20671,8 +20671,8 @@ input:-webkit-autofill:focus {
         line-height: 28px
     }
     h4 {
-        font-size: 11px;
-        line-height: 15px;
+        font-size: 16px;
+        line-height: 20px;
         letter-spacing: .2px
     }
     .button,
@@ -20689,12 +20689,12 @@ input:-webkit-autofill:focus {
 
 @media (min-width:1430px) {
     h1 {
-        font-size: 42px;
-        line-height: 46px
+        font-size: 36px;
+        line-height: 44px
     }
     h1.hero-heading {
-        font-size: 56px;
-        line-height: 60px
+        font-size: 48px;
+        line-height: 56px
     }
     h2 {
         font-size: 28px;

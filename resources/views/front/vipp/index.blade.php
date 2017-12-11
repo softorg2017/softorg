@@ -62,6 +62,11 @@
                     <a href="#" class="hidden-sm">C</a>
                     <a href="#" class="hidden-sm">B</a>
                     <a href="#" class="hidden-sm">A</a>
+                    <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}">首页</a>
+                    <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/product">产品</a>
+                    <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/activity">活动</a>
+                    <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/survey">问卷</a>
+                    <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/article">文章</a>
                     <a href="#" class="hidden-sm">关于我们</a>
                     <a href="#" class="btn-icon-close"><i class="icon-close"></i></a>
                 </div>
@@ -77,6 +82,7 @@
                     <img class="logo logo-white" src="http://cdn.softorg.cn:8088/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
                 </a>
                 <div class="right" fade-onload>
+                    <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}">首页</a>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}/product">产品</a>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}/activity">活动</a>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}/survey">问卷</a>
@@ -140,7 +146,7 @@
                         <div class="hero-product-description white" fade-onload>
                             <h4>{{$org->slogan or ''}}</h4>
                             <h1 class="hero-heading">{{$org->name or 'name'}}</h1>
-                            <a href="https://www.vipp.com/en-us/node/241" class="btn-md"><span>SHOP NOW</span></a>
+                            <a href="#" class="btn-md"><span>主页</span></a>
                         </div>
                     </div>
                 </div>
@@ -381,6 +387,7 @@
             </a>
         </div>
         <ul>
+            <li><a href="/org/{{$org->website_name or '1'}}">首页</a></li>
             <li><a href="/org/{{$org->website_name or '1'}}/product">产品</a></li>
             <li><a href="/org/{{$org->website_name or '1'}}/activity">活动</a></li>
             <li><a href="/org/{{$org->website_name or '1'}}/survey">问卷</a></li>

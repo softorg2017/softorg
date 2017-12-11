@@ -60,11 +60,11 @@
             <div class="settings">
             </div>
             <div class="right">
-                <a href="#" class="hidden-sm">E</a>
-                <a href="#" class="hidden-sm">D</a>
-                <a href="#" class="hidden-sm">C</a>
-                <a href="#" class="hidden-sm">B</a>
-                <a href="#" class="hidden-sm">A</a>
+                <a class="hidden-sm" href="/org/@yield('website-name')">首页</a>
+                <a class="hidden-sm" href="/org/@yield('website-name')/product">产品</a>
+                <a class="hidden-sm" href="/org/@yield('website-name')/activity">活动</a>
+                <a class="hidden-sm" href="/org/@yield('website-name')/survey">问卷</a>
+                <a class="hidden-sm" href="/org/@yield('website-name')/article">文章</a>
                 <a href="#" class="hidden-sm">关于我们</a>
                 <a href="#" class="btn-icon-close"><i class="icon-close"></i></a>
             </div>
@@ -80,6 +80,7 @@
                 <img class="logo logo-white" src="http://cdn.softorg.cn:8088/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
             </a>
             <div class="right" fade-onload>
+                <a class="hidden-sm text-item" href="/org/@yield('website-name')">首页</a>
                 <a class="hidden-sm text-item" href="/org/@yield('website-name')/product">产品</a>
                 <a class="hidden-sm text-item" href="/org/@yield('website-name')/activity">活动</a>
                 <a class="hidden-sm text-item" href="/org/@yield('website-name')/survey">问卷</a>
@@ -107,6 +108,8 @@
         </li>
         <li>
             <ul class="first-nav">
+                <li><a class="big-txt" href="/org/@yield('website-name')">首页</a></li>
+                <li class="padder">&nbsp;</li>
                 <li><a class="big-txt" href="/org/@yield('website-name')/product">产品</a></li>
                 <li class="padder">&nbsp;</li>
                 <li><a class="big-txt" href="/org/@yield('website-name')/activity">活动</a></li>
@@ -120,11 +123,11 @@
         <li class="padder">&nbsp;</li>
         <li style="display: none">
             <ul class="second-nav">
-                <li><a href="#" class="">A</a></li>
-                <li><a href="#" class="">B</a></li>
-                <li><a href="#" class="">C</a></li>
-                <li><a href="#" class="">D</a></li>
-                <li><a href="#" class="">E</a></li>
+                <li><a class="" href="/org/@yield('website-name')">首页</a></li>
+                <li><a class="" href="/org/@yield('website-name')/product">产品</a></li>
+                <li><a class="" href="/org/@yield('website-name')/activity">活动</a></li>
+                <li><a class="" href="/org/@yield('website-name')/survey">问卷</a></li>
+                <li><a class="" href="/org/@yield('website-name')/article">文章</a></li>
                 <li><a href="#" class="">关于我们</a></li>
             </ul>
         </li>
@@ -156,7 +159,7 @@
 {{--footer--}}
 <div class="footer">
     <div class="bt-scroll-top"><i class="icon-arrow-down"></i> </div>
-    <div class="social-links">
+    <div class="social-links" style="display: none">
         <a href="https://www.instagram.com/vipp/" target="_blank">
             <img src="https://www.vipp.com/sites/all/themes/vipp/assets/img/xicon-social-04,402x.png.pagespeed.ic.R7xJIzYmlQ.webp" alt="instagram"/>
         </a>
@@ -177,13 +180,14 @@
         </a>
     </div>
     <ul>
+        <li><a href="/org/@yield('website-name')">首页</a></li>
         <li><a href="/org/@yield('website-name')/product">产品</a></li>
         <li><a href="/org/@yield('website-name')/activity">活动</a></li>
         <li><a href="/org/@yield('website-name')/survey">问卷</a></li>
         <li><a href="/org/@yield('website-name')/article">文章</a></li>
     </ul>
-    <div class="copyright">COPYRIGHT© 如哉网络科技有限公司 2017 沪ICP备17052782号-1</div>
-    <div class="term"><a href="#">Terms and conditions</a></div>
+    <div class="copyright">COPYRIGHT© 如哉网络科技有限公司 (2017) 沪ICP备17052782号-1</div>
+    <div class="term" style="display: none"><a href="#">Terms and conditions</a></div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ asset('frontend/themes/vipp/js/all.js') }}"></script>

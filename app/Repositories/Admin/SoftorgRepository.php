@@ -403,11 +403,13 @@ class SoftorgRepository {
             $v2 = Validator::make($post_data, [
                 'name' => 'required',
                 'mobile' => 'required|numeric',
+                'email' => 'required|email',
             ]);
             if ($v2->fails()) return response_error([],"参数错误");
 
             $insert['name'] = $post_data['name'];
             $insert['mobile'] = $post_data['mobile'];
+            $insert['email'] = $post_data['email'];
         }
         else if($type == 2)
         {
@@ -440,11 +442,13 @@ class SoftorgRepository {
             $v2 = Validator::make($post_data, [
                 'name' => 'required',
                 'mobile' => 'required|numeric',
+                'email' => 'required|email',
             ]);
             if ($v2->fails()) return response_error([],"参数错误");
 
             $insert['name'] = $post_data['name'];
             $insert['mobile'] = $post_data['mobile'];
+            $insert['email'] = $post_data['email'];
         }
         else if($type == 2)
         {

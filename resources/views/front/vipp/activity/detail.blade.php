@@ -128,20 +128,36 @@
                                     <input type="text" class="form-control" name="name" value="">
                                 </div>
                             </div>
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row"><b>手机</b></div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row">--}}
+                                    {{--<input type="text" class="form-control" name="mobile" value="">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row"><b>手机验证码</b></div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row">--}}
+                                    {{--<input type="text" class="form-control" name="mobile_vertification" value="">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group">
-                                <div class="row"><b>手机</b></div>
+                                <div class="row"><b>邮箱</b></div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <input type="text" class="form-control" name="mobile" value="">
+                                    <input type="text" class="form-control" name="email" value="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="row"><b>手机验证码</b></div>
+                                <div class="row"><b>邮箱验证码</b></div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <input type="text" class="form-control" name="vertification" value="">
+                                    <input type="text" class="form-control" name="email_vertification" value="">
                                 </div>
                             </div>
                         </div>
@@ -196,20 +212,36 @@
                                     <input type="text" class="form-control" name="name" value="">
                                 </div>
                             </div>
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row"><b>手机</b></div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row">--}}
+                                    {{--<input type="text" class="form-control" name="mobile" value="">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row"><b>手机验证码</b></div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row">--}}
+                                    {{--<input type="text" class="form-control" name="vertification" value="">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group">
-                                <div class="row"><b>手机</b></div>
+                                <div class="row"><b>邮箱</b></div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <input type="text" class="form-control" name="mobile" value="">
+                                    <input type="text" class="form-control" name="email" value="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="row"><b>手机验证码</b></div>
+                                <div class="row"><b>邮箱验证码</b></div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <input type="text" class="form-control" name="vertification" value="">
+                                    <input type="text" class="form-control" name="email_vertification" value="">
                                 </div>
                             </div>
                         </div>

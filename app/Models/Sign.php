@@ -7,7 +7,7 @@ class Sign extends Model
     //
     protected $table = "sign";
     protected $fillable = [
-        'sort', 'type', 'activity_id', 'user_id', 'name', 'mobile'
+        'sort', 'type', 'activity_id', 'user_id', 'name', 'mobile', 'email'
     ];
     protected $dateFormat = 'U';
 
