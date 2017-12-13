@@ -40,7 +40,10 @@
     <meta name="msapplication-config" content="/sites/all/themes/vipp/assets/img/favicons/browserconfig.xml">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ asset('frontend/themes/vipp/css/all.css') }}" media="all" />
+
     {{--<script src="https://www.vipp.com/sites/default/files/js/js_SLyXq4zcOYrRlJ8NMZcdVCadUvi6vXyeJgA1IkziDwE.js.pagespeed.jm.KiaDCMyCJY.js"></script>--}}
     {{--<script src="https://www.vipp.com/sites/all,_themes,_vipp,_assets,_js,_plugins,_modernizr.custom.js,qoys8tt+default,_files,_js,_js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js.pagespeed.jc.E10rRAYkAy.js"></script>--}}
     
@@ -128,9 +131,12 @@
             <li class="padder">&nbsp;</li>
         </ul>
     </div>
+
+
     {{--main--}}
     <div class="wrapper-main-content">
         <div class="container-fluid ">
+
             {{--首页--}}
             <div class="row full has-fold">
                 <div class="col-xs-14">
@@ -145,6 +151,32 @@
                     </div>
                 </div>
             </div>
+
+            {{--企业简介--}}
+            <div class="row full wrapper-content product-column product-four-column slide-to-top">
+                <div class="col-md-14">
+                    <div class="row full">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
+                            <h3>企业简介</h3>
+                        </div>
+                        <ul class="col-sm-12 col-xs-14 product-list">
+                            <li class="row full">
+                                <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                    <div class="line">
+                                        <p class="">{{$org->description or ''}}</p>
+                                        <div>{{$org->description or ''}}</div>
+                                    </div>
+                                    <div class="top-text left-8 font-">
+                                        <h4 style="text-indent:2em;color:#dadada;">{{$org->description or ''}}</h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {{--产品--}}
             {{--4栏--}}
             <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
@@ -158,15 +190,26 @@
                             <li class="col-md-6 ">
                                 <a href="{{url('/product?id=').encode($v->id)}}">
                                     <div class="item " style="background-image:url(/images/black-v.jpg)">
-                                        <div class="line">
+
+                                        <div class="line" style="display: none">
                                             <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
                                         </div>
-                                        <div class="line">
+                                        <div class="line" style="display: none">
                                             <p class="seriesnumber">{{$v->description or ''}}</p>
                                         </div>
-                                        <div class="line">
+                                        <div class="line" style="display: none">
                                             <p class="seriesnumber">产品</p>
                                         </div>
+
+                                        <div class="top-text left-8 font-">
+                                            <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
+                                            <p class="description">{{$v->description or ''}}</p>
+                                        </div>
+
+                                        <div class="bottom-text left-8">
+                                            <span class="price">产品</span>
+                                        </div>
+
                                     </div>
                                 </a>
                             </li>
@@ -176,6 +219,8 @@
                     </div>
                 </div>
             </div>
+
+            {{--活动--}}
             {{--3栏--}}
             <div class="row full wrapper-content product-column product-four-column product-four-column--wide slide-to-top">
                 <div class="col-md-14">
@@ -189,15 +234,16 @@
                             <li class="col-md-6">
                                 <a href="{{url('/activity?id=').encode($v->id)}}">
                                     <div class="item " style="background-image:url(/images/black-v.jpg)">
-                                        <div class="line">
-                                            <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
+
+                                        <div class="top-text left-8 font-">
+                                            <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
+                                            <p class="description">{{$v->description or ''}}</p>
                                         </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">{{$v->description or ''}}</p>
+
+                                        <div class="bottom-text left-8">
+                                            <span class="price">活动</span>
                                         </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">活动</p>
-                                        </div>
+
                                     </div>
                                 </a>
                             </li>
@@ -207,8 +253,9 @@
                     </div>
                 </div>
             </div>
-            {{--4栏--}}
+
             {{--问卷--}}
+            {{--4栏--}}
             <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
@@ -221,15 +268,16 @@
                             <li class="col-md-6 ">
                                 <a href="{{url('/survey?id=').encode($v->id)}}">
                                     <div class="item " style="background-image:url(/images/black-v.jpg)">
-                                        <div class="line">
-                                            <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
+
+                                        <div class="top-text left-8 font-">
+                                            <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
+                                            <p class="description">{{$v->description or ''}}</p>
                                         </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">{{$v->description or ''}}</p>
-                                        </div>
-                                        <div class="line">
+
+                                        <div class="bottom-text left-8">
                                             <span class="price">调研问卷</span>
                                         </div>
+
                                     </div>
                                 </a>
                             </li>
@@ -239,39 +287,9 @@
                     </div>
                 </div>
             </div>
-            {{--图片 2栏--}}
-            <div class="row full collection-teaser slide-to-top" style="display: none;">
-                <div class="col-md-14">
-                    <div class="row full">
-                        @foreach($org->surveys as $v)
-                        <div class="col-xs-7">
-                            <div class="hero-story-container fade-onscroll" style="background-image:url(
-                                @if(($loop->index)%2 == 0)
-                                    /images/black-v.jpg
-                                @else
-                                    /images/black-v.jpg
-                                @endif
-                                )">
-                                @if(($loop->index)%2 == 0)
-                                <img src="/images/black-v.jpg" alt="">
-                                @else
-                                <img src="/images/black-v.jpg" alt="">
-                                @endif
-                                <div class="hero-story-description">
-                                    <div class="hero-story-description__wrapper">
-                                        <h4>{{$v->description or ''}}</h4>
-                                        <h1>{{$v->title or ''}}</h1>
-                                        <a href="/org/{{$org->website_name or '1'}}/survey" class="button white view-now">查看</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            {{--3栏--}}
+
             {{--文章--}}
+            {{--3栏--}}
             <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
@@ -284,15 +302,16 @@
                             <li class="col-md-6">
                                 <a href="{{url('/article?id=').encode($v->id)}}">
                                     <div class="item " style="background-image:url(/images/black-v.jpg)">
-                                        <div class="line">
-                                            <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
+
+                                        <div class="top-text left-8 font-">
+                                            <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
+                                            <p class="description">{{$v->description or ''}}</p>
                                         </div>
-                                        <div class="line">
-                                            <p class="seriesnumber">{{$v->description or ''}}</p>
-                                        </div>
-                                        <div class="line">
+
+                                        <div class="bottom-text left-8">
                                             <span class="price">文章</span>
                                         </div>
+
                                     </div>
                                 </a>
                             </li>
@@ -302,6 +321,139 @@
                     </div>
                 </div>
             </div>
+
+            {{--联系我们--}}
+            <div class="row full slide-to-top">
+                <div class="col-md-14">
+                    <div class="row full">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
+                            <h3>联系我们</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-14" style="height:">
+                    <div class="mod-stories-thumb no-margin stories-three-columns" style="height:100%;">
+                        <ul class="row full" style="height:100%;">
+                            <li class="row full" style="position:relative; height:100%; background-size:cover; background-image:url(/images/black-v.jpg)">
+                                <div class="wrap-text" style="display: none">
+                                    <h4>电话</h4>
+                                    <h3>{{$org->telephone or ''}}</h3>
+                                </div>
+
+                                <div class="top-text text-center">
+                                    <h1><i class="fa fa-phone"></i></h1>
+                                </div>
+                                <div class="middle-text text-center">
+                                    <h3>{{$org->telephone or ''}}</h3>
+                                </div>
+                            </li>
+                            <li class="row full" style="position:relative; height:100%; background-size:cover; background-image:url(/images/black-v.jpg)">
+                                <div class="wrap-text" style="display: none">
+                                    <h4>邮箱</h4>
+                                    <h3>{{$org->email or ''}}</h3>
+                                </div>
+
+                                <div class="top-text text-center">
+                                    <h1><i class="fa fa-envelope"></i></h1>
+                                </div>
+                                <div class="middle-text text-center">
+                                    <h3>{{$org->email or ''}}</h3>
+                                </div>
+                            </li>
+                            <li class="row full" style="position:relative; height:100%; background-size:cover; background-image:url(/images/black-v.jpg)">
+                                <div class="wrap-text" style="display: none">
+                                    <h4>微信号</h4>
+                                    <h3>{{$org->wechat or ''}}</h3>
+                                </div>
+
+                                <div class="top-text text-center">
+                                    <h1><i class="fa fa-weixin"></i></h1>
+                                </div>
+                                <div class="middle-text text-center">
+                                    <h3>{{$org->wechat or ''}}</h3>
+                                    <img class="" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->wechat_qrcode or ''}}" alt="{{$org->wechat or 'Home'}}"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {{--联系我们--}}
+            <div class="row full wrapper-content product-column product-four-column slide-to-top" style="display: none">
+                <div class="col-md-14">
+                    <div class="row full">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
+                            <h3>联系我们</h3>
+                        </div>
+                        <ul class="col-sm-12 col-xs-14 product-list">
+                            <li class="col-md-6">
+                                <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                    <div class="line">
+                                        <p class="seriesnumber"><span><b>电话</b></span></p>
+                                    </div>
+                                    <div class="line">
+                                        <p class="seriesnumber">{{$org->telephone or ''}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                    <div class="line">
+                                        <p class="seriesnumber"><span><b>邮箱</b></span></p>
+                                    </div>
+                                    <div class="line">
+                                        <p class="seriesnumber">{{$org->email or ''}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                    <div class="line">
+                                        <p class="seriesnumber"><span><b>微信</b></span></p>
+                                    </div>
+                                    <div class="line">
+                                        <p class="seriesnumber">{{$org->wechat or ''}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {{--图片 2栏--}}
+            <div class="row full collection-teaser slide-to-top" style="display: none;">
+                <div class="col-md-14">
+                    <div class="row full">
+                        @foreach($org->surveys as $v)
+                            <div class="col-xs-7">
+                                <div class="hero-story-container fade-onscroll" style="background-image:url(
+                                @if(($loop->index)%2 == 0)
+                                        /images/black-v.jpg
+                                @else
+                                        /images/black-v.jpg
+                                @endif
+                                )">
+                                    @if(($loop->index)%2 == 0)
+                                        <img src="/images/black-v.jpg" alt="">
+                                    @else
+                                        <img src="/images/black-v.jpg" alt="">
+                                    @endif
+                                    <div class="hero-story-description">
+                                        <div class="hero-story-description__wrapper">
+                                            <h4>{{$v->description or ''}}</h4>
+                                            <h1>{{$v->title or ''}}</h1>
+                                            <a href="/org/{{$org->website_name or '1'}}/survey" class="button white view-now">查看</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
             {{--图片 3栏--}}
             <div class="row full slide-to-top" style="display: none;">
                 <div class="col-xs-14">
@@ -316,8 +468,8 @@
                                         <img src="/images/black-v.jpg" alt="" />
                                     </div>
                                     <div class="wrap-text">
-                                        <h4>story</h4>
-                                        <h3>From Marie to MoMA</h3>
+                                        <h4>电话</h4>
+                                        <h3>{{$org->mobile or ''}}</h3>
                                     </div>
                                 </a>
                             </li>
@@ -330,8 +482,8 @@
                                         <img src="/images/black-v.jpg" alt="" />
                                     </div>
                                     <div class="wrap-text">
-                                        <h4>story</h4>
-                                        <h3>The designer's pencil house</h3>
+                                        <h4>邮箱</h4>
+                                        <h3>{{$org->email or ''}}</h3>
                                     </div>
                                 </a>
                             </li>
@@ -344,8 +496,8 @@
                                         <img src="/images/black-v.jpg" alt="" />
                                     </div>
                                     <div class="wrap-text">
-                                        <h4>story</h4>
-                                        <h3>Aesop Paris office</h3>
+                                        <h4>微信号</h4>
+                                        <h3>{{$org->wechat or ''}}</h3>
                                     </div>
                                 </a>
                             </li>

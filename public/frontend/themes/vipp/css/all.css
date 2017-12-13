@@ -6169,8 +6169,8 @@ body.page-user #cookie {
 
 .item-text-on-img .wrap-text {
     position: absolute;
-    left: 15px;
-    bottom: 16px
+    top: 8px;
+    left: 16px;
 }
 
 .mod-stories-thumb {
@@ -6298,8 +6298,8 @@ body.story-page .mod-stories-thumb {
         margin-bottom: 27px
     }
     .item-text-on-img .wrap-text {
-        left: 30px;
-        bottom: 25px
+        top: 8px;
+        left: 16px;
     }
     .mod-stories-thumb:not(.no-margin) {
         margin-top: 75px
@@ -6326,7 +6326,7 @@ body.story-page .mod-stories-thumb {
         width: 33.333333%
     }
     .mod-stories-thumb.stories-three-columns li:before {
-        padding-top: 133.333333%
+        padding-top: 100%
     }
     .mod-stories-thumb li {
         display: inline-block;
@@ -6339,8 +6339,8 @@ body.story-page .mod-stories-thumb {
 
 @media (min-width:1024px) {
     .item-text-on-img .wrap-text {
-        bottom: 24px;
-        left: 32px
+        top: 16px;
+        left: 32px;
     }
     .item-text-on-img .wrap-img--landscape {
         display: block
@@ -20705,3 +20705,84 @@ input:-webkit-autofill:focus {
         font-size: 11px
     }
 }
+
+/*
+    softorg
+*/
+
+.text-center {
+    text-align:center;
+}
+
+.top-text {
+    position: absolute;
+    top:16px;
+    left:16px;
+    right:16px;
+    height:auto;
+}
+
+.middle-text {
+    position: absolute;
+    top:50%;
+    left:16px;
+    right:16px;
+    height:auto;
+}
+
+.bottom-text {
+    position: absolute;
+    bottom:16px;
+    left:16px;
+    right:16px;
+    height:auto;
+}
+
+.left-8 {
+    left:8px;
+    right:8px;
+}
+
+.description {
+    font-size:12px;
+    color:#9e9e9e;
+}
+.wrapper-content ul.product-list .item .description {
+    margin-top:8px;
+}
+
+@media (max-width:767px) {
+    .center-text {
+    }
+}
+
+@media (min-width:768px) {
+    .top-text {
+        left:32px;
+        right:32px;
+    }
+    .middle-text {
+        left:32px;
+        right:32px;
+    }
+    .bottom-text {
+        left:32px;
+        right:32px;
+    }
+    .left-8 {
+        left:16px;
+        right:16px;
+    }
+}
+
+@media (min-width:1024px) {
+    .left-8 {
+        left:24px;
+        right:24px;
+    }
+}
+
+@media (min-width:1200px) {
+}
+
+
