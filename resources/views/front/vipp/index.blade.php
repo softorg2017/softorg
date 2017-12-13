@@ -193,7 +193,11 @@
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>产品</h3>
-                            <a href="/org/{{$org->website_name or '1'}}/product" class="hidden-xs">更多产品</a>
+                            @if( count($org->products) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/product" class="hidden-xs">更多产品</a>
+                            @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->products as $v)
@@ -245,7 +249,11 @@
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>活动</h3>
-                            <a href="/org/{{$org->website_name or '1'}}/activity" class="hidden-xs">更多活动</a>
+                            @if( count($org->activities) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/activity" class="hidden-xs">更多活动</a>
+                            @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->activities as $v)
@@ -287,7 +295,11 @@
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>问卷</h3>
-                            <a href="/org/{{$org->website_name or '1'}}/survey" class="hidden-xs">更多问卷</a>
+                            @if( count($org->surveys) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/survey" class="hidden-xs">更多问卷</a>
+                            @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->surveys as $v)
@@ -329,7 +341,11 @@
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>文章</h3>
-                            <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-xs">更多文章</a>
+                            @if( count($org->articles) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-xs">更多文章</a>
+                            @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->articles as $v)
