@@ -53,6 +53,8 @@
     <script>
     var active_country = "US";
     </script>
+
+
     {{--隐藏的头部目录--}}
     <div class="top-wrapper">
         <div class="top extra menu sticky">
@@ -71,6 +73,8 @@
             </div>
         </div>
     </div>
+
+
     {{--头部--}}
     <div class="top-wrapper">
         <div class="top primary menu sticky">
@@ -94,6 +98,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="tray-menu--mask"></div>
     {{--侧边栏--}}
     <div class="tray-menu">
@@ -167,7 +173,7 @@
                                         <div>{{$org->description or ''}}</div>
                                     </div>
                                     <div class="top-text left-8 font-">
-                                        <h4 style="text-indent:2em;color:#dadada;">{{$org->description or ''}}</h4>
+                                        <h4 style="text-indent:2em;color:#dadada;">{{$org->description or '暂无简介'}}</h4>
                                     </div>
                                 </div>
                             </li>
@@ -178,7 +184,11 @@
 
             {{--产品--}}
             {{--4栏--}}
-            <div class="row full wrapper-content product-column product-four-column slide-to-top">
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->products) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+            ">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
@@ -215,14 +225,22 @@
                             </li>
                             @endforeach
                         </ul>
-                        <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs">更多产品</a>
+                        @if( count($org->products) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs">更多产品</a>
+                        @endif
                     </div>
                 </div>
             </div>
 
             {{--活动--}}
             {{--3栏--}}
-            <div class="row full wrapper-content product-column product-four-column product-four-column--wide slide-to-top">
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->activities) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+            ">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
@@ -249,14 +267,22 @@
                             </li>
                             @endforeach
                         </ul>
-                        <a href="/org/{{$org->website_name or '1'}}/activity" class="view-more visible-xs">更多活动</a>
+                        @if( count($org->activities) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/activity" class="view-more visible-xs">更多活动</a>
+                        @endif
                     </div>
                 </div>
             </div>
 
             {{--问卷--}}
             {{--4栏--}}
-            <div class="row full wrapper-content product-column product-four-column slide-to-top">
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->surveys) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+            ">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
@@ -283,14 +309,22 @@
                             </li>
                             @endforeach
                         </ul>
-                        <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs">更多问卷</a>
+                        @if( count($org->surveys) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs">更多问卷</a>
+                        @endif
                     </div>
                 </div>
             </div>
 
             {{--文章--}}
             {{--3栏--}}
-            <div class="row full wrapper-content product-column product-four-column slide-to-top">
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->articles) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+            ">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
@@ -317,7 +351,11 @@
                             </li>
                             @endforeach
                         </ul>
-                        <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs">更多文章</a>
+                        @if( count($org->articles) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs">更多文章</a>
+                        @endif
                     </div>
                 </div>
             </div>
