@@ -219,7 +219,8 @@ if(!function_exists('getBrowserInfo'))
         $Agent = $_SERVER['HTTP_USER_AGENT'];
 //        dd($Agent);
 
-        $info=[];
+        $info = [];
+        $info['referer'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 
         $info['type'] = 'PC';
         if(stripos($Agent, 'Mobile')) $info['type'] = 'Mobile';

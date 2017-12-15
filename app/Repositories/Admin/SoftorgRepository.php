@@ -593,6 +593,7 @@ class SoftorgRepository {
         if($type == "PC") $post_data["open_type"] = 0;
         else if($type == "Mobile") $post_data["open_type"] = 1;
 
+        $post_data["referer"] = $browseInfo['referer'];
         $post_data["open_system"] = $browseInfo['system'];
         $post_data["open_browser"] = $browseInfo['browser'];
         $post_data["open_app"] = $browseInfo['app'];
@@ -603,7 +604,8 @@ class SoftorgRepository {
         else return false;
     }
 
-    //
+
+    // 下载二维码
     public function download_qrcode($post_data)
     {
         $encode_id = request('id');

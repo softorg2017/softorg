@@ -46,6 +46,10 @@
 
     {{--<script src="https://www.vipp.com/sites/default/files/js/js_SLyXq4zcOYrRlJ8NMZcdVCadUvi6vXyeJgA1IkziDwE.js.pagespeed.jm.KiaDCMyCJY.js"></script>--}}
     {{--<script src="https://www.vipp.com/sites/all,_themes,_vipp,_assets,_js,_plugins,_modernizr.custom.js,qoys8tt+default,_files,_js,_js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js.pagespeed.jc.E10rRAYkAy.js"></script>--}}
+
+    <style>
+        .wrapper-content ul.product-list li .list-bg {}
+    </style>
     
 </head>
 
@@ -165,15 +169,15 @@
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>企业简介</h3>
                         </div>
-                        <ul class="col-sm-12 col-xs-14 product-list">
+                        <ul class="col-sm-12 col-xs-14 product-list" style="">
                             <li class="row full">
-                                <div class="item " style="background-image:url(/images/black-v.jpg)">
-                                    <div class="line">
+                                <div class="item " style="background:url(/images/bg-white.png)">
+                                    <div class="line" style="display:none;">
                                         <p class="">{{$org->description or ''}}</p>
                                         <div>{{$org->description or ''}}</div>
                                     </div>
                                     <div class="top-text left-8 font-">
-                                        <h4 style="text-indent:2em;color:#dadada;">{{$org->description or '暂无简介'}}</h4>
+                                        <h3 style="text-indent:2em;color:#111;">{{$org->description or '暂无简介'}}</h3>
                                     </div>
                                 </div>
                             </li>
@@ -203,7 +207,17 @@
                             @foreach($org->products as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/product?id=').encode($v->id)}}">
-                                    <div class="item " style="background:#f5f5f5">
+                                    <div class="item " style="
+                                        @if( (count($org->products) % 2) == 1 )
+                                        @if($loop->first)
+                                                background:url(/images/black-v.jpg);background-size:cover;
+                                        @else
+                                                background:url(/images/black-v.jpg);background-size:cover;background-position:center center;
+                                        @endif
+                                        @else
+                                                background:url(/images/black-v.jpg);background-size:cover;background-position:center center;
+                                        @endif
+                                    ">
 
                                         <div class="line" style="display: none">
                                             <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
@@ -215,13 +229,13 @@
                                             <p class="seriesnumber">产品</p>
                                         </div>
 
-                                        <div class="top-text left-8 font-black">
+                                        <div class="top-text left-8 font-white">
                                             <h4><b>{{$v->title or ''}}</b></h4>
-                                            <p class="description font-5">{{$v->description or ''}}</p>
+                                            <p class="description font-c">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8">
-                                            <span class="price font-5">产品</span>
+                                            <span class="price font-c">产品</span>
                                         </div>
 
                                     </div>
@@ -259,15 +273,15 @@
                             @foreach($org->articles as $v)
                                 <li class="col-md-6">
                                     <a href="{{url('/article?id=').encode($v->id)}}">
-                                        <div class="item " style="background:#2e2e2e">
+                                        <div class="item list-bg" style="background:url(/images/x-911-1.jpg);background-size:contain;background-position:center center;">
 
-                                            <div class="top-text left-8 font-white">
+                                            <div class="top-text left-8 font-black">
                                                 <h4><b>{{$v->title or ''}}</b></h4>
-                                                <p class="description font-c">{{$v->description or ''}}</p>
+                                                <p class="description font-2">{{$v->description or ''}}</p>
                                             </div>
 
                                             <div class="bottom-text left-8">
-                                                <span class="price font-c">文章</span>
+                                                <span class="price font-2">文章</span>
                                             </div>
 
                                         </div>
@@ -305,7 +319,17 @@
                             @foreach($org->activities as $v)
                             <li class="col-md-6">
                                 <a href="{{url('/activity?id=').encode($v->id)}}">
-                                    <div class="item " style="background:#2e2e2e">
+                                    <div class="item " style="
+                                    @if( (count($org->activities) % 2) == 1 )
+                                        @if($loop->first)
+                                                background:url(/images/x-421-0.jpg);background-size:cover;
+                                        @else
+                                                background:url(/images/x-421-1.jpg);background-size:contain;background-position:center center;
+                                        @endif
+                                    @else
+                                        background:url(/images/x-421-1.jpg);background-size:contain;background-position:center center;
+                                    @endif
+                                    ">
 
                                         <div class="top-text left-8 font-white">
                                             <h4><b>{{$v->title or ''}}</b></h4>
@@ -351,7 +375,7 @@
                             @foreach($org->surveys as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/survey?id=').encode($v->id)}}">
-                                    <div class="item " style="background:#f5f5f5">
+                                    <div class="item " style="background:url(/images/bg-white.png);">
 
                                         <div class="top-text left-8 font-black">
                                             <h4><b>{{$v->title or ''}}</b></h4>
@@ -388,7 +412,7 @@
                 <div class="col-xs-14" style="">
                     <div class="mod-stories-thumb no-margin stories-three-columns" style="height:100%;">
                         <ul class="row full" style="height:100%;">
-                            <li class="row full" style="position:relative; height:100%; background-size:cover; background-image:url(/images/black-v.jpg)">
+                            <li class="row full" style="position:relative;height:100%;background-size:cover;background-position:center center;background-image:url(/images/black-v.jpg)">
                                 <div class="wrap-text" style="display: none">
                                     <h4>电话</h4>
                                     <h3>{{$org->telephone or ''}}</h3>
@@ -401,7 +425,7 @@
                                     <h3>{{$org->telephone or ''}}</h3>
                                 </div>
                             </li>
-                            <li class="row full" style="position:relative; height:100%; background-size:cover; background-image:url(/images/black-v.jpg)">
+                            <li class="row full" style="position:relative;height:100%;background-size:cover;background-position:center center;background-image:url(/images/black-v.jpg)">
                                 <div class="wrap-text" style="display: none">
                                     <h4>邮箱</h4>
                                     <h3>{{$org->email or ''}}</h3>
@@ -414,7 +438,7 @@
                                     <h3>{{$org->email or ''}}</h3>
                                 </div>
                             </li>
-                            <li class="row full" style="position:relative; height:100%; background-size:cover; background-image:url(/images/black-v.jpg)">
+                            <li class="row full" style="position:relative;height:100%;background-size:cover;background-position:center center;background-image:url(/images/black-v.jpg)">
                                 <div class="wrap-text" style="display: none">
                                     <h4>微信号</h4>
                                     <h3>{{$org->wechat or ''}}</h3>
