@@ -31,5 +31,25 @@ class MailRepository {
         return Mail::failures();
     }
 
+    // 发送报名活动的确认邮件
+    public function send_activity_apply_email($post_data)
+    {
+        $variate['email'] = $post_data['email'];
+        $variate['activity_id'] = $post_data['activity_id'];
+        $variate['apply_id'] = $post_data['apply_id'];
+        $variate['activity'] = $post_data['activity'];
+        $variate['password'] = isset($post_data['password']) ? $post_data['password'] : '';
+
+        // 第一个参数填写模板的路径，第二个参数填写传到模板的变量
+        Mail::send('email.apply.activation', $variate, function ($message) use ($post_data) {
+
+            $message->from('admin@softorg.cn', 'Softorg管理员'); // 发件人（你自己的邮箱和名称）
+            $message->to($post_data['target']); // 收件人的邮箱地址
+            $message->subject('报名确认'); // 邮件主题
+        });
+//        dd(count(Mail::failures()));
+        return Mail::failures();
+    }
+
 
 }

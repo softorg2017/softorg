@@ -778,6 +778,18 @@ if(!function_exists('response_success'))
             ]);
     }
 }
+if(!function_exists('response_notice'))
+{
+    function response_notice($data = "",$msg = "") {
+        return json_encode([
+            'success' => false,
+            'status' => 201,
+            'code' => 201,
+            'msg' => $msg,
+            'data' => $data,
+        ]);
+    }
+}
 if(!function_exists('response_fail'))
 {
     function response_fail($data = "",$msg = "程序出错，请重试！") {

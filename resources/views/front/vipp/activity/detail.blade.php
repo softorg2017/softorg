@@ -167,6 +167,14 @@
                         <div class="row">
                             <button type="button" class="btn btn-primary" id="activity-apply-mobile-submit"><i class="fa fa-check"></i> 非注册用户报名</button>
                         </div>
+                        <div class="row">
+                            <p>&nbsp;</p>
+                            @if($data->is_sign == 1)
+                                <p>非注册用户报名表格提交后，会向您发送一封报名确认的邮件，请移至邮箱点击确认链接，完成报名，并附上签到密码。</p>
+                            @else
+                                <p>非注册用户报名表格提交后，会向您发送一封报名确认的邮件，请移至邮箱点击确认链接，完成报名。</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             @endif
@@ -203,15 +211,15 @@
                             <input type="hidden" name="id" value="{{$encode_id or 0}}">
                             <input type="hidden" name="type" value="1">
 
-                            {{--描述--}}
-                            <div class="form-group">
-                                <div class="row"><b>姓名</b></div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <input type="text" class="form-control" name="name" value="">
-                                </div>
-                            </div>
+                            {{--姓名--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row"><b>姓名</b></div>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="row">--}}
+                                    {{--<input type="text" class="form-control" name="name" value="">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             {{--<div class="form-group">--}}
                                 {{--<div class="row"><b>手机</b></div>--}}
                             {{--</div>--}}
@@ -241,7 +249,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <input type="text" class="form-control" name="vertification" value="">
+                                    <input type="text" class="form-control" name="password" value="">
                                 </div>
                             </div>
                         </div>
@@ -265,7 +273,6 @@
     <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
     <script>
         $(function () {
-
 
             // 活动报名（注册用户）
             $("#activity-apply-submit").on('click', function() {
@@ -295,7 +302,8 @@
                         if(!data.success) layer.msg(data.msg);
                         else
                         {
-                            form.find("input:text").val("");
+//                            form.find("input:text").val("");
+                            form.resetForm();
                             layer.msg("报名成功");
                         }
                     }
@@ -333,7 +341,8 @@
                         if(!data.success) layer.msg(data.msg);
                         else
                         {
-                            form.find("input:text").val("");
+//                            form.find("input:text").val("");
+//                            form.resetForm();
                             layer.msg("签到成功");
                         }
                     }

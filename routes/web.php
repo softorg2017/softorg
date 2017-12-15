@@ -303,6 +303,7 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     Route::get('/article', $controller.'@view_article_detail');
 
     Route::match(['get','post'], '/apply', $controller.'@apply');
+    Route::match(['get','post'], '/apply/activation', $controller.'@apply_activation');
     Route::match(['get','post'], '/sign', $controller.'@sign');
     Route::match(['get','post'], '/answer', $controller.'@answer');
 

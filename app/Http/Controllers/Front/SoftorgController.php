@@ -105,6 +105,12 @@ class SoftorgController extends Controller
         return $this->repo->apply(request()->all());
     }
 
+    // 非注册用户报名email确认
+    public function apply_activation()
+    {
+        return $this->repo->apply_activation(request()->all());
+    }
+
     // 活动签到
     public function sign()
     {

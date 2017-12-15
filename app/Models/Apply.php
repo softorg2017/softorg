@@ -7,7 +7,7 @@ class Apply extends Model
     //
     protected $table = "apply";
     protected $fillable = [
-        'sort', 'type', 'activity_id', 'user_id', 'name', 'mobile', 'email'
+        'sort', 'type', 'activity_id', 'user_id', 'name', 'mobile', 'email', 'password'
     ];
     protected $dateFormat = 'U';
 

@@ -190,13 +190,13 @@
     <div class="term" style="display: none"><a href="#">Terms and conditions</a></div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
 
 <script src="{{ asset('/frontend/themes/vipp/js/jm.js') }}"></script>
 <script src="{{ asset('/frontend/themes/vipp/js/jc.js') }}"></script>
 <script src="{{ asset('frontend/themes/vipp/js/all.js') }}"></script>
 
 <script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
  <script>  
@@ -262,9 +262,8 @@
 </script>
 
 
-
-
 @yield('js')
+
 </body>
 
 </html>

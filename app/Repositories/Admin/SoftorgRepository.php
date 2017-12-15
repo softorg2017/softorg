@@ -15,6 +15,7 @@ use App\Models\Sign;
 use App\Models\Answer;
 use App\Models\Choice;
 use App\Repositories\Common\CommonRepository;
+use App\Repositories\Admin\MailRepository;
 
 use Response, Auth, Validator, DB, Excepiton;
 
@@ -398,10 +399,12 @@ class SoftorgRepository {
         ]);
         if ($v->fails()) return response_error([],"参数错误");
 
-        $id = decode($post_data["id"]);
+        $encode_id = $post_data["id"];
+        $id = decode($encode_id);
         if(intval($id) !== 0 && !$id) return response_error([],"参数错误");
 
         $type = $post_data['type'];
+        $password = rand(1000,9999);
         $apply = new Apply();
         $insert['activity_id'] = $id;
         $insert['type'] = $type;
@@ -414,9 +417,14 @@ class SoftorgRepository {
             ]);
             if ($v2->fails()) return response_error([],"参数错误");
 
+            $email = $post_data['email'];
+            $applied = Apply::where('activity_id',$id)->where('email',$email)->first();
+            if($applied) return response_error([],"该邮箱已报过名了！");
+
             $insert['name'] = $post_data['name'];
             $insert['mobile'] = $post_data['mobile'];
             $insert['email'] = $post_data['email'];
+            $insert['password'] = $password;
         }
         else if($type == 2)
         {
@@ -424,8 +432,55 @@ class SoftorgRepository {
             return response_error([],"请先登录！");
         }
         $bool = $apply->fill($insert)->save();
-        if($bool) return response_success([]);
+        if($bool)
+        {
+            if($type == 1)
+            {
+                $activity = Activity::find($id);
+                $variate['target'] = $post_data['email'];
+                $variate['email'] = $post_data['email'];
+                $variate['activity_id'] = $encode_id;
+                $variate['apply_id'] = encode($apply->id);
+                $variate['password'] = $password;
+                $variate['activity'] = $activity;
+
+                $mail = new MailRepository();
+                $mail->send_activity_apply_email($variate);
+            }
+            return response_success([]);
+        }
         return response_fail([]);
+    }
+
+    // 活动报名
+    public function apply_activation($post_data)
+    {
+        $email = $post_data['email'];
+        $activity_encode = $post_data['activity'];
+        $apply_encode = $post_data['apply'];
+
+        $activity_id = decode($activity_encode);
+        if(intval($activity_id) !== 0 && !$activity_id) return dd("活动有误");
+
+        $apply_id = decode($apply_encode);
+        if(intval($apply_id) !== 0 && !$apply_id) return dd("报名有误");
+
+        $apply = Apply::find($apply_id);
+        if($apply)
+        {
+            if( ($apply->activity_id == $activity_id) && ($apply->email == $email) )
+            {
+                if($apply->confirm == 0)
+                {
+                    $apply->confirm = 1;
+                    $apply->save();
+                    dd("报名确认成功");
+                }
+                else dd("已经确认过了");
+            }
+            else dd("参数有误");
+        }
+        else dd("报名不存在");
     }
 
     // 活动签到
@@ -447,15 +502,33 @@ class SoftorgRepository {
         if($type == 1)
         {
             $v2 = Validator::make($post_data, [
-                'name' => 'required',
-                'mobile' => 'required|numeric',
+//                'name' => 'required',
+//                'mobile' => 'required|numeric',
                 'email' => 'required|email',
+                'password' => 'required',
             ]);
             if ($v2->fails()) return response_error([],"参数错误");
 
-            $insert['name'] = $post_data['name'];
-            $insert['mobile'] = $post_data['mobile'];
-            $insert['email'] = $post_data['email'];
+//            $name = $post_data['name'];
+//            $mobile = $post_data['mobile'];
+            $email = $post_data['email'];
+            $password = $post_data['password'];
+
+            $applied = Apply::where('type',$type)->where('activity_id',$id)->where('email',$email)->where('password',$password)->first();
+            if($applied)
+            {
+                $signed = Sign::where('type',$type)->where('activity_id',$id)->where('email',$email)->first();
+                if($signed) return response_notice([],"已经签过到了");
+                else
+                {
+                    $insert['name'] = $applied->name;
+                    $insert['mobile'] = $applied->mobile;
+                    $insert['email'] = $email;
+                }
+            }
+            else return response_error([],"邮箱或密码有误，请前去邮箱查看密码");
+
+
         }
         else if($type == 2)
         {
