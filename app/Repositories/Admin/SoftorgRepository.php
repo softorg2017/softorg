@@ -102,6 +102,7 @@ class SoftorgRepository {
     }
 
 
+
     // 返回（前台）【产品】列表页视图
     public function view_product($org)
     {
@@ -150,6 +151,7 @@ class SoftorgRepository {
         }
         else dd("产品不存在");
     }
+
 
 
     // 返回（前台）【活动】【列表页】视图
@@ -228,6 +230,7 @@ class SoftorgRepository {
     }
 
 
+
     // 返回（前台）【幻灯片】【列表页】视图
     public function view_slide($org)
     {
@@ -278,6 +281,7 @@ class SoftorgRepository {
         }
         else dd("幻灯片不存在");
     }
+
 
 
     // 返回（前台）【调研问卷】【列表页】视图
@@ -332,6 +336,7 @@ class SoftorgRepository {
     }
 
 
+
     // 返回（前台）【文章】【列表页】视图
     public function view_article($org)
     {
@@ -381,6 +386,8 @@ class SoftorgRepository {
         }
         else dd("文章不存在");
     }
+
+
 
     // 活动报名
     public function apply($post_data)
@@ -595,5 +602,43 @@ class SoftorgRepository {
         if($bool) return true;
         else return false;
     }
+
+    //
+    public function download_qrcode($post_data)
+    {
+        $encode_id = request('id');
+        $decode_id = decode($encode_id);
+        if(intval($decode_id) !== 0 && !$decode_id) dd("参数有误");
+
+        $org_id = Auth::guard("admin")->user()->org_id;
+        $qrcode_path = "resource/org/".$org_id."/unique/";
+
+        $sort = $post_data['sort'];
+        if($sort == "product")
+        {
+            $qrcode = $qrcode_path."products/qrcode__product_".$encode_id.".png";
+        }
+        else if($sort == "activity")
+        {
+            $qrcode = $qrcode_path."activities/qrcode__activity_".$encode_id.".png";
+        }
+        else if($sort == "slide")
+        {
+            $qrcode = $qrcode_path."sledes/qrcode__slide_".$encode_id.".png";
+        }
+        else if($sort == "survey")
+        {
+            $qrcode = $qrcode_path."surveys/qrcode__survey_".$encode_id.".png";
+        }
+        else if($sort == "article")
+        {
+            $qrcode = $qrcode_path."articles/qrcode__article_".$encode_id.".png";
+        }
+
+        return response()->download(storage_path($qrcode), 'qrcode.png');
+    }
+
+
+
 
 }

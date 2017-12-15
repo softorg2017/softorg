@@ -247,7 +247,7 @@ $(function() {
                     boundaryGap : false,
                     data : [
                         @foreach($all as $v)
-                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                            @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
                         @endforeach
                     ]
                 }
@@ -261,6 +261,12 @@ $(function() {
                 {
                     name:'总访问量',
                     type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                     data:[
                         @foreach($all as $v)
                         @if (!$loop->last)
@@ -274,6 +280,12 @@ $(function() {
                 {
                     name:'主页访问量',
                     type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                     data:[
                         @foreach($index as $v)
                         @if (!$loop->last)
@@ -339,6 +351,12 @@ $(function() {
                 {
                     name:'产品目录',
                     type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                     data:[
                         @foreach($product as $v)
                         @if (!$loop->last)
@@ -388,7 +406,7 @@ $(function() {
                     boundaryGap : false,
                     data : [
                         @foreach($activity as $v)
-                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                            @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
                         @endforeach
                     ]
                 }
@@ -402,9 +420,15 @@ $(function() {
                 {
                     name:'活动目录',
                     type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                     data:[
-                            @foreach($activity as $v)
-                            @if (!$loop->last)
+                        @foreach($activity as $v)
+                        @if (!$loop->last)
                         {value:{{$v->count}},name:'{{$v->date}}'},
                             @else
                         {value:{{$v->count}},name:'{{$v->date}}'}
@@ -451,7 +475,7 @@ $(function() {
                     boundaryGap : false,
                     data : [
                         @foreach($survey as $v)
-                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                            @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
                         @endforeach
                     ]
                 }
@@ -465,12 +489,18 @@ $(function() {
                 {
                     name:'问卷目录',
                     type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                     data:[
-                            @foreach($survey as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @foreach($survey as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->date}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -514,7 +544,7 @@ $(function() {
                     boundaryGap : false,
                     data : [
                         @foreach($article as $v)
-                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                            @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
                         @endforeach
                     ]
                 }
@@ -535,11 +565,11 @@ $(function() {
                         }
                     },
                     data:[
-                            @foreach($article as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @foreach($article as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->date}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -567,7 +597,7 @@ $(function() {
                 x : 'left',
                 data: [
                     @foreach($open_type as $v)
-                            @if (!$loop->last) '{{$v->name}}', @else '{{$v->name}}' @endif
+                        @if (!$loop->last) '{{$v->name}}', @else '{{$v->name}}' @endif
                     @endforeach
                 ]
             },
@@ -631,7 +661,7 @@ $(function() {
                 x : 'left',
                 data: [
                     @foreach($open_type as $v)
-                            @if (!$loop->last) '{{$v->open_app}}', @else '{{$v->open_app}}' @endif
+                        @if (!$loop->last) '{{$v->open_app}}', @else '{{$v->open_app}}' @endif
                     @endforeach
                 ]
             },
@@ -695,7 +725,7 @@ $(function() {
                 x : 'left',
                 data: [
                     @foreach($open_system as $v)
-                            @if (!$loop->last) '{{$v->open_system}}', @else '{{$v->open_system}}' @endif
+                        @if (!$loop->last) '{{$v->open_system}}', @else '{{$v->open_system}}' @endif
                     @endforeach
                 ]
             },

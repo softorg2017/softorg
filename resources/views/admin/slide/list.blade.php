@@ -205,6 +205,7 @@
                             '<li><a class="slide-enable-submit" data-id="'+value+'">启用</a></li>'+
                             '<li><a class="slide-disable-submit" data-id="'+value+'">禁用</a></li>'+
                             '<li><a href="/admin/statistics/page?sort=slide&id='+value+'">流量统计</a></li>'+
+                            '<li><a href="/admin/download_qrcode?sort=slide&id='+value+'">下载二维码</a></li>'+
                             '<li class="divider"></li>'+
                             '<li><a href="#">Separated link</a></li>'+
                             '</ul>'+

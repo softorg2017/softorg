@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Admin;
 
+use App\Models\Softorg;
 use App\Models\Activity;
 use App\Repositories\Common\CommonRepository;
 use Response, Auth, Validator, DB, Excepiton;
@@ -161,12 +162,12 @@ class ActivityRepository {
             // 目标URL
             $url = 'http://www.softorg.cn:8088/activity?id='.$encode_id;
             // 保存位置
-            $qrcodes_path = 'resource/org/'.$admin->id.'/unique/activities';
-            if(!file_exists(storage_path($qrcodes_path)))
-                mkdir(storage_path($qrcodes_path), 0777, true);
+            $qrcode_path = 'resource/org/'.$admin->id.'/unique/activities';
+            if(!file_exists(storage_path($qrcode_path)))
+                mkdir(storage_path($qrcode_path), 0777, true);
             // qrcode图片文件
-            $qrcode = $qrcodes_path.'/qrcode_activitie_'.$encode_id.'.png';
-            QrCode::format('png')->size(150)->generate($url,storage_path($qrcode));
+            $qrcode = $qrcode_path.'/qrcode_activity_'.$encode_id.'.png';
+            QrCode::format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
 
 
             if(!empty($post_data["cover"]))
@@ -180,6 +181,14 @@ class ActivityRepository {
                 }
                 //else return response_fail();
             }
+
+            $softorg = Softorg::find($admin->org_id);
+            $create = new CommonRepository();
+            $org_name = $softorg->name;
+            $logo_path = '/resource/'.$softorg->logo;
+            $title = $activity->title;
+            $name = $qrcode_path.'/qrcode__activity_'.$encode_id.'.png';
+            $create->create_qrcode_image($org_name, '活动', $title, $qrcode, $logo_path, $name);
 
             return response_success(['id'=>$encode_id]);
         }

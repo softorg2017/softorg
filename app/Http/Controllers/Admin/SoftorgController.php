@@ -19,7 +19,6 @@ class SoftorgController extends Controller
     }
 
 
-
     public function index()
     {
 //        return view('admin.company.index');
@@ -41,6 +40,12 @@ class SoftorgController extends Controller
     public function getAction()
     {
         return $this->repo->get(request()->all());
+    }
+
+    // 下载二维码
+    public function download_qrcode()
+    {
+        return $this->repo->download_qrcode(request()->all());
     }
 
 

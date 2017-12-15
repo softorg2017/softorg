@@ -320,6 +320,17 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
+                    <a href="#"><i class="fa fa-th"></i> <span>文章管理</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{url('/admin/article/list')}}"><i class="fa fa-circle-o text-red"></i>文章列表</a></li>
+                        <li><a href="{{url('/admin/article/create')}}"><i class="fa fa-circle-o text-red"></i>添加文章</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
                     <a href="#"><i class="fa fa-th"></i> <span>活动/会议管理</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -350,17 +361,6 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="{{url('/admin/survey/list')}}"><i class="fa fa-circle-o text-red"></i>问卷列表</a></li>
                         <li><a href="{{url('/admin/survey/create')}}"><i class="fa fa-circle-o text-red"></i>添加问卷</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-th"></i> <span>文章管理</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/article/list')}}"><i class="fa fa-circle-o text-red"></i>文章列表</a></li>
-                        <li><a href="{{url('/admin/article/create')}}"><i class="fa fa-circle-o text-red"></i>添加文章</a></li>
                     </ul>
                 </li>
             </ul>

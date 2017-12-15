@@ -203,7 +203,7 @@
                             @foreach($org->products as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/product?id=').encode($v->id)}}">
-                                    <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                    <div class="item " style="background:#f5f5f5">
 
                                         <div class="line" style="display: none">
                                             <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
@@ -215,13 +215,13 @@
                                             <p class="seriesnumber">产品</p>
                                         </div>
 
-                                        <div class="top-text left-8 font-">
-                                            <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
-                                            <p class="description">{{$v->description or ''}}</p>
+                                        <div class="top-text left-8 font-black">
+                                            <h4><b>{{$v->title or ''}}</b></h4>
+                                            <p class="description font-5">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8">
-                                            <span class="price">产品</span>
+                                            <span class="price font-5">产品</span>
                                         </div>
 
                                     </div>
@@ -233,6 +233,52 @@
                             <span class="view-more visible-xs">暂无</span>
                         @else
                             <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs">更多产品</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            {{--文章--}}
+            {{--3栏--}}
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->articles) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+                    ">
+                <div class="col-md-14">
+                    <div class="row full">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
+                            <h3>文章</h3>
+                            @if( count($org->articles) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-xs">更多文章</a>
+                            @endif
+                        </div>
+                        <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->articles as $v)
+                                <li class="col-md-6">
+                                    <a href="{{url('/article?id=').encode($v->id)}}">
+                                        <div class="item " style="background:#2e2e2e">
+
+                                            <div class="top-text left-8 font-white">
+                                                <h4><b>{{$v->title or ''}}</b></h4>
+                                                <p class="description font-c">{{$v->description or ''}}</p>
+                                            </div>
+
+                                            <div class="bottom-text left-8">
+                                                <span class="price font-c">文章</span>
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @if( count($org->articles) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs">更多文章</a>
                         @endif
                     </div>
                 </div>
@@ -259,15 +305,15 @@
                             @foreach($org->activities as $v)
                             <li class="col-md-6">
                                 <a href="{{url('/activity?id=').encode($v->id)}}">
-                                    <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                    <div class="item " style="background:#2e2e2e">
 
-                                        <div class="top-text left-8 font-">
-                                            <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
-                                            <p class="description">{{$v->description or ''}}</p>
+                                        <div class="top-text left-8 font-white">
+                                            <h4><b>{{$v->title or ''}}</b></h4>
+                                            <p class="description font-c">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8">
-                                            <span class="price">活动</span>
+                                            <span class="price font-c">活动</span>
                                         </div>
 
                                     </div>
@@ -305,15 +351,15 @@
                             @foreach($org->surveys as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/survey?id=').encode($v->id)}}">
-                                    <div class="item " style="background-image:url(/images/black-v.jpg)">
+                                    <div class="item " style="background:#f5f5f5">
 
-                                        <div class="top-text left-8 font-">
-                                            <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
-                                            <p class="description">{{$v->description or ''}}</p>
+                                        <div class="top-text left-8 font-black">
+                                            <h4><b>{{$v->title or ''}}</b></h4>
+                                            <p class="description font-5">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8">
-                                            <span class="price">调研问卷</span>
+                                            <span class="price font-5">调研问卷</span>
                                         </div>
 
                                     </div>
@@ -330,52 +376,6 @@
                 </div>
             </div>
 
-            {{--文章--}}
-            {{--3栏--}}
-            <div class="row full wrapper-content product-column product-four-column slide-to-top
-                @if( (count($org->articles) % 2) == 1 )
-                    product-four-column--wide
-                @endif
-            ">
-                <div class="col-md-14">
-                    <div class="row full">
-                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3>文章</h3>
-                            @if( count($org->articles) == 0 )
-                                <span class="hidden-xs">暂无</span>
-                            @else
-                                <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-xs">更多文章</a>
-                            @endif
-                        </div>
-                        <ul class="col-sm-12 col-xs-14 product-list">
-                            @foreach($org->articles as $v)
-                            <li class="col-md-6">
-                                <a href="{{url('/article?id=').encode($v->id)}}">
-                                    <div class="item " style="background-image:url(/images/black-v.jpg)">
-
-                                        <div class="top-text left-8 font-">
-                                            <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
-                                            <p class="description">{{$v->description or ''}}</p>
-                                        </div>
-
-                                        <div class="bottom-text left-8">
-                                            <span class="price">文章</span>
-                                        </div>
-
-                                    </div>
-                                </a>
-                            </li>
-                            @endforeach
-                        </ul>
-                        @if( count($org->articles) == 0 )
-                            <span class="view-more visible-xs">暂无</span>
-                        @else
-                            <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs">更多文章</a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
             {{--联系我们--}}
             <div class="row full slide-to-top">
                 <div class="col-md-14">
@@ -385,7 +385,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-14" style="height:">
+                <div class="col-xs-14" style="">
                     <div class="mod-stories-thumb no-margin stories-three-columns" style="height:100%;">
                         <ul class="row full" style="height:100%;">
                             <li class="row full" style="position:relative; height:100%; background-size:cover; background-image:url(/images/black-v.jpg)">

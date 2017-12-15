@@ -70,6 +70,8 @@ Route::group(['prefix' => 'test'], function () {
     // Route::get('/send/email', $controller.'@send_email');
 
     // Route::get('/send_sms', "{$controller}@send_sms");
+
+     Route::get('/image', "{$controller}@image");
 });
 
 /*后台*/
@@ -102,6 +104,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/', function () {
             return view('admin.index');
         });
+
+        Route::get('/download_qrcode', function () {
+            return view('admin.index');
+        });
+
+        Route::match(['get','post'], 'download_qrcode', 'SoftorgController@download_qrcode');
 
         // 机构模块
         Route::group(['prefix' => 'softorg'], function () {

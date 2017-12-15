@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Admin;
 
+use App\Models\Softorg;
 use App\Models\Survey;
 use App\Models\Question;
 use App\Models\Option;
@@ -103,12 +104,12 @@ class SurveyRepository {
             // 目标URL
             $url = 'http://www.softorg.cn:8088/survey?id='.$encode_id;
             // 保存位置
-            $qrcodes_path = 'resource/org/'.$admin->id.'/unique/surveys';
-            if(!file_exists(storage_path($qrcodes_path)))
-                mkdir(storage_path($qrcodes_path), 0777, true);
+            $qrcode_path = 'resource/org/'.$admin->id.'/unique/surveys';
+            if(!file_exists(storage_path($qrcode_path)))
+                mkdir(storage_path($qrcode_path), 0777, true);
             // qrcode图片文件
-            $qrcode = $qrcodes_path.'/qrcode_survey_'.$encode_id.'.png';
-            QrCode::format('png')->size(150)->generate($url,storage_path($qrcode));
+            $qrcode = $qrcode_path.'/qrcode_survey_'.$encode_id.'.png';
+            QrCode::format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
 
 
             if(!empty($post_data["cover"]))
@@ -122,6 +123,15 @@ class SurveyRepository {
                 }
                 //else return response_fail();
             }
+
+            $softorg = Softorg::find($admin->org_id);
+            $create = new CommonRepository();
+            $org_name = $softorg->name;
+            $logo_path = '/resource/'.$softorg->logo;
+            $title = $survey->title;
+            $name = $qrcode_path.'/qrcode__survey_'.$encode_id.'.png';
+            $create->create_qrcode_image($org_name, '问卷', $title, $qrcode, $logo_path, $name);
+
 
             return response_success(['id'=>$encode_id]);
         }
