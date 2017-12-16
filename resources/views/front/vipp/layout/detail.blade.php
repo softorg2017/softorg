@@ -237,7 +237,7 @@
                 wx.onMenuShareAppMessage({ 
                     title: '@yield('share_title')', 
                     desc: '@yield('share_desc')',
-                    ink: link,
+                    link: link,
                     dataUrl: '',
                     imgUrl: '@yield('share_img')'
                 }); 

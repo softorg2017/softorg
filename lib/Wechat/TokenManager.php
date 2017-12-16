@@ -22,16 +22,16 @@ class TokenManager
     {
         $url = url()->full();
 
-//        if(Cache::has(self::cache_key))
-//        {
-//            $cache = Cache::get(self::cache_key);
-//
-//            $appID = $cache['app_id'];
-//            $ticket = $cache['ticket'];
-//            $nonce_str = $cache['nonce_str'];
-//            $timestamp = $cache['timestamp'];
-//        }
-//        else
+        if(Cache::has(self::cache_key))
+        {
+            $cache = Cache::get(self::cache_key);
+
+            $appID = $cache['app_id'];
+            $ticket = $cache['ticket'];
+            $nonce_str = $cache['nonce_str'];
+            $timestamp = $cache['timestamp'];
+        }
+        else
         {
             $ticket = self::getTicket();
             $nonce_str = self::getNonceStr();
