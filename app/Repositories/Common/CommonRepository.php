@@ -20,7 +20,7 @@ class CommonRepository {
         $fileName = md5(date("ymdhis")) . $size . '.' . $extension;
         
         if (!is_dir(storage_path("resource/" . $destinationPath))) {
-            mkdir(storage_path("resource/" . $destinationPath), 0744, true);
+            mkdir(storage_path("resource/" . $destinationPath), 0755, true);
         }
         $file->move(storage_path("resource/" . $destinationPath), $fileName);
         
@@ -41,7 +41,7 @@ class CommonRepository {
         $fileName = $filename . '.' . $extension;
 
         if (!is_dir(storage_path("resource/" . $destinationPath))) {
-            mkdir(storage_path("resource/" . $destinationPath), 0744, true);
+            mkdir(storage_path("resource/" . $destinationPath), 0755, true);
         }
         $file->move(storage_path("resource/" . $destinationPath), $fileName);
 
@@ -85,25 +85,32 @@ class CommonRepository {
             $font->valign('top');
         });
 
-        $qrcode = Image::make(storage_path($qrcode_path));
-        $img->insert($qrcode, 'bottom-right',120, 60);
+        if(file_exists(storage_path($qrcode_path)))
+        {
+            $qrcode = Image::make(storage_path($qrcode_path));
+            $img->insert($qrcode, 'bottom-right',120, 60);
+        }
 
-        $logo = Image::make(storage_path($logo_path));
-        $logo->resize(40, 40);
+        if(file_exists(storage_path($logo_path)))
+        {
+            $logo = Image::make(storage_path($logo_path));
+            $logo->resize(40, 40);
 
-        // define polygon points
-        $points = array(
-            1,  1,  // Point 1 (x, y)
-            39,  1, // Point 2 (x, y)
-            39,  39,  // Point 3 (x, y)
-            1, 39,  // Point 4 (x, y)
-        );
-        $logo->polygon($points, function ($draw) {
+            // define polygon points
+            $points = array(
+                1,  1,  // Point 1 (x, y)
+                39,  1, // Point 2 (x, y)
+                39,  39,  // Point 3 (x, y)
+                1, 39,  // Point 4 (x, y)
+            );
+            $logo->polygon($points, function ($draw) {
 //            $draw->background('#0000ff');
-            $draw->border(1, '#ffffff');
-        });
+                $draw->border(1, '#ffffff');
+            });
 
-        $img->insert($logo, 'bottom-right',180, 120);
+            $img->insert($logo, 'bottom-right',180, 120);
+        }
+
 
 //        $org_name = "上海如哉网络科技有限公司";
         $img->text($org_name, 200, 360, function($font) use ($font_file) {
