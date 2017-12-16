@@ -200,6 +200,7 @@
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
  <script>  
+    var wechat_config = <?php json_encode(\Lib\Wechat\TokenManager::getConfig()); ?>
     $(function(){ 
 
         var link = window.location.href; 
@@ -209,11 +210,16 @@
         function wxFn() {  
 
             wx.config({
+                {{--debug: true,--}}
+                {{--appId: 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识--}}
+                {{--timestamp: 1512624767, // 必填，生成签名的时间戳--}}
+                {{--nonceStr: 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串--}}
+                {{--signature: "{{$signature or ''}}",// 必填，签名，见附录1--}}
                 debug: true,
-                appId: 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识
-                timestamp: 1512624767, // 必填，生成签名的时间戳
-                nonceStr: 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串
-                signature: "{{$signature or ''}}",// 必填，签名，见附录1
+                appId: wechat_config.app_id,
+                timestamp: wechat_config.timestamp,
+                nonceStr: wechat_config.nonce_str,
+                signature: wechat_config.signature,
                 jsApiList: [
                     'checkJsApi',
                     'onMenuShareTimeline',
