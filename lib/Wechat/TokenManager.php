@@ -46,8 +46,9 @@ class TokenManager
             Cache::put(self::cache_key, $cache_config, 119); //119 minutes
         }
 
-        $params = ['jsapi_ticket' => $ticket, 'noncestr' => $nonce_str, 'timestamp' => $timestamp, 'url' => $url];
-        $string = http_build_query($params);
+//        $params = ['jsapi_ticket' => $ticket, 'noncestr' => $nonce_str, 'timestamp' => $timestamp, 'url' => $url];
+//        $string = http_build_query($params);
+        $string = 'jsapi_ticket='.$ticket.'&noncestr='.$nonce_str.'&timestamp='.$timestamp.'&url='.$url;
         $sign = sha1($string);
 
         $config = [
@@ -56,7 +57,7 @@ class TokenManager
             'timestamp' => $timestamp,
             'signature' => $sign,
             'ticket' => $ticket,
-            'params' => $string,
+            'string' => $string,
         ];
         return $config;
     }
