@@ -20,7 +20,9 @@ class TokenManager
 
     public static function getConfig()
     {
-        $url = url()->full();
+//        $url = url()->full();
+        $url = 'http://softorg.cn'.request()->getRequestUri();
+
 
         if(Cache::has(self::cache_key))
         {
@@ -56,9 +58,9 @@ class TokenManager
             'nonce_str' => $nonce_str,
             'timestamp' => $timestamp,
             'signature' => $sign,
-            'ticket' => $ticket,
-            'string' => $string,
-            'url' => $url,
+//            'ticket' => $ticket,
+//            'string' => $string,
+//            'url' => $url,
         ];
         return $config;
     }

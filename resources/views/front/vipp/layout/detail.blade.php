@@ -206,8 +206,9 @@
 
     $(function(){
 
-        var link = window.location.href; 
-        console.log(link);
+//        var link = window.location.href; 
+        var link = location.href.split('#')[0]; 
+//        console.log(link);
 
         if(typeof wx != "undefined") wxFn();
 
