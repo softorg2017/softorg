@@ -160,14 +160,14 @@ class ActivityRepository {
         {
             $encode_id = encode($activity->id);
             // 目标URL
-            $url = 'http://www.softorg.cn:8088/activity?id='.$encode_id;
+            $url = 'http://www.softorg.cn/activity?id='.$encode_id;
             // 保存位置
             $qrcode_path = 'resource/org/'.$admin->id.'/unique/activities';
             if(!file_exists(storage_path($qrcode_path)))
                 mkdir(storage_path($qrcode_path), 0777, true);
             // qrcode图片文件
             $qrcode = $qrcode_path.'/qrcode_activity_'.$encode_id.'.png';
-            QrCode::format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
+            QrCode::errorCorrection('H')->format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
 
 
             if(!empty($post_data["cover"]))
