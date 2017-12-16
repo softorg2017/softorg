@@ -58,6 +58,7 @@ class TokenManager
             'signature' => $sign,
             'ticket' => $ticket,
             'string' => $string,
+            'url' => $url,
         ];
         return $config;
     }

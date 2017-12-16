@@ -207,6 +207,7 @@
     $(function(){
 
         var link = window.location.href; 
+        console.log(link);
 
         if(typeof wx != "undefined") wxFn();
 
