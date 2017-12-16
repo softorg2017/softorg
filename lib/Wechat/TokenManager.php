@@ -20,22 +20,41 @@ class TokenManager
 
     public static function getConfig()
     {
-        if(Cache::has(self::cache_key)) return Cache::get(self::cache_key);
-
-        $ticket = self::getTicket();
-        $nonce_str = self::getNonceStr();
-        $timestamp = time();
         $url = url()->full();
+
+        if(Cache::has(self::cache_key))
+        {
+            $cache = Cache::get(self::cache_key);
+
+            $app_id = $cache['app_id'];
+            $ticket = $cache['ticket'];
+            $nonce_str = $cache['nonce_str'];
+            $timestamp = $cache['timestamp'];
+        }
+        else
+        {
+            $ticket = self::getTicket();
+            $nonce_str = self::getNonceStr();
+            $timestamp = time();
+            $app_id = self::$app_id;
+
+            $cache_config['app_id'] = self::$app_id;
+            $cache_config['ticket'] = $ticket;
+            $cache_config['nonce_str'] = $nonce_str;
+            $cache_config['timestamp'] = $timestamp;
+
+            Cache::put(self::cache_key, $cache_config, 119); //119 minutes
+        }
 
         $params = ['noncestr' => $nonce_str, 'jsapi_ticket' => $ticket, 'timestamp' => $timestamp, 'url' => $url];
         $sign = sha1(http_build_query($params));
 
         $config = [
-            'app_id' => self::$app_id,
-            'timestamp' => $timestamp,
+            'app_id' => $app_id,
             'nonce_str' => $nonce_str,
+            'timestamp' => $timestamp,
+            'signature' => $sign,
         ];
-        Cache::put(self::cache_key, $config, 119); //119 minutes
         return $config;
     }
 

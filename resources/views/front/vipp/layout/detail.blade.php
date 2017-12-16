@@ -199,9 +199,12 @@
 <script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
- <script>  
-    var wechat_config = <?php json_encode(\Lib\Wechat\TokenManager::getConfig()); ?>
-    $(function(){ 
+ <script>
+
+    var wechat_config = {!! $wechat_config or '' !!};
+//    console.log(wechat_config);
+
+    $(function(){
 
         var link = window.location.href; 
 

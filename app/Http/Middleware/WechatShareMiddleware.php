@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth, Response;
+use Lib\Wechat\TokenManager;
 
 class WechatShareMiddleware
 {
@@ -14,6 +15,9 @@ class WechatShareMiddleware
         request()->url();
         $signature = sha1($string);
         view()->share('signature', $signature);
+
+        $wechat_config = json_encode(TokenManager::getConfig());
+        view()->share('wechat_config', $wechat_config);
 
         return $next($request);
     }
