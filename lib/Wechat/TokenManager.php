@@ -54,6 +54,7 @@ class TokenManager
             'nonce_str' => $nonce_str,
             'timestamp' => $timestamp,
             'signature' => $sign,
+            'ticket' => $ticket,
         ];
         return $config;
     }

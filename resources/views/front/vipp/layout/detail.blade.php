@@ -202,7 +202,7 @@
  <script>
 
     var wechat_config = {!! $wechat_config or '' !!};
-//    console.log(wechat_config);
+    console.log(wechat_config);
 
     $(function(){
 
