@@ -20,7 +20,7 @@ class CommonRepository {
         $fileName = md5(date("ymdhis")) . $size . '.' . $extension;
         
         if (!is_dir(storage_path("resource/" . $destinationPath))) {
-            mkdir(storage_path("resource/" . $destinationPath), 0755, true);
+            mkdir(storage_path("resource/" . $destinationPath), 0777, true);
         }
         $file->move(storage_path("resource/" . $destinationPath), $fileName);
         
@@ -41,7 +41,7 @@ class CommonRepository {
         $fileName = $filename . '.' . $extension;
 
         if (!is_dir(storage_path("resource/" . $destinationPath))) {
-            mkdir(storage_path("resource/" . $destinationPath), 0755, true);
+            mkdir(storage_path("resource/" . $destinationPath), 0777, true);
         }
         $file->move(storage_path("resource/" . $destinationPath), $fileName);
 
