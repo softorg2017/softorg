@@ -47,7 +47,8 @@ class TokenManager
         }
 
         $params = ['jsapi_ticket' => $ticket, 'noncestr' => $nonce_str, 'timestamp' => $timestamp, 'url' => $url];
-        $sign = sha1(http_build_query($params));
+        $string = http_build_query($params);
+        $sign = sha1($string);
 
         $config = [
             'app_id' => $appID,
@@ -55,6 +56,7 @@ class TokenManager
             'timestamp' => $timestamp,
             'signature' => $sign,
             'ticket' => $ticket,
+            'params' => $string,
         ];
         return $config;
     }
