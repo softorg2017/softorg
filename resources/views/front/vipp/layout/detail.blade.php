@@ -202,7 +202,7 @@
  <script>
 
     var wechat_config = {!! $wechat_config or '' !!};
-    console.log(wechat_config);
+//    console.log(wechat_config);
 
     $(function(){
 
@@ -215,16 +215,11 @@
         function wxFn() {  
 
             wx.config({
-                {{--debug: true,--}}
-                {{--appId: 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识--}}
-                {{--timestamp: 1512624767, // 必填，生成签名的时间戳--}}
-                {{--nonceStr: 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串--}}
-                {{--signature: "{{$signature or ''}}",// 必填，签名，见附录1--}}
                 debug: true,
-                appId: wechat_config.app_id,
-                timestamp: wechat_config.timestamp,
-                nonceStr: wechat_config.nonce_str,
-                signature: wechat_config.signature,
+                appId: wechat_config.app_id, // 必填，公众号的唯一标识
+                timestamp: wechat_config.timestamp, // 必填，生成签名的时间戳
+                nonceStr: wechat_config.nonce_str, // 必填，生成签名的随机串
+                signature: wechat_config.signature, // 必填，签名，见附录1
                 jsApiList: [
                     'checkJsApi',
                     'onMenuShareTimeline',

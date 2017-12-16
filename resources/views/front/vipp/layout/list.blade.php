@@ -195,20 +195,26 @@
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
  <script>
+
+    var wechat_config = {!! $wechat_config or '' !!};
+    //    console.log(wechat_config);
+
     $(function(){
 
-        var link = window.location.href;
+//        var link = window.location.href;
+        var link = location.href.split('#')[0];
+//        console.log(link);
 
         if(typeof wx != "undefined") wxFn();
 
         function wxFn() {
 
             wx.config({
-                debug: false,
-                appId: 'wx8b8d2ac63dada748', // 必填，公众号的唯一标识
-                timestamp: 1512624767, // 必填，生成签名的时间戳
-                nonceStr: 'Softorg20171010Softorg20171207', // 必填，生成签名的随机串
-                signature: "{{$signature or ''}}",// 必填，签名，见附录1
+                debug: true,
+                appId: wechat_config.app_id, // 必填，公众号的唯一标识
+                timestamp: wechat_config.timestamp, // 必填，生成签名的时间戳
+                nonceStr: wechat_config.nonce_str, // 必填，生成签名的随机串
+                signature: wechat_config.signature, // 必填，签名，见附录1
                 jsApiList: [
                     'checkJsApi',
                     'onMenuShareTimeline',
@@ -223,7 +229,8 @@
                 wx.onMenuShareAppMessage({
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
-                    ink: link,
+                    link: link,
+                    dataUrl: '',
                     imgUrl: '@yield('share_img')'
                 });
                 wx.onMenuShareTimeline({
