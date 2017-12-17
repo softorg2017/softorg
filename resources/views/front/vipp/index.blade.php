@@ -162,6 +162,8 @@
                 </div>
             </div>
 
+
+
             {{--企业简介--}}
             <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
@@ -169,25 +171,28 @@
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>企业简介</h3>
                         </div>
-                        <ul class="col-sm-12 col-xs-14 product-list" style="">
-                            <li class="row full">
-                                <div class="item " style="background:url(/images/bg-white.png)">
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;background:url(/images/bg-white.png)">
+                            <div class="row full" style="width:100%;height:auto;float:left;">
+                                <div class=" " style="position: relative;width:100%;height:auto;">
                                     <div class="line" style="display:none;">
                                         <p class="">{{$org->description or ''}}</p>
                                         <div>{{$org->description or ''}}</div>
                                     </div>
-                                    <div class="top-text left-8 font-">
-                                        <h3 style="text-indent:2em;color:#111;">{{$org->description or '暂无简介'}}</h3>
+                                    <div class="">
+                                        <h4 class="font-0" style="text-indent:2em;margin:24px 16px; 32px">{{$org->description or '暂无简介'}}</h4>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
                         </ul>
                     </div>
                 </div>
             </div>
 
+
+
             {{--产品--}}
             {{--4栏--}}
+            @if( count($org->products) != 0 )
             <div class="row full wrapper-content product-column product-four-column slide-to-top
                 @if( (count($org->products) % 2) == 1 )
                     product-four-column--wide
@@ -209,13 +214,13 @@
                                 <a href="{{url('/product?id=').encode($v->id)}}">
                                     <div class="item " style="
                                         @if( (count($org->products) % 2) == 1 )
-                                        @if($loop->first)
-                                                background:url(/images/black-v.jpg);background-size:cover;
+                                            @if($loop->first)
+                                                    background:url(/images/bg-black-1-r.jpeg);background-size:100%;
+                                            @else
+                                                    background:url(/images/bg-black-1-v.jpeg);background-size:100%;background-position:center center;
+                                            @endif
                                         @else
-                                                background:url(/images/black-v.jpg);background-size:cover;background-position:center center;
-                                        @endif
-                                        @else
-                                                background:url(/images/black-v.jpg);background-size:cover;background-position:center center;
+                                                background:url(/images/bg-black-1-v.jpeg);background-size:100%;background-position:center center;
                                         @endif
                                     ">
 
@@ -229,12 +234,12 @@
                                             <p class="seriesnumber">产品</p>
                                         </div>
 
-                                        <div class="top-text left-8 font-white">
-                                            <h4><b>{{$v->title or ''}}</b></h4>
-                                            <p class="description font-c">{{$v->description or ''}}</p>
+                                        <div class="top-text left-8">
+                                            <h4 class="list-title multi-ellipsis font-f">{{$v->title or ''}}</h4>
+                                            <p class="description line-ellipsis font-b">{{$v->description or ''}}</p>
                                         </div>
 
-                                        <div class="bottom-text left-8">
+                                        <div class="bottom-text left-8" style="display:none;">
                                             <span class="price font-c">产品</span>
                                         </div>
 
@@ -251,9 +256,11 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             {{--文章--}}
             {{--3栏--}}
+            @if( count($org->articles) != 0 )
             <div class="row full wrapper-content product-column product-four-column slide-to-top
                 @if( (count($org->articles) % 2) == 1 )
                     product-four-column--wide
@@ -271,22 +278,32 @@
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->articles as $v)
-                                <li class="col-md-6">
-                                    <a href="{{url('/article?id=').encode($v->id)}}">
-                                        <div class="item list-bg" style="background:url(/images/x-911-1.jpg);background-size:contain;background-position:center center;">
+                            <li class="col-md-6">
+                                <a href="{{url('/article?id=').encode($v->id)}}">
+                                    <div class="item list-bg" style="
+                                    @if( (count($org->articles) % 2) == 1 )
+                                    @if($loop->first)
+                                            background:url(/images/bg-black-7-r.jpeg);background-size:100%;
+                                    @else
+                                            background:url(/images/bg-black-3-v.jpeg);background-size:100%;background-position:center center;
+                                    @endif
+                                    @else
+                                            background:url(/images/bg-black-3-v.jpeg);background-size:100%;background-position:center center;
+                                    @endif
+                                    ">
 
-                                            <div class="top-text left-8 font-black">
-                                                <h4><b>{{$v->title or ''}}</b></h4>
-                                                <p class="description font-2">{{$v->description or ''}}</p>
-                                            </div>
-
-                                            <div class="bottom-text left-8">
-                                                <span class="price font-2">文章</span>
-                                            </div>
-
+                                        <div class="top-text left-8">
+                                            <h4 class="list-title multi-ellipsis font-f">{{$v->title or ''}}</h4>
+                                            <p class="description line-ellipsis font-a">{{$v->description or ''}}</p>
                                         </div>
-                                    </a>
-                                </li>
+
+                                        <div class="bottom-text left-8" style="display:none;">
+                                            <span class="price font-2">文章</span>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </li>
                             @endforeach
                         </ul>
                         @if( count($org->articles) == 0 )
@@ -297,9 +314,11 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             {{--活动--}}
             {{--3栏--}}
+            @if( count($org->activities) != 0 )
             <div class="row full wrapper-content product-column product-four-column slide-to-top
                 @if( (count($org->activities) % 2) == 1 )
                     product-four-column--wide
@@ -322,18 +341,18 @@
                                     <div class="item " style="
                                     @if( (count($org->activities) % 2) == 1 )
                                         @if($loop->first)
-                                                background:url(/images/x-421-0.jpg);background-size:cover;
+                                                background:url(/images/bg-black-6-r.jpeg);background-size:cover;
                                         @else
-                                                background:url(/images/x-421-1.jpg);background-size:contain;background-position:center center;
+                                                background:url(/images/bg-black-6-v.jpeg);background-size:contain;background-position:center center;
                                         @endif
                                     @else
-                                        background:url(/images/x-421-1.jpg);background-size:contain;background-position:center center;
+                                        background:url(/images/bg-black-6-v.jpeg);background-size:contain;background-position:center center;
                                     @endif
                                     ">
 
-                                        <div class="top-text left-8 font-white">
-                                            <h4><b>{{$v->title or ''}}</b></h4>
-                                            <p class="description font-c">{{$v->description or ''}}</p>
+                                        <div class="top-text left-8">
+                                            <h4 class="list-title multi-ellipsis font-f">{{$v->title or ''}}</h4>
+                                            <p class="description multi-ellipsis font-b">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8">
@@ -353,9 +372,11 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             {{--问卷--}}
             {{--4栏--}}
+            @if( count($org->surveys) != 0 )
             <div class="row full wrapper-content product-column product-four-column slide-to-top
                 @if( (count($org->surveys) % 2) == 1 )
                     product-four-column--wide
@@ -375,14 +396,24 @@
                             @foreach($org->surveys as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/survey?id=').encode($v->id)}}">
-                                    <div class="item " style="background:url(/images/bg-white.png);">
+                                    <div class="item " style="
+                                    @if( (count($org->surveys) % 2) == 1 )
+                                        @if($loop->first)
+                                                background:url(/images/bg-black-5-r.jpeg);background-size:100% 100%;
+                                        @else
+                                                background:url(/images/bg-black-5-v.jpeg);background-size:100% 100%;background-position:center center;
+                                        @endif
+                                    @else
+                                            background:url(/images/bg-black-5-v.jpeg);background-size:100% 100%;background-position:center center;
+                                    @endif
+                                    ">
 
-                                        <div class="top-text left-8 font-black">
-                                            <h4><b>{{$v->title or ''}}</b></h4>
-                                            <p class="description font-5">{{$v->description or ''}}</p>
+                                        <div class="top-text left-8">
+                                            <h4 class="list-title multi-ellipsis font-f">{{$v->title or ''}}</h4>
+                                            <p class="description line-ellipsis font-a">{{$v->description or ''}}</p>
                                         </div>
 
-                                        <div class="bottom-text left-8">
+                                        <div class="bottom-text left-8" style="display:none;">
                                             <span class="price font-5">调研问卷</span>
                                         </div>
 
@@ -399,6 +430,7 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             {{--联系我们--}}
             <div class="row full slide-to-top">
