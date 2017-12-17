@@ -76,8 +76,8 @@
     <div class="top primary menu sticky">
         <div class="wrap">
             <a fade-onload href="/org/@yield('website-name')" title="Home" rel="home" id="logo">
-                <img class="logo logo-black" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
-                <img class="logo logo-white" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
+                <img class="logo logo-black" src="http://cdn.softorg.cn/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
+                <img class="logo logo-white" src="http://cdn.softorg.cn/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
             </a>
             <div class="right" fade-onload>
                 <a class="hidden-sm text-item" href="/org/@yield('website-name')">首页</a>
@@ -100,10 +100,10 @@
     <ul class="main menu-level menu-current menu-in">
         <li>
             <div>
-                <img class="logo" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
+                <img class="logo" src="http://cdn.softorg.cn/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
             </div>
             <div>
-                <img class="logo" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
+                <img class="logo" src="http://cdn.softorg.cn/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
             </div>
         </li>
         <li>
