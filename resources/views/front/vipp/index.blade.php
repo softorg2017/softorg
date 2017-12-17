@@ -411,8 +411,8 @@
                 </div>
                 <div class="col-xs-14" style="">
                     <div class="mod-stories-thumb no-margin stories-three-columns" style="height:100%;">
-                        <ul class="row full" style="height:100%;">
-                            <li class="row full" style="position:relative;height:100%;background-size:cover;background-position:center center;background-image:url(/images/black-v.jpg)">
+                        <ul class="row full" style="position:relative;height:100%;background-image:url(/images/bg-white.png)">
+                            <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
                                     <h4>电话</h4>
                                     <h3>{{$org->telephone or ''}}</h3>
@@ -425,7 +425,7 @@
                                     <h3>{{$org->telephone or ''}}</h3>
                                 </div>
                             </li>
-                            <li class="row full" style="position:relative;height:100%;background-size:cover;background-position:center center;background-image:url(/images/black-v.jpg)">
+                            <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
                                     <h4>邮箱</h4>
                                     <h3>{{$org->email or ''}}</h3>
@@ -438,7 +438,7 @@
                                     <h3>{{$org->email or ''}}</h3>
                                 </div>
                             </li>
-                            <li class="row full" style="position:relative;height:100%;background-size:cover;background-position:center center;background-image:url(/images/black-v.jpg)">
+                            <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
                                     <h4>微信号</h4>
                                     <h3>{{$org->wechat or ''}}</h3>
@@ -449,7 +449,7 @@
                                 </div>
                                 <div class="middle-text text-center">
                                     <h3>{{$org->wechat or ''}}</h3>
-                                    <img class="" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->wechat_qrcode or ''}}" alt="{{$org->wechat or 'Home'}}"/>
+                                    {{--<img class="" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->wechat_qrcode or ''}}" alt="{{$org->wechat or 'Home'}}"/>--}}
                                 </div>
                             </li>
                         </ul>

@@ -6191,7 +6191,7 @@ body.page-user #cookie {
 }
 
 .mod-stories-thumb li {
-    color: #fff
+    /*color: #fff*/
 }
 
 .mod-stories-thumb li:before {
@@ -6917,8 +6917,8 @@ screen and (min-device-pixel-ratio:1.5) {
     width: 100%;
     text-align: center;
     font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 22px;
+    line-height: 24px;
     margin: 0 0 27px
 }
 
@@ -20710,7 +20710,9 @@ input:-webkit-autofill:focus {
     softorg
 */
 
+.text-left {text-align:left;}
 .text-center {text-align:center;}
+.text-right {text-align:right;}
 .font-white {color:#fff;}
 .font-black {color:#000;}
 .font-1 {color:#111;}

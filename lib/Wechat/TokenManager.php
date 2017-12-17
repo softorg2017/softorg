@@ -21,7 +21,7 @@ class TokenManager
     public static function getConfig()
     {
 //        $url = url()->full();
-        $url = 'http://softorg.cn'.request()->getRequestUri();
+        $url = 'http://'.$_SERVER["HTTP_HOST"].request()->getRequestUri();
 
 
         if(Cache::has(self::cache_key))

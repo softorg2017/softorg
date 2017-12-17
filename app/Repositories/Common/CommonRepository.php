@@ -54,7 +54,13 @@ class CommonRepository {
         $font_file = public_path().'/fonts/huawenkaiti.ttf';
         $font_2 = public_path().'/fonts/huawenkaiti.ttf';
 
-        $img = Image::canvas(400, 400, '#fafafa');
+//        $title = "2017天津How I Treat和淋巴瘤转化医学国际研讨会";
+        $result = $this->autowrap(16, 0, $font_file, $title, 280); // 自动换行处理
+        $title_row = $result['row'];
+        $title = $result['content'];
+
+
+        $img = Image::canvas(400, 400 + ($title_row * 20), '#fafafa');
 
 //        $type_string = '活动';
         $img->text($type_string, 200, 50, function($font) use ($font_file) {
@@ -75,8 +81,6 @@ class CommonRepository {
             $draw->border(1, '#000');
         });
 
-//        $title = "2017天津How I Treat和淋巴瘤转化医学国际研讨会";
-        $title = $this->autowrap(16, 0, $font_file, $title, 280); // 自动换行处理
         $img->text($title, 200, 90, function($font) use ($font_file) {
             $font->file($font_file);
             $font->size(24);
@@ -113,7 +117,7 @@ class CommonRepository {
 
 
 //        $org_name = "上海如哉网络科技有限公司";
-        $img->text($org_name, 200, 360, function($font) use ($font_file) {
+        $img->text($org_name, 200, 360 + ($title_row * 20), function($font) use ($font_file) {
             $font->file($font_file);
             $font->size(16);
             $font->color('#000');
@@ -128,6 +132,7 @@ class CommonRepository {
     {
         // 这几个变量分别是 字体大小, 角度, 字体名称, 字符串, 预设宽度
         $content = "";
+        $row = 1;
 
         // 将字符串拆分成一个个单字 保存到数组 letter 中
         for ($i=0;$i<mb_strlen($string);$i++)
@@ -144,10 +149,16 @@ class CommonRepository {
             if (($test_box[2] > $width) && ($content !== ""))
             {
                 $content .= "\n";
+                $row = $row + 1;
             }
             $content .= $l;
         }
-        return $content;
+
+        $result['content'] = $content;
+        $result['row'] = $row;
+
+//        return $content;
+        return $result;
     }
 
 
