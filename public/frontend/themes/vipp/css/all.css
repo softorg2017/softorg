@@ -6588,7 +6588,7 @@ screen and (min-device-pixel-ratio:1.5) {
     position: relative;
     float: left;
     width: 100%;
-    padding-top: 60vh;
+    padding-top: 80vh;
     background-position: center center;
     background-size: cover;
     overflow: hidden
