@@ -399,7 +399,7 @@ desired effect
             Anything you want
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 如哉网络科技有限公司 2016 <a href="#">Company</a>.</strong> All rights reserved. 沪ICP备17052782号-1
+        <strong>Copyright &copy; 上海如哉网络科技有限公司 2017 <a href="#">Company</a>.</strong> All rights reserved. 沪ICP备17052782号-1
     </footer>
 
     <!-- Control Sidebar -->

@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">描述：</label>
                     <div class="col-md-8 ">
-                        <div><label class="control-label">{{$org->description or ''}}</label></div>
+                        <div><label class="">{{$org->description or ''}}</label></div>
                     </div>
                 </div>
                 {{--电话--}}
@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">logo：</label>
                     <div class="col-md-8 ">
-                        <div style="width:150px;height:150px;"><img src="{{url('http://cdn.softorg.cn:8088/'.$org->logo)}}" alt=""></div>
+                        <div style="width:100px;height:100px;"><img src="{{url('http://cdn.softorg.cn/'.$org->logo)}}" alt=""></div>
                     </div>
                 </div>
             </div>

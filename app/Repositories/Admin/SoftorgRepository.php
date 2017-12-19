@@ -62,6 +62,7 @@ class SoftorgRepository {
             if($result["status"]) $post_data["logo"] = $result["data"];
             else return response_fail();
         }
+        else unset($post_data["logo"]);
 
         $bool = $org->fill($post_data)->save();
         if($bool) return response_success();
