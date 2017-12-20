@@ -158,57 +158,69 @@ class ActivityRepository {
         $operate = decode($post_data["operate"]);
         if(intval($id) !== 0 && !$id) return response_error();
 
-        if($id == 0) // $id==0，添加一个新的活动
+        DB::beginTransaction();
+        try
         {
-            $activity = new Activity;
-            $post_data["admin_id"] = $admin->id;
-            $post_data["org_id"] = $admin->org_id;
-        }
-        else // 修改活动
-        {
-            $activity = Activity::find($id);
-            if(!$activity) return response_error();
-            if($activity->admin_id != $admin->id) return response_error([],"你没有操作权限");
-        }
-
-        $bool = $activity->fill($post_data)->save();
-        if($bool)
-        {
-            $encode_id = encode($activity->id);
-            // 目标URL
-            $url = 'http://www.softorg.cn/activity?id='.$encode_id;
-            // 保存位置
-            $qrcode_path = 'resource/org/'.$admin->id.'/unique/activities';
-            if(!file_exists(storage_path($qrcode_path)))
-                mkdir(storage_path($qrcode_path), 0777, true);
-            // qrcode图片文件
-            $qrcode = $qrcode_path.'/qrcode_activity_'.$encode_id.'.png';
-            QrCode::errorCorrection('H')->format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
-
-
-            if(!empty($post_data["cover"]))
+            if($id == 0) // $id==0，添加一个新的活动
             {
-                $upload = new CommonRepository();
-                $result = $upload->upload($post_data["cover"], 'org-'. $admin->id.'-unique-activities' , 'cover_activity_'.$encode_id);
-                if($result["status"])
-                {
-                    $activity->cover_pic = $result["data"];
-                    $activity->save();
-                }
-                //else return response_fail();
+                $activity = new Activity;
+                $post_data["admin_id"] = $admin->id;
+                $post_data["org_id"] = $admin->org_id;
+            }
+            else // 修改活动
+            {
+                $activity = Activity::find($id);
+                if(!$activity) return response_error([],"该活动不存在，刷新页面重试");
+                if($activity->admin_id != $admin->id) return response_error([],"你没有操作权限");
             }
 
-            $softorg = Softorg::find($admin->org_id);
-            $create = new CommonRepository();
-            $org_name = $softorg->name;
-            $logo_path = '/resource/'.$softorg->logo;
-            $title = $activity->title;
-            $name = $qrcode_path.'/qrcode__activity_'.$encode_id.'.png';
-            $create->create_qrcode_image($org_name, '活动', $title, $qrcode, $logo_path, $name);
+            $bool = $activity->fill($post_data)->save();
+            if($bool)
+            {
+                $encode_id = encode($activity->id);
+                // 目标URL
+                $url = 'http://www.softorg.cn/activity?id='.$encode_id;
+                // 保存位置
+                $qrcode_path = 'resource/org/'.$admin->id.'/unique/activities';
+                if(!file_exists(storage_path($qrcode_path)))
+                    mkdir(storage_path($qrcode_path), 0777, true);
+                // qrcode图片文件
+                $qrcode = $qrcode_path.'/qrcode_activity_'.$encode_id.'.png';
+                QrCode::errorCorrection('H')->format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
 
+
+                if(!empty($post_data["cover"]))
+                {
+                    $upload = new CommonRepository();
+                    $result = $upload->upload($post_data["cover"], 'org-'. $admin->id.'-unique-activities' , 'cover_activity_'.$encode_id);
+                    if($result["status"])
+                    {
+                        $activity->cover_pic = $result["data"];
+                        $activity->save();
+                    }
+                    else throw new Excepiton("upload-cover-fail");
+                }
+
+                $softorg = Softorg::find($admin->org_id);
+                $create = new CommonRepository();
+                $org_name = $softorg->name;
+                $logo_path = '/resource/'.$softorg->logo;
+                $title = $activity->title;
+                $name = $qrcode_path.'/qrcode__activity_'.$encode_id.'.png';
+                $create->create_qrcode_image($org_name, '活动', $title, $qrcode, $logo_path, $name);
+            }
+            else throw new Excepiton("insert-activity-fail");
+
+            DB::commit();
             return response_success(['id'=>$encode_id]);
         }
-        else return response_fail();
+        catch (Excepiton $e)
+        {
+            DB::rollback();
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],'操作失败，请重试！');
+        }
     }
 
     // 删除

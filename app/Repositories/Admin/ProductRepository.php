@@ -104,57 +104,69 @@ class ProductRepository {
         $operate = decode($post_data["operate"]);
         if(intval($id) !== 0 && !$id) return response_error();
 
-        if($id == 0) // $id==0，添加一个新的产品
+        DB::beginTransaction();
+        try
         {
-            $product = new Product;
-            $post_data["admin_id"] = $admin->id;
-            $post_data["org_id"] = $admin->org_id;
-        }
-        else // 编辑产品
-        {
-            $product = Product::find($id);
-            if(!$product) return response_error([],"该产品不存在，刷新页面试试");
-            if($product->admin_id != $admin->id) return response_error([],"你没有操作权限");
-        }
-
-        $bool = $product->fill($post_data)->save();
-        if($bool)
-        {
-            $encode_id = encode($product->id);
-            // 目标URL
-            $url = 'http://www.softorg.cn/product?id='.$encode_id;
-            // 保存位置
-            $qrcode_path = 'resource/org/'.$admin->id.'/unique/products';
-            if(!file_exists(storage_path($qrcode_path)))
-                mkdir(storage_path($qrcode_path), 0777, true);
-            // qrcode图片文件
-            $qrcode = $qrcode_path.'/qrcode_product_'.$encode_id.'.png';
-            QrCode::errorCorrection('H')->format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
-
-
-            if(!empty($post_data["cover"]))
+            if($id == 0) // $id==0，添加一个新的产品
             {
-                $upload = new CommonRepository();
-                $result = $upload->upload($post_data["cover"], 'org-'. $admin->id.'-unique-products' , 'cover_product_'.$encode_id);
-                if($result["status"])
-                {
-                    $product->cover_pic = $result["data"];
-                    $product->save();
-                }
-                //else return response_fail();
+                $product = new Product;
+                $post_data["admin_id"] = $admin->id;
+                $post_data["org_id"] = $admin->org_id;
+            }
+            else // 编辑产品
+            {
+                $product = Product::find($id);
+                if(!$product) return response_error([],"该产品不存在，刷新页面重试");
+                if($product->admin_id != $admin->id) return response_error([],"你没有操作权限");
             }
 
-            $softorg = Softorg::find($admin->org_id);
-            $create = new CommonRepository();
-            $org_name = $softorg->name;
-            $logo_path = '/resource/'.$softorg->logo;
-            $title = $product->title;
-            $name = $qrcode_path.'/qrcode__product_'.$encode_id.'.png';
-            $create->create_qrcode_image($org_name, '产品', $title, $qrcode, $logo_path, $name);
+            $bool = $product->fill($post_data)->save();
+            if($bool)
+            {
+                $encode_id = encode($product->id);
+                // 目标URL
+                $url = 'http://www.softorg.cn/product?id='.$encode_id;
+                // 保存位置
+                $qrcode_path = 'resource/org/'.$admin->id.'/unique/products';
+                if(!file_exists(storage_path($qrcode_path)))
+                    mkdir(storage_path($qrcode_path), 0777, true);
+                // qrcode图片文件
+                $qrcode = $qrcode_path.'/qrcode_product_'.$encode_id.'.png';
+                QrCode::errorCorrection('H')->format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
 
+
+                if(!empty($post_data["cover"]))
+                {
+                    $upload = new CommonRepository();
+                    $result = $upload->upload($post_data["cover"], 'org-'. $admin->id.'-unique-products' , 'cover_product_'.$encode_id);
+                    if($result["status"])
+                    {
+                        $product->cover_pic = $result["data"];
+                        $product->save();
+                    }
+                    else throw new Excepiton("upload-cover-fail");
+                }
+
+                $softorg = Softorg::find($admin->org_id);
+                $create = new CommonRepository();
+                $org_name = $softorg->name;
+                $logo_path = '/resource/'.$softorg->logo;
+                $title = $product->title;
+                $name = $qrcode_path.'/qrcode__product_'.$encode_id.'.png';
+                $create->create_qrcode_image($org_name, '产品', $title, $qrcode, $logo_path, $name);
+            }
+            else throw new Excepiton("insert-product-fail");
+
+            DB::commit();
             return response_success(['id'=>$encode_id]);
         }
-        else return response_fail();
+        catch (Excepiton $e)
+        {
+            DB::rollback();
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],'操作失败，请重试！');
+        }
     }
 
     // 删除
