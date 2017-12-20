@@ -700,7 +700,7 @@ class SoftorgRepository {
         }
         else if($sort == "slide")
         {
-            $qrcode = $qrcode_path."sldes/qrcode__slide_".$encode_id.".png";
+            $qrcode = $qrcode_path."slides/qrcode__slide_".$encode_id.".png";
         }
         else if($sort == "survey")
         {
