@@ -70,6 +70,22 @@ class ActivityRepository {
     // 保存数据
     public function save($post_data)
     {
+        $messages = [
+            'id.required' => '参数有误',
+            'name.required' => '请输入名称',
+            'title.required' => '请输入标题',
+        ];
+        $v = Validator::make($post_data, [
+            'id' => 'required',
+            'name' => 'required',
+            'title' => 'required'
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
         $start = $post_data["start"];
         $end = $post_data["end"];
         if(!empty($start) && !empty($end))

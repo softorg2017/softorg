@@ -700,7 +700,7 @@ class SoftorgRepository {
         }
         else if($sort == "slide")
         {
-            $qrcode = $qrcode_path."sledes/qrcode__slide_".$encode_id.".png";
+            $qrcode = $qrcode_path."sldes/qrcode__slide_".$encode_id.".png";
         }
         else if($sort == "survey")
         {
@@ -711,7 +711,11 @@ class SoftorgRepository {
             $qrcode = $qrcode_path."articles/qrcode__article_".$encode_id.".png";
         }
 
-        return response()->download(storage_path($qrcode), 'qrcode.png');
+        if(file_exists(storage_path($qrcode)))
+        {
+            return response()->download(storage_path($qrcode), 'qrcode.png');
+        }
+        else return response_error([],"二维码不存在，重新编辑生成二维码");
     }
 
 
