@@ -1,11 +1,11 @@
 @extends('admin.layout.layout')
 
-@section('title','创建新问卷')
-@section('header','创建新问卷')
-@section('description','创建新问卷')
+@section('title', '自定义简介页')
+@section('header', '自定义简介页')
+@section('description', '自定义简介页')
+
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{url('/admin/survey/list')}}"><i class="fa "></i>问卷列表</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -26,36 +26,16 @@
                 </div>
             </div>
 
-            <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-survey">
+            <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-introduction">
             <div class="box-body">
+
                 {{csrf_field()}}
                 <input type="hidden" name="operate" value="{{$operate_id or ''}}" readonly>
                 <input type="hidden" name="id" value="{{$encode_id or encode(0)}}" readonly>
 
-                {{--名称--}}
-                <div class="form-group">
-                    <label class="control-label col-md-2">名称</label>
-                    <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="name" placeholder="请输入名称" value="{{$data->name or ''}}"></div>
-                    </div>
-                </div>
-                {{--标题--}}
-                <div class="form-group">
-                    <label class="control-label col-md-2">标题</label>
-                    <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="title" placeholder="请输入标题" value="{{$data->title or ''}}"></div>
-                    </div>
-                </div>
-                {{--说明--}}
-                <div class="form-group">
-                    <label class="control-label col-md-2">描述</label>
-                    <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="description" placeholder="描述" value="{{$data->description or ''}}"></div>
-                    </div>
-                </div>
                 {{--内容--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">内容详情</label>
+                    <label class="control-label col-md-2">自定义简介</label>
                     <div class="col-md-8 ">
                         <div>
                             @include('UEditor::head')
@@ -71,13 +51,6 @@
                         </div>
                     </div>
                 </div>
-                {{--封面图片--}}
-                <div class="form-group">
-                    <label class="control-label col-md-2">封面图片</label>
-                    <div class="col-md-8 ">
-                        <div><input type="file" name="cover" placeholder="请上传封面图片" value="{{$data->cover or ''}}"></div>
-                    </div>
-                </div>
 
             </div>
             </form>
@@ -85,7 +58,7 @@
             <div class="box-footer">
                 <div class="row" style="margin:16px 0;">
                     <div class="col-md-8 col-md-offset-2">
-                        <button type="button" class="btn btn-primary" id="edit-survey-submit"><i class="fa fa-check"></i> 提交</button>
+                        <button type="button" class="btn btn-primary" id="edit-introduction-submit"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
                     </div>
                 </div>
@@ -99,27 +72,34 @@
 
 @section('js')
 <script>
+    {{--var ue = UE.getEditor('container');--}}
+    {{--ue.ready(function() {--}}
+        {{--ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.--}}
+    {{--});--}}
 
-$(function() {
-    // 添加or修改调研问卷信息
-    $("#edit-survey-submit").on('click', function() {
-        var options = {
-            url: "/admin/survey/edit",
-            type: "post",
-            dataType: "json",
-            // target: "#div2",
-            success: function (data) {
-                if(!data.success) layer.msg(data.msg);
-                else
-                {
-                    layer.msg(data.msg);
-                    location.href = "/admin/survey/list";
+    $(function() {
+        // 添加or修改产品信息
+        $("#edit-introduction-submit").on('click', function() {
+            var options = {
+                url: "/admin/website/edit/introduction",
+                type: "post",
+                dataType: "json",
+                // target: "#div2",
+                success: function (data) {
+                    if(!data.success) layer.msg(data.msg);
+                    else
+                    {
+                        layer.msg(data.msg);
+                        //location.href = "/admin/website/list";
+                    }
                 }
-            }
-        };
-        $("#form-edit-survey").ajaxSubmit(options);
+            };
+            $("#form-introduction-product").ajaxSubmit(options);
+        });
     });
-});
+</script>
+<script type="text/javascript">
+
 
 </script>
 @endsection

@@ -7,7 +7,7 @@ class Website extends Model
     //
     protected $table = "website";
     protected $fillable = [
-        'sort', 'type', 'org_id', 'admin_id', 'name', 'title', 'description', 'content'
+        'sort', 'type', 'org_id', 'admin_id', 'home', 'introduction', 'information'
     ];
     protected $dateFormat = 'U';
 

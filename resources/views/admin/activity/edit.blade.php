@@ -70,7 +70,7 @@
                         <div>
                         @include('UEditor::head')
                         <!-- 加载编辑器的容器 -->
-                            <script id="container" name="content" type="text/plain" style="width:100%;"> {!! $data->content or '' !!} </script>
+                            <script id="container" name="content" type="text/plain"> {!! $data->content or '' !!} </script>
                             <!-- 实例化编辑器 -->
                             <script type="text/javascript">
                             var ue = UE.getEditor('container');

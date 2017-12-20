@@ -40,7 +40,7 @@ class WebsiteController extends Controller
 
     public function editAction()
     {
-        if(request()->isMethod('get')) return view('admin.website.edit');
+        if(request()->isMethod('get')) return $this->repo->view_edit();
         else if (request()->isMethod('post')) return $this->repo->save(request()->all());
     }
 
@@ -53,6 +53,9 @@ class WebsiteController extends Controller
     {
         return $this->repo->get(request()->all());
     }
+
+
+
 
 
 

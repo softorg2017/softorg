@@ -3,6 +3,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Softorg;
 use App\Administrator;
+use App\Models\Website;
 use App\Models\Verification;
 use App\Repositories\Common\CommonRepository;
 use Response, Auth, Validator, DB, Excepiton;
@@ -38,7 +39,6 @@ class AuthRepository {
             return response_error([],$messages->first());
         }
 
-        //return response_success([],'YANZ');
 
         $website_name = $post_data['website_name'];
         $email = $post_data['email'];
@@ -46,48 +46,68 @@ class AuthRepository {
         $password_confirm = $post_data['password_confirm'];
         if($password == $password_confirm)
         {
-            $org = new Softorg;
-            $org_create['website_name'] = $website_name;
-            $bool1 = $org->fill($org_create)->save();
-            if($bool1)
+            DB::beginTransaction();
+            try
             {
-                $admin = new Administrator;
-                $admin_create['org_id'] = $org->id;
-                $admin_create['email'] = $email;
-                $admin_create['password'] = password_encode($password);
-                $bool2 = $admin->fill($admin_create)->save();
-                if($bool2)
+                $org = new Softorg;
+                $org_create['website_name'] = $website_name;
+                $bool1 = $org->fill($org_create)->save();
+                if($bool1)
                 {
-                    $string = 'org_id='.$org->id.'&admin_id='.$admin->id.'&time='.time();
-                    $code = hash("sha512", $string);
-
-                    $verification_create['org_id'] = $org->id;
-                    $verification_create['admin_id'] = $admin->id;
-                    $verification_create['email'] = $email;
-                    $verification_create['code'] = $code;
-
-                    $verification = new Verification;
-                    $bool3 = $verification->fill($verification_create)->save();
-                    if($bool3)
+                    $website = new Website();
+                    $website_create['org_id'] = $org->id;
+                    $bool2 = $website->fill($website_create)->save();
+                    if($bool2)
                     {
-                        $send = new MailRepository();
-                        $post_data['type'] = 1;
-                        $post_data['admin_id'] = encode($admin->id);
-                        $post_data['code'] = $code;
-                        $post_data['target'] = $email;
-                        $flag = $send->send_admin_activation_email($post_data);
-                        if(count($flag) < 1) return response_success([],'注册成功,请前往邮箱激活管理员');
-                        else
+                        $admin = new Administrator;
+                        $admin_create['org_id'] = $org->id;
+                        $admin_create['email'] = $email;
+                        $admin_create['password'] = password_encode($password);
+                        $bool3 = $admin->fill($admin_create)->save();
+                        if($bool3)
                         {
-                            $flag = $send->send_admin_activation_email($post_data);
-                            if(count($flag) < 1) return response_success([],'注册成功,请前往邮箱激活管理员');
-                            else response_fail([],'邮件发送失败！');
+                            $string = 'org_id='.$org->id.'&admin_id='.$admin->id.'&time='.time();
+                            $code = hash("sha512", $string);
+
+                            $verification_create['type'] = 1;
+                            $verification_create['org_id'] = $org->id;
+                            $verification_create['admin_id'] = $admin->id;
+                            $verification_create['email'] = $email;
+                            $verification_create['code'] = $code;
+
+                            $verification = new Verification;
+                            $bool4 = $verification->fill($verification_create)->save();
+                            if($bool4)
+                            {
+                                $send = new MailRepository();
+                                $post_data['type'] = 1;
+                                $post_data['admin_id'] = encode($admin->id);
+                                $post_data['code'] = $code;
+                                $post_data['target'] = $email;
+                                $flag = $send->send_admin_activation_email($post_data);
+                                if(count($flag) >= 1)
+                                {
+                                    $flag = $send->send_admin_activation_email($post_data);
+                                    if(count($flag) >= 1) throw new Excepiton("send-email-false");
+                                }
+                            }
                         }
+                        else throw new Excepiton("insert-admin-false");
                     }
+                    else throw new Excepiton("insert-website-false");
                 }
-                else response_fail([],'注册失败！');
+                else throw new Excepiton("insert-org-false");
+
+                DB::commit();
+                return response_success([],'注册成功,请前往邮箱激活管理员');
             }
-            else return response_fail([],'注册失败！');
+            catch (Excepiton $e)
+            {
+                DB::rollback();
+                $msg = $e->getMessage();
+                return response_fail([],'注册失败！');
+//            exit($e->getMessage());
+            }
         }
         else return response_error([],'密码不一致！');
     }
@@ -99,7 +119,7 @@ class AuthRepository {
         $where['admin_id'] = $admin_id;
         $where['type'] = $post_data['type'];
         $where['code'] = $post_data['code'];
-        $verification = Verification::where($where)->orderBy('id','desc')->first();
+        $verification = Verification::where($where)->first();
         if($verification)
         {
             if($verification->active == 0)

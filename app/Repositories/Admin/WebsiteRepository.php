@@ -43,55 +43,33 @@ class WebsiteRepository {
         return datatable_response($list, $draw, $total);
     }
 
+    // 显示编辑视图
     public function view_edit()
     {
-        $id = request("id",0);
-        $decode_id = decode($id);
-        if(!$decode_id) return response("参数有误", 404);
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
 
-        if($decode_id == 0) return view('admin.website.edit')->with(['operate'=>'create', 'encode_id'=>$id]);
-        else
-        {
-            $slide = Slide::with(['pages'=>function($query) {
-                    $query->orderBy('order', 'asc');
-                }])->find($decode_id);
-            if($slide)
-            {
-                unset($slide->id);
-                foreach ($slide->pages as $k => $v)
-                {
-                    $slide->pages[$k]->encode_id = encode($v->id);
-                }
-                return view('admin.website.edit')->with(['operate'=>'edit', 'encode_id'=>$id, 'data'=>$slide]);
-            }
-            else return response("该网址不存在！", 404);
-        }
+        $website = Website::where('org_id', $org_id)->first();
+        return view('admin.website.edit')->with('data', $website);
     }
 
+    // 编辑自定义网站
     public function save($post_data)
     {
         $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
 
-        $id = decode($post_data["id"]);
-        $operate = decode($post_data["operate"]);
-        if(intval($id) !== 0 && !$id) return response_error();
-
-        if($id == 0) // $id==0，创建一个新的幻灯片
+        $website = Website::where('org_id', $org_id)->first();
+        if($website)
         {
-            $website = new Website;
-            $post_data["admin_id"] = $admin->id;
-            $post_data["org_id"] = $admin->org_id;
+            $type = $post_data['type'];
+            $content = $post_data['content'];
+            $editor[$type] = $content;
+            $bool = $website->fill($editor)->save();
+            if($bool) return response_success([], '修改成功');
+            else return response_fail([], '修改失败，刷新页面重试');
         }
-        else // 修改幻灯片
-        {
-            $website = Website::find($id);
-            if(!$website) return response_error();
-            if($website->admin_id != $admin->id) return response_error([],"你没有操作权限");
-        }
-
-        $bool = $website->fill($post_data)->save();
-        if($bool) return response_success();
-        else return response_fail();
+        else return response_error();
     }
 
     public function view_statistics()

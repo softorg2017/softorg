@@ -292,7 +292,8 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="{{url('/admin/softorg/index')}}"><i class="fa fa-circle-o text-aqua"></i>基本信息</a></li>
                         <li><a href="{{url('/admin/softorg/edit')}}"><i class="fa fa-circle-o text-aqua"></i>编辑基本信息</a></li>
-                        <li><a href="{{url('/admin/administrator/list')}}"><i class="fa fa-circle-o text-aqua"></i>管理员列表</a></li>
+                        {{--<li><a href="{{url('/admin/administrator/list')}}"><i class="fa fa-circle-o text-aqua"></i>管理员列表</a></li>--}}
+                        <li><a href="{{url('/admin/password_reset/')}}"><i class="fa fa-circle-o text-aqua"></i>修改密码</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -302,7 +303,7 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/website/edit')}}"><i class="fa fa-circle-o text-aqua"></i>首页编辑</a></li>
+                        <li><a href="{{url('/admin/website/edit')}}"><i class="fa fa-circle-o text-aqua"></i>网站编辑</a></li>
                         <li><a href="{{url('/admin/website/statistics')}}"><i class="fa fa-circle-o text-aqua"></i>流量统计</a></li>
                     </ul>
                 </li>

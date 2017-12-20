@@ -28,6 +28,9 @@ Route::get('/home', function () {
     return view('front.'.config('common.view.front.template').'.index');
 });
 
+/*
+ * TEST
+ */
 Route::group(['prefix' => 'test'], function () {
 
     $controller = "TestController";
@@ -99,6 +102,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::match(['get','post'], 'activation', $controller.'@activation');
     });
 
+    // 后台管理，需要登录
     Route::group(['middleware' => 'admin'], function () {
 
         Route::get('/', function () {
@@ -148,6 +152,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
             Route::post('delete', $controller.'@deleteAction');
+
+            Route::match(['get','post'], 'edit/home', $controller.'@homeAction');
+            Route::match(['get','post'], 'edit/introduction', $controller.'@introductionAction');
+            Route::match(['get','post'], 'edit/information', $controller.'@informationAction');
         });
 
         // 产品模块
