@@ -102,6 +102,81 @@ class SoftorgRepository {
         }
         else dd("企业不存在");
     }
+    // 返回（前台）【自定义首页】视图
+    public function view_home($org)
+    {
+        $query = Softorg::with([
+            'administrators','website'
+        ]);
+        if(is_numeric($org)) $org = $query->whereId($org)->first();
+        else $org = $query->where('website_name',$org)->first();
+
+        if($org)
+        {
+            // 访问数量+1
+            $org->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1;
+            $record["sort"] = "home";
+            $record["org_id"] = $org->id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.index').'.home')->with('org',$org);
+        }
+        else dd("企业不存在");
+    }
+    // 返回（前台）【自定义简介】视图
+    public function view_introduction($org)
+    {
+        $query = Softorg::with([
+            'administrators','website'
+        ]);
+        if(is_numeric($org)) $org = $query->whereId($org)->first();
+        else $org = $query->where('website_name',$org)->first();
+
+        if($org)
+        {
+            // 访问数量+1
+            $org->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1;
+            $record["sort"] = "introduction";
+            $record["org_id"] = $org->id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.index').'.introduction')->with('org',$org);
+        }
+        else dd("企业不存在");
+    }
+    // 返回（前台）【自定义联系我们】视图
+    public function view_information($org)
+    {
+        $query = Softorg::with([
+            'administrators','website'
+        ]);
+        if(is_numeric($org)) $org = $query->whereId($org)->first();
+        else $org = $query->where('website_name',$org)->first();
+
+        if($org)
+        {
+            // 访问数量+1
+            $org->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1;
+            $record["sort"] = "information";
+            $record["org_id"] = $org->id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.index').'.information')->with('org',$org);
+        }
+        else dd("企业不存在");
+    }
 
 
 

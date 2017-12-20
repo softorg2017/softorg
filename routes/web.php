@@ -331,6 +331,9 @@ Route::group(['prefix' => config('common.website.front.prefix').'/{org_name}', '
 
     Route::get('/',$controller.'@index');
     Route::get('/index', $controller.'@index');
+    Route::get('/home', $controller.'@home');
+    Route::get('/introduction', $controller.'@introduction');
+    Route::get('/information', $controller.'@information');
 
     Route::get('/product', $controller.'@product');
     Route::get('/product/detail', $controller.'@product_detail');

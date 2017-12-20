@@ -53,6 +53,13 @@
                         <div><label class="">{{$org->description or ''}}</label></div>
                     </div>
                 </div>
+                {{--地址--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">地址：</label>
+                    <div class="col-md-8 ">
+                        <div><label class="control-label">{{$org->address or ''}}</label></div>
+                    </div>
+                </div>
                 {{--电话--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">电话：</label>

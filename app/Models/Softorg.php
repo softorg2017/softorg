@@ -7,13 +7,18 @@ class Softorg extends Model
     //
     protected $table = "softorg";
     protected $fillable = [
-        'sort', 'type', 'name', 'website_name', 'short', 'slogan', 'description', 'logo', 'telephone', 'email', 'qq', 'wechat'
+        'sort', 'type', 'name', 'website_name', 'short', 'slogan', 'description', 'logo', 'address', 'telephone', 'email', 'qq', 'wechat'
     ];
     protected $dateFormat = 'U';
 
     function administrators()
     {
         return $this->hasMany('App\Administrator','org_id','id');
+    }
+
+    function website()
+    {
+        return $this->hasOne('App\Models\Website','org_id','id');
     }
 
     function websites()
