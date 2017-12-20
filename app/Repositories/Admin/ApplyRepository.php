@@ -3,7 +3,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Activity;
 use App\Models\Apply;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 use QrCode;
 
 class ApplyRepository {

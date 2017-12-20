@@ -7,7 +7,7 @@ use App\Models\Activity;
 use App\Models\Slide;
 use App\Models\Survey;
 use App\Models\Article;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 
 class StatisticsRepository {
 

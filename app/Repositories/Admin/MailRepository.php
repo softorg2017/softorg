@@ -4,7 +4,7 @@ namespace App\Repositories\Admin;
 use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Mail;
 
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 
 class MailRepository {
 

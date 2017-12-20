@@ -3,7 +3,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Question;
 use App\Models\Option;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 
 class QuestionRepository {
 

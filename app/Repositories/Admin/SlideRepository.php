@@ -4,7 +4,7 @@ namespace App\Repositories\Admin;
 use App\Models\Softorg;
 use App\Models\Slide;
 use App\Repositories\Common\CommonRepository;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 use QrCode;
 
 class SlideRepository {
@@ -143,7 +143,7 @@ class SlideRepository {
                         $slide->cover_pic = $result["data"];
                         $slide->save();
                     }
-                    else throw new Excepiton("upload-cover-fail");
+                    else throw new Exception("upload-cover-fail");
                 }
 
                 $softorg = Softorg::find($admin->org_id);
@@ -154,12 +154,12 @@ class SlideRepository {
                 $name = $qrcode_path.'/qrcode__slide_'.$encode_id.'.png';
                 $create->create_qrcode_image($org_name, '幻灯片', $title, $qrcode, $logo_path, $name);
             }
-            else throw new Excepiton("insert-slide-fail");
+            else throw new Exception("insert-slide-fail");
 
             DB::commit();
             return response_success(['id'=>$encode_id]);
         }
-        catch (Excepiton $e)
+        catch (Exception $e)
         {
             DB::rollback();
             $msg = $e->getMessage();

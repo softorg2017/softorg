@@ -4,7 +4,7 @@ namespace App\Repositories\Admin;
 use App\Models\Answer;
 use App\Models\Survey;
 use App\Models\Page;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 use QrCode;
 
 class AnswerRepository {

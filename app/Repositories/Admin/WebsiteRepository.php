@@ -3,7 +3,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Website;
 use App\Models\Record;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 
 class WebsiteRepository {
 

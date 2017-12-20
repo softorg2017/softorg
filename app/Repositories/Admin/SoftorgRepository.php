@@ -17,7 +17,7 @@ use App\Models\Choice;
 use App\Repositories\Common\CommonRepository;
 use App\Repositories\Admin\MailRepository;
 
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 
 class SoftorgRepository {
 
@@ -449,7 +449,8 @@ class SoftorgRepository {
                     $variate['activity_id'] = $encode_id;
                     $variate['apply_id'] = encode($apply->id);
                     $variate['password'] = $password;
-                    $variate['activity'] = $activity;
+                    $variate['title'] = $activity->title;
+                    $variate['is_sign'] = $activity->is_sign;
 
 //                    $mail = new MailRepository();
 //                    $mail->send_activity_apply_email($variate);
@@ -458,23 +459,25 @@ class SoftorgRepository {
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 7);
                     curl_setopt($ch, CURLOPT_POST, 1);
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $variate);
                     $response = curl_exec($ch);
+                    curl_close($ch);
                     if(empty($response)) throw new Exception('curl get request failed');
                     else
                     {
                         $response = json_decode($response,true);
-                        if(!$response['success']) throw new Excepiton("send-email-failed");
+                        if(!$response['success']) throw new Exception("send-email-failed");
                     }
                 }
             }
-            else throw new Excepiton("insert-apply-failed");
+            else throw new Exception("insert-apply-failed");
 
             DB::commit();
             return response_success([],'注册成功,请前往邮箱激活管理员');
         }
-        catch (Excepiton $e)
+        catch (Exception $e)
         {
             DB::rollback();
 //            $msg = $e->getMessage();

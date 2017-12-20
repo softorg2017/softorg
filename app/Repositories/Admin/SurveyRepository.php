@@ -6,7 +6,7 @@ use App\Models\Survey;
 use App\Models\Question;
 use App\Models\Option;
 use App\Repositories\Common\CommonRepository;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 use QrCode;
 
 class SurveyRepository {
@@ -140,7 +140,7 @@ class SurveyRepository {
                         $survey->cover_pic = $result["data"];
                         $survey->save();
                     }
-                    else throw new Excepiton("upload-cover-fail");
+                    else throw new Exception("upload-cover-fail");
                 }
 
                 $softorg = Softorg::find($admin->org_id);
@@ -151,12 +151,12 @@ class SurveyRepository {
                 $name = $qrcode_path.'/qrcode__survey_'.$encode_id.'.png';
                 $create->create_qrcode_image($org_name, '问卷', $title, $qrcode, $logo_path, $name);
             }
-            else throw new Excepiton("insert-survey-fail");
+            else throw new Exception("insert-survey-fail");
 
             DB::commit();
             return response_success(['id'=>$encode_id]);
         }
-        catch (Excepiton $e)
+        catch (Exception $e)
         {
             DB::rollback();
             $msg = $e->getMessage();

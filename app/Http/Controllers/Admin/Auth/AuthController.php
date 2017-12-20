@@ -8,7 +8,7 @@ use App\Services\Admin\AuthService;
 use App\Repositories\Admin\AuthRepository;
 use App\Models\Softorg;
 use App\Administrator;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 
 
 class AuthController extends Controller

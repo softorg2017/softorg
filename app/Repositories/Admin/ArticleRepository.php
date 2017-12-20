@@ -4,7 +4,7 @@ namespace App\Repositories\Admin;
 use App\Models\Softorg;
 use App\Models\Article;
 use App\Repositories\Common\CommonRepository;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 use QrCode;
 
 class ArticleRepository {
@@ -133,7 +133,7 @@ class ArticleRepository {
                         $article->cover_pic = $result["data"];
                         $article->save();
                     }
-                    else throw new Excepiton("upload-cover-fail");
+                    else throw new Exception("upload-cover-fail");
                 }
 
                 $softorg = Softorg::find($admin->org_id);
@@ -144,12 +144,12 @@ class ArticleRepository {
                 $name = $qrcode_path.'/qrcode__article_'.$encode_id.'.png';
                 $create->create_qrcode_image($org_name, '文章', $title, $qrcode, $logo_path, $name);
             }
-            else throw new Excepiton("insert-article-fail");
+            else throw new Exception("insert-article-fail");
 
             DB::commit();
             return response_success(['id'=>$encode_id]);
         }
-        catch (Excepiton $e)
+        catch (Exception $e)
         {
             DB::rollback();
             $msg = $e->getMessage();

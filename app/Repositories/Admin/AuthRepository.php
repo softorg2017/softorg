@@ -6,7 +6,7 @@ use App\Administrator;
 use App\Models\Website;
 use App\Models\Verification;
 use App\Repositories\Common\CommonRepository;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 use QrCode;
 
 class AuthRepository {
@@ -90,34 +90,36 @@ class AuthRepository {
 //                                if(count($flag) >= 1)
 //                                {
 //                                    $flag = $send->send_admin_activation_email($post_data);
-//                                    if(count($flag) >= 1) throw new Excepiton("send-email-false");
+//                                    if(count($flag) >= 1) throw new Exception("send-email-false");
 //                                }
 
                                 $url = 'http://qingorg.cn:8088/email/send';
                                 $ch = curl_init();
                                 curl_setopt($ch, CURLOPT_URL, $url);
                                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                curl_setopt($ch, CURLOPT_TIMEOUT, 7);
                                 curl_setopt($ch, CURLOPT_POST, 1);
                                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
                                 $response = curl_exec($ch);
+                                curl_close($ch);
                                 if(empty($response)) throw new Exception('curl get request failed');
                                 else
                                 {
                                     $response = json_decode($response,true);
-                                    if(!$response['success']) throw new Excepiton("send-email-failed");
+                                    if(!$response['success']) throw new Exception("send-email-failed");
                                 }
                             }
                         }
-                        else throw new Excepiton("insert-admin-failed");
+                        else throw new Exception("insert-admin-failed");
                     }
-                    else throw new Excepiton("insert-website-failed");
+                    else throw new Exception("insert-website-failed");
                 }
-                else throw new Excepiton("insert-org-failed");
+                else throw new Exception("insert-org-failed");
 
                 DB::commit();
                 return response_success([],'注册成功,请前往邮箱激活管理员');
             }
-            catch (Excepiton $e)
+            catch (Exception $e)
             {
                 DB::rollback();
 //                $msg = $e->getMessage();

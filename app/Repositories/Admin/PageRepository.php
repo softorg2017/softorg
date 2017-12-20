@@ -2,7 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Page;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 
 class PageRepository {
 

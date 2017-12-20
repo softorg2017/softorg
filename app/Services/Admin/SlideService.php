@@ -2,7 +2,7 @@
 namespace App\Services\Admin;
 
 use App\Models\Slide;
-use Response, Auth, Validator, DB, Excepiton;
+use Response, Auth, Validator, DB, Exception;
 
 class SlideService {
 
