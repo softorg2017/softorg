@@ -92,6 +92,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     App::setLocale("zh");
     Route::get('/i18n','IndexController@dataTableI18n');
 
+
+
     // 注册登录
     Route::group(['namespace' => 'Auth'], function () {
         $controller = "AuthController";
@@ -101,6 +103,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::match(['get','post'], 'logout', $controller.'@logout');
         Route::match(['get','post'], 'activation', $controller.'@activation');
     });
+
+
 
     // 后台管理，需要登录
     Route::group(['middleware' => 'admin'], function () {
@@ -129,7 +133,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             $controller = "AdministratorController";
 
             Route::match(['get','post'], 'list', $controller.'@viewList');
+            Route::match(['get','post'], 'password/reset', $controller.'@password_reset');
         });
+
 
         // 流量统计
         Route::group(['prefix' => 'statistics'], function () {
@@ -157,6 +163,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'edit/introduction', $controller.'@introductionAction');
             Route::match(['get','post'], 'edit/information', $controller.'@informationAction');
         });
+
 
         // 产品模块
         Route::group(['prefix' => 'product'], function () {
