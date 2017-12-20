@@ -79,16 +79,32 @@ class AuthRepository {
                             $bool4 = $verification->fill($verification_create)->save();
                             if($bool4)
                             {
-                                $send = new MailRepository();
+//                                $send = new MailRepository();
+                                $post_data['sort'] = 'admin_activation';
                                 $post_data['type'] = 1;
                                 $post_data['admin_id'] = encode($admin->id);
                                 $post_data['code'] = $code;
                                 $post_data['target'] = $email;
-                                $flag = $send->send_admin_activation_email($post_data);
-                                if(count($flag) >= 1)
+
+//                                $flag = $send->send_admin_activation_email($post_data);
+//                                if(count($flag) >= 1)
+//                                {
+//                                    $flag = $send->send_admin_activation_email($post_data);
+//                                    if(count($flag) >= 1) throw new Excepiton("send-email-false");
+//                                }
+
+                                $url = 'http://qingorg.cn:8088/email/send';
+                                $ch = curl_init();
+                                curl_setopt($ch, CURLOPT_URL, $url);
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                curl_setopt($ch, CURLOPT_POST, 1);
+                                curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+                                $response = curl_exec($ch);
+                                if(empty($response)) throw new Exception('curl get request failed');
+                                else
                                 {
-                                    $flag = $send->send_admin_activation_email($post_data);
-                                    if(count($flag) >= 1) throw new Excepiton("send-email-false");
+                                    $response = json_decode($response,true);
+                                    if(!$response['success']) throw new Excepiton("send-email-false");
                                 }
                             }
                         }
