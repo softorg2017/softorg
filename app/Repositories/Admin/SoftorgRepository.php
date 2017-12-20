@@ -409,6 +409,7 @@ class SoftorgRepository {
         $apply = new Apply();
         $insert['activity_id'] = $id;
         $insert['type'] = $type;
+
         if($type == 1)
         {
             $v2 = Validator::make($post_data, [
@@ -432,28 +433,57 @@ class SoftorgRepository {
             if(Auth::check()) $insert['user_id'] = Auth::id();
             return response_error([],"请先登录！");
         }
-        $bool = $apply->fill($insert)->save();
-        if($bool)
-        {
-            if($type == 1)
-            {
-                $activity = Activity::find($id);
-                $variate['target'] = $post_data['email'];
-                $variate['email'] = $post_data['email'];
-                $variate['activity_id'] = $encode_id;
-                $variate['apply_id'] = encode($apply->id);
-                $variate['password'] = $password;
-                $variate['activity'] = $activity;
 
-                $mail = new MailRepository();
-                $mail->send_activity_apply_email($variate);
+        DB::beginTransaction();
+        try
+        {
+            $bool = $apply->fill($insert)->save();
+            if($bool)
+            {
+                if($type == 1)
+                {
+                    $activity = Activity::find($id);
+                    $variate['sort'] = 'activity_apply';
+                    $variate['target'] = $post_data['email'];
+                    $variate['email'] = $post_data['email'];
+                    $variate['activity_id'] = $encode_id;
+                    $variate['apply_id'] = encode($apply->id);
+                    $variate['password'] = $password;
+                    $variate['activity'] = $activity;
+
+//                    $mail = new MailRepository();
+//                    $mail->send_activity_apply_email($variate);
+
+                    $url = 'http://qingorg.cn:8088/email/send';
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $url);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_POST, 1);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $variate);
+                    $response = curl_exec($ch);
+                    if(empty($response)) throw new Exception('curl get request failed');
+                    else
+                    {
+                        $response = json_decode($response,true);
+                        if(!$response['success']) throw new Excepiton("send-email-failed");
+                    }
+                }
             }
-            return response_success([]);
+            else throw new Excepiton("insert-apply-failed");
+
+            DB::commit();
+            return response_success([],'注册成功,请前往邮箱激活管理员');
         }
-        return response_fail([]);
+        catch (Excepiton $e)
+        {
+            DB::rollback();
+//            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],'注册失败！');
+        }
     }
 
-    // 活动报名
+    // 活动报名验证
     public function apply_activation($post_data)
     {
         $email = $post_data['email'];

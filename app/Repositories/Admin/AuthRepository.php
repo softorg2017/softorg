@@ -104,15 +104,15 @@ class AuthRepository {
                                 else
                                 {
                                     $response = json_decode($response,true);
-                                    if(!$response['success']) throw new Excepiton("send-email-false");
+                                    if(!$response['success']) throw new Excepiton("send-email-failed");
                                 }
                             }
                         }
-                        else throw new Excepiton("insert-admin-false");
+                        else throw new Excepiton("insert-admin-failed");
                     }
-                    else throw new Excepiton("insert-website-false");
+                    else throw new Excepiton("insert-website-failed");
                 }
-                else throw new Excepiton("insert-org-false");
+                else throw new Excepiton("insert-org-failed");
 
                 DB::commit();
                 return response_success([],'注册成功,请前往邮箱激活管理员');
@@ -120,9 +120,9 @@ class AuthRepository {
             catch (Excepiton $e)
             {
                 DB::rollback();
-                $msg = $e->getMessage();
+//                $msg = $e->getMessage();
+//                exit($e->getMessage());
                 return response_fail([],'注册失败！');
-//            exit($e->getMessage());
             }
         }
         else return response_error([],'密码不一致！');
