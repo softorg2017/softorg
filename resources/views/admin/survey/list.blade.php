@@ -216,7 +216,7 @@
                                     '<li><a href="/admin/answer/analysis?type=survey&id='+value+'">数据分析</a></li>'+
                                     '<li><a href="/admin/answer/list?type=survey&id='+value+'">回答列表</a></li>'+
                                     '<li><a href="/admin/statistics/page?sort=survey&id='+value+'">流量统计</a></li>'+
-                                    '<li><a href="/admin/download_qrcode?sort=survey&id='+value+'">下载二维码</a></li>'+
+                                    '<li><a class="download-qrcode" data-id="'+value+'">下载二维码</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+
@@ -363,6 +363,12 @@
                     );
                 }
             });
+        });
+
+        // 【下载】 二维码
+        $("#survey-main-body").on('click', ".download-qrcode", function() {
+            var that = $(this);
+            window.open('/admin/download_qrcode?sort=survey&id='+that.attr('data-id'));
         });
 
 

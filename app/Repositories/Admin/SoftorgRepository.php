@@ -715,7 +715,7 @@ class SoftorgRepository {
         {
             return response()->download(storage_path($qrcode), 'qrcode.png');
         }
-        else return response_error([],"二维码不存在，重新编辑生成二维码");
+        else echo "二维码不存在，重新编辑生成二维码";
     }
 
 
