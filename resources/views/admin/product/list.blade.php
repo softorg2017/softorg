@@ -34,7 +34,7 @@
                     <thead>
                     <tr role='row' class='heading'>
                         <th>名称</th>
-                        <th>描述</th>
+                        <th>标题</th>
                         <th>类型</th>
                         <th>目录</th>
                         <th>管理员</th>
