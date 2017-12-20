@@ -38,7 +38,7 @@
                     <thead>
                     <tr role='row' class='heading'>
                         <th>名称</th>
-                        <th>描述</th>
+                        <th>标题</th>
                         <th>类型</th>
                         <th>管理员</th>
                         <th>浏览次数</th>
@@ -135,10 +135,10 @@
                         }
                     },
                     {
-                        'data': 'description',
+                        'data': 'title',
                         'orderable': false,
-                        render: function(description) {
-                            return description == null ? '' : description;
+                        render: function(val) {
+                            return val == null ? '' : val;
                         }
                     },
                     {

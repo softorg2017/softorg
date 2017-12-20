@@ -133,10 +133,10 @@
                         }
                     },
                     {
-                        'data': 'description',
+                        'data': 'title',
                         'orderable': false,
-                        render: function(description) {
-                            return description == null ? '' : description;
+                        render: function(val) {
+                            return val == null ? '' : val;
                         }
                     },
                     {
