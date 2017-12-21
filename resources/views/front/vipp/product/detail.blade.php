@@ -41,7 +41,7 @@
                 <div class="col-xs-12 col-xs-offset-1 col-md-8 col-md-offset-3">
                     <h1>{{$data->title or ''}}</h1>
                     <div class="text">@yield('data-updated_at') <span style="float: right;">@yield('data-visit')</span></div>
-                    <div class="text margin-top-32">{!! $data->content or '' !!}</div>
+                    <div class="text margin-top-32" style="margin-top:32px;">{!! $data->content or '' !!}</div>
                 </div>
             </div>
         </div>

@@ -83,7 +83,7 @@
                     <div style="margin:16px 0;font-size:16px;">
                         @yield('data-activit-time')
                     </div>
-                    <div class="text margin-top-32">{!! $data->content or '' !!}</div>
+                    <div class="text margin-top-32" style="margin-top:32px;">{!! $data->content or '' !!}</div>
                 </div>
             </div>
 
