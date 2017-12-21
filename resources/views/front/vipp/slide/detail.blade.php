@@ -35,7 +35,7 @@
                 <div class="col-xs-12 col-xs-offset-1 col-md-8 col-md-offset-3">
                     <h1>{{$data->title or ''}}</h1>
                     <div class="text">@yield('data-updated_at') <span style="float: right;">@yield('data-visit')</span></div>
-                    <div class="text">{!! $data->content or '' !!}</div>
+                    <div class="text margin-top-32">{!! $data->content or '' !!}</div>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <div class="row full">
                     <div class="col-xs-12 col-xs-offset-1 col-md-8 col-md-offset-3" style="border-bottom:1px solid #ddd;">
                         <h2>{{$loop->index + 1}}.{{$v->title or ''}}</h2>
-                        <div class="text">{!! $v->content or '' !!}</div>
+                        <div class="text margin-top-32">{!! $v->content or '' !!}</div>
                     </div>
                 </div>
             </div>
