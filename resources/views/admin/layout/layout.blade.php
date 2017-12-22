@@ -364,6 +364,9 @@ desired effect
                         <li><a href="{{url('/admin/survey/create')}}"><i class="fa fa-circle-o text-red"></i>添加问卷</a></li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a target="_blank" href="/org/{{ $org->website_name }}"><i class="fa fa-circle-o text-red"></i><span>前台主页</span></a>
+                </li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>

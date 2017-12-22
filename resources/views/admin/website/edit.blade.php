@@ -59,6 +59,8 @@
                     <div class="col-md-8 col-md-offset-2">
                         <button type="button" class="btn btn-primary edit-submit" data-form="#form-home"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
+                        <a target="_blank" href="/org/{{ $org->website_name }}/home"><button class="btn btn-success _right">访问</button></a>
+
                     </div>
                 </div>
             </div>
@@ -115,6 +117,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <button type="button" class="btn btn-primary edit-submit" data-form="#form-introduction"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
+                        <a target="_blank" href="/org/{{ $org->website_name }}/introduction"><button class="btn btn-success _right">访问</button></a>
                     </div>
                 </div>
             </div>
@@ -171,6 +174,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <button type="button" class="btn btn-primary edit-submit" data-form="#form-information"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
+                        <a target="_blank" href="/org/{{ $org->website_name }}/information"><button class="btn btn-success _right">访问</button></a>
                     </div>
                 </div>
             </div>
