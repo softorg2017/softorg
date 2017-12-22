@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 {{--内容--}}
-                <div class="form-group" style="display: none;">
+                <div class="form-group">
                     <label class="control-label col-md-2">内容详情</label>
                     <div class="col-md-8 ">
                         <div>
