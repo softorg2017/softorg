@@ -362,3 +362,24 @@ Route::group(['prefix' => 'user', 'namespace' => 'Front'], function () {
         Route::match(['get','post'], 'logout','AuthController@logout');
     });
 });
+
+
+
+/*后台*/
+Route::group(['prefix' => 'super', 'namespace' => 'Super', 'middleware' => 'super'], function () {
+
+    $controller = "SuperController";
+
+    Route::get('/', $controller.'@index');
+    Route::match(['get','post'], 'list', $controller.'@viewList');
+});
+
+
+
+
+
+
+
+
+
+
