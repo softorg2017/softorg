@@ -39,12 +39,20 @@
                         <th>域名</th>
                         <th>类型</th>
                         <th>状态</th>
+                        <th>产品</th>
+                        <th>文章</th>
+                        <th>活动</th>
+                        <th>问卷</th>
                         <th>访问数</th>
                         <th>注册时间</th>
                         <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -147,6 +155,34 @@
                         'orderable': false,
                         render: function(val) {
                             return val == null ? '' : val;
+                        }
+                    },
+                    {
+                        'data': 'products_count',
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? 0 : val;
+                        }
+                    },
+                    {
+                        'data': 'articles_count',
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? 0 : val;
+                        }
+                    },
+                    {
+                        'data': 'activities_count',
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? 0 : val;
+                        }
+                    },
+                    {
+                        'data': 'surveys_count',
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? 0 : val;
                         }
                     },
                     {

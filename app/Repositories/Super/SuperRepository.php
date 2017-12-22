@@ -36,7 +36,7 @@ class SuperRepository {
     // 返回列表数据
     public function get_list_datatable($post_data)
     {
-        $query = Softorg::with(['administrators']);
+        $query = Softorg::with(['administrators'])->withCount(['products', 'articles', 'activities', 'surveys']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
