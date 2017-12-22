@@ -478,10 +478,10 @@
                                 </div>
 
                                 <div class="top-text text-center">
-                                    <h1><i class="fa fa-weixin"></i></h1>
+                                    <h1><i class="fa fa-location-arrow"></i></h1>
                                 </div>
                                 <div class="middle-text text-center">
-                                    <h3>{{$org->wechat or ''}}</h3>
+                                    <h3>{{$org->address or ''}}</h3>
                                     {{--<img class="" src="http://cdn.softorg.cn/{{$org->wechat_qrcode or ''}}" alt="{{$org->wechat or 'Home'}}"/>--}}
                                 </div>
                             </li>
