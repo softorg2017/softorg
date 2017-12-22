@@ -53,7 +53,7 @@
                 </div>
                 {{--描述--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">描述</label>
+                    <label class="control-label col-md-2">企业简介</label>
                     <div class="col-md-8 ">
                         {{--<div><input type="text" class="form-control" name="description" placeholder="请输入描述" value="{{$org->description or ''}}"></div>--}}
                         <div><textarea name="description" id="" cols="100%" rows="10">{{$org->description or ''}}</textarea></div>
