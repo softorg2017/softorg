@@ -33,8 +33,8 @@ class SuperRepository {
         return view('super.index');
     }
 
-    // 返回列表数据
-    public function get_list_datatable($post_data)
+    // 返回【机构】列表数据
+    public function get_softorg_list_datatable($post_data)
     {
         $query = Softorg::with(['administrators'])->withCount(['products', 'articles', 'activities', 'surveys']);
         $total = $query->count();
@@ -55,11 +55,141 @@ class SuperRepository {
         }
         else $query->orderBy("id", "asc");
 
-        $list = $query->skip($skip)->take($limit)->get();
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
 //        foreach ($list as $k => $v)
 //        {
 //            $list[$k]->encode_id = encode($v->id);
 //        }
+        return datatable_response($list, $draw, $total);
+    }
+
+    // 返回【产品】列表数据
+    public function get_product_list_datatable($post_data)
+    {
+        $query = Product::with(['org'])->where('active', 1);
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
+        return datatable_response($list, $draw, $total);
+    }
+
+    // 返回【文章】列表数据
+    public function get_article_list_datatable($post_data)
+    {
+        $query = Article::with(['org'])->where('active', 1);
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
+        return datatable_response($list, $draw, $total);
+    }
+
+    // 返回【活动】列表数据
+    public function get_activity_list_datatable($post_data)
+    {
+        $query = Activity::with(['org'])->where('active', 1);
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
+        return datatable_response($list, $draw, $total);
+    }
+
+    // 返回【问卷】列表数据
+    public function get_survey_list_datatable($post_data)
+    {
+        $query = Survey::with(['org'])->where('active', 1);
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
         return datatable_response($list, $draw, $total);
     }
 

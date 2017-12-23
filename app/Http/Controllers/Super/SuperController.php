@@ -24,12 +24,48 @@ class SuperController extends Controller
         return $this->repo->view_super_index();
     }
 
-    // 列表
-    public function viewList()
+    // 机构列表
+    public function view_softorg_list()
     {
-        if(request()->isMethod('get')) return view('super.list');
-        else if(request()->isMethod('post')) return $this->repo->get_list_datatable(request()->all());
+        if(request()->isMethod('get')) return view('super.list.softorg');
+        else if(request()->isMethod('post')) return $this->repo->get_softorg_list_datatable(request()->all());
     }
+
+    // 产品列表
+    public function view_product_list()
+    {
+        if(request()->isMethod('get')) return view('super.list.product');
+        else if(request()->isMethod('post')) return $this->repo->get_product_list_datatable(request()->all());
+    }
+
+    // 文章列表
+    public function view_article_list()
+    {
+        if(request()->isMethod('get')) return view('super.list.article');
+        else if(request()->isMethod('post')) return $this->repo->get_article_list_datatable(request()->all());
+    }
+
+    // 活动列表
+    public function view_activity_list()
+    {
+        if(request()->isMethod('get')) return view('super.list.activity');
+        else if(request()->isMethod('post')) return $this->repo->get_activity_list_datatable(request()->all());
+    }
+
+    // 问卷列表
+    public function view_survey_list()
+    {
+        if(request()->isMethod('get')) return view('super.list.survey');
+        else if(request()->isMethod('post')) return $this->repo->get_survey_list_datatable(request()->all());
+    }
+
+
+
+
+
+
+
+
 
     // 返回自定义首页视图
     public function home($org_name)

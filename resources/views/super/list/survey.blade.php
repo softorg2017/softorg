@@ -1,8 +1,8 @@
 @extends('super.layout.layout')
 
-@section('title','机构列表')
-@section('header','机构列表')
-@section('description','机构列表')
+@section('title','问卷列表')
+@section('header','问卷列表')
+@section('description','问卷列表')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
@@ -16,7 +16,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">机构列表</h3>
+                <h3 class="box-title">问卷列表</h3>
 
                 <div class="pull-right">
                     <a href="{{url('/admin/activity/create')}}">
@@ -35,25 +35,15 @@
                     <thead>
                     <tr role='row' class='heading'>
                         <th>#ID</th>
-                        <th>名称</th>
-                        <th>域名</th>
-                        <th>类型</th>
+                        <th>标题</th>
+                        <th>所属机构</th>
                         <th>状态</th>
-                        <th>产品</th>
-                        <th>文章</th>
-                        <th>活动</th>
-                        <th>问卷</th>
                         <th>访问数</th>
-                        <th>注册时间</th>
+                        <th>创建时间</th>
                         <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -111,7 +101,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': '/super/list',
+                    'url': '/super/list/survey',
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -130,59 +120,24 @@
                         }
                     },
                     {
-                        'data': 'website_name',
+                        'data': 'title',
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/org/'+row.website_name+'">'+row.name+'</a>';
+                            return '<a target="_blank" href="/product?id='+row.encode_id+'">'+row.title+'</a>';
                         }
                     },
                     {
-                        'data': 'website_name',
+                        'data': 'org_id',
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+                            return '<a target="_blank" href="/org/'+row.org.website_name+'">'+row.org.name+'</a>';
+                        }
+                    },
+                    {
+                        "data": "active",
                         'orderable': false,
                         render: function(val) {
                             return val == null ? '' : val;
-                        }
-                    },
-                    {
-                        'data': 'type',
-                        'orderable': true,
-                        render: function(val) {
-                            return val == null ? '' : val;
-                        }
-                    },
-                    {
-                        "data": "status",
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? '' : val;
-                        }
-                    },
-                    {
-                        'data': 'products_count',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
-                        }
-                    },
-                    {
-                        'data': 'articles_count',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
-                        }
-                    },
-                    {
-                        'data': 'activities_count',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
-                        }
-                    },
-                    {
-                        'data': 'surveys_count',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
                         }
                     },
                     {
@@ -217,12 +172,6 @@
 
                             var value = row.id;
 
-                            var apply_html= "";
-                            if(row.is_apply == 1) apply_html = '<li><a href="/admin/apply/list?sort=activity&id='+value+'">报名列表</a></li>';
-
-                            var sign_html= "";
-                            if(row.is_sign == 1) sign_html = '<li><a href="/admin/sign/list?sort=activity&id='+value+'">签到列表</a></li>';
-
                             var html =
                                     '<div class="btn-group">'+
                                     '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
@@ -235,10 +184,6 @@
                                     '<li><a class="activity-delete-submit" data-id="'+value+'" >删除</a></li>'+
                                     '<li><a class="activity-enable-submit" data-id="'+value+'">启用</a></li>'+
                                     '<li><a class="activity-disable-submit" data-id="'+value+'">禁用</a></li>'+
-                                    apply_html+
-                                    sign_html+
-                                    '<li><a href="/admin/statistics/page?sort=activity&id='+value+'">流量统计</a></li>'+
-                                    '<li><a class="download-qrcode" data-id="'+value+'">下载二维码</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+

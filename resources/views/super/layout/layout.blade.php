@@ -295,7 +295,11 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="/super/list"><i class="fa fa-circle-o text-red"></i><span>用户列表</span></a>
+                    <a href="/super/list/softorg"><i class="fa fa-circle-o text-red"></i><span>用户列表</span></a>
+                    <a href="/super/list/product"><i class="fa fa-circle-o text-aqua"></i><span>产品列表</span></a>
+                    <a href="/super/list/article"><i class="fa fa-circle-o text-aqua"></i><span>文章列表</span></a>
+                    <a href="/super/list/activity"><i class="fa fa-circle-o text-aqua"></i><span>活动列表</span></a>
+                    <a href="/super/list/survey"><i class="fa fa-circle-o text-aqua"></i><span>问卷列表</span></a>
                 </li>
             </ul>
             <!-- /.sidebar-menu -->

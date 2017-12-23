@@ -371,7 +371,11 @@ Route::group(['prefix' => 'super', 'namespace' => 'Super', 'middleware' => 'supe
     $controller = "SuperController";
 
     Route::get('/', $controller.'@index');
-    Route::match(['get','post'], 'list', $controller.'@viewList');
+    Route::match(['get','post'], 'list/softorg', $controller.'@view_softorg_list');
+    Route::match(['get','post'], 'list/product', $controller.'@view_product_list');
+    Route::match(['get','post'], 'list/article', $controller.'@view_article_list');
+    Route::match(['get','post'], 'list/activity', $controller.'@view_activity_list');
+    Route::match(['get','post'], 'list/survey', $controller.'@view_survey_list');
 });
 
 
