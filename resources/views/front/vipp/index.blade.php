@@ -150,8 +150,8 @@
             {{--首页--}}
             <div class="row full has-fold">
                 <div class="col-xs-14">
-                    <div class="hero-product-container" style="background-image:url(/images/black.jpg)">
-                        <div class="hero-product-container-xs" style="background-image:url(/images/black.jpg)">
+                    <div class="hero-product-container" style="background-image:url(/images/black-r.jpg);background-size: 100% 100%;">
+                        <div class="hero-product-container-xs" style="background-image:url(/images/black-v.jpg);background-size: 100% 100%;">
                         </div>
                         <div class="hero-product-description white" fade-onload>
                             <h4>{{$org->slogan or ''}}</h4>
@@ -170,7 +170,7 @@
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>企业简介</h3>
                         </div>
-                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;background:url(/images/bg-white.png)">
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;background:url(/images/bg-whites.png);background-color:#f8f8f8;">
                             <div class="row full" style="width:100%;height:auto;float:left;">
                                 <div class=" " style="position: relative;width:100%;height:auto;">
                                     <div class="line" style="display:none;">
@@ -178,7 +178,7 @@
                                         <div>{{$org->description or ''}}</div>
                                     </div>
                                     <div class="">
-                                        <h4 class="font-0" style="text-indent:2em;margin:24px 16px; 32px">{{$org->description or '暂无简介'}}</h4>
+                                        <h4 class="font-0" style="text-indent:2em;margin:24px 16px; line-height:20px;">{{$org->description or '暂无简介'}}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -444,44 +444,44 @@
                 </div>
                 <div class="col-xs-14" style="">
                     <div class="mod-stories-thumb no-margin stories-three-columns" style="height:100%;">
-                        <ul class="row full" style="position:relative;height:100%;background-image:url(/images/bg-white.png)">
+                        <ul class="row full" style="position:relative;height:100%;background-image:url(/images/bg-whites.png);background-color:#f8f8f8;">
                             <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
                                     <h4>电话</h4>
-                                    <h3>{{$org->telephone or ''}}</h3>
+                                    <h4><b>{{$org->telephone or ''}}</b></h4>
                                 </div>
 
                                 <div class="top-text text-center">
                                     <h1><i class="fa fa-phone"></i></h1>
                                 </div>
                                 <div class="middle-text text-center">
-                                    <h3>{{$org->telephone or ''}}</h3>
+                                    <h4><b>{{$org->telephone or ''}}</b></h4>
                                 </div>
                             </li>
                             <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
                                     <h4>邮箱</h4>
-                                    <h3>{{$org->email or ''}}</h3>
+                                    <h4><b>{{$org->email or ''}}</b></h4>
                                 </div>
 
                                 <div class="top-text text-center">
                                     <h1><i class="fa fa-envelope"></i></h1>
                                 </div>
                                 <div class="middle-text text-center">
-                                    <h3>{{$org->email or ''}}</h3>
+                                    <h4><b>{{$org->email or ''}}</b></h4>
                                 </div>
                             </li>
                             <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
                                     <h4>微信号</h4>
-                                    <h3>{{$org->wechat or ''}}</h3>
+                                    <h4><b>{{$org->wechat or ''}}</b></h4>
                                 </div>
 
                                 <div class="top-text text-center">
                                     <h1><i class="fa fa-location-arrow"></i></h1>
                                 </div>
                                 <div class="middle-text text-center">
-                                    <h3>{{$org->address or ''}}</h3>
+                                    <h4><b>{{$org->address or ''}}</b></h4>
                                     {{--<img class="" src="http://cdn.softorg.cn/{{$org->wechat_qrcode or ''}}" alt="{{$org->wechat or 'Home'}}"/>--}}
                                 </div>
                             </li>

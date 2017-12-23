@@ -6625,8 +6625,8 @@ screen and (min-device-pixel-ratio:1.5) {
 .hero-product-description {
     position: absolute;
     top: 0;
-    width: 75%;
-    max-width: 80%;
+    min-width: 75%;
+    max-width: 90%;
     color: #282828
 }
 
