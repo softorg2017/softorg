@@ -170,7 +170,7 @@
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>企业简介</h3>
                         </div>
-                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;background:url(/images/bg-whites.png);background-color:#f8f8f8;">
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;background-color:#f8f8f8;">
                             <div class="row full" style="width:100%;height:auto;float:left;">
                                 <div class=" " style="position: relative;width:100%;height:auto;">
                                     <div class="line" style="display:none;">
@@ -444,7 +444,7 @@
                 </div>
                 <div class="col-xs-14" style="">
                     <div class="mod-stories-thumb no-margin stories-three-columns" style="height:100%;">
-                        <ul class="row full" style="position:relative;height:100%;background-image:url(/images/bg-whites.png);background-color:#f8f8f8;">
+                        <ul class="row full" style="position:relative;height:100%;background-color:#f8f8f8;">
                             <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
                                     <h4>电话</h4>
