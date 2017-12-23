@@ -89,6 +89,7 @@ class SoftorgRepository {
         if($org)
         {
             // 访问数量+1
+            $org->timestamps = false;
             $org->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -114,6 +115,7 @@ class SoftorgRepository {
         if($org)
         {
             // 访问数量+1
+            $org->timestamps = false;
             $org->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -139,6 +141,7 @@ class SoftorgRepository {
         if($org)
         {
             // 访问数量+1
+            $org->timestamps = false;
             $org->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -164,6 +167,7 @@ class SoftorgRepository {
         if($org)
         {
             // 访问数量+1
+            $org->timestamps = false;
             $org->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -214,7 +218,9 @@ class SoftorgRepository {
         if($product)
         {
             // 访问数量+1
+            $product->timestamps = false;
             $product->increment('visit_num');
+//            DB::table('product')->where('id', $decode_id)->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
             $record["type"] = 3;
@@ -265,6 +271,7 @@ class SoftorgRepository {
         if($activity)
         {
             // 访问数量+1
+            $activity->timestamps = false;
             $activity->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -280,7 +287,7 @@ class SoftorgRepository {
         }
         else dd("活动不存在");
     }
-    // 返回（前台）【活动】【详情页】视图
+    // 返回（前台）【活动报名】【详情页】视图
     public function view_activity_apply()
     {
         $encode_id = request('id');
@@ -291,6 +298,7 @@ class SoftorgRepository {
         if($activity)
         {
             // 访问数量+1
+            $activity->timestamps = false;
             $activity->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -344,6 +352,7 @@ class SoftorgRepository {
         if($slide)
         {
             // 访问数量+1
+            $slide->timestamps = false;
             $slide->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -397,6 +406,7 @@ class SoftorgRepository {
         if($survey)
         {
             // 访问数量+1
+            $survey->timestamps = false;
             $survey->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -449,6 +459,7 @@ class SoftorgRepository {
         if($article)
         {
             // 访问数量+1
+            $article->timestamps = false;
             $article->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
@@ -752,6 +763,7 @@ class SoftorgRepository {
             {
                 if($type == "survey")
                 {
+                    $survey->timestamps = false;
                     $survey->increment('answer_num', 1);
                 }
                 else if($type == "slide")
