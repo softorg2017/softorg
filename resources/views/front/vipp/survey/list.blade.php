@@ -27,16 +27,17 @@
                 @foreach($org->surveys as $v)
                     <li class="col-md-6 ">
                         <a href="{{url('/survey?id=').encode($v->id)}}">
-                            <div class="item " style="background-image:url(/images/black-v.jpg)">
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber"><b>{{$v->title or ''}}</b></p>--}}
-                                {{--</div>--}}
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber">{{$v->description or ''}}</p>--}}
-                                {{--</div>--}}
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber">问卷</p>--}}
-                                {{--</div>--}}
+                            <div class="item " style="
+                            @if( (count($org->surveys) % 2) == 1 )
+                                @if($loop->first)
+                                    background:url(/style/case{{ $org->style or '1' }}/bg-survey-r.jpeg);background-size:100% 100%;
+                                @else
+                                    background:url(/style/case{{ $org->style or '1' }}/bg-survey-v.jpeg);background-size:100% 100%;background-position:center center;
+                                @endif
+                            @else
+                                background:url(/style/case{{ $org->style or '1' }}/bg-survey-v.jpeg);background-size:100% 100%;background-position:center center;
+                            @endif
+                            ">
 
                                 <div class="top-text left-8 font-">
                                     <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>

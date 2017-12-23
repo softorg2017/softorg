@@ -16055,7 +16055,7 @@ body:not(.has-hero-story).pages .wrapper-scroll {
 }
 
 .related-story .block-body h4 {
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     margin-top: 0;
     margin-bottom: 0;
     font-weight: 600
@@ -20496,7 +20496,7 @@ h4 {
     font-size: 14px;
     line-height: 16px;
     font-weight: 300;
-    text-transform: uppercase
+    /*text-transform: uppercase*/
 }
 
 ul {

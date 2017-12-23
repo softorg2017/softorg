@@ -27,16 +27,17 @@
                 @foreach($org->activities as $v)
                     <li class="col-md-6 ">
                         <a href="{{url('/activity?id=').encode($v->id)}}">
-                            <div class="item " style="background-image:url(/images/black-v.jpg)">
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber"><b>{{$v->title or ''}}</b></p>--}}
-                                {{--</div>--}}
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber">{{$v->description or ''}}</p>--}}
-                                {{--</div>--}}
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber">活动</p>--}}
-                                {{--</div>--}}
+                            <div class="item " style="
+                            @if( (count($org->activities) % 2) == 1 )
+                                @if($loop->first)
+                                    background:url(/style/case{{ $org->style or '1' }}/bg-activity-r.jpeg);background-size:cover;
+                                @else
+                                    background:url(/style/case{{ $org->style or '1' }}/bg-activity-v.jpeg);background-size:contain;background-position:center center;
+                                @endif
+                            @else
+                                background:url(/style/case{{ $org->style or '1' }}/bg-activity-v.jpeg);background-size:contain;background-position:center center;
+                            @endif
+                            ">
 
                                 <div class="top-text left-8 font-">
                                     <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>

@@ -212,15 +212,15 @@
                             <li class="col-md-6 ">
                                 <a href="{{url('/product?id=').encode($v->id)}}">
                                     <div class="item " style="
-                                        @if( (count($org->products) % 2) == 1 )
-                                            @if($loop->first)
-                                                    background:url(/images/bg-black-1-r.jpeg);background-size:100%;
-                                            @else
-                                                    background:url(/images/bg-black-1-v.jpeg);background-size:100%;background-position:center center;
-                                            @endif
+                                    @if( (count($org->products) % 2) == 1 )
+                                        @if($loop->first)
+                                            background:url(/style/case{{ $org->style or '1' }}/bg-product-r.jpeg);background-size:100% 100%;
                                         @else
-                                                background:url(/images/bg-black-1-v.jpeg);background-size:100%;background-position:center center;
+                                            background:url(/style/case{{ $org->style or '1' }}/bg-product-v.jpeg);background-size:100%;background-position:center center;
                                         @endif
+                                    @else
+                                        background:url(/style/case{{ $org->style or '1' }}/bg-product-v.jpeg);background-size:100%;background-position:center center;
+                                    @endif
                                     ">
 
                                         <div class="line" style="display: none">
@@ -281,13 +281,13 @@
                                 <a href="{{url('/article?id=').encode($v->id)}}">
                                     <div class="item list-bg" style="
                                     @if( (count($org->articles) % 2) == 1 )
-                                    @if($loop->first)
-                                            background:url(/images/bg-black-7-r.jpeg);background-size:100%;
+                                        @if($loop->first)
+                                            background:url(/style/case{{ $org->style or '1' }}/bg-article-r.jpeg);background-size:100% 100%;
+                                        @else
+                                            background:url(/style/case{{ $org->style or '1' }}/bg-article-v.jpeg);background-size:100%;background-position:center center;
+                                        @endif
                                     @else
-                                            background:url(/images/bg-black-3-v.jpeg);background-size:100%;background-position:center center;
-                                    @endif
-                                    @else
-                                            background:url(/images/bg-black-3-v.jpeg);background-size:100%;background-position:center center;
+                                        background:url(/style/case{{ $org->style or '1' }}/bg-article-v.jpeg);background-size:100%;background-position:center center;
                                     @endif
                                     ">
 
@@ -340,12 +340,12 @@
                                     <div class="item " style="
                                     @if( (count($org->activities) % 2) == 1 )
                                         @if($loop->first)
-                                                background:url(/images/bg-black-6-r.jpeg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '1' }}/bg-activity-r.jpeg);background-size:cover;
                                         @else
-                                                background:url(/images/bg-black-6-v.jpeg);background-size:contain;background-position:center center;
+                                            background:url(/style/case{{ $org->style or '1' }}/bg-activity-v.jpeg);background-size:contain;background-position:center center;
                                         @endif
                                     @else
-                                        background:url(/images/bg-black-6-v.jpeg);background-size:contain;background-position:center center;
+                                        background:url(/style/case{{ $org->style or '1' }}/bg-activity-v.jpeg);background-size:contain;background-position:center center;
                                     @endif
                                     ">
 
@@ -398,12 +398,12 @@
                                     <div class="item " style="
                                     @if( (count($org->surveys) % 2) == 1 )
                                         @if($loop->first)
-                                                background:url(/images/bg-black-5-r.jpeg);background-size:100% 100%;
+                                            background:url(/style/case{{ $org->style or '1' }}/bg-survey-r.jpeg);background-size:100% 100%;
                                         @else
-                                                background:url(/images/bg-black-5-v.jpeg);background-size:100% 100%;background-position:center center;
+                                            background:url(/style/case{{ $org->style or '1' }}/bg-survey-v.jpeg);background-size:100% 100%;background-position:center center;
                                         @endif
                                     @else
-                                            background:url(/images/bg-black-5-v.jpeg);background-size:100% 100%;background-position:center center;
+                                        background:url(/style/case{{ $org->style or '1' }}/bg-survey-v.jpeg);background-size:100% 100%;background-position:center center;
                                     @endif
                                     ">
 

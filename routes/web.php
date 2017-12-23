@@ -365,7 +365,7 @@ Route::group(['prefix' => 'user', 'namespace' => 'Front'], function () {
 
 
 
-/*后台*/
+/*超级后台*/
 Route::group(['prefix' => 'super', 'namespace' => 'Super', 'middleware' => 'super'], function () {
 
     $controller = "SuperController";

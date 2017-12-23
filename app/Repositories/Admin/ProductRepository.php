@@ -39,7 +39,8 @@ class ProductRepository {
         }
         else $query->orderBy("updated_at", "desc");
 
-        $list = $query->skip($skip)->take($limit)->get();
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
 
         foreach ($list as $k => $v)
         {
