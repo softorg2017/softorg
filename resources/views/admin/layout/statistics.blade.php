@@ -64,7 +64,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart" style="width:100%;height:320px;"></div>
+                        <div id="echart-browse" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@ $(function() {
 <script>
     $(function(){
 
-        var option = {
+        var option_browse = {
             title: {
                 text: '流量统计'
             },
@@ -232,7 +232,7 @@ $(function() {
                     boundaryGap : false,
                     data : [
                         @foreach($data as $v)
-                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                            @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
                         @endforeach
                     ]
                 }
@@ -246,6 +246,12 @@ $(function() {
                 {
                     name:'总访问量',
                     type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                     data:[
                         @foreach($data as $v)
                         @if (!$loop->last)
@@ -258,8 +264,8 @@ $(function() {
                 }
             ]
         };
-        var myChart = echarts.init(document.getElementById('echart'));
-        myChart.setOption(option);
+        var myChart_browse = echarts.init(document.getElementById('echart-browse'));
+        myChart_browse.setOption(option_browse);
 
 
 
@@ -278,7 +284,7 @@ $(function() {
                 x : 'left',
                 data: [
                     @foreach($open_type as $v)
-                            @if (!$loop->last) '{{$v->name}}', @else '{{$v->name}}' @endif
+                        @if (!$loop->last) '{{$v->name}}', @else '{{$v->name}}' @endif
                     @endforeach
                 ]
             },
@@ -340,7 +346,7 @@ $(function() {
                 x : 'left',
                 data: [
                     @foreach($open_type as $v)
-                            @if (!$loop->last) '{{$v->open_app}}', @else '{{$v->open_app}}' @endif
+                        @if (!$loop->last) '{{$v->open_app}}', @else '{{$v->open_app}}' @endif
                     @endforeach
                 ]
             },
@@ -373,11 +379,11 @@ $(function() {
                     radius : '55%',
                     center: ['50%', '60%'],
                     data: [
-                            @foreach($open_app as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->open_app}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->open_app}}'}
+                        @foreach($open_app as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->open_app}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->open_app}}'}
                         @endif
                         @endforeach
                     ]
@@ -402,7 +408,7 @@ $(function() {
                 x : 'left',
                 data: [
                     @foreach($open_system as $v)
-                            @if (!$loop->last) '{{$v->open_system}}', @else '{{$v->open_system}}' @endif
+                        @if (!$loop->last) '{{$v->open_system}}', @else '{{$v->open_system}}' @endif
                     @endforeach
                 ]
             },
@@ -435,11 +441,11 @@ $(function() {
                     radius : '55%',
                     center: ['50%', '60%'],
                     data: [
-                            @foreach($open_system as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->open_system}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->open_system}}'}
+                        @foreach($open_system as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->open_system}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->open_system}}'}
                         @endif
                         @endforeach
                     ]
@@ -484,7 +490,7 @@ $(function() {
                     boundaryGap : false,
                     data : [
                         @foreach($shared as $v)
-                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                            @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
                         @endforeach
                     ]
                 }
@@ -498,12 +504,18 @@ $(function() {
                 {
                     name:'分享统计',
                     type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                     data:[
-                            @foreach($shared as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @foreach($shared as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->date}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -561,11 +573,11 @@ $(function() {
                     radius : '55%',
                     center: ['50%', '60%'],
                     data: [
-                            @foreach($shared_scale as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->name}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->name}}'}
+                        @foreach($shared_scale as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->name}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->name}}'}
                         @endif
                         @endforeach
                     ]

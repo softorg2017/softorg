@@ -33,7 +33,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-all" style="width:100%;height:300px;"></div>
+                        <div id="echart-all" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>
@@ -209,7 +209,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-share-all" style="width:100%;height:300px;"></div>
+                        <div id="echart-share-all" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>
@@ -258,7 +258,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-shared-all-scale" style="width:100%;height:360px;"></div>
+                        <div id="echart-shared-all-scale" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>
@@ -269,7 +269,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-shared-root-scale" style="width:100%;height:360px;"></div>
+                        <div id="echart-shared-root-scale" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>
@@ -435,9 +435,9 @@ $(function() {
                     data:[
                         @foreach($rooted as $v)
                         @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
+                            {value:{{$v->count}},name:'{{$v->date}}'},
                         @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -511,9 +511,9 @@ $(function() {
                     data:[
                         @foreach($home as $v)
                         @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
+                            {value:{{$v->count}},name:'{{$v->date}}'},
                         @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -801,11 +801,11 @@ $(function() {
                         }
                     },
                     data:[
-                            @foreach($article as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @foreach($article as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->date}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -1146,7 +1146,7 @@ $(function() {
 
 
 
-        // 主页分享数
+        // 总分享数
         var option_share_all = {
             title: {
                 text: '总分享量'
@@ -1208,11 +1208,11 @@ $(function() {
                         }
                     },
                     data:[
-                            @foreach($share_all as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @foreach($share_all as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->date}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -1284,11 +1284,11 @@ $(function() {
                         }
                     },
                     data:[
-                            @foreach($share_root as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @foreach($share_root as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->date}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -1298,7 +1298,7 @@ $(function() {
         var myChart_share_root = echarts.init(document.getElementById('echart-share-root'));
         myChart_share_root.setOption(option_share_root);
 
-        // 主页分享数
+        // 目录分享数
         var option_share_menu = {
             title: {
                 text: '目录分享量'
@@ -1360,11 +1360,11 @@ $(function() {
                         }
                     },
                     data:[
-                            @foreach($share_menu as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->date}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @foreach($share_menu as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->date}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->date}}'}
                         @endif
                         @endforeach
                     ]
@@ -1425,11 +1425,11 @@ $(function() {
                     radius : '55%',
                     center: ['50%', '60%'],
                     data: [
-                            @foreach($shared_all_scale as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->name}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->name}}'}
+                        @foreach($shared_all_scale as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->name}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->name}}'}
                         @endif
                         @endforeach
                     ]
@@ -1438,6 +1438,7 @@ $(function() {
         };
         var myChart_shared_all_scale = echarts.init(document.getElementById('echart-shared-all-scale'));
         myChart_shared_all_scale.setOption(option_shared_all_scale);
+
         // 主页分享占比
         var option_shared_root_scale = {
             title : {
@@ -1487,11 +1488,11 @@ $(function() {
                     radius : '55%',
                     center: ['50%', '60%'],
                     data: [
-                            @foreach($shared_root_scale as $v)
-                            @if (!$loop->last)
-                        {value:{{$v->count}},name:'{{$v->name}}'},
-                            @else
-                        {value:{{$v->count}},name:'{{$v->name}}'}
+                        @foreach($shared_root_scale as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->name}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->name}}'}
                         @endif
                         @endforeach
                     ]
