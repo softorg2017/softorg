@@ -44,11 +44,13 @@
                         <th>活动</th>
                         <th>问卷</th>
                         <th>访问数</th>
+                        <th>分享数</th>
                         <th>注册时间</th>
                         <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -187,6 +189,13 @@
                     },
                     {
                         'data': 'visit_num',
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? 0 : val;
+                        }
+                    },
+                    {
+                        'data': 'share_num',
                         'orderable': false,
                         render: function(val) {
                             return val == null ? 0 : val;
