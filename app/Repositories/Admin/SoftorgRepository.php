@@ -853,7 +853,7 @@ class SoftorgRepository {
             $v = Validator::make($post_data, [
                 'website' => 'required'
             ]);
-            if($v->fails()) return response_error([],"参数错误");
+            if($v->fails()) return response_error([],"参数website错误");
 
             $website = $post_data["website"];
             if(is_numeric($website)) $org = Softorg::whereId($website)->first();
@@ -873,7 +873,7 @@ class SoftorgRepository {
             $v = Validator::make($post_data, [
                 'website' => 'required'
             ]);
-            if($v->fails()) return response_error([],"参数错误");
+            if($v->fails()) return response_error([],"参数website错误");
 
             $website = $post_data["website"];
             if(is_numeric($website)) $org = Softorg::whereId($website)->first();

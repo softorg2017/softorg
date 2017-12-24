@@ -679,20 +679,6 @@
             var link = location.href.split('#')[0];
 //        console.log(link);
 
-            $.post(
-                "/share",
-                {
-                    '_token': $('meta[name="_token"]').attr('content'),
-                    'website': "{{$org->website_name or '0'}}",
-                    'sort': 1,
-                    'module': 0,
-                    'share': 1
-                },
-                function(data) {
-                    layer.msg(data.msg);
-                    if(!data.success) layer.msg(data.msg);
-                }, 'json');
-
             if(typeof wx != "undefined") wxFn();
 
             function wxFn() {
@@ -722,8 +708,7 @@
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            alert('test');
-                            $.post(
+                            $.get(
                                 "/share",
                                 {
                                     '_token': $('meta[name="_token"]').attr('content'),
@@ -733,8 +718,7 @@
                                     'share': 1
                                 },
                                 function(data) {
-                                    layer.msg(data.msg);
-                                    if(!data.success) layer.msg(data.msg);
+//                                    if(!data.success) layer.msg(data.msg);
                                 }, 'json');
                         },
                         cancel: function () {
@@ -748,7 +732,7 @@
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            $.post(
+                            $.get(
                                 "/share",
                                 {
                                     '_token': $('meta[name="_token"]').attr('content'),
@@ -758,7 +742,7 @@
                                     'share': 2
                                 },
                                 function(data) {
-                                    if(!data.success) layer.msg(data.msg);
+//                                    if(!data.success) layer.msg(data.msg);
                                 }, 'json');
                         },
                         cancel: function () {
@@ -772,7 +756,7 @@
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            $.post(
+                            $.get(
                                 "/share",
                                 {
                                     '_token': $('meta[name="_token"]').attr('content'),
@@ -782,7 +766,7 @@
                                     'share': 3
                                 },
                                 function(data) {
-                                    if(!data.success) layer.msg(data.msg);
+//                                    if(!data.success) layer.msg(data.msg);
                                 }, 'json');
                         },
                         cancel: function () {
@@ -796,7 +780,7 @@
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            $.post(
+                            $.get(
                                 "/share",
                                 {
                                     '_token': $('meta[name="_token"]').attr('content'),
@@ -806,7 +790,7 @@
                                     'share': 4
                                 },
                                 function(data) {
-                                    if(!data.success) layer.msg(data.msg);
+//                                    if(!data.success) layer.msg(data.msg);
                                 }, 'json');
                         },
                         cancel: function () {
@@ -820,7 +804,7 @@
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            $.post(
+                            $.get(
                                 "/share",
                                 {
                                     '_token': $('meta[name="_token"]').attr('content'),
@@ -830,7 +814,7 @@
                                     'share': 5
                                 },
                                 function(data) {
-                                    if(!data.success) layer.msg(data.msg);
+//                                    if(!data.success) layer.msg(data.msg);
                                 }, 'json');
                         },
                         cancel: function () {
