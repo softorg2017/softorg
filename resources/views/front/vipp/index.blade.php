@@ -704,7 +704,13 @@
                         desc: "{{$org->slogan or ''}}",
                         link: link,
                         dataUrl: '',
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                     wx.onMenuShareTimeline({
                         title: "{{$org->name or ''}}",

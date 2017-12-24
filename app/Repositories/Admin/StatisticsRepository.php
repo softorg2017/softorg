@@ -22,15 +22,15 @@ class StatisticsRepository {
     public function view_page_statistics($post_data)
     {
         $sort = $post_data["sort"];
-        if(in_array($sort,config('common.common.type')))
+        if(in_array($sort,config('common.common.sort')))
         {
 
             $admin = Auth::guard('admin')->user();
             $org_id = $admin->org_id;
 
 //            $where['org_id'] = $org_id;
-            $where['type'] = 3;
-            $where['sort'] = $sort;
+            $where['type'] = 1;
+            $where['sort'] = 3;
             $id = decode($post_data["id"]);
             if(intval($id) !== 0 && !$id) return response_error([],"查询不存在");
             else $where['page_id'] = $id;

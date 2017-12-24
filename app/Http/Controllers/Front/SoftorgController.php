@@ -21,6 +21,12 @@ class SoftorgController extends Controller
 
 
 
+    // 返回根视图
+    public function root($org_name)
+    {
+        return $this->repo->view_root($org_name);
+    }
+
     // 返回主页视图
     public function index($org_name)
     {

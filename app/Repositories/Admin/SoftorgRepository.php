@@ -71,14 +71,14 @@ class SoftorgRepository {
 
 
 
-    // 返回（前台）【主页】视图
-    public function view_index($org)
+    // 返回（前台）【根】视图
+    public function view_root($org)
     {
 //        $query = Softorg::with(['administrators','website','menus','products','activities','slides','surveys','articles']);
         $query = Softorg::with([
             'administrators','website','menus',
-            'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
-            'activities' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
+            'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
+            'activities' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
             'slides' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
             'surveys' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
             'articles' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); }
@@ -93,8 +93,42 @@ class SoftorgRepository {
             $org->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 1;
-            $record["sort"] = "index";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 1; // sort=1 system
+            $record["module"] = 0; // module=0 default root
+            $record["org_id"] = $org->id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.index').'.index')->with('org',$org);
+        }
+        else dd("企业不存在");
+    }
+    // 返回（前台）【主页】视图
+    public function view_index($org)
+    {
+//        $query = Softorg::with(['administrators','website','menus','products','activities','slides','surveys','articles']);
+        $query = Softorg::with([
+            'administrators','website','menus',
+            'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
+            'activities' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
+            'slides' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
+            'surveys' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
+            'articles' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); }
+        ]);
+        if(is_numeric($org)) $org = $query->whereId($org)->first();
+        else $org = $query->where('website_name',$org)->first();
+
+        if($org)
+        {
+            // 访问数量+1
+            $org->timestamps = false;
+            $org->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 1; // sort=1 system
+            $record["module"] = 1; // module=1 index
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
@@ -119,8 +153,9 @@ class SoftorgRepository {
             $org->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 1;
-            $record["sort"] = "home";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 1; // sort=1 system
+            $record["module"] = 2; // module=2 home
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
@@ -145,8 +180,9 @@ class SoftorgRepository {
             $org->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 1;
-            $record["sort"] = "introduction";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 1; // sort=1 system
+            $record["module"] = 3; // module=3 introduction
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
@@ -171,8 +207,9 @@ class SoftorgRepository {
             $org->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 1;
-            $record["sort"] = "information";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 1; // sort=1 system
+            $record["module"] = 4; // module=4 information
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
@@ -197,8 +234,9 @@ class SoftorgRepository {
         {
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 2;
-            $record["sort"] = "product";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 2; // sort=2 list
+            $record["module"] = 1; // module=1 product
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
@@ -223,8 +261,9 @@ class SoftorgRepository {
 //            DB::table('product')->where('id', $decode_id)->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 3;
-            $record["sort"] = "product";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 3; // sort=3 detail
+            $record["module"] = 1; // module=1 product
             $record["org_id"] = $product->org->id;
             $record["page_id"] = $decode_id;
             $record["from"] = request('from',NULL);
@@ -233,6 +272,61 @@ class SoftorgRepository {
             return view('front.'.config('common.view.front.detail').'.product.detail')->with(['data'=>$product]);
         }
         else dd("产品不存在");
+    }
+
+
+
+    // 返回（前台）【文章】【列表页】视图
+    public function view_article($org)
+    {
+//        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
+        $query = Softorg::with(['administrators','website',
+            'articles' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
+        ]);
+        if(is_numeric($org)) $org = $query->whereId($org)->first();
+        else $org = $query->where('website_name',$org)->first();
+
+        if($org)
+        {
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 2; // sort=2 list
+            $record["module"] = 2; // module=2 article
+            $record["org_id"] = $org->id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.list').'.article.list')->with('org',$org);
+        }
+        else dd("企业不存在");
+    }
+    // 返回（前台）【文章】【详情页】视图
+    public function view_article_detail()
+    {
+        $encode_id = request('id');
+        $decode_id = decode($encode_id);
+        if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
+
+        $article = Article::with(['org','admin'])->whereId($decode_id)->first();
+        if($article)
+        {
+            // 访问数量+1
+            $article->timestamps = false;
+            $article->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 3; // sort=3 detail
+            $record["module"] = 2; // module=2 article
+            $record["org_id"] = $article->org->id;
+            $record["page_id"] = $decode_id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.detail').'.article.detail')->with('data',$article);
+        }
+        else dd("文章不存在");
     }
 
 
@@ -250,8 +344,9 @@ class SoftorgRepository {
         {
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 2;
-            $record["sort"] = "activity";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 2; // sort=2 list
+            $record["module"] = 3; // module=3 activity
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
@@ -275,8 +370,9 @@ class SoftorgRepository {
             $activity->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 3;
-            $record["sort"] = "activity";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 3; // sort=3 detail
+            $record["module"] = 3; // module=3 activity
             $record["org_id"] = $activity->org->id;
             $record["page_id"] = $decode_id;
             $record["from"] = request('from',NULL);
@@ -302,8 +398,9 @@ class SoftorgRepository {
             $activity->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 3;
-            $record["sort"] = "activity";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 3; // sort=3 detail
+            $record["module"] = 3; // module=3 activity
             $record["org_id"] = $activity->org->id;
             $record["page_id"] = $decode_id;
             $record["from"] = request('from',NULL);
@@ -312,60 +409,6 @@ class SoftorgRepository {
             return view('front.'.config('common.view.front.detail').'.activity.apply')->with('data',$activity);
         }
         else dd("活动不存在");
-    }
-
-
-
-    // 返回（前台）【幻灯片】【列表页】视图
-    public function view_slide($org)
-    {
-        $query = Softorg::with(['administrators','website',
-            'slides' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
-        ]);
-        if(is_numeric($org)) $org = $query->whereId($org)->first();
-        else $org = $query->where('website_name',$org)->first();
-
-        if($org)
-        {
-            // 插入记录表
-            if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 2;
-            $record["sort"] = "slide";
-            $record["org_id"] = $org->id;
-            $record["from"] = request('from',NULL);
-            $this->record($record);
-
-            return view('front.'.config('common.view.front.list').'.slide.list')->with('org',$org);
-        }
-        else dd("企业不存在");
-    }
-    // 返回（前台）【幻灯片】【详情页】视图
-    public function view_slide_detail()
-    {
-        $encode_id = request('id');
-        $decode_id = decode($encode_id);
-        if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
-
-        $slide = Slide::with(['org','admin',
-            'pages' => function ($query) { $query->orderBy('order', 'asc'); }
-        ])->whereId($decode_id)->first();
-        if($slide)
-        {
-            // 访问数量+1
-            $slide->timestamps = false;
-            $slide->increment('visit_num');
-            // 插入记录表
-            if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 3;
-            $record["sort"] = "slide";
-            $record["org_id"] = $slide->org->id;
-            $record["page_id"] = $decode_id;
-            $record["from"] = request('from',NULL);
-            $this->record($record);
-
-            return view('front.'.config('common.view.front.detail').'.slide.detail')->with('data',$slide);
-        }
-        else dd("幻灯片不存在");
     }
 
 
@@ -383,8 +426,9 @@ class SoftorgRepository {
         {
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 2;
-            $record["sort"] = "survey";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 2; // sort=2 list
+            $record["module"] = 4; // module=4 survey
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
@@ -410,8 +454,9 @@ class SoftorgRepository {
             $survey->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 3;
-            $record["sort"] = "survey";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 3; // sort=3 detail
+            $record["module"] = 4; // module=4 survey
             $record["org_id"] = $survey->org->id;
             $record["page_id"] = $decode_id;
             $record["from"] = request('from',NULL);
@@ -424,12 +469,11 @@ class SoftorgRepository {
 
 
 
-    // 返回（前台）【文章】【列表页】视图
-    public function view_article($org)
+    // 返回（前台）【幻灯片】【列表页】视图
+    public function view_slide($org)
     {
-//        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
         $query = Softorg::with(['administrators','website',
-            'articles' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
+            'slides' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
@@ -438,41 +482,45 @@ class SoftorgRepository {
         {
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 2;
-            $record["sort"] = "article";
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 2; // sort=2 list
+            $record["module"] = 5; // module=5 slide
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view('front.'.config('common.view.front.list').'.article.list')->with('org',$org);
+            return view('front.'.config('common.view.front.list').'.slide.list')->with('org',$org);
         }
         else dd("企业不存在");
     }
-    // 返回（前台）【文章】【详情页】视图
-    public function view_article_detail()
+    // 返回（前台）【幻灯片】【详情页】视图
+    public function view_slide_detail()
     {
         $encode_id = request('id');
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $article = Article::with(['org','admin'])->whereId($decode_id)->first();
-        if($article)
+        $slide = Slide::with(['org','admin',
+            'pages' => function ($query) { $query->orderBy('order', 'asc'); }
+        ])->whereId($decode_id)->first();
+        if($slide)
         {
             // 访问数量+1
-            $article->timestamps = false;
-            $article->increment('visit_num');
+            $slide->timestamps = false;
+            $slide->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
-            $record["type"] = 3;
-            $record["sort"] = "article";
-            $record["org_id"] = $article->org->id;
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 3; // sort=3 detail
+            $record["module"] = 5; // module=5 slide
+            $record["org_id"] = $slide->org->id;
             $record["page_id"] = $decode_id;
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view('front.'.config('common.view.front.detail').'.article.detail')->with('data',$article);
+            return view('front.'.config('common.view.front.detail').'.slide.detail')->with('data',$slide);
         }
-        else dd("文章不存在");
+        else dd("幻灯片不存在");
     }
 
 

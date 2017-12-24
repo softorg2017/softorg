@@ -10,7 +10,8 @@ class Activity extends Model
         'sort', 'type', 'org_id', 'admin_id', 'active', 'name', 'title', 'description', 'content', 'cover_pic',
         'start_time', 'end_time',
         'is_apply', 'apply_start_time', 'apply_end_time',
-        'is_sign', 'sign_type', 'sign_start_time', 'sign_end_time'
+        'is_sign', 'sign_type', 'sign_start_time', 'sign_end_time',
+        'visit_num', 'share_num'
     ];
     protected $dateFormat = 'U';
 

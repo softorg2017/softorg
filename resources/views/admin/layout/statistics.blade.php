@@ -63,7 +63,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart" style="width:100%;height:400px;"></div>
+                        <div id="echart" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-type" style="width:100%;height:400px;"></div>
+                        <div id="echart-type" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-app" style="width:100%;height:400px;"></div>
+                        <div id="echart-app" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>

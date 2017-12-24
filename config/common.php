@@ -18,12 +18,22 @@
         ],
 
         'common' => [
-            'type' => [
-                0 => 'product',
-                1 => 'activity',
-                2 => 'slide',
-                3 => 'survey',
-                4 => 'article',
+            'module' => [
+                0 => 'default',
+                1 => 'product',
+                2 => 'article',
+                3 => 'activity',
+                4 => 'survey',
+                5 => 'slide',
+            ],
+
+            'sort' => [
+                0 => 'default',
+                1 => 'product',
+                2 => 'article',
+                3 => 'activity',
+                4 => 'survey',
+                5 => 'slide',
             ],
         ],
 

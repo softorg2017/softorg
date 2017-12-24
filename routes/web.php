@@ -329,8 +329,8 @@ Route::group(['prefix' => config('common.website.front.prefix').'/{org_name}', '
 
     $controller = "SoftorgController";
 
-    Route::get('/',$controller.'@index');
-    Route::get('/index', $controller.'@index');
+    Route::get('/',$controller.'@root');
+//    Route::get('/index', $controller.'@index');
     Route::get('/home', $controller.'@home');
     Route::get('/introduction', $controller.'@introduction');
     Route::get('/information', $controller.'@information');
