@@ -226,7 +226,7 @@
                                     '<li><a class="activity-disable-submit" data-id="'+value+'">禁用</a></li>'+
                                     apply_html+
                                     sign_html+
-                                    '<li><a href="/admin/statistics/page?sort=activity&id='+value+'">流量统计</a></li>'+
+                                    '<li><a href="/admin/statistics/page?module=3&id='+value+'">流量统计</a></li>'+
                                     '<li><a class="download-qrcode" data-id="'+value+'">下载二维码</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
