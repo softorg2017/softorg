@@ -234,7 +234,7 @@
                     imgUrl: '@yield('share_img')',
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        $.post(
+                        $.get(
                             "/share",
                             {
                                 '_token': $('meta[name="_token"]').attr('content'),
@@ -258,7 +258,7 @@
                     imgUrl: '@yield('share_img')',
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        $.post(
+                        $.get(
                             "/share",
                             {
                                 '_token': $('meta[name="_token"]').attr('content'),
@@ -282,7 +282,7 @@
                     imgUrl: '@yield('share_img')',
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        $.post(
+                        $.get(
                             "/share",
                             {
                                 '_token': $('meta[name="_token"]').attr('content'),
@@ -306,7 +306,7 @@
                     imgUrl: '@yield('share_img')',
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        $.post(
+                        $.get(
                             "/share",
                             {
                                 '_token': $('meta[name="_token"]').attr('content'),
@@ -330,7 +330,7 @@
                     imgUrl: '@yield('share_img')',
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        $.post(
+                        $.get(
                             "/share",
                             {
                                 '_token': $('meta[name="_token"]').attr('content'),

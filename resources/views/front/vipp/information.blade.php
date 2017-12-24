@@ -256,31 +256,121 @@
                         desc: "联系我们",
                         link: link,
                         dataUrl: '',
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.get(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 4,
+                                    'share': 1
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                     wx.onMenuShareTimeline({
                         title: "{{$org->name or ''}}",
                         desc: "联系我们",
                         link: link,
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.get(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 4,
+                                    'share': 2
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                     wx.onMenuShareQQ({
                         title: "{{$org->name or ''}}",
                         desc: "联系我们",
                         link: link,
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.get(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 4,
+                                    'share': 3
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                     wx.onMenuShareQZone({
                         title: "{{$org->name or ''}}",
                         desc: "联系我们",
                         link: link,
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.get(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 4,
+                                    'share': 4
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                     wx.onMenuShareWeibo({
                         title: "{{$org->name or ''}}",
                         desc: "联系我们",
                         link: link,
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.get(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 4,
+                                    'share': 5
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                 })   ;
             }
