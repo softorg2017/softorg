@@ -679,6 +679,20 @@
             var link = location.href.split('#')[0];
 //        console.log(link);
 
+            $.post(
+                "/share",
+                {
+                    '_token': $('meta[name="_token"]').attr('content'),
+                    'website': "{{$org->website_name or '0'}}",
+                    'sort': 1,
+                    'module': 0,
+                    'share': 1
+                },
+                function(data) {
+                    layer.msg(data.msg);
+                    if(!data.success) layer.msg(data.msg);
+                }, 'json');
+
             if(typeof wx != "undefined") wxFn();
 
             function wxFn() {
