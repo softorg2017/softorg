@@ -708,7 +708,7 @@
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            layer.msg('test');
+                            alert('test');
                             $.post(
                                 "/share",
                                 {
