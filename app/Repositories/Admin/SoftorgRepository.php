@@ -326,7 +326,7 @@ class SoftorgRepository {
             $this->record($record);
 
             return view('front.'.config('common.view.front.detail').'.article.detail')
-                ->with(['data',$article,'encode_id'=>$encode_id]);
+                ->with(['data'=>$article,'encode_id'=>$encode_id]);
         }
         else dd("文章不存在");
     }
@@ -465,7 +465,7 @@ class SoftorgRepository {
             $this->record($record);
 
             return view('front.'.config('common.view.front.detail').'.survey.detail')
-                ->with(['data',$survey,'encode_id'=>$encode_id]);
+                ->with(['data'=>$survey,'encode_id'=>$encode_id]);
         }
         else dd("调研不存在");
     }
@@ -522,7 +522,7 @@ class SoftorgRepository {
             $this->record($record);
 
             return view('front.'.config('common.view.front.detail').'.slide.detail')
-                ->with(['data',$slide,'encode_id'=>$encode_id]);
+                ->with(['data'=>$slide,'encode_id'=>$encode_id]);
         }
         else dd("幻灯片不存在");
     }

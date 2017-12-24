@@ -14,6 +14,7 @@
 @endsection
 
 @section('content')
+{{--网站总流量统计--}}
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
@@ -77,6 +78,7 @@
     </div>
 </div>
 
+{{--单目录访问量统计--}}
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
@@ -95,7 +97,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-menu-product" style="width:100%;height:240px;"></div>
+                        <div id="echart-menu-product" style="width:100%;height:200px;"></div>
                     </div>
                 </div>
             </div>
@@ -104,7 +106,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-menu-article" style="width:100%;height:240px;"></div>
+                        <div id="echart-menu-article" style="width:100%;height:200px;"></div>
                     </div>
                 </div>
             </div>
@@ -113,7 +115,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-menu-activity" style="width:100%;height:240px;"></div>
+                        <div id="echart-menu-activity" style="width:100%;height:200px;"></div>
                     </div>
                 </div>
             </div>
@@ -122,7 +124,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-menu-survey" style="width:100%;height:240px;"></div>
+                        <div id="echart-menu-survey" style="width:100%;height:200px;"></div>
                     </div>
                 </div>
             </div>
@@ -135,13 +137,14 @@
     </div>
 </div>
 
+{{--总访问比例--}}
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
         <div class="box box-warning">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">PC端/移动端占比</h3>
+                <h3 class="box-title">总访问比例</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
@@ -152,7 +155,29 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-type" style="width:100%;height:400px;"></div>
+                        <div id="echart-type" style="width:100%;height:320px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-app" style="width:100%;height:320px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-system" style="width:100%;height:320px;"></div>
                     </div>
                 </div>
             </div>
@@ -165,13 +190,14 @@
     </div>
 </div>
 
+{{--分享流量统计--}}
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
         <div class="box box-warning">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">打开APP占比</h3>
+                <h3 class="box-title">分享流量统计</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
@@ -179,10 +205,29 @@
                 <input type="hidden" id="survey-question-marking" data-key="1000">
             </div>
 
+            {{--总分享数--}}
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-app" style="width:100%;height:360px;"></div>
+                        <div id="echart-share-all" style="width:100%;height:300px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{--根分享数--}}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-share-root" style="width:100%;height:240px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{--目录分享数--}}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-share-menu" style="width:100%;height:240px;"></div>
                     </div>
                 </div>
             </div>
@@ -195,13 +240,14 @@
     </div>
 </div>
 
+{{--分享渠道比例--}}
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
         <div class="box box-warning">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">打开系统占比</h3>
+                <h3 class="box-title">总分享占比</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
@@ -212,7 +258,18 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-system" style="width:100%;height:360px;"></div>
+                        <div id="echart-shared-all-scale" style="width:100%;height:360px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-shared-root-scale" style="width:100%;height:360px;"></div>
                     </div>
                 </div>
             </div>
@@ -324,7 +381,7 @@ $(function() {
                 axisPointer: {
                     type: 'line',
                     label: {
-                        backgroundColor: '#6a7985'
+                        backgroundColor: '#36a'
                     }
                 }
             },
@@ -366,6 +423,13 @@ $(function() {
                         normal: {
                             show: true,
                             position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#36a'
+                            }
                         }
                     },
                     data:[
@@ -437,6 +501,13 @@ $(function() {
                             position: 'top'
                         }
                     },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#3a6'
+                            }
+                        }
+                    },
                     data:[
                         @foreach($home as $v)
                         @if (!$loop->last)
@@ -506,6 +577,13 @@ $(function() {
                             position: 'top'
                         }
                     },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#3a6'
+                            }
+                        }
+                    },
                     data:[
                         @foreach($introduction as $v)
                         @if (!$loop->last)
@@ -573,6 +651,13 @@ $(function() {
                         normal: {
                             show: true,
                             position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#3a6'
+                            }
                         }
                     },
                     data:[
@@ -933,7 +1018,6 @@ $(function() {
         var myChart_type = echarts.init(document.getElementById('echart-type'));
         myChart_type.setOption(option_type);
 
-
         // APP占比
         var option_app = {
             title : {
@@ -996,7 +1080,6 @@ $(function() {
         };
         var myChart_app = echarts.init(document.getElementById('echart-app'));
         myChart_app.setOption(option_app);
-
 
         // 打开系统占比
         var option_system = {
@@ -1062,6 +1145,361 @@ $(function() {
         myChart_system.setOption(option_system);
 
 
+
+        // 主页分享数
+        var option_share_all = {
+            title: {
+                text: '总分享量'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    label: {
+                        backgroundColor: '#36a'
+                    }
+                }
+            },
+            legend: {
+                data:['总分享量']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : [
+                        @foreach($share_all as $v)
+                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                        @endforeach
+                    ]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'总分享量',
+                    type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#36a'
+                            }
+                        }
+                    },
+                    data:[
+                            @foreach($share_all as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->date}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_share_all = echarts.init(document.getElementById('echart-share-all'));
+        myChart_share_all.setOption(option_share_all);
+
+        // 主页分享数
+        var option_share_root = {
+            title: {
+                text: '主页分享量'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    label: {
+                        backgroundColor: '#36a'
+                    }
+                }
+            },
+            legend: {
+                data:['主页分享量']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : [
+                        @foreach($share_root as $v)
+                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                        @endforeach
+                    ]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'主页分享量',
+                    type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#36a'
+                            }
+                        }
+                    },
+                    data:[
+                            @foreach($share_root as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->date}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_share_root = echarts.init(document.getElementById('echart-share-root'));
+        myChart_share_root.setOption(option_share_root);
+
+        // 主页分享数
+        var option_share_menu = {
+            title: {
+                text: '目录分享量'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    label: {
+                        backgroundColor: '#36a'
+                    }
+                }
+            },
+            legend: {
+                data:['目录分享量']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : [
+                        @foreach($share_menu as $v)
+                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                        @endforeach
+                    ]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'目录分享量',
+                    type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#3f6'
+                            }
+                        }
+                    },
+                    data:[
+                            @foreach($share_menu as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->date}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->date}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_share_menu = echarts.init(document.getElementById('echart-share-menu'));
+        myChart_share_menu.setOption(option_share_menu);
+
+
+
+        // 总分享占比
+        var option_shared_all_scale = {
+            title : {
+                text: '总分享占比',
+                subtext: '总分享占比',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data: [
+                    @foreach($shared_all_scale as $v)
+                            @if (!$loop->last) '{{$v->name}}', @else '{{$v->name}}' @endif
+                    @endforeach
+                ]
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'分享渠道',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                            @foreach($shared_all_scale as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->name}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->name}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_shared_all_scale = echarts.init(document.getElementById('echart-shared-all-scale'));
+        myChart_shared_all_scale.setOption(option_shared_all_scale);
+        // 主页分享占比
+        var option_shared_root_scale = {
+            title : {
+                text: '主页分享占比',
+                subtext: '主页分享占比',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data: [
+                    @foreach($shared_root_scale as $v)
+                            @if (!$loop->last) '{{$v->name}}', @else '{{$v->name}}' @endif
+                    @endforeach
+                ]
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'分享渠道',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                            @foreach($shared_root_scale as $v)
+                            @if (!$loop->last)
+                        {value:{{$v->count}},name:'{{$v->name}}'},
+                            @else
+                        {value:{{$v->count}},name:'{{$v->name}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_shared_root_scale = echarts.init(document.getElementById('echart-shared-root-scale'));
+        myChart_shared_root_scale.setOption(option_shared_root_scale);
 
     });
 </script>

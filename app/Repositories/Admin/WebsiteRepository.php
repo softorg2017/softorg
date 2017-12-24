@@ -158,6 +158,49 @@ class WebsiteRepository {
             ->where(['org_id'=>$org_id])
             ->get();
 
+        $share_all = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))
+            ->where(["org_id"=>$org_id, 'type'=>2])
+            ->get();
+
+        $share_root = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))
+            ->where(['org_id'=>$org_id, 'type'=>2, 'sort'=>1, 'module'=>0])
+            ->get();
+
+        $share_menu = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))
+            ->where(['org_id'=>$org_id, 'type'=>2, 'sort'=>2])
+            ->get();
+
+        $shared_all_scale = Record::select('shared_location',DB::raw('count(*) as count'))
+            ->groupBy('shared_location')
+            ->where(['org_id'=>$org_id, 'type'=>2])
+            ->get();
+        foreach($shared_all_scale as $k => $v)
+        {
+            if($v->shared_location == 1) $shared_all_scale[$k]->name = "微信好友";
+            else if($v->shared_location == 2) $shared_all_scale[$k]->name = "微信朋友圈";
+            else if($v->shared_location == 3) $shared_all_scale[$k]->name = "QQ好友";
+            else if($v->shared_location == 4) $shared_all_scale[$k]->name = "QQ空间";
+            else if($v->shared_location == 5) $shared_all_scale[$k]->name = "腾讯微博";
+            else $shared_all_scale[$k]->name = "其他";
+        }
+
+        $shared_root_scale = Record::select('shared_location',DB::raw('count(*) as count'))
+            ->groupBy('shared_location')
+            ->where(['org_id'=>$org_id, 'type'=>2, 'sort'=>1, 'module'=>0])
+            ->get();
+        foreach($shared_root_scale as $k => $v)
+        {
+            if($v->shared_location == 1) $shared_root_scale[$k]->name = "微信好友";
+            else if($v->shared_location == 2) $shared_root_scale[$k]->name = "微信朋友圈";
+            else if($v->shared_location == 3) $shared_root_scale[$k]->name = "QQ好友";
+            else if($v->shared_location == 4) $shared_root_scale[$k]->name = "QQ空间";
+            else if($v->shared_location == 5) $shared_root_scale[$k]->name = "腾讯微博";
+            else $shared_root_scale[$k]->name = "其他";
+        }
+
         $view["all"] = $all;
         $view["rooted"] = $rooted;
         $view["home"] = $home;
@@ -171,6 +214,11 @@ class WebsiteRepository {
         $view["open_type"] = $open_type;
         $view["open_app"] = $open_app;
         $view["open_system"] = $open_system;
+        $view["share_all"] = $share_all;
+        $view["share_root"] = $share_root;
+        $view["share_menu"] = $share_menu;
+        $view["shared_all_scale"] = $shared_all_scale;
+        $view["shared_root_scale"] = $shared_root_scale;
 
         return view('admin.website.statistics')->with($view);
     }
