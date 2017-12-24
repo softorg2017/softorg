@@ -707,6 +707,18 @@
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
                             // 用户确认分享后执行的回调函数
+                            $.post(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 0,
+                                    'share': 1
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
                         },
                         cancel: function () {
                             // 用户取消分享后执行的回调函数
@@ -716,25 +728,97 @@
                         title: "{{$org->name or ''}}",
                         desc: "{{$org->slogan or ''}}",
                         link: link,
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.post(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 0,
+                                    'share': 2
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                     wx.onMenuShareQQ({
                         title: "{{$org->name or ''}}",
                         desc: "{{$org->slogan or ''}}",
                         link: link,
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.post(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 0,
+                                    'share': 3
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                     wx.onMenuShareQZone({
                         title: "{{$org->name or ''}}",
                         desc: "{{$org->slogan or ''}}",
                         link: link,
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.post(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 0,
+                                    'share': 4
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                     wx.onMenuShareWeibo({
                         title: "{{$org->name or ''}}",
                         desc: "{{$org->slogan or ''}}",
                         link: link,
-                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}"
+                        imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            $.post(
+                                "/share",
+                                {
+                                    '_token': $('meta[name="_token"]').attr('content'),
+                                    'website': "{{$org->website_name or '0'}}",
+                                    'sort': 1,
+                                    'module': 0,
+                                    'share': 5
+                                },
+                                function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                                }, 'json');
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
                     });
                 })   ;
             }

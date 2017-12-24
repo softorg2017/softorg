@@ -269,7 +269,8 @@ class SoftorgRepository {
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view('front.'.config('common.view.front.detail').'.product.detail')->with(['data'=>$product]);
+            return view('front.'.config('common.view.front.detail').'.product.detail')
+                ->with(['data'=>$product,'encode_id'=>$encode_id]);
         }
         else dd("产品不存在");
     }
@@ -324,7 +325,8 @@ class SoftorgRepository {
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view('front.'.config('common.view.front.detail').'.article.detail')->with('data',$article);
+            return view('front.'.config('common.view.front.detail').'.article.detail')
+                ->with(['data',$article,'encode_id'=>$encode_id]);
         }
         else dd("文章不存在");
     }
@@ -462,7 +464,8 @@ class SoftorgRepository {
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view('front.'.config('common.view.front.detail').'.survey.detail')->with('data',$survey);
+            return view('front.'.config('common.view.front.detail').'.survey.detail')
+                ->with(['data',$survey,'encode_id'=>$encode_id]);
         }
         else dd("调研不存在");
     }
@@ -518,7 +521,8 @@ class SoftorgRepository {
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view('front.'.config('common.view.front.detail').'.slide.detail')->with('data',$slide);
+            return view('front.'.config('common.view.front.detail').'.slide.detail')
+                ->with(['data',$slide,'encode_id'=>$encode_id]);
         }
         else dd("幻灯片不存在");
     }
@@ -824,6 +828,112 @@ class SoftorgRepository {
 
     }
 
+
+    // 分享
+    public function share($post_data)
+    {
+        $v = Validator::make($post_data, [
+                'sort' => 'required|numeric',
+                'module' => 'required|numeric',
+                'share' => 'required|numeric'
+            ]);
+        if($v->fails()) return response_error([],"参数错误");
+
+
+        $sort = $post_data["sort"];
+        $module = $post_data["module"];
+        $share = $post_data["share"];
+        if(!in_array($share, [1,2,3,4,5])) return response_error([],"参数share错误");
+
+        // system
+        if($sort == 1)
+        {
+            if(!in_array($module, [0,1,2,3,4])) return response_error([],"参数module错误");
+
+            $v = Validator::make($post_data, [
+                'website' => 'required'
+            ]);
+            if($v->fails()) return response_error([],"参数错误");
+
+            $website = $post_data["website"];
+            if(is_numeric($website)) $org = Softorg::whereId($website)->first();
+            else $org = Softorg::where('website_name',$website)->first();
+            if($org)
+            {
+                $record["org_id"] = $org->id;
+            }
+            else return response_error([],"机构org不存在");
+
+        }
+        // 分享列表
+        else if($sort == 2)
+        {
+            if(!in_array($module, [1,2,3,4,5])) return response_error([],"参数module错误");
+
+            $v = Validator::make($post_data, [
+                'website' => 'required'
+            ]);
+            if($v->fails()) return response_error([],"参数错误");
+
+            $website = $post_data["website"];
+            if(is_numeric($website)) $org = Softorg::whereId($website)->first();
+            else $org = Softorg::where('website_name',$website)->first();
+            if($org)
+            {
+                $record["org_id"] = $org->id;
+            }
+            else return response_error([],"机构org不存在");
+        }
+        // detail
+        else if($sort == 3)
+        {
+            $v = Validator::make($post_data, [
+                'id' => 'required'
+            ]);
+            if($v->fails()) return response_error([],"参数id错误");
+
+            $encode_id = request('id');
+            $decode_id = decode($encode_id);
+            if(intval($decode_id) !== 0 && !$decode_id) return response_error([],"参数id错误");
+
+            if(in_array($module, [1,2,3,4,5]))
+            {
+                if($module == 1) $item = Product::whereId($decode_id)->first();
+                else if($module == 2) $item = Article::whereId($decode_id)->first();
+                else if($module == 3) $item = Activity::whereId($decode_id)->first();
+                else if($module == 4) $item = Survey::whereId($decode_id)->first();
+                else if($module == 5) $item = Slide::whereId($decode_id)->first();
+
+                if($item)
+                {
+                    $record["page_id"] = $decode_id;
+                    $record["org_id"] = $item->org_id;
+
+                    // 访问数量+1
+                    $item->timestamps = false;
+                    $item->increment('share_num');
+                    $org = Softorg::where('id',$item->org_id)->first();
+                }
+                else return response_error([],"条目item不存在");
+            }
+            else return response_error([],"参数module错误");
+        }
+        else return response_error([],"参数sort错误");
+
+        // 插入记录表
+        if(Auth::check()) $record["user_id"] = Auth::id();
+        $record["type"] = 2; // type=2 share
+        $record["sort"] = $sort; // sort system | list | detail
+        $record["module"] = $module; // module
+        $record["shared_location"] = $share;
+        $record["from"] = request('from',NULL);
+        $bool = $this->record($record);
+        if($bool)
+        {
+            $org->timestamps = false;
+            $org->increment('share_num');
+        }
+    }
 
     // 记录访问
     public function record($post_data)

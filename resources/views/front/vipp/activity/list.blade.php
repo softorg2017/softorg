@@ -1,6 +1,7 @@
 @extends('front.'.config('common.view.front.list').'.layout.list')
 
 {{--分享内容--}}
+@section('share_module',3)
 @section('share_title',$org->website_name)
 @section('share_desc','活动列表')
 @section('share_img')http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}@endsection

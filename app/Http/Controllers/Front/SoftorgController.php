@@ -149,5 +149,12 @@ class SoftorgController extends Controller
     }
 
 
+    // 调研回答
+    public function share()
+    {
+        return $this->repo->share(request()->all());
+    }
+
+
 
 }

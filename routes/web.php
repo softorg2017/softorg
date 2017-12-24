@@ -322,6 +322,8 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     Route::match(['get','post'], '/sign', $controller.'@sign');
     Route::match(['get','post'], '/answer', $controller.'@answer');
 
+    Route::match(['get','post'], '/share', $controller.'@share');
+
 });
 
 /*前台*/

@@ -236,31 +236,121 @@
                     desc: '@yield('share_desc')',
                     link: link,
                     dataUrl: '',
-                    imgUrl: '@yield('share_img')'
+                    imgUrl: '@yield('share_img')',
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                        $.post(
+                            "/share",
+                            {
+                                '_token': $('meta[name="_token"]').attr('content'),
+                                'id': "{{$encode_id or '0'}}",
+                                'sort': 3,
+                                'module': "@yield('share_module')",
+                                'share': 1
+                            },
+                            function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                            }, 'json');
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
                 }); 
                 wx.onMenuShareTimeline({ 
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     link: link,
-                    imgUrl: '@yield('share_img')'
+                    imgUrl: '@yield('share_img')',
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                        $.post(
+                            "/share",
+                            {
+                                '_token': $('meta[name="_token"]').attr('content'),
+                                'id': "{{$encode_id or '0'}}",
+                                'sort': 3,
+                                'module': "@yield('share_module')",
+                                'share': 2
+                            },
+                            function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                            }, 'json');
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
                 }); 
                 wx.onMenuShareQQ({ 
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     link: link, 
-                    imgUrl: '@yield('share_img')'
+                    imgUrl: '@yield('share_img')',
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                        $.post(
+                            "/share",
+                            {
+                                '_token': $('meta[name="_token"]').attr('content'),
+                                'id': "{{$encode_id or '0'}}",
+                                'sort': 3,
+                                'module': "@yield('share_module')",
+                                'share': 3
+                            },
+                            function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                            }, 'json');
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
                 }); 
                 wx.onMenuShareQZone({ 
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     link: link,
-                    imgUrl: '@yield('share_img')'
+                    imgUrl: '@yield('share_img')',
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                        $.post(
+                            "/share",
+                            {
+                                '_token': $('meta[name="_token"]').attr('content'),
+                                'id': "{{$encode_id or '0'}}",
+                                'sort': 3,
+                                'module': "@yield('share_module')",
+                                'share': 4
+                            },
+                            function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                            }, 'json');
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
                 });
                 wx.onMenuShareWeibo({
                     title: '@yield('share_title')',
                     desc: '@yield('share_desc')',
                     link: link,
-                    imgUrl: '@yield('share_img')'
+                    imgUrl: '@yield('share_img')',
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                        $.post(
+                            "/share",
+                            {
+                                '_token': $('meta[name="_token"]').attr('content'),
+                                'id': "{{$encode_id or '0'}}",
+                                'sort': 3,
+                                'module': "@yield('share_module')",
+                                'share': 5
+                            },
+                            function(data) {
+//                                    if(!data.success) layer.msg(data.msg);
+                            }, 'json');
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
                 });
             })   ;
         } 
