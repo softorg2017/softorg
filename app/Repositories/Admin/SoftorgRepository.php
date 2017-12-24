@@ -933,6 +933,7 @@ class SoftorgRepository {
             $org->timestamps = false;
             $org->increment('share_num');
         }
+        return response_success([],'分享成功');
     }
 
     // 记录访问

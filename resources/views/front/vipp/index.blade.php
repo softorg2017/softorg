@@ -683,7 +683,7 @@
             function wxFn() {
 
                 wx.config({
-                    debug: true,
+                    debug: false,
                     appId: wechat_config.app_id, // 必填，公众号的唯一标识
                     timestamp: wechat_config.timestamp, // 必填，生成签名的时间戳
                     nonceStr: wechat_config.nonce_str, // 必填，生成签名的随机串
@@ -717,6 +717,7 @@
                                     'share': 1
                                 },
                                 function(data) {
+                                    layer.msg(data.msg);
                                     if(!data.success) layer.msg(data.msg);
                                 }, 'json');
                         },
