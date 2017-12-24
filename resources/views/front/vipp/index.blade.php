@@ -7,6 +7,7 @@
 
 <head profile="http://www.w3.org/1999/xhtml/vocab">
     <title>{{$org->name or '首页'}}</title>
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="" type="" />
     <meta name="description" content="" />
@@ -707,6 +708,7 @@
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
                             // 用户确认分享后执行的回调函数
+                            layer.msg('test');
                             $.post(
                                 "/share",
                                 {
