@@ -144,7 +144,7 @@
                         "data": "email",
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return row.mobile;
+                            return row.email;
                         }
                     },
                     {
