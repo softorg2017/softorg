@@ -82,65 +82,65 @@ class WebsiteRepository {
         $org_id = $admin->org_id;
         $sql = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where("org_id",$org_id);
+            ->where(["org_id"=>$org_id]);
 
         $all = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where("org_id",$org_id)
+            ->where(["org_id"=>$org_id, 'type'=>1])
             ->get();
 
         $rooted = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id, 'sort'=>1, 'module'=>0])
+            ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>1, 'module'=>0])
             ->get();
 
         $home = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id, 'sort'=>1, 'module'=>2])
+            ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>1, 'module'=>2])
             ->get();
 
         $introduction = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id, 'sort'=>1, 'module'=>3])
+            ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>1, 'module'=>3])
             ->get();
 
         $information = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id, 'sort'=>1, 'module'=>4])
+            ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>1, 'module'=>4])
             ->get();
 
         $list = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id, 'sort'=>2])
+            ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>2])
             ->get();
 
         // module=1 product
         $product = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id, 'sort'=>2, 'module'=>1])
+            ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>2, 'module'=>1])
             ->get();
 
         // module=2 article
         $article = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id,'sort'=>2,'module'=>2])
+            ->where(['org_id'=>$org_id, 'type'=>1,'sort'=>2,'module'=>2])
             ->get();
 
         // module=3 activity
         $activity = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id, 'sort'=>2, 'module'=>3])
+            ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>2, 'module'=>3])
             ->get();
 
         // module=4 survey
         $survey = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
-            ->where(['org_id'=>$org_id,'sort'=>2,'module'=>4])
+            ->where(['org_id'=>$org_id, 'type'=>1,'sort'=>2,'module'=>4])
             ->get();
 
         $open_type = Record::select('open_type',DB::raw('count(*) as count'))
             ->groupBy('open_type')
-            ->where(['org_id'=>$org_id])
+            ->where(['org_id'=>$org_id, 'type'=>1])
             ->get();
         foreach($open_type as $k => $v)
         {
@@ -150,12 +150,12 @@ class WebsiteRepository {
 
         $open_app = Record::select('open_app',DB::raw('count(*) as count'))
             ->groupBy('open_app')
-            ->where(['org_id'=>$org_id])
+            ->where(['org_id'=>$org_id, 'type'=>1])
             ->get();
 
         $open_system = Record::select('open_system',DB::raw('count(*) as count'))
             ->groupBy('open_system')
-            ->where(['org_id'=>$org_id])
+            ->where(['org_id'=>$org_id, 'type'=>1])
             ->get();
 
         $share_all = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
