@@ -86,7 +86,7 @@ class AnswerRepository {
                 $query->with(['questions'=>function($queryX) use($answer_id) {
                     $queryX->with(['options','choices'=>function($queryY) use($answer_id){
                         $queryY->with(['option'])->where("answer_id",$answer_id);
-                    }]);
+                    }])->orderBy('order', 'asc');;
                 }]);
             }])->find($decode_id);
             if($answer)
