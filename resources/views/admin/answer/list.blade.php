@@ -1,7 +1,7 @@
 @extends('admin.layout.layout')
 
-@section('title',$title)
-@section('header',$title)
+@section('title','问卷回答列表')
+@section('header','问卷回答列表')
 @section('description','')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
@@ -36,12 +36,10 @@
                         <th>who</th>
                         <th>描述</th>
                         <th>类型</th>
-                        <th>状态</th>
-                        <th>时间</th>
+                        <th>创建时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -142,21 +140,32 @@
                         }
                     },
                     {
-                        'data': 'active',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == 1
-                                    ? '<small class="label bg-red">启</small>'
-                                    : '<small class="label bg-red">禁</small>';
-                        }
-                    },
-                    {
                         'data': 'created_at',
                         'orderable': true,
                         render: function(data) {
                             newDate = new Date();
                             newDate.setTime(data * 1000);
                             return newDate.toLocaleString('chinese',{hour12:false});
+                        }
+                    },
+                    {
+                        'data': 'id',
+                        'orderable': false,
+                        render: function(value) {
+                            var html =
+                                '<div class="btn-group">'+
+                                '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
+                                '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
+                                '<span class="caret"></span>'+
+                                '<span class="sr-only">Toggle Dropdown</span>'+
+                                '</button>'+
+                                '<ul class="dropdown-menu" role="menu">'+
+                                '<li><a class="" data-id="'+value+'" >删除</a></li>'+
+                                '<li class="divider"></li>'+
+                                '<li><a href="#">Separated link</a></li>'+
+                                '</ul>'+
+                                '</div>';
+                            return html;
                         }
                     }
                 ],
