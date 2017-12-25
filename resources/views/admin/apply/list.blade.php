@@ -35,10 +35,12 @@
                             <th>注册用户</th>
                             <th>非注册用户姓名</th>
                             <th>非注册用户手机</th>
-                            <th>签到时间</th>
+                            <th>非注册用户邮箱</th>
+                            <th>报名时间</th>
                             <th>操作</th>
                         </tr>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -133,6 +135,13 @@
                         },
                         {
                             "data": "mobile",
+                            'orderable': false,
+                            render: function(data, type, row, meta) {
+                                return row.mobile;
+                            }
+                        },
+                        {
+                            "data": "email",
                             'orderable': false,
                             render: function(data, type, row, meta) {
                                 return row.mobile;
