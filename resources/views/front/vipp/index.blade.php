@@ -69,9 +69,9 @@
                 <div class="right">
                     <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}">首页</a>
                     <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/product">产品</a>
+                    <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/article">文章</a>
                     <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/activity">活动</a>
                     <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/survey">问卷</a>
-                    <a class="hidden-sm" href="/org/{{$org->website_name or '1'}}/article">文章</a>
                     <a href="#" class="hidden-sm">关于我们</a>
                     <a href="#" class="btn-icon-close"><i class="icon-close"></i></a>
                 </div>
@@ -91,9 +91,9 @@
                 <div class="right" fade-onload>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}">首页</a>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}/product">产品</a>
+                    <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}/article">文章</a>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}/activity">活动</a>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}/survey">问卷</a>
-                    <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}/article">文章</a>
                     <a class="btn-menu-burger" href="#">
                         <img class="icon-menu icon-menu--white" src="{{asset('/frontend/themes/vipp/assets/img/icon-menu-white@2x.svg')}}" alt="目录">
                         <img class="icon-menu icon-menu--black" src="{{asset('/frontend/themes/vipp/assets/img/icon-menu@2x.svg')}}" alt="目录">
@@ -113,7 +113,7 @@
                 <div>
                     <img class="logo" src="http://cdn.softorg.cn/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}">
                 </div>
-                <div>
+                <div style="display:none;">
                     <img class="logo" src="http://cdn.softorg.cn/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}">
                 </div>
             </li>
@@ -121,11 +121,11 @@
                 <ul class="first-nav">
                     <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/product">产品</a></li>
                     <li class="padder">&nbsp;</li>
+                    <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
+                    <li class="padder">&nbsp;</li>
                     <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/activity">活动</a></li>
                     <li class="padder">&nbsp;</li>
                     <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/survey">问卷</a></li>
-                    <li class="padder">&nbsp;</li>
-                    <li><a class="big-txt" href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
                     <li class="padder">&nbsp;</li>
                 </ul>
             </li>
@@ -133,9 +133,9 @@
             <li style="display: none">
                 <ul class="second-nav">
                     <li><a href="/org/{{$org->website_name or '1'}}/product">产品</a></li>
+                    <li><a href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
                     <li><a href="/org/{{$org->website_name or '1'}}/activity">活动</a></li>
                     <li><a href="/org/{{$org->website_name or '1'}}/survey">问卷</a></li>
-                    <li><a href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
                     <li><a href="#" class="">关于我们</a></li>
                 </ul>
             </li>
