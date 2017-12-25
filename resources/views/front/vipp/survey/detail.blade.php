@@ -17,7 +17,7 @@
 @section('detail-name','问卷详情')
 
 @section('data-updated_at')
-    {{date("Y-n-j H:i",strtotime($data->updated_at))}}
+    {{date("Y-n-j H:i",$data->updated_at)}}
 @endsection
 
 @section('data-visit')
