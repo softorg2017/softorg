@@ -145,7 +145,7 @@
 
 
     {{--main--}}
-    <div class="wrapper-main-content">
+    <div class="wrapper-main-content style-main style-{{ $org->style or '2' }}">
         <div class="container-fluid ">
 
             {{--首页--}}
@@ -212,15 +212,15 @@
                             @foreach($org->products as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/product?id=').encode($v->id)}}">
-                                    <div class="item " style="
+                                    <div class="item list-background" style="
                                     @if( (count($org->products) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '1' }}/bg-product-r.jpeg);background-size:100% 100%;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-product.jpg);background-size:cover;
                                         @else
-                                            background:url(/style/case{{ $org->style or '1' }}/bg-product-v.jpeg);background-size:100%;background-position:center center;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-product.jpg);background-size:cover;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '1' }}/bg-product-v.jpeg);background-size:100%;background-position:center center;
+                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-product.jpg);background-size:cover;
                                     @endif
                                     ">
 
@@ -235,8 +235,8 @@
                                         </div>
 
                                         <div class="top-text left-8">
-                                            <h4 class="list-title multi-ellipsis font-f">{{$v->title or ''}}</h4>
-                                            <p class="description line-ellipsis font-b">{{$v->description or ''}}</p>
+                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                            <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8" style="display:none;">
@@ -280,21 +280,21 @@
                             @foreach($org->articles as $v)
                             <li class="col-md-6">
                                 <a href="{{url('/article?id=').encode($v->id)}}">
-                                    <div class="item list-bg" style="
+                                    <div class="item list-background" style="
                                     @if( (count($org->articles) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '1' }}/bg-article-r.jpeg);background-size:100% 100%;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-article.jpg);background-size:cover;
                                         @else
-                                            background:url(/style/case{{ $org->style or '1' }}/bg-article-v.jpeg);background-size:100%;background-position:center center;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-article.jpg);background-size:cover;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '1' }}/bg-article-v.jpeg);background-size:100%;background-position:center center;
+                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-article.jpg);background-size:cover;
                                     @endif
                                     ">
 
                                         <div class="top-text left-8">
-                                            <h4 class="list-title multi-ellipsis font-f">{{$v->title or ''}}</h4>
-                                            <p class="description line-ellipsis font-a">{{$v->description or ''}}</p>
+                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                            <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8" style="display:none;">
@@ -338,21 +338,21 @@
                             @foreach($org->activities as $v)
                             <li class="col-md-6">
                                 <a href="{{url('/activity?id=').encode($v->id)}}">
-                                    <div class="item " style="
+                                    <div class="item list-background" style="
                                     @if( (count($org->activities) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '1' }}/bg-activity-r.jpeg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-activity.jpg);background-size:cover;
                                         @else
-                                            background:url(/style/case{{ $org->style or '1' }}/bg-activity-v.jpeg);background-size:contain;background-position:center center;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-activity.jpg);background-size:cover;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '1' }}/bg-activity-v.jpeg);background-size:contain;background-position:center center;
+                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-activity.jpg);background-size:cover;
                                     @endif
                                     ">
 
                                         <div class="top-text left-8">
-                                            <h4 class="list-title multi-ellipsis font-f">{{$v->title or ''}}</h4>
-                                            <p class="description multi-ellipsis font-b">{{$v->description or ''}}</p>
+                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                            <p class="list-description description multi-ellipsis">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8">
@@ -396,21 +396,21 @@
                             @foreach($org->surveys as $v)
                             <li class="col-md-6 ">
                                 <a href="{{url('/survey?id=').encode($v->id)}}">
-                                    <div class="item " style="
+                                    <div class="item list-background" style="
                                     @if( (count($org->surveys) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '1' }}/bg-survey-r.jpeg);background-size:100% 100%;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-survey.jpg);background-size:cover;
                                         @else
-                                            background:url(/style/case{{ $org->style or '1' }}/bg-survey-v.jpeg);background-size:100% 100%;background-position:center center;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-survey.jpg);background-size:cover;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '1' }}/bg-survey-v.jpeg);background-size:100% 100%;background-position:center center;
+                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-survey.jpg);background-size:cover;
                                     @endif
                                     ">
 
                                         <div class="top-text left-8">
-                                            <h4 class="list-title multi-ellipsis font-f">{{$v->title or ''}}</h4>
-                                            <p class="description line-ellipsis font-a">{{$v->description or ''}}</p>
+                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                            <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8" style="display:none;">
