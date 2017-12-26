@@ -5363,11 +5363,11 @@ body.has-cookie .wrapper-main-content {
 .btn-md span {
     display: table-cell;
     vertical-align: middle;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-size: 8px;
     line-height: 2;
     padding: 0 10px 1px 10px;
-    font-weight: 600
+    /*font-weight: 600*/
 }
 
 .btn-md:hover {
@@ -6597,7 +6597,7 @@ screen and (min-device-pixel-ratio:1.5) {
 .hero-product-container:before {
     content: '';
     position: absolute;
-    top: 50%;
+    top: 30%;
     right: 0;
     bottom: 0;
     left: 0;
@@ -6625,9 +6625,10 @@ screen and (min-device-pixel-ratio:1.5) {
 .hero-product-description {
     position: absolute;
     top: 0;
-    min-width: 75%;
-    max-width: 90%;
-    color: #282828
+    min-width: 100%;
+    max-width: 100%;
+    color: #282828;
+    text-align:center;
 }
 
 .hero-product-description h4 {
@@ -6640,7 +6641,8 @@ screen and (min-device-pixel-ratio:1.5) {
 
 @media (max-width:1023px) {
     .hero-product-description {
-        left: 15px;
+        left: 0px;
+        right: 8px;
         bottom: 90px;
         top: auto
     }
@@ -6658,7 +6660,7 @@ screen and (min-device-pixel-ratio:1.5) {
         width: -moz-calc(100% - 75px);
         width: -webkit-calc(100% - 75px);
         width: calc(100% - 75px);
-        max-width: 720px;
+        /*max-width: 720px;*/
         color: #282828
     }
     .hero-product-description h4 {
@@ -6686,9 +6688,9 @@ screen and (min-device-pixel-ratio:1.5) {
         width: -moz-calc(100% - 100px);
         width: -webkit-calc(100% - 100px);
         width: calc(100% - 100px);
-        max-width: 720px;
+        /*max-width: 720px;*/
         color: #282828;
-        margin-left: 7.1428571429%;
+        /*margin-left: 7.1428571429%;*/
         padding-top: 193px
     }
     .hero-product-description h4 {

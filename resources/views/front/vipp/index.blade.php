@@ -151,13 +151,15 @@
             {{--首页--}}
             <div class="row full has-fold">
                 <div class="col-xs-14">
-                    <div class="hero-product-container" style="background-image:url(/images/black-r.jpg);background-size: 100% 100%;">
-                        <div class="hero-product-container-xs" style="background-image:url(/images/black-v.jpg);background-size: 100% 100%;">
+                    <div class="hero-product-container" style="background:#000;">
+                        <div class="hero-product-container-xs" style="background:#000;">
                         </div>
                         <div class="hero-product-description white" fade-onload>
-                            <h4>{{$org->slogan or ''}}</h4>
+                            <div style="margin-bottom:16px;font-size:20px;"><p>Welcom</p></div>
                             <h1 class="hero-heading">{{$org->name or 'name'}}</h1>
-                            <a href="#" class="btn-md"><span>主页</span></a>
+                            <div style="margin-bottom:32px;"><p>{{$org->slogan or ''}}</p></div>
+                            <a href="#product" class="btn-md"><span style="color:#DDAA00;">Our Service</span></a>
+                            <a href="#contact" class="btn-md" style="background-color:#DDAA00;"><span>Contact Us</span></a>
                         </div>
                     </div>
                 </div>
@@ -171,7 +173,10 @@
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>企业简介</h3>
                         </div>
-                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;background-color:#f8f8f8;">
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/about.jpeg" alt="" style="width:100%;height:100%;">
+                        </ul>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;border-top:0px solid #111;border-bottom:1px solid #111;">
                             <div class="row full" style="width:100%;height:auto;float:left;">
                                 <div class=" " style="position: relative;width:100%;height:auto;">
                                     <div class="line" style="display:none;">
@@ -179,7 +184,7 @@
                                         <div>{{$org->description or ''}}</div>
                                     </div>
                                     <div class="">
-                                        <h4 class="font-0" style="text-indent:2em;margin:24px 16px; line-height:20px;">{{$org->description or '暂无简介'}}</h4>
+                                        <h4 class="font-0" style="text-indent:2em;margin:24px 16px;line-height:20px;">{{$org->description or '暂无简介'}}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -197,11 +202,11 @@
                 @if( (count($org->products) % 2) == 1 )
                     product-four-column--wide
                 @endif
-            ">
+            " id="product">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3>产品</h3>
+                            <h3>产品展示</h3>
                             @if( count($org->products) == 0 )
                                 <span class="hidden-xs">暂无</span>
                             @else
@@ -269,7 +274,7 @@
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3>文章</h3>
+                            <h3>分享文章</h3>
                             @if( count($org->articles) == 0 )
                                 <span class="hidden-xs">暂无</span>
                             @else
@@ -385,7 +390,7 @@
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3>问卷</h3>
+                            <h3>调研问卷</h3>
                             @if( count($org->surveys) == 0 )
                                 <span class="hidden-xs">暂无</span>
                             @else
@@ -435,17 +440,20 @@
 
 
             {{--联系我们--}}
-            <div class="row full slide-to-top">
+            <div class="row full slide-to-top" id="contact">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>联系我们</h3>
                         </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/contact.jpeg" alt="" style="width:100%;height:100%;">
+                        </ul>
                     </div>
                 </div>
-                <div class="col-xs-14" style="">
+                <div class="col-xs-14" style="border-top:1px solid #111;border-bottom:1px solid #111;">
                     <div class="mod-stories-thumb no-margin stories-three-columns" style="height:100%;">
-                        <ul class="row full" style="position:relative;height:100%;background-color:#f8f8f8;">
+                        <ul class="row full" style="position:relative;height:100%;">
                             <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
                                     <h4>电话</h4>
