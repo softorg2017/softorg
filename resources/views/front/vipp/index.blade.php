@@ -482,8 +482,8 @@
                             </li>
                             <li class="row full" style="position:relative;height:160px;">
                                 <div class="wrap-text" style="display: none">
-                                    <h4>微信号</h4>
-                                    <h4><b>{{$org->wechat or ''}}</b></h4>
+                                    <h4>地址</h4>
+                                    <h4><b>{{$org->address or ''}}</b></h4>
                                 </div>
 
                                 <div class="top-text text-center">
@@ -491,9 +491,54 @@
                                 </div>
                                 <div class="middle-text text-center">
                                     <h4><b>{{$org->address or ''}}</b></h4>
+                                </div>
+                            </li>
+                            @if(!empty($org->qq))
+                            <li class="row full" style="position:relative;height:160px;">
+                                <div class="wrap-text" style="display: none">
+                                    <h4>QQ</h4>
+                                    <h4><b>{{$org->qq or ''}}</b></h4>
+                                </div>
+
+                                <div class="top-text text-center">
+                                    <h1><i class="fa fa-qq"></i></h1>
+                                </div>
+                                <div class="middle-text text-center">
+                                    <h4><b>{{$org->qq or ''}}</b></h4>
+                                </div>
+                            </li>
+                            @endif
+                            @if(!empty($org->wechat))
+                            <li class="row full" style="position:relative;height:160px;">
+                                <div class="wrap-text" style="display: none">
+                                    <h4>微信号</h4>
+                                    <h4><b>{{$org->wechat or ''}}</b></h4>
+                                </div>
+
+                                <div class="top-text text-center">
+                                    <h1><i class="fa fa-weixin"></i></h1>
+                                </div>
+                                <div class="middle-text text-center">
+                                    <h4><b>{{$org->wechat or ''}}</b></h4>
                                     {{--<img class="" src="http://cdn.softorg.cn/{{$org->wechat_qrcode or ''}}" alt="{{$org->wechat or 'Home'}}"/>--}}
                                 </div>
                             </li>
+                            @endif
+                            @if(!empty($org->weibo))
+                            <li class="row full" style="position:relative;height:160px;">
+                                <div class="wrap-text" style="display: none">
+                                    <h4>微博</h4>
+                                    <h4><b>{{$org->weibo or ''}}</b></h4>
+                                </div>
+
+                                <div class="top-text text-center">
+                                    <h1><i class="fa fa-weibo"></i></h1>
+                                </div>
+                                <div class="middle-text text-center">
+                                    <h4><b>{{$org->weibo or ''}}</b></h4>
+                                </div>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

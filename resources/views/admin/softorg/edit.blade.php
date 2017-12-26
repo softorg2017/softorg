@@ -94,6 +94,13 @@
                         <div><input type="text" class="form-control" name="wechat" placeholder="请输入微信号" value="{{$org->wechat or ''}}"></div>
                     </div>
                 </div>
+                {{--微博--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">微博名称</label>
+                    <div class="col-md-8 ">
+                        <div><input type="text" class="form-control" name="weibo" placeholder="请输入微博名称" value="{{$org->weibo or ''}}"></div>
+                    </div>
+                </div>
                 {{--logo--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">logo</label>

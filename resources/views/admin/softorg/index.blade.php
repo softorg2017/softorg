@@ -88,7 +88,14 @@
                         <div><label class="control-label">{{$org->wechat or ''}}</label></div>
                     </div>
                 </div>
-                {{--微信--}}
+                {{--微博--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">微博名称：</label>
+                    <div class="col-md-8 ">
+                        <div><label class="control-label">{{$org->weibo or ''}}</label></div>
+                    </div>
+                </div>
+                {{--logo--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">logo：</label>
                     <div class="col-md-8 ">

@@ -7,7 +7,7 @@ class Softorg extends Model
     //
     protected $table = "softorg";
     protected $fillable = [
-        'sort', 'type', 'name', 'website_name', 'short', 'slogan', 'description', 'logo', 'address', 'telephone', 'email', 'qq', 'wechat'
+        'sort', 'type', 'name', 'website_name', 'short', 'slogan', 'description', 'logo', 'address', 'telephone', 'email', 'qq', 'wechat', 'weibo'
     ];
     protected $dateFormat = 'U';
 
