@@ -6272,6 +6272,8 @@ body.story-page .mod-stories-thumb {
     margin-top: 0
 }
 
+
+
 @media (max-width:1023px) {
     .mod-stories-thumb .wrap-link-more a {
         font-size: 9px;
@@ -6288,6 +6290,10 @@ body.story-page .mod-stories-thumb {
     }
     .mod-stories-thumb.stories-three-columns ul li .wrap-img--portrait {
         display: block
+    }
+    .mod-stories-thumb.stories-three-columns li {
+        width: 50%;
+        float:left;
     }
 }
 
