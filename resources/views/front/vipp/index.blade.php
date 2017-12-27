@@ -256,7 +256,7 @@
                         @if( count($org->products) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs">更多产品</a>
+                            <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs btn-md btn-more">更多产品</a>
                         @endif
                     </div>
                 </div>
@@ -314,7 +314,7 @@
                         @if( count($org->articles) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs">更多文章</a>
+                            <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs btn-md btn-more">更多文章</a>
                         @endif
                     </div>
                 </div>
@@ -372,7 +372,7 @@
                         @if( count($org->activities) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/activity" class="view-more visible-xs">更多活动</a>
+                            <a href="/org/{{$org->website_name or '1'}}/activity" class="view-more visible-xs btn-md btn-more">更多活动</a>
                         @endif
                     </div>
                 </div>
@@ -430,7 +430,7 @@
                         @if( count($org->surveys) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs">更多问卷</a>
+                            <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs btn-md btn-more">更多问卷</a>
                         @endif
                     </div>
                 </div>

@@ -20818,6 +20818,11 @@ input:-webkit-autofill:focus {
 .style-main .list-background {
     background-size:cover;
 }
+.style-main .btn-more {
+    border-color:#E1E1E1;
+    line-height:30px;
+    color:#EE9966;
+}
 
 .style-1 .list-title {
     color:#000;
