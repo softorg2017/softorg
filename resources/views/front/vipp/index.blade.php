@@ -158,8 +158,8 @@
                             <div style="margin-bottom:16px;font-size:20px;"><p>Welcom</p></div>
                             <h1 class="hero-heading">{{$org->name or 'name'}}</h1>
                             <div style="margin-bottom:32px;"><p>{{$org->slogan or ''}}</p></div>
-                            <a href="#product" class="btn-md"><span style="color:#DDAA00;">Our Service</span></a>
-                            <a href="#contact" class="btn-md" style="background-color:#DDAA00;"><span>Contact Us</span></a>
+                            <a href="#product" class="btn-md"><span style="color:#D5B069;">Our Service</span></a>
+                            <a href="#contact" class="btn-md" style="background-color:#D5B069;"><span>Contact Us</span></a>
                         </div>
                     </div>
                 </div>
