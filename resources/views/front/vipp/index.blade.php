@@ -205,7 +205,7 @@
             " id="product">
                 <div class="col-md-14">
                     <div class="row full">
-                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="display: none;">
                             <h3>产品展示</h3>
                             @if( count($org->products) == 0 )
                                 <span class="hidden-xs">暂无</span>
@@ -213,6 +213,9 @@
                                 <a href="/org/{{$org->website_name or '1'}}/product" class="hidden-xs">更多产品</a>
                             @endif
                         </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/case{{ $org->style or '2' }}/banner-business.jpg" alt="" style="width:100%;height:100%;">
+                        </ul>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->products as $v)
                             <li class="col-md-6 ">
@@ -220,12 +223,12 @@
                                     <div class="item list-background" style="
                                     @if( (count($org->products) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-product.jpg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-business.jpg);background-size:contain;
                                         @else
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-product.jpg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-business.jpg);background-size:contain;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-product.jpg);background-size:cover;
+                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-business.jpg);background-size:contain;
                                     @endif
                                     ">
 
@@ -256,7 +259,7 @@
                         @if( count($org->products) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs btn-md btn-more">更多产品</a>
+                            <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs- btn-md btn-more">更多产品</a>
                         @endif
                     </div>
                 </div>
@@ -273,7 +276,7 @@
                     ">
                 <div class="col-md-14">
                     <div class="row full">
-                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="display: none;">
                             <h3>分享文章</h3>
                             @if( count($org->articles) == 0 )
                                 <span class="hidden-xs">暂无</span>
@@ -281,6 +284,9 @@
                                 <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-xs">更多文章</a>
                             @endif
                         </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/case{{ $org->style or '2' }}/banner-article.jpg" alt="" style="width:100%;height:100%;">
+                        </ul>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->articles as $v)
                             <li class="col-md-6">
@@ -288,12 +294,12 @@
                                     <div class="item list-background" style="
                                     @if( (count($org->articles) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-article.jpg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-article.jpg);background-size:contain;
                                         @else
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-article.jpg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-article.jpg);background-size:contain;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-article.jpg);background-size:cover;
+                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-article.jpg);background-size:contain;
                                     @endif
                                     ">
 
@@ -314,7 +320,7 @@
                         @if( count($org->articles) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs btn-md btn-more">更多文章</a>
+                            <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs- btn-md btn-more">更多文章</a>
                         @endif
                     </div>
                 </div>
@@ -331,7 +337,7 @@
             ">
                 <div class="col-md-14">
                     <div class="row full">
-                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="display: none;">
                             <h3>活动</h3>
                             @if( count($org->activities) == 0 )
                                 <span class="hidden-xs">暂无</span>
@@ -339,6 +345,9 @@
                                 <a href="/org/{{$org->website_name or '1'}}/activity" class="hidden-xs">更多活动</a>
                             @endif
                         </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/case{{ $org->style or '2' }}/banner-activity.jpg" alt="" style="width:100%;height:100%;">
+                        </ul>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->activities as $v)
                             <li class="col-md-6">
@@ -346,12 +355,12 @@
                                     <div class="item list-background" style="
                                     @if( (count($org->activities) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-activity.jpg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-activity.jpg);background-size:contain;
                                         @else
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-activity.jpg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-activity.jpg);background-size:contain;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-activity.jpg);background-size:cover;
+                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-activity.jpg);background-size:contain;
                                     @endif
                                     ">
 
@@ -360,7 +369,7 @@
                                             <p class="list-description description multi-ellipsis">{{$v->description or ''}}</p>
                                         </div>
 
-                                        <div class="bottom-text left-8">
+                                        <div class="bottom-text left-8" style="display:none;">
                                             <span class="price font-c">活动</span>
                                         </div>
 
@@ -372,7 +381,7 @@
                         @if( count($org->activities) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/activity" class="view-more visible-xs btn-md btn-more">更多活动</a>
+                            <a href="/org/{{$org->website_name or '1'}}/activity" class="view-more visible-xs- btn-md btn-more">更多活动</a>
                         @endif
                     </div>
                 </div>
@@ -389,7 +398,7 @@
             ">
                 <div class="col-md-14">
                     <div class="row full">
-                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="display: none;">
                             <h3>调研问卷</h3>
                             @if( count($org->surveys) == 0 )
                                 <span class="hidden-xs">暂无</span>
@@ -397,6 +406,9 @@
                                 <a href="/org/{{$org->website_name or '1'}}/survey" class="hidden-xs">更多问卷</a>
                             @endif
                         </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/case{{ $org->style or '2' }}/banner-survey.jpg" alt="" style="width:100%;height:100%;">
+                        </ul>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->surveys as $v)
                             <li class="col-md-6 ">
@@ -404,12 +416,12 @@
                                     <div class="item list-background" style="
                                     @if( (count($org->surveys) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-survey.jpg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-survey.jpg);background-size:contain;
                                         @else
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-survey.jpg);background-size:cover;
+                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-survey.jpg);background-size:contain;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-survey.jpg);background-size:cover;
+                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-survey.jpg);background-size:contain;
                                     @endif
                                     ">
 
@@ -430,7 +442,7 @@
                         @if( count($org->surveys) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs btn-md btn-more">更多问卷</a>
+                            <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs- btn-md btn-more">更多问卷</a>
                         @endif
                     </div>
                 </div>
