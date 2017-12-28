@@ -20824,21 +20824,21 @@ input:-webkit-autofill:focus {
     color:#D5B069;
 }
 
+.style-0 .list-title {
+    color:#fff;
+    font-size:14px;
+    font-weight:bold;
+}
+.style-0 .list-description {
+    color:#9e9e9e;
+}
+
 .style-1 .list-title {
     color:#000;
     font-size:14px;
     font-weight:bold;
 }
 .style-1 .list-description {
-    color:#9e9e9e;
-}
-
-.style-2 .list-title {
-    color:#fff;
-    font-size:14px;
-    font-weight:bold;
-}
-.style-2 .list-description {
     color:#9e9e9e;
 }
 

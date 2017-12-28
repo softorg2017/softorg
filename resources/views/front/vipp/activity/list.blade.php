@@ -31,21 +31,21 @@
                             <div class="item " style="
                             @if( (count($org->activities) % 2) == 1 )
                                 @if($loop->first)
-                                    background:url(/style/case{{ $org->style or '1' }}/bg-activity-r.jpeg);background-size:cover;
+                                    background:url(/style/case{{ $org->style or '0' }}/bg-r-activity.jpg);background-size:contain;
                                 @else
-                                    background:url(/style/case{{ $org->style or '1' }}/bg-activity-v.jpeg);background-size:contain;background-position:center center;
+                                    background:url(/style/case{{ $org->style or '0' }}/bg-v-activity.jpg);background-size:contain;
                                 @endif
                             @else
-                                background:url(/style/case{{ $org->style or '1' }}/bg-activity-v.jpeg);background-size:contain;background-position:center center;
+                                background:url(/style/case{{ $org->style or '0' }}/bg-v-activity.jpg);background-size:contain;
                             @endif
                             ">
 
-                                <div class="top-text left-8 font-">
-                                    <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
-                                    <p class="description">{{$v->description or ''}}</p>
+                                <div class="top-text left-8">
+                                    <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                    <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
                                 </div>
 
-                                <div class="bottom-text left-8">
+                                <div class="bottom-text left-8" style="display:none;">
                                     <span class="price">活动</span>
                                 </div>
                             </div>

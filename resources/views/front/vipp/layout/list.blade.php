@@ -93,8 +93,9 @@
     </div>
 </div>
 <div class="tray-menu--mask"></div>
+
+{{--侧边栏--}}
 <div class="tray-menu">
-    {{--侧边栏--}}
     <ul class="main menu-level menu-current menu-in">
         <li>
             <div>
@@ -132,8 +133,9 @@
         <li class="padder">&nbsp;</li>
     </ul>
 </div>
+
 {{--main--}}
-<div class="wrapper-main-content">
+<div class="wrapper-main-content style-main style-{{ $org->style or '0' }}">
     <div class="container-fluid ">
         {{--首页--}}
         <div class="row full has-fold">
@@ -152,6 +154,7 @@
         @yield('content')
     </div>
 </div>
+
 <div class="overlay"></div>
 <div class="overlay"></div>
 {{--footer--}}

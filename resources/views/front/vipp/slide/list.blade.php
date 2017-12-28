@@ -28,23 +28,24 @@
                 @foreach($org->slides as $v)
                     <li class="col-md-6 ">
                         <a href="{{url('/slide?id=').encode($v->id)}}">
-                            <div class="item " style="background-image:url(/images/black-v.jpg)">
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber"><b>{{$v->title or ''}}</b></p>--}}
-                                {{--</div>--}}
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber">{{$v->description or ''}}</p>--}}
-                                {{--</div>--}}
-                                {{--<div class="line">--}}
-                                    {{--<p class="seriesnumber">幻灯片</p>--}}
-                                {{--</div>--}}
+                            <div class="item " style="
+                            @if( (count($org->surveys) % 2) == 1 )
+                                @if($loop->first)
+                                    background:url(/style/case{{ $org->style or '0' }}/bg-r-slide.jpg);background-size:contain;
+                                @else
+                                    background:url(/style/case{{ $org->style or '0' }}/bg-v-slide.jpg);background-size:contain;
+                                @endif
+                            @else
+                                background:url(/style/case{{ $org->style or '0' }}/bg-v-slide.jpg);background-size:contain;
+                            @endif
+                            ">
 
-                                <div class="top-text left-8 font-">
-                                    <h4 style="margin:0;color:#dddddd;">{{$v->title or ''}}</h4>
-                                    <p class="description">{{$v->description or ''}}</p>
+                                <div class="top-text left-8">
+                                    <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                    <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
                                 </div>
 
-                                <div class="bottom-text left-8">
+                                <div class="bottom-text left-8" style="display:none;">
                                     <span class="price">幻灯片</span>
                                 </div>
                             </div>

@@ -145,7 +145,7 @@
 
 
     {{--main--}}
-    <div class="wrapper-main-content style-main style-{{ $org->style or '2' }}">
+    <div class="wrapper-main-content style-main style-{{ $org->style or '0' }}">
         <div class="container-fluid ">
 
             {{--首页--}}
@@ -214,7 +214,7 @@
                             @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
-                            <img src="/style/case{{ $org->style or '2' }}/banner-business.jpg" alt="" style="width:100%;height:100%;">
+                            <img src="/style/case{{ $org->style or '0' }}/banner-business.jpg" alt="" style="width:100%;height:100%;">
                         </ul>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->products as $v)
@@ -223,12 +223,12 @@
                                     <div class="item list-background" style="
                                     @if( (count($org->products) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-business.jpg);background-size:contain;
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-r-business.jpg);background-size:contain;
                                         @else
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-business.jpg);background-size:contain;
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-v-business.jpg);background-size:contain;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-business.jpg);background-size:contain;
+                                        background:url(/style/case{{ $org->style or '0' }}/bg-v-business.jpg);background-size:contain;
                                     @endif
                                     ">
 
@@ -285,7 +285,7 @@
                             @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
-                            <img src="/style/case{{ $org->style or '2' }}/banner-article.jpg" alt="" style="width:100%;height:100%;">
+                            <img src="/style/case{{ $org->style or '0' }}/banner-article.jpg" alt="" style="width:100%;height:100%;">
                         </ul>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->articles as $v)
@@ -294,12 +294,12 @@
                                     <div class="item list-background" style="
                                     @if( (count($org->articles) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-article.jpg);background-size:contain;
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-r-article.jpg);background-size:contain;
                                         @else
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-article.jpg);background-size:contain;
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-v-article.jpg);background-size:contain;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-article.jpg);background-size:contain;
+                                        background:url(/style/case{{ $org->style or '0' }}/bg-v-article.jpg);background-size:contain;
                                     @endif
                                     ">
 
@@ -346,7 +346,7 @@
                             @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
-                            <img src="/style/case{{ $org->style or '2' }}/banner-activity.jpg" alt="" style="width:100%;height:100%;">
+                            <img src="/style/case{{ $org->style or '0' }}/banner-activity.jpg" alt="" style="width:100%;height:100%;">
                         </ul>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->activities as $v)
@@ -355,12 +355,12 @@
                                     <div class="item list-background" style="
                                     @if( (count($org->activities) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-activity.jpg);background-size:contain;
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-r-activity.jpg);background-size:contain;
                                         @else
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-activity.jpg);background-size:contain;
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-v-activity.jpg);background-size:contain;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-activity.jpg);background-size:contain;
+                                        background:url(/style/case{{ $org->style or '0' }}/bg-v-activity.jpg);background-size:contain;
                                     @endif
                                     ">
 
@@ -407,7 +407,7 @@
                             @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
-                            <img src="/style/case{{ $org->style or '2' }}/banner-survey.jpg" alt="" style="width:100%;height:100%;">
+                            <img src="/style/case{{ $org->style or '0' }}/banner-survey.jpg" alt="" style="width:100%;height:100%;">
                         </ul>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($org->surveys as $v)
@@ -416,12 +416,12 @@
                                     <div class="item list-background" style="
                                     @if( (count($org->surveys) % 2) == 1 )
                                         @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-r-survey.jpg);background-size:contain;
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-r-survey.jpg);background-size:contain;
                                         @else
-                                            background:url(/style/case{{ $org->style or '2' }}/bg-v-survey.jpg);background-size:contain;
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-v-survey.jpg);background-size:contain;
                                         @endif
                                     @else
-                                        background:url(/style/case{{ $org->style or '2' }}/bg-v-survey.jpg);background-size:contain;
+                                        background:url(/style/case{{ $org->style or '0' }}/bg-v-survey.jpg);background-size:contain;
                                     @endif
                                     ">
 
