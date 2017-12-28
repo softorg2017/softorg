@@ -458,11 +458,11 @@
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3>联系我们</h3>
                         </div>
-                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
-                            <img src="/style/contact.jpeg" alt="" style="width:100%;height:100%;">
-                        </ul>
                     </div>
                 </div>
+                <ul class="col-sm-12 col-xs-14 product-list" style="width:100%;height:auto;">
+                    <img src="/style/contact.jpeg" alt="" style="width:100%;height:100%;">
+                </ul>
                 <div class="col-xs-14" style="border-top:1px solid #111;border-bottom:1px solid #111;">
                     <div class="mod-stories-thumb no-margin stories-three-columns" style="height:100%;">
                         <ul class="row full" style="position:relative;height:100%;">
