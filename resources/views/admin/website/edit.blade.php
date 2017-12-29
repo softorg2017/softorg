@@ -18,7 +18,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">编辑自定义首页</h3>
+                <h3 class="box-title">编辑 - 自定义主页</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -34,7 +34,7 @@
                 <input type="hidden" name="type" value="home" readonly>
                 {{--内容--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">自定义首页</label>
+                    <label class="control-label col-md-2">自定义主页</label>
                     <div class="col-md-8 ">
                         <div>
                             @include('UEditor::head')
@@ -59,7 +59,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <button type="button" class="btn btn-primary edit-submit" data-form="#form-home"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
-                        <a target="_blank" href="/org/{{ $org->website_name }}/home"><button class="btn btn-success _right">访问</button></a>
+                        <a target="_blank" href="/org/{{ $org->website_name }}/home"><button class="btn btn-success _right">访问自定义主页</button></a>
 
                     </div>
                 </div>
@@ -76,7 +76,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">编辑自定义简介页</h3>
+                <h3 class="box-title">编辑 - 简介单页</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -92,7 +92,7 @@
                     <input type="hidden" name="type" value="introduction" readonly>
                     {{--内容--}}
                     <div class="form-group">
-                        <label class="control-label col-md-2">自定义简介页</label>
+                        <label class="control-label col-md-2">简介单页</label>
                         <div class="col-md-8 ">
                             <div>
                             {{--@include('UEditor::head')--}}
@@ -117,7 +117,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <button type="button" class="btn btn-primary edit-submit" data-form="#form-introduction"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
-                        <a target="_blank" href="/org/{{ $org->website_name }}/introduction"><button class="btn btn-success _right">访问</button></a>
+                        <a target="_blank" href="/org/{{ $org->website_name }}/introduction"><button class="btn btn-success _right">访问简介单页</button></a>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">编辑自定义联系我们</h3>
+                <h3 class="box-title">编辑 - 联系我们单页</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -149,7 +149,7 @@
                     <input type="hidden" name="type" value="information" readonly>
                     {{--内容--}}
                     <div class="form-group">
-                        <label class="control-label col-md-2">联系我们</label>
+                        <label class="control-label col-md-2">联系我们单页</label>
                         <div class="col-md-8 ">
                             <div>
                             {{--@include('UEditor::head')--}}
@@ -174,7 +174,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <button type="button" class="btn btn-primary edit-submit" data-form="#form-information"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
-                        <a target="_blank" href="/org/{{ $org->website_name }}/information"><button class="btn btn-success _right">访问</button></a>
+                        <a target="_blank" href="/org/{{ $org->website_name }}/information"><button class="btn btn-success _right">访问联系我们单页</button></a>
                     </div>
                 </div>
             </div>

@@ -371,10 +371,10 @@ $(function() {
         var myChart_all = echarts.init(document.getElementById('echart-all'));
         myChart_all.setOption(option_all);
 
-        // 主页访问数
+        // 首页访问数
         var option_root = {
             title: {
-                text: '主页访问量'
+                text: '首页访问量'
             },
             tooltip : {
                 trigger: 'axis',
@@ -386,7 +386,7 @@ $(function() {
                 }
             },
             legend: {
-                data:['主页访问量']
+                data:['首页访问量']
             },
             toolbox: {
                 feature: {
@@ -417,7 +417,7 @@ $(function() {
             ],
             series : [
                 {
-                    name:'主页访问量',
+                    name:'首页访问量',
                     type:'line',
                     label: {
                         normal: {
@@ -450,7 +450,7 @@ $(function() {
         // 自定义首页访问数
         var option_home = {
             title: {
-                text: '自定义首页流量'
+                text: '自定义主页-流量统计'
             },
             tooltip : {
                 trigger: 'axis',
@@ -462,7 +462,7 @@ $(function() {
                 }
             },
             legend: {
-                data:['自定义首页流量']
+                data:['自定义主页-流量统计']
             },
             toolbox: {
                 feature: {
@@ -493,7 +493,7 @@ $(function() {
             ],
             series : [
                 {
-                    name:'自定义首页访问量',
+                    name:'自定义主页-流量统计',
                     type:'line',
                     label: {
                         normal: {
@@ -526,7 +526,7 @@ $(function() {
         // 自定义简介访问数
         var option_introduction = {
             title: {
-                text: '自定义简介流量'
+                text: '简介单页-流量统计'
             },
             tooltip : {
                 trigger: 'axis',
@@ -538,7 +538,7 @@ $(function() {
                 }
             },
             legend: {
-                data:['自定义简介访问量']
+                data:['简介单页-访问量']
             },
             toolbox: {
                 feature: {
@@ -569,7 +569,7 @@ $(function() {
             ],
             series : [
                 {
-                    name:'自定义简介访问量',
+                    name:'简介单页-访问量',
                     type:'line',
                     label: {
                         normal: {
@@ -602,7 +602,7 @@ $(function() {
         // 自定义联系我们访问数
         var option_information = {
             title: {
-                text: '自定义联系我们流量'
+                text: '联系我们单页-流量统计'
             },
             tooltip : {
                 trigger: 'axis',
@@ -614,7 +614,7 @@ $(function() {
                 }
             },
             legend: {
-                data:['自定义联系我们访问量']
+                data:['联系我们单页-访问量']
             },
             toolbox: {
                 feature: {
@@ -645,7 +645,7 @@ $(function() {
             ],
             series : [
                 {
-                    name:'自定义联系我们访问量',
+                    name:'联系我们单页-访问量',
                     type:'line',
                     label: {
                         normal: {
