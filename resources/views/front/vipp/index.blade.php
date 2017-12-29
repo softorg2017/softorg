@@ -155,7 +155,7 @@
                         <div class="hero-product-container-xs" style="background:#000;">
                         </div>
                         <div class="hero-product-description white" fade-onload>
-                            <div style="margin-bottom:16px;font-size:20px;"><p>Welcom</p></div>
+                            <div style="margin-bottom:16px;font-size:20px;"><p>Welcome</p></div>
                             <h1 class="hero-heading">{{$org->name or 'name'}}</h1>
                             <div style="margin-bottom:32px;"><p>{{$org->slogan or ''}}</p></div>
                             <a href="#product" class="btn-md"><span style="color:#D5B069;">Our Service</span></a>
@@ -167,16 +167,16 @@
 
 
             {{--企业简介--}}
-            <div class="row full wrapper-content product-column product-four-column slide-to-top">
+            <div class="row full wrapper-content product-column product-four-column slide-to-top" style="margin-top:48px;">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3>企业简介</h3>
+                            <h3 style="margin-bottom:16px;color:#D5B069;">简 介</h3>
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
-                            <img src="/style/about.jpeg" alt="" style="width:100%;height:100%;">
+                            <img src="/style/about.jpg" alt="" style="width:100%;height:100%;">
                         </ul>
-                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;border-top:0px solid #111;border-bottom:1px solid #111;">
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;border-top:0 solid #111;border-bottom:1px solid #111;">
                             <div class="row full" style="width:100%;height:auto;float:left;">
                                 <div class=" " style="position: relative;width:100%;height:auto;">
                                     <div class="line" style="display:none;">
@@ -452,11 +452,11 @@
 
 
             {{--联系我们--}}
-            <div class="row full slide-to-top" id="contact">
-                <div class="col-md-14">
+            <div class="row full slide-to-top" id="contact" style="margin-top:48px;">
+                <div class="col-md-14" style="margin-bottom:-16px;">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3>联系我们</h3>
+                            <h3 style="margin-bottom:0px;">联系我们</h3>
                         </div>
                     </div>
                 </div>

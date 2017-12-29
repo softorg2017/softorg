@@ -6719,8 +6719,8 @@ screen and (min-device-pixel-ratio:1.5) {
 
 .wrapper-content.product-column>div {
     background: #fff;
-    padding-top: 45px;
-    padding-bottom: 45px
+    padding-top: 16px;
+    padding-bottom: 16px
 }
 
 .wrapper-content.product-column .product-list .item .container img {
