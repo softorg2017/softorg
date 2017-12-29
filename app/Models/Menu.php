@@ -7,7 +7,7 @@ class Menu extends Model
     //
     protected $table = "menu";
     protected $fillable = [
-        'sort', 'type', 'org_id', 'admin_id', 'name', 'title', 'description', 'content'
+        'sort', 'type', 'org_id', 'admin_id', 'active', 'name', 'title', 'description', 'content'
     ];
     protected $dateFormat = 'U';
 

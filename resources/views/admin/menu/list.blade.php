@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="box-body">
+            <div class="box-body" id="menu-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
@@ -159,9 +159,9 @@
                         'data': 'active',
                         'orderable': false,
                         render: function(val) {
-                            return val == 1
-                                    ? '<small class="label bg-red">启</small>'
-                                    : '<small class="label bg-red">禁</small>';
+                            if(val == 0) return '<small class="label bg-teal">未启用</small>';
+                            else if(val == 1) return '<small class="label bg-green">启</small>';
+                            else return '<small class="label bg-red">禁</small>';
                         }
                     },
                     {
@@ -196,8 +196,8 @@
                                     '<ul class="dropdown-menu" role="menu">'+
                                     '<li><a href="/admin/menu/edit?id='+value+'">编辑</a></li>'+
                                     '<li><a class="menu-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a href="#">启用</a></li>'+
-                                    '<li><a href="#">禁用</a></li>'+
+                                    '<li><a class="menu-enable-submit" data-id="'+value+'">启用</a></li>'+
+                                    '<li><a class="menu-disable-submit" data-id="'+value+'">禁用</a></li>'+
                                     '<li class="divider"></li>'+
                                     '<li><a href="#">Separated link</a></li>'+
                                     '</ul>'+
@@ -278,7 +278,7 @@
     $(function() {
 
         // 删除目录
-        $(document).on('click', ".menu-delete-submit", function() {
+        $("#menu-main-body").on('click', ".menu-delete-submit", function() {
             var that = $(this);
             layer.msg('确定要删除该"目录"么', {
                 time: 0
@@ -295,6 +295,52 @@
                                 else location.reload();
                             },
                             'json'
+                    );
+                }
+            });
+        });
+
+        // 【启用】 目录
+        $("#menu-main-body").on('click', ".menu-enable-submit", function() {
+            var that = $(this);
+            layer.msg('确定启用该"目录"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                        "/admin/menu/enable",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            id:that.attr('data-id')
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else location.reload();
+                        },
+                        'json'
+                    );
+                }
+            });
+        });
+
+        // 【禁用】 目录
+        $("#menu-main-body").on('click', ".menu-disable-submit", function() {
+            var that = $(this);
+            layer.msg('确定禁用该"目录"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                        "/admin/menu/disable",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            id:that.attr('data-id')
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else location.reload();
+                        },
+                        'json'
                     );
                 }
             });
