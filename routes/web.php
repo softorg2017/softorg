@@ -13,7 +13,12 @@ require __DIR__.'/frontend.php';
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//    return view('welcome');
+    return redirect(config('common.website.front.prefix').'/softorg');
+});
+Route::get(config('common.website.front.prefix').'/', function () {
+//    return view('welcome');
+    return redirect(config('common.website.front.prefix').'/softorg');
 });
 
 //Auth::routes();
