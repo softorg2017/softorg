@@ -18,6 +18,7 @@ use App\Repositories\Common\CommonRepository;
 use App\Repositories\Admin\MailRepository;
 
 use Response, Auth, Validator, DB, Exception;
+use QrCode;
 
 class SoftorgRepository {
 
@@ -64,8 +65,26 @@ class SoftorgRepository {
         }
         else unset($post_data["logo"]);
 
+        // 目标URL
+        $url = 'http://softorg.cn/org/'.$admin->website_name;
+        // 保存位置
+        $qrcode_path = 'resource/org/'.$admin->id.'/unique/common';
+        if(!file_exists(storage_path($qrcode_path)))
+            mkdir(storage_path($qrcode_path), 0777, true);
+        // qrcode图片文件
+        $qrcode = $qrcode_path.'/qrcode.png';
+        QrCode::errorCorrection('H')->format('png')->size(320)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
+
         $bool = $org->fill($post_data)->save();
-        if($bool) return response_success();
+        if($bool)
+        {
+            $name = $qrcode_path.'/qrcode_img.png';
+            $common = new CommonRepository();
+            $logo = 'resource/'.$org->logo;
+            $common->create_root_qrcode($name, $org->name, $qrcode, $logo);
+
+            return response_success();
+        }
         else return response_fail();
     }
 

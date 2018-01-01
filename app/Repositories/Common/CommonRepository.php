@@ -48,19 +48,86 @@ class CommonRepository {
         return ["status" => true, "info" => "上传成功", "data" => $destinationPath . $fileName, "fileName"=>$fileName];
     }
 
+    // 生成机构根二维码
+    public function create_root_qrcode($name, $org_name, $qrcode_path, $logo_path)
+    {
+        $font_file = public_path().'/fonts/huawenkaiti.ttf';
+        $font_2 = public_path().'/fonts/huawenkaiti.ttf';
+
+//        $org_name = "上海(中国)如哉网络科技有限公司";
+        $org_name = !empty($org_name) ? $org_name : '名称暂无';
+        $result = $this->autowrap(20, 0, $font_file, $org_name, 360); // 自动换行处理
+        $title_row = $result['row'];
+        $title = $result['content'];
+
+        // 创建画布
+        $img = Image::canvas(400, 400 + (($title_row - 1) * 20), '#fafafa');
+
+        // 标题
+        $img->text($title, 200, 40, function($font) use ($font_file) {
+            $font->file($font_file);
+            $font->size(20);
+            $font->color('#000');
+            $font->align('center');
+            $font->valign('top');
+        });
+
+        $line_v = 80 + (($title_row - 1) * 20);
+        // 分割线
+        $points1 = array(
+            30,  $line_v,  // Point 1 (x, y)
+            370,  $line_v, // Point 2 (x, y)
+            30,  $line_v,  // Point 3 (x, y)
+        );
+        $img->polygon($points1, function ($draw) {
+//            $draw->background('#0000ff');
+            $draw->border(1, '#000');
+        });
+
+        if(file_exists(storage_path($qrcode_path)))
+        {
+            $qrcode = Image::make(storage_path($qrcode_path));
+            $qrcode->resize(240, 240);
+            $img->insert($qrcode, 'bottom-right',80, 40);
+        }
+
+        if(file_exists(storage_path($logo_path)))
+        {
+            $logo = Image::make(storage_path($logo_path));
+            $logo->resize(60, 60);
+
+            // define polygon points
+            $points = array(
+                1,  1,  // Point 1 (x, y)
+                59,  1, // Point 2 (x, y)
+                59,  59,  // Point 3 (x, y)
+                1, 59,  // Point 4 (x, y)
+            );
+            $logo->polygon($points, function ($draw) {
+//            $draw->background('#0000ff');
+                $draw->border(1, '#ffffff');
+            });
+
+            $img->insert($logo, 'bottom-right',170, 130);
+        }
+
+        return $img->save(storage_path($name));
+
+    }
+
+    // 生成详细页面二维码
     public function create_qrcode_image($org_name, $type_string, $title, $qrcode_path, $logo_path, $name)
     {
-
         $font_file = public_path().'/fonts/huawenkaiti.ttf';
         $font_2 = public_path().'/fonts/huawenkaiti.ttf';
 
 //        $title = "2017天津How I Treat和淋巴瘤转化医学国际研讨会";
-        $result = $this->autowrap(16, 0, $font_file, $title, 280); // 自动换行处理
+        $result = $this->autowrap(24, 0, $font_file, $title, 320); // 自动换行处理
         $title_row = $result['row'];
         $title = $result['content'];
 
-
-        $img = Image::canvas(400, 400 + ($title_row * 20), '#fafafa');
+        // 创建画布
+        $img = Image::canvas(400, 340 + ($title_row * 24), '#fafafa');
 
 //        $type_string = '活动';
         $img->text($type_string, 200, 50, function($font) use ($font_file) {
@@ -71,6 +138,7 @@ class CommonRepository {
             $font->valign('bottom');
         });
 
+        // 分割线
         $points1 = array(
             30,  60,  // Point 1 (x, y)
             370,  60, // Point 2 (x, y)
@@ -81,6 +149,7 @@ class CommonRepository {
             $draw->border(1, '#000');
         });
 
+        // 标题
         $img->text($title, 200, 90, function($font) use ($font_file) {
             $font->file($font_file);
             $font->size(24);
@@ -117,7 +186,7 @@ class CommonRepository {
 
 
 //        $org_name = "上海如哉网络科技有限公司";
-        $img->text($org_name, 200, 360 + ($title_row * 20), function($font) use ($font_file) {
+        $img->text($org_name, 200, 290 + ($title_row * 24), function($font) use ($font_file) {
             $font->file($font_file);
             $font->size(16);
             $font->color('#000');
