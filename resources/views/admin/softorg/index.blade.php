@@ -102,6 +102,13 @@
                         <div style="width:100px;height:100px;"><img src="{{url('http://cdn.softorg.cn/'.$org->logo)}}" alt=""></div>
                     </div>
                 </div>
+                {{--qrcode--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">二维码：</label>
+                    <div class="col-md-8 ">
+                        <a class="btn btn-success _left" target="_blank" href="/admin/download_root_qrcode">下载首页二维码</a>
+                    </div>
+                </div>
             </div>
             </form>
 

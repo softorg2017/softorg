@@ -122,6 +122,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             return view('admin.index');
         });
 
+        Route::match(['get','post'], 'download_root_qrcode', 'SoftorgController@download_root_qrcode');
         Route::match(['get','post'], 'download_qrcode', 'SoftorgController@download_qrcode');
 
         // 机构模块

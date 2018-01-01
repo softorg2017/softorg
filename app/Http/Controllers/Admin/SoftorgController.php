@@ -42,6 +42,12 @@ class SoftorgController extends Controller
         return $this->repo->get(request()->all());
     }
 
+    // 下载根二维码
+    public function download_root_qrcode()
+    {
+        return $this->repo->download_root_qrcode(request()->all());
+    }
+
     // 下载二维码
     public function download_qrcode()
     {

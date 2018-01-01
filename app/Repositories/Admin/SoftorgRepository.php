@@ -977,6 +977,20 @@ class SoftorgRepository {
     }
 
 
+
+    // 下载根二维码
+    public function download_root_qrcode($post_data)
+    {
+        $org_id = Auth::guard("admin")->user()->org_id;
+        $qrcode = "resource/org/".$org_id."/unique/common/qrcode_img.png";
+
+        if(file_exists(storage_path($qrcode)))
+        {
+            return response()->download(storage_path($qrcode), 'qrcode.png');
+        }
+        else echo "二维码不存在，编辑机构资料生成二维码";
+    }
+
     // 下载二维码
     public function download_qrcode($post_data)
     {
