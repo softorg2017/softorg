@@ -9,7 +9,7 @@
 @section('share_img')http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}@endsection
 
 @section('title')
-    产品 - {{$data->title or ''}}
+    {{$data->title or ''}}
 @endsection
 @section('header','产品详情')
 @section('description','产品详情')
