@@ -517,6 +517,7 @@
                                 </div>
                                 <div class="middle-text text-center">
                                     <h4><b>{{$org->qq or ''}}</b></h4>
+                                    {{--<a href="tencent://message/?uin=2567752424&Site=QQ交谈&Menu=yes" target="blank"><img border="0" src="http://wpa.qq.com/pa?p=1:2567752424:7" alt="QQ" width="71" height="24" /></a>--}}
                                 </div>
                             </li>
                             @endif

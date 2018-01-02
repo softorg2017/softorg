@@ -6827,7 +6827,7 @@ screen and (min-device-pixel-ratio:1.5) {
 
 @media (min-width:768px) {
     .wrapper-content.product-column>div {
-        padding: 95px 0
+        padding: 8px 0
     }
     .wrapper-content.product-column .product-list {
         margin-left: 7.1428571429%
