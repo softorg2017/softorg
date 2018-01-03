@@ -187,7 +187,7 @@
         <li><a href="/org/@yield('website-name')/activity">活动</a></li>
         <li><a href="/org/@yield('website-name')/survey">问卷</a></li>
     </ul>
-    <div class="copyright">COPYRIGHT©如哉网络科技有限公司 (2017) 沪ICP备17052782号-1</div>
+    <div class="copyright">COPYRIGHT©上海如哉网络科技有限公司 技术支持 (2017) 沪ICP备17052782号-1</div>
     <div class="term" style="display: none"><a href="#">Terms and conditions</a></div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
