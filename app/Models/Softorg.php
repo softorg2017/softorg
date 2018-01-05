@@ -16,6 +16,11 @@ class Softorg extends Model
         return $this->hasMany('App\Administrator','org_id','id');
     }
 
+    function ext()
+    {
+        return $this->hasOne('App\Models\SoftorgExt','org_id','id');
+    }
+
     function website()
     {
         return $this->hasOne('App\Models\Website','org_id','id');

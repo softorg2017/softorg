@@ -132,6 +132,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/', $controller.'@index');
             Route::get('index', $controller.'@index');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
+
+            Route::match(['get','post'], 'edit/home', $controller.'@homeAction');
+            Route::match(['get','post'], 'edit/information', $controller.'@informationAction');
+            Route::match(['get','post'], 'edit/introduction', $controller.'@introductionAction');
+            Route::match(['get','post'], 'edit/contactus', $controller.'@contactusAction');
+            Route::match(['get','post'], 'edit/culture', $controller.'@cultureAction');
+
         });
 
         // 管理员模块
@@ -342,8 +349,10 @@ Route::group(['prefix' => config('common.website.front.prefix').'/{org_name}', '
     Route::get('/',$controller.'@root');
 //    Route::get('/index', $controller.'@index');
     Route::get('/home', $controller.'@home');
-    Route::get('/introduction', $controller.'@introduction');
     Route::get('/information', $controller.'@information');
+    Route::get('/introduction', $controller.'@introduction');
+    Route::get('/contactus', $controller.'@contactus');
+    Route::get('/culture', $controller.'@culture');
 
     Route::get('/product', $controller.'@product');
     Route::get('/product/detail', $controller.'@product_detail');

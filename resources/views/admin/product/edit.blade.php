@@ -160,11 +160,6 @@
 
     });
 
-    function select_menu()
-    {
-        var vs = $('select option:selected').attr("data-id");
-        $("#menu-selected").val(vs);
-    }
 </script>
 <script type="text/javascript">
 

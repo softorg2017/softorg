@@ -65,7 +65,15 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div id="echart-information" style="width:100%;height:240px;"></div>
+                        <div id="echart-contactus" style="width:100%;height:240px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="echart-culture" style="width:100%;height:240px;"></div>
                     </div>
                 </div>
             </div>
@@ -447,10 +455,10 @@ $(function() {
         var myChart_root = echarts.init(document.getElementById('echart-root'));
         myChart_root.setOption(option_root);
 
-        // 自定义首页访问数
+        // 展示主页访问数
         var option_home = {
             title: {
-                text: '自定义主页-流量统计'
+                text: '展示主页-流量统计'
             },
             tooltip : {
                 trigger: 'axis',
@@ -462,7 +470,7 @@ $(function() {
                 }
             },
             legend: {
-                data:['自定义主页-流量统计']
+                data:['展示主页-流量统计']
             },
             toolbox: {
                 feature: {
@@ -493,7 +501,7 @@ $(function() {
             ],
             series : [
                 {
-                    name:'自定义主页-流量统计',
+                    name:'展示主页-流量统计',
                     type:'line',
                     label: {
                         normal: {
@@ -523,10 +531,10 @@ $(function() {
         var myChart_home = echarts.init(document.getElementById('echart-home'));
         myChart_home.setOption(option_home);
 
-        // 自定义简介访问数
+        // 简介访问数
         var option_introduction = {
             title: {
-                text: '简介单页-流量统计'
+                text: '简介页-流量统计'
             },
             tooltip : {
                 trigger: 'axis',
@@ -538,7 +546,7 @@ $(function() {
                 }
             },
             legend: {
-                data:['简介单页-访问量']
+                data:['简介页-访问量']
             },
             toolbox: {
                 feature: {
@@ -569,7 +577,7 @@ $(function() {
             ],
             series : [
                 {
-                    name:'简介单页-访问量',
+                    name:'简介页-访问量',
                     type:'line',
                     label: {
                         normal: {
@@ -599,10 +607,10 @@ $(function() {
         var myChart_introduction = echarts.init(document.getElementById('echart-introduction'));
         myChart_introduction.setOption(option_introduction);
 
-        // 自定义联系我们访问数
-        var option_information = {
+        // 联系我们访问数
+        var option_contactus = {
             title: {
-                text: '联系我们单页-流量统计'
+                text: '联系我们页-流量统计'
             },
             tooltip : {
                 trigger: 'axis',
@@ -614,7 +622,7 @@ $(function() {
                 }
             },
             legend: {
-                data:['联系我们单页-访问量']
+                data:['联系我们页-访问量']
             },
             toolbox: {
                 feature: {
@@ -632,7 +640,7 @@ $(function() {
                     type : 'category',
                     boundaryGap : false,
                     data : [
-                        @foreach($information as $v)
+                        @foreach($contactus as $v)
                             @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
                         @endforeach
                     ]
@@ -645,7 +653,7 @@ $(function() {
             ],
             series : [
                 {
-                    name:'联系我们单页-访问量',
+                    name:'联系我们页-访问量',
                     type:'line',
                     label: {
                         normal: {
@@ -661,7 +669,7 @@ $(function() {
                         }
                     },
                     data:[
-                        @foreach($information as $v)
+                        @foreach($contactus as $v)
                         @if (!$loop->last)
                             {value:{{$v->count}},name:'{{$v->date}}'},
                         @else
@@ -672,8 +680,84 @@ $(function() {
                 }
             ]
         };
-        var myChart_information = echarts.init(document.getElementById('echart-information'));
-        myChart_information.setOption(option_information);
+        var myChart_contactus = echarts.init(document.getElementById('echart-contactus'));
+        myChart_contactus.setOption(option_contactus);
+
+        // 企业文化访问数
+        var option_culture = {
+            title: {
+                text: '企业文化页-流量统计'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'line',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['企业文化页-访问量']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : [
+                        @foreach($culture as $v)
+                                @if (!$loop->last) '{{$v->date}}', @else '{{$v->date}}' @endif
+                        @endforeach
+                    ]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'企业文化页-访问量',
+                    type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#3a6'
+                            }
+                        }
+                    },
+                    data:[
+                        @foreach($culture as $v)
+                        @if (!$loop->last)
+                            {value:{{$v->count}},name:'{{$v->date}}'},
+                        @else
+                            {value:{{$v->count}},name:'{{$v->date}}'}
+                        @endif
+                        @endforeach
+                    ]
+                }
+            ]
+        };
+        var myChart_culture = echarts.init(document.getElementById('echart-culture'));
+        myChart_culture.setOption(option_culture);
 
 
 

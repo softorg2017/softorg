@@ -20,7 +20,7 @@ class ArticleRepository {
     public function get_list_datatable($post_data)
     {
         $org_id = Auth::guard("admin")->user()->org_id;
-        $query = Article::select("*")->where('org_id',$org_id)->with(['admin']);
+        $query = Article::select("*")->where('org_id',$org_id)->with(['admin','menu']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
@@ -59,11 +59,14 @@ class ArticleRepository {
         if($decode_id == 0) return view('admin.article.edit')->with(['operate'=>'create', 'encode_id'=>$id]);
         else
         {
-            $activity = Article::with(['org'])->find($decode_id);
-            if($activity)
+            $article = Article::with([
+                'menu',
+                'org' => function ($query) { $query->with(['menus'])->orderBy('id','desc'); }
+            ])->find($decode_id);
+            if($article)
             {
-                unset($activity->id);
-                return view('admin.article.edit')->with(['operate'=>'edit', 'encode_id'=>$id, 'data'=>$activity]);
+                unset($article->id);
+                return view('admin.article.edit')->with(['operate'=>'edit', 'encode_id'=>$id, 'data'=>$article]);
             }
             else return response("文章不存在！", 404);
         }

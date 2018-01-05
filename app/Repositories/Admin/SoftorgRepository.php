@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Softorg;
+use App\Models\SoftorgExt;
 use App\Models\Record;
 use App\Models\Website;
 use App\Models\Menu;
@@ -47,7 +48,6 @@ class SoftorgRepository {
         $org = Softorg::whereId($org_id)->first();
 
         return view('admin.softorg.edit')->with(['org'=>$org]);
-
     }
     // 保存企业信息
     public function save($post_data)
@@ -90,12 +90,79 @@ class SoftorgRepository {
 
 
 
+    // 显示 编辑自定义首页
+    public function view_edit_home()
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+
+        $ext = SoftorgExt::where('org_id', $org_id)->first();
+        return view('admin.softorg.home')->with('data', $ext);
+    }
+    // 显示 编辑自定义信息
+    public function view_edit_information()
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+
+        $ext = SoftorgExt::where('org_id', $org_id)->first();
+        return view('admin.softorg.information')->with('data', $ext);
+    }
+    // 显示 编辑简介
+    public function view_edit_introduction()
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+
+        $ext = SoftorgExt::where('org_id', $org_id)->first();
+        return view('admin.softorg.introduction')->with('data', $ext);
+    }
+    // 显示 编辑联系我们
+    public function view_edit_contactus()
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+
+        $ext = SoftorgExt::where('org_id', $org_id)->first();
+        return view('admin.softorg.contactus')->with('data', $ext);
+    }
+    // 显示 编辑企业文化
+    public function view_edit_culture()
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+
+        $ext = SoftorgExt::where('org_id', $org_id)->first();
+        return view('admin.softorg.culture')->with('data', $ext);
+    }
+
+    // 编辑ext
+    public function save_ext($post_data)
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+
+        $website = SoftorgExt::where('org_id', $org_id)->first();
+        if($website)
+        {
+            $type = $post_data['type'];
+            $content = $post_data['content'];
+            $editor[$type] = $content;
+            $bool = $website->fill($editor)->save();
+            if($bool) return response_success([], '修改成功');
+            else return response_fail([], '修改失败，刷新页面重试');
+        }
+        else return response_error();
+    }
+
+
+
     // 返回（前台）【根】视图
     public function view_root($org)
     {
-//        $query = Softorg::with(['administrators','website','menus','products','activities','slides','surveys','articles']);
+//        $query = Softorg::with(['administrators','ext','website','menus','products','activities','slides','surveys','articles']);
         $query = Softorg::with([
-            'administrators','website','menus',
+            'administrators','ext','website','menus',
             'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
             'activities' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
             'slides' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
@@ -126,9 +193,9 @@ class SoftorgRepository {
     // 返回（前台）【主页】视图
     public function view_index($org)
     {
-//        $query = Softorg::with(['administrators','website','menus','products','activities','slides','surveys','articles']);
+//        $query = Softorg::with(['administrators','ext','website','menus','products','activities','slides','surveys','articles']);
         $query = Softorg::with([
-            'administrators','website','menus',
+            'administrators','ext','website','menus',
             'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
             'activities' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
             'slides' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
@@ -160,7 +227,7 @@ class SoftorgRepository {
     public function view_home($org)
     {
         $query = Softorg::with([
-            'administrators','website'
+            'administrators','ext','website'
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
@@ -183,11 +250,38 @@ class SoftorgRepository {
         }
         else dd("企业不存在");
     }
-    // 返回（前台）【自定义简介】视图
+    // 返回（前台）【企业信息】视图
+    public function view_information($org)
+    {
+        $query = Softorg::with([
+            'administrators','ext','website'
+        ]);
+        if(is_numeric($org)) $org = $query->whereId($org)->first();
+        else $org = $query->where('website_name',$org)->first();
+
+        if($org)
+        {
+            // 访问数量+1
+            $org->timestamps = false;
+            $org->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 1; // sort=1 system
+            $record["module"] = 3; // module=3 information
+            $record["org_id"] = $org->id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.index').'.information')->with('org',$org);
+        }
+        else dd("企业不存在");
+    }
+    // 返回（前台）【简介】视图
     public function view_introduction($org)
     {
         $query = Softorg::with([
-            'administrators','website'
+            'administrators','ext','website'
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
@@ -210,11 +304,11 @@ class SoftorgRepository {
         }
         else dd("企业不存在");
     }
-    // 返回（前台）【自定义联系我们】视图
-    public function view_information($org)
+    // 返回（前台）【联系我们】视图
+    public function view_contactus($org)
     {
         $query = Softorg::with([
-            'administrators','website'
+            'administrators','ext','website'
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();
@@ -228,12 +322,39 @@ class SoftorgRepository {
             if(Auth::check()) $record["user_id"] = Auth::id();
             $record["type"] = 1; // type=1 browse
             $record["sort"] = 1; // sort=1 system
-            $record["module"] = 4; // module=4 information
+            $record["module"] = 4; // module=4 contactus
             $record["org_id"] = $org->id;
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view('front.'.config('common.view.front.index').'.information')->with('org',$org);
+            return view('front.'.config('common.view.front.index').'.contactus')->with('org',$org);
+        }
+        else dd("企业不存在");
+    }
+    // 返回（前台）【企业文化】视图
+    public function view_culture($org)
+    {
+        $query = Softorg::with([
+            'administrators','ext','website'
+        ]);
+        if(is_numeric($org)) $org = $query->whereId($org)->first();
+        else $org = $query->where('website_name',$org)->first();
+
+        if($org)
+        {
+            // 访问数量+1
+            $org->timestamps = false;
+            $org->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 1; // sort=1 system
+            $record["module"] = 5; // module=5 culture
+            $record["org_id"] = $org->id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.index').'.culture')->with('org',$org);
         }
         else dd("企业不存在");
     }
@@ -243,7 +364,7 @@ class SoftorgRepository {
     // 返回（前台）【产品】列表页视图
     public function view_product($org)
     {
-        $query = Softorg::with(['administrators','website',
+        $query = Softorg::with(['administrators','ext','website',
             'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
@@ -300,7 +421,7 @@ class SoftorgRepository {
     public function view_article($org)
     {
 //        $query = Softorg::with(['administrators','websites','menus','products','activities','slides','surveys','articles']);
-        $query = Softorg::with(['administrators','website',
+        $query = Softorg::with(['administrators','ext','website',
             'articles' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
@@ -355,7 +476,7 @@ class SoftorgRepository {
     // 返回（前台）【活动】【列表页】视图
     public function view_activity($org)
     {
-        $query = Softorg::with(['administrators','website',
+        $query = Softorg::with(['administrators','ext','website',
             'activities' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
@@ -437,7 +558,7 @@ class SoftorgRepository {
     // 返回（前台）【调研问卷】【列表页】视图
     public function view_survey($org)
     {
-        $query = Softorg::with(['administrators','website',
+        $query = Softorg::with(['administrators','ext','website',
             'surveys' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
@@ -494,7 +615,7 @@ class SoftorgRepository {
     // 返回（前台）【幻灯片】【列表页】视图
     public function view_slide($org)
     {
-        $query = Softorg::with(['administrators','website',
+        $query = Softorg::with(['administrators','ext','website',
             'slides' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();

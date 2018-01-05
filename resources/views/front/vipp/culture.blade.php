@@ -6,7 +6,7 @@
 <html class="no-js" lang="en-us" dir="ltr">
 
 <head profile="http://www.w3.org/1999/xhtml/vocab">
-    <title>简介 {{$org->name or '简介'}}</title>
+    <title>企业文化 {{$org->name or 'name'}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="" type="" />
     <meta name="description" content="" />
@@ -156,18 +156,18 @@
                         <div class="hero-product-description white" fade-onload>
                             <h4>{{$org->slogan or ''}}</h4>
                             <h1 class="hero-heading">{{$org->name or 'name'}}</h1>
-                            <a href="#" class="btn-md"><span>简介</span></a>
+                            <a href="#" class="btn-md"><span>企业文化</span></a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{--自定义简介--}}
+            {{--自定义首页--}}
             <div class="row full wrapper-content product-column product-four-column slide-to-top">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            {!! $org->ext->introduction or '' !!}
+                            {!! $org->ext->culture or '' !!}
                         </div>
                     </div>
                 </div>
@@ -260,7 +260,7 @@
                 wx.ready(function(){
                     wx.onMenuShareAppMessage({
                         title: "{{$org->name or ''}}",
-                        desc: "简介",
+                        desc: "联系我们",
                         link: link,
                         dataUrl: '',
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
@@ -272,7 +272,7 @@
                                     '_token': $('meta[name="_token"]').attr('content'),
                                     'website': "{{$org->website_name or '0'}}",
                                     'sort': 1,
-                                    'module': 3,
+                                    'module': 5,
                                     'share': 1
                                 },
                                 function(data) {
@@ -285,7 +285,7 @@
                     });
                     wx.onMenuShareTimeline({
                         title: "{{$org->name or ''}}",
-                        desc: "简介",
+                        desc: "联系我们",
                         link: link,
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
@@ -296,7 +296,7 @@
                                     '_token': $('meta[name="_token"]').attr('content'),
                                     'website': "{{$org->website_name or '0'}}",
                                     'sort': 1,
-                                    'module': 3,
+                                    'module': 5,
                                     'share': 2
                                 },
                                 function(data) {
@@ -309,7 +309,7 @@
                     });
                     wx.onMenuShareQQ({
                         title: "{{$org->name or ''}}",
-                        desc: "简介",
+                        desc: "联系我们",
                         link: link,
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
@@ -320,7 +320,7 @@
                                     '_token': $('meta[name="_token"]').attr('content'),
                                     'website': "{{$org->website_name or '0'}}",
                                     'sort': 1,
-                                    'module': 3,
+                                    'module': 5,
                                     'share': 3
                                 },
                                 function(data) {
@@ -333,7 +333,7 @@
                     });
                     wx.onMenuShareQZone({
                         title: "{{$org->name or ''}}",
-                        desc: "简介",
+                        desc: "联系我们",
                         link: link,
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
@@ -344,7 +344,7 @@
                                     '_token': $('meta[name="_token"]').attr('content'),
                                     'website': "{{$org->website_name or '0'}}",
                                     'sort': 1,
-                                    'module': 3,
+                                    'module': 5,
                                     'share': 4
                                 },
                                 function(data) {
@@ -357,7 +357,7 @@
                     });
                     wx.onMenuShareWeibo({
                         title: "{{$org->name or ''}}",
-                        desc: "简介",
+                        desc: "联系我们",
                         link: link,
                         imgUrl: "http://cdn.softorg.cn/{{$org->logo or ''}}",
                         success: function () {
@@ -368,7 +368,7 @@
                                     '_token': $('meta[name="_token"]').attr('content'),
                                     'website': "{{$org->website_name or '0'}}",
                                     'sort': 1,
-                                    'module': 3,
+                                    'module': 5,
                                     'share': 5
                                 },
                                 function(data) {

@@ -20,7 +20,7 @@ class SlideRepository {
     public function get_list_datatable($post_data)
     {
         $org_id = Auth::guard("admin")->user()->org_id;
-        $query = Slide::select("*")->where('org_id',$org_id)->with(['admin']);
+        $query = Slide::select("*")->where('org_id',$org_id)->with(['admin','menu']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
@@ -63,9 +63,11 @@ class SlideRepository {
         if($decode_id == 0) return view('admin.slide.edit')->with(['operate'=>'create', 'encode_id'=>$id]);
         else
         {
-            $slide = Slide::with(['pages'=>function($query) {
-                    $query->orderBy('order', 'asc');
-                }])->find($decode_id);
+            $slide = Slide::with([
+                'menu',
+                'org' => function ($query) { $query->with(['menus'])->orderBy('id','desc'); },
+                'pages'=>function($query) { $query->orderBy('order', 'asc'); }
+            ])->find($decode_id);
             if($slide)
             {
                 unset($slide->id);

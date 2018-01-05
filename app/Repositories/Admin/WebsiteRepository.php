@@ -72,6 +72,7 @@ class WebsiteRepository {
         else return response_error();
     }
 
+    // 总流量统计
     public function view_statistics()
     {
 //        $sql = "select count(*) from db_company.records group by date(created_at)";
@@ -104,9 +105,14 @@ class WebsiteRepository {
             ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>1, 'module'=>3])
             ->get();
 
-        $information = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+        $contactus = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
             ->groupBy(DB::raw("date(from_unixtime(created_at))"))
             ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>1, 'module'=>4])
+            ->get();
+
+        $culture = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw("date(from_unixtime(created_at))"))
+            ->where(['org_id'=>$org_id, 'type'=>1, 'sort'=>1, 'module'=>5])
             ->get();
 
         $list = Record::select(DB::raw('date(from_unixtime(created_at)) as date'), DB::raw('count(*) as count'))
@@ -205,7 +211,8 @@ class WebsiteRepository {
         $view["rooted"] = $rooted;
         $view["home"] = $home;
         $view["introduction"] = $introduction;
-        $view["information"] = $information;
+        $view["contactus"] = $contactus;
+        $view["culture"] = $culture;
         $view["list"] = $list;
         $view["product"] = $product;
         $view["activity"] = $activity;
@@ -223,6 +230,7 @@ class WebsiteRepository {
         return view('admin.website.statistics')->with($view);
     }
 
+    // 单页流量统计
     public function view_page_statistics()
     {
 //        $sql = "select count(*) from db_company.records group by date(created_at)";

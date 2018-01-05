@@ -20,7 +20,7 @@ class ActivityRepository {
     public function get_list_datatable($post_data)
     {
         $org_id = Auth::guard("admin")->user()->org_id;
-        $query = Activity::select("*")->where('org_id',$org_id)->with(['admin']);
+        $query = Activity::select("*")->where('org_id',$org_id)->with(['admin','menu']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
@@ -59,7 +59,10 @@ class ActivityRepository {
         if($decode_id == 0) return view('admin.activity.edit')->with(['operate'=>'create', 'encode_id'=>$id]);
         else
         {
-            $activity = Activity::with(['org'])->find($decode_id);
+            $activity = Activity::with([
+                'menu',
+                'org' => function ($query) { $query->with(['menus'])->orderBy('id','desc'); }
+            ])->find($decode_id);
             if($activity)
             {
                 unset($activity->id);

@@ -98,8 +98,26 @@ desired effect
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+
+                    <!-- Add Menu -->
+                    <li class="dropdown tasks-menu add-menu">
+                        <!-- Menu toggle button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header"><a href="{{url('/admin/menu/create')}}"><i class="fa fa-circle-o text-red"></i>添加目录</a></li>
+                            <li class="header"><a href="{{url('/admin/product/create')}}"><i class="fa fa-circle-o text-red"></i>添加产品</a></li>
+                            <li class="header"><a href="{{url('/admin/article/create')}}"><i class="fa fa-circle-o text-red"></i>添加文章</a></li>
+                            <li class="header"><a href="{{url('/admin/activity/create')}}"><i class="fa fa-circle-o text-red"></i>添加活动</a></li>
+                            <li class="header"><a href="{{url('/admin/survey/create')}}"><i class="fa fa-circle-o text-red"></i>添加问卷</a></li>
+                            <li class="header"><a href="{{url('/admin/slide/create')}}"><i class="fa fa-circle-o text-red"></i>添加幻灯片</a></li>
+                            <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li>
+
                     <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
+                    <li class="dropdown messages-menu" style="display:none;">
                         <!-- Menu toggle button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
@@ -132,10 +150,9 @@ desired effect
                             <li class="footer"><a href="#">See All Messages</a></li>
                         </ul>
                     </li>
-                    <!-- /.messages-menu -->
 
                     <!-- Notifications Menu -->
-                    <li class="dropdown notifications-menu">
+                    <li class="dropdown notifications-menu" style="display:none;">
                         <!-- Menu toggle button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
@@ -157,8 +174,9 @@ desired effect
                             <li class="footer"><a href="#">View all</a></li>
                         </ul>
                     </li>
+
                     <!-- Tasks Menu -->
-                    <li class="dropdown tasks-menu">
+                    <li class="dropdown tasks-menu" style="display:none;">
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-flag-o"></i>
@@ -193,6 +211,7 @@ desired effect
                             </li>
                         </ul>
                     </li>
+
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
@@ -238,8 +257,9 @@ desired effect
                             </li>
                         </ul>
                     </li>
+
                     <!-- Control Sidebar Toggle Button -->
-                    <li>
+                    <li style="display:none;">
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </li>
                 </ul>
@@ -281,92 +301,120 @@ desired effect
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
-                <li class="header">HEADER</li>
+                <li class="header">机构(企业)管理</li>
                 <!-- Optionally, you can add icons to the links -->
+
                 <li class="treeview">
-                    <a href=""><i class="fa fa-th"></i> <span>机构(企业)管理</span>
+                    <a href="{{url('/admin/softorg/index')}}"><i class="fa fa-circle-o text-aqua"></i><span>基本信息</span></a>
+                </li>
+                
+                <li class="treeview-" style="display:none;">
+                    <a href="{{url('/admin/softorg/edit')}}"><i class="fa fa-circle-o text-aqua"></i>编辑基本信息</a>
+                </li>
+
+                <li class="treeview">
+                    <a href=""><i class="fa fa-th"></i> <span>更多信息</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/softorg/index')}}"><i class="fa fa-circle-o text-aqua"></i>基本信息</a></li>
-                        <li><a href="{{url('/admin/softorg/edit')}}"><i class="fa fa-circle-o text-aqua"></i>编辑基本信息</a></li>
+                        <li style="display:none;"><a href="{{url('/admin/website/edit')}}"><i class="fa fa-circle-o text-aqua"></i>详细编辑</a></li>
+                        <li><a href="{{url('/admin/softorg/edit/home')}}"><i class="fa fa-circle-o text-aqua"></i>编辑展示主页</a></li>
+                        <li><a href="{{url('/admin/softorg/edit/introduction')}}"><i class="fa fa-circle-o text-aqua"></i>编辑简介详情</a></li>
+                        <li><a href="{{url('/admin/softorg/edit/contactus')}}"><i class="fa fa-circle-o text-aqua"></i>编辑联系我们</a></li>
+                        <li><a href="{{url('/admin/softorg/edit/culture')}}"><i class="fa fa-circle-o text-aqua"></i>编辑企业文化</a></li>
                         {{--<li><a href="{{url('/admin/administrator/list')}}"><i class="fa fa-circle-o text-aqua"></i>管理员列表</a></li>--}}
-                        <li><a href="{{url('/admin/administrator/password/reset')}}"><i class="fa fa-circle-o text-aqua"></i>修改密码</a></li>
                     </ul>
                 </li>
+
+                <li class="header">流量统计</li>
+
                 <li class="treeview">
-                    <a href=""><i class="fa fa-th"></i> <span>网站管理</span>
-                        <span class="pull-right-container">
+                    <a href="{{url('/admin/website/statistics')}}"><i class="fa fa-bar-chart"></i> <span>流量统计</span></a>
+                </li>
+
+                <li class="header">内容管理</li>
+
+                <li class="treeview">
+                    <a href="{{url('/admin/menu/list')}}"><i class="fa fa-list text-aqua"></i> <span>目录管理</span>
+                        <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/website/edit')}}"><i class="fa fa-circle-o text-aqua"></i>网站编辑</a></li>
-                        <li><a href="{{url('/admin/website/statistics')}}"><i class="fa fa-circle-o text-aqua"></i>流量统计</a></li>
+                    <ul class="treeview-menu-" style="display:none;">
+                        <li><a href="{{url('/admin/menu/list')}}"><i class="fa fa-circle-o text-aqua"></i>目录列表</a></li>
+                        <li><a href="{{url('/admin/menu/create')}}"><i class="fa fa-circle-o text-aqua"></i>添加目录</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href=""><i class="fa fa-th"></i> <span>业务/产品管理</span>
-                        <span class="pull-right-container">
+                    <a href="{{url('/admin/product/list')}}"><i class="fa fa-cube text-red"></i> <span>产品管理</span>
+                        <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
+                    <ul class="treeview-menu-" style="display:none;">
                         <li><a href="{{url('/admin/product/list')}}"><i class="fa fa-circle-o text-red"></i>产品列表</a></li>
                         <li><a href="{{url('/admin/product/create')}}"><i class="fa fa-circle-o text-red"></i>添加产品</a></li>
-                        <li><a href="{{url('/admin/menu/list')}}"><i class="fa fa-circle-o text-aqua"></i>产品目录列表</a></li>
-                        <li><a href="{{url('/admin/menu/create')}}"><i class="fa fa-circle-o text-aqua"></i>添加产品目录</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-th"></i> <span>文章管理</span>
-                        <span class="pull-right-container">
+                    <a href="{{url('/admin/article/list')}}"><i class="fa fa-file-text text-green"></i> <span>文章管理</span>
+                        <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/article/list')}}"><i class="fa fa-circle-o text-red"></i>文章列表</a></li>
-                        <li><a href="{{url('/admin/article/create')}}"><i class="fa fa-circle-o text-red"></i>添加文章</a></li>
+                    <ul class="treeview-menu-" style="display:none;">
+                        <li><a href="{{url('/admin/article/list')}}"><i class="fa fa-circle-o text-green"></i>文章列表</a></li>
+                        <li><a href="{{url('/admin/article/create')}}"><i class="fa fa-circle-o text-green"></i>添加文章</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-th"></i> <span>活动/会议管理</span>
-                        <span class="pull-right-container">
+                    <a href="{{url('/admin/activity/list')}}"><i class="fa fa-calendar-check-o text-yellow"></i> <span>活动/会议管理</span>
+                        <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
+                    <ul class="treeview-menu-" style="display:none;">
                         <li><a href="{{url('/admin/activity/list')}}"><i class="fa fa-circle-o text-yellow"></i>活动/会议列表</a></li>
                         <li><a href="{{url('/admin/activity/create')}}"><i class="fa fa-circle-o text-yellow"></i>添加活动/会议</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-th"></i> <span>幻灯片管理</span>
-                        <span class="pull-right-container">
+                    <a href="{{url('/admin/survey/list')}}"><i class="fa fa-question-circle  text-blue"></i> <span>调研问卷管理</span>
+                        <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/slide/list')}}"><i class="fa fa-circle-o text-red"></i>幻灯片列表</a></li>
-                        <li><a href="{{url('/admin/slide/create')}}"><i class="fa fa-circle-o text-red"></i>添加幻灯片</a></li>
+                    <ul class="treeview-menu-" style="display:none;">
+                        <li><a href="{{url('/admin/survey/list')}}"><i class="fa fa-circle-o text-blue"></i>问卷列表</a></li>
+                        <li><a href="{{url('/admin/survey/create')}}"><i class="fa fa-circle-o text-blue"></i>添加问卷</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-th"></i> <span>调研问卷管理</span>
-                        <span class="pull-right-container">
+                    <a href="{{url('/admin/slide/list')}}"><i class="fa fa-th-large text-purple"></i> <span>幻灯片管理</span>
+                        <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/survey/list')}}"><i class="fa fa-circle-o text-red"></i>问卷列表</a></li>
-                        <li><a href="{{url('/admin/survey/create')}}"><i class="fa fa-circle-o text-red"></i>添加问卷</a></li>
+                    <ul class="treeview-menu-" style="display:none;">
+                        <li><a href="{{url('/admin/slide/list')}}"><i class="fa fa-circle-o text-purple"></i>幻灯片列表</a></li>
+                        <li><a href="{{url('/admin/slide/create')}}"><i class="fa fa-circle-o text-purple"></i>添加幻灯片</a></li>
                     </ul>
                 </li>
+
+                <li class="header">前台展示</li>
+
                 <li class="treeview">
                     <a target="_blank" href="/org/{{ $org->website_name }}"><i class="fa fa-circle-o text-red"></i><span>前台主页</span></a>
                 </li>
+
+                <li class="header">管理员管理</li>
+
+                <li class="treeview">
+                    <a href="{{url('/admin/administrator/password/reset')}}"><i class="fa fa-circle-o text-aqua"></i><span>修改密码</span></a>
+                </li>
+
             </ul>
             <!-- /.sidebar-menu -->
         </section>

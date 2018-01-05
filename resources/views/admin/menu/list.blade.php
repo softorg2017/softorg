@@ -1,8 +1,8 @@
 @extends('admin.layout.layout')
 
-@section('title','产品目录列表')
-@section('header','产品目录列表')
-@section('description','产品目录列表')
+@section('title','目录列表')
+@section('header','目录列表')
+@section('description','目录列表')
 @section('breadcrumb')
     <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
     <li><a href="{{url('/admin/menu/list')}}"><i class="fa "></i>产品目录列表</a></li>
@@ -17,13 +17,14 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">产品目录列表</h3>
+                <h3 class="box-title">目录列表</h3>
+
                 <div class="pull-right">
                     <a href="{{url('/admin/menu/create')}}">
-                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加商品目录</button>
+                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加目录</button>
                     </a>
                 </div>
-                <div class="pull-right">
+                <div class="pull-right" style="display:none;">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                         <i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">

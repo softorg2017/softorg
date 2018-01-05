@@ -52,11 +52,30 @@
                         <div><input type="text" class="form-control" name="title" placeholder="请输入标题" value="{{$data->title or ''}}"></div>
                     </div>
                 </div>
-                {{--说明--}}
+                {{--描述--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">描述</label>
                     <div class="col-md-8 ">
                         <div><input type="text" class="form-control" name="description" placeholder="描述" value="{{$data->description or ''}}"></div>
+                    </div>
+                </div>
+                {{--目录--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">目录</label>
+                    <div class="col-md-8 ">
+                        <select class="form-control" onchange="select_menu()">
+                            <option data-id="0">未分类</option>
+                            @if(!empty($data->org->menus))
+                                @foreach($data->org->menus as $v)
+                                    <option data-id="{{$v->id}}" @if($data->menu_id == $v->id) selected="selected" @endif>{{$v->name}}</option>
+                                @endforeach
+                            @else
+                                @foreach($org->menus as $v)
+                                    <option data-id="{{$v->id}}">{{$v->name}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        <input type="hidden" value="{{$data->menu_id or 0}}" name="menu_id" id="menu-selected">
                     </div>
                 </div>
                 {{--内容--}}

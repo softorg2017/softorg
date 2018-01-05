@@ -17,14 +17,14 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title"></h3>
+                <h3 class="box-title">幻灯片列表</h3>
 
                 <div class="pull-right">
                     <a href="{{url('/admin/slide/create')}}">
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加幻灯片</button>
                     </a>
                 </div>
-                <div class="pull-right">
+                <div class="pull-right" style="display:none;">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                         <i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
@@ -40,6 +40,7 @@
                         <th>名称</th>
                         <th>标题</th>
                         <th>类型</th>
+                        <th>所属目录</th>
                         <th>管理员</th>
                         <th>浏览次数</th>
                         <th>状态</th>
@@ -48,6 +49,7 @@
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -145,6 +147,13 @@
                         'orderable': true,
                         render: function(type) {
                             return type == null ? '' : type;
+                        }
+                    },
+                    {
+                        'data': 'menu_id',
+                        'orderable': true,
+                        render: function(data, type, row, meta) {
+                            return row.menu == null ? '未分类' : row.menu.name;
                         }
                     },
                     {

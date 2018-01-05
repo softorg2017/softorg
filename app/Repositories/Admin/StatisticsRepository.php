@@ -19,6 +19,7 @@ class StatisticsRepository {
     }
 
 
+    // 单页流量统计
     public function view_page_statistics($post_data)
     {
         $module = $post_data["module"];

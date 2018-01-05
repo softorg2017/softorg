@@ -17,6 +17,8 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
+                <h3 class="box-title">产品列表</h3>
+
                 <div class="caption">
                     <i class="icon-pin font-blue"></i>
                     <span class="caption-subject font-blue sbold uppercase"></span>
@@ -24,7 +26,11 @@
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加商品</button>
                     </a>
                 </div>
-                <div class="actions">
+                <div class="pull-right" style="display:none;">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+                        <i class="fa fa-times"></i></button>
                 </div>
             </div>
 
@@ -36,7 +42,7 @@
                         <th>名称</th>
                         <th>标题</th>
                         <th>类型</th>
-                        <th>目录</th>
+                        <th>所属目录</th>
                         <th>管理员</th>
                         <th>浏览次数</th>
                         <th>状态</th>

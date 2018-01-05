@@ -39,16 +39,28 @@ class SoftorgController extends Controller
         return $this->repo->view_home($org_name);
     }
 
-    // 返回自定义简介视图
+    // 返回自定义信息
+    public function information($org_name)
+    {
+        return $this->repo->view_information($org_name);
+    }
+
+    // 返回简介视图
     public function introduction($org_name)
     {
         return $this->repo->view_introduction($org_name);
     }
 
-    // 返回自定义联系我们视图
-    public function information($org_name)
+    // 返回联系我们视图
+    public function contactus($org_name)
     {
-        return $this->repo->view_information($org_name);
+        return $this->repo->view_contactus($org_name);
+    }
+
+    // 返回企业文化视图
+    public function culture($org_name)
+    {
+        return $this->repo->view_culture($org_name);
     }
 
 

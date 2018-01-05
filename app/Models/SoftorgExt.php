@@ -2,13 +2,12 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class SoftorgExt extends Model
 {
     //
-    protected $table = "article";
+    protected $table = "softorg_ext";
     protected $fillable = [
-        'sort', 'type', 'org_id', 'admin_id', 'menu_id', 'active', 'name', 'title', 'description', 'content', 'cover_pic',
-        'visit_num', 'share_num'
+        'sort', 'type', 'org_id', 'admin_id', 'home', 'information', 'introduction', 'contactus', 'culture'
     ];
     protected $dateFormat = 'U';
 
@@ -22,10 +21,6 @@ class Article extends Model
         return $this->belongsTo('App\Administrator','admin_id','id');
     }
 
-    function menu()
-    {
-        return $this->belongsTo('App\Models\Menu','menu_id','id');
-    }
 
 
 }

@@ -6,7 +6,7 @@
 <html class="no-js" lang="en-us" dir="ltr">
 
 <head profile="http://www.w3.org/1999/xhtml/vocab">
-    <title>{{$org->name or '联系我们'}}</title>
+    <title>企业信息 {{$org->name or 'name'}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="" type="" />
     <meta name="description" content="" />
@@ -150,8 +150,8 @@
             {{--首页--}}
             <div class="row full has-fold">
                 <div class="col-xs-14">
-                    <div class="hero-product-container" style="background-image:url(/images/black.jpg)">
-                        <div class="hero-product-container-xs" style="background-image:url(/images/black.jpg)">
+                    <div class="hero-product-container" style="background-image:url(/images/black-r.jpg)">
+                        <div class="hero-product-container-xs" style="background-image:url(/images/black-v.jpg)">
                         </div>
                         <div class="hero-product-description white" fade-onload>
                             <h4>{{$org->slogan or ''}}</h4>
@@ -167,7 +167,7 @@
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            {!! $org->website->information or '' !!}
+                            {!! $org->ext->information or '' !!}
                         </div>
                     </div>
                 </div>
@@ -207,10 +207,17 @@
             <li><a href="/org/{{$org->website_name or '1'}}/survey">问卷</a></li>
             <li><a href="/org/{{$org->website_name or '1'}}/article">文章</a></li>
         </ul>
-        <div class="copyright">COPYRIGHT©如哉网络科技有限公司 (2017) 沪ICP备17052782号-1</div>
-        <div class="term" style="display: none"><a href="#">Terms and conditions</a></div>
-        <div class="term" style="display: none">COPYRIGHT© 上海如哉网络科技有限公司 (2017)</div>
-        <div class="term" style="display: none">沪ICP备17052782号-1</div>
+
+        <div style="margin-bottom:16px;">
+
+            <div class="term" style="margin-top:4px;">COPYRIGHT©{{$org->name or 'name'}}</div>
+            <div class="term" style="margin-top:4px;">技术支持©上海如哉网络科技有限公司</div>
+            <div class="term" style="margin-top:4px;">沪ICP备17052782号-1</div>
+
+            <div class="copyright" style="display: none">COPYRIGHT©上海如哉网络科技有限公司 技术支持 (2017-2018) 沪ICP备17052782号-1</div>
+            <div class="term" style="display: none"><a href="#">Terms and conditions</a></div>
+
+        </div>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
