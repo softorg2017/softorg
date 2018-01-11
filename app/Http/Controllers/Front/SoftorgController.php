@@ -65,6 +65,19 @@ class SoftorgController extends Controller
 
 
 
+    // 返回目录内容列表
+    public function view_menu_list()
+    {
+        return $this->repo->view_menu_list();
+    }
+    // 返回目录内容列表
+    public function view_menu_contents()
+    {
+        return $this->repo->view_menu_contents();
+    }
+
+
+
     // 返回产品列表视图
     public function product($org_name)
     {

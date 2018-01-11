@@ -38,16 +38,20 @@
                     <thead>
                     <tr role='row' class='heading'>
                         <th>名称</th>
-                        <th>描述</th>
+                        <th>标题</th>
                         <th>类型</th>
-                        <th>产品个数</th>
+                        <th>内容数量</th>
                         <th>管理员</th>
+                        <th>访问数</th>
+                        <th>分享数</th>
                         <th>状态</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -129,26 +133,32 @@
                 "order": [],
                 "orderCellsTop": true,
                 "columns": [
-                    {'data': 'name', 'orderable': false},
                     {
-                        'data': 'description',
+                        'data': 'encode_id',
                         'orderable': false,
-                        render: function(description) {
-                            return description == null ? '' : description;
+                        render: function(data, type, row, meta) {
+                            return '<a target="_blank" href="/menu?id='+data+'">'+row.name+'</a>';
+                        }
+                    },
+                    {
+                        'data': 'title',
+                        'orderable': true,
+                        render: function(val) {
+                            return val == null ? '' : val;
                         }
                     },
                     {
                         'data': 'type',
                         'orderable': true,
-                        render: function(type) {
-                            return type == null ? '' : type;
+                        render: function(val) {
+                            return val == null ? '' : val;
                         }
                     },
                     {
                         'data': 'products_count',
-                        'orderable': true,
+                        'orderable': false,
                         render: function(data, type, row, meta) {
-                            return row.products_count == null ? '0' : row.products_count;
+                            return row.items_count == null ? '0' : row.items_count;
                         }
                     },
                     {
@@ -156,6 +166,20 @@
                         'orderable': false,
                         render: function(data, type, row, meta) {
                             return row.admin == null ? '未知' : row.admin.nickname;
+                        }
+                    },
+                    {
+                        'data': 'visit_num',
+                        'orderable': true,
+                        render: function(val) {
+                            return val == null ? 0 : val;
+                        }
+                    },
+                    {
+                        'data': 'share_num',
+                        'orderable': true,
+                        render: function(val) {
+                            return val == null ? 0 : val;
                         }
                     },
                     {

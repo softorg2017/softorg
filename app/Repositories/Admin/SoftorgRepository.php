@@ -416,6 +416,62 @@ class SoftorgRepository {
 
 
 
+    // 返回（前台）【目录】列表页视图
+    public function view_menu($org)
+    {
+        $query = Softorg::with(['administrators','ext','website',
+            'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
+        ]);
+        if(is_numeric($org)) $org = $query->whereId($org)->first();
+        else $org = $query->where('website_name',$org)->first();
+
+        if($org)
+        {
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 2; // sort=2 list
+            $record["module"] = 1; // module=1 product
+            $record["org_id"] = $org->id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.list').'.product.list')->with('org',$org);
+        }
+        else dd("企业不存在");
+    }
+    // 返回（前台）【目录】【详情页】视图
+    public function view_menu_contents()
+    {
+        $encode_id = request('id');
+        $decode_id = decode($encode_id);
+        if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
+
+        $menu = Menu::with(['org','admin','items'])->whereId($decode_id)->first();
+        if($menu)
+        {
+            // 访问数量+1
+            $menu->timestamps = false;
+            $menu->increment('visit_num');
+//            DB::table('menu')->where('id', $decode_id)->increment('visit_num');
+            // 插入记录表
+            if(Auth::check()) $record["user_id"] = Auth::id();
+            $record["type"] = 1; // type=1 browse
+            $record["sort"] = 2; // sort=3 list
+            $record["module"] = 0; // module=0 customer menu
+            $record["org_id"] = $menu->org->id;
+            $record["page_id"] = $decode_id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+
+            return view('front.'.config('common.view.front.list').'.menu.contents')
+                ->with(['data'=>$menu,'encode_id'=>$encode_id]);
+        }
+        else dd("产品不存在");
+    }
+
+
+
     // 返回（前台）【产品】列表页视图
     public function view_product($org)
     {
@@ -453,7 +509,6 @@ class SoftorgRepository {
             // 访问数量+1
             $product->timestamps = false;
             $product->increment('visit_num');
-//            DB::table('product')->where('id', $decode_id)->increment('visit_num');
             // 插入记录表
             if(Auth::check()) $record["user_id"] = Auth::id();
             $record["type"] = 1; // type=1 browse
@@ -1056,6 +1111,12 @@ class SoftorgRepository {
             if($org)
             {
                 $record["org_id"] = $org->id;
+                if($module == 0)
+                {
+                    $encode_id = request('id');
+                    $decode_id = decode($encode_id);
+                    $record["page_id"] = $decode_id;
+                }
             }
             else return response_error([],"机构org不存在");
 
@@ -1063,7 +1124,7 @@ class SoftorgRepository {
         // 分享列表
         else if($sort == 2)
         {
-            if(!in_array($module, [1,2,3,4,5])) return response_error([],"参数module错误");
+            if(!in_array($module, [0,1,2,3,4,5])) return response_error([],"参数module错误");
 
             $v = Validator::make($post_data, [
                 'website' => 'required'

@@ -328,6 +328,8 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
 
     $controller = "SoftorgController";
 
+    Route::get('/menu', $controller.'@view_menu_contents');
+
     Route::get('/product', $controller.'@view_product_detail');
     Route::get('/activity', $controller.'@view_activity_detail');
     Route::get('/activity/apply', $controller.'@view_activity_apply');
@@ -356,6 +358,8 @@ Route::group(['prefix' => config('common.website.front.prefix').'/{org_name}', '
     Route::get('/introduction', $controller.'@introduction');
     Route::get('/contactus', $controller.'@contactus');
     Route::get('/culture', $controller.'@culture');
+
+    Route::get('/menu', $controller.'@menu');
 
     Route::get('/product', $controller.'@product');
     Route::get('/product/detail', $controller.'@product_detail');

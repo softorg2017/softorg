@@ -212,7 +212,7 @@
                             @if( count($menu->items) == 0 )
                                 <span class="hidden-xs">暂无</span>
                             @else
-                                <a href="/org/{{$org->website_name or '1'}}/menu?id={{ decode($menu->id) }}" class="hidden-xs">更多</a>
+                                <a href="/menu?id={{ decode($menu->id) }}" class="hidden-xs">更多</a>
                             @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
@@ -248,7 +248,7 @@
                         @if( count($menu->items) == 0 )
                             <span class="view-more visible-xs">暂无</span>
                         @else
-                            <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs- btn-md btn-more">更多</a>
+                            <a href="/menu?id={{ encode($menu->id) }}" class="view-more visible-xs- btn-md btn-more">更多</a>
                         @endif
                     </div>
                 </div>
@@ -268,7 +268,7 @@
                         </div>
                     </div>
                 </div>
-                <ul class="col-sm-12 col-xs-14 product-list" style="width:100%;height:auto;">
+                <ul class="col-sm-12 col-xs-14 product-list" style="width:100%;height:auto;display: none;">
                     <img src="/style/contact.jpeg" alt="" style="width:100%;height:100%;">
                 </ul>
                 <div class="col-xs-14" style="border-top:1px solid #111;border-bottom:1px solid #111;">

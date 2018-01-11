@@ -252,6 +252,7 @@
                                 'website': "{{$org->website_name or '0'}}",
                                 'sort': 2,
                                 'module': "@yield('share_module')",
+                                'id': "{{$encode_id or '0'}}",
                                 'share': 1
                             },
                             function(data) {
@@ -276,6 +277,7 @@
                                 'website': "{{$org->website_name or '0'}}",
                                 'sort': 2,
                                 'module': "@yield('share_module')",
+                                'id': "{{$encode_id or '0'}}",
                                 'share': 2
                             },
                             function(data) {
@@ -300,6 +302,7 @@
                                 'website': "{{$org->website_name or '0'}}",
                                 'sort': 2,
                                 'module': "@yield('share_module')",
+                                'id': "{{$encode_id or '0'}}",
                                 'share': 3
                             },
                             function(data) {
@@ -324,6 +327,7 @@
                                 'website': "{{$org->website_name or '0'}}",
                                 'sort': 2,
                                 'module': "@yield('share_module')",
+                                'id': "{{$encode_id or '0'}}",
                                 'share': 4
                             },
                             function(data) {
@@ -348,6 +352,7 @@
                                 'website': "{{$org->website_name or '0'}}",
                                 'sort': 2,
                                 'module': "@yield('share_module')",
+                                'id': "{{$encode_id or '0'}}",
                                 'share': 5
                             },
                             function(data) {

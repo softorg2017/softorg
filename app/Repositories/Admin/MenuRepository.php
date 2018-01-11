@@ -17,7 +17,7 @@ class MenuRepository {
     public function get_list_datatable($post_data)
     {
         $org_id = Auth::guard("admin")->user()->org_id;
-        $query = Menu::select("*")->where('org_id',$org_id)->withCount(['products'])->with(['admin']);
+        $query = Menu::select("*")->where('org_id',$org_id)->withCount(['items'])->with(['admin']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
