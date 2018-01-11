@@ -465,7 +465,7 @@ class SoftorgRepository {
             $this->record($record);
 
             return view('front.'.config('common.view.front.list').'.menu.contents')
-                ->with(['data'=>$menu,'encode_id'=>$encode_id]);
+                ->with(['data'=>$menu,'org'=>$menu->org,'encode_id'=>$encode_id]);
         }
         else dd("产品不存在");
     }

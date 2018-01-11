@@ -155,7 +155,7 @@
                         }
                     },
                     {
-                        'data': 'products_count',
+                        'data': 'items_count',
                         'orderable': false,
                         render: function(data, type, row, meta) {
                             return row.items_count == null ? '0' : row.items_count;

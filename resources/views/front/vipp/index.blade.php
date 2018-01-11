@@ -171,7 +171,7 @@
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3 style="margin-bottom:16px;color:#D5B069;">简 介</h3>
+                            <h3 class="menu-title" style="margin-bottom:16px;">简 介</h3>
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
                             <img src="/style/about.jpg" alt="" style="width:100%;height:100%;">
@@ -184,7 +184,7 @@
                                         <div>{{$org->description or ''}}</div>
                                     </div>
                                     <div class="">
-                                        <h4 class="font-0" style="text-indent:2em;margin:24px 16px;line-height:20px;">{{$org->description or '暂无简介'}}</h4>
+                                        <h4 class="font-0" style="text-indent:2em;margin:8px 16px 16px;line-height:20px;">{{$org->description or '暂无简介'}}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -208,11 +208,13 @@
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="">
-                            <h3 style="width:100%;text-align:center;color:#D5B069">{{ $menu->title }}</h3>
+                            <h3 class="menu-title" style="width:100%;text-align:center;">{{ $menu->title }}</h3>
+                            @if(false)
                             @if( count($menu->items) == 0 )
                                 <span class="hidden-xs">暂无</span>
                             @else
                                 <a href="/menu?id={{ decode($menu->id) }}" class="hidden-xs">更多</a>
+                            @endif
                             @endif
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
@@ -261,14 +263,14 @@
 
             {{--联系我们--}}
             <div class="row full slide-to-top" id="contact" style="margin-top:48px;">
-                <div class="col-md-14" style="margin-bottom:-16px;">
+                <div class="col-md-14" style="margin-bottom:16px;">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3 style="margin-bottom:0px;">联系我们</h3>
+                            <h3 class="menu-title" style="">联系我们</h3>
                         </div>
                     </div>
                 </div>
-                <ul class="col-sm-12 col-xs-14 product-list" style="width:100%;height:auto;display: none;">
+                <ul class="col-sm-12 col-xs-14 product-list" style="width:100%;height:auto;">
                     <img src="/style/contact.jpeg" alt="" style="width:100%;height:100%;">
                 </ul>
                 <div class="col-xs-14" style="border-top:1px solid #111;border-bottom:1px solid #111;">

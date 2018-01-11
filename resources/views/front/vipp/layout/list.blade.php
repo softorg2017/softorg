@@ -138,7 +138,7 @@
 <div class="wrapper-main-content style-main style-{{ $org->style or '0' }}">
     <div class="container-fluid ">
         {{--首页--}}
-        <div class="row full has-fold">
+        <div class="row full has-fold" style="margin-bottom:48px;">
             <div class="col-xs-14">
                 <div class="hero-product-container" style="background-image:url(/images/black-r.jpg)">
                     <div class="hero-product-container-xs" style="background-image:url(/images/black-v.jpg)">

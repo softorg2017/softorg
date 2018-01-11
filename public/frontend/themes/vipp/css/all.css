@@ -20842,6 +20842,10 @@ input:-webkit-autofill:focus {
     color:#9e9e9e;
 }
 
+.menu-title {
+    color:#D5B069;
+}
+
 @media (max-width:767px) {
     .center-text {
     }
