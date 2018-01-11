@@ -280,9 +280,26 @@ class SurveyRepository {
         $survey = Survey::find($id);
         if($survey->admin_id != $admin->id) return response_error([],"你没有操作权限");
         $update["active"] = 1;
-        $bool = $survey->fill($update)->save();
-        if(!$bool) return response_fail([],"启用失败，请重试");
-        else return response_success([]);
+        DB::beginTransaction();
+        try
+        {
+            $bool = $survey->fill($update)->save();
+            if($bool)
+            {
+                $item = Item::find($survey->item_id);
+                $bool1 = $item->fill($update)->save();
+                if(!$bool1) throw new Exception("update-item--fail");
+            }
+            else throw new Exception("update-survey--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            return response_fail([],'启用失败，请重试');
+        }
     }
 
     // 禁用
@@ -295,9 +312,26 @@ class SurveyRepository {
         $survey = Survey::find($id);
         if($survey->admin_id != $admin->id) return response_error([],"你没有操作权限");
         $update["active"] = 9;
-        $bool = $survey->fill($update)->save();
-        if(!$bool) return response_fail([],"禁用失败，请重试");
-        else return response_success([]);
+        DB::beginTransaction();
+        try
+        {
+            $bool = $survey->fill($update)->save();
+            if($bool)
+            {
+                $item = Item::find($survey->item_id);
+                $bool1 = $item->fill($update)->save();
+                if(!$bool1) throw new Exception("update-item--fail");
+            }
+            else throw new Exception("update-survey--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            return response_fail([],'禁用失败，请重试');
+        }
     }
 
 

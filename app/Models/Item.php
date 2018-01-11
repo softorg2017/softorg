@@ -7,7 +7,7 @@ class Item extends Model
     //
     protected $table = "items";
     protected $fillable = [
-        'sort', 'type', 'sort', 'org_id', 'admin_id', 'menu_id', 'itemable_id', 'itemable_type', 'content'
+        'sort', 'type', 'sort', 'org_id', 'admin_id', 'menu_id', 'active', 'itemable_id', 'itemable_type', 'content'
     ];
     protected $dateFormat = 'U';
 

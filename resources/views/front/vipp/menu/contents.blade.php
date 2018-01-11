@@ -27,7 +27,7 @@
             <ul class="col-sm-12 col-xs-14 product-list">
                 @foreach($data->items as $v)
                     <li class="col-md-6 ">
-                        <a href="{{url('/'.strtolower(substr($v->itemable_type, 11)).'?id=').encode($v->id)}}">
+                        <a href="{{url('/'.strtolower(substr($v->itemable_type, 11)).'?id=').encode($v->itemable->id)}}">
                             <div class="item " style="
                             @if( (count($data->items) % 2) == 1 )
                                 @if($loop->first)
@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="bottom-text left-8" style="display:none;">
-                                    <span class="price">文章</span>
+                                    <span class="price"></span>
                                 </div>
                             </div>
                         </a>

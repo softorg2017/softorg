@@ -447,7 +447,9 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $menu = Menu::with(['org','admin','items'])->whereId($decode_id)->first();
+        $menu = Menu::with(['org','admin',
+                'items'=>function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc'); }
+            ])->whereId($decode_id)->first();
         if($menu)
         {
             // 访问数量+1

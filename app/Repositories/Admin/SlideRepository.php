@@ -257,9 +257,26 @@ class SlideRepository {
         $slide = Slide::find($id);
         if($slide->admin_id != $admin->id) return response_error([],"你没有操作权限");
         $update["active"] = 1;
-        $bool = $slide->fill($update)->save();
-        if(!$bool) return response_fail([],"启用失败，请重试");
-        else return response_success();
+        DB::beginTransaction();
+        try
+        {
+            $bool = $slide->fill($update)->save();
+            if($bool)
+            {
+                $item = Item::find($slide->item_id);
+                $bool1 = $item->fill($update)->save();
+                if(!$bool1) throw new Exception("update-item--fail");
+            }
+            else throw new Exception("update-slide--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            return response_fail([],'启用失败，请重试');
+        }
     }
 
     // 禁用
@@ -272,9 +289,26 @@ class SlideRepository {
         $slide = Slide::find($id);
         if($slide->admin_id != $admin->id) return response_error([],"你没有操作权限");
         $update["active"] = 9;
-        $bool = $slide->fill($update)->save();
-        if(!$bool) return response_fail([],"禁用失败，请重试");
-        else return response_success();
+        DB::beginTransaction();
+        try
+        {
+            $bool = $slide->fill($update)->save();
+            if($bool)
+            {
+                $item = Item::find($slide->item_id);
+                $bool1 = $item->fill($update)->save();
+                if(!$bool1) throw new Exception("update-item--fail");
+            }
+            else throw new Exception("update-slide--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            return response_fail([],'禁用失败，请重试');
+        }
     }
 
 
