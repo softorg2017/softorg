@@ -6942,8 +6942,8 @@ screen and (min-device-pixel-ratio:1.5) {
         line-height: 28px
     }
     .product-column-title h3 {
-        width: auto;
-        text-align: left;
+        width: 100%;
+        /*text-align: left;*/
         font-weight: 500;
         font-size: 22px;
         margin: 0 0 35px

@@ -21,9 +21,34 @@ class Menu extends Model
         return $this->belongsTo('App\Administrator','admin_id','id');
     }
 
+    function items()
+    {
+        return $this->hasMany('App\Models\Item','menu_id','id');
+    }
+
     function products()
     {
         return $this->hasMany('App\Models\Product','menu_id','id');
+    }
+
+    function articles()
+    {
+        return $this->hasMany('App\Models\Article','menu_id','id');
+    }
+
+    function activities()
+    {
+        return $this->hasMany('App\Models\Activity','menu_id','id');
+    }
+
+    function surveys()
+    {
+        return $this->hasMany('App\Models\Survey','menu_id','id');
+    }
+
+    function slides()
+    {
+        return $this->hasMany('App\Models\Slide','menu_id','id');
     }
 
 

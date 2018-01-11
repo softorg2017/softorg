@@ -313,7 +313,7 @@ desired effect
                 </li>
 
                 <li class="treeview">
-                    <a href=""><i class="fa fa-th"></i> <span>更多信息</span>
+                    <a href=""><i class="fa fa-th text-aqua"></i> <span>更多信息</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -331,13 +331,13 @@ desired effect
                 <li class="header">流量统计</li>
 
                 <li class="treeview">
-                    <a href="{{url('/admin/website/statistics')}}"><i class="fa fa-bar-chart"></i> <span>流量统计</span></a>
+                    <a href="{{url('/admin/website/statistics')}}"><i class="fa fa-bar-chart text-green"></i> <span>流量统计</span></a>
                 </li>
 
-                <li class="header">内容管理</li>
+                <li class="header">目录管理</li>
 
                 <li class="treeview">
-                    <a href="{{url('/admin/menu/list')}}"><i class="fa fa-list text-aqua"></i> <span>目录管理</span>
+                    <a href="{{url('/admin/menu/list')}}"><i class="fa fa-list text-yellow"></i> <span>目录管理</span>
                         <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -347,6 +347,9 @@ desired effect
                         <li><a href="{{url('/admin/menu/create')}}"><i class="fa fa-circle-o text-aqua"></i>添加目录</a></li>
                     </ul>
                 </li>
+
+                <li class="header">内容管理</li>
+
                 <li class="treeview">
                     <a href="{{url('/admin/product/list')}}"><i class="fa fa-cube text-red"></i> <span>产品管理</span>
                         <span class="pull-right-container" style="display:none;">
@@ -359,7 +362,7 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="{{url('/admin/article/list')}}"><i class="fa fa-file-text text-green"></i> <span>文章管理</span>
+                    <a href="{{url('/admin/article/list')}}"><i class="fa fa-file-text text-red"></i> <span>文章管理</span>
                         <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -370,7 +373,7 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="{{url('/admin/activity/list')}}"><i class="fa fa-calendar-check-o text-yellow"></i> <span>活动/会议管理</span>
+                    <a href="{{url('/admin/activity/list')}}"><i class="fa fa-calendar-check-o text-red"></i> <span>活动/会议管理</span>
                         <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -381,7 +384,7 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="{{url('/admin/survey/list')}}"><i class="fa fa-question-circle  text-blue"></i> <span>调研问卷管理</span>
+                    <a href="{{url('/admin/survey/list')}}"><i class="fa fa-question-circle text-red"></i> <span>调研问卷管理</span>
                         <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -392,7 +395,7 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="{{url('/admin/slide/list')}}"><i class="fa fa-th-large text-purple"></i> <span>幻灯片管理</span>
+                    <a href="{{url('/admin/slide/list')}}"><i class="fa fa-th-large text-red"></i> <span>幻灯片管理</span>
                         <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>

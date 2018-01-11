@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Softorg;
+use App\Models\Item;
 use App\Models\Article;
 use App\Repositories\Common\CommonRepository;
 use Response, Auth, Validator, DB, Exception;
@@ -151,6 +152,32 @@ class ArticleRepository {
             }
             else throw new Exception("insert-article-fail");
 
+            $item = Item::where(['org_id'=>$admin->org_id,'sort'=>2,'itemable_id'=>$article->id])->first();
+            if($item)
+            {
+                $item->menu_id = $post_data["menu_id"];
+                $bool1 = $item->save();
+                if(!$bool1) throw new Exception("update-item-fail");
+            }
+            else
+            {
+                $item = new Item;
+                $item_data["sort"] = 2;
+                $item_data["org_id"] = $admin->org_id;
+                $item_data["admin_id"] = $admin->id;
+                $item_data["menu_id"] = $post_data["menu_id"];
+                $item_data["itemable_id"] = $article->id;
+                $item_data["itemable_type"] = 'App\Models\Article';
+                $bool1 = $item->fill($item_data)->save();
+                if($bool1)
+                {
+                    $article->item_id = $item->id;
+                    $bool2 = $article->save();
+                    if(!$bool2) throw new Exception("update-article-item_id-fail");
+                }
+                else throw new Exception("insert-item-fail");
+            }
+
             DB::commit();
             return response_success(['id'=>$encode_id]);
         }
@@ -172,9 +199,31 @@ class ArticleRepository {
 
         $article = Article::find($id);
         if($article->admin_id != $admin->id) return response_error([],"你没有操作权限");
-        $bool = $article->delete();
-        if(!$bool) return response_fail([],"删除失败，请重试");
-        else return response_success();
+
+        DB::beginTransaction();
+        try
+        {
+            $bool = $article->delete();
+            if($bool)
+            {
+                $item = Item::find($article->item_id);
+                if($item)
+                {
+                    $bool1 = $item->delete();
+                    if(!$bool1) throw new Exception("delete-item--fail");
+                }
+            }
+            else throw new Exception("delete-article--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            return response_fail([],'删除失败，请重试');
+        }
+
     }
 
     // 启用

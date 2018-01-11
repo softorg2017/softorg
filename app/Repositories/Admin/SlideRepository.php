@@ -2,7 +2,9 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Softorg;
+use App\Models\Item;
 use App\Models\Slide;
+use App\Models\Page;
 use App\Repositories\Common\CommonRepository;
 use Response, Auth, Validator, DB, Exception;
 use QrCode;
@@ -160,6 +162,32 @@ class SlideRepository {
             }
             else throw new Exception("insert-slide-fail");
 
+            $item = Item::where(['org_id'=>$admin->org_id,'sort'=>5,'itemable_id'=>$slide->id])->first();
+            if($item)
+            {
+                $item->menu_id = $post_data["menu_id"];
+                $bool1 = $item->save();
+                if(!$bool1) throw new Exception("update-item-fail");
+            }
+            else
+            {
+                $item = new Item;
+                $item_data["sort"] = 5;
+                $item_data["org_id"] = $admin->org_id;
+                $item_data["admin_id"] = $admin->id;
+                $item_data["menu_id"] = $post_data["menu_id"];
+                $item_data["itemable_id"] = $slide->id;
+                $item_data["itemable_type"] = 'App\Models\Slide';
+                $bool1 = $item->fill($item_data)->save();
+                if($bool1)
+                {
+                    $slide->item_id = $item->id;
+                    $bool2 = $slide->save();
+                    if(!$bool2) throw new Exception("update-slide-item_id-fail");
+                }
+                else throw new Exception("insert-item-fail");
+            }
+
             DB::commit();
             return response_success(['id'=>$encode_id]);
         }
@@ -181,9 +209,40 @@ class SlideRepository {
 
         $slide = Slide::find($id);
         if($slide->admin_id != $admin->id) return response_error([],"你没有操作权限");
-        $bool = $slide->delete();
-        if(!$bool) return response_fail([],"删除失败，请重试");
-        else return response_success();
+
+        DB::beginTransaction();
+        try
+        {
+            $bool = $slide->delete();
+            if($bool)
+            {
+                $item = Item::find($slide->item_id);
+                if($item)
+                {
+                    $bool1 = $item->delete();
+                    if($bool1)
+                    {
+                        $count = Page::where('slide_id',$id)->count();
+                        if($count)
+                        {
+                            $bool2 = Page::where('slide_id',$id)->delete();
+                            if(!$bool2) throw new Exception("delete-page--fail");
+                        }
+                    }
+                    else throw new Exception("delete-item--fail");
+                }
+            }
+            else throw new Exception("delete-slide--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            return response_fail([],'删除失败，请重试');
+        }
+
     }
 
     // 启用

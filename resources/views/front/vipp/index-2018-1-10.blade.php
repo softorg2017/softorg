@@ -195,6 +195,262 @@
 
 
 
+            {{--产品--}}
+            {{--4栏--}}
+            @if( count($org->products) != 0 )
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->products) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+            " id="product">
+                <div class="col-md-14">
+                    <div class="row full">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="display: none;">
+                            <h3>产品展示</h3>
+                            @if( count($org->products) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/product" class="hidden-xs">更多产品</a>
+                            @endif
+                        </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/case{{ $org->style or '0' }}/banner-business.jpg" alt="" style="width:100%;height:100%;">
+                        </ul>
+                        <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->products as $v)
+                            <li class="col-md-6 ">
+                                <a href="{{url('/product?id=').encode($v->id)}}">
+                                    <div class="item list-background" style="
+                                    @if( (count($org->products) % 2) == 1 )
+                                        @if($loop->first)
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-r-business.jpg);background-size:contain;
+                                        @else
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-v-business.jpg);background-size:contain;
+                                        @endif
+                                    @else
+                                        background:url(/style/case{{ $org->style or '0' }}/bg-v-business.jpg);background-size:contain;
+                                    @endif
+                                    ">
+
+                                        <div class="line" style="display: none">
+                                            <p class="seriesnumber"><span><b>{{$v->title or ''}}</b></span></p>
+                                        </div>
+                                        <div class="line" style="display: none">
+                                            <p class="seriesnumber">{{$v->description or ''}}</p>
+                                        </div>
+                                        <div class="line" style="display: none">
+                                            <p class="seriesnumber">产品</p>
+                                        </div>
+
+                                        <div class="top-text left-8">
+                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                            <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
+                                        </div>
+
+                                        <div class="bottom-text left-8" style="display:none;">
+                                            <span class="price font-c">产品</span>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                        @if( count($org->products) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/product" class="view-more visible-xs- btn-md btn-more">更多产品</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            {{--文章--}}
+            {{--3栏--}}
+            @if( count($org->articles) != 0 )
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->articles) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+                    ">
+                <div class="col-md-14">
+                    <div class="row full">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="display: none;">
+                            <h3>分享文章</h3>
+                            @if( count($org->articles) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/article" class="hidden-xs">更多文章</a>
+                            @endif
+                        </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/case{{ $org->style or '0' }}/banner-article.jpg" alt="" style="width:100%;height:100%;">
+                        </ul>
+                        <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->articles as $v)
+                            <li class="col-md-6">
+                                <a href="{{url('/article?id=').encode($v->id)}}">
+                                    <div class="item list-background" style="
+                                    @if( (count($org->articles) % 2) == 1 )
+                                        @if($loop->first)
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-r-article.jpg);background-size:contain;
+                                        @else
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-v-article.jpg);background-size:contain;
+                                        @endif
+                                    @else
+                                        background:url(/style/case{{ $org->style or '0' }}/bg-v-article.jpg);background-size:contain;
+                                    @endif
+                                    ">
+
+                                        <div class="top-text left-8">
+                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                            <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
+                                        </div>
+
+                                        <div class="bottom-text left-8" style="display:none;">
+                                            <span class="price font-2">文章</span>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                        @if( count($org->articles) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/article" class="view-more visible-xs- btn-md btn-more">更多文章</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            {{--活动--}}
+            {{--3栏--}}
+            @if( count($org->activities) != 0 )
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->activities) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+            ">
+                <div class="col-md-14">
+                    <div class="row full">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="display: none;">
+                            <h3>活动</h3>
+                            @if( count($org->activities) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/activity" class="hidden-xs">更多活动</a>
+                            @endif
+                        </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/case{{ $org->style or '0' }}/banner-activity.jpg" alt="" style="width:100%;height:100%;">
+                        </ul>
+                        <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->activities as $v)
+                            <li class="col-md-6">
+                                <a href="{{url('/activity?id=').encode($v->id)}}">
+                                    <div class="item list-background" style="
+                                    @if( (count($org->activities) % 2) == 1 )
+                                        @if($loop->first)
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-r-activity.jpg);background-size:contain;
+                                        @else
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-v-activity.jpg);background-size:contain;
+                                        @endif
+                                    @else
+                                        background:url(/style/case{{ $org->style or '0' }}/bg-v-activity.jpg);background-size:contain;
+                                    @endif
+                                    ">
+
+                                        <div class="top-text left-8">
+                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                            <p class="list-description description multi-ellipsis">{{$v->description or ''}}</p>
+                                        </div>
+
+                                        <div class="bottom-text left-8" style="display:none;">
+                                            <span class="price font-c">活动</span>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                        @if( count($org->activities) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/activity" class="view-more visible-xs- btn-md btn-more">更多活动</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            {{--问卷--}}
+            {{--4栏--}}
+            @if( count($org->surveys) != 0 )
+            <div class="row full wrapper-content product-column product-four-column slide-to-top
+                @if( (count($org->surveys) % 2) == 1 )
+                    product-four-column--wide
+                @endif
+            ">
+                <div class="col-md-14">
+                    <div class="row full">
+                        <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="display: none;">
+                            <h3>调研问卷</h3>
+                            @if( count($org->surveys) == 0 )
+                                <span class="hidden-xs">暂无</span>
+                            @else
+                                <a href="/org/{{$org->website_name or '1'}}/survey" class="hidden-xs">更多问卷</a>
+                            @endif
+                        </div>
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                            <img src="/style/case{{ $org->style or '0' }}/banner-survey.jpg" alt="" style="width:100%;height:100%;">
+                        </ul>
+                        <ul class="col-sm-12 col-xs-14 product-list">
+                            @foreach($org->surveys as $v)
+                            <li class="col-md-6 ">
+                                <a href="{{url('/survey?id=').encode($v->id)}}">
+                                    <div class="item list-background" style="
+                                    @if( (count($org->surveys) % 2) == 1 )
+                                        @if($loop->first)
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-r-survey.jpg);background-size:contain;
+                                        @else
+                                            background:url(/style/case{{ $org->style or '0' }}/bg-v-survey.jpg);background-size:contain;
+                                        @endif
+                                    @else
+                                        background:url(/style/case{{ $org->style or '0' }}/bg-v-survey.jpg);background-size:contain;
+                                    @endif
+                                    ">
+
+                                        <div class="top-text left-8">
+                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
+                                            <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
+                                        </div>
+
+                                        <div class="bottom-text left-8" style="display:none;">
+                                            <span class="price font-5">调研问卷</span>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                        @if( count($org->surveys) == 0 )
+                            <span class="view-more visible-xs">暂无</span>
+                        @else
+                            <a href="/org/{{$org->website_name or '1'}}/survey" class="view-more visible-xs- btn-md btn-more">更多问卷</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
+
+
+
             {{--自定义目录栏位--}}
             {{--3栏/4栏--}}
             @if( count($org->menus) != 0 )
@@ -208,7 +464,7 @@
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="">
-                            <h3 style="width:100%;text-align:center;color:#D5B069">{{ $menu->title }}</h3>
+                            <h3 style="width:100%;text-align:center;">{{ $menu->title }}</h3>
                             @if( count($menu->items) == 0 )
                                 <span class="hidden-xs">暂无</span>
                             @else
@@ -218,9 +474,9 @@
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($menu->items as $v)
                             <li class="col-md-6 ">
-                                <a href="{{url('/'.$v->item_type.'?id=').encode($v->id)}}">
+                                <a href="{{url('/survey?id=').encode($v->id)}}">
                                     <div class="item list-background" style="
-                                    @if( (count($menu->items) % 2) == 1 )
+                                    @if( (count($org->activities) % 2) == 1 )
                                     @if($loop->first)
                                             background:url(/style/case{{ $org->style or '0' }}/bg-r.jpg);background-size:contain;
                                     @else
@@ -414,7 +670,6 @@
             <div class="row full collection-teaser slide-to-top" style="display: none;">
                 <div class="col-md-14">
                     <div class="row full">
-                        @if(false)
                         @foreach($org->surveys as $v)
                             <div class="col-xs-7">
                                 <div class="hero-story-container fade-onscroll" style="background-image:url(
@@ -439,7 +694,6 @@
                                 </div>
                             </div>
                         @endforeach
-                        @endif
                     </div>
                 </div>
             </div>

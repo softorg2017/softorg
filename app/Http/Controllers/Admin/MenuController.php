@@ -45,6 +45,13 @@ class MenuController extends Controller
         else if (request()->isMethod('post')) return $this->repo->save(request()->all());
     }
 
+    // 【排序】
+    public function sortAction()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_sort();
+        else if (request()->isMethod('post')) return $this->repo->sort(request()->all());
+    }
+
     // 【删除】
     public function deleteAction()
     {

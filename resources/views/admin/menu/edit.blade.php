@@ -1,20 +1,20 @@
 @extends('admin.layout.layout')
 
 @section('title')
-    @if(empty($encode_id)) 添加产品目录 @else 编辑产品目录 @endif
+    @if(empty($encode_id)) 添加目录 @else 编辑目录 @endif
 @endsection
 
 @section('header')
-    @if(empty($encode_id)) 添加产品目录 @else 编辑产品目录 @endif
+    @if(empty($encode_id)) 添加目录 @else 编辑目录 @endif
 @endsection
 
 @section('description')
-    @if(empty($encode_id)) 添加产品目录 @else 编辑产品目录 @endif
+    @if(empty($encode_id)) 添加目录 @else 编辑目录 @endif
 @endsection
 
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i>首页</a></li>
-    <li><a href="{{url('/admin/menu/list')}}"><i class="fa "></i>产品目录列表</a></li>
+    <li><a href="{{url('/admin/menu/list')}}"><i class="fa "></i>目录列表</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 {{--内容--}}
-                <div class="form-group">
+                <div class="form-group" style="display:none;">
                     <label class="control-label col-md-2">内容</label>
                     <div class="col-md-8 ">
                         <div><input type="text" class="form-control" name="content" placeholder="内容" value="{{$data->content or ''}}"></div>

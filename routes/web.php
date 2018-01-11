@@ -80,6 +80,8 @@ Route::group(['prefix' => 'test'], function () {
     // Route::get('/send_sms', "{$controller}@send_sms");
 
      Route::get('/image', "{$controller}@image");
+
+    Route::get('/eloquent', "{$controller}@eloquent");
 });
 
 /*后台*/
@@ -201,6 +203,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::match(['get','post'], 'list', $controller.'@viewList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
+            Route::match(['get','post'], 'sort', $controller.'@sortAction');
             Route::post('delete', $controller.'@deleteAction');
             Route::post('enable', $controller.'@enableAction');
             Route::post('disable', $controller.'@disableAction');

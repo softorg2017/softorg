@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -10,6 +11,12 @@ use App\Repositories\Admin\MailRepository;
 
 //发送短信的模块
 use App\Services\MessageService;
+
+use App\Models\Menu;
+use App\Models\Comment;
+use App\Models\Tag;
+use App\Models\Product;
+use App\Models\Article;
 
 use Image;
 
@@ -162,7 +169,7 @@ class TestController extends Controller
 
     }
 
-    function autowrap($font_size, $angle, $font_face, $string, $width)
+    public function autowrap($font_size, $angle, $font_face, $string, $width)
     {
 //        这几个变量分别是 字体大小, 角度, 字体名称, 字符串, 预设宽度
         $content = "";
@@ -186,5 +193,32 @@ class TestController extends Controller
             $content .= $l;
         }
         return $content;
+    }
+
+    public function eloquent()
+    {
+        $menu = Menu::with([
+                'items'=>function($query) { $query->with('itemable'); }
+            ])->get();
+        return view('test.index');
+//        dd($menu->toArray());
+//        dd($menu->products->toArray());
+//        dd($menu->articles->toArray());
+
+        $tag = Tag::find(1);
+//        dd($tag->toArray());
+//        dd($tag->products->toArray());
+//        dd($tag->articles->toArray());
+
+        $comment = Comment::with('commentable')->find(3);
+//        dd($comment->toArray());
+//        dd($comment->commentable->toArray());
+
+        $product = Product::find(1);
+
+        $article = Article::find(1);
+//        dd($article->toArray());
+//        dd($article->comments->toArray());
+        dd($article->tags->toArray());
     }
 }

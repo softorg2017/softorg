@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Softorg;
+use App\Models\Item;
 use App\Models\Survey;
 use App\Models\Question;
 use App\Models\Option;
@@ -157,6 +158,32 @@ class SurveyRepository {
             }
             else throw new Exception("insert-survey-fail");
 
+            $item = Item::where(['org_id'=>$admin->org_id,'sort'=>4,'itemable_id'=>$survey->id])->first();
+            if($item)
+            {
+                $item->menu_id = $post_data["menu_id"];
+                $bool1 = $item->save();
+                if(!$bool1) throw new Exception("update-item-fail");
+            }
+            else
+            {
+                $item = new Item;
+                $item_data["sort"] = 4;
+                $item_data["org_id"] = $admin->org_id;
+                $item_data["admin_id"] = $admin->id;
+                $item_data["menu_id"] = $post_data["menu_id"];
+                $item_data["itemable_id"] = $survey->id;
+                $item_data["itemable_type"] = 'App\Models\Survey';
+                $bool1 = $item->fill($item_data)->save();
+                if($bool1)
+                {
+                    $survey->item_id = $item->id;
+                    $bool2 = $survey->save();
+                    if(!$bool2) throw new Exception("update-survey-item_id-fail");
+                }
+                else throw new Exception("insert-item-fail");
+            }
+
             DB::commit();
             return response_success(['id'=>$encode_id]);
         }
@@ -197,13 +224,47 @@ class SurveyRepository {
 
         $survey = Survey::find($id);
         if($survey->admin_id != $admin->id) return response_error([],"你没有操作权限");
-        $bool = $survey->delete();
-        if(!$bool) return response_fail([],"删除失败，请重试");
-        else
+
+        DB::beginTransaction();
+        try
         {
-            $bool = Question::where('survey_id',$id)->delete();
-            $bool = Option::where('survey_id',$id)->delete();
+            $bool = $survey->delete();
+            if($bool)
+            {
+                $item = Item::find($survey->item_id);
+                if($item)
+                {
+                    $bool1 = $item->delete();
+                    if($bool1)
+                    {
+                        $count_q = Question::where('survey_id',$id)->count();
+                        if($count_q)
+                        {
+                            $bool2 = Question::where('survey_id',$id)->delete();
+                            if($bool2)
+                            {
+                                $count_o = Option::where('survey_id',$id)->count();
+                                if($count_o)
+                                {
+                                    $bool3 = Option::where('survey_id',$id)->delete();
+                                    if(!$bool3) throw new Exception("delete-option--fail");
+                                }
+                            }
+                            else throw new Exception("delete-question--fail");
+                        }
+                    }
+                    else throw new Exception("delete-item--fail");
+                }
+            }
+            else throw new Exception("delete-survey--fail");
+
+            DB::commit();
             return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            return response_fail([],'删除失败，请重试');
         }
     }
 

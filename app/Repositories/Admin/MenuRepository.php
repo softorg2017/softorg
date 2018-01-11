@@ -68,6 +68,22 @@ class MenuRepository {
     // 保存数据
     public function save($post_data)
     {
+        $messages = [
+            'id.required' => '参数有误',
+            'name.required' => '请输入名称',
+            'title.required' => '请输入标题',
+        ];
+        $v = Validator::make($post_data, [
+            'id' => 'required',
+            'name' => 'required',
+            'title' => 'required'
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
         $admin = Auth::guard('admin')->user();
 
         $id = decode($post_data["id"]);
@@ -90,6 +106,40 @@ class MenuRepository {
         $bool = $menu->fill($post_data)->save();
         if($bool) return response_success(['id'=>encode($menu->id)]);
         else return response_fail();
+    }
+
+    public function view_sort()
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+
+        $menu = Menu::where(['org_id'=>$org_id])->orderBy('order', 'asc')->get();
+        return view('admin.menu.sort')->with(['data'=>$menu]);
+    }
+
+    // 排序
+    public function sort($post_data)
+    {
+        $admin = Auth::guard('admin')->user();
+
+        $admin_decode = decode($post_data["admin"]);
+        if(!$admin) return response_error();
+        if($admin->id == $admin_decode)
+        {
+            $menus = collect($post_data['menu'])->values()->toArray();
+
+            foreach($menus as $k => $v)
+            {
+                $id = $v['id'];
+                $menu = Menu::find($id);
+                if(!$menu) return response_error();
+                $menu->order = $k;
+                $bool = $menu->save();
+            }
+            return response_success();
+        }
+        else return response_fail([],'用户有变更，请刷新重试！');
+
     }
 
     // 删除

@@ -80,8 +80,8 @@
 
             <div class="box-footer">
                 <div class="row" style="margin:16px 0;">
-                    <div class="col-md-offset-3 col-md-9">
-                        <button type="button" onclick="" class="btn btn-primary"><i class="fa fa-check"></i> 提交</button>
+                    <div class="col-md-offset-0 col-md-9">
+                        <button type="button" onclick="" class="btn btn-primary _none"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
                     </div>
                 </div>
