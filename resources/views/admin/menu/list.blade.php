@@ -82,6 +82,8 @@
                 <div class="row" style="margin:16px 0;">
                     <div class="col-md-offset-0 col-md-9">
                         <button type="button" onclick="" class="btn btn-primary _none"><i class="fa fa-check"></i> 提交</button>
+                        <a href="{{url('/admin/menu/sort')}}">
+                            <button type="button" onclick="" class="btn btn-primary"><i class="fa fa-sort"></i> 目录排序</button></a>
                         <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
                     </div>
                 </div>

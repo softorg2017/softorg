@@ -62,7 +62,9 @@ class ActivityRepository {
         {
             $activity = Activity::with([
                 'menu',
-                'org' => function ($query) { $query->with(['menus'])->orderBy('id','desc'); }
+                'org' => function ($query) { $query->with([
+                    'menus'=>function ($query1) {$query1->orderBy('order','asc');}
+                ]); },
             ])->find($decode_id);
             if($activity)
             {

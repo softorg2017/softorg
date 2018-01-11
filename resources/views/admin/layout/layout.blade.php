@@ -337,7 +337,12 @@ desired effect
                 <li class="header">目录管理</li>
 
                 <li class="treeview">
-                    <a href="{{url('/admin/menu/list')}}"><i class="fa fa-list text-yellow"></i> <span>目录管理</span>
+                    <a href="{{url('/admin/menu/list')}}"><i class="fa fa-list text-yellow"></i> <span>目录列表</span>
+                        <span class="pull-right-container" style="display:none;">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <a href="{{url('/admin/menu/sort')}}"><i class="fa fa-sort text-yellow"></i> <span>目录排序</span>
                         <span class="pull-right-container" style="display:none;">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>

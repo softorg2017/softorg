@@ -61,11 +61,11 @@
                             <option data-id="0">未分类</option>
                             @if(!empty($data->org->menus))
                                 @foreach($data->org->menus as $v)
-                                    <option data-id="{{$v->id}}" @if($data->menu_id == $v->id) selected="selected" @endif>{{$v->name}}</option>
+                                    <option data-id="{{$v->id}}" @if($data->menu_id == $v->id) selected="selected" @endif>{{$v->title}}</option>
                                 @endforeach
                             @else
                                 @foreach($org->menus as $v)
-                                    <option data-id="{{$v->id}}">{{$v->name}}</option>
+                                    <option data-id="{{$v->id}}">{{$v->title}}</option>
                                 @endforeach
                             @endif
                         </select>
