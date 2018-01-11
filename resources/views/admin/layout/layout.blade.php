@@ -328,12 +328,6 @@ desired effect
                     </ul>
                 </li>
 
-                <li class="header">流量统计</li>
-
-                <li class="treeview">
-                    <a href="{{url('/admin/website/statistics')}}"><i class="fa fa-bar-chart text-green"></i> <span>流量统计</span></a>
-                </li>
-
                 <li class="header">目录管理</li>
 
                 <li class="treeview">
@@ -409,6 +403,12 @@ desired effect
                         <li><a href="{{url('/admin/slide/list')}}"><i class="fa fa-circle-o text-purple"></i>幻灯片列表</a></li>
                         <li><a href="{{url('/admin/slide/create')}}"><i class="fa fa-circle-o text-purple"></i>添加幻灯片</a></li>
                     </ul>
+                </li>
+
+                <li class="header">流量统计</li>
+
+                <li class="treeview">
+                    <a href="{{url('/admin/website/statistics')}}"><i class="fa fa-bar-chart text-green"></i> <span>流量统计</span></a>
                 </li>
 
                 <li class="header">前台展示</li>
