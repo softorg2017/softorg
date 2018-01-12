@@ -15,6 +15,20 @@
 
             {{ csrf_field() }}
 
+
+            <div class="form-group has-feedback">
+                <select class="form-control" name="type">
+                    <option value="5">企业</option>
+                    <option value="11">个人用户</option>
+                    <option value="19">个体工商户</option>
+                    <option value="1">机关单位</option>
+                    <option value="3">事业单位</option>
+                    <option value="7">社会团体</option>
+                    <option value="9">其他组织机构</option>
+                    <option value="0">暂不选择</option>
+                </select>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" name="name" placeholder="机构全称">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>

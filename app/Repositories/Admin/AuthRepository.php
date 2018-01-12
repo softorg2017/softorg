@@ -21,6 +21,8 @@ class AuthRepository {
     public function register_org($post_data)
     {
         $messages = [
+            'type.required' => '请选择机构类型',
+            'type.numeric' => '请选择机构代码',
             'captcha.required' => '请输入验证码',
             'captcha.captcha' => '验证码有误',
             'website_name.unique' => '企业域名已经存在，请更换一个名字',
@@ -29,6 +31,7 @@ class AuthRepository {
         ];
         $v = Validator::make($post_data, [
             'captcha' => 'required|captcha',
+            'type' => 'required|numeric',
             'website_name' => 'required|alpha|unique:softorg',
             'email' => 'required|email|unique:administrator',
             'password' => 'required',
@@ -41,6 +44,7 @@ class AuthRepository {
         }
 
 
+        $type = $post_data['type'];
         $name = $post_data['name'];
         $website_name = $post_data['website_name'];
         $email = $post_data['email'];
@@ -53,6 +57,7 @@ class AuthRepository {
             {
                 // 注册企业
                 $org = new Softorg;
+                $org_create['type'] = $type;
                 $org_create['name'] = $name;
                 $org_create['website_name'] = $website_name;
                 $bool_1 = $org->fill($org_create)->save();
