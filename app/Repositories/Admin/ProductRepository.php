@@ -251,8 +251,11 @@ class ProductRepository {
             if($bool)
             {
                 $item = Item::find($product->item_id);
-                $bool1 = $item->fill($update)->save();
-                if(!$bool1) throw new Exception("update-item--fail");
+                if($item)
+                {
+                    $bool1 = $item->fill($update)->save();
+                    if(!$bool1) throw new Exception("update-item--fail");
+                }
             }
             else throw new Exception("update-product--fail");
 
@@ -283,8 +286,11 @@ class ProductRepository {
             if($bool)
             {
                 $item = Item::find($product->item_id);
-                $bool1 = $item->fill($update)->save();
-                if(!$bool1) throw new Exception("update-item--fail");
+                if($item)
+                {
+                    $bool1 = $item->fill($update)->save();
+                    if(!$bool1) throw new Exception("update-item--fail");
+                }
             }
             else throw new Exception("update-product--fail");
 

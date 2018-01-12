@@ -287,8 +287,11 @@ class SurveyRepository {
             if($bool)
             {
                 $item = Item::find($survey->item_id);
-                $bool1 = $item->fill($update)->save();
-                if(!$bool1) throw new Exception("update-item--fail");
+                if($item)
+                {
+                    $bool1 = $item->fill($update)->save();
+                    if(!$bool1) throw new Exception("update-item--fail");
+                }
             }
             else throw new Exception("update-survey--fail");
 
@@ -319,8 +322,11 @@ class SurveyRepository {
             if($bool)
             {
                 $item = Item::find($survey->item_id);
-                $bool1 = $item->fill($update)->save();
-                if(!$bool1) throw new Exception("update-item--fail");
+                if($item)
+                {
+                    $bool1 = $item->fill($update)->save();
+                    if(!$bool1) throw new Exception("update-item--fail");
+                }
             }
             else throw new Exception("update-survey--fail");
 
