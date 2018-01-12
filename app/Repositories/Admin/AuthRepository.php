@@ -40,6 +40,7 @@ class AuthRepository {
         }
 
 
+        $name = $post_data['name'];
         $website_name = $post_data['website_name'];
         $email = $post_data['email'];
         $password = $post_data['password'];
@@ -50,6 +51,7 @@ class AuthRepository {
             try
             {
                 $org = new Softorg;
+                $org_create['name'] = $name;
                 $org_create['website_name'] = $website_name;
                 $bool1 = $org->fill($org_create)->save();
                 if($bool1)

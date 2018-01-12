@@ -16,8 +16,12 @@
             {{ csrf_field() }}
 
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="website_name" placeholder="机构域名，仅限英文字符">
+                <input type="text" class="form-control" name="name" placeholder="机构全称">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" name="website_name" placeholder="机构域名，唯一标识，仅限英文字符">
+                <span class="glyphicon glyphicon-font form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input type="email" class="form-control" name="email" placeholder="超级管理员邮箱">
