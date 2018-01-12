@@ -2,6 +2,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Softorg;
+use App\Models\SoftorgExt;
 use App\Administrator;
 use App\Models\Website;
 use App\Models\Verification;
@@ -50,71 +51,80 @@ class AuthRepository {
             DB::beginTransaction();
             try
             {
+                // 注册企业
                 $org = new Softorg;
                 $org_create['name'] = $name;
                 $org_create['website_name'] = $website_name;
-                $bool1 = $org->fill($org_create)->save();
-                if($bool1)
+                $bool_1 = $org->fill($org_create)->save();
+                if($bool_1)
                 {
-                    $website = new Website();
-                    $website_create['org_id'] = $org->id;
-                    $bool2 = $website->fill($website_create)->save();
-                    if($bool2)
+                    $ext = new SoftorgExt();
+                    $ext_create['org_id'] = $org->id;
+                    $bool_2 = $ext->fill($ext_create)->save();
+                    if($bool_2)
                     {
-                        $admin = new Administrator;
-                        $admin_create['org_id'] = $org->id;
-                        $admin_create['email'] = $email;
-                        $admin_create['password'] = password_encode($password);
-                        $bool3 = $admin->fill($admin_create)->save();
-                        if($bool3)
+                        $website = new Website();
+                        $website_create['org_id'] = $org->id;
+                        $bool_3 = $website->fill($website_create)->save();
+                        if($bool_3)
                         {
-                            $string = 'org_id='.$org->id.'&admin_id='.$admin->id.'&time='.time();
-                            $code = hash("sha512", $string);
-
-                            $verification_create['type'] = 1;
-                            $verification_create['org_id'] = $org->id;
-                            $verification_create['admin_id'] = $admin->id;
-                            $verification_create['email'] = $email;
-                            $verification_create['code'] = $code;
-
-                            $verification = new Verification;
-                            $bool4 = $verification->fill($verification_create)->save();
-                            if($bool4)
+                            // 注册超级管理员
+                            $admin = new Administrator;
+                            $admin_create['org_id'] = $org->id;
+                            $admin_create['email'] = $email;
+                            $admin_create['password'] = password_encode($password);
+                            $bool_4 = $admin->fill($admin_create)->save();
+                            if($bool_4)
                             {
-//                                $send = new MailRepository();
-                                $post_data['sort'] = 'admin_activation';
-                                $post_data['type'] = 1;
-                                $post_data['admin_id'] = encode($admin->id);
-                                $post_data['code'] = $code;
-                                $post_data['target'] = $email;
+                                $string = 'org_id='.$org->id.'&admin_id='.$admin->id.'&time='.time();
+                                $code = hash("sha512", $string);
 
-//                                $flag = $send->send_admin_activation_email($post_data);
-//                                if(count($flag) >= 1)
-//                                {
-//                                    $flag = $send->send_admin_activation_email($post_data);
-//                                    if(count($flag) >= 1) throw new Exception("send-email-false");
-//                                }
+                                $verification_create['type'] = 1;
+                                $verification_create['org_id'] = $org->id;
+                                $verification_create['admin_id'] = $admin->id;
+                                $verification_create['email'] = $email;
+                                $verification_create['code'] = $code;
 
-                                $url = 'http://qingorg.cn:8088/email/send';
-                                $ch = curl_init();
-                                curl_setopt($ch, CURLOPT_URL, $url);
-                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                                curl_setopt($ch, CURLOPT_TIMEOUT, 7);
-                                curl_setopt($ch, CURLOPT_POST, 1);
-                                curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-                                $response = curl_exec($ch);
-                                curl_close($ch);
-                                if(empty($response)) throw new Exception('curl get request failed');
-                                else
+                                $verification = new Verification;
+                                $bool4 = $verification->fill($verification_create)->save();
+                                if($bool4)
                                 {
-                                    $response = json_decode($response,true);
-                                    if(!$response['success']) throw new Exception("send-email-failed");
+    //                                $send = new MailRepository();
+                                    $post_data['sort'] = 'admin_activation';
+                                    $post_data['type'] = 1;
+                                    $post_data['admin_id'] = encode($admin->id);
+                                    $post_data['code'] = $code;
+                                    $post_data['target'] = $email;
+
+    //                                $flag = $send->send_admin_activation_email($post_data);
+    //                                if(count($flag) >= 1)
+    //                                {
+    //                                    $flag = $send->send_admin_activation_email($post_data);
+    //                                    if(count($flag) >= 1) throw new Exception("send-email-false");
+    //                                }
+
+                                    $url = 'http://qingorg.cn:8088/email/send';
+                                    $ch = curl_init();
+                                    curl_setopt($ch, CURLOPT_URL, $url);
+                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                    curl_setopt($ch, CURLOPT_TIMEOUT, 7);
+                                    curl_setopt($ch, CURLOPT_POST, 1);
+                                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+                                    $response = curl_exec($ch);
+                                    curl_close($ch);
+                                    if(empty($response)) throw new Exception('curl get request failed');
+                                    else
+                                    {
+                                        $response = json_decode($response,true);
+                                        if(!$response['success']) throw new Exception("send-email-failed");
+                                    }
                                 }
                             }
+                            else throw new Exception("insert-admin-failed");
                         }
-                        else throw new Exception("insert-admin-failed");
+                        else throw new Exception("insert-website-failed");
                     }
-                    else throw new Exception("insert-website-failed");
+                    else throw new Exception("insert-org-ext-failed");
                 }
                 else throw new Exception("insert-org-failed");
 
