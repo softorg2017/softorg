@@ -216,6 +216,7 @@
                         </div>
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($menu->items as $v)
+                            @if($loop->index < 3)
                             <li class="col-md-6 ">
                                 <a href="{{url('/'.strtolower(substr($v->itemable_type, 11)).'?id=').encode($v->itemable->id)}}">
                                     <div class="item list-background" style="
@@ -236,12 +237,21 @@
                                         </div>
 
                                         <div class="bottom-text left-8" style="display:none;">
-                                            <span class="price font-5">调研问卷</span>
+                                            <span class="price font-5">type
+                                                @if($v->sort == 1) 产品
+                                                @elseif($v->sort == 2) 文章
+                                                @elseif($v->sort == 3) 活动/会议
+                                                @elseif($v->sort == 4) 调研问卷
+                                                @elseif($v->sort == 5) 幻灯片
+                                                @else others
+                                                @endif
+                                            </span>
                                         </div>
 
                                     </div>
                                 </a>
                             </li>
+                            @endif
                             @endforeach
                         </ul>
                         @if( count($menu->items) == 0 )
