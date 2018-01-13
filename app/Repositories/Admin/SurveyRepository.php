@@ -52,6 +52,14 @@ class SurveyRepository {
         return datatable_response($list, $draw, $total);
     }
 
+    // 返回添加视图
+    public function view_create()
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+        $org = Softorg::with(['menus'=>function ($query1) {$query1->orderBy('order','asc');}])->find($org_id);
+        return view('admin.survey.create')->with(['org'=>$org]);
+    }
     // 返回编辑视图
     public function view_edit()
     {
@@ -59,7 +67,11 @@ class SurveyRepository {
         $decode_id = decode($id);
         if(!$decode_id) return response("参数有误", 404);
 
-        if($decode_id == 0) return view('admin.slide.edit')->with(['operate'=>'create', 'encode_id'=>$id]);
+        if($decode_id == 0)
+        {
+            $org = Softorg::with(['menus'=>function ($query1) {$query1->orderBy('order','asc');}])->find($decode_id);
+            return view('admin.survey.edit')->with(['operate'=>'create', 'encode_id'=>$id, 'org'=>$org]);
+        }
         else
         {
             $survey = Survey::with([

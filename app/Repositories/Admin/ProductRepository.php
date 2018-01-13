@@ -55,7 +55,7 @@ class ProductRepository {
     {
         $admin = Auth::guard('admin')->user();
         $org_id = $admin->org_id;
-        $org = Softorg::with(['menus'])->find($org_id);
+        $org = Softorg::with(['menus'=>function ($query1) {$query1->orderBy('order','asc');}])->find($org_id);
         return view('admin.product.edit')->with(['org'=>$org]);
     }
     // 返回编辑产品视图
@@ -65,7 +65,11 @@ class ProductRepository {
         $decode_id = decode($id);
         if(!$decode_id) return response("参数有误", 404);
 
-        if($decode_id == 0) return view('admin.product.edit')->with(['operate'=>'create', 'encode_id'=>$id]);
+        if($decode_id == 0)
+        {
+            $org = Softorg::with(['menus'=>function ($query1) {$query1->orderBy('order','asc');}])->find($decode_id);
+            return view('admin.product.edit')->with(['operate'=>'create', 'encode_id'=>$id, 'org'=>$org]);
+        }
         else
         {
             $product = Product::with([
