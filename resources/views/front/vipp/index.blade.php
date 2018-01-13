@@ -199,7 +199,6 @@
             {{--3栏/4栏--}}
             @if( count($org->menus) != 0 )
             @foreach($org->menus as $menu)
-            @if( count($menu->items) != 0 )
             <div class="row full wrapper-content product-column product-four-column slide-to-top
                 @if( (count($menu->items) % 2) == 1 ) product-four-column--wide @endif"
                  @if(!$loop->first) id="product" @endif  style="margin-top:48px;">
@@ -253,6 +252,7 @@
                     </div>
                 </div>
             </div>
+            @if( count($menu->items) != 0 )
             @endif
             @endforeach
             @endif
