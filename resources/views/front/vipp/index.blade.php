@@ -218,7 +218,7 @@
                         <ul class="col-sm-12 col-xs-14 product-list">
                             @foreach($menu->items as $v)
                             <li class="col-md-6 ">
-                                <a href="{{url('/'.$v->item_type.'?id=').encode($v->id)}}">
+                                <a href="{{url('/'.strtolower(substr($v->itemable_type, 11)).'?id=').encode($v->itemable->id)}}">
                                     <div class="item list-background" style="
                                     {{--@if( (count($menu->items) % 2) == 1 )--}}
                                     {{--@if($loop->first)--}}
@@ -232,8 +232,8 @@
                                     ">
 
                                         <div class="top-text left-8">
-                                            <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
-                                            <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
+                                            <h4 class="list-title multi-ellipsis">{{$v->itemable->title or ''}}</h4>
+                                            <p class="list-description description line-ellipsis">{{$v->itemable->description or ''}}</p>
                                         </div>
 
                                         <div class="bottom-text left-8" style="display:none;">

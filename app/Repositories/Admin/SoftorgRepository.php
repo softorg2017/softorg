@@ -164,13 +164,15 @@ class SoftorgRepository {
         $query = Softorg::with([
             'administrators','ext',
             'menus' => function ($query) {
-                $query->with([
-                    'products' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
-                    'articles' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
-                    'activities' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
-                    'surveys' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
-                    'slides' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); }
-                ])->where('active', 1)->orderBy('order', 'asc');
+                $query->with(['items'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); } ])
+                    ->where('active', 1)->orderBy('order', 'asc');
+//                $query->with([
+//                    'products' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
+//                    'articles' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
+//                    'activities' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
+//                    'surveys' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
+//                    'slides' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); }
+//                ])->where('active', 1)->orderBy('order', 'asc');
             },
 //            'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
 //            'articles' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
@@ -195,51 +197,51 @@ class SoftorgRepository {
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            foreach($org->menus as $key=>$menu)
-            {
-                $item = [];
-                $i = 0;
-
-                foreach($menu->products as $k=>$v)
-                {
-                    $menu->products[$k]->item_type = 'product';
-                    $item[$i] = $menu->products[$k];
-                    $i = $i + 1;
-                }
-
-                foreach($menu->articles as $k=>$v)
-                {
-                    $menu->articles[$k]->item_type = 'article';
-                    $item[$i] = $menu->articles[$k];
-                    $i = $i + 1;
-                }
-
-                foreach($menu->activities as $k=>$v)
-                {
-                    $menu->activities[$k]->item_type = 'activity';
-                    $item[$i] = $menu->activities[$k];
-                    $i = $i + 1;
-                }
-
-                foreach($menu->surveys as $k=>$v)
-                {
-                    $menu->surveys[$k]->item_type = 'survey';
-                    $item[$i] = $menu->surveys[$k];
-                    $i = $i + 1;
-                }
-
-                foreach($menu->slides as $k=>$v)
-                {
-                    $menu->slides[$k]->item_type = 'slide';
-                    $item[$i] = $menu->slides[$k];
-                    $i = $i + 1;
-                }
-
-                $org->menus[$key]->items = $item;
-            }
+//            foreach($org->menus as $key=>$menu)
+//            {
+//                $item = [];
+//                $i = 0;
+//
+//                foreach($menu->products as $k=>$v)
+//                {
+//                    $menu->products[$k]->item_type = 'product';
+//                    $item[$i] = $menu->products[$k];
+//                    $i = $i + 1;
+//                }
+//
+//                foreach($menu->articles as $k=>$v)
+//                {
+//                    $menu->articles[$k]->item_type = 'article';
+//                    $item[$i] = $menu->articles[$k];
+//                    $i = $i + 1;
+//                }
+//
+//                foreach($menu->activities as $k=>$v)
+//                {
+//                    $menu->activities[$k]->item_type = 'activity';
+//                    $item[$i] = $menu->activities[$k];
+//                    $i = $i + 1;
+//                }
+//
+//                foreach($menu->surveys as $k=>$v)
+//                {
+//                    $menu->surveys[$k]->item_type = 'survey';
+//                    $item[$i] = $menu->surveys[$k];
+//                    $i = $i + 1;
+//                }
+//
+//                foreach($menu->slides as $k=>$v)
+//                {
+//                    $menu->slides[$k]->item_type = 'slide';
+//                    $item[$i] = $menu->slides[$k];
+//                    $i = $i + 1;
+//                }
+//
+//                $org->menus[$key]->items = $item;
+//            }
 
 //            dd($org);
-//            dd($org->toArray());
+            dd($org->toArray());
 
             return view('front.'.config('common.view.front.index').'.index')->with('org',$org);
         }
