@@ -164,7 +164,8 @@ class SoftorgRepository {
         $query = Softorg::with([
             'administrators','ext',
             'menus' => function ($query) {
-                $query->with(['items'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); } ])
+                $query->with(['items'=>function ($query1) {
+                        $query1->with('itemable')->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); } ])
                     ->where('active', 1)->orderBy('order', 'asc');
 //                $query->with([
 //                    'products' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
