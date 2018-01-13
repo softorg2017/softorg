@@ -199,14 +199,13 @@
             {{--3栏/4栏--}}
             @if( count($org->menus) != 0 )
             @foreach($org->menus as $menu)
-            @if( count($menu->items) != 0 )
             <div class="row full wrapper-content product-column product-four-column slide-to-top
                 @if( (count($menu->items) % 2) == 1 ) product-four-column--wide @endif"
                  @if(!$loop->first) id="product" @endif  style="margin-top:48px;">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="">
-                            <h3 class="menu-title" style="width:100%;text-align:center;">{{ $menu->title }}</h3>
+                            <h3 class="menu-title">{{ $menu->title }}</h3>
                             @if(false)
                             @if( count($menu->items) == 0 )
                                 <span class="hidden-xs">暂无</span>
@@ -253,6 +252,7 @@
                     </div>
                 </div>
             </div>
+            @if( count($menu->items) != 0 )
             @endif
             @endforeach
             @endif
