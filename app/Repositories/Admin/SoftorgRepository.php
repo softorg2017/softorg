@@ -198,6 +198,11 @@ class SoftorgRepository {
             $record["from"] = request('from',NULL);
             $this->record($record);
 
+            foreach($org->menus as $key=>$menu)
+            {
+                $items = $menu->items->slice(0, 3);
+                $org->menus[$key]->items = $items;
+            }
 //            foreach($org->menus as $key=>$menu)
 //            {
 //                $item = [];
