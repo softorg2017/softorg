@@ -20878,11 +20878,14 @@ input:-webkit-autofill:focus {
 .style-main .list-background { background-size:cover; }
 .style-0 ul.product-list .list-background {
     background-color:#000;
-    /*background: -o-linear-gradient(60deg, #000, #111, #222, #000);*/
-    /*background: -moz-linear-gradient(60deg, #000, #111, #222, #000);*/
-    /*background: -webkit-linear-gradient(60deg, #000, #111, #222, #000);*/
-    /*background: linear-gradient(60deg, #000, #111, #222, #000);*/
-    /*background: linear, false, #000, #ddd;*/
+    background: -o-linear-gradient(45deg, #000, #111, #222, #000);
+    background: -moz-linear-gradient(45, #000, #111, #222, #000);
+    background: -webkit-linear-gradient(45deg, #000, #111, #222, #000);
+    background: linear-gradient(45deg, #000, #111, #222, #000);
+    background: linear, false, #000, #ddd;
+    /*filter:alpha(Opacity=80);*/
+    /*-moz-opacity:0.8;*/
+    /*opacity: 0.8;*/
 }
 .style-1 ul.product-list .list-background { background-color:#fff; }
 .style-2 ul.product-list .list-background { background-color:#f4f8fe; }
@@ -20930,23 +20933,8 @@ input:-webkit-autofill:focus {
     background: linear-gradient(30deg, #03001e, #7303c0, #ec38bc);
 }
 .style-9 ul.product-list .list-background { background-color:#fff; }
-.style-0 ul.product-list .list-background {
 
-    background-color:#605ca8;
-    background-color:#00a65a;
-    background-color:#5298c3;
-    background-color:#00c0ef;
-    background-color:#88cff1;
-    background-color:#184a67;
-    /*background-color:#fff;*/
-    background: -o-linear-gradient(, #f4645f);
-    background: -moz-linear-gradient(, #f4645f);
-    background: -webkit-linear-gradient(#222, #333, #222);
-    background: linear, false, #000, #f4645f;
-    /*filter:alpha(Opacity=80);*/
-    /*-moz-opacity:0.8;*/
-    /*opacity: 0.8;*/
-}
+
 
 /*列表标题名称*/
 .style-0 .menu-title { color:#444; }
