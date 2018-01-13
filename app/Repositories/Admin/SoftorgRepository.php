@@ -170,7 +170,7 @@ class SoftorgRepository {
                     'activities' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
                     'surveys' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
                     'slides' => function ($queryX) { $queryX->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); }
-                ])->where('active', 1);
+                ])->where('active', 1)->orderBy('order', 'asc');
             },
 //            'products' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(7); },
 //            'articles' => function ($query) { $query->where('active', 1)->orderBy('updated_at', 'desc')->limit(3); },
