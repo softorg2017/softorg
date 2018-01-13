@@ -241,7 +241,7 @@ class SoftorgRepository {
 //            }
 
 //            dd($org);
-            dd($org->toArray());
+//            dd($org->toArray());
 
             return view('front.'.config('common.view.front.index').'.index')->with('org',$org);
         }
