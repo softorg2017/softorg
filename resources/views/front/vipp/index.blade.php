@@ -151,15 +151,15 @@
             {{--首页--}}
             <div class="row full has-fold">
                 <div class="col-xs-14">
-                    <div class="hero-product-container" style="background:#000;">
-                        <div class="hero-product-container-xs" style="background:#000;">
+                    <div class="hero-product-container">
+                        <div class="hero-product-container-xs">
                         </div>
-                        <div class="hero-product-description white" fade-onload>
+                        <div class="hero-product-description" fade-onload>
                             <div style="margin-bottom:16px;font-size:20px;"><p>Welcome</p></div>
                             <h1 class="hero-heading">{{$org->name or 'name'}}</h1>
                             <div style="margin-bottom:32px;"><p>{{$org->slogan or ''}}</p></div>
-                            <a href="#product" class="btn-md"><span style="color:#D5B069;">Our Service</span></a>
-                            <a href="#contact" class="btn-md" style="background-color:#D5B069;"><span>Contact Us</span></a>
+                            <a href="#product" class="btn-md btn-md-l"><span>Our Service</span></a>
+                            <a href="#contact" class="btn-md btn-md-r"><span>Contact Us</span></a>
                         </div>
                     </div>
                 </div>
@@ -167,13 +167,13 @@
 
 
             {{--企业简介--}}
-            <div class="row full wrapper-content product-column product-four-column slide-to-top" style="margin-top:48px;">
+            <div class="row full wrapper-content product-column product-four-column slide-to-top about-contain" style="margin-top:48px;">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
                             <h3 class="menu-title" style="margin-bottom:16px;">简 介</h3>
                         </div>
-                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;">
+                        <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;display:none;">
                             <img src="/style/about.jpg" alt="" style="width:100%;height:100%;">
                         </ul>
                         <ul class="col-sm-12 col-xs-14 product-list" style="height:auto;border-top:0 solid #111;border-bottom:1px solid #111;">
@@ -201,10 +201,8 @@
             @foreach($org->menus as $menu)
             @if( count($menu->items) != 0 )
             <div class="row full wrapper-content product-column product-four-column slide-to-top
-                @if( (count($menu->items) % 2) == 1 )
-                    product-four-column--wide
-                @endif
-            " style="margin-top:48px;">
+                @if( (count($menu->items) % 2) == 1 ) product-four-column--wide @endif"
+                 @if(!$loop->first) id="product" @endif  style="margin-top:48px;">
                 <div class="col-md-14">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title" style="">
@@ -222,15 +220,15 @@
                             <li class="col-md-6 ">
                                 <a href="{{url('/'.$v->item_type.'?id=').encode($v->id)}}">
                                     <div class="item list-background" style="
-                                    @if( (count($menu->items) % 2) == 1 )
-                                    @if($loop->first)
-                                            background:url(/style/case{{ $org->style or '0' }}/bg-r.jpg);background-size:contain;
-                                    @else
-                                            background:url(/style/case{{ $org->style or '0' }}/bg-v.jpg);background-size:contain;
-                                    @endif
-                                    @else
-                                            background:url(/style/case{{ $org->style or '0' }}/bg-v.jpg);background-size:contain;
-                                    @endif
+                                    {{--@if( (count($menu->items) % 2) == 1 )--}}
+                                    {{--@if($loop->first)--}}
+                                            {{--background:url(/style/case{{ $org->style or '0' }}/bg-r.jpg);background-size:contain;--}}
+                                    {{--@else--}}
+                                            {{--background:url(/style/case{{ $org->style or '0' }}/bg-v.jpg);background-size:contain;--}}
+                                    {{--@endif--}}
+                                    {{--@else--}}
+                                            {{--background:url(/style/case{{ $org->style or '0' }}/bg-v.jpg);background-size:contain;--}}
+                                    {{--@endif--}}
                                     ">
 
                                         <div class="top-text left-8">
@@ -262,15 +260,15 @@
 
 
             {{--联系我们--}}
-            <div class="row full slide-to-top" id="contact" style="margin-top:48px;">
-                <div class="col-md-14" style="margin-bottom:16px;">
+            <div class="row full slide-to-top contact-contain" id="contact" style="margin-top:48px;">
+                <div class="col-md-14" style="margin-bottom:0px;">
                     <div class="row full">
                         <div class="col-sm-12 col-sm-offset-1 col-xs-14 product-column-title">
-                            <h3 class="menu-title" style="">联系我们</h3>
+                            <h3 class="menu-title" style="">联系方式</h3>
                         </div>
                     </div>
                 </div>
-                <ul class="col-sm-12 col-xs-14 product-list" style="width:100%;height:auto;">
+                <ul class="col-sm-12 col-xs-14 product-list" style="width:100%;height:auto;display:none;">
                     <img src="/style/contact.jpeg" alt="" style="width:100%;height:100%;">
                 </ul>
                 <div class="col-xs-14" style="border-top:1px solid #111;border-bottom:1px solid #111;">

@@ -415,6 +415,7 @@ desired effect
 
                 <li class="treeview">
                     <a target="_blank" href="/org/{{ $org->website_name }}"><i class="fa fa-circle-o text-red"></i><span>前台主页</span></a>
+                    <a href="{{url('/admin/website/style')}}"><i class="fa fa-circle-o text-aqua"></i>选择主页样式</a>
                 </li>
 
                 <li class="header">管理员管理</li>

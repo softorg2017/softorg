@@ -54,6 +54,14 @@ class WebsiteController extends Controller
         return $this->repo->get(request()->all());
     }
 
+    public function viewStyle()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_style();
+        else if (request()->isMethod('post')) return $this->repo->save_style(request()->all());
+    }
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Admin;
 
+use App\Models\Softorg;
 use App\Models\Website;
 use App\Models\Record;
 use Response, Auth, Validator, DB, Exception;
@@ -279,6 +280,26 @@ class WebsiteRepository {
         $view["article"] = $article;
 
         return view('admin.website.statistics')->with($view);
+    }
+
+    public function view_style()
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+        $org = Softorg::whereId($org_id)->first();
+
+        return view('admin.website.style')->with(['org'=>$org]);
+    }
+
+    public function save_style($post_data)
+    {
+        $admin = Auth::guard('admin')->user();
+        $org_id = $admin->org_id;
+        $org = Softorg::whereId($org_id)->first();
+        $org->style = $post_data['style'];
+        $bool = $org->save();
+        if($bool) return response_success();
+        else return response_fail();
     }
 
 
