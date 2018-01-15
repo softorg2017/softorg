@@ -48,6 +48,14 @@
                                 <div class="bottom-text left-8" style="display:none;">
                                     <span class="price">问卷</span>
                                 </div>
+
+                                <div class="item-cover">
+                                    @if(!empty($v->cover_pic))
+                                        <img src="{{url('http://cdn.'.$_SERVER['HTTP_HOST'].'/'.$v->cover_pic)}}" alt="">
+                                    @else
+                                        {{--<img src="{{url('http://cdn.'.$_SERVER['HTTP_HOST'].'/'.$org->logo)}}" alt="{{ $org->name }}">--}}
+                                    @endif
+                                </div>
                             </div>
                         </a>
                     </li>

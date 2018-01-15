@@ -250,7 +250,7 @@
 
                                         <div class="item-cover">
                                         @if(!empty($v->itemable->cover_pic))
-                                            <img src="{{url('http://cdn.softorg.cn/'.$v->itemable->cover_pic)}}" alt="">
+                                            <img src="{{url('http://cdn.'.$_SERVER['HTTP_HOST'].'/'.$v->itemable->cover_pic)}}" alt="">
                                         @else
                                             {{--<img src="{{url('http://cdn.softorg.cn/'.$org->logo)}}" alt="{{ $org->name }}">--}}
                                         @endif
