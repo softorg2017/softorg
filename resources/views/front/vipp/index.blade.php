@@ -250,9 +250,9 @@
 
                                         <div class="item-cover">
                                         @if(!empty($v->itemable->cover_pic))
-                                            <img src="{{url('http://cdn.softorg.com/'.$v->itemable->cover_pic)}}" alt="">
+                                            <img src="{{url('http://cdn.softorg.cn/'.$v->itemable->cover_pic)}}" alt="">
                                         @else
-{{--                                            <img src="{{url('http://cdn.softorg.com/'.$org->logo)}}" alt="{{ $org->name }}">--}}
+{{--                                            <img src="{{url('http://cdn.softorg.cn/'.$org->logo)}}" alt="{{ $org->name }}">--}}
                                         @endif
                                         </div>
 
