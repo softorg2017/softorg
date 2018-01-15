@@ -90,13 +90,28 @@
                         </div>
                     </div>
                 </div>
-                {{--封面图片--}}
-                <div class="form-group">
-                    <label class="control-label col-md-2">封面图片</label>
-                    <div class="col-md-8 ">
-                        <div><input type="file" name="cover" placeholder="请上传封面图片" value="{{$data->cover or ''}}"></div>
+                {{--cover 封面图片--}}
+                @if(!empty($data->cover_pic))
+                    <div class="form-group">
+                        <label class="control-label col-md-2">封面图片</label>
+                        <div class="col-md-8 ">
+                            <div class="edit-img"><img src="{{url('http://cdn.softorg.cn/'.$data->cover_pic.'?'.rand(0,999))}}" alt=""></div>
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">更换封面图片</label>
+                        <div class="col-md-8 ">
+                            <div><input type="file" name="cover" placeholder="请上传封面图片"></div>
+                        </div>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <label class="control-label col-md-2">上传封面图片</label>
+                        <div class="col-md-8 ">
+                            <div><input type="file" name="cover" placeholder="请上传封面图片"></div>
+                        </div>
+                    </div>
+                @endif
 
             </div>
             </form>
