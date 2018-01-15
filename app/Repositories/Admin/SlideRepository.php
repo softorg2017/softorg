@@ -180,6 +180,7 @@ class SlideRepository {
             if($item)
             {
                 $item->menu_id = $post_data["menu_id"];
+                $item->updated_at = time();
                 $bool1 = $item->save();
                 if(!$bool1) throw new Exception("update-item-fail");
             }
