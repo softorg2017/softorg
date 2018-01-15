@@ -122,7 +122,7 @@
                     @if( count($org->menus) != 0 )
                     @foreach($org->menus as $menu)
                         <li><a class="big-txt" href="{{url('/menu?id='.encode($menu->id))}}">
-                                <i class="fa fa-dot-circle-o" style="font-size:8px;margin-right:8px;"></i> {{ $menu->title }}</a></li>
+                            <i class="fa fa-dot-circle-o" style="font-size:8px;margin-right:8px;"></i> {{ $menu->title }}</a></li>
                         <li class="padder">&nbsp;</li>
                     @endforeach
                     @endif
@@ -199,7 +199,7 @@
             @if( count($org->menus) != 0 )
             @foreach($org->menus as $menu)
             @if( count($menu->items) != 0 )
-            <div class="row full wrapper-content product-column product-four-column slide-to-top
+            <div class="row full wrapper-content product-column product-four-column slide-to-top item-container
                 @if( (count($menu->items) % 2) == 1 ) product-four-column--wide @endif"
                  @if(!$loop->first) id="product" @endif  style="margin-top:48px;">
                 <div class="col-md-14">
@@ -237,7 +237,7 @@
                                         </div>
 
                                         <div class="bottom-text left-8" style="display:none;">
-                                            <span class="price font-5">type
+                                            <span class="price font-5">
                                                 @if($v->sort == 1) 产品
                                                 @elseif($v->sort == 2) 文章
                                                 @elseif($v->sort == 3) 活动/会议
@@ -247,6 +247,15 @@
                                                 @endif
                                             </span>
                                         </div>
+
+                                        <div class="item-cover">
+                                        @if(!empty($v->itemable->cover_pic))
+                                            <img src="{{url('http://cdn.softorg.com/'.$v->itemable->cover_pic)}}" alt="">
+                                        @else
+{{--                                            <img src="{{url('http://cdn.softorg.com/'.$org->logo)}}" alt="{{ $org->name }}">--}}
+                                        @endif
+                                        </div>
+
 
                                     </div>
                                 </a>
