@@ -46,7 +46,23 @@
                                 </div>
 
                                 <div class="bottom-text left-8" style="display:none;">
-                                    <span class="price"></span>
+                                    <span class="price font-5">
+                                        @if($v->sort == 1) 产品
+                                        @elseif($v->sort == 2) 文章
+                                        @elseif($v->sort == 3) 活动/会议
+                                        @elseif($v->sort == 4) 调研问卷
+                                        @elseif($v->sort == 5) 幻灯片
+                                        @else others
+                                        @endif
+                                    </span>
+                                </div>
+
+                                <div class="item-cover">
+                                    @if(!empty($v->itemable->cover_pic))
+                                        <img src="{{url('http://cdn.softorg.cn/'.$v->itemable->cover_pic)}}" alt="">
+                                    @else
+                                        {{--<img src="{{url('http://cdn.softorg.cn/'.$org->logo)}}" alt="{{ $org->name }}">--}}
+                                    @endif
                                 </div>
                             </div>
                         </a>
