@@ -20826,7 +20826,7 @@ input:-webkit-autofill:focus {
     /*height:atuo;*/
     height:80px;
     padding:8px;
-    background:rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.7);
     /*filter:alpha(Opacity=80);*/
     /*-webkit-opacity:0.5;*/
     /*-moz-opacity:0.5;*/
