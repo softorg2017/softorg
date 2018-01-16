@@ -20759,7 +20759,7 @@ input:-webkit-autofill:focus {
     left:16px;
     right:16px;
     height:auto;
-    /*background:inherit;*/
+    background:inherit;
 }
 .top-text h4 {
     margin:0;
@@ -20829,7 +20829,7 @@ input:-webkit-autofill:focus {
     height:calc(100% - 64px);
     height:-moz-calc(100% - 64px);
     height:-webkit-calc(100% - 64px);
-    /*height:100%;*/
+    height:100%;
     /*border-radius: 4px;*/
     overflow:hidden;
     /*background:#eee;*/
