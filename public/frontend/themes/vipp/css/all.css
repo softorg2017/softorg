@@ -20827,7 +20827,7 @@ input:-webkit-autofill:focus {
     /*min-height:48px;*/
     max-height:80px;
     padding:8px;
-    background:rgba(255,255,255,0.95);
+    background:rgba(255,255,255,0.875);
     /*filter:alpha(Opacity=80);*/
     /*-webkit-opacity:0.5;*/
     /*-moz-opacity:0.5;*/
@@ -21004,16 +21004,16 @@ input:-webkit-autofill:focus {
 
 /*列表标题名称*/
 .style-main .menu-title { width:100%;text-align:center; }
-.style-0 .menu-title { color:#444; }
-.style-1 .menu-title { color:#444; }
-.style-2 .menu-title { color:#444; }
-.style-3 .menu-title { color:#444; }
-.style-4 .menu-title { color:#444; }
-.style-5 .menu-title { color:#444; }
-.style-6 .menu-title { color:#444; }
-.style-7 .menu-title { color:#444; }
-.style-8 .menu-title { color:#444; }
-.style-9 .menu-title { color:#444; }
+.style-0 .menu-title { color:#111; }
+.style-1 .menu-title { color:#111; }
+.style-2 .menu-title { color:#111; }
+.style-3 .menu-title { color:#111; }
+.style-4 .menu-title { color:#111; }
+.style-5 .menu-title { color:#111; }
+.style-6 .menu-title { color:#111; }
+.style-7 .menu-title { color:#111; }
+.style-8 .menu-title { color:#111; }
+.style-9 .menu-title { color:#111; }
 
 
 /*内容标题*/
