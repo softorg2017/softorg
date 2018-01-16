@@ -20826,7 +20826,7 @@ input:-webkit-autofill:focus {
     /*height:atuo;*/
     height:80px;
     padding:8px;
-    background:rgba(0,0,0,0.7);
+    background:rgba(255,255,255,0.7);
     /*filter:alpha(Opacity=80);*/
     /*-webkit-opacity:0.5;*/
     /*-moz-opacity:0.5;*/
@@ -21017,7 +21017,7 @@ input:-webkit-autofill:focus {
 
 /*内容标题*/
 .style-main .list-title { color:#fff;font-size:16px;line-height:20px;font-weight:bold;margin:0;z-index:9; }
-.style-0 .list-title { color:#fff; }
+.style-0 .list-title { color:#000; }
 .style-1 .list-title { color:#fff; }
 .style-2 .list-title { color:#0071bc; }
 .style-3 .list-title { color:#444; }
@@ -21031,7 +21031,7 @@ input:-webkit-autofill:focus {
 
 /*内容说明*/
 .style-main .list-description { color:#fafafa;font-size:13px; }
-.style-0 .list-description { color:#bbb; }
+.style-0 .list-description { color:#444; }
 .style-1 .list-description { color:#9e9e9e; }
 .style-2 .list-description { color:#8f9aa4; }
 .style-3 .list-description { color:#666; }
