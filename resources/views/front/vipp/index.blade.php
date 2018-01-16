@@ -231,12 +231,20 @@
                                     {{--@endif--}}
                                     ">
 
+                                        <div class="item-cover z-index-1">
+                                            @if(!empty($v->itemable->cover_pic))
+                                                <img src="{{url('http://cdn.'.$_SERVER['HTTP_HOST'].'/'.$v->itemable->cover_pic)}}" alt="">
+                                            @else
+                                                {{--<img src="{{url('http://cdn.softorg.cn/'.$org->logo)}}" alt="{{ $org->name }}">--}}
+                                            @endif
+                                        </div>
+
                                         <div class="top-text left-8">
-                                            <h4 class="list-title multi-ellipsis">{{$v->itemable->title or ''}}</h4>
+                                            <h4 class="list-title multi-ellipsis z-index-9">{{$v->itemable->title or ''}}</h4>
                                             <p class="list-description description line-ellipsis">{{$v->itemable->description or ''}}</p>
                                         </div>
 
-                                        <div class="bottom-text left-8" style="display:none;">
+                                        <div class="bottom-text left-8 z-index-9" style="display:none;">
                                             <span class="price font-5">
                                                 @if($v->sort == 1) 产品
                                                 @elseif($v->sort == 2) 文章
@@ -246,14 +254,6 @@
                                                 @else others
                                                 @endif
                                             </span>
-                                        </div>
-
-                                        <div class="item-cover">
-                                        @if(!empty($v->itemable->cover_pic))
-                                            <img src="{{url('http://cdn.'.$_SERVER['HTTP_HOST'].'/'.$v->itemable->cover_pic)}}" alt="">
-                                        @else
-                                            {{--<img src="{{url('http://cdn.softorg.cn/'.$org->logo)}}" alt="{{ $org->name }}">--}}
-                                        @endif
                                         </div>
 
 

@@ -95,7 +95,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">封面图片</label>
                         <div class="col-md-8 ">
-                            <div class="edit-img"><img src="{{url('http://cdn.softorg.cn/'.$data->cover_pic.'?'.rand(0,999))}}" alt=""></div>
+                            <div class="edit-img"><img src="{{url('http://cdn.'.$_SERVER['HTTP_HOST'].'/'.$data->cover_pic.'?'.rand(0,999))}}" alt=""></div>
                         </div>
                     </div>
                     <div class="form-group">
