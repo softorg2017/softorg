@@ -241,7 +241,9 @@
 
                                         <div class="top-text left-8 z-index-9">
                                             <h4 class="list-title multi-ellipsis z-index-9">{{$v->itemable->title or ''}}</h4>
+                                            @if(!empty($v->itemable->description))
                                             <p class="list-description description line-ellipsis">{{$v->itemable->description or ''}}</p>
+                                            @endif
                                         </div>
 
                                         <div class="bottom-text left-8 z-index-9" style="display:none;">
