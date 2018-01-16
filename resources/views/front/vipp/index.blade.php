@@ -239,14 +239,14 @@
                                             @endif
                                         </div>
 
-                                        <div class="top-text left-8 z-index-9">
+                                        <div class="item-contents z-index-9">
                                             <h4 class="list-title multi-ellipsis z-index-9">{{$v->itemable->title or ''}}</h4>
                                             @if(!empty($v->itemable->description))
                                             <p class="list-description description line-ellipsis">{{$v->itemable->description or ''}}</p>
                                             @endif
                                         </div>
 
-                                        <div class="bottom-text left-8 z-index-9" style="display:none;">
+                                        <div class="bottom-text z-index-9" style="display:none;">
                                             <span class="price font-5">
                                                 @if($v->sort == 1) 产品
                                                 @elseif($v->sort == 2) 文章
