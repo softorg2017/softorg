@@ -41,6 +41,7 @@
     <meta name="msapplication-config" content="/sites/all/themes/vipp/assets/img/favicons/browserconfig.xml">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ asset('frontend/themes/vipp/css/all.css') }}" media="all" />
     {{--<script src="https://www.vipp.com/sites/default/files/js/js_SLyXq4zcOYrRlJ8NMZcdVCadUvi6vXyeJgA1IkziDwE.js.pagespeed.jm.KiaDCMyCJY.js"></script>--}}
     {{--<script src="https://www.vipp.com/sites/all,_themes,_vipp,_assets,_js,_plugins,_modernizr.custom.js,qoys8tt+default,_files,_js,_js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js.pagespeed.jc.E10rRAYkAy.js"></script>--}}
@@ -76,8 +77,8 @@
     <div class="top primary menu sticky">
         <div class="wrap">
             <a fade-onload href="/org/@yield('website-name')" title="Home" rel="home" id="logo">
-                <img class="logo logo-black" src="http://cdn.softorg.cn/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
-                <img class="logo logo-white" src="http://cdn.softorg.cn/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
+                <img class="logo logo-black" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
+                <img class="logo logo-white" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}"/>
             </a>
             <div class="right" fade-onload>
                 <a class="hidden-sm text-item" href="/org/@yield('website-name')">首页</a>
@@ -100,10 +101,10 @@
     <ul class="main menu-level menu-current menu-in">
         <li>
             <div>
-                <img class="logo" src="http://cdn.softorg.cn/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
+                <img class="logo" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
             </div>
             <div style="display:none;">
-                <img class="logo" src="http://cdn.softorg.cn/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
+                <img class="logo" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$data->org->logo or ''}}" alt="{{$data->org->short or 'Home'}}">
             </div>
         </li>
         <li>

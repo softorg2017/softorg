@@ -85,8 +85,8 @@
         <div class="top primary menu sticky">
             <div class="wrap">
                 <a fade-onload href="/org/{{$org->website_name or '1'}}" title="Home" rel="home" id="logo">
-                    <img class="logo logo-black" src="http://cdn.softorg.cn/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
-                    <img class="logo logo-white" src="http://cdn.softorg.cn/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
+                    <img class="logo logo-black" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
+                    <img class="logo logo-white" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}"/>
                 </a>
                 <div class="right" fade-onload>
                     <a class="hidden-sm text-item" href="/org/{{$org->website_name or '1'}}">首页</a>
@@ -111,10 +111,10 @@
         <ul class="main menu-level menu-current menu-in">
             <li>
                 <div>
-                    <img class="logo" src="http://cdn.softorg.cn/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}">
+                    <img class="logo" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}">
                 </div>
                 <div style="display:none;">
-                    <img class="logo" src="http://cdn.softorg.cn/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}">
+                    <img class="logo" src="http://cdn.{{$_SERVER['HTTP_HOST']}}/{{$org->logo or ''}}" alt="{{$org->short or 'Home'}}">
                 </div>
             </li>
             <li>
