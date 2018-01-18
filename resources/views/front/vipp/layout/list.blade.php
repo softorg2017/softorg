@@ -144,7 +144,7 @@
                     <div class="hero-product-description white" fade-onload>
                         <h4>{{$org->slogan or ''}}</h4>
                         <h1 class="hero-heading">{{$org->name or ''}}</h1>
-                        <a href="#" class="btn-md btn-md-l"><span>@yield('menu-name')</span></a>
+                        <a href="javascript:void(0);" class="btn-md btn-md-l"><span>@yield('menu-name')</span></a>
                     </div>
                 </div>
             </div>

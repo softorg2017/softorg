@@ -138,13 +138,13 @@
         {{--首页--}}
         <div class="row full has-fold">
             <div class="col-xs-14">
-                <div class="hero-product-container" style="background-image:url(/images/black-r.jpg)">
-                    <div class="hero-product-container-xs" style="background-image:url(/images/black-v.jpg)">
+                <div class="hero-product-container">
+                    <div class="hero-product-container-xs">
                     </div>
                     <div class="hero-product-description white" fade-onload>
                         <h4>{{$data->org->name or ''}}</h4>
                         <h1 class="hero-heading">@yield('data-title')</h1>
-                        <a href="javascript:void(0);" class="btn-md"><span>@yield('detail-name')</span></a>
+                        <a href="javascript:void(0);" class="btn-md btn-md-l"><span>@yield('detail-name')</span></a>
                     </div>
                 </div>
             </div>
