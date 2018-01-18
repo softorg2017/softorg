@@ -58,11 +58,11 @@
             <div class="settings">
             </div>
             <div class="right">
-                <a class="hidden-sm" href="/org/@yield('website-name')">首页</a>
-                <a class="hidden-sm" href="/org/@yield('website-name')/product">产品</a>
-                <a class="hidden-sm" href="/org/@yield('website-name')/article">文章</a>
-                <a class="hidden-sm" href="/org/@yield('website-name')/activity">活动</a>
-                <a class="hidden-sm" href="/org/@yield('website-name')/survey">问卷</a>
+                @if( count($org->menus) != 0 )
+                    @foreach($org->menus as $menu)
+                        <a class="big-txt" href="{{url('/menu?id='.encode($menu->id))}}">{{ $menu->title }}</a>
+                    @endforeach
+                @endif
                 <a href="#" class="hidden-sm">关于我们</a>
                 <a href="#" class="btn-icon-close"><i class="icon-close"></i></a>
             </div>
@@ -140,13 +140,13 @@
         {{--首页--}}
         <div class="row full has-fold" style="margin-bottom:48px;">
             <div class="col-xs-14">
-                <div class="hero-product-container" style="background-image:url(/images/black-r.jpg)">
-                    <div class="hero-product-container-xs" style="background-image:url(/images/black-v.jpg)">
+                <div class="hero-product-container">
+                    <div class="hero-product-container-xs">
                     </div>
                     <div class="hero-product-description white" fade-onload>
                         <h4>{{$org->slogan or ''}}</h4>
                         <h1 class="hero-heading">{{$org->name or ''}}</h1>
-                        <a href="#" class="btn-md"><span>@yield('menu-name')</span></a>
+                        <a href="#" class="btn-md btn-md-l"><span>@yield('menu-name')</span></a>
                     </div>
                 </div>
             </div>

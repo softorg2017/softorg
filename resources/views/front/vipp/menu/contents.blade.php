@@ -40,9 +40,11 @@
                             @endif
                             ">
 
-                                <div class="top-text left-8">
+                                <div class="item-contents z-index-9">
                                     <h4 class="list-title multi-ellipsis">{{$v->itemable->title or ''}}</h4>
+                                    @if(!empty($v->itemable->description))
                                     <p class="list-description description line-ellipsis">{{$v->itemable->description or ''}}</p>
+                                    @endif
                                 </div>
 
                                 <div class="bottom-text left-8" style="display:none;">

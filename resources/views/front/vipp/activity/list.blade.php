@@ -28,19 +28,9 @@
                 @foreach($org->activities as $v)
                     <li class="col-md-6 ">
                         <a href="{{url('/activity?id=').encode($v->id)}}">
-                            <div class="item " style="
-                            @if( (count($org->activities) % 2) == 1 )
-                                @if($loop->first)
-                                    background:url(/style/case{{ $org->style or '0' }}/bg-r-activity.jpg);background-size:contain;
-                                @else
-                                    background:url(/style/case{{ $org->style or '0' }}/bg-v-activity.jpg);background-size:contain;
-                                @endif
-                            @else
-                                background:url(/style/case{{ $org->style or '0' }}/bg-v-activity.jpg);background-size:contain;
-                            @endif
-                            ">
+                            <div class="item list-background">
 
-                                <div class="top-text left-8">
+                                <div class="item-contents z-index-9">
                                     <h4 class="list-title multi-ellipsis">{{$v->title or ''}}</h4>
                                     <p class="list-description description line-ellipsis">{{$v->description or ''}}</p>
                                 </div>
