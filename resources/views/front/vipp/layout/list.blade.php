@@ -107,20 +107,17 @@
         </li>
         <li>
             <ul class="first-nav">
-                <li><a class="big-txt" href="/org/@yield('website-name')">首页</a></li>
-                <li class="padder">&nbsp;</li>
-                <li><a class="big-txt" href="/org/@yield('website-name')/product">产品</a></li>
-                <li class="padder">&nbsp;</li>
-                <li><a class="big-txt" href="/org/@yield('website-name')/article">文章</a></li>
-                <li class="padder">&nbsp;</li>
-                <li><a class="big-txt" href="/org/@yield('website-name')/activity">活动</a></li>
-                <li class="padder">&nbsp;</li>
-                <li><a class="big-txt" href="/org/@yield('website-name')/survey">问卷</a></li>
-                <li class="padder">&nbsp;</li>
+                @if( count($org->menus) != 0 )
+                    @foreach($org->menus as $menu)
+                        <li><a class="big-txt" href="{{url('/menu?id='.encode($menu->id))}}">
+                                <i class="fa fa-dot-circle-o" style="font-size:8px;margin-right:8px;"></i> {{ $menu->title }}</a></li>
+                        <li class="padder">&nbsp;</li>
+                    @endforeach
+                @endif
             </ul>
         </li>
         <li class="padder">&nbsp;</li>
-        <li style="display: none">
+        <li>
             <ul class="second-nav">
                 <li><a class="" href="/org/@yield('website-name')">首页</a></li>
                 <li><a class="" href="/org/@yield('website-name')/product">产品</a></li>
