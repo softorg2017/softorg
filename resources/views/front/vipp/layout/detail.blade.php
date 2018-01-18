@@ -132,8 +132,9 @@
         <li class="padder">&nbsp;</li>
     </ul>
 </div>
+
 {{--main--}}
-<div class="wrapper-main-content">
+<div class="wrapper-main-content style-main style-{{ $org->style or '0' }}">
     <div class="container-fluid ">
         {{--首页--}}
         <div class="row full has-fold">
@@ -152,6 +153,7 @@
         @yield('content')
     </div>
 </div>
+
 <div class="overlay"></div>
 <div class="overlay"></div>
 {{--footer--}}
