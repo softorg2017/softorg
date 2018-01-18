@@ -519,7 +519,12 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $product = Product::with(['org','admin'])->whereId($decode_id)->first();
+        $product = Product::with([
+                'org'=>function ($query) {
+                    $query->with(['menus'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc'); } ]);
+                },
+                'admin'
+            ])->whereId($decode_id)->first();
         if($product)
         {
             // 访问数量+1
@@ -576,7 +581,11 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $article = Article::with(['org','admin'])->whereId($decode_id)->first();
+        $article = Article::with([
+            'org'=>function ($query) {
+                $query->with(['menus'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc'); } ]);
+            },
+            'admin'])->whereId($decode_id)->first();
         if($article)
         {
             // 访问数量+1
@@ -632,7 +641,11 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $activity = Activity::with(['org','admin'])->whereId($decode_id)->first();
+        $activity = Activity::with([
+            'org'=>function ($query) {
+                $query->with(['menus'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc'); } ]);
+            },
+            'admin'])->whereId($decode_id)->first();
         if($activity)
         {
             // 访问数量+1
@@ -715,7 +728,11 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $survey = Survey::with(['org','admin',
+        $survey = Survey::with([
+            'org'=>function ($query) {
+                $query->with(['menus'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc'); } ]);
+            },
+            'admin',
             'questions' => function ($query) { $query->orderBy('order', 'asc'); }
         ])->whereId($decode_id)->first();
         if($survey)
@@ -773,7 +790,11 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("地址有误");
 
-        $slide = Slide::with(['org','admin',
+        $slide = Slide::with([
+            'org'=>function ($query) {
+                $query->with(['menus'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc'); } ]);
+            },
+            'admin',
             'pages' => function ($query) { $query->orderBy('order', 'asc'); }
         ])->whereId($decode_id)->first();
         if($slide)

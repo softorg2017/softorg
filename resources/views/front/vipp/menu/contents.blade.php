@@ -28,17 +28,7 @@
                 @foreach($data->items as $v)
                     <li class="col-md-6 ">
                         <a href="{{url('/'.strtolower(substr($v->itemable_type, 11)).'?id=').encode($v->itemable->id)}}">
-                            <div class="item " style="
-                            @if( (count($data->items) % 2) == 1 )
-                                @if($loop->first)
-                                    background:url(/style/case{{ $org->style or '0' }}/bg-r.jpg);background-size:contain;
-                                @else
-                                    background:url(/style/case{{ $org->style or '0' }}/bg-v.jpg);background-size:contain;
-                                @endif
-                            @else
-                                background:url(/style/case{{ $org->style or '0' }}/bg-v.jpg);background-size:contain;
-                            @endif
-                            ">
+                            <div class="item list-background">
 
                                 <div class="item-contents z-index-9">
                                     <h4 class="list-title multi-ellipsis">{{$v->itemable->title or ''}}</h4>
