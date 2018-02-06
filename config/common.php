@@ -2,6 +2,11 @@
 
     return [
 
+        'host' => 'http://softorg.cn',
+        'cdn' => 'http://cdn.softorg.cn',
+
+        'MailService' => 'http://live2.pub:8088',
+
         'view' => [
             'front' => [
                 'template' => 'online',

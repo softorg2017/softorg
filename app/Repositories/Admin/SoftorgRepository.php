@@ -872,6 +872,8 @@ class SoftorgRepository {
                 if($type == 1)
                 {
                     $activity = Activity::find($id);
+
+                    $variate['host'] = config('common.host');
                     $variate['sort'] = 'activity_apply';
                     $variate['target'] = $post_data['email'];
                     $variate['email'] = $post_data['email'];
@@ -884,7 +886,8 @@ class SoftorgRepository {
 //                    $mail = new MailRepository();
 //                    $mail->send_activity_apply_email($variate);
 
-                    $url = 'http://qingorg.cn:8088/email/send';
+//                    $url = 'http://qingorg.cn:8088/email/send';
+                    $url = config('common.MailService').'/softorg/activity/apply/activation';
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

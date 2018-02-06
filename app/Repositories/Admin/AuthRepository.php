@@ -94,21 +94,21 @@ class AuthRepository {
                                 $bool4 = $verification->fill($verification_create)->save();
                                 if($bool4)
                                 {
-    //                                $send = new MailRepository();
+                                    $post_data['host'] = config('common.host');
                                     $post_data['sort'] = 'admin_activation';
                                     $post_data['type'] = 1;
                                     $post_data['admin_id'] = encode($admin->id);
                                     $post_data['code'] = $code;
                                     $post_data['target'] = $email;
 
-    //                                $flag = $send->send_admin_activation_email($post_data);
+//                                    $mail = new MailRepository();
+    //                                $flag = $mail->send_admin_activation_email($post_data);
     //                                if(count($flag) >= 1)
     //                                {
-    //                                    $flag = $send->send_admin_activation_email($post_data);
-    //                                    if(count($flag) >= 1) throw new Exception("send-email-false");
     //                                }
 
-                                    $url = 'http://qingorg.cn:8088/email/send';
+//                                    $url = 'http://qingorg.cn:8088/email/send';
+                                    $url = config('common.MailService').'/softorg/email/activation';
                                     $ch = curl_init();
                                     curl_setopt($ch, CURLOPT_URL, $url);
                                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -139,9 +139,10 @@ class AuthRepository {
             catch (Exception $e)
             {
                 DB::rollback();
-//                $msg = $e->getMessage();
 //                exit($e->getMessage());
-                return response_fail([],'注册失败！');
+                $msg = $e->getMessage();
+                $msg = '注册失败！';
+                return response_fail([], $msg);
             }
         }
         else return response_error([],'密码不一致！');
