@@ -10,7 +10,9 @@
     <meta name="_token" content="{{ csrf_token() }}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="" type="" />
-    <meta name="description" content="" />
+    <meta name="author" content="@yield('meta_author')" />
+    <meta name="description" content="@yield('meta_description')" />
+    <meta name="keywords" content="@yield('meta_keywords')" />
     <link rel="canonical" href="https://www.softorg.cn" />
     <link rel="shortlink" href="https://www.softorg.cn" />
     <meta property="og:site_name" content="softorg.cn" />

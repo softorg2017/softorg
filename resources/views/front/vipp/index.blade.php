@@ -10,7 +10,10 @@
     <meta name="_token" content="{{ csrf_token() }}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="" type="" />
-    <meta name="description" content="" />
+    <meta name="robots" content="all" />
+    <meta name="author" content="@yield('meta_author')" />
+    <meta name="description" content="@yield('meta_description')" />
+    <meta name="keywords" content="@yield('meta_keywords')" />
     <link rel="canonical" href="https://www.softorg.cn" />
     <link rel="shortlink" href="https://www.softorg.cn" />
     <meta property="og:site_name" content="softorg.cn" />
@@ -546,7 +549,7 @@
 
             <div class="term" style="margin-top:4px;">COPYRIGHT©{{$org->name or 'name'}}</div>
             <div class="term" style="margin-top:4px;">技术支持©上海如哉网络科技有限公司</div>
-            <div class="term" style="margin-top:4px;">沪ICP备17052782号-1</div>
+            <div class="term" style="margin-top:4px;"><a href="http://www.miitbeian.gov.cn">沪ICP备17052782号-1</a></div>
 
             <div class="copyright" style="display: none">COPYRIGHT©上海如哉网络科技有限公司 技术支持 (2017-2018) 沪ICP备17052782号-1</div>
             <div class="term" style="display: none"><a href="#">Terms and conditions</a></div>
