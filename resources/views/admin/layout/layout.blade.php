@@ -82,7 +82,7 @@ desired effect
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="{{url('/admin')}}" class="logo">
+        <a href="{{url(config('common.org.admin.prefix').'/admin')}}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>轻</b></span>
             <!-- logo for regular state and mobile devices -->
@@ -217,17 +217,25 @@ desired effect
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            @if(Auth::guard('org_admin')->user()->portrait_img)
+                                <img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.Auth::guard('org_admin')->user()->portrait_img)}}" class="user-image" alt="User Image">
+                            @else
+                                <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            @endif
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">{{Auth::guard('admin')->user()->nickname}}</span>
+                            <span class="hidden-xs">{{Auth::guard('org_admin')->user()->nickname}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                @if(Auth::guard('org_admin')->user()->portrait_img)
+                                    <img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.Auth::guard('org_admin')->user()->portrait_img)}}" class="img-circle" alt="User Image">
+                                @else
+                                    <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                @endif
 
                                 <p>
-                                    {{Auth::guard('admin')->user()->nickname}} - Web Developer
+                                    {{Auth::guard('org_admin')->user()->nickname}} - 管理员
                                     <small>Member since Nov. 2012</small>
                                 </p>
                             </li>
@@ -249,7 +257,7 @@ desired effect
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">个人资料</a>
+                                    <a href="{{url(config('common.org.admin.prefix').'/admin/administrator/index')}}" class="btn btn-default btn-flat">个人资料</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="#" class="btn btn-default btn-flat admin-logout">退出</a>
@@ -276,19 +284,19 @@ desired effect
         <section class="sidebar">
 
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel">
+            <div class="user-panel" style="display:none;">
                 <div class="pull-left image">
                     <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>{{Auth::guard('admin')->user()->nickname}}</p>
+                    <p>{{Auth::guard('org_admin')->user()->nickname}}</p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
 
             <!-- search form (Optional) -->
-            <form action="#" method="get" class="sidebar-form">
+            <form action="#" method="get" class="sidebar-form" style="display:none;">
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
@@ -305,123 +313,135 @@ desired effect
                 <!-- Optionally, you can add icons to the links -->
 
                 <li class="treeview">
-                    <a href="{{url('/admin/softorg/index')}}"><i class="fa fa-circle-o text-aqua"></i><span>基本信息</span></a>
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/info/index')}}">
+                        <i class="fa fa-sun-o text-aqua"></i> <span>基本信息</span>
+                    </a>
                 </li>
                 
-                <li class="treeview-" style="display:none;">
-                    <a href="{{url('/admin/softorg/edit')}}"><i class="fa fa-circle-o text-aqua"></i>编辑基本信息</a>
+                <li class="treeview" style="display:none;">
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/info/edit')}}">
+                        <i class="fa fa-circle-o text-aqua"></i> <span>编辑基本信息</span>
+                    </a>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview" style="display:none;">
                     <a href=""><i class="fa fa-th text-aqua"></i> <span>更多信息</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li style="display:none;"><a href="{{url('/admin/website/edit')}}"><i class="fa fa-circle-o text-aqua"></i>详细编辑</a></li>
-                        <li><a href="{{url('/admin/softorg/edit/home')}}"><i class="fa fa-circle-o text-aqua"></i>编辑展示主页</a></li>
-                        <li><a href="{{url('/admin/softorg/edit/introduction')}}"><i class="fa fa-circle-o text-aqua"></i>编辑简介详情</a></li>
-                        <li><a href="{{url('/admin/softorg/edit/contactus')}}"><i class="fa fa-circle-o text-aqua"></i>编辑联系我们</a></li>
-                        <li><a href="{{url('/admin/softorg/edit/culture')}}"><i class="fa fa-circle-o text-aqua"></i>编辑企业文化</a></li>
+                        <li style="display:none;">
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/website/edit')}}">
+                                <i class="fa fa-circle-o text-aqua"></i>详细编辑
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/softorg/edit/home')}}">
+                                <i class="fa fa-circle-o text-aqua"></i>编辑展示主页
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/softorg/edit/introduction')}}">
+                                <i class="fa fa-circle-o text-aqua"></i>编辑简介详情
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/softorg/edit/contactus')}}">
+                                <i class="fa fa-circle-o text-aqua"></i>编辑联系我们
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/softorg/edit/culture')}}">
+                                <i class="fa fa-circle-o text-aqua"></i>编辑企业文化
+                            </a>
+                        </li>
                         {{--<li><a href="{{url('/admin/administrator/list')}}"><i class="fa fa-circle-o text-aqua"></i>管理员列表</a></li>--}}
                     </ul>
                 </li>
 
-                <li class="header">目录管理</li>
-
                 <li class="treeview">
-                    <a href="{{url('/admin/menu/list')}}"><i class="fa fa-list text-yellow"></i> <span>目录列表</span>
-                        <span class="pull-right-container" style="display:none;">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <a href="{{url('/admin/menu/sort')}}"><i class="fa fa-sort text-yellow"></i> <span>目录排序</span>
-                        <span class="pull-right-container" style="display:none;">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu-" style="display:none;">
-                        <li><a href="{{url('/admin/menu/list')}}"><i class="fa fa-circle-o text-aqua"></i>目录列表</a></li>
-                        <li><a href="{{url('/admin/menu/create')}}"><i class="fa fa-circle-o text-aqua"></i>添加目录</a></li>
-                    </ul>
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/website/style')}}"><i class="fa fa-sun-o text-aqua"></i>主页样式</a>
                 </li>
 
                 <li class="header">内容管理</li>
 
                 <li class="treeview">
-                    <a href="{{url('/admin/product/list')}}"><i class="fa fa-cube text-red"></i> <span>产品管理</span>
-                        <span class="pull-right-container" style="display:none;">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/menu/list')}}">
+                        <i class="fa fa-folder-open-o text-yellow"></i> <span>目录列表</span>
                     </a>
-                    <ul class="treeview-menu-" style="display:none;">
-                        <li><a href="{{url('/admin/product/list')}}"><i class="fa fa-circle-o text-red"></i>产品列表</a></li>
-                        <li><a href="{{url('/admin/product/create')}}"><i class="fa fa-circle-o text-red"></i>添加产品</a></li>
-                    </ul>
                 </li>
+
                 <li class="treeview">
-                    <a href="{{url('/admin/article/list')}}"><i class="fa fa-file-text text-red"></i> <span>文章管理</span>
-                        <span class="pull-right-container" style="display:none;">
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/item/list')}}">
+                        <i class="fa fa-file-text-o text-yellow"></i> <span>内容列表</span>
+                    </a>
+                </li>
+
+                <li class="treeview" style="display:none;">
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/menu/sort')}}">
+                        <i class="fa fa-sort text-red"></i> <span>目录排序</span>
+                    </a>
+                </li>
+
+
+                <li class="treeview" style="display:none;">
+                    <a href=""><i class="fa fa-th text-aqua"></i> <span>特殊内容</span>
+                        <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu-" style="display:none;">
-                        <li><a href="{{url('/admin/article/list')}}"><i class="fa fa-circle-o text-green"></i>文章列表</a></li>
-                        <li><a href="{{url('/admin/article/create')}}"><i class="fa fa-circle-o text-green"></i>添加文章</a></li>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/product/list')}}">
+                                <i class="fa fa-file-text text-red"></i> <span>产品列表</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/article/list')}}">
+                                <i class="fa fa-file-text text-red"></i> <span>文章列表</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/activity/list')}}">
+                                <i class="fa fa-calendar-check-o text-red"></i> <span>活动/会议列表</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/survey/list')}}">
+                                <i class="fa fa-question-circle text-red"></i> <span>调研问卷列表</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url(config('common.org.admin.prefix').'/admin/slide/list')}}">
+                                <i class="fa fa-th-large text-red"></i> <span>幻灯片列表</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                <li class="treeview">
-                    <a href="{{url('/admin/activity/list')}}"><i class="fa fa-calendar-check-o text-red"></i> <span>活动/会议管理</span>
-                        <span class="pull-right-container" style="display:none;">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu-" style="display:none;">
-                        <li><a href="{{url('/admin/activity/list')}}"><i class="fa fa-circle-o text-yellow"></i>活动/会议列表</a></li>
-                        <li><a href="{{url('/admin/activity/create')}}"><i class="fa fa-circle-o text-yellow"></i>添加活动/会议</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="{{url('/admin/survey/list')}}"><i class="fa fa-question-circle text-red"></i> <span>调研问卷管理</span>
-                        <span class="pull-right-container" style="display:none;">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu-" style="display:none;">
-                        <li><a href="{{url('/admin/survey/list')}}"><i class="fa fa-circle-o text-blue"></i>问卷列表</a></li>
-                        <li><a href="{{url('/admin/survey/create')}}"><i class="fa fa-circle-o text-blue"></i>添加问卷</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="{{url('/admin/slide/list')}}"><i class="fa fa-th-large text-red"></i> <span>幻灯片管理</span>
-                        <span class="pull-right-container" style="display:none;">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu-" style="display:none;">
-                        <li><a href="{{url('/admin/slide/list')}}"><i class="fa fa-circle-o text-purple"></i>幻灯片列表</a></li>
-                        <li><a href="{{url('/admin/slide/create')}}"><i class="fa fa-circle-o text-purple"></i>添加幻灯片</a></li>
-                    </ul>
-                </li>
+
+
+
 
                 <li class="header">流量统计</li>
 
                 <li class="treeview">
-                    <a href="{{url('/admin/website/statistics')}}"><i class="fa fa-bar-chart text-green"></i> <span>流量统计</span></a>
+                    {{--<a href="{{url(config('common.org.admin.prefix').'/admin/website/statistics')}}"><i class="fa fa-bar-chart text-green"></i> <span>流量统计</span></a>--}}
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/statistics/website')}}"><i class="fa fa-bar-chart text-green"></i> <span>流量统计</span></a>
                 </li>
 
                 <li class="header">前台展示</li>
 
                 <li class="treeview">
-                    <a target="_blank" href="/org/{{ $org->website_name }}"><i class="fa fa-circle-o text-red"></i><span>前台主页</span></a>
-                    <a href="{{url('/admin/website/style')}}"><i class="fa fa-circle-o text-aqua"></i>选择主页样式</a>
+                    <a target="_blank" href="/{{config('common.org.front.index')}}/{{ $org->website_name }}">
+                        <i class="fa fa-cube text-red"></i><span>前台主页</span>
+                    </a>
                 </li>
 
-                <li class="header">管理员管理</li>
+                <li class="header" style="display:none;">管理员管理</li>
 
-                <li class="treeview">
-                    <a href="{{url('/admin/administrator/password/reset')}}"><i class="fa fa-circle-o text-aqua"></i><span>修改密码</span></a>
+                <li class="treeview" style="display:none;">
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/administrator/password/reset')}}"><i class="fa fa-circle-o text-aqua"></i><span>修改密码</span></a>
                 </li>
 
             </ul>

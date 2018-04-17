@@ -1,0 +1,20 @@
+<?php
+namespace App\Http\Controllers\Org\Admin;
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+class IndexController extends Controller
+{
+
+	public function index()
+	{
+        return view('admin.index.index');
+	}
+
+    public function dataTableI18n()
+    {
+    	return trans('pagination.i18n');
+    }
+}

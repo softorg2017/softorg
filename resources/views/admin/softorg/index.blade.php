@@ -17,7 +17,7 @@
             <div class="box-header with-border" style="margin: 15px 0;">
                 <h3 class="box-title">机构(企业)基本信息</h3>
                 <div class="pull-right">
-                    <a href="{{url('/admin/softorg/edit')}}">
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/softorg/edit')}}">
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa "></i>编辑信息</button>
                     </a>
                 </div>
@@ -81,25 +81,39 @@
                         <div><label class="control-label">{{$org->qq or ''}}</label></div>
                     </div>
                 </div>
-                {{--微信--}}
+                {{--微信号--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">微信号：</label>
                     <div class="col-md-8 ">
-                        <div><label class="control-label">{{$org->wechat or ''}}</label></div>
+                        <div><label class="control-label">{{$org->wechat_id or ''}}</label></div>
+                    </div>
+                </div>
+                {{--微信二维码--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">微信二维码：</label>
+                    <div class="col-md-8 ">
+                        <div style="width:100px;height:100px;"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$org->wechat_qrcode)}}" alt=""></div>
                     </div>
                 </div>
                 {{--微博--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">微博名称：</label>
                     <div class="col-md-8 ">
-                        <div><label class="control-label">{{$org->weibo or ''}}</label></div>
+                        <div><label class="control-label">{{$org->weibo_name or ''}}</label></div>
+                    </div>
+                </div>
+                {{--微博地址--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">微博地址：</label>
+                    <div class="col-md-8 ">
+                        <div><label class="control-label">{{$org->weibo_address or ''}}</label></div>
                     </div>
                 </div>
                 {{--logo--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">logo：</label>
                     <div class="col-md-8 ">
-                        <div style="width:100px;height:100px;"><img src="{{url('http://cdn.softorg.cn/'.$org->logo)}}" alt=""></div>
+                        <div style="width:100px;height:100px;"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$org->logo)}}" alt=""></div>
                     </div>
                 </div>
                 {{--qrcode--}}

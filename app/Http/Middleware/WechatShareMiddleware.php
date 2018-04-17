@@ -11,9 +11,11 @@ class WechatShareMiddleware
 
     public function handle($request, Closure $next)
     {
-
-        $wechat_config = json_encode(TokenManager::getConfig());
-        view()->share('wechat_config', $wechat_config);
+        if(env('APP_ENV') != 'local')
+        {
+            $wechat_config = json_encode(TokenManager::getConfig());
+            view()->share('wechat_config', $wechat_config);
+        }
 
         return $next($request);
     }

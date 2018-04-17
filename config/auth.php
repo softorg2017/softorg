@@ -46,6 +46,11 @@ return [
             'provider' => 'admins',
         ],
 
+        'org_admin' => [
+            'driver' => 'session',
+            'provider' => 'org_admins',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -78,6 +83,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Administrator::class,
+        ],
+
+        'org_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Org\OrgAdministrator::class,
         ],
 
         // 'users' => [

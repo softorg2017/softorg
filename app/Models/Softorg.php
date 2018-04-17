@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Softorg extends Model
 {
     //
-    protected $table = "softorg";
+    protected $table = "softorg_organization";
     protected $fillable = [
         'sort', 'type', 'name', 'website_name', 'short', 'slogan', 'description', 'logo', 'address', 'telephone', 'email', 'qq', 'wechat', 'weibo'
     ];
@@ -33,7 +33,7 @@ class Softorg extends Model
 
     function menus()
     {
-        return $this->hasMany('App\Models\Menu','org_id','id');
+        return $this->hasMany('App\Models\Org\OrgMenu','org_id','id');
     }
 
     function products()

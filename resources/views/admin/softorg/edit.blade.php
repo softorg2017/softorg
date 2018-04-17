@@ -56,7 +56,7 @@
                     <label class="control-label col-md-2">企业简介</label>
                     <div class="col-md-8 ">
                         {{--<div><input type="text" class="form-control" name="description" placeholder="请输入描述" value="{{$org->description or ''}}"></div>--}}
-                        <div><textarea name="description" id="" cols="100%" rows="10">{{$org->description or ''}}</textarea></div>
+                        <div><textarea name="description" id="" cols="100%" rows="5">{{$org->description or ''}}</textarea></div>
                     </div>
                 </div>
                 {{--地址--}}
@@ -91,14 +91,28 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">微信号</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="wechat" placeholder="请输入微信号" value="{{$org->wechat or ''}}"></div>
+                        <div><input type="text" class="form-control" name="wechat_id" placeholder="请输入微信号" value="{{$org->wechat or ''}}"></div>
                     </div>
                 </div>
-                {{--微博--}}
+                {{--微信二维码--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">微信二维码</label>
+                    <div class="col-md-8 ">
+                        <div><input type="file" name="wechat_qrcode" placeholder="请上传微信二维码" value="{{$org->logo or ''}}"></div>
+                    </div>
+                </div>
+                {{--微博名称--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">微博名称</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="weibo" placeholder="请输入微博名称" value="{{$org->weibo or ''}}"></div>
+                        <div><input type="text" class="form-control" name="weibo" placeholder="请输入微博名称" value="{{$org->weibo_name or ''}}"></div>
+                    </div>
+                </div>
+                {{--微博地址--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">微博地址</label>
+                    <div class="col-md-8 ">
+                        <div><input type="text" class="form-control" name="weibo" placeholder="请输入微博地址" value="{{$org->weibo_address or ''}}"></div>
                     </div>
                 </div>
                 {{--logo--}}
@@ -133,7 +147,7 @@
         // 添加or修改产品信息
         $("#edit-softorg-submit").on('click', function() {
             var options = {
-                url: "/admin/softorg/edit",
+                url: "{{url(config('common.org.admin.prefix').'/admin/info/edit')}}",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -142,7 +156,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "/admin/softorg/index";
+                        location.href = "{{url(config('common.org.admin.prefix').'/admin/info/edit')}}";
                     }
                 }
             };

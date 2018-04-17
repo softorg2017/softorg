@@ -2,8 +2,17 @@
 
     return [
 
-        'host' => 'http://softorg.cn',
-        'cdn' => 'http://cdn.softorg.cn',
+        'host' => [
+            'local' => [
+                'root' => 'http://softorg.com',
+                'cdn' => 'http://cdn.softorg.com',
+            ],
+
+            'online' => [
+                'root' => 'http://softorg.cn',
+                'cdn' => 'http://cdn.softorg.cn',
+            ],
+        ],
 
         'MailService' => 'http://live2.pub:8088',
 
@@ -19,6 +28,28 @@
         'website' => [
             'front' => [
                 'prefix' => 'org'
+            ],
+        ],
+
+        'org' => [
+
+            'front' => [
+                'prefix' => 'org',
+                'index' => 'o'
+            ],
+
+            'admin' => [
+                'prefix' => 'org'
+            ],
+
+            'view' => [
+                'frontend' => [
+                    'template' => 'online',
+                    'online' => 'org.frontend.vipp',
+                    'index' => 'org.frontend.vipp',
+                    'list' => 'org.frontend.vipp',
+                    'detail' => 'org.frontend.vipp'
+                ],
             ],
         ],
 
