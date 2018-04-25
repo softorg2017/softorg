@@ -26,20 +26,13 @@
                 </div>
             </div>
 
-            @if( count($data->menu->items) == 0 )
-                <span class="view-more visible-xs">暂无</span>
-            @else
-                <div>
-                </div>
-            @endif
-
-            @if( count($data->menu->items) > 0 )
-                <div class="module-footer-container">
+            <div class="module-footer-container">
+                @if( count($data->menu->items) > 0 )
                     <a href="{{ url(config('common.org.front.prefix').'/menu/'.encode($data->menu->id)) }}" class="view-more visible-xs- btn-md btn-more">更多</a>
-                </div>
-            @else
-                <a class="view-more visible-xs- btn-md btn-more">暂无</a>
-            @endif
+                @else
+                    <a class="view-more visible-xs- btn-md btn-more">暂无</a>
+                @endif
+            </div>
 
         </div>
     </div>
