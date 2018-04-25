@@ -1,5 +1,10 @@
 img {max-width:100%;}
+
 ._none {display: none;}
+
+.margin-10 {
+    margin:10px;
+}
 
 .multi-ellipsis-1 {
     overflow: hidden;

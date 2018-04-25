@@ -7,10 +7,17 @@ class OrgMenu extends Model
     //
     protected $table = "softorg_org_menu";
     protected $fillable = [
-        'sort', 'type', 'org_id', 'admin_id', 'active', 'name', 'title', 'description', 'content',
+        'sort', 'type', 'org_id', 'admin_id', 'active', 'name', 'title', 'description', 'content', 'cover_pic',
         'visit_num', 'share_num'
     ];
     protected $dateFormat = 'U';
+
+//    protected $dates = ['created_at','updated_at'];
+//    public function getDates()
+//    {
+//        return array(); // 原形返回；
+//        return array('created_at','updated_at');
+//    }
 
     function org()
     {
@@ -26,10 +33,6 @@ class OrgMenu extends Model
     function items()
     {
         return $this->belongsToMany('App\Models\Org\OrgItem','softorg_org_pivot_menu_item','menu_id','item_id');
-    }
-    function menus()
-    {
-        return $this->belongsToMany('App\Models\Org\OrgMenu','softorg_org_pivot_menu_item','item_id','menu_id');
     }
 
 //    function items()

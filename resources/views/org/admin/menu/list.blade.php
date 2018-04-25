@@ -5,7 +5,7 @@
 @section('description','目录列表')
 @section('breadcrumb')
     <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
-    <li><a href="{{url('/admin/menu/list')}}"><i class="fa "></i>产品目录列表</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/admin/menu/list')}}"><i class="fa "></i>产品目录列表</a></li>
     <li><a href="#"><i class="fa "></i> Level</a></li>
 @endsection
 

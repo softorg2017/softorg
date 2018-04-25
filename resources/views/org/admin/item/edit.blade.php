@@ -1,15 +1,15 @@
 @extends('admin.layout.layout')
 
 @section('title')
-    @if(empty($encode_id)) 添加内容 @else 编辑内容 @endif
+    @if($operate == 'create') 添加内容 @else 编辑内容 @endif
 @endsection
 
 @section('header')
-    @if(empty($encode_id)) 添加内容 @else 编辑内容 @endif
+    @if($operate == 'create') 添加内容 @else 编辑内容 @endif
 @endsection
 
 @section('description')
-    @if(empty($encode_id)) 添加内容 @else 编辑内容 @endif
+    @if($operate == 'create') 添加内容 @else 编辑内容 @endif
 @endsection
 
 @section('breadcrumb')
@@ -33,8 +33,8 @@
             <div class="box-body">
 
                 {{csrf_field()}}
-                <input type="hidden" name="operate" value="{{$operate_id or ''}}" readonly>
-                <input type="hidden" name="id" value="{{$encode_id or encode(0)}}" readonly>
+                <input type="hidden" name="operate" value="{{$operate or ''}}" readonly>
+                <input type="hidden" name="encode_id" value="{{$encode_id or encode(0)}}" readonly>
 
                 {{--标题--}}
                 <div class="form-group">
@@ -101,7 +101,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">封面图片</label>
                     <div class="col-md-8 ">
-                        <div class="edit-img"><img src="{{url('http://cdn.'.$_SERVER['HTTP_HOST'].'/'.$data->cover_pic.'?'.rand(0,999))}}" alt=""></div>
+                        <div class="edit-img"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$data->cover_pic)}}" alt=""></div>
                     </div>
                 </div>
                 <div class="form-group">

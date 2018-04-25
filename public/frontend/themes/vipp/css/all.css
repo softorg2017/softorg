@@ -1570,7 +1570,7 @@ html {
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
     color: #000;
@@ -15817,7 +15817,7 @@ body:not(.has-hero-story).pages .wrapper-scroll {
 .text-cont h3,
 .text-cont h4,
 .text-cont h5 {
-    font-family: "Vipp Neue", Arial, Helvetica, sans-serif!important
+    font-family: "Microsoft YaHei", "微软雅黑", "Vipp Neue", Arial, Helvetica, sans-serif!important
 }
 
 .text-cont>*:first-child {
@@ -15863,7 +15863,7 @@ body:not(.has-hero-story).pages .wrapper-scroll {
 
 .text-cont ol,
 .text-cont ul {
-    font-family: "Vipp Neue", Arial, Helvetica, sans-serif!important;
+    font-family: "Microsoft YaHei", "微软雅黑", "Vipp Neue", Arial, Helvetica, sans-serif!important;
     font-weight: 300!important;
     list-style-position: outside;
     padding: 0
@@ -19649,7 +19649,7 @@ html.resized body.page-stories .wrapper-main-content>div {
     padding: 0 30px;
     border: 1px solid rgba(255, 255, 255, .6);
     font-weight: 600;
-    font-family: "Vipp Neue", Arial, Helvetica, sans-serif;
+    font-family: "Microsoft YaHei", "微软雅黑", "Vipp Neue", Arial, Helvetica, sans-serif;
     text-transform: uppercase;
     font-size: 10px;
     height: 37px;
@@ -20451,7 +20451,7 @@ body {
     font-size: 14px;
     line-height: 20px;
     color: #282828;
-    font-family: "Vipp Neue", Arial, Helvetica, sans-serif;
+    font-family: "Microsoft YaHei", "微软雅黑", "Vipp Neue", Arial, Helvetica, sans-serif;
     font-weight: 300;
     min-height: 100%
 }

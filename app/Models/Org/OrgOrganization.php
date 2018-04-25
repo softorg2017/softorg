@@ -32,6 +32,11 @@ class OrgOrganization extends Model
         return $this->hasMany('App\Models\Website','org_id','id');
     }
 
+    function modules()
+    {
+        return $this->hasMany('App\Models\Org\OrgModule','org_id','id');
+    }
+
     function menus()
     {
         return $this->hasMany('App\Models\Org\OrgMenu','org_id','id');

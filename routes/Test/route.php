@@ -1,9 +1,14 @@
 <?php
 
-    $controller = "TestController";
+
+$controller = "TestController";
+
+
+
 
     Route::get('/', function () {
-        return view('test');
+        $x=15; echo $x++; $y=20; echo ++$y;
+//        return view('test');
     });
 
     Route::get('/index', function () {

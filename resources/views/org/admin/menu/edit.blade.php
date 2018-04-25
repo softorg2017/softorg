@@ -1,15 +1,15 @@
 @extends('admin.layout.layout')
 
 @section('title')
-    @if(empty($encode_id)) 添加目录 @else 编辑目录 @endif
+    @if($operate == 'create') 添加目录 @else 编辑目录 @endif
 @endsection
 
 @section('header')
-    @if(empty($encode_id)) 添加目录 @else 编辑目录 @endif
+    @if($operate == 'create') 添加目录 @else 编辑目录 @endif
 @endsection
 
 @section('description')
-    @if(empty($encode_id)) 添加目录 @else 编辑目录 @endif
+    @if($operate == 'create') 添加目录 @else 编辑目录 @endif
 @endsection
 
 @section('breadcrumb')
@@ -39,16 +39,9 @@
             <div class="box-body">
 
                 {{csrf_field()}}
-                <input type="hidden" name="operate" value="{{$operate_id or ''}}" readonly>
-                <input type="hidden" name="id" value="{{$encode_id or encode(0)}}" readonly>
+                <input type="hidden" name="operate" value="{{$operate or ''}}" readonly>
+                <input type="hidden" name="encode_id" value="{{$encode_id or encode(0)}}" readonly>
 
-                {{--名称--}}
-                <div class="form-group" style="display:none;">
-                    <label class="control-label col-md-2">名称</label>
-                    <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="name" placeholder="请输入名称" value="{{$data->name or ''}}"></div>
-                    </div>
-                </div>
                 {{--标题--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">标题</label>
@@ -67,9 +60,31 @@
                 <div class="form-group" style="display:none;">
                     <label class="control-label col-md-2">内容</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="content" placeholder="内容" value="{{$data->content or ''}}"></div>
+                        <div><input type="text" class="form-control" name="contents" placeholder="内容" value="{{$data->content or ''}}"></div>
                     </div>
                 </div>
+                {{--cover 封面图片--}}
+                @if(!empty($data->cover_pic))
+                    <div class="form-group">
+                        <label class="control-label col-md-2">封面图片</label>
+                        <div class="col-md-8 ">
+                            <div class="edit-img"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$data->cover_pic)}}" alt=""></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">更换封面图片</label>
+                        <div class="col-md-8 ">
+                            <div><input type="file" name="cover" placeholder="请上传封面图片"></div>
+                        </div>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <label class="control-label col-md-2">上传封面图片</label>
+                        <div class="col-md-8 ">
+                            <div><input type="file" name="cover" placeholder="请上传封面图片"></div>
+                        </div>
+                    </div>
+                @endif
 
             </div>
             </form>

@@ -1,5 +1,5 @@
 {{--banner--}}
-<div class="row full has-fold banner">
+<div class="row full has-fold- banner">
     <div class="col-xs-14">
         <div class="hero-product-container">
             <div class="hero-product-container-xs">

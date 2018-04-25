@@ -32,7 +32,7 @@ class ItemController extends Controller
     public function createAction()
     {
         if(request()->isMethod('get')) return $this->repo->view_create();
-        else if (request()->isMethod('post')) $this->repo->save(request()->all());
+        else if (request()->isMethod('post')) return $this->repo->save(request()->all());
     }
 
     public function editAction()

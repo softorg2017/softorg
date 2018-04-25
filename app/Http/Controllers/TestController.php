@@ -34,7 +34,11 @@ class TestController extends Controller
 
     public function index()
     {
-        return view('admin.company.index');
+        $x=15;
+        echo $x++;
+        $y=20;
+        echo ++$y;
+//        return view('admin.company.index');
     }
 
     public function send_email()

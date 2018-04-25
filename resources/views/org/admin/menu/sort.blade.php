@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-<div class="row" id="menu-container">
+<div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
         <div class="box box-warning">
@@ -26,13 +26,13 @@
             <div class="box-header with-border" style="margin:16px 0;">
                 <h3 class="box-title">目录排序</h3>
                 <span>（拖动排序）</span>
-                <input type="hidden" id="survey-menu-marking" data-key="1000">
+                <input type="hidden" id="marking" data-key="1000">
             </div>
 
             <form action="" method="post" class="form-horizontal form-bordered" id="form-sort-menu">
                 <div class="box-body" id="sortable">
                     {{csrf_field()}}
-                    <input type="hidden" name="admin" value="{{ encode(Auth::guard('admin')->id()) }}" readonly>
+                    <input type="hidden" name="admin" value="{{ encode(Auth::guard('org_admin')->id()) }}" readonly>
 
                     @foreach($data as $k => $v)
                     <div class="box-body sort-option" data-id="{{$v->encode_id or ''}}">
@@ -77,7 +77,6 @@ $(function() {
     // 修改排序
     $("#sort-menu-submit").on('click', function() {
         var options = {
-            url: "/admin/menu/sort",
             url: "{{url(config('common.org.admin.prefix').'/admin/menu/sort')}}",
             type: "post",
             dataType: "json",

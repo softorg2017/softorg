@@ -115,6 +115,21 @@ Route::group(['prefix' => config('common.org.admin.prefix').'/admin', 'namespace
             Route::match(['get','post'], 'style', $controller.'@viewStyle');
         });
 
+        // 样式模块
+        Route::group(['prefix' => 'module'], function () {
+            $controller = "ModuleController";
+
+            Route::get('/', $controller.'@index');
+            Route::get('index', $controller.'@index');
+            Route::match(['get','post'], 'list', $controller.'@viewList');
+            Route::get('create', $controller.'@createAction');
+            Route::match(['get','post'], 'edit', $controller.'@editAction');
+            Route::match(['get','post'], 'sort', $controller.'@sortAction');
+            Route::post('delete', $controller.'@deleteAction');
+            Route::post('enable', $controller.'@enableAction');
+            Route::post('disable', $controller.'@disableAction');
+        });
+
         // 目录模块
         Route::group(['prefix' => 'menu'], function () {
             $controller = "MenuController";

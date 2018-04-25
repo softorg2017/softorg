@@ -46,6 +46,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
+
     <link type="text/css" rel="stylesheet" href="{{ asset('frontend/themes/vipp/css/all.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/common.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/index.css') }}" media="all" />
@@ -83,6 +86,8 @@
 
 
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>
 
     <script src="{{ asset('/frontend/themes/vipp/js/jm.js') }}"></script>
     <script src="{{ asset('/frontend/themes/vipp/js/jc.js') }}"></script>
@@ -188,6 +193,25 @@
                     });
                 })   ;
             }
+        });
+    </script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+                delay: 1800,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
         });
     </script>
 

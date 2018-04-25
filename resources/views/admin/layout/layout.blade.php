@@ -49,6 +49,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
 
+    <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{asset('css/common.css')}}">
     <link rel="stylesheet" href="{{asset('css/admin/index.css')}}">
 
@@ -106,12 +108,38 @@ desired effect
                             <i class="fa fa-plus"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header"><a href="{{url('/admin/menu/create')}}"><i class="fa fa-circle-o text-red"></i>添加目录</a></li>
-                            <li class="header"><a href="{{url('/admin/product/create')}}"><i class="fa fa-circle-o text-red"></i>添加产品</a></li>
-                            <li class="header"><a href="{{url('/admin/article/create')}}"><i class="fa fa-circle-o text-red"></i>添加文章</a></li>
-                            <li class="header"><a href="{{url('/admin/activity/create')}}"><i class="fa fa-circle-o text-red"></i>添加活动</a></li>
-                            <li class="header"><a href="{{url('/admin/survey/create')}}"><i class="fa fa-circle-o text-red"></i>添加问卷</a></li>
-                            <li class="header"><a href="{{url('/admin/slide/create')}}"><i class="fa fa-circle-o text-red"></i>添加幻灯片</a></li>
+                            <li class="header">
+                                <a href="{{url(config('common.org.admin.prefix').'/admin/module/create')}}">
+                                    <i class="fa fa-circle-o text-red"></i> 添加模块
+                                </a>
+                            </li>
+                            <li class="header">
+                                <a href="{{url(config('common.org.admin.prefix').'/admin/menu/create')}}">
+                                    <i class="fa fa-circle-o text-red"></i> 添加目录
+                                </a>
+                            </li>
+                            <li class="header">
+                                <a href="{{url(config('common.org.admin.prefix').'/admin/item/create')}}">
+                                    <i class="fa fa-circle-o text-red"></i> 添加内容
+                                </a>
+                            </li>
+
+                            <li class="header _none">
+                                <a href="{{url('/admin/product/create')}}"><i class="fa fa-circle-o text-red"></i>添加产品</a>
+                            </li>
+                            <li class="header _none">
+                                <a href="{{url('/admin/article/create')}}"><i class="fa fa-circle-o text-red"></i>添加文章</a>
+                            </li>
+                            <li class="header _none">
+                                <a href="{{url('/admin/activity/create')}}"><i class="fa fa-circle-o text-red"></i>添加活动</a>
+                            </li>
+                            <li class="header _none">
+                                <a href="{{url('/admin/survey/create')}}"><i class="fa fa-circle-o text-red"></i>添加问卷</a>
+                            </li>
+                            <li class="header _none">
+                                <a href="{{url('/admin/slide/create')}}"><i class="fa fa-circle-o text-red"></i>添加幻灯片</a>
+                            </li>
+
                             <li class="footer"><a href="#">See All Messages</a></li>
                         </ul>
                     </li>
@@ -309,6 +337,8 @@ desired effect
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
+
+                {{--机构基本信息--}}
                 <li class="header">机构(企业)管理</li>
                 <!-- Optionally, you can add icons to the links -->
 
@@ -360,10 +390,27 @@ desired effect
                     </ul>
                 </li>
 
+
+
+                {{--主页管理--}}
+                <li class="header">主页管理</li>
+                <!-- Optionally, you can add icons to the links -->
+
                 <li class="treeview">
-                    <a href="{{url(config('common.org.admin.prefix').'/admin/website/style')}}"><i class="fa fa-sun-o text-aqua"></i>主页样式</a>
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/module/list')}}">
+                        <i class="fa fa-sun-o text-aqua"></i> <span>模块列表</span>
+                    </a>
                 </li>
 
+                <li class="treeview">
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/website/style')}}">
+                        <i class="fa fa-sun-o text-aqua"></i> <span>主页样式</span>
+                    </a>
+                </li>
+
+
+
+                {{--内容管理--}}
                 <li class="header">内容管理</li>
 
                 <li class="treeview">
@@ -422,7 +469,7 @@ desired effect
 
 
 
-
+                {{--流量统计--}}
                 <li class="header">流量统计</li>
 
                 <li class="treeview">
@@ -430,6 +477,8 @@ desired effect
                     <a href="{{url(config('common.org.admin.prefix').'/admin/statistics/website')}}"><i class="fa fa-bar-chart text-green"></i> <span>流量统计</span></a>
                 </li>
 
+
+                {{--前台展示--}}
                 <li class="header">前台展示</li>
 
                 <li class="treeview">
@@ -441,7 +490,9 @@ desired effect
                 <li class="header" style="display:none;">管理员管理</li>
 
                 <li class="treeview" style="display:none;">
-                    <a href="{{url(config('common.org.admin.prefix').'/admin/administrator/password/reset')}}"><i class="fa fa-circle-o text-aqua"></i><span>修改密码</span></a>
+                    <a href="{{url(config('common.org.admin.prefix').'/admin/administrator/password/reset')}}">
+                        <i class="fa fa-circle-o text-aqua"></i><span>修改密码</span>
+                    </a>
                 </li>
 
             </ul>
@@ -589,6 +640,8 @@ desired effect
 <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 <script src="https://cdn.bootcss.com/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
+
+<script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 

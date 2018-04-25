@@ -6,6 +6,7 @@ use App\Models\Org\OrgItem;
 use App\Models\Org\OrgMenu;
 
 use App\Repositories\Common\CommonRepository;
+
 use Response, Auth, Validator, DB, Exception;
 use QrCode;
 
@@ -18,7 +19,7 @@ class OrgItemRepository {
         $this->model = new OrgItem;
     }
 
-    // 返回列表数据（DataTable）
+    // 返回【列表】数据（DataTable）
     public function get_list_datatable($post_data)
     {
         $org_id = Auth::guard("org_admin")->user()->org_id;
@@ -51,16 +52,16 @@ class OrgItemRepository {
         return datatable_response($list, $draw, $total);
     }
 
-    // 返回添加产品视图
+    // 返回【添加】视图
     public function view_create()
     {
         $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
         $org = OrgOrganization::with(['menus'=>function ($query1) {$query1->orderBy('order','asc');}])->find($org_id);
-        return view('org.admin.item.edit')->with(['org'=>$org]);
+        return view('org.admin.item.edit')->with(['operate'=>'create', 'encode_id'=>encode(0), 'org'=>$org]);
     }
 
-    // 返回编辑产品视图
+    // 返回【编辑】视图
     public function view_edit()
     {
         $id = request("id",0);
@@ -89,15 +90,15 @@ class OrgItemRepository {
         }
     }
 
-    // 添加or编辑
+    // 【保存】数据
     public function save($post_data)
     {
         $messages = [
-            'id.required' => '参数有误',
+            'encode_id.required' => '参数有误',
             'title.required' => '请输入标题',
         ];
         $v = Validator::make($post_data, [
-            'id' => 'required',
+            'encode_id' => 'required',
             'title' => 'required'
         ], $messages);
         if ($v->fails())
@@ -108,26 +109,30 @@ class OrgItemRepository {
 
         $admin = Auth::guard('org_admin')->user();
 
-        $id = decode($post_data["id"]);
-        $operate = decode($post_data["operate"]);
-        if(intval($id) !== 0 && !$id) return response_error();
+        $decode_id = decode($post_data["encode_id"]);
+        if(intval($decode_id) !== 0 && !$decode_id) return response_error();
 
+
+        // 判断操作类型
+        $operate = $post_data["operate"];
+        if($operate == 'create') // 添加 ( $id==0，添加一个新的产品 )
+        {
+            $item = new OrgItem;
+            $post_data["admin_id"] = $admin->id;
+            $post_data["org_id"] = $admin->org_id;
+        }
+        else if($operate == 'edit') // 编辑
+        {
+            $item = OrgItem::find($decode_id);
+            if(!$item) return response_error([],"该产品不存在，刷新页面重试");
+            if($item->admin_id != $admin->id) return response_error([],"你没有操作权限");
+        }
+        else return response_error([],"参数有误");
+
+        // 启动数据库事务
         DB::beginTransaction();
         try
         {
-            if($id == 0) // $id==0，添加一个新的产品
-            {
-                $item = new OrgItem;
-                $post_data["admin_id"] = $admin->id;
-                $post_data["org_id"] = $admin->org_id;
-            }
-            else // 编辑产品
-            {
-                $item = OrgItem::find($id);
-                if(!$item) return response_error([],"该产品不存在，刷新页面重试");
-                if($item->admin_id != $admin->id) return response_error([],"你没有操作权限");
-            }
-
             $bool = $item->fill($post_data)->save();
             if($bool)
             {
@@ -138,17 +143,8 @@ class OrgItemRepository {
                 }
 
                 $encode_id = encode($item->id);
-                // 目标URL
-                $url = 'http://www.softorg.cn/org/item/'.$encode_id;
-                // 保存位置
-                $qrcode_path = 'resource/org/'.$admin->id.'/unique/items';
-                if(!file_exists(storage_path($qrcode_path)))
-                    mkdir(storage_path($qrcode_path), 0777, true);
-                // qrcode图片文件
-                $qrcode = $qrcode_path.'/qrcode_item_'.$encode_id.'.png';
-                QrCode::errorCorrection('H')->format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
 
-
+                // 封面图片
                 if(!empty($post_data["cover"]))
                 {
                     $upload = new CommonRepository();
@@ -160,6 +156,18 @@ class OrgItemRepository {
                     }
                     else throw new Exception("upload-cover-fail");
                 }
+
+
+                $url = 'http://www.softorg.cn/org/item/'.$encode_id;  // 目标URL
+                // 保存位置
+                $qrcode_path = 'resource/org/'.$admin->id.'/unique/items';
+                if(!file_exists(storage_path($qrcode_path)))
+                    mkdir(storage_path($qrcode_path), 0777, true);
+                // qrcode图片文件
+                $qrcode = $qrcode_path.'/qrcode_item_'.$encode_id.'.png';
+                QrCode::errorCorrection('H')->format('png')->size(160)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
+
+
 
                 $organization = OrgOrganization::find($admin->org_id);
                 $create = new CommonRepository();
@@ -178,7 +186,7 @@ class OrgItemRepository {
         {
             DB::rollback();
             $msg = '操作失败，请重试！';
-            $msg = $e->getMessage();
+//            $msg = $e->getMessage();
 //            exit($e->getMessage());
             return response_fail([],$msg);
         }
@@ -194,11 +202,20 @@ class OrgItemRepository {
         $item = OrgItem::find($id);
         if($item->admin_id != $admin->id) return response_error([],"你没有操作权限");
 
+        // 启动数据库事务
         DB::beginTransaction();
         try
         {
+            $cover_pic = $item->cover_pic;
+
             $bool = $item->delete();
             if(!$bool) throw new Exception("delete--item--fail");
+
+            // 删除封面图片
+            if(!empty($cover_pic) && file_exists(storage_path("resource/" . $cover_pic)))
+            {
+                unlink(storage_path("resource/" . $cover_pic));
+            }
 
             DB::commit();
             return response_success([]);

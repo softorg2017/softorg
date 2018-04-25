@@ -1,5 +1,5 @@
 {{--banner--}}
-<div class="row full has-fold banner1">
+<div class="row full has-fold- banner1">
     <div class="col-xs-14">
         <div class="hero-product-container" style="padding-top: 60vh">
             <div class="hero-product-container-xs">

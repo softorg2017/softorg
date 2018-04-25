@@ -175,6 +175,16 @@ class IndexRepository {
                     'items'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc'); }
                 ])->where('active', 1)->orderBy('order', 'asc');
             },
+            'modules' => function ($query) {
+                $query->with([
+                    'menus'=>function ($query1) { $query1->with([
+                        'items'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc'); }
+                    ])->where('active', 1)->orderBy('order', 'asc'); },
+                    'menu'=>function ($query1) { $query1->with([
+                        'items'=>function ($query1) { $query1->where('active', 1)->orderBy('updated_at', 'desc'); }
+                    ])->where('active', 1); }
+                ])->where('active', 1)->orderBy('order', 'asc');
+            },
         ]);
         if(is_numeric($org)) $org = $query->whereId($org)->first();
         else $org = $query->where('website_name',$org)->first();

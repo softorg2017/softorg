@@ -62,25 +62,11 @@ Route::group(['prefix' => 'user', 'namespace' => 'Front'], function () {
 
 
 
-/*超级后台*/
-Route::group(['prefix' => 'super', 'namespace' => 'Super', 'middleware' => 'super'], function () {
-
-    $controller = "SuperController";
-
-    Route::get('/', $controller.'@index');
-    Route::match(['get','post'], 'list/softorg', $controller.'@view_softorg_list');
-    Route::match(['get','post'], 'list/product', $controller.'@view_product_list');
-    Route::match(['get','post'], 'list/article', $controller.'@view_article_list');
-    Route::match(['get','post'], 'list/activity', $controller.'@view_activity_list');
-    Route::match(['get','post'], 'list/survey', $controller.'@view_survey_list');
-});
-
-
 
 /*
  * TEST 测试
  */
-Route::group(['prefix' => 'test'], function () {
+Route::group(['prefix' => 'test', 'namespace' => 'Test'], function () {
     require(__DIR__ . '/Test/route.php');
 });
 
@@ -90,6 +76,30 @@ Route::group(['prefix' => 'test'], function () {
  */
 Route::group(['prefix' => 'developing', 'namespace' => 'Developing'], function () {
     require(__DIR__ . '/Developing/route.php');
+});
+
+
+/*
+ * 超级管理员
+ */
+Route::group(['namespace' => 'Super'], function () {
+    require(__DIR__ . '/Super/route.php');
+});
+
+
+/*
+ * 企业对内管理员
+ */
+Route::group(['namespace' => 'Inside'], function () {
+    require(__DIR__ . '/Inside/route.php');
+});
+
+
+/*
+ * 企业对外管理员
+ */
+Route::group(['namespace' => 'Outside'], function () {
+    require(__DIR__ . '/Outside/route.php');
 });
 
 
