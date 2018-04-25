@@ -40,7 +40,7 @@
     @if( count($org->modules) != 0 )
         @foreach($org->modules as $module)
 
-            @include(config('common.org.view.frontend.online').'.module.module-'.$module->type.'-'.$module->style,['data'=>$module])
+            @include(config('common.org.view.frontend.online').'.module.index.module-'.$module->type.'-'.$module->style,['data'=>$module])
 
         @endforeach
     @endif

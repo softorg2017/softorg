@@ -377,6 +377,49 @@ if(!function_exists('medsci_decode')){
 	}
 }
 
+
+/*
+ * 删除指定标签；删除或者保留标签内的内容
+ */
+if(!function_exists('strip_html_tags')){
+    /**
+     * 删除指定的标签和内容
+     * @param array $tags 需要删除的标签数组
+     * @param string $str 数据源
+     * @param string $content 是否删除标签内的内容 默认为0保留内容    1不保留内容
+     * @return string
+     */
+    function strip_html_tags($tags,$str,$content=0){
+        if($content){
+            $html=array();
+            foreach ($tags as $tag) {
+                $html[]='/(<'.$tag.'.*?>[\s|\S]*?<\/'.$tag.'>)/';
+            }
+            $data=preg_replace($html,'',$str);
+        }else{
+            $html=array();
+            foreach ($tags as $tag) {
+                $html[]="/(<(?:\/".$tag."|".$tag.")[^>]*>)/i";
+            }
+            $data=preg_replace($html, '', $str);
+        }
+        return $data;
+    }
+}
+/*
+ * 获取html
+ */
+if(!function_exists('get_html_img')){
+
+    function get_html_img($html){
+        $strPreg = '/<\s*img\s+[^>]*?src\s*=\s*(\'|\")(.*?)\\1[^>]*?\/?\s*>/i';
+        preg_match_all($strPreg, $html, $matches);
+        return $matches;
+    }
+}
+
+
+
 /**
  * 上传文件
  */

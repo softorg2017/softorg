@@ -37,34 +37,9 @@
     @include(config('common.org.view.frontend.online').'.component.banner1')
 
     {{--main-content--}}
-    <div class="row full wrapper-module-container">
-        <div class="col-md-14">
-            <div class="row full block-in">
-                <div class="module-header-container">
-                    <h3 class="menu-title">{{ $menu->title }}</h3>
-                </div>
-                <div class="module-block-container">
-                    <div class="row full block-3-column">
-                        @foreach($menu->items as $v)
-                            <a href="{{url(config('common.org.front.prefix').'/item/'.encode($v->id))}}">
-                                <li class="item-block" role="button">
-                                    <div class="item-block-top">
-                                        <img src="{{ config('common.host.'.env('APP_ENV').'.cdn').'/'.$v->cover_pic }}" alt="">
-                                    </div>
-                                    <div class="item-block-bottom">
-                                        <span class="block-title multi-ellipsis-1 z-index-9">{{$v->title or ''}}</span>
-                                        @if(!empty($v->description))
-                                            <p class="list-description description line-ellipsis-1">{{$v->description or ''}}</p>
-                                        @endif
-                                    </div>
-                                </li>
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include(config('common.org.view.frontend.online').'.module.menu.module-1-0',['data'=>$menu,'items'=>$items])
+
+
 
 @endsection
 

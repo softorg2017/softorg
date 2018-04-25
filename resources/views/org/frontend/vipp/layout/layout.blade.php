@@ -45,6 +45,9 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/AdminLTE/bootstrap/css/bootstrap.min.css">
+
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">

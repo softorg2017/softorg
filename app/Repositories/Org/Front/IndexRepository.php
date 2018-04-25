@@ -440,11 +440,20 @@ class IndexRepository {
             'org'=>function ($query) {
                 $query->with(['menus'=>function ($query1) { $query1->where('active', 1)->orderBy('order', 'asc'); } ]);
             },
-            'admin',
-            'items'
+            'admin'
         ])->find($decode_id);
         if($menu)
         {
+
+            $items = OrgMenu::find($decode_id)->items()->orderBy('updated_at','desc')->paginate(20);
+
+            foreach ($items as $item)
+            {
+                $item->content_show = strip_tags($item->content);
+                $img_tags = get_html_img($item->content);
+                $item->img_tags = $img_tags;
+            }
+
             // 访问数量+1
             $menu->timestamps = false;
             $menu->increment('visit_num');
@@ -459,7 +468,7 @@ class IndexRepository {
             $this->record($record);
 
             return view(config('common.org.view.frontend.online').'.entrance.menu')
-                ->with(['org'=>$menu->org,'menus'=>$menu->org->menus,'menu'=>$menu,'data'=>$menu,'encode_id'=>$decode_id]);
+                ->with(['org'=>$menu->org, 'menus'=>$menu->org->menus, 'menu'=>$menu, 'data'=>$menu, 'items'=>$items, 'encode_id'=>$decode_id]);
         }
         else dd("目录不存在");
     }

@@ -1,9 +1,11 @@
 <div class="row full wrapper-module-container">
     <div class="col-md-14">
         <div class="row full block-in">
+
             <div class="module-header-container">
                 <span class="menu-title"><b>{{ $data->menu->title }}</b></span>
             </div>
+
             <div class="module-block-container">
                 <div class="row full block-{{$data->column}}-column">
 
