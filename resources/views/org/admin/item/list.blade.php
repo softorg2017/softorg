@@ -40,7 +40,6 @@
                     <thead>
                     <tr role='row' class='heading'>
                         <th>标题</th>
-                        <th>类型</th>
                         <th>所属目录</th>
                         <th>管理员</th>
                         <th>浏览次数</th>
@@ -50,7 +49,6 @@
                         <th>操作</th>
                     </tr>
                     <tr>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -137,20 +135,13 @@
                         }
                     },
                     {
-                        'data': 'type',
-                        'orderable': true,
-                        render: function(data, type, row, meta) {
-                            return data == null ? '' : data;
-                        }
-                    },
-                    {
                         'data': 'menus',
                         'orderable': false,
                         render: function(data, type, row, meta) {
 //                            return row.menu == null ? '未分类' : row.menu.name;
                             var html = '';
                             $.each(data,function( key, val ) {
-                                html += '<a target="_blank" href="/org/menu?id='+this.encode_id+'">'+this.title+'</a><br>';
+                                html += '<a href="/org/admin/menu/items?id='+this.encode_id+'">'+this.title+'</a><br>';
                             });
                             return html;
                         }

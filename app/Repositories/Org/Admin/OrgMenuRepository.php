@@ -2,6 +2,7 @@
 namespace App\Repositories\Org\Admin;
 
 use App\Models\Org\OrgMenu;
+use App\Models\Org\OrgItem;
 
 use App\Repositories\Common\CommonRepository;
 
@@ -17,11 +18,11 @@ class OrgMenuRepository {
         $this->model = new OrgMenu;
     }
 
-    // 返回列表数据
+    // 返回【列表】数据
     public function get_list_datatable($post_data)
     {
         $org_id = Auth::guard("org_admin")->user()->org_id;
-        $query = OrgMenu::select("*")->where('org_id',$org_id)->withCount(['items'])->with(['admin']);
+        $query = OrgMenu::select("*")->withCount(['items'])->with(['admin'])->where('org_id',$org_id);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
@@ -47,6 +48,62 @@ class OrgMenuRepository {
             $list[$k]->encode_id = encode($v->id);
         }
         return datatable_response($list, $draw, $total);
+    }
+
+    // 返回列表数据
+    public function get_items_list_datatable($post_data)
+    {
+        $id = $post_data["id"];
+        $decode_id = decode($id);
+
+        $org_id = Auth::guard("org_admin")->user()->org_id;
+//        $query = OrgItem::select("*")->with(['admin','menus'])->where('id',$decode_id);
+        $query = OrgMenu::find($decode_id)->items()->with(['admin','menus']);
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("updated_at", "desc");
+
+        $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+            foreach ($v->menus as $key => $val)
+            {
+                $val->encode_id = encode($val->id);
+            }
+        }
+        return datatable_response($list, $draw, $total);
+    }
+
+    // 返回【添加】视图
+    public function view_items()
+    {
+        $id = request("id",0);
+        $decode_id = decode($id);
+        if(!$decode_id) return response("参数有误", 404);
+
+        $menu = OrgMenu::find($decode_id);
+        if($menu)
+        {
+            unset($menu->id);
+            return view('org.admin.menu.items')->with(['encode_id'=>$id, 'data'=>$menu]);
+        }
+        else return response("该目录不存在！", 404);
     }
 
     // 返回【添加】视图

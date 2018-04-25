@@ -137,6 +137,7 @@ Route::group(['prefix' => config('common.org.admin.prefix').'/admin', 'namespace
             Route::get('/', $controller.'@index');
             Route::get('index', $controller.'@index');
             Route::match(['get','post'], 'list', $controller.'@viewList');
+            Route::match(['get','post'], 'items', $controller.'@viewItemsList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
             Route::match(['get','post'], 'sort', $controller.'@sortAction');

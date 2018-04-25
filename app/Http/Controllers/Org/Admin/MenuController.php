@@ -29,6 +29,12 @@ class MenuController extends Controller
         else if(request()->isMethod('post')) return $this->repo->get_list_datatable(request()->all());
     }
 
+    public function viewItemsList()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_items();
+        else if(request()->isMethod('post')) return $this->repo->get_items_list_datatable(request()->all());
+    }
+
     // 【添加】
     public function createAction()
     {

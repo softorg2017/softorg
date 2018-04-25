@@ -48,6 +48,10 @@ class OrgItemRepository {
         foreach ($list as $k => $v)
         {
             $list[$k]->encode_id = encode($v->id);
+            foreach ($v->menus as $key => $val)
+            {
+                $val->encode_id = encode($val->id);
+            }
         }
         return datatable_response($list, $draw, $total);
     }
