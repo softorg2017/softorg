@@ -138,6 +138,8 @@
     overflow: hidden;
 }
 .item-block-top img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 .item-block-middle {
@@ -178,6 +180,8 @@
     overflow: hidden;
 }
 .item-block-1-1 .item-block-top img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 .item-block-1-1 .item-block-bottom {
