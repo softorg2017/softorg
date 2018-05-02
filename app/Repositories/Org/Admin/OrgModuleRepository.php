@@ -137,35 +137,62 @@ class OrgModuleRepository {
                     $module->menus()->syncWithoutDetaching($post_data["menus"]);
                 }
 
-                // 轮播图片
-                if($post_data["type"] == 4 && !empty($post_data["covers"]))
+                // 链接图片
+                if($post_data["type"] == 4 && !empty($post_data["multiples"]))
                 {
-                    foreach($post_data["covers"] as $num => $cover) {
+                    foreach($post_data["multiples"] as $num => $m) {
                         // 封面图片
-                        if(!empty($cover["img"]))
+                        if(!empty($m["file"]))
                         {
                             $upload = new CommonRepository();
-                            $result = $upload->create($cover["img"], 'org-'. $admin->id.'-common-img_multiple', rand(100,999).$num);
+                            $result = $upload->create($m["file"], 'org-'. $admin->id.'-common-img_multiple', rand(100,999).$num);
                             if($result["status"])
                             {
-                                $post_data["covers"][$num]["cover_pic"] = $result["data"];
+                                $post_data["multiples"][$num]["cover_pic"] = $result["data"];
                             }
-                            unset($post_data["covers"][$num]["img"]);
+                            unset($post_data["multiples"][$num]["file"]);
                         }
-                        else
-                        {
-                            unset($post_data["covers"][$num]);
-                        }
+                        else unset($post_data["multiples"][$num]);
                     }
 
                     if(!empty($module->img_multiple))
                     {
                         $img_multiple = collect(json_decode($module->img_multiple,true));
-                        $covers = collect($post_data["covers"]);
-                        $merged = $img_multiple->merge($covers);
+                        $multiples = collect($post_data["multiples"]);
+                        $merged = $img_multiple->merge($multiples);
                         $module->img_multiple = json_encode($merged->values()->all());
                     }
-                    else $module->img_multiple = json_encode(collect($post_data["covers"])->values()->all());
+                    else $module->img_multiple = json_encode(collect($post_data["multiples"])->values()->all());
+
+                    $module->save();
+                }
+
+                // 轮播图片
+                if($post_data["type"] == 5 && !empty($post_data["carousels"]))
+                {
+                    foreach($post_data["carousels"] as $num => $c) {
+                        // 封面图片
+                        if(!empty($c["file"]))
+                        {
+                            $upload = new CommonRepository();
+                            $result = $upload->create($c["file"], 'org-'. $admin->id.'-common-img_multiple', rand(100,999).$num);
+                            if($result["status"])
+                            {
+                                $post_data["carousels"][$num]["cover_pic"] = $result["data"];
+                            }
+                            unset($post_data["carousels"][$num]["file"]);
+                        }
+                        else unset($post_data["carousels"][$num]);
+                    }
+
+                    if(!empty($module->img_multiple))
+                    {
+                        $img_multiple = collect(json_decode($module->img_multiple,true));
+                        $carousels = collect($post_data["carousels"]);
+                        $merged = $img_multiple->merge($carousels);
+                        $module->img_multiple = json_encode($merged->values()->all());
+                    }
+                    else $module->img_multiple = json_encode(collect($post_data["carousels"])->values()->all());
 
                     $module->save();
                 }
@@ -263,7 +290,7 @@ class OrgModuleRepository {
         {
             foreach (json_decode($module->img_multiple) as $item)
             {
-                if(file_exists(storage_path("resource/" . $item->cover_pic)))
+                if(!empty($item->cover_pic) && file_exists(storage_path("resource/" . $item->cover_pic)))
                 {
                     unlink(storage_path("resource/" . $item->cover_pic));
                 }

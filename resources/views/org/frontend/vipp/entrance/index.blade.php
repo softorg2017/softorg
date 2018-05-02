@@ -1,4 +1,4 @@
-@extends(config('common.org.view.frontend.online').'.layout.layout')
+@extends('templates.themes.vipp.layout.layout')
 
 
 {{--html.heat--}}
@@ -34,13 +34,14 @@
 @section('custom-content')
 
     {{--banner--}}
-    @include(config('common.org.view.frontend.online').'.component.banner')
+    @include('templates.themes.vipp.component.banner')
 
     {{--自定义栏位--}}
     @if( count($org->modules) != 0 )
         @foreach($org->modules as $module)
 
-            @include(config('common.org.view.frontend.online').'.module.index.module-'.$module->type.'-'.$module->style,['data'=>$module])
+            @include('templates.themes.vipp.module.index.module-'.$module->type.'-'.$module->style,['data'=>$module])
+{{--            @include('templates.themes.vipp.module.index.module-'.$module->type.'-0',['data'=>$module])--}}
 
         @endforeach
     @endif

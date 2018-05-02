@@ -140,10 +140,11 @@
                         'orderable': true,
                         render: function(data, type, row, meta) {
                             if(data == 0) return '<small class="label bg-black disabled">未知</small>';
-                            else if(data == 1) return '<small class="label bg-black disabled">单目录</small>';
-                            else if(data == 2) return '<small class="label bg-black disabled">多目录</small>';
-                            else if(data == 3) return '<small class="label bg-black disabled">图片链接</small>';
-                            else if(data == 4) return '<small class="label bg-black disabled">图片轮播</small>';
+                            else if(data == 1) return '<small class="label bg-black disabled">(单)目录</small>';
+                            else if(data == 2) return '<small class="label bg-black disabled">(多)目录</small>';
+                            else if(data == 3) return '<small class="label bg-black disabled">(单)图片链接</small>';
+                            else if(data == 4) return '<small class="label bg-black disabled">(多)图片链接</small>';
+                            else if(data == 5) return '<small class="label bg-black disabled">图片轮播</small>';
                             else return '<small class="label bg-black disabled">其他</small>';
                         }
                     },

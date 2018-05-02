@@ -37,19 +37,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{--<![endif]-->--}}
     {{--<link href="https://cdn.bootcss.com/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css" rel="stylesheet">--}}
 
-    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.3/css/fileinput.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('common/css/component/fileinput.css') }}" media="all" />
 
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables/dataTables.bootstrap.css')}}">
 
     <link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
-
-    <script src="https://cdn.bootcss.com/moment.js/2.19.0/moment.min.js"></script>
 
     <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <link href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
 
     <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('common/css/common.css') }}" media="all" />
+    <link rel="stylesheet" href="{{ asset('common/css/frontend/index.css') }}" media="all" />
+    <link rel="stylesheet" href="{{ asset('common/css/backend/index.css') }}" media="all" />
 
     <link rel="stylesheet" href="{{asset('css/common.css')}}">
     <link rel="stylesheet" href="{{asset('css/admin/index.css')}}">
@@ -628,9 +631,12 @@ desired effect
 
 <script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
 
-<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.3/js/fileinput.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
+<script src="{{ asset('common/js/component/fileinput.js') }}"></script>
 
 <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
+
+<script src="https://cdn.bootcss.com/moment.js/2.19.0/moment.min.js"></script>
 
 <script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>

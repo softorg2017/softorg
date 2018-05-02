@@ -1,0 +1,32 @@
+
+.form-container .form-group {
+    margin-bottom: 0;
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+}
+.form-container .box-footer {
+    padding-top: 16px;
+    padding-bottom: 32px;
+    border-top: 0;
+}
+
+.form-container .radio {
+    padding-top: 0;
+}
+
+
+.fileinput-group .thumbnail {
+    width: 200px;
+    min-height: 80px;
+    max-height: 160px;
+    margin-bottom: 8px;
+}
+
+.fileinput-group .btn-tool-group {
+    width: auto;
+    padding: 0 0;
+}
+.fileinput-group .btn-tool-group span {
+    margin-right: 8px;
+    float: left;
+}
