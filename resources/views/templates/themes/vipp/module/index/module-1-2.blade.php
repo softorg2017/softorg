@@ -6,29 +6,6 @@
                 <span class="menu-title"><b>{{ $data->menu->title or '' }}</b></span>
             </div>
 
-            <div class="module-block-container" style="display:none;">
-                <div class="row full block-{{$data->column}}-column">
-
-                    @foreach($data->menu->items as $v)
-                        <li class="item-block item-block-1-1 case-bin" role="button">
-                            <a href="{{url(config('common.org.front.prefix').'/item/'.encode($v->id))}}">
-
-                                <div class="item-block-row item-block-top">
-                                    <img src="{{ config('common.host.'.env('APP_ENV').'.cdn').'/'.$v->cover_pic }}" alt="">
-                                </div>
-
-                                <div class="item-block-row item-block-bottom">
-                                    <h3 class="block-title multi-ellipsis-1 z-index-9">{{$v->title or ''}}</h3>
-                                    @if(!empty($v->description))
-                                        <p class="list-description description line-ellipsis-1">{{$v->description or ''}}</p>
-                                    @endif
-                                </div>
-                            </a>
-                        </li>
-                    @endforeach
-
-                </div>
-            </div>
 
             <div class="module-block-container">
                 <div class="row full block-{{$data->column}}-column">
@@ -54,7 +31,6 @@
 
                 </div>
             </div>
-
 
 
             <div class="module-footer-container">
