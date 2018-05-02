@@ -1,4 +1,4 @@
-@extends(config('common.org.view.frontend.online').'.layout.layout')
+@extends('templates.themes.vipp.layout.layout')
 
 
 {{--html.head--}}
@@ -41,7 +41,7 @@
 @section('custom-content')
 
     {{--banner--}}
-    @include(config('common.org.view.frontend.online').'.component.banner1')
+    @include('templates.themes.vipp.component.banner1')
 
     {{--4栏--}}
     <div class="row full wrapper-content product-column product-four-column slide-to-top">

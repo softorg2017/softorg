@@ -1,4 +1,4 @@
-@extends(config('common.org.view.frontend.online').'.layout.layout')
+@extends('templates.themes.vipp.layout.layout')
 
 
 {{--html.head--}}
@@ -34,10 +34,10 @@
 @section('custom-content')
 
     {{--banner--}}
-    @include(config('common.org.view.frontend.online').'.component.banner1')
+    @include('templates.themes.vipp.component.banner1')
 
     {{--main-content--}}
-    @include(config('common.org.view.frontend.online').'.module.menu.module-1-0',['data'=>$menu,'items'=>$items])
+    @include('templates.themes.vipp.module.menu.module-1-0',['data'=>$menu,'items'=>$items])
 
 
 

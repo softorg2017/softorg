@@ -51,9 +51,9 @@
     <link rel="stylesheet" href="/AdminLTE/bootstrap/css/bootstrap.min.css">
 
     {{--<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">--}}
-、
+
     <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
-、
+
     <link type="text/css" rel="stylesheet" href="{{ asset('templates/themes/vipp/css/all.css') }}" media="all" />
 
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/common.css') }}" media="all" />
