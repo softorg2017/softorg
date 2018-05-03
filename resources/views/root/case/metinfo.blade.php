@@ -634,109 +634,109 @@
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://metinfo.cn" title="长沙米拓信息技术有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481251212.png" alt="长沙米拓信息技术有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/mituo.png')}}" alt="长沙米拓信息技术有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://baidu.com" title="北京百度网讯科技有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481251701.png" alt="北京百度网讯科技有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/baidu.png')}}" alt="北京百度网讯科技有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.alibabagroup.com" title="阿里巴巴网络技术有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481251896.png" alt="阿里巴巴网络技术有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/alibaba.png')}}" alt="阿里巴巴网络技术有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://huawei.com" title="华为技术有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481252449.png" alt="华为技术有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/huawei.png')}}" alt="华为技术有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.honor.cn" title="荣耀-华为荣耀官网">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481253143.png" alt="荣耀-华为荣耀官网">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/honor.png')}}" alt="荣耀-华为荣耀官网">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://1688.com" title="阿里巴巴采购批发网">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481252442.png" alt="阿里巴巴采购批发网">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/1688.png')}}" alt="阿里巴巴采购批发网">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://taobao.com" title="淘宝在线购物商城">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481252282.jpg" alt="淘宝在线购物商城">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/taobao.jpg')}}" alt="淘宝在线购物商城">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.youku.com/" title="优酷土豆股份有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481253102.png" alt="优酷土豆股份有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/youku.png')}}" alt="优酷土豆股份有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.iqiyi.com/" title="北京奇艺世纪科技有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481253575.png" alt="北京奇艺世纪科技有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/iqiyi.png')}}" alt="北京奇艺世纪科技有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://qq.com" title="腾讯控股有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481254158.png" alt="腾讯控股有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/tengxunwang.png')}}" alt="腾讯控股有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="https://y.qq.com/" title="QQ音乐在线听歌">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481254103.png" alt="QQ音乐在线听歌">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/qqmusic.png')}}" alt="QQ音乐在线听歌">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.360.cn/" title="360奇虎360科技有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481254399.png" alt="360奇虎360科技有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/360.png')}}" alt="360奇虎360科技有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.sogou.com" title="搜狗搜索引擎">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481254984.png" alt="搜狗搜索引擎">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/sougou.png')}}" alt="搜狗搜索引擎">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.xunlei.com/" title="迅雷网络技术有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481254612.png" alt="迅雷网络技术有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/xunlei.png')}}" alt="迅雷网络技术有限公司">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="https://www.aliyun.com" title="阿里云云服务器">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481254984(1).png" alt="阿里云云服务器">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/aliyun.png')}}" alt="阿里云云服务器">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="https://www.jd.com/" title="京东在线购物商城">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481255849.png" alt="京东在线购物商城">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/jingdong.png')}}" alt="京东在线购物商城">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.sina.com.cn/" title="新浪（NASDAQ：SINA）">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481255599.png" alt="新浪（NASDAQ：SINA）">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/xinlang.png')}}" alt="新浪（NASDAQ：SINA）">
                                             </a>
                                         </li>
 
                                         <li class="joint-bin">
                                             <a target="_blank" href="http://www.163.com/" title="广州网易计算机系统有限公司">
-                                                <img class="swiper-lazy" data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481256017.png" alt="广州网易计算机系统有限公司">
+                                                <img class="swiper-lazy" data-src="{{url('common/images/enterprise/wangyi.png')}}" alt="广州网易计算机系统有限公司">
                                             </a>
                                         </li>
 
