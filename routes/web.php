@@ -80,6 +80,14 @@ Route::group(['prefix' => 'developing', 'namespace' => 'Developing'], function (
 
 
 /*
+ * 根
+ */
+Route::group(['namespace' => 'Root'], function () {
+    require(__DIR__ . '/Root/route.php');
+});
+
+
+/*
  * 超级管理员
  */
 Route::group(['namespace' => 'Super'], function () {
