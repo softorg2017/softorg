@@ -16,6 +16,7 @@ Route::get('/', function () {
 //    return view('welcome');
 //    return redirect(config('common.website.front.prefix').'/softorg');
 });
+
 Route::get(config('common.website.front.prefix').'/', function () {
 //    return view('welcome');
     return redirect(config('common.website.front.prefix').'/softorg');
