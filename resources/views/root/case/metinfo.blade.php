@@ -24,6 +24,10 @@
     <script src="https://show.metinfo.cn/muban/M1156008/328/app/system/include/static/js/classList.min.js"></script>
     <![endif]-->
 
+    <style>
+        .case-bin .swiper-lazy {width:320px;height:200px;object-fit: cover;}
+    </style>
+
 </head>
 
 <body>
@@ -428,7 +432,7 @@
                                             <a href="#" title="家居公司，室内设计公司">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481290045.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200" class="swiper-lazy" title="家居公司，室内设计公司" alt="家居公司，室内设计公司">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481290045.jpg')}}" class="swiper-lazy" title="家居公司，室内设计公司" alt="家居公司，室内设计公司">
                                                 </font>
                                                 <span>
                                                     <h3>家居公司，室内设计公司</h3>
@@ -441,7 +445,7 @@
                                             <a href="#" title="日用品销售公司响应式网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481330552.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200" class="swiper-lazy" title="日用品销售公司响应式网站模板" alt="日用品销售公司响应式网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481330552.jpg')}}" class="swiper-lazy" title="日用品销售公司响应式网站模板" alt="日用品销售公司响应式网站模板">
                                                 </font>
                                                 <span>
                                                     <h3>日用品销售公司响应式网站模板</h3>
@@ -454,8 +458,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=45.html" title="食品公司响应式网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481330729.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="食品公司响应式网站模板" alt="食品公司响应式网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481330729.jpg')}}" class="swiper-lazy" title="食品公司响应式网站模板" alt="食品公司响应式网站模板">
                                                 </font>
                                                 <span>
                                                     <h3>食品公司响应式网站模板</h3>
@@ -468,7 +471,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=46.html" title="科技公司网站模板|科技企业网站">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481330159.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200" class="swiper-lazy" title="科技公司网站模板|科技企业网站" alt="科技公司网站模板|科技企业网站">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481330159.jpg')}}" class="swiper-lazy" title="科技公司网站模板|科技企业网站" alt="科技公司网站模板|科技企业网站">
                                                 </font>
                                                 <span>
                                                     <h3>科技公司网站模板|科技企业网站</h3>
@@ -481,8 +484,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=47.html" title="机械汽修公司响应式网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481335516.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="机械汽修公司响应式网站模板" alt="机械汽修公司响应式网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481335516.jpg')}}" class="swiper-lazy" title="机械汽修公司响应式网站模板" alt="机械汽修公司响应式网站模板">
                                                 </font>
                                                 <span>
 					  <h3>机械汽修公司响应式网站模板</h3>
@@ -497,8 +499,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=48.html" title="服装-服装网站模板|服装企业网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481340777.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="服装-服装网站模板|服装企业网站模板" alt="服装-服装网站模板|服装企业网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481340777.jpg')}}" class="swiper-lazy" title="服装-服装网站模板|服装企业网站模板" alt="服装-服装网站模板|服装企业网站模板">
                                                 </font>
                                                 <span>
 					  <h3>服装-服装网站模板|服装企业网站模板</h3>
@@ -513,8 +514,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=49.html" title="珠宝首饰|珍珠翡翠|项链吊坠网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481342652.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="珠宝首饰|珍珠翡翠|项链吊坠网站模板" alt="珠宝首饰|珍珠翡翠|项链吊坠网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481342652.jpg')}}" class="swiper-lazy" title="珠宝首饰|珍珠翡翠|项链吊坠网站模板" alt="珠宝首饰|珍珠翡翠|项链吊坠网站模板">
                                                 </font>
                                                 <span>
 					  <h3>珠宝首饰|珍珠翡翠|项链吊坠网站模板</h3>
@@ -529,8 +529,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=50.html" title="古典家具公司网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481344901.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="古典家具公司网站模板" alt="古典家具公司网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481344901.jpg')}}" class="swiper-lazy" title="古典家具公司网站模板" alt="古典家具公司网站模板">
                                                 </font>
                                                 <span>
 					  <h3>古典家具公司网站模板</h3>
@@ -545,8 +544,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=51.html" title="装饰企业网站模板-装饰公司">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481355363.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="装饰企业网站模板-装饰公司" alt="装饰企业网站模板-装饰公司">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481355363.jpg')}}" class="swiper-lazy" title="装饰企业网站模板-装饰公司" alt="装饰企业网站模板-装饰公司">
                                                 </font>
                                                 <span>
 					  <h3>装饰企业网站模板-装饰公司</h3>
@@ -561,8 +559,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=52.html" title="科技公司网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481355257.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="科技公司网站模板" alt="科技公司网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481355257.jpg')}}" class="swiper-lazy" title="科技公司网站模板" alt="科技公司网站模板">
                                                 </font>
                                                 <span>
 					  <h3>科技公司网站模板</h3>
@@ -577,8 +574,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=53.html" title="工程机械设备公司网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481356502.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="工程机械设备公司网站模板" alt="工程机械设备公司网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481356502.jpg')}}" class="swiper-lazy" title="工程机械设备公司网站模板" alt="工程机械设备公司网站模板">
                                                 </font>
                                                 <span>
 					  <h3>工程机械设备公司网站模板</h3>
@@ -593,8 +589,7 @@
                                             <a href="product/showproduct.php-lang=cn&amp;id=54.html" title="装饰设计公司网站模板">
                                                 <font>
                                                     <b></b>
-                                                    <img data-src="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481356071.jpg?x-oss-process=image/resize,m_fill,w_320,limit_0&y=200"
-                                                         class="swiper-lazy" title="装饰设计公司网站模板" alt="装饰设计公司网站模板">
+                                                    <img data-src="{{url('templates/themes/metinfo/img/1481356071.jpg')}}" class="swiper-lazy" title="装饰设计公司网站模板" alt="装饰设计公司网站模板">
                                                 </font>
                                                 <span>
 					  <h3>装饰设计公司网站模板</h3>
