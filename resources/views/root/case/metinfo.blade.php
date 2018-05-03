@@ -935,7 +935,7 @@
                                         <div class="contact-center">
                                             <p class="t">400-123-4567</p>
                                             <p>扫描关注IT行业微信公众账号</p>
-                                            <p>中国·北京中关村科技园</p>
+                                            <p>中国·上海</p>
                                             <p>联系电话：+86-15800689433</p>
                                             <p>地址：上海市松江区荣乐中路89号</p>
                                         </div>
@@ -945,8 +945,10 @@
                                             <p>Copyright 2008-2017<span style="line-height: 1.42857;">互联网</span><span style="line-height: 1.42857;">&nbsp;版权所有</span></p>
                                             <p><a target="_blank" href="http://www.miitbeian.gov.cn">沪ICP备17052782号-1</a></p>
                                             {{--<p>京公网安备 1010011000101 号</p>--}}
-                                        </div></div>、
-                                    <div class="contact-text"><p>洒下一<em>米</em>网，开<em>拓</em>一片天</p><div>Metinfo best enterprise establishment system</div></div></div>
+                                        </div></div>
+                                    <div class="contact-text"><p>点一<em>如</em><em>哉</em>网，开<em>拓</em>一片天</p>
+                                    <div>Ruzai. best enterprise establishment system</div></div>
+                                </div>
                                 <div class="hidden visible-sm-block visible-md-block">
                                     <div class="contact-box">
                                         <div class="contact-left">
@@ -955,7 +957,7 @@
                                         <div class="contact-center">
                                             <p class="t">400-123-4567</p>
                                             <p>扫描关注IT行业微信公众账号</p>
-                                            <p>中国·北京中关村科技园</p>
+                                            <p>中国·上海</p>
                                             <p>联系电话：+86-15800689433</p>
                                             <p>地址：上海市松江区荣乐中路89号</p>
                                         </div>
@@ -969,8 +971,8 @@
                                     </div>
 
                                     <div class="contact-text">
-                                        <p>洒下一<em>米</em>网，开<em>拓</em>一片天</p>
-                                        <div>Metinfo best enterprise establishment system</div>
+                                        <p>点一<em>如</em><em>哉</em>网，开<em>拓</em>一片天</p>
+                                        <div>Ruzai. best enterprise establishment system</div>
                                     </div>
                                 </div>
 
@@ -982,7 +984,7 @@
                                         <div class="contact-center">
                                             <p class="t">400-123-4567</p>
                                             <p>扫描关注IT行业微信公众账号</p>
-                                            <p>中国·北京中关村科技园</p>
+                                            <p>中国·上海</p>
                                             <p>联系电话：+86-15800689433</p>
                                             <p>地址：上海市松江区荣乐中路89号</p>
                                             <p><img class="c" src="{{url('templates/themes/metinfo/img/1422258610.jpg')}}"/></p>
@@ -996,7 +998,7 @@
 
                 <div class="window-bin foot none1">
 
-                    <p>互联网 版权所有 2008-2016 粤ICP备0123456789-1 </p>
+                    <p>互联网 版权所有 2008-2016 沪ICP备17052782号-1 </p>
 
                 </div>
             </div>
