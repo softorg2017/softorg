@@ -154,7 +154,7 @@
                 </div>
 
                 <div class="foto-cut">高端定制，品牌设计</div>
-                <div class="powered_by_metinfo">Powered&nbsp;by&nbsp;<a href="http://www.MetInfo.cn" target="_blank" title="企业网站管理系统">MetInfo&nbsp;5.3.19</a></div>
+                <div class="powered_by_metinfo">Powered&nbsp;by&nbsp;<a href="http://www.softorg.cn" target="_blank" title="企业网站管理系统">Ruzai&nbsp;5.3.19</a></div>
 
 
             </div>
@@ -411,7 +411,7 @@
                 {{--案例--}}
                 <div class="window-bin" data-hash="case">
                     <div class="window-back swiper-lazy" data-title="案例"
-                         data-background="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481211118.jpg"
+                         data-background="{{url('templates/themes/metinfo/img/1481211118.jpg')}}"
                     >
                         <div class="case-ctrl">
                             <div class="ctrl-box ctrl-left"><i class="fa fa-angle-left"></i></div>
@@ -611,7 +611,8 @@
                 {{--合作--}}
                 <div class="window-bin" data-hash="joint">
                     <div class="window-back swiper-lazy" data-title="合作"
-                         data-background="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1482204540.jpg">
+                         data-background="{{url('templates/themes/metinfo/img/1482204540.jpg')}}"
+                    >
                         <div class="joint-ctrl">
                             <div class="ctrl-box ctrl-left"><i class="fa fa-angle-left"></i></div>
                             <div class="ctrl-box ctrl-right"><i class="fa fa-angle-right"></i></div>
@@ -831,7 +832,9 @@
 
                 {{--品质--}}
                 <div class="window-bin" data-hash="worth">
-                    <div class="window-back swiper-lazy" data-title="品质" data-background="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481169859.jpg">
+                    <div class="window-back swiper-lazy" data-title="品质"
+                         data-background="{{url('templates/themes/metinfo/img/1481169859.jpg')}}"
+                    >
                         <div class="worth-ctrl">
                             <div class="ctrl-box ctrl-left"><i class="fa fa-angle-left"></i></div>
                             <div class="ctrl-box ctrl-right"><i class="fa fa-angle-right"></i></div>
@@ -847,7 +850,8 @@
                                 <div class="worth-box">
                                     <div class="worth-cut">
 
-                                        <div class="worth-bin"><p class="em-fa"><em class="fa fa-mobile"></em><em class="fa fa-tablet"></em><em class="fa fa-desktop"></em></p><p style="color:#e1e1e1;">触及视觉灵魂的设计趋势</p><p style="color:#e1e1e1;">精心布局的用户体验</p><p style="color:#e1e1e1;">毫无顾忌地通过任何终端</p><p style="color:#e1e1e1;">呈现在客户的眼前</p></div>
+                                        <div class="worth-bin">
+                                            <p class="em-fa"><em class="fa fa-mobile"></em><em class="fa fa-tablet"></em><em class="fa fa-desktop"></em></p><p style="color:#e1e1e1;">触及视觉灵魂的设计趋势</p><p style="color:#e1e1e1;">精心布局的用户体验</p><p style="color:#e1e1e1;">毫无顾忌地通过任何终端</p><p style="color:#e1e1e1;">呈现在客户的眼前</p></div>
 
                                         <div class="worth-bin"><p class="em-fa ef-32"><em class="fa fa-html5"></em><em class="fa fa-css3"></em><em class="fa fa-rss"></em></p><p style="color:#e1e1e1;">Html5 + CSS3 响应式布局</p><p style="color:#e1e1e1;">卓越的浏览器兼容性</p><p style="color:#e1e1e1;">因为高端，所以出众</p></div>
 
@@ -868,7 +872,7 @@
                 {{--关于--}}
                 <div class="window-bin" data-hash="about">
                     <div class="window-back swiper-lazy" data-title="关于"
-                         data-background="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481175422.jpg"
+                         data-background="{{url('templates/themes/metinfo/img/1481175422.jpg')}}"
                     >
                         <div class="table-box">
                             <div class="table-cell">
@@ -924,7 +928,9 @@
 
                 {{--联系我们--}}
                 <div class="window-bin" data-hash="contact">
-                    <div class="window-back swiper-lazy" data-title="联系" data-background="https://images.metinfo.cn/m/M1156008/328/upload/M1156008/328/201612/1481719302.jpg">
+                    <div class="window-back swiper-lazy" data-title="联系"
+                         data-background="{{url('templates/themes/metinfo/img/1481719302.jpg')}}"
+                    >
                         <div class="table-box">
                             <div class="table-cell">
                                 <div class="hidden visible-lg-block">
