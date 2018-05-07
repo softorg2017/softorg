@@ -12,7 +12,7 @@
     <meta name="title" content="" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-    <meta name="generator" content=""  data-variable="" />
+    <meta name="generator" content="MetInfo 5.3.19" data-variable="https://show.metinfo.cn/muban/M1156008/328/,cn,10001,,10001,M1156008">
 
     <link type="text/css" rel="stylesheet" href="{{ asset('templates/themes/metinfo/css/all.css') }}" media="all" />
 

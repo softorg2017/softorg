@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="generator" content="MetInfo 5.3.19"  data-variable="https://softorg.com/templates/themes/metinfo/,cn,10001,,10001,M1156008" />
+    <meta name="generator" content="MetInfo 5.3.19" data-variable="https://show.metinfo.cn/muban/M1156008/328/,cn,10001,,10001,M1156008">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
