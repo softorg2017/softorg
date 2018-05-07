@@ -36,6 +36,7 @@
     {{--banner--}}
     @include('templates.themes.vipp.component.banner')
 
+
     {{--自定义目录栏位--}}
     @if( count($org->modules) != 0 )
         @foreach($org->modules as $module)
@@ -54,6 +55,7 @@
 
         @endforeach
     @endif
+
 
 
 

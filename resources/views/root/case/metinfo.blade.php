@@ -1,17 +1,21 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>上海如哉-模板案例</title>
+    <title>模板案例-上海如哉网络科技有限公司</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+
     <meta name="renderer" content="webkit">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="generator" content="MetInfo 5.3.19"  data-variable="https://softorg.com/templates/themes/metinfo/,cn,10001,,10001,M1156008" />
+
+    <meta name="title" content="" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="generator" content=""  data-variable="" />
 
     <link type="text/css" rel="stylesheet" href="{{ asset('templates/themes/metinfo/css/all.css') }}" media="all" />
+
     <!--[if IE 9]>
     <link rel="stylesheet" href="https://show.metinfo.cn/muban/M1156008/328/templates/M1156008/cache/metinfo-ie9-1.css">
     <link rel="stylesheet" href="https://show.metinfo.cn/muban/M1156008/328/templates/M1156008/cache/metinfo-ie9-2.css">

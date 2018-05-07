@@ -291,7 +291,7 @@ desired effect
                                     <a href="{{url(config('common.org.admin.prefix').'/admin/administrator/index')}}" class="btn btn-default btn-flat">个人资料</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat admin-logout">退出</a>
+                                    <a href="{{url(config('common.org.admin.prefix').'/admin/logout')}}" class="btn btn-default btn-flat">退出</a>
                                 </div>
                             </li>
                         </ul>

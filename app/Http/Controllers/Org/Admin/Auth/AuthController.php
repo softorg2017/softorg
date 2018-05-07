@@ -55,8 +55,8 @@ class AuthController extends Controller
     // 退出
     public function logout()
     {
-        Auth::guard('admin')->logout();
-        return redirect('/admin/login');
+        Auth::guard('org_admin')->logout();
+        return redirect('/org/admin/login');
     }
 
     // 注册

@@ -50,7 +50,7 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="/AdminLTE/bootstrap/css/bootstrap.min.css">
 
-    {{--<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">--}}
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
 
@@ -59,11 +59,27 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/common.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/frontend/index.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/backend/index.css') }}" media="all" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('common/css/animate/wicked.css') }}" media="all" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('common/css/animate/hover.css') }}" media="all" />
 
     @yield('custom-css')
     @yield('custom-style')
 
-    
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>
+
+    <script src="{{ asset('/templates/themes/vipp/js/jm.js') }}"></script>
+    <script src="{{ asset('/templates/themes/vipp/js/jc.js') }}"></script>
+    <script src="{{ asset('/templates/themes/vipp/js/all.js') }}"></script>
+
+    <script src="{{ asset('common/js/common.js') }}"></script>
+    <script src="{{ asset('common/js/frontend/index.js') }}"></script>
+    <script src="{{ asset('common/js/animate/swimming-line.js') }}"></script>
+
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
 </head>
 
 <body class="html front not-logged-in one-sidebar sidebar-first page-node page-node- page-node-1864 node-type-front-page i18n-en-us has-cookie front-page">
@@ -73,6 +89,8 @@
 
     {{--header--}}
     @include('templates.themes.vipp.component.header')
+
+
 
     {{--main--}}
     <div class="wrapper-main-content style-main style-{{ $org->style or '0' }}" style="padding-bottom:64px;">
@@ -92,18 +110,6 @@
 
 
 
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-
-    <script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>
-
-    <script src="{{ asset('/templates/themes/vipp/js/jm.js') }}"></script>
-    <script src="{{ asset('/templates/themes/vipp/js/jc.js') }}"></script>
-    <script src="{{ asset('/templates/themes/vipp/js/all.js') }}"></script>
-
-    <script src="{{ asset('common/js/common.js') }}"></script>
-    <script src="{{ asset('common/js/frontend/index.js') }}"></script>
-
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
      <script>
 
         var wechat_config = {!! $wechat_config or '' !!};

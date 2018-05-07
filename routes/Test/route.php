@@ -11,6 +11,9 @@ $controller = "TestController";
 //        return view('test');
     });
 
+
+
+
     Route::get('/index', function () {
         return view('frontend.home.index');
     });

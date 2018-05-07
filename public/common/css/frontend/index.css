@@ -29,15 +29,18 @@
 .wrapper-module-container {
     text-align: center;
     font-family: "微软雅黑", 'microsoft yahei', Arial, sans-serif;
-    background: #fff;
+    /*background: #fff;*/
+    box-shadow: 4px 4px 32px #f8f8f8;
+    margin-bottom: 4px;
 }
 .wrapper-module-container:nth-child(odd) {
-    background: #f4f4f4;
-    background: linear-gradient(30deg, #eeeeee, #f8f8f8, #eeeeee);
-    background: -o-linear-gradient(30deg, #eeeeee, #f8f8f8, #eeeeee);
-    background: -moz-linear-gradient(30deg, #eeeeee, #f8f8f8, #eeeeee);
-    background: -webkit-linear-gradient(45deg, #eeeeee, #f8f8f8, #eeeeee);
-    box-shadow: 3px 5px 8px #dfdfdf;
+    background: #f1f1f1;
+    /*background: linear-gradient(30deg, #eeeeee, #f8f8f8, #eeeeee);*/
+    /*background: -o-linear-gradient(30deg, #eeeeee, #f8f8f8, #eeeeee);*/
+    /*background: -moz-linear-gradient(30deg, #eeeeee, #f8f8f8, #eeeeee);*/
+    /*background: -webkit-linear-gradient(45deg, #eeeeee, #f8f8f8, #eeeeee);*/
+    /*background: url('/common/images/bg/bg-grey-2.jpeg')  no-repeat;*/
+    /*background-size: cover;*/
 }
 
 .wrapper-module-container:nth-child(odd) .item-block {
