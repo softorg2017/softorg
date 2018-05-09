@@ -73,6 +73,26 @@ class StyleController extends Controller
     {
         return view('templates.themes.style.on-context-menu');
     }
+    //
+    public function view_animate_hover_screen_1()
+    {
+        return view('templates.themes.style.hover-screen-1');
+    }
+    //
+    public function view_animate_hover_screen_2()
+    {
+        return view('templates.themes.style.hover-screen-2');
+    }
+    //
+    public function view_animate_hover_screen_3()
+    {
+        return view('templates.themes.style.hover-screen-3');
+    }
+    //
+    public function view_animate_hover_screen_4()
+    {
+        return view('templates.themes.style.hover-screen-4');
+    }
 
 
 

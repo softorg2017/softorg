@@ -21,9 +21,9 @@
         <div class="banner-canvas">
         </div>
 
-        <script>
-                initialise(".banner-canvas");
-        </script>
+        {{--<script>--}}
+            {{--initialise(".banner-canvas");--}}
+        {{--</script>--}}
 
     </div>
 </div>

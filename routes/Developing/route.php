@@ -28,6 +28,10 @@ Route::group(['prefix' => 'style'], function () {
     Route::get('3d-rotate', $controller."@view_animate_3d_rotate");
     Route::get('floating-button', $controller."@view_animate_floating_button");
     Route::get('on-context-menu', $controller."@view_on_context_menu");
+    Route::get('hover-screen-1', $controller."@view_animate_hover_screen_1");
+    Route::get('hover-screen-2', $controller."@view_animate_hover_screen_2");
+    Route::get('hover-screen-3', $controller."@view_animate_hover_screen_3");
+    Route::get('hover-screen-4', $controller."@view_animate_hover_screen_4");
 
 });
 

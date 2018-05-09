@@ -29,6 +29,10 @@
 			<a target="_blank" href="{{url('developing/style/swimming-tadpole')}}" class="button pulse-grow">swimming-tadpole</a>
 			<a target="_blank" href="{{url('developing/style/hover')}}" class="button pulse-grow">hover</a>
 			<a target="_blank" href="{{url('developing/style/hover2')}}" class="button pulse-grow">hover2</a>
+			<a target="_blank" href="{{url('developing/style/hover-screen-1')}}" class="button pulse-grow">hover-screen-1</a>
+			<a target="_blank" href="{{url('developing/style/hover-screen-2')}}" class="button pulse-grow">hover-screen-2</a>
+			<a target="_blank" href="{{url('developing/style/hover-screen-3')}}" class="button pulse-grow">hover-screen-3</a>
+			<a target="_blank" href="{{url('developing/style/hover-screen-4')}}" class="button pulse-grow">hover-screen-4</a>
 			<a target="_blank" href="{{url('developing/style/3d-rotate')}}" class="button pulse-grow">3d-rotate</a>
 			<a target="_blank" href="{{url('developing/style/floating-button')}}" class="button pulse-grow">floating-button</a>
 			<a target="_blank" href="{{url('developing/style/on-context-menu')}}" class="button pulse-grow">on-context-menu</a>

@@ -411,6 +411,16 @@
 
 
 
+.module-4-0 .rectangle-container {
+    width: calc(25% - 16px);
+    -moz-width: calc(25% - 16px);
+    -webkit-width: calc(25% - 16px);
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+
+
 
 /*case*/
 .case-bin font {display:block; position:relative; overflow:hidden;}
@@ -528,7 +538,7 @@
     float: none;
 }
 
-.joint-bin a{
+.joint-bin a {
     display:table-cell;
     vertical-align:middle;
     background:rgba(255,255,255,.35);

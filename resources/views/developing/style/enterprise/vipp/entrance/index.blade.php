@@ -36,6 +36,7 @@
     {{--banner--}}
     @include('templates.themes.vipp.component.banner')
 
+    @include('developing.style.test.rectengle')
 
     {{--自定义目录栏位--}}
     @if( count($org->modules) != 0 )

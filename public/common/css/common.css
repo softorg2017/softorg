@@ -54,3 +54,74 @@ canvas.drawer {
     z-index: -1;
 }
 
+
+
+
+
+.rectangle-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    background: inherit;
+    overflow: hidden;
+    float: none;
+}
+.rectangle-container:before {
+    display: block;
+    content: "";
+}
+
+.rectangle-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #eee;
+    font-size: 16px;
+}
+
+.rectangle-1-1 {
+    width: 25%;
+    margin-bottom: 2px;
+}
+.rectangle-1-1:before {
+    padding-top: 100%;
+}
+
+.rectangle-1-2 {
+    width: 25%;
+    margin-bottom: 2px;
+}
+.rectangle-1-2:before {
+    padding-top: 50%;
+}
+
+.rectangle-2-3 {
+    width: 25%;
+    margin-bottom: 2px;
+}
+.rectangle-2-3:before {
+    padding-top: 66.66666666%;
+}
+
+.rectangle-3-4 {
+    width: 25%;
+    margin-bottom: 2px;
+}
+.rectangle-3-4:before {
+    padding-top: 75%;
+}
+
+
+.rectangle-box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+
+
+

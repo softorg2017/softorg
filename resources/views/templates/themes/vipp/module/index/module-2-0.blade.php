@@ -17,9 +17,9 @@
                         <div class="item-block-row item-block-middle">
                             @foreach($m->items as $v)
                                 <a target="_blank" href="{{url(config('common.org.front.prefix').'/item/'.encode($v->id))}}">
-                                    <div class="row article-row">
+                                    <div class="row article-row wobble-horizontal">
                                         <span class="article-section article-icon"><i class="fa fa-clone"></i></span>
-                                        <span class="article-section article-title multi-ellipsis-1 z-index-9 wobble-horizontal">{{$v->title or ''}}</span>
+                                        <span class="article-section article-title multi-ellipsis-1 z-index-9">{{$v->title or ''}}</span>
                                         <span class="article-section article-time">{{$v->updated_at->format("Y-m-d")}}</span>
                                     </div>
                                 </a>
