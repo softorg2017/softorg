@@ -239,13 +239,13 @@
                         <label class="control-label col-md-2">图片</label>
                         <div class="col-md-8">
 
+                            <div>{{$img->title or ''}}</div>
+                            <div>{{$img->link or ''}}</div>
                             <div class="edit-img"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$img->cover_pic)}}" alt=""></div>
 
-                            <div>{{$img->link or ''}}</div>
-
                             <div class="margin-top-8">
-                                <button type="button" class="btn btn-xs btn-danger delete-multiple-option" data-num="{{$num}}">
-                                    <i class="fa fa-"></i> 删除该项
+                                <button type="button" class="btn btn-danger delete-multiple-option" data-num="{{$num}}">
+                                    <i class="fa fa-"></i> 删除
                                 </button>
                             </div>
 
@@ -258,6 +258,9 @@
                     <label class="control-label col-md-2">添加（链接）图片</label>
 
                     <div class="col-md-8">
+
+                        <div><input type="text" class="form-control" name="multiples[1000][title]" placeholder="标题" value=""></div>
+                        <div><input type="text" class="form-control" name="multiples[1000][link]" placeholder="链接地址" value=""></div>
 
                         <div class=" fileinput-group">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -278,10 +281,9 @@
                             </div>
                         </div>
 
-                        <div><input type="text" class="form-control" name="multiples[1000][link]" placeholder="链接地址" value=""></div>
 
                         <div class="margin-top-16">
-                            <button type="button" class="btn btn-danger remove-img-multiple-option"><i class="fa fa-"></i> 删除该图片项</button>
+                            <button type="button" class="btn btn-danger remove-img-multiple-option"><i class="fa fa-"></i> 移除该图片项</button>
                         </div>
 
                     </div>
@@ -301,15 +303,17 @@
                     <div class="form-group img-carousel-show _none" style="padding: 16px 0;">
                         <label class="control-label col-md-2">轮播图片</label>
                         <div class="col-md-8">
-                            <div class="edit-img"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$img->cover_pic)}}" alt=""></div>
 
+                            <div>{{$img->title or ''}}</div>
                             <div>{{$img->link or ''}}</div>
+                            <div class="edit-img"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$img->cover_pic)}}" alt=""></div>
 
                             <div class="margin-top-8">
                                 <button type="button" class="btn btn-danger delete-multiple-option" data-num="{{$num}}">
-                                    <i class="fa fa-"></i> 删除该项
+                                    <i class="fa fa-"></i> 删除
                                 </button>
                             </div>
+
                         </div>
                     </div>
                     @endforeach
@@ -319,6 +323,9 @@
                     <label class="control-label col-md-2">添加（轮播）图片</label>
 
                     <div class="col-md-8">
+
+                        <div><input type="text" class="form-control" name="carousels[1000][title]" placeholder="标题" value=""></div>
+                        <div><input type="text" class="form-control" name="carousels[1000][link]" placeholder="链接地址" value=""></div>
 
                         <div class=" fileinput-group">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -339,10 +346,9 @@
                             </div>
                         </div>
 
-                        <div><input type="text" class="form-control" name="carousels[1000][link]" placeholder="链接地址" value=""></div>
 
                         <div class="margin-top-16">
-                            <button type="button" class="btn btn-danger remove-img-carousel-option"><i class="fa fa-"></i> 删除该图片项</button>
+                            <button type="button" class="btn btn-danger remove-img-carousel-option"><i class="fa fa-"></i> 移除该图片项</button>
                         </div>
 
                     </div>
@@ -375,11 +381,15 @@
 
 <div class="_none" id="clone-container">
 
+    {{----}}
     <div class="form-group img-multiple-option img-multiple-show">
 
         <label class="control-label col-md-2">添加（链接）图片</label>
 
         <div class="col-md-8">
+
+            <div><input type="text" class="form-control img-title" name="" placeholder="标题" value=""></div>
+            <div><input type="text" class="form-control img-link" name="" placeholder="链接地址" value=""></div>
 
             <div class="fileinput-group">
                 <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -400,10 +410,8 @@
                 </div>
             </div>
 
-            <div><input type="text" class="form-control img-link" name="" placeholder="链接地址" value=""></div>
-
             <div class="margin-top-16">
-                <button type="button" class="btn btn-danger remove-img-multiple-option"><i class="fa fa-"></i> 删除该图片项</button>
+                <button type="button" class="btn btn-danger remove-img-multiple-option"><i class="fa fa-"></i> 移除该图片项</button>
             </div>
 
         </div>
@@ -411,12 +419,15 @@
     </div>
 
 
-
+    {{----}}
     <div class="form-group img-carousel-option img-carousel-show">
 
         <label class="control-label col-md-2">添加（轮播）图片</label>
 
         <div class="col-md-8">
+
+            <div><input type="text" class="form-control img-title" name="" placeholder="标题" value=""></div>
+            <div><input type="text" class="form-control img-link" name="" placeholder="链接地址" value=""></div>
 
             <div class="fileinput-group">
                 <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -437,10 +448,8 @@
                 </div>
             </div>
 
-            <div><input type="text" class="form-control img-link" name="" placeholder="链接地址" value=""></div>
-
             <div class="margin-top-16">
-                <button type="button" class="btn btn-danger remove-img-carousel-option"><i class="fa fa-"></i> 删除该图片项</button>
+                <button type="button" class="btn btn-danger remove-img-carousel-option"><i class="fa fa-"></i> 移除该图片项</button>
             </div>
 
         </div>
@@ -478,6 +487,7 @@
         $("#edit-container").on('click', '#add-img-multiple-option', function() {
             var option = $("#clone-container").find(".img-multiple-option").clone();
             multiple_n = multiple_n + 1;
+            option.find(".img-title").attr("name","multiples["+multiple_n+"][title]");
             option.find(".img-link").attr("name","multiples["+multiple_n+"][link]");
             option.find(".img-file").attr("name","multiples["+multiple_n+"][file]");
             $(".img-multiple-add").before(option);
@@ -492,6 +502,7 @@
         $("#edit-container").on('click', '#add-img-carousel-option', function() {
             var option = $("#clone-container").find(".img-carousel-option").clone();
             carousel_n = carousel_n + 1;
+            option.find(".img-title").attr("name","carousels["+carousel_n+"][title]");
             option.find(".img-link").attr("name","carousels["+carousel_n+"][link]");
             option.find(".img-file").attr("name","carousels["+carousel_n+"][file]");
             $(".img-carousel-add").before(option);
