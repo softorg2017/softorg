@@ -36,6 +36,7 @@
 			<a target="_blank" href="{{url('developing/style/3d-rotate')}}" class="button pulse-grow">3d-rotate</a>
 			<a target="_blank" href="{{url('developing/style/floating-button')}}" class="button pulse-grow">floating-button</a>
 			<a target="_blank" href="{{url('developing/style/on-context-menu')}}" class="button pulse-grow">on-context-menu</a>
+			<a target="_blank" href="{{url('developing/style/match-height')}}" class="button pulse-grow">match-height</a>
 
 			<h2> &nbsp; </h2>
 			<h2>2D Transforms</h2>

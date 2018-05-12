@@ -334,4 +334,33 @@ class OrgModuleRepository {
 
 
 
+    // 【删除】
+    public function delete_multiple_option($post_data)
+    {
+        $admin = Auth::guard('org_admin')->user();
+        $id = decode($post_data["encode_id"]);
+        if(intval($id) !== 0 && !$id) return response_error([],"该目录不存在，刷新页面试试");
+
+        $module = OrgModule::find($id);
+        if($module->admin_id != $admin->id) return response_error([],"你没有操作权限");
+
+        $num = $post_data["num"];
+        $img_multiple = collect(json_decode($module->img_multiple,true));
+
+        $item = $img_multiple->get($num);
+        $cover_pic = $item["cover_pic"];
+        if(!empty($cover_pic) && file_exists(storage_path("resource/" . $cover_pic)))
+        {
+            unlink(storage_path("resource/" . $cover_pic));
+        }
+
+        $img_multiple->forget($num);
+        $module->img_multiple = json_encode($img_multiple->all());
+        $module->save();
+        return response_success([]);
+
+    }
+
+
+
 }

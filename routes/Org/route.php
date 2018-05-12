@@ -128,6 +128,8 @@ Route::group(['prefix' => config('common.org.admin.prefix').'/admin', 'namespace
             Route::post('delete', $controller.'@deleteAction');
             Route::post('enable', $controller.'@enableAction');
             Route::post('disable', $controller.'@disableAction');
+
+            Route::post('delete_multiple_option', $controller.'@deleteMultipleOption');
         });
 
         // 目录模块

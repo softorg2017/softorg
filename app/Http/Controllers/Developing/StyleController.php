@@ -93,6 +93,11 @@ class StyleController extends Controller
     {
         return view('templates.themes.style.hover-screen-4');
     }
+    //
+    public function view_match_height()
+    {
+        return view('templates.themes.style.matchHeight');
+    }
 
 
 

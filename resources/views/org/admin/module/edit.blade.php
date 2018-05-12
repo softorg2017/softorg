@@ -244,7 +244,9 @@
                             <div>{{$img->link or ''}}</div>
 
                             <div class="margin-top-8">
-                                <button type="button" class="btn btn-xs btn-danger delete-img-multiple-option"><i class="fa fa-"></i> 删除</button>
+                                <button type="button" class="btn btn-xs btn-danger delete-multiple-option" data-num="{{$num}}">
+                                    <i class="fa fa-"></i> 删除该项
+                                </button>
                             </div>
 
                         </div>
@@ -304,7 +306,9 @@
                             <div>{{$img->link or ''}}</div>
 
                             <div class="margin-top-8">
-                                <button type="button" class="btn btn-danger delete-img-carousel-option"><i class="fa fa-"></i> 删除该图片</button>
+                                <button type="button" class="btn btn-danger delete-multiple-option" data-num="{{$num}}">
+                                    <i class="fa fa-"></i> 删除该项
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -496,6 +500,37 @@
         $("#edit-container").on('click', '.remove-img-carousel-option', function() {
             var option = $(this).parents(".img-carousel-option").remove();
         });
+
+
+
+        // 【删除】
+        $("#edit-container").on('click', ".delete-multiple-option", function() {
+            var that = $(this);
+
+            var encode_id = $("input[name=encode_id]").val();
+
+            layer.msg('确定删除该"项"？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                        "{{url(config('common.org.admin.prefix').'/admin/module/delete_multiple_option')}}",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            encode_id: encode_id,
+                            num: that.attr('data-num')
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else location.reload();
+                        },
+                        'json'
+                    );
+                }
+            });
+        });
+
+
 
 
 //        $('#menus').select2({

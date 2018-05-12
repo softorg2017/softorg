@@ -32,6 +32,7 @@ Route::group(['prefix' => 'style'], function () {
     Route::get('hover-screen-2', $controller."@view_animate_hover_screen_2");
     Route::get('hover-screen-3', $controller."@view_animate_hover_screen_3");
     Route::get('hover-screen-4', $controller."@view_animate_hover_screen_4");
+    Route::get('match-height', $controller."@view_match_height");
 
 });
 

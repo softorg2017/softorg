@@ -69,6 +69,12 @@ class ModuleController extends Controller
         return $this->repo->disable(request()->all());
     }
 
+    // 【删除】
+    public function deleteMultipleOption()
+    {
+        return $this->repo->delete_multiple_option(request()->all());
+    }
+
 
 
     public function getAction()
