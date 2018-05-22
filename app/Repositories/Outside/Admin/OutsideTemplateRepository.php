@@ -7,8 +7,9 @@ use App\Models\Outside\OutsideItem;
 use App\Models\Outside\OutsideTemplate;
 
 use App\Repositories\Common\CommonRepository;
+use App\Repositories\Outside\OutsideCommonRepository;
 
-use Response, Auth, Validator, DB, Exception;
+use Response, Auth, Validator, DB, Exception, Cache;
 use QrCode;
 
 class OutsideTemplateRepository {
@@ -180,6 +181,10 @@ class OutsideTemplateRepository {
             else throw new Exception("insert--template--fail");
 
             DB::commit();
+
+            $outside = new OutsideCommonRepository();
+            $outside->set_cache_root_is_refresh();
+
             return response_success(['id'=>$encode_id]);
         }
         catch (Exception $e)
@@ -214,6 +219,9 @@ class OutsideTemplateRepository {
 
             DB::commit();
 
+            $outside = new OutsideCommonRepository();
+            $outside->set_cache_root_is_refresh();
+
             // 删除封面图片
             if(!empty($cover_pic) && file_exists(storage_path("resource/" . $cover_pic)))
             {
@@ -247,6 +255,10 @@ class OutsideTemplateRepository {
             if(!$bool) throw new Exception("update--template--fail");
 
             DB::commit();
+
+            $outside = new OutsideCommonRepository();
+            $outside->set_cache_root_is_refresh();
+
             return response_success([]);
         }
         catch (Exception $e)
@@ -274,6 +286,10 @@ class OutsideTemplateRepository {
             if(!$bool) throw new Exception("update--template--fail");
 
             DB::commit();
+
+            $outside = new OutsideCommonRepository();
+            $outside->set_cache_root_is_refresh();
+
             return response_success([]);
         }
         catch (Exception $e)
@@ -302,6 +318,7 @@ class OutsideTemplateRepository {
         }
         return $list;
     }
+
 
 
 }
