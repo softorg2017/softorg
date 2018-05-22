@@ -87,12 +87,13 @@
     var active_country = "US";
     </script>
 
-    {{--header--}}
-    @include('templates.themes.vipp.component.header')
 
+    {{--header--}}
+    @yield('component-header')
 
 
     {{--main--}}
+    @yield('main-content')
     <div class="wrapper-main-content style-main style-{{ $org->style or '0' }}" style="padding-bottom:64px;">
         <div class="container-fluid ">
 
@@ -102,11 +103,13 @@
         </div>
     </div>
 
-    <div class="overlay"></div>
-    <div class="overlay"></div>
+
+    {{--<div class="overlay"></div>--}}
+    {{--<div class="overlay"></div>--}}
+
 
     {{--footer--}}
-    @include('templates.themes.vipp.component.footer')
+    @yield('component-footer')
 
 
 

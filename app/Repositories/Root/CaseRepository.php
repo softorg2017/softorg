@@ -35,6 +35,12 @@ class CaseRepository {
         $this->model = new OrgOrganization;
     }
 
+
+    public function view_test()
+    {
+        return view('root.case.entrance.test');
+    }
+
     public function view_metinfo()
     {
         return view('root.case.metinfo');

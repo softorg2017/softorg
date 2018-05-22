@@ -20,6 +20,12 @@ class CaseController extends Controller
 
 
     // 返回主页视图
+    public function view_test()
+    {
+        return $this->repo->view_test();
+    }
+
+    // 返回主页视图
     public function view_metinfo()
     {
         return $this->repo->view_metinfo();

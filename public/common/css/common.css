@@ -89,7 +89,6 @@ canvas.drawer {
 
 .rectangle-1-1 {
     width: 25%;
-    margin-bottom: 2px;
 }
 .rectangle-1-1:before {
     padding-top: 100%;
@@ -97,7 +96,7 @@ canvas.drawer {
 
 .rectangle-1-2 {
     width: 25%;
-    margin-bottom: 2px;
+    margin-bottom: 8px;
 }
 .rectangle-1-2:before {
     padding-top: 50%;
@@ -105,7 +104,6 @@ canvas.drawer {
 
 .rectangle-2-3 {
     width: 25%;
-    margin-bottom: 2px;
 }
 .rectangle-2-3:before {
     padding-top: 66.66666666%;
@@ -113,7 +111,6 @@ canvas.drawer {
 
 .rectangle-3-4 {
     width: 25%;
-    margin-bottom: 2px;
 }
 .rectangle-3-4:before {
     padding-top: 75%;

@@ -39,7 +39,7 @@ class OrgInfoRepository {
     // 返回（后台）主页视图
     public function view_admin_index()
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
         $org = OrgOrganization::whereId($org_id)->first();
 
@@ -49,7 +49,7 @@ class OrgInfoRepository {
     // 返回（后台）企业信息编辑视图
     public function view_edit()
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
         $org = OrgOrganization::whereId($org_id)->first();
 
@@ -58,7 +58,7 @@ class OrgInfoRepository {
     // 保存企业信息
     public function save($post_data)
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
         $org = OrgOrganization::find($org_id);
 
@@ -108,7 +108,7 @@ class OrgInfoRepository {
     // 显示 编辑自定义首页
     public function view_edit_home()
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
 
         $ext = SoftorgExt::where('org_id', $org_id)->first();
@@ -117,7 +117,7 @@ class OrgInfoRepository {
     // 显示 编辑自定义信息
     public function view_edit_information()
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
 
         $ext = SoftorgExt::where('org_id', $org_id)->first();
@@ -126,7 +126,7 @@ class OrgInfoRepository {
     // 显示 编辑简介
     public function view_edit_introduction()
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
 
         $ext = SoftorgExt::where('org_id', $org_id)->first();
@@ -135,7 +135,7 @@ class OrgInfoRepository {
     // 显示 编辑联系我们
     public function view_edit_contactus()
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
 
         $ext = SoftorgExt::where('org_id', $org_id)->first();
@@ -144,7 +144,7 @@ class OrgInfoRepository {
     // 显示 编辑企业文化
     public function view_edit_culture()
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
 
         $ext = SoftorgExt::where('org_id', $org_id)->first();
@@ -154,7 +154,7 @@ class OrgInfoRepository {
     // 编辑ext
     public function save_ext($post_data)
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::guard('org_admin')->user();
         $org_id = $admin->org_id;
 
         $website = SoftorgExt::where('org_id', $org_id)->first();
