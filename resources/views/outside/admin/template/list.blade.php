@@ -131,7 +131,7 @@
                         "data": "encode_id",
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/org/template/'+data+'">'+row.title+'</a>';
+                            return '<a target="_blank" href="/website/template/'+data+'">'+row.title+'</a>';
                         }
                     },
                     {
