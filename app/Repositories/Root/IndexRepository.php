@@ -52,7 +52,7 @@ class IndexRepository {
         $cache_key_root_is_refresh = config('outside.cache.key.root_is_refresh');
         $cache_key_root_html = config('outside.cache.key.root_html');
 
-//        Cache::forget($cache_key_root_is_refresh);
+        Cache::forget($cache_key_root_is_refresh);
 
         if( Cache::has($cache_key_root_is_refresh) && (Cache::get($cache_key_root_is_refresh) === 0) && Cache::has($cache_key_root_html) )
         {

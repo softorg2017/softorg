@@ -222,6 +222,17 @@ class OutsideTemplateRepository {
             $outside = new OutsideCommonRepository();
             $outside->set_cache_root_is_refresh();
 
+
+            // 删除UEditor图片
+            $img_tags = get_html_img($template->content);
+            foreach ($img_tags[2] as $img)
+            {
+                if (!empty($img) && file_exists(public_path($img)))
+                {
+                    unlink(public_path($img));
+                }
+            }
+
             // 删除封面图片
             if(!empty($cover_pic) && file_exists(storage_path("resource/" . $cover_pic)))
             {

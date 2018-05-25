@@ -38,6 +38,14 @@ class StyleController extends Controller
         return view('templates.themes.style.wicked');
     }
 
+
+
+    //
+    public function view_industrious()
+    {
+        return view('templates.themes.industrious.index');
+    }
+
     //
     public function view_swimming_line()
     {

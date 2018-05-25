@@ -94,7 +94,7 @@
 
     {{--main--}}
     @yield('main-content')
-    <div class="wrapper-main-content style-main style-{{ $org->style or '0' }}" style="padding-bottom:64px;">
+    <div class="wrapper-main-content style-main style-{{ $org->style or '0' }}">
         <div class="container-fluid ">
 
             {{--custom-content--}}

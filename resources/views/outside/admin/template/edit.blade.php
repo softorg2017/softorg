@@ -168,6 +168,33 @@
                 </div>
                 @endif
 
+                {{--类型--}}
+                @if($operate == 'create')
+                <div class="form-group form-type">
+                    <label class="control-label col-md-2">启用</label>
+                    <div class="col-md-8">
+                        <div class="btn-group">
+
+                            <button type="button" class="btn">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="active" value="0" checked="checked"> 暂不启用
+                                    </label>
+                                </div>
+                            </button>
+                            <button type="button" class="btn">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="active" value="1"> 启用
+                                    </label>
+                                </div>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+                @endif
+
             </div>
             </form>
 

@@ -53,14 +53,18 @@
     @include('templates.themes.vipp.component.banner')
 
     @include('templates.themes.vipp.module.index.module-template-1',['datas'=>$templates])
+{{--    @include('templates.themes.vipp.module.index.module-template-1',['datas'=>$templates, 'style'=>'cta'])--}}
+
+
+
 
     {{--自定义栏位--}}
-    @if( count($modules) == 0 )
-        @foreach($modules as $module)
+    {{--@if( count($modules) == 0 )--}}
+        {{--@foreach($modules as $module)--}}
 
-            @include('templates.themes.vipp.module.index.module-'.$module->type.'-'.$module->style,['data'=>$module])
+            {{--@include('templates.themes.vipp.module.index.module-'.$module->type.'-'.$module->style,['data'=>$module])--}}
 
-        @endforeach
-    @endif
+        {{--@endforeach--}}
+    {{--@endif--}}
 
 @endsection

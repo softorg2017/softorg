@@ -20,6 +20,11 @@ Route::group(['prefix' => 'style'], function () {
     Route::get('enterprise/list/{num?}', $controller."@view_enterprise_list");
 
 
+    //
+    Route::get('industrious', $controller."@view_industrious");
+
+
+    //
     Route::get('wicked', $controller."@view_wicked");
     Route::get('swimming-line', $controller."@view_swimming_line");
     Route::get('swimming-tadpole', $controller."@view_swimming_tadpole");

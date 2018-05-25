@@ -1,4 +1,4 @@
-<div class="row full wrapper-module-container module-4-0">
+<div class="row full wrapper-module-container module-4-0 {{$style or ''}}">
     <div class="col-md-14">
         <div class="row full block-in">
 

@@ -21010,7 +21010,7 @@ input:-webkit-autofill:focus {
 
 /*列表标题名称*/
 .style-main .menu-title { width:100%;text-align:center; }
-.style-0 .menu-title { color:#111; }
+/*.style-0 .menu-title { color:#111; }*/
 .style-1 .menu-title { color:#111; }
 .style-2 .menu-title { color:#111; }
 .style-3 .menu-title { color:#111; }
