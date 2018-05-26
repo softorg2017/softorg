@@ -151,11 +151,12 @@ img { max-width:100%; }
 
 
 
-.before-box { display: inline-block; position: relative; vertical-align: top; background: inherit; overflow: hidden; float: none; }
+/*.before-box { display: inline-block; position: relative; vertical-align: top; background: inherit; overflow: hidden; float: none; }*/
+.before-box { position: relative; }
 .before-box:before { display: block; content: ""; }
 .before-inner { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
 .before-outer { position: relative; width: 100%; height: auto; }
-.rectangle-inner img { width: 100%; height: 100%; object-fit: cover; }
+.before-inner img { max-width: 100%; max-height: 100%; object-fit: cover; }
 
 .before-square:before { padding-top: 100%; }
 .before-1-1:before { padding-top: 100%; }
@@ -173,11 +174,11 @@ img { max-width:100%; }
 
 
 
-.rectangle-container { display: inline-block; position: relative; vertical-align: top; background: inherit; overflow: hidden; float: none; }
+.rectangle-container { display: inline-block; position: relative; font-size: 16px; vertical-align: top; background: inherit; overflow: hidden; float: none; }
 .rectangle-container:before { display: block; content: ""; }
 .rectangle-inner { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
 .rectangle-outer { position: relative; width: 100%; height: auto; }
-.rectangle-inner img { width: 100%; height: 100%; object-fit: cover; }
+.rectangle-inner img { max-width: 100%; max-height: 100%; object-fit: cover; }
 
 .rectangle-col-2 .rectangle-container { width: 50%; }
 .rectangle-col-3 .rectangle-container { width: 33.33333333%; }

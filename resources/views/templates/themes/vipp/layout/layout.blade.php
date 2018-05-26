@@ -59,11 +59,10 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/common.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/frontend/index.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/backend/index.css') }}" media="all" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('root/css/index.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/animate/wicked.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/animate/hover.css') }}" media="all" />
 
-    @yield('custom-css')
-    @yield('custom-style')
 
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
@@ -79,6 +78,10 @@
 
 
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+
+    @yield('custom-css')
+    @yield('custom-style')
 
 </head>
 
