@@ -1,5 +1,5 @@
 img { max-width:100%; }
-
+/*.wow { visibility: hidden; }*/
 ._none { display: none; }
 ._pointer { cursor: pointer; }
 

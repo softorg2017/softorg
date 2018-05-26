@@ -3,11 +3,11 @@
         <div class="row full block-in">
 
 
-            <div class="module-header-container">
+            <div class="module-header-container wow fadeInUp" data-wow-delay=".2s">
                 <span class="menu-title"><b>网站模板</b></span>
             </div>
 
-            <div class="module-block-container rectangle-col-4">
+            <div class="module-block-container rectangle-col-4 wow fadeInUp" data-wow-delay=".4s">
 
                 @foreach($datas as $v)
                 <a target="_blank" href="{{ url('/website/template/'.encode($v->id)) }}">

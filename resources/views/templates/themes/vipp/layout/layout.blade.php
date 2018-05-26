@@ -54,6 +54,8 @@
 
     <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
 
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet">
+
     <link type="text/css" rel="stylesheet" href="{{ asset('templates/themes/vipp/css/all.css') }}" media="all" />
 
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/common.css') }}" media="all" />
@@ -64,20 +66,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/animate/hover.css') }}" media="all" />
 
 
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
-    <script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>
-
-    <script src="{{ asset('/templates/themes/vipp/js/jm.js') }}"></script>
-    <script src="{{ asset('/templates/themes/vipp/js/jc.js') }}"></script>
-    <script src="{{ asset('/templates/themes/vipp/js/all.js') }}"></script>
-
-    <script src="{{ asset('common/js/common.js') }}"></script>
-    <script src="{{ asset('common/js/frontend/index.js') }}"></script>
-    <script src="{{ asset('common/js/animate/swimming-line.js') }}"></script>
-
-
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 
 
     @yield('custom-css')
@@ -116,7 +105,30 @@
 
 
 
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+    <script src="{{ asset('/templates/themes/vipp/js/jm.js') }}"></script>
+    <script src="{{ asset('/templates/themes/vipp/js/jc.js') }}"></script>
+    <script src="{{ asset('/templates/themes/vipp/js/all.js') }}"></script>
+
+    <script src="{{ asset('common/js/common.js') }}"></script>
+    <script src="{{ asset('common/js/frontend/index.js') }}"></script>
+    <script src="{{ asset('common/js/animate/swimming-line.js') }}"></script>
+
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+
+
      <script>
+
 
         var wechat_config = {!! $wechat_config or '' !!};
 
