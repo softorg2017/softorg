@@ -89,7 +89,7 @@ class WeixinRepository {
     {
 
         // 1.获取到微信推送过来post数据（xml格式）
-         $message = $GLOBALS['HTTP_RAW_POST_DATA'];
+//         $message = $GLOBALS['HTTP_RAW_POST_DATA'];
 //        $message = file_get_contents("php://input");
         echo 'input something ...';
         exit;
