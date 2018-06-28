@@ -53,6 +53,7 @@ class WeixinRepository {
     }
 
 
+    // 初始化配置
     public function valid()
     {
         $echoStr = request('echostr','');
@@ -82,53 +83,57 @@ class WeixinRepository {
         else return false;
     }
 
-    //
+
+    // 回应用户消息
     public function responseMsg()
     {
 
         // 1.获取到微信推送过来post数据（xml格式）
 //             $message = $GLOBALS['HTTP_RAW_POST_DATA'];
         $message = file_get_contents("php://input");
-        if(!empty($message))
-        {
-//                2.处理消息类型，并设置回复类型和内容
-//                <xml>
-//                    <ToUserName><![CDATA[toUser]]></ToUserName>
-//                    <FromUserName><![CDATA[FromUser]]></FromUserName>
-//                    <CreateTime>123456789</CreateTime>
-//                    <MsgType><![CDATA[event]]></MsgType>
-//                    <Event><![CDATA[subscribe]]></Event>
-//                </xml>
+        echo 'input something ...';
+        exit;
 
-            $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-
-            $fromUserName = $postObj->FromUserName;  // 获取发送方帐号（OpenID）
-            $toUserName = $postObj->ToUserName;  // 获取接收方账号
-            $keyword = trim($postObj->Content);  // 获取消息内容
-            $time = time();
-            $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
+//        if(!empty($message))
+//        {
+////                2.处理消息类型，并设置回复类型和内容
+////                <xml>
+////                    <ToUserName><![CDATA[toUser]]></ToUserName>
+////                    <FromUserName><![CDATA[FromUser]]></FromUserName>
+////                    <CreateTime>123456789</CreateTime>
+////                    <MsgType><![CDATA[event]]></MsgType>
+////                    <Event><![CDATA[subscribe]]></Event>
+////                </xml>
 //
-            $info =
-                "<xml>".
-                "<ToUserName>< ![CDATA[{$fromUserName}]] ></ToUserName>".
-                "<FromUserName>< ![CDATA[{$toUserName}]] ></FromUserName>".
-                "<CreateTime>{$time}</CreateTime>".
-                "<MsgType>< ![CDATA[text]] ></MsgType>".
-                "<Content>< ![CDATA[{$content}]] ></Content>".
-                "</xml>";
-            echo $info;
-            exit;
-
-//            $ToUserName = 'nihao';
-//            $FromUserName = 'nihao';
-//            $Content = 'nihao';
-//            return view('root.weixin.text')->with(['ToUserName'=>$ToUserName,'FromUserName'=>$FromUserName,'Content'=>$Content]);
-        }
-        else
-        {
-            echo '';
-            exit;
-        }
+//            $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+//
+//            $fromUserName = $postObj->FromUserName;  // 获取发送方帐号（OpenID）
+//            $toUserName = $postObj->ToUserName;  // 获取接收方账号
+//            $keyword = trim($postObj->Content);  // 获取消息内容
+//            $time = time();
+//            $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
+////
+//            $info =
+//                "<xml>".
+//                "<ToUserName>< ![CDATA[{$fromUserName}]] ></ToUserName>".
+//                "<FromUserName>< ![CDATA[{$toUserName}]] ></FromUserName>".
+//                "<CreateTime>{$time}</CreateTime>".
+//                "<MsgType>< ![CDATA[text]] ></MsgType>".
+//                "<Content>< ![CDATA[{$content}]] ></Content>".
+//                "</xml>";
+//            echo $info;
+//            exit;
+//
+////            $ToUserName = 'nihao';
+////            $FromUserName = 'nihao';
+////            $Content = 'nihao';
+////            return view('root.weixin.text')->with(['ToUserName'=>$ToUserName,'FromUserName'=>$FromUserName,'Content'=>$Content]);
+//        }
+//        else
+//        {
+//            echo '';
+//            exit;
+//        }
 
 
     }
