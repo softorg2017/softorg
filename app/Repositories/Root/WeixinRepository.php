@@ -112,8 +112,20 @@ class WeixinRepository {
             $time = time();
             $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
             Log:info($content);
-            echo '';
-            exit;
+
+            $textTpl = "<xml>
+  <ToUserName><![CDATA[%s]]></ToUserName>
+  <FromUserName><![CDATA[%s]]></FromUserName>
+  <CreateTime>%s</CreateTime>
+  <MsgType><![CDATA[text]]></MsgType>
+  <Content><![CDATA[%s]]></Content>
+  <FuncFlag>0</FuncFlag>
+  </xml>";
+            //格式化消息模板
+            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$msgType,$content);
+            echo $resultStr;
+
+
 ////
 //            $info =
 //                "<xml>".
@@ -125,11 +137,8 @@ class WeixinRepository {
 //                "</xml>";
 //            echo $info;
 //            exit;
-
-//            $ToUserName = 'nihao';
-//            $FromUserName = 'nihao';
-//            $Content = 'nihao';
-//            return view('root.weixin.text')->with(['ToUserName'=>$ToUserName,'FromUserName'=>$FromUserName,'Content'=>$Content]);
+//            return view('root.weixin.text')
+//                ->with(['toUserName'=>$fromUserName,'fromUserName'=>$toUserName,'time'=>$time,'content'=>$content]);
         }
         else
         {
