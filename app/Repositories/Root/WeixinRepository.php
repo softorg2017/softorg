@@ -48,8 +48,8 @@ class WeixinRepository {
     //
     public function gongzhonghao()
     {
-        $this->valid();
-//        $this->responseMsg();
+//        $this->valid();
+        $this->responseMsg();
     }
 
 
