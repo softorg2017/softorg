@@ -46,14 +46,51 @@ class WeixinRepository {
     }
 
     //
-    public function gongzhonghaox()
+    public function gongzhonghao()
+    {
+        $this->valid();
+//        $this->responseMsg();
+    }
+
+
+    public function valid()
+    {
+        $echoStr = request('echostr','');
+        if($this->checkSignature())
+        {
+            echo $echoStr;
+            exit;
+        }
+    }
+
+    //检查签名
+    private function checkSignature()
+    {
+        $token = 'asdfghjklzxcvbnmqwertyuiop123456';
+        $nonce = request('nonce','');
+        $timestamp = request('timestamp','');
+        $signature = request('signature','');
+        $echoStr = request('echostr','');
+
+        //形成数组，然后按字典序排序
+        $array = array();
+        $array = array($nonce, $timestamp, $token);
+        sort($array);
+        //拼接成字符串,sha1加密 ，然后与signature进行校验
+        $str = sha1( implode( $array ) );
+        if( $str == $signature && $echoStr ) return true;
+        else return false;
+    }
+
+    //
+    public function responseMsg()
     {
 
-            // 1.获取到微信推送过来post数据（xml格式）
+        // 1.获取到微信推送过来post数据（xml格式）
 //             $message = $GLOBALS['HTTP_RAW_POST_DATA'];
-            $message = file_get_contents("php://input");
-            if(!empty($message))
-            {
+        $message = file_get_contents("php://input");
+        if(!empty($message))
+        {
 //                2.处理消息类型，并设置回复类型和内容
 //                <xml>
 //                    <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -63,82 +100,37 @@ class WeixinRepository {
 //                    <Event><![CDATA[subscribe]]></Event>
 //                </xml>
 
-                $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
 
-                $fromUserName = $postObj->FromUserName;  // 获取发送方帐号（OpenID）
-                $toUserName = $postObj->ToUserName;  // 获取接收方账号
-                $keyword = trim($postObj->Content);  // 获取消息内容
-                $time = time();
-                $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
+            $fromUserName = $postObj->FromUserName;  // 获取发送方帐号（OpenID）
+            $toUserName = $postObj->ToUserName;  // 获取接收方账号
+            $keyword = trim($postObj->Content);  // 获取消息内容
+            $time = time();
+            $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
 //
-                $info =
-                    "<xml>".
-                    "<ToUserName>< ![CDATA[{$fromUserName}]] ></ToUserName>".
-                    "<FromUserName>< ![CDATA[{$toUserName}]] ></FromUserName>".
-                    "<CreateTime>{$time}</CreateTime>".
-                    "<MsgType>< ![CDATA[text]] ></MsgType>".
-                    "<Content>< ![CDATA[{$content}]] ></Content>".
-                    "</xml>";
-                echo $info;
-                exit;
+            $info =
+                "<xml>".
+                "<ToUserName>< ![CDATA[{$fromUserName}]] ></ToUserName>".
+                "<FromUserName>< ![CDATA[{$toUserName}]] ></FromUserName>".
+                "<CreateTime>{$time}</CreateTime>".
+                "<MsgType>< ![CDATA[text]] ></MsgType>".
+                "<Content>< ![CDATA[{$content}]] ></Content>".
+                "</xml>";
+            echo $info;
+            exit;
 
 //            $ToUserName = 'nihao';
 //            $FromUserName = 'nihao';
 //            $Content = 'nihao';
 //            return view('root.weixin.text')->with(['ToUserName'=>$ToUserName,'FromUserName'=>$FromUserName,'Content'=>$Content]);
-            }
-            else
-            {
-                echo '';
-                exit;
-            }
-
-
-    }
-
-    //
-    public function gongzhonghao()
-    {
-
-        $token = 'asdfghjklzxcvbnmqwertyuiop123456';
-        $nonce = request('nonce','');
-        $timestamp = request('timestamp','');
-        $signature = request('signature','');
-        $echostr = request('echostr','');
-
-        //形成数组，然后按字典序排序
-        $array = array();
-        $array = array($nonce, $timestamp, $token);
-        sort($array);
-        //拼接成字符串,sha1加密 ，然后与signature进行校验
-        $str = sha1( implode( $array ) );
-        if( $str == $signature && $echostr )
+        }
+        else
         {
-            //第一次接入weixin api接口的时候
-            echo $echostr;
+            echo '';
             exit;
         }
 
-    }
 
-
-    //检查签名
-    private function checkSignature()
-    {
-        $token = 'asdfghjklzxcvbnmqwertyuiop123456';
-        $nonce = request('nonce','');
-        $timestamp = request('timestamp','');
-        $signature = request('signature','');
-        $echostr = request('echostr','');
-
-        //形成数组，然后按字典序排序
-        $array = array();
-        $array = array($nonce, $timestamp, $token);
-        sort($array);
-        //拼接成字符串,sha1加密 ，然后与signature进行校验
-        $str = sha1( implode( $array ) );
-        if( $str == $signature && $echostr ) return true;
-        else return false;
     }
 
 
