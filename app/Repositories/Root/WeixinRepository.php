@@ -91,7 +91,6 @@ class WeixinRepository {
             //$postObj->Event = '';
             // gh_e79a177814ed
 
-//            $message = $GLOBALS["HTTP_RAW_POST_DATA"];
             $message = file_get_contents('php://input');
             $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
 //            print_r($message);
