@@ -101,7 +101,6 @@ class WeixinRepository {
                                 <MsgType><![CDATA[text]]></MsgType>
                                 <Content><![CDATA[{$content}]]></Content>
                                 </xml>";
-            $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
             echo $info;
 
 
