@@ -111,7 +111,7 @@ class WeixinRepository {
             $keyword = trim($postObj->Content);  // 获取消息内容
             $time = time();
             $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
-            Log:info($fromUserName);
+            Log:info($content);
             echo '';
             exit;
 ////
