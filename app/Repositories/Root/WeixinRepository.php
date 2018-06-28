@@ -49,12 +49,9 @@ class WeixinRepository {
     public function gongzhonghao()
     {
 
-        echo '';
-        exit;
-
             // 1.获取到微信推送过来post数据（xml格式）
-            // $postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
-            $message = file_get_contents("php://input");
+             $message = $GLOBALS['HTTP_RAW_POST_DATA'];
+//            $message = file_get_contents("php://input");
             if(!empty($message))
             {
 //                2.处理消息类型，并设置回复类型和内容
