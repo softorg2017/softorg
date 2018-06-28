@@ -124,16 +124,16 @@ class WeixinRepository {
             $content = '很高兴认识你';
 //            Log:info($content);
 
-            $textTpl = "<xml>
-                  <ToUserName><![CDATA[%s]]></ToUserName>
-                  <FromUserName><![CDATA[%s]]></FromUserName>
-                  <CreateTime>%s</CreateTime>
-                  <MsgType><![CDATA[text]]></MsgType>
-                  <Content><![CDATA[%s]]></Content>
-                  <FuncFlag>0</FuncFlag>
-                  </xml>";
-            //格式化消息模板
-            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
+//            $textTpl = "<xml>
+//                  <ToUserName><![CDATA[%s]]></ToUserName>
+//                  <FromUserName><![CDATA[%s]]></FromUserName>
+//                  <CreateTime>%s</CreateTime>
+//                  <MsgType><![CDATA[text]]></MsgType>
+//                  <Content><![CDATA[%s]]></Content>
+//                  <FuncFlag>0</FuncFlag>
+//                  </xml>";
+            // 格式化消息模板
+//            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
 //            echo $resultStr;
 //            exit;
 
