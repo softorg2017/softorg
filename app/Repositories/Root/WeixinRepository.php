@@ -92,26 +92,32 @@ class WeixinRepository {
             // gh_e79a177814ed
 
             $message = file_get_contents('php://input');
-            $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-//            print_r($message);
-//            Log::info($message);
+            if (!empty($message))
+            {
+                $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
 //
-            $toUser = $message->ToUserName;
-            $fromUser   = $message->FromUserName;
-            $time = time();
-            $msgType = 'text';
-            $content = '我是'.$toUser.'，'.$fromUser.' 你好!';
+                $toUser = $message->ToUserName;
+                $fromUser   = $message->FromUserName;
+                $time = time();
+                $msgType = 'text';
+                $content = '我是'.$toUser.'，'.$fromUser.' 你好!';
 //
-            $info =
-                "<xml>".
-                "<ToUserName>< ![CDATA[{$fromUser}]] ></ToUserName>".
-                "<FromUserName>< ![CDATA[{$toUser}]] ></FromUserName>".
-                "<CreateTime>{$time}</CreateTime>".
-                "<MsgType>< ![CDATA[text]] ></MsgType>".
-                "<Content>< ![CDATA[{$content}]] ></Content>".
-                "</xml>";
-            echo $info;
-            exit;
+                $info =
+                    "<xml>".
+                    "<ToUserName>< ![CDATA[{$fromUser}]] ></ToUserName>".
+                    "<FromUserName>< ![CDATA[{$toUser}]] ></FromUserName>".
+                    "<CreateTime>{$time}</CreateTime>".
+                    "<MsgType>< ![CDATA[text]] ></MsgType>".
+                    "<Content>< ![CDATA[{$content}]] ></Content>".
+                    "</xml>";
+                echo $info;
+                exit;
+            }
+            else
+            {
+                echo '';
+                exit;
+            }
 //            return response($info);
 
 
@@ -122,39 +128,6 @@ class WeixinRepository {
 
 
 
-            //判断该数据包是否是订阅的事件推送
-//            if( strtolower( $postObj->MsgType) == 'event')
-//            {
-//                //如果是关注 subscribe 事件
-//                if( strtolower($postObj->Event == 'subscribe') )
-//                {
-//                    //回复用户消息(纯文本格式)
-//                    $toUser   = $postObj->FromUserName;
-//                    $fromUser = $postObj->ToUserName;
-//                    $time     = time();
-//                    $msgType  =  'text';
-//                    $content  = '欢迎关注我们的微信公众账号'.$postObj->FromUserName.'-'.$postObj->ToUserName;
-//                    $template = "<xml>
-//                                <ToUserName><![CDATA[%s]]></ToUserName>
-//                                <FromUserName><![CDATA[%s]]></FromUserName>
-//                                <CreateTime>%s</CreateTime>
-//                                <MsgType><![CDATA[%s]]></MsgType>
-//                                <Content><![CDATA[%s]]></Content>
-//                                </xml>";
-//                    $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
-//                    return $info;
-//                    /*<xml>
-//                    <ToUserName><![CDATA[toUser]]></ToUserName>
-//                    <FromUserName><![CDATA[fromUser]]></FromUserName>
-//                    <CreateTime>12345678</CreateTime>
-//                    <MsgType><![CDATA[text]]></MsgType>
-//                    <Content><![CDATA[你好]]></Content>
-//                    </xml>*/
-//                }
-//            }
-//            else
-//            {
-//            }
         }
 
     }
