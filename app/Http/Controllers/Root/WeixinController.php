@@ -28,7 +28,7 @@ class WeixinController extends Controller
     // 公众号
     public function gongzhonghao()
     {
-        $this->repo->gongzhonghao();
+        return $this->repo->gongzhonghao();
     }
 
 

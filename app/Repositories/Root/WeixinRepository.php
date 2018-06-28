@@ -111,34 +111,24 @@ class WeixinRepository {
             $keyword = trim($postObj->Content);  // 获取消息内容
             $time = time();
             $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
-            Log:info($content);
+//            Log:info($content);
 
-            $textTpl = "<xml>
-  <ToUserName><![CDATA[%s]]></ToUserName>
-  <FromUserName><![CDATA[%s]]></FromUserName>
-  <CreateTime>%s</CreateTime>
-  <MsgType><![CDATA[text]]></MsgType>
-  <Content><![CDATA[%s]]></Content>
-  <FuncFlag>0</FuncFlag>
-  </xml>";
-            //格式化消息模板
-            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
-            echo $resultStr;
-
-
-////
-//            $info =
-//                "<xml>".
-//                "<ToUserName>< ![CDATA[{$fromUserName}]] ></ToUserName>".
-//                "<FromUserName>< ![CDATA[{$toUserName}]] ></FromUserName>".
-//                "<CreateTime>{$time}</CreateTime>".
-//                "<MsgType>< ![CDATA[text]] ></MsgType>".
-//                "<Content>< ![CDATA[{$content}]] ></Content>".
-//                "</xml>";
-//            echo $info;
+//            $textTpl = "<xml>
+//                  <ToUserName><![CDATA[%s]]></ToUserName>
+//                  <FromUserName><![CDATA[%s]]></FromUserName>
+//                  <CreateTime>%s</CreateTime>
+//                  <MsgType><![CDATA[text]]></MsgType>
+//                  <Content><![CDATA[%s]]></Content>
+//                  <FuncFlag>0</FuncFlag>
+//                  </xml>";
+//            //格式化消息模板
+//            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
+//            echo $resultStr;
 //            exit;
-//            return view('root.weixin.text')
-//                ->with(['toUserName'=>$fromUserName,'fromUserName'=>$toUserName,'time'=>$time,'content'=>$content]);
+
+
+            return view('root.weixin.text')
+                ->with(['toUserName'=>$fromUserName,'fromUserName'=>$toUserName,'time'=>$time,'content'=>$content]);
         }
         else
         {
