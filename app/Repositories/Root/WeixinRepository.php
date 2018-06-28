@@ -49,6 +49,56 @@ class WeixinRepository {
     public function gongzhonghao()
     {
 
+            // 1.获取到微信推送过来post数据（xml格式）
+            // $postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
+            $message = file_get_contents("php://input");
+            if(!empty($message))
+            {
+//                2.处理消息类型，并设置回复类型和内容
+//                <xml>
+//                    <ToUserName><![CDATA[toUser]]></ToUserName>
+//                    <FromUserName><![CDATA[FromUser]]></FromUserName>
+//                    <CreateTime>123456789</CreateTime>
+//                    <MsgType><![CDATA[event]]></MsgType>
+//                    <Event><![CDATA[subscribe]]></Event>
+//                </xml>
+
+                $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+                $toUserName = $postObj->ToUserName;
+                $fromUserName = $postObj->FromUserName;
+                $time = time();
+                $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
+//
+                $info =
+                    "<xml>".
+                    "<ToUserName>< ![CDATA[{$fromUserName}]] ></ToUserName>".
+                    "<FromUserName>< ![CDATA[{$toUserName}]] ></FromUserName>".
+                    "<CreateTime>{$time}</CreateTime>".
+                    "<MsgType>< ![CDATA[text]] ></MsgType>".
+                    "<Content>< ![CDATA[{$content}]] ></Content>".
+                    "</xml>";
+                echo $info;
+                exit;
+
+//            $ToUserName = 'nihao';
+//            $FromUserName = 'nihao';
+//            $Content = 'nihao';
+//            return view('root.weixin.text')->with(['ToUserName'=>$ToUserName,'FromUserName'=>$FromUserName,'Content'=>$Content]);
+            }
+            else
+            {
+                echo '';
+                exit;
+            }
+
+
+    }
+
+    //
+    public function gongzhonghaox()
+    {
+
         $token = 'asdfghjklzxcvbnmqwertyuiop123456';
         $nonce = request('nonce','');
         $timestamp = request('timestamp','');
@@ -67,69 +117,27 @@ class WeixinRepository {
             echo $echostr;
             exit;
         }
-        else
-        {
+
+    }
 
 
-            //1.获取到微信推送过来post数据（xml格式）
-//            $postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
+    //检查签名
+    private function checkSignature()
+    {
+        $token = 'asdfghjklzxcvbnmqwertyuiop123456';
+        $nonce = request('nonce','');
+        $timestamp = request('timestamp','');
+        $signature = request('signature','');
+        $echostr = request('echostr','');
 
-            //2.处理消息类型，并设置回复类型和内容
-//            <xml>
-//                <ToUserName><![CDATA[toUser]]></ToUserName>
-//                <FromUserName><![CDATA[FromUser]]></FromUserName>
-//                <CreateTime>123456789</CreateTime>
-//                <MsgType><![CDATA[event]]></MsgType>
-//                <Event><![CDATA[subscribe]]></Event>
-//            </xml>
-
-//            $postObj = simplexml_load_string( $postArr );
-//            $postObj->ToUserName = '';
-//            $postObj->FromUserName = '';
-            //$postObj->CreateTime = '';
-            //$postObj->MsgType = '';
-            //$postObj->Event = '';
-            // gh_e79a177814ed
-
-            $message = file_get_contents('php://input');
-            if (!empty($message))
-            {
-                $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-//
-                $toUser = $message->ToUserName;
-                $fromUser   = $message->FromUserName;
-                $time = time();
-                $msgType = 'text';
-                $content = '我是'.$toUser.'，'.$fromUser.' 你好!';
-//
-                $info =
-                    "<xml>".
-                    "<ToUserName>< ![CDATA[{$fromUser}]] ></ToUserName>".
-                    "<FromUserName>< ![CDATA[{$toUser}]] ></FromUserName>".
-                    "<CreateTime>{$time}</CreateTime>".
-                    "<MsgType>< ![CDATA[text]] ></MsgType>".
-                    "<Content>< ![CDATA[{$content}]] ></Content>".
-                    "</xml>";
-                echo $info;
-                exit;
-            }
-            else
-            {
-                echo '';
-                exit;
-            }
-//            return response($info);
-
-
-//            $ToUserName = 'nihao';
-//            $FromUserName = 'nihao';
-//            $Content = 'nihao';
-//            return view('root.weixin.text')->with(['ToUserName'=>$ToUserName,'FromUserName'=>$FromUserName,'Content'=>$Content]);
-
-
-
-        }
-
+        //形成数组，然后按字典序排序
+        $array = array();
+        $array = array($nonce, $timestamp, $token);
+        sort($array);
+        //拼接成字符串,sha1加密 ，然后与signature进行校验
+        $str = sha1( implode( $array ) );
+        if( $str == $signature && $echostr ) return true;
+        else return false;
     }
 
 
