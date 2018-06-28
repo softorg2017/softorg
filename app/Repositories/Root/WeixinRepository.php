@@ -50,10 +50,10 @@ class WeixinRepository {
     {
 
         $token = 'asdfghjklzxcvbnmqwertyuiop123456';
-        $nonce = $_GET['nonce'];
-        $timestamp = $_GET['timestamp'];
-        $signature = $_GET['signature'];
-        $echostr = $_GET['echostr'];
+        $nonce = request('nonce','');
+        $timestamp = request('timestamp','');
+        $signature = request('signature','');
+        $echostr = request('echostr','');
 
         //形成数组，然后按字典序排序
         $array = array();
