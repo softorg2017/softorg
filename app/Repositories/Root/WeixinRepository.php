@@ -94,7 +94,7 @@ class WeixinRepository {
             $time     = time();
             $msgType  =  'text';
             $content  = '我是'.$postObj->ToUserName.'，'.$postObj->FromUserName.' 你好';
-            $template = "<xml>
+            $info = "<xml>
                                 <ToUserName><![CDATA[{$toUser}]]></ToUserName>
                                 <FromUserName><![CDATA[{$fromUser}]]></FromUserName>
                                 <CreateTime>{$time}</CreateTime>
