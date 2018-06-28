@@ -70,7 +70,7 @@ class WeixinRepository {
         else
         {
             //1.获取到微信推送过来post数据（xml格式）
-            $postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
+//            $postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
 
             //2.处理消息类型，并设置回复类型和内容
 //            <xml>
@@ -81,7 +81,7 @@ class WeixinRepository {
 //                <Event><![CDATA[subscribe]]></Event>
 //            </xml>
 
-            $postObj = simplexml_load_string( $postArr );
+//            $postObj = simplexml_load_string( $postArr );
 //            $postObj->ToUserName = '';
 //            $postObj->FromUserName = '';
             //$postObj->CreateTime = '';
@@ -90,11 +90,13 @@ class WeixinRepository {
             // gh_e79a177814ed
 
 
-            $toUser = $postObj->ToUserName;
-            $fromUser   = $postObj->FromUserName;
+//            $toUser = $postObj->ToUserName;
+//            $fromUser   = $postObj->FromUserName;
+            $toUser = 'xx';
+            $fromUser   = 'yy';
             $time = time();
             $msgType = 'text';
-            $content = '我是'.$postObj->ToUserName.'，'.$postObj->FromUserName.' 你好!';
+            $content = '我是'.$toUser.'，'.$fromUser.' 你好!';
 
             $info =
                 "<xml>".
