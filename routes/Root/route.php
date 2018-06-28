@@ -33,7 +33,7 @@ Route::group(['prefix' => 'weixin'], function () {
 
     $controller = "WeixinController";
 
-    Route::get('gongzhonghao', $controller."@gongzhonghao");
+    Route::match(['get', 'post'],'gongzhonghao', $controller."@gongzhonghao");
 
 });
 
