@@ -63,7 +63,8 @@ class WeixinRepository {
 //                    <Event><![CDATA[subscribe]]></Event>
 //                </xml>
 
-                $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+//                $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+                $postObj = simplexml_load_string($message);
 
                 $toUserName = $postObj->ToUserName;
                 $fromUserName = $postObj->FromUserName;
