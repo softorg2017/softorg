@@ -95,8 +95,6 @@ class WeixinRepository {
 
         if(!empty($message))
         {
-            echo '';
-            exit;
 //                2.处理消息类型，并设置回复类型和内容
 //                <xml>
 //                    <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -106,13 +104,15 @@ class WeixinRepository {
 //                    <Event><![CDATA[subscribe]]></Event>
 //                </xml>
 
-//            $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-//
-//            $fromUserName = $postObj->FromUserName;  // 获取发送方帐号（OpenID）
-//            $toUserName = $postObj->ToUserName;  // 获取接收方账号
-//            $keyword = trim($postObj->Content);  // 获取消息内容
-//            $time = time();
-//            $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
+            $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+            $fromUserName = $postObj->FromUserName;  // 获取发送方帐号（OpenID）
+            $toUserName = $postObj->ToUserName;  // 获取接收方账号
+            $keyword = trim($postObj->Content);  // 获取消息内容
+            $time = time();
+            $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
+            echo '';
+            exit;
 ////
 //            $info =
 //                "<xml>".
@@ -122,7 +122,7 @@ class WeixinRepository {
 //                "<MsgType>< ![CDATA[text]] ></MsgType>".
 //                "<Content>< ![CDATA[{$content}]] ></Content>".
 //                "</xml>";
-//            echo '';
+//            echo $info;
 //            exit;
 
 //            $ToUserName = 'nihao';
