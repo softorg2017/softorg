@@ -48,11 +48,12 @@ class WeixinRepository {
     //
     public function gongzhonghao()
     {
-        $token     = 'asdfghjklzxcvbnmqwertyuiop123456';
-        $nonce     = $_GET['nonce'];
+
+        $token = 'asdfghjklzxcvbnmqwertyuiop123456';
+        $nonce = $_GET['nonce'];
         $timestamp = $_GET['timestamp'];
         $signature = $_GET['signature'];
-        $echostr   = $_GET['echostr'];
+        $echostr = $_GET['echostr'];
 
         //形成数组，然后按字典序排序
         $array = array();
@@ -81,8 +82,8 @@ class WeixinRepository {
 //            </xml>
 
             $postObj = simplexml_load_string( $postArr );
-            //$postObj->ToUserName = '';
-            //$postObj->FromUserName = '';
+//            $postObj->ToUserName = '';
+//            $postObj->FromUserName = '';
             //$postObj->CreateTime = '';
             //$postObj->MsgType = '';
             //$postObj->Event = '';
@@ -91,16 +92,18 @@ class WeixinRepository {
 
             $toUser = $postObj->ToUserName;
             $fromUser   = $postObj->FromUserName;
-            $time     = time();
-            $msgType  =  'text';
-            $content  = '我是'.$postObj->ToUserName.'，'.$postObj->FromUserName.' 你好';
-            $info = "<xml>
-<ToUserName><![CDATA[{$toUser}]]></ToUserName>
-<FromUserName><![CDATA[{$fromUser}]]></FromUserName>
-<CreateTime>{$time}</CreateTime>
-<MsgType><![CDATA[text]]></MsgType>
-<Content><![CDATA[{$content}]]>
-</Content></xml>";
+            $time = time();
+            $msgType = 'text';
+            $content = '我是'.$postObj->ToUserName.'，'.$postObj->FromUserName.' 你好!';
+
+            $info =
+                "<xml>".
+                "<ToUserName><![CDATA[{$toUser}]]></ToUserName>".
+                "<FromUserName><![CDATA[{$fromUser}]]></FromUserName>".
+                "<CreateTime>{$time}</CreateTime>".
+                "<MsgType><![CDATA[text]]></MsgType>".
+                "<Content><![CDATA[{$content}]]></Content>".
+                "</xml>";
             echo $info;
             exit;
 
