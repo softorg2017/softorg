@@ -70,8 +70,6 @@ class WeixinRepository {
         else
         {
 
-            echo $echostr;
-            exit;
 
             //1.获取到微信推送过来post数据（xml格式）
 //            $postArr = $GLOBALS['HTTP_RAW_POST_DATA'];
@@ -93,28 +91,28 @@ class WeixinRepository {
             //$postObj->Event = '';
             // gh_e79a177814ed
 
-//            if(!empty($GLOBALS["HTTP_RAW_POST_DATA"])) $message = $GLOBALS["HTTP_RAW_POST_DATA"];
-//            if(!empty(file_get_contents('php://input'))) $message = file_get_contents('php://input');
-//            $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+//            $message = $GLOBALS["HTTP_RAW_POST_DATA"];
+            $message = file_get_contents('php://input');
+            $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
 //            print_r($message);
 //            Log::info($message);
 //
-//            $toUser = $message->ToUserName;
-//            $fromUser   = $message->FromUserName;
-//            $time = time();
-//            $msgType = 'text';
-//            $content = '我是'.$toUser.'，'.$fromUser.' 你好!';
+            $toUser = $message->ToUserName;
+            $fromUser   = $message->FromUserName;
+            $time = time();
+            $msgType = 'text';
+            $content = '我是'.$toUser.'，'.$fromUser.' 你好!';
 //
-//            $info =
-//                "<xml>".
-//                "<ToUserName>< ![CDATA[{$fromUser}]] ></ToUserName>".
-//                "<FromUserName>< ![CDATA[{$toUser}]] ></FromUserName>".
-//                "<CreateTime>{$time}</CreateTime>".
-//                "<MsgType>< ![CDATA[text]] ></MsgType>".
-//                "<Content>< ![CDATA[{$content}]] ></Content>".
-//                "</xml>";
-//            echo $info;
-//            exit;
+            $info =
+                "<xml>".
+                "<ToUserName>< ![CDATA[{$fromUser}]] ></ToUserName>".
+                "<FromUserName>< ![CDATA[{$toUser}]] ></FromUserName>".
+                "<CreateTime>{$time}</CreateTime>".
+                "<MsgType>< ![CDATA[text]] ></MsgType>".
+                "<Content>< ![CDATA[{$content}]] ></Content>".
+                "</xml>";
+            echo $info;
+            exit;
 //            return response($info);
 
 
