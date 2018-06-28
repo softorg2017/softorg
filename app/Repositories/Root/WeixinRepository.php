@@ -127,7 +127,7 @@ class WeixinRepository {
 //            exit;
 
 
-            return view('root.weixin.text')
+            echo view('root.weixin.text')
                 ->with(['toUserName'=>$fromUserName,'fromUserName'=>$toUserName,'time'=>$time,'content'=>$content]);
         }
         else
