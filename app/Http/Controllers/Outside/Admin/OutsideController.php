@@ -26,12 +26,6 @@ class OutsideController extends Controller
     }
 
 
-    // 返回主页视图
-    public function weixin_getToken()
-    {
-        echo TokenManager::getToken();
-    }
-
 
 
 

@@ -24,3 +24,17 @@ Route::group(['prefix' => 'case'], function () {
 });
 
 
+
+
+/*
+ * weixin
+ */
+Route::group(['prefix' => 'weixin'], function () {
+
+    $controller = "WeixinController";
+
+    Route::get('gongzhonghao', $controller."@gongzhonghao");
+
+});
+
+

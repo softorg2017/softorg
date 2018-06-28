@@ -27,9 +27,6 @@ Route::group(['prefix' => 'outside/admin', 'namespace' => 'Admin'], function () 
         Route::get('index', $controller.'@index');
 
 
-        Route::get('weixin/getToken', $controller.'@weixin_getToken');
-
-
         // 样式模块
         Route::group(['prefix' => 'module'], function () {
             $controller = "ModuleController";

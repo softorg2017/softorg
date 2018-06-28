@@ -6,7 +6,7 @@
     //获得参数 signature nonce token timestamp echostr
 
 
-    $token     = 'imooc';
+    $token     = 'asdfghjklzxcvbnmqwertyuiop123456';
     $nonce     = $_GET['nonce'];
     $timestamp = $_GET['timestamp'];
     $signature = $_GET['signature'];
