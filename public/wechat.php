@@ -17,6 +17,7 @@
             $echoStr = $_GET["echostr"];
             //valid signature , option
             if($this->checkSignature()){
+                header('content-type:text');
                 echo $echoStr;
                 exit;
             }
