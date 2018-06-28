@@ -114,6 +114,7 @@ class WeixinRepository {
 
 //            Log:info($content);
 
+            // 消息模板
             $textTpl = "<xml>
                   <ToUserName><![CDATA[%s]]></ToUserName>
                   <FromUserName><![CDATA[%s]]></FromUserName>
@@ -122,7 +123,8 @@ class WeixinRepository {
                   <Content><![CDATA[%s]]></Content>
                   <FuncFlag>0</FuncFlag>
                   </xml>";
-             格式化消息模板
+
+            // 格式化消息模板
             $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
             echo $resultStr;
             exit;
