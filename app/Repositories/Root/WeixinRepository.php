@@ -93,6 +93,17 @@ class WeixinRepository {
 
         $message = file_get_contents("php://input");
 
+//        $message = <<<MESSAGE
+//<xml>
+//    <ToUserName><![CDATA[53166188@qq.com]]></ToUserName>
+//    <FromUserName><![CDATA[osbKLjtJPw...]]></FromUserName>
+//    <CreateTime>1401495511</CreateTime>
+//    <MsgType><![CDATA[text]]></MsgType>
+//    <Content><![CDATA[我叫王皓]]></Content>
+//    <MsgId>1235567891123956</MsgId>
+//</xml>
+//MESSAGE;
+
         if(!empty($message))
         {
 //                2.处理消息类型，并设置回复类型和内容
@@ -123,11 +134,12 @@ class WeixinRepository {
                   </xml>";
             //格式化消息模板
             $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
-            echo $resultStr;
-            exit;
+//            echo $resultStr;
+//            exit;
 
-//            return view('root.weixin.text')
-//                ->with(['toUserName'=>$fromUserName,'fromUserName'=>$toUserName,'time'=>$time,'content'=>$content]);
+            echo view('root.weixin.text')
+                ->with(['toUserName'=>$fromUserName,'fromUserName'=>$toUserName,'time'=>$time,'content'=>$content]);
+            exit;
         }
         else
         {
