@@ -46,12 +46,12 @@ class WeixinRepository {
     }
 
     //
-    public function gongzhonghao()
+    public function gongzhonghaox()
     {
 
             // 1.获取到微信推送过来post数据（xml格式）
-             $message = $GLOBALS['HTTP_RAW_POST_DATA'];
-//            $message = file_get_contents("php://input");
+//             $message = $GLOBALS['HTTP_RAW_POST_DATA'];
+            $message = file_get_contents("php://input");
             if(!empty($message))
             {
 //                2.处理消息类型，并设置回复类型和内容
@@ -63,11 +63,11 @@ class WeixinRepository {
 //                    <Event><![CDATA[subscribe]]></Event>
 //                </xml>
 
-//                $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-                $postObj = simplexml_load_string($message);
+                $postObj = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
 
-                $toUserName = $postObj->ToUserName;
-                $fromUserName = $postObj->FromUserName;
+                $fromUserName = $postObj->FromUserName;  // 获取发送方帐号（OpenID）
+                $toUserName = $postObj->ToUserName;  // 获取接收方账号
+                $keyword = trim($postObj->Content);  // 获取消息内容
                 $time = time();
                 $content = '我是'.$toUserName.'，'.$fromUserName.' 你好!';
 //
@@ -97,7 +97,7 @@ class WeixinRepository {
     }
 
     //
-    public function gongzhonghaox()
+    public function gongzhonghao()
     {
 
         $token = 'asdfghjklzxcvbnmqwertyuiop123456';
