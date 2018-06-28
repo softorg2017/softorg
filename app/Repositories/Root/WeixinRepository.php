@@ -63,8 +63,7 @@ class WeixinRepository {
         if( $str == $signature && $echostr )
         {
             //第一次接入weixin api接口的时候
-            echo  $echostr;
-            exit;
+            return $echostr;
         }
         else
         {
@@ -108,7 +107,7 @@ class WeixinRepository {
                                 <Content><![CDATA[%s]]></Content>
                                 </xml>";
                     $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
-                    echo $info;
+                    return $info;
                     /*<xml>
                     <ToUserName><![CDATA[toUser]]></ToUserName>
                     <FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -134,7 +133,7 @@ class WeixinRepository {
                                 <Content><![CDATA[%s]]></Content>
                                 </xml>";
                 $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
-                echo $info;
+                return $info;
 
             }
         }
