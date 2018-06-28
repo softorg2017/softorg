@@ -33,6 +33,7 @@ use App\Models\Choice;
 use App\Repositories\Common\CommonRepository;
 use App\Repositories\Admin\MailRepository;
 
+use Illuminate\Support\Facades\Log;
 use Response, Auth, Validator, DB, Exception, Cache;
 use QrCode;
 
@@ -91,6 +92,7 @@ class WeixinRepository {
 
 
             $message = file_get_contents('php://input');
+            Log::info($message);
             $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
 
             $toUser = $message->ToUserName;
