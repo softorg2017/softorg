@@ -63,7 +63,8 @@ class WeixinRepository {
         if( $str == $signature && $echostr )
         {
             //第一次接入weixin api接口的时候
-            return $echostr;
+            echo $echostr;
+            exit;
         }
         else
         {
