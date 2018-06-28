@@ -93,8 +93,6 @@ class WeixinRepository {
             $message = file_get_contents('php://input');
             $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
 
-
-
             $toUser = $message->ToUserName;
             $fromUser   = $message->FromUserName;
             $time = time();
@@ -103,13 +101,15 @@ class WeixinRepository {
 
             $info =
                 "<xml>".
-                "<ToUserName>< ![CDATA[{$toUser}]] ></ToUserName>".
-                "<FromUserName>< ![CDATA[{$fromUser}]] ></FromUserName>".
+                "<ToUserName>< ![CDATA[{$fromUser}]] ></ToUserName>".
+                "<FromUserName>< ![CDATA[{$toUser}]] ></FromUserName>".
                 "<CreateTime>{$time}</CreateTime>".
                 "<MsgType>< ![CDATA[text]] ></MsgType>".
                 "<Content>< ![CDATA[{$content}]] ></Content>".
                 "</xml>";
-            return response($info);
+            echo $info;
+            exit;
+//            return response($info);
 
 
 //            $ToUserName = 'nihao';
