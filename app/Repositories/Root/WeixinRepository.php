@@ -93,17 +93,6 @@ class WeixinRepository {
 
         $message = file_get_contents("php://input");
 
-//        $message = <<<MESSAGE
-//<xml>
-//    <ToUserName><![CDATA[53166188@qq.com]]></ToUserName>
-//    <FromUserName><![CDATA[osbKLjtJPw...]]></FromUserName>
-//    <CreateTime>1401495511</CreateTime>
-//    <MsgType><![CDATA[text]]></MsgType>
-//    <Content><![CDATA[我叫王皓]]></Content>
-//    <MsgId>1235567891123956</MsgId>
-//</xml>
-//MESSAGE;
-
         if(!empty($message))
         {
 //                2.处理消息类型，并设置回复类型和内容
@@ -122,24 +111,25 @@ class WeixinRepository {
             $keyword = trim($postObj->Content);  // 获取消息内容
             $time = time();
             $content = '很高兴认识你';
+
 //            Log:info($content);
 
-//            $textTpl = "<xml>
-//                  <ToUserName><![CDATA[%s]]></ToUserName>
-//                  <FromUserName><![CDATA[%s]]></FromUserName>
-//                  <CreateTime>%s</CreateTime>
-//                  <MsgType><![CDATA[text]]></MsgType>
-//                  <Content><![CDATA[%s]]></Content>
-//                  <FuncFlag>0</FuncFlag>
-//                  </xml>";
-            // 格式化消息模板
-//            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
-//            echo $resultStr;
-//            exit;
-
-            echo view('root.weixin.text')
-                ->with(['toUserName'=>$fromUserName,'fromUserName'=>$toUserName,'time'=>$time,'content'=>$content]);
+            $textTpl = "<xml>
+                  <ToUserName><![CDATA[%s]]></ToUserName>
+                  <FromUserName><![CDATA[%s]]></FromUserName>
+                  <CreateTime>%s</CreateTime>
+                  <MsgType><![CDATA[text]]></MsgType>
+                  <Content><![CDATA[%s]]></Content>
+                  <FuncFlag>0</FuncFlag>
+                  </xml>";
+             格式化消息模板
+            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
+            echo $resultStr;
             exit;
+
+//            echo view('root.weixin.text')
+//                ->with(['toUserName'=>$fromUserName,'fromUserName'=>$toUserName,'time'=>$time,'content'=>$content]);
+//            exit;
         }
         else
         {
