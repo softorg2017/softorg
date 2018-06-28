@@ -122,7 +122,7 @@ class WeixinRepository {
   <FuncFlag>0</FuncFlag>
   </xml>";
             //格式化消息模板
-            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$msgType,$content);
+            $resultStr = sprintf($textTpl,$fromUserName,$toUserName,$time,$content);
             echo $resultStr;
 
 
