@@ -90,24 +90,32 @@ class WeixinRepository {
             // gh_e79a177814ed
 
 
-//            $toUser = $postObj->ToUserName;
-//            $fromUser   = $postObj->FromUserName;
-            $toUser = 'xx';
-            $fromUser   = 'yy';
+            $message = file_get_contents('php://input');
+            $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+
+
+            $toUser = $message->ToUserName;
+            $fromUser   = $message->FromUserName;
             $time = time();
             $msgType = 'text';
             $content = '我是'.$toUser.'，'.$fromUser.' 你好!';
 
             $info =
                 "<xml>".
-                "<ToUserName><![CDATA[{$toUser}]]></ToUserName>".
-                "<FromUserName><![CDATA[{$fromUser}]]></FromUserName>".
+                "<ToUserName>< ![CDATA[{$toUser}]] ></ToUserName>".
+                "<FromUserName>< ![CDATA[{$fromUser}]] ></FromUserName>".
                 "<CreateTime>{$time}</CreateTime>".
-                "<MsgType><![CDATA[text]]></MsgType>".
-                "<Content><![CDATA[{$content}]]></Content>".
+                "<MsgType>< ![CDATA[text]] ></MsgType>".
+                "<Content>< ![CDATA[{$content}]] ></Content>".
                 "</xml>";
-            echo $info;
-            exit;
+            return response($info);
+
+
+//            $ToUserName = 'nihao';
+//            $FromUserName = 'nihao';
+//            $Content = 'nihao';
+//            return view('root.weixin.text')->with(['ToUserName'=>$ToUserName,'FromUserName'=>$FromUserName,'Content'=>$Content]);
 
 
 
