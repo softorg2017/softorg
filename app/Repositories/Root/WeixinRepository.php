@@ -88,55 +88,57 @@ class WeixinRepository {
             //$postObj->Event = '';
             // gh_e79a177814ed
 
+
+            $toUser = $postObj->ToUserName;
+            $fromUser   = $postObj->FromUserName;
+            $time     = time();
+            $msgType  =  'text';
+            $content  = '我是'.$postObj->ToUserName.'，'.$postObj->FromUserName.' 你好';
+            $template = "<xml>
+                                <ToUserName><![CDATA[{$toUser}]]></ToUserName>
+                                <FromUserName><![CDATA[{$fromUser}]]></FromUserName>
+                                <CreateTime>{$time}</CreateTime>
+                                <MsgType><![CDATA[text]]></MsgType>
+                                <Content><![CDATA[{$content}]]></Content>
+                                </xml>";
+            $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
+            echo $info;
+
+
+
             //判断该数据包是否是订阅的事件推送
-            if( strtolower( $postObj->MsgType) == 'event')
-            {
-                //如果是关注 subscribe 事件
-                if( strtolower($postObj->Event == 'subscribe') )
-                {
-                    //回复用户消息(纯文本格式)
-                    $toUser   = $postObj->FromUserName;
-                    $fromUser = $postObj->ToUserName;
-                    $time     = time();
-                    $msgType  =  'text';
-                    $content  = '欢迎关注我们的微信公众账号'.$postObj->FromUserName.'-'.$postObj->ToUserName;
-                    $template = "<xml>
-                                <ToUserName><![CDATA[%s]]></ToUserName>
-                                <FromUserName><![CDATA[%s]]></FromUserName>
-                                <CreateTime>%s</CreateTime>
-                                <MsgType><![CDATA[%s]]></MsgType>
-                                <Content><![CDATA[%s]]></Content>
-                                </xml>";
-                    $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
-                    return $info;
-                    /*<xml>
-                    <ToUserName><![CDATA[toUser]]></ToUserName>
-                    <FromUserName><![CDATA[fromUser]]></FromUserName>
-                    <CreateTime>12345678</CreateTime>
-                    <MsgType><![CDATA[text]]></MsgType>
-                    <Content><![CDATA[你好]]></Content>
-                    </xml>*/
-                }
-            }
-            else
-            {
-
-                $toUser   = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
-                $time     = time();
-                $msgType  =  'text';
-                $content  = '测试'.$postObj->FromUserName.'-'.$postObj->ToUserName;
-                $template = "<xml>
-                                <ToUserName><![CDATA[%s]]></ToUserName>
-                                <FromUserName><![CDATA[%s]]></FromUserName>
-                                <CreateTime>%s</CreateTime>
-                                <MsgType><![CDATA[%s]]></MsgType>
-                                <Content><![CDATA[%s]]></Content>
-                                </xml>";
-                $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
-                return $info;
-
-            }
+//            if( strtolower( $postObj->MsgType) == 'event')
+//            {
+//                //如果是关注 subscribe 事件
+//                if( strtolower($postObj->Event == 'subscribe') )
+//                {
+//                    //回复用户消息(纯文本格式)
+//                    $toUser   = $postObj->FromUserName;
+//                    $fromUser = $postObj->ToUserName;
+//                    $time     = time();
+//                    $msgType  =  'text';
+//                    $content  = '欢迎关注我们的微信公众账号'.$postObj->FromUserName.'-'.$postObj->ToUserName;
+//                    $template = "<xml>
+//                                <ToUserName><![CDATA[%s]]></ToUserName>
+//                                <FromUserName><![CDATA[%s]]></FromUserName>
+//                                <CreateTime>%s</CreateTime>
+//                                <MsgType><![CDATA[%s]]></MsgType>
+//                                <Content><![CDATA[%s]]></Content>
+//                                </xml>";
+//                    $info = sprintf($template, $toUser, $fromUser, $time, $msgType, $content);
+//                    return $info;
+//                    /*<xml>
+//                    <ToUserName><![CDATA[toUser]]></ToUserName>
+//                    <FromUserName><![CDATA[fromUser]]></FromUserName>
+//                    <CreateTime>12345678</CreateTime>
+//                    <MsgType><![CDATA[text]]></MsgType>
+//                    <Content><![CDATA[你好]]></Content>
+//                    </xml>*/
+//                }
+//            }
+//            else
+//            {
+//            }
         }
 
     }
