@@ -240,7 +240,7 @@ class WeixinRepository {
         header("Content-type: text/html; charset=utf-8");
         $access_token = TokenManager::getToken();
         $url = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$openid}";
-//        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
