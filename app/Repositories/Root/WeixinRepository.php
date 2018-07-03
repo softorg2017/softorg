@@ -162,8 +162,8 @@ class WeixinRepository {
 
 
 
-            $info = $this->getInfo($fromUserName);
-            $content = $info['unionid'];
+//            $info = $this->getInfo($fromUserName);
+            $content = $fromUserName;
 
             // 消息模板
             $textTpl = "<xml>
