@@ -33,6 +33,13 @@ class WeixinController extends Controller
 
 
     // 返回主页视图
+    public function root()
+    {
+        $this->repo->root();
+    }
+
+
+    // 返回主页视图
     public function test()
     {
         $this->repo->test();
