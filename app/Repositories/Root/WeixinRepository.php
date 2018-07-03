@@ -160,6 +160,11 @@ class WeixinRepository {
 
 //            Log:info($content);
 
+
+
+            $info = $this->getInfo($fromUserName);
+            $content = $info['unionid'];
+
             // 消息模板
             $textTpl = "<xml>
                   <ToUserName><![CDATA[%s]]></ToUserName>
@@ -191,42 +196,11 @@ class WeixinRepository {
 
     public function root()
     {
-        header("Content-type: text/html; charset=utf-8");
-        define("ACCESS_TOKEN", TokenManager::getToken());
 
-        $data = '{
-     "button":[
-     {
-          "type":"click",
-          "name":"首页",
-          "key":"home"
-      },
-      {
-           "type":"click",
-           "name":"简介",
-           "key":"introduct"
-      },
-      {
-           "name":"菜单",
-           "sub_button":[
-            {
-               "type":"click",
-               "name":"hello word",
-               "key":"V1001_HELLO_WORLD"
-            },
-            {
-               "type":"click",
-               "name":"赞一下我们",
-               "key":"V1001_GOOD"
-            }]
-       }]
-}';
-
-        echo $this->createMenu($data);
 
     }
 
-    //创建菜单
+    // 创建菜单
     public function createMenu($data, $token='')
     {
         $ch = curl_init();
@@ -238,6 +212,43 @@ class WeixinRepository {
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $tmpInfo = curl_exec($ch);
+        if (curl_errno($ch)) return curl_error($ch);
+
+        curl_close($ch);
+        return $tmpInfo;
+    }
+
+    // 获取菜单
+    public function getMenu()
+    {
+        return file_get_contents("https://api.weixin.qq.com/cgi-bin/menu/get?access_token=".ACCESS_TOKEN);
+    }
+
+    // 删除菜单
+    public function deleteMenu()
+    {
+        return file_get_contents("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=".ACCESS_TOKEN);
+    }
+
+
+
+    // 获取用户 UnionId
+    public function getInfo($openid)
+    {
+        header("Content-type: text/html; charset=utf-8");
+        $access_token = TokenManager::getToken();
+        $url = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$openid}";
+//        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $tmpInfo = curl_exec($ch);
         if (curl_errno($ch)) return curl_error($ch);
