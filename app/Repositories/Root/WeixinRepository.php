@@ -35,6 +35,7 @@ use App\Repositories\Admin\MailRepository;
 
 use Response, Auth, Validator, DB, Exception, Cache, Log;
 use QrCode;
+use Lib\Wechat\TokenManager;
 
 class WeixinRepository {
 
@@ -43,6 +44,49 @@ class WeixinRepository {
     public function __construct()
     {
         $this->model = new OrgOrganization;
+    }
+
+    public function test()
+    {
+        $account = 'MHA00CTM';
+        $password = '123456';
+        $token_1 = md5(date("nj").$password);
+        $token_2 = md5(date("YH").$account);
+        $token = $token_1.$token_2;
+        $url = 'http://api.51ohh.com/getxml.jsp?act=f&uid='.$account.'&token='.$token;
+        $url = 'http://api.51ohh.com/?act=c&uid='.$account.'&token='.$token.'&dev=171919&com=326303';
+        $url = 'https://wx.51ohh.com/dev_add_ohh.asp?weixin=ofNnNwi3jZPb3zhSsSG413J9qs78&token=7684220';
+
+//        http://api.51ohh.com/?act=c&uid=MH000001&dev=12&com=50&token=9f5fc0089f1937314d923c4eb7bd130d451ed74dc34f836fbd451151071dca10
+
+        $ch = curl_init();
+
+        // 请求头
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+
+        // 响应头
+//        curl_setopt($ch, CURLOPT_HEADER, true);  // 返回相应头信息，否则只返回响应正文
+//        curl_setopt($ch, CURLOPT_NOBODY, false); // 响应信息【包括】正文
+//        curl_setopt($ch, CURLOPT_NOBODY, true); // 响应信息【不包括】正文
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 7);
+//        curl_setopt($ch, CURLOPT_POST, 1);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+
+        $response = curl_exec($ch);
+
+        // 获取请求头
+        $request_header = curl_getinfo($ch);
+        dd($request_header);
+
+        curl_close($ch);
+
+
+        $postObj = simplexml_load_string($response, 'SimpleXMLElement', LIBXML_NOCDATA);
+        dd($postObj);
+        dd(collect($postObj)->toArray());
     }
 
     //
@@ -142,6 +186,64 @@ class WeixinRepository {
         }
 
 
+    }
+
+
+    public function root()
+    {
+        header("Content-type: text/html; charset=utf-8");
+        define("ACCESS_TOKEN", TokenManager::getToken());
+
+        $data = '{
+     "button":[
+     {
+          "type":"click",
+          "name":"首页",
+          "key":"home"
+      },
+      {
+           "type":"click",
+           "name":"简介",
+           "key":"introduct"
+      },
+      {
+           "name":"菜单",
+           "sub_button":[
+            {
+               "type":"click",
+               "name":"hello word",
+               "key":"V1001_HELLO_WORLD"
+            },
+            {
+               "type":"click",
+               "name":"赞一下我们",
+               "key":"V1001_GOOD"
+            }]
+       }]
+}';
+
+        echo $this->createMenu($data);
+
+    }
+
+    //创建菜单
+    public function createMenu($data, $token='')
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".ACCESS_TOKEN);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $tmpInfo = curl_exec($ch);
+        if (curl_errno($ch)) return curl_error($ch);
+
+        curl_close($ch);
+        return $tmpInfo;
     }
 
 
