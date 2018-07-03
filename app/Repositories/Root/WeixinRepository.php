@@ -196,8 +196,8 @@ class WeixinRepository {
 
     public function root()
     {
-
-
+        $info = $this->getInfo("ojBDq06UlHn3OTfJ2TKeaifaHzCc");
+        dd($info);
     }
 
     // 创建菜单
@@ -252,7 +252,6 @@ class WeixinRepository {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $tmpInfo = curl_exec($ch);
         if (curl_errno($ch)) return curl_error($ch);
-
         curl_close($ch);
         return $tmpInfo;
     }
