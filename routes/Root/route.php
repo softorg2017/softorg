@@ -33,6 +33,11 @@ Route::group(['prefix' => 'weixin'], function () {
 
     $controller = "WeixinController";
 
+    Route::match(['get', 'post'],'auth/MP_verify_0m3bPByLDcHKLvIv.txt', function () {
+        return "0m3bPByLDcHKLvIv";
+    });
+
+
     Route::match(['get', 'post'],'gongzhonghao', $controller."@gongzhonghao");
     Route::match(['get', 'post'],'root', $controller."@root");
     Route::match(['get', 'post'],'test', $controller."@test");
