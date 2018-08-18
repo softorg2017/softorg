@@ -37,6 +37,10 @@ Route::group(['prefix' => 'weixin'], function () {
         return "0m3bPByLDcHKLvIv";
     });
 
+    Route::match(['get', 'post'],'auth/MP_verify_eTPw6Fu85pGY5kiV.txt', function () {
+        return "eTPw6Fu85pGY5kiV";
+    });
+
 
     Route::match(['get', 'post'],'gongzhonghao', $controller."@gongzhonghao");
     Route::match(['get', 'post'],'root', $controller."@root");
