@@ -90,6 +90,35 @@ class WeixinRepository {
     }
 
     //
+    public function weixin_auth($post_data)
+    {
+        $app_id = env('WECHAT_APPID');
+        $app_secret = env('WECHAT_SECRET');
+        $code = $post_data["code"];
+        $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={$app_id}&secret={$app_secret}&code={$code}&grant_type=authorization_code";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response1 = curl_exec($ch);
+        $response1 = json_decode($response1, true);
+        var_dump($response1);
+
+        $access_token = $response1["access_token"];
+        $openid = $response1["openid"];
+
+        // 获取授权用户信息
+        $url = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$openid}&lang=zh_CN";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $response2 = curl_exec($ch);
+        $response2 = json_decode($response2, true);
+        var_dump($response2);
+
+        // 获取一般用户信息
+        // $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN";
+    }
+
+    //
     public function gongzhonghao()
     {
         $echoStr = request('echostr',0);
