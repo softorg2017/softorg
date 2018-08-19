@@ -118,6 +118,7 @@ class WeixinRepository {
         // $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={$access_token}&openid={$openid}&lang=zh_CN";
 
         $info = $this->getInfo($openid);
+        $info = json_decode($info, true);
         var_dump($info);
     }
 
