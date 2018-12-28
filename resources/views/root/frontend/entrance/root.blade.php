@@ -32,9 +32,9 @@
 
     <div class="page-root">
 
-        @include('root.frontend.module.root-product-1', ['items'=>$product_items])
+        @include('root.frontend.module.root-service-list', ['items'=>$service_items])
 
-        @include('root.frontend.module.root-template-list', ['items'=>$service_items])
+        @include('root.frontend.module.root-template-list', ['items'=>$template_items])
 
         {{--@include('root.frontend.module.root-recycle')--}}
 

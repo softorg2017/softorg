@@ -27,25 +27,17 @@ class IndexRepository {
 //        $info = json_decode(json_encode(config('mitong.company.info')));
 //        $menus = RootMenu::where(['active'=>1])->orderby('order', 'asc')->get();
 
-        $service_items = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
+        $service_items = RootItem::where(['category'=>11, 'menu_id'=>0, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
         foreach($service_items as $item)
         {
             $item->custom = json_decode($item->custom);
             $item->custom2 = json_decode($item->custom2);
         }
 
-        $service_items = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
-        foreach($service_items as $item)
+        $template_items = RootItem::where(['category'=>12, 'active'=>1])->orderby('id', 'desc')->limit(4)->get();
+        foreach($template_items as $item)
         {
             $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
-        }
-
-        $product_items = RootItem::where(['category'=>12, 'active'=>1])->orderby('id', 'desc')->limit(4)->get();
-        foreach($product_items as $item)
-        {
-            $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
         }
 
         $client_items = RootItem::where(['category'=>51, 'active'=>1])->orderby('id', 'desc')->get();
@@ -53,7 +45,7 @@ class IndexRepository {
 
         $html = view('root.frontend.entrance.root')->with([
                 'service_items'=>$service_items,
-                'product_items'=>$product_items,
+                'template_items'=>$template_items,
                 'client_items'=>$client_items,
                 'coverage_items'=>$coverage_items
             ])->__toString();

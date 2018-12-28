@@ -3,7 +3,7 @@
     <div class="container main-container">
 
         <header class="module-row module-header-container text-center">
-            <div class="wow slideInLeft module-title-row title-with-double-line color-1 border-light title-h2"><b>Product-1</b></div>
+            <div class="wow slideInLeft module-title-row title-with-double-line color-1 border-light title-h2"><b>业务介绍</b></div>
             <div class="wow slideInRight module-subtitle-row color-5 title-h4"><b>description-1</b></div>
         </header>
 

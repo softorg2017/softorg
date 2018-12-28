@@ -3,8 +3,8 @@
     <div class="container main-container">
 
         <header class="module-row module-header-container text-center">
-            <div class="wow slideInLeft module-title-row title-with-double-line color-e border-light title-h2">Product-2</div>
-            <div class="wow slideInRight module-subtitle-row color-b title-h4">description-2</div>
+            <div class="wow slideInLeft module-title-row title-with-double-line color-e border-light title-h2">网站模板</div>
+            <div class="wow slideInRight module-subtitle-row color-b title-h4">千种模板供您选择</div>
         </header>
 
         <div class="module-row module-body-container ">
