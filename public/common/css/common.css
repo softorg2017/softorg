@@ -3,11 +3,11 @@ body { overflow-x:hidden; }
 
 img { max-width:100%; }
 
-._none { display:none; }
-._pointer { cursor:pointer; }
+._none { display:none !important; }
+._pointer { cursor:pointer !important; }
 
-.width-auto { width:auto; }
-.width-full { width:100%; }
+.width-auto { width:auto !important; }
+.width-full { width:100% !important; }
 
 .width-1-1 { width:100%; }
 .width-1-8 { width:12.5%; }

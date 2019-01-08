@@ -49,7 +49,7 @@
         <div class="header-site pull-left" id="site-logo">
 
             <div class="logo-site pull-left">
-                <a href="{{ url('/') }}"><img src="{{ url('') }}" alt="Logo"></a>
+                <a href="{{ url('/') }}"><img src="{{ url(config('company.info.logo')) }}" alt="Logo"></a>
                 <a href="{{ url('/') }}"><b>上海如哉网络科技有限公司</b></a>
             </div>
 
@@ -83,7 +83,7 @@
                         {{--</div>--}}
                     {{--</li>--}}
 
-                    <li class="header-box header-taobao taobao-box" role="button">
+                    <li class="header-box header-taobao taobao-box _none" role="button">
                         <a href="https://shop62683376.taobao.com">
                             <i class="icon"><img src="/common/images/icons/icon_taobao_1.png" alt=""></i> <b>淘宝店铺</b>
                         </a>

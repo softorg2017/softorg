@@ -12,7 +12,7 @@
     <div id="slider-contents">
         <div class="container text-center">
             <div class="jumbotron">
-                <h1>{{ config('company.info.short_name') }}</h1>
+                <h1>{{ config('company.info.name') }}</h1>
                 <div class="contents clearfix">
 {{--                    <p class="font-24px"><b>{{ config('company.info.slogan') }}</b></p>--}}
                 </div>

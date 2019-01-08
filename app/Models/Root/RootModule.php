@@ -7,7 +7,7 @@ class RootModule extends Model
     //
     protected $table = "root_module";
     protected $fillable = [
-        'sort', 'type', 'admin_id', 'menu_id', 'active',
+        'category', 'sort', 'type', 'admin_id', 'menu_id', 'active',
         'name', 'title', 'subtitle', 'description', 'content', 'custom', 'link_url', 'cover_pic',
         'order', 'style', 'column', 'img_multiple',
         'visit_num', 'share_num'

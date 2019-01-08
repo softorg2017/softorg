@@ -7,7 +7,7 @@ class RootMessage extends Model
     //
     protected $table = "root_message";
     protected $fillable = [
-        'sort', 'category', 'type', 'admin_id', 'menu_id', 'item_id', 'active',
+        'category', 'sort', 'type', 'admin_id', 'menu_id', 'item_id', 'active',
         'name', 'mobile', 'email', 'title', 'subtitle', 'description', 'content', 'custom', 'link_url', 'cover_pic',
         'visit_num', 'share_num'
     ];

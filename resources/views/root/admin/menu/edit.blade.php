@@ -74,6 +74,15 @@
                             <button type="button" class="btn">
                                 <div class="radio">
                                     <label>
+                                        <input type="radio" name="category" value="21"
+                                               @if($operate == 'edit' && $data->category == 21) checked="checked" @endif> 案例模块
+                                    </label>
+                                </div>
+                            </button>
+
+                            <button type="button" class="btn">
+                                <div class="radio">
+                                    <label>
                                         <input type="radio" name="category" value="41"
                                                @if($operate == 'edit' && $data->category == 41) checked="checked" @endif> 资讯模块
                                     </label>
@@ -84,11 +93,26 @@
                     </div>
                 </div>
 
+                {{--name--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">name</label>
+                    <div class="col-md-8 ">
+                        <input type="text" class="form-control" name="name" placeholder="唯一标识，请与开发者联系" value="{{ $data->name or '' }}">
+                    </div>
+                </div>
+
                 {{--标题--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">标题</label>
                     <div class="col-md-8 ">
                         <input type="text" class="form-control" name="title" placeholder="请输入标题" value="{{ $data->title or '' }}">
+                    </div>
+                </div>
+                {{--副标题--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">副标题</label>
+                    <div class="col-md-8 ">
+                        <input type="text" class="form-control" name="subtitle" placeholder="请输入副标题" value="{{ $data->subtitle or '' }}">
                     </div>
                 </div>
                 {{--描述--}}
@@ -100,7 +124,7 @@
                     </div>
                 </div>
                 {{--内容详情--}}
-                <div class="form-group">
+                <div class="form-group _none">
                     <label class="control-label col-md-2">内容详情</label>
                     <div class="col-md-8 ">
                         <div>

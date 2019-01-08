@@ -232,7 +232,7 @@ class MenuRepository {
         {
             DB::rollback();
             $msg = '操作失败，请重试！';
-//            $msg = $e->getMessage();
+            $msg = $e->getMessage();
 //            exit($e->getMessage());
             return response_fail([],$msg);
         }

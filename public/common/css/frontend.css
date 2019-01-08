@@ -478,11 +478,17 @@
 
 .text-container { position:relative; }
 .text-box { padding:8px 16px; }
+.text-box.with-border-top { border-top:1px solid #e6e6e6; }
+.text-box.with-border-bottom { border-bottom:1px solid #e6e6e6; }
 .text-title-row { padding:4px 0; line-height:20px; font-size:16px; }
 .text-title-row a { line-height:22px; color:#444; }
 
 
 
+
+/*
+    * 左侧图片，右侧文字
+ */
 .item-container.model-left-right { width:100%; float:left; }
 
 .model-left-right .image-container { width:33.3333%; float:left; }
@@ -494,8 +500,58 @@
 
 
 @media (max-width: 767px) {
-    .text-title-row { padding:0; }
+    .text-box { padding: 8px 4px; }
+    .text-title-row { padding:0; font-size:14px; }
 }
+
+
+
+
+
+/*
+    *
+    * image50% - text50%
+ */
+.item-left-right-style { position: relative; }
+.item-left-right-style .image-container {
+    position:relative;
+    padding:0;
+    padding-top:25%;
+    overflow:hidden;
+}
+.item-left-right-style .image-container .image-box { position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden; }
+.item-left-right-style .image-container .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+.item-left-right-style .text-container { padding:32px; color:#444; font-weight:400; }
+
+.item-left-right-style { background:#efefef; }
+.item-left-right-style:nth-of-type(odd) { background:#efefef; }
+.item-left-right-style:nth-of-type(even) .image-container { float:right; }
+
+.item-left-right-style .text-box { width:100%;}
+.item-left-right-style .btn { padding:8px 16px; margin-top:8px; border-radius:0; font-size:14px; }
+
+.service-item .title-row { text-align:center; }
+.service-item .title-row a { font-size:20px;font-weight:bold;color:#2d4d9b !important; }
+
+@media screen and (max-width:1200px) {
+    .item-left-right-style .image-container { padding-top:30%; }
+}
+
+@media screen and (max-width:767px) {
+    .item-left-right-style { margin-bottom:2px; }
+    .item-left-right-style .image-container { padding-top:50%; }
+    .item-left-right-style:nth-of-type(even) .image-container { float:none; }
+    .item-left-right-style .text-container { padding:8px; }
+    .item-left-right-style .btn { padding:4px 8px; }
+}
+
+
+
 
 
 

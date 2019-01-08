@@ -22,16 +22,16 @@
                         </figure>
 
                         <figure class="text-container clearfix">
-                            <div class="text-box text-center" style="border-bottom:1px solid #e6e6e6">
-                                <div class="text-title-row"><a href="{{ url('/item/'.$v->id) }}"><b>{{ $v->title or '' }}</b></a></div>
+                            <div class="text-box text-center">
+                                <div class="text-title-row multi-ellipsis-2"><a href="{{ url('/item/'.$v->id) }}"><b>{{ $v->title or '' }}</b></a></div>
                                 <div class="text-description-row">
                                     <div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-box text-center clearfix">
+                            <div class="text-box with-border-top text-center clearfix">
                                 <a target="_blank" href="{{ url('/item/'.$v->id) }}">
-                                    <button class="btn btn-default btn-3d btn-clicker" data-hover="点击查看">
+                                    <button class="btn btn-default btn-3d btn-clicker" data-hover="点击查看" style="border-radius:0;">
                                         <strong>查看详情</strong>
                                     </button>
                                 </a>

@@ -34,11 +34,17 @@ class IndexRepository {
             $item->custom2 = json_decode($item->custom2);
         }
 
-        $template_items = RootItem::where(['category'=>12, 'active'=>1])->orderby('id', 'desc')->limit(4)->get();
-        foreach($template_items as $item)
+
+        $template_menu = RootMenu::where(['name'=>'template'])->first();
+        if($template_menu)
         {
-            $item->custom = json_decode($item->custom);
+            $template_items = RootItem::where(['menu_id'=>$template_menu->id, 'active'=>1])->orderby('id', 'desc')->limit(4)->get();
+            foreach($template_items as $item)
+            {
+                $item->custom = json_decode($item->custom);
+            }
         }
+        else $template_items = [];
 
         $client_items = RootItem::where(['category'=>51, 'active'=>1])->orderby('id', 'desc')->get();
         $coverage_items = RootItem::where(['category'=>41, 'active'=>1])->orderby('id', 'desc')->get();

@@ -22,13 +22,13 @@
                         </figure>
 
                         <figure class="text-container clearfix">
-                            <div class="text-box" style="border-bottom:1px solid #e6e6e6">
-                                <div class="text-title-row"><a href="{{ url('/item/'.$v->id) }}"><b>{{ $v->title or '' }}</b></a></div>
-                                <div class="hidden-xs"><i class="fa fa-map-marker"></i> {{ $v->custom->deposit or '' }}</div>
+                            <div class="text-box">
+                                <div class="text-title-row multi-ellipsis-2"><a href="{{ url('/item/'.$v->id) }}"><b>{{ $v->title or '' }}</b></a></div>
+                                {{--<div class="hidden-xs"><i class="fa fa-map-marker"></i> {{ $v->custom->deposit or '' }}</div>--}}
                             </div>
-                            <div class="text-box text-center clearfix hidden-xs">
+                            <div class="text-box with-border-top text-center clearfix hidden-xs">
                                 <a target="_blank" href="{{ url('/item/'.$v->id) }}">
-                                    <button class="btn btn-default btn-3d btn-clicker" data-hover="点击查看">
+                                    <button class="btn btn-default btn-3d btn-clicker" data-hover="点击查看" style="border-radius:0;">
                                         <strong>查看详情</strong>
                                     </button>
                                 </a>
