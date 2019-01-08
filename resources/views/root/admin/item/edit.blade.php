@@ -114,7 +114,7 @@
                 </div>
 
                 {{--链接地址--}}
-                <div class="form-group _none">
+                <div class="form-group">
                     <label class="control-label col-md-2">链接地址</label>
                     <div class="col-md-8 ">
                         <input type="text" class="form-control" name="link_url" placeholder="链接地址" value="{{ $data->link_url or '' }}">

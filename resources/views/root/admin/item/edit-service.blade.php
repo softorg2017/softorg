@@ -97,6 +97,14 @@
                     </div>
                 </div>
 
+                {{--链接地址--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">链接地址</label>
+                    <div class="col-md-8 ">
+                        <div><input type="text" class="form-control" name="link_url" placeholder="链接地址" value="{{ $data->link_url or '' }}"></div>
+                    </div>
+                </div>
+
                 {{--租金--}}
                 <div class="form-group _none">
                     <label class="control-label col-md-2">租金</label>
@@ -116,14 +124,6 @@
                     <label class="control-label col-md-2">品牌</label>
                     <div class="col-md-8 ">
                         <input type="text" class="form-control" name="custom[brand]" placeholder="品牌" value="{{ $data->custom->brand or '' }}">
-                    </div>
-                </div>
-
-                {{--链接地址--}}
-                <div class="form-group _none">
-                    <label class="control-label col-md-2">链接地址</label>
-                    <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="link_url" placeholder="链接地址" value="{{ $data->link_url or '' }}"></div>
                     </div>
                 </div>
 
