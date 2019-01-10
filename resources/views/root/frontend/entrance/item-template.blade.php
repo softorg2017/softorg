@@ -22,8 +22,9 @@
 @section('custom-content')
 
     {{--iframe--}}
-    <iframe id="iframe" src="{{$item->link_url}}" frameborder="0" width="100%" height="auto"
-            style="position:absolute; top:64px; bottom:0; left:0; right:0;"></iframe>
+    <div class="" style="position:fixed;top:64px;bottom:0;left:0;right:0;">
+        <iframe id="" src="{{ $item->link_url or '' }}" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
 
 @endsection
 
