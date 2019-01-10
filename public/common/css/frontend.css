@@ -477,7 +477,7 @@
 .image-box img { width:100%; height:100%; object-fit:cover; }
 
 .text-container { position:relative; }
-.text-box { padding:8px 16px; }
+.text-box { padding:8px; }
 .text-box.with-border-top { border-top:1px solid #e6e6e6; }
 .text-box.with-border-bottom { border-bottom:1px solid #e6e6e6; }
 .text-title-row { padding:4px 0; line-height:20px; font-size:16px; }

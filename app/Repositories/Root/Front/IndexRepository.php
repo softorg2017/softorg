@@ -38,7 +38,7 @@ class IndexRepository {
         $template_menu = RootMenu::where(['name'=>'template'])->first();
         if($template_menu)
         {
-            $template_items = RootItem::where(['menu_id'=>$template_menu->id, 'active'=>1])->orderby('id', 'desc')->limit(4)->get();
+            $template_items = RootItem::where(['menu_id'=>$template_menu->id, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
             foreach($template_items as $item)
             {
                 $item->custom = json_decode($item->custom);
