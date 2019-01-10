@@ -166,6 +166,24 @@ class IndexRepository {
 
 
 
+    // item
+    public function view_template_item($id = 0)
+    {
+        if($id != 0) $mine = RootItem::where(['id'=>$id])->orderby('id', 'desc')->first();
+        else $mine = RootItem::orderby('id', 'desc')->first();
+
+        $mine->timestamps = false;
+        $mine->increment('visit_num');
+
+        $mine->custom = json_decode($mine->custom);
+
+        $html = view('root.frontend.entrance.item-template')->with(['item'=>$mine])->__toString();
+        return $html;
+    }
+
+
+
+
     // 留言
     public function message_contact($post_data)
     {

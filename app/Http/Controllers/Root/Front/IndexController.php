@@ -39,6 +39,12 @@ class IndexController extends Controller
         return $this->repo->view_item($id);
     }
 
+    // 返回【详情】视图
+    public function view_template_item($id=0)
+    {
+        return $this->repo->view_template_item($id);
+    }
+
 
     // 返回【钢琴出租】【列表】视图
     public function view_rent_out_list()

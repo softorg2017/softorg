@@ -34,6 +34,7 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
 
     $controller = "IndexController";
     Route::get('/root', $controller.'@view_root');
+    Route::get('/root/template/{id?}', $controller.'@view_template_item');
 
 
 
