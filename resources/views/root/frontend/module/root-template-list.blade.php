@@ -14,7 +14,7 @@
 
                         <figure class="image-container padding-top-1-1">
                             <div class="image-box">
-                                <a class="clearfix zoom-" target="_blank"  href="{{ url('/root/template/'.$v->id) }}">
+                                <a class="clearfix zoom-" target="_blank" href="{{ url('/root/template/'.$v->id) }}">
                                     <img class="grow" data-action="zoom-" src="{{ config('common.host.'.env('APP_ENV').'.cdn').'/'.$v->cover_pic }}" alt="Property Image">
                                 </a>
                                 {{--<span class="btn btn-warning">热销中</span>--}}
@@ -23,7 +23,9 @@
 
                         <figure class="text-container clearfix">
                             <div class="text-box">
-                                <div class="text-title-row multi-ellipsis-2"><a href="{{ url('/root/template/'.$v->id) }}"><b>{{ $v->title or '' }}</b></a></div>
+                                <div class="text-title-row multi-ellipsis-2">
+                                    <a target="_blank" href="{{ url('/root/template/'.$v->id) }}"><b>{{ $v->title or '' }}</b></a>
+                                </div>
                                 {{--<div class="hidden-xs"><i class="fa fa-map-marker"></i> {{ $v->custom->deposit or '' }}</div>--}}
                             </div>
                             <div class="text-box with-border-top text-center clearfix hidden-xs">
