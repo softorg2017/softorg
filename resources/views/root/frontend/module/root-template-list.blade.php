@@ -23,7 +23,7 @@
 
                         <figure class="text-container clearfix">
                             <div class="text-box">
-                                <div class="text-title-row multi-ellipsis-2"><a href="{{ url('/item/'.$v->id) }}"><b>{{ $v->title or '' }}</b></a></div>
+                                <div class="text-title-row multi-ellipsis-2"><a href="{{ url('/root/item/'.$v->id) }}"><b>{{ $v->title or '' }}</b></a></div>
                                 {{--<div class="hidden-xs"><i class="fa fa-map-marker"></i> {{ $v->custom->deposit or '' }}</div>--}}
                             </div>
                             <div class="text-box with-border-top text-center clearfix hidden-xs">
