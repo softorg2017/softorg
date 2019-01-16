@@ -12,24 +12,34 @@ require __DIR__.'/frontend.php';
 |
 */
 
-Route::get('/', function () {
+//Route::get('/', function () {
 //    return view('welcome');
 //    return redirect(config('common.website.front.prefix').'/softorg');
-});
+//});
+
+
+
 
 Route::get(config('common.website.front.prefix').'/', function () {
 //    return view('welcome');
     return redirect(config('common.website.front.prefix').'/softorg');
 });
 
+
+
+
 //Auth::routes();
 //
 //Route::get('/home', 'HomeController@index')->name('home');
 
 
+
+
 Route::get('/home', function () {
     return view('front.'.config('common.view.front.template').'.index');
 });
+
+
 
 
 /*

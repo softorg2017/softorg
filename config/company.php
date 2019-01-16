@@ -10,7 +10,7 @@
             'short_name' => '如未科技',
             'brand' => '如未科技',
             'description' => '',
-            'slogan' => '上海钢琴租售',
+            'slogan' => '让企业更优秀',
             'favicon' => '/favicon-240.png',
             'logo' => '/logo.png',
             'address' => '上海市松江区荣乐中路89号',

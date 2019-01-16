@@ -21,7 +21,7 @@ class IndexController extends Controller
     }
 
     // 返回（前台）【根】视图
-    public function index($num)
+    public function index()
     {
         dd('index');
     }

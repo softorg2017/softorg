@@ -3,10 +3,11 @@
 
 $controller = "IndexController";
 
-Route::get('/', $controller."@index");
+Route::get('/root', $controller."@index");
 
 Route::get('/website/templates', $controller."@view_website_templates");
 Route::get('/website/template/{id?}', $controller."@view_website_template");
+
 
 
 
@@ -33,8 +34,9 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
 
 
     $controller = "IndexController";
-    Route::get('/root', $controller.'@view_root');
+    Route::get('/', $controller.'@view_root');
     Route::get('/root/template/{id?}', $controller.'@view_template_item');
+
 
 
 
