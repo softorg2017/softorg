@@ -12,7 +12,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 item-col">
                     <div class="item-container padding-8px">
 
-                        <figure class="image-container padding-top-1-1">
+                        <figure class="image-container padding-top-4-5">
                             <div class="image-box">
                                 <a class="clearfix zoom-" target="_blank" href="{{ url('/root/template/'.$v->id) }}">
                                     <img class="grow" data-action="zoom-" src="{{ config('common.host.'.env('APP_ENV').'.cdn').'/'.$v->cover_pic }}" alt="Property Image">
