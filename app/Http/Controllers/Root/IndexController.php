@@ -30,11 +30,6 @@ class IndexController extends Controller
     {
         return $this->repo->website_templates();
     }
-    // 返回主页视图
-    public function view_website_template($id)
-    {
-        return $this->repo->website_template($id);
-    }
 
 
 

@@ -36,10 +36,6 @@ class CaseRepository {
     }
 
 
-    public function view_test()
-    {
-        return view('root.case.entrance.test');
-    }
 
     public function view_metinfo()
     {

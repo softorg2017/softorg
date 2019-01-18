@@ -6,7 +6,6 @@ $controller = "IndexController";
 Route::get('/root', $controller."@index");
 
 Route::get('/website/templates', $controller."@view_website_templates");
-Route::get('/website/template/{id?}', $controller."@view_website_template");
 
 
 
@@ -17,8 +16,6 @@ Route::get('/website/template/{id?}', $controller."@view_website_template");
 Route::group(['prefix' => 'case'], function () {
 
     $controller = "CaseController";
-
-    Route::get('test', $controller."@view_test");
 
     Route::get('metinfo', $controller."@view_metinfo");
 
@@ -36,6 +33,7 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     $controller = "IndexController";
     Route::get('/', $controller.'@view_root');
     Route::get('/root/template/{id?}', $controller.'@view_template_item');
+    Route::get('/root/template-list', $controller.'@view_template_list');
 
 
 

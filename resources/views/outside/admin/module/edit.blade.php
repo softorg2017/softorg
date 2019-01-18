@@ -226,7 +226,7 @@
                 <div class="form-group img-single-show _none">
                     <label class="control-label col-md-2">链接地址</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="link" placeholder="链接地址" value="{{$data->link or ''}}"></div>
+                        <div><input type="text" class="form-control" name="link_url" placeholder="链接地址" value="{{$data->link_url or ''}}"></div>
                     </div>
                 </div>
 
