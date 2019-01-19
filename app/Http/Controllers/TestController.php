@@ -34,10 +34,6 @@ class TestController extends Controller
 
     public function index()
     {
-        $x=15;
-        echo $x++;
-        $y=20;
-        echo ++$y;
 //        return view('admin.company.index');
     }
 

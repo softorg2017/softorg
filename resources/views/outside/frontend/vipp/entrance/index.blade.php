@@ -53,7 +53,7 @@
     @include('templates.themes.vipp.component.banner')
 
     @include('templates.themes.vipp.module.index.module-template-1',['datas'=>$templates])
-{{--    @include('templates.themes.vipp.module.index.module-template-1',['datas'=>$templates, 'style'=>'cta'])--}}
+    {{--@include('templates.themes.vipp.module.index.module-template-1',['datas'=>$templates, 'style'=>'cta'])--}}
 
 
 
