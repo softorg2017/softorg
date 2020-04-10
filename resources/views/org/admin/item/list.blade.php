@@ -41,6 +41,7 @@
                     <tr role='row' class='heading'>
                         <th>标题</th>
                         <th>所属目录</th>
+                        <th>目录s</th>
                         <th>浏览次数</th>
                         <th>管理员</th>
                         <th>创建时间</th>
@@ -49,6 +50,7 @@
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -136,10 +138,21 @@
                         }
                     },
                     {
+                        'data': 'menu_id',
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+//                            return row.menu == null ? '未分类' : row.menu.title;
+                            if(row.menu == null) return '<small class="label bg-info">未分类</small>';
+                            else {
+                                return '<a href="/org-admin/item/menu?id='+row.menu.encode_id+'">'+row.menu.title+'</a>';
+                            }
+                        }
+                    },
+                    {
                         'data': 'menus',
                         'orderable': false,
                         render: function(data, type, row, meta) {
-//                            return row.menu == null ? '未分类' : row.menu.name;
+//                            return row.menu == null ? '未分类' : row.menu.title;
                             var html = '';
                             $.each(data,function( key, val ) {
                                 html += '<a href="/org-admin/item/menu?id='+this.encode_id+'">'+this.title+'</a><br>';
@@ -167,7 +180,8 @@
                         render: function(data) {
                             newDate = new Date();
                             newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
+//                            return newDate.toLocaleString('chinese',{hour12:false});
+                            return newDate.toLocaleDateString();
                         }
                     },
                     {
@@ -176,7 +190,8 @@
                         render: function(data) {
                             newDate = new Date();
                             newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
+//                            return newDate.toLocaleString('chinese',{hour12:false});
+                            return newDate.toLocaleDateString();
                         }
                     },
                     {
@@ -197,7 +212,7 @@
                                 '<a class="btn btn-xs item-disable-submit" data-id="'+value+'">禁用</a>'+
                                 '<a class="btn btn-xs item-download-qrcode-submit" data-id="'+value+'">下载二维码</a>'+
                                 '<a class="btn btn-xs item-statistics-submit" data-id="'+value+'">流量统计</a>'+
-                                {{--'<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/item/edit?id='+value+'">编辑</a> '+--}}
+                                {{--'<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/item/edit?id='+value+'">编辑</a>'+--}}
                                 '<a class="btn btn-xs item-edit-submit" data-id="'+value+'">编辑</a>'+
                                 '<a class="btn btn-xs item-delete-submit" data-id="'+value+'" >删除</a>';
                             return html;

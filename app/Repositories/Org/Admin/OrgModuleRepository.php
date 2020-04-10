@@ -203,7 +203,7 @@ class OrgModuleRepository {
                 if(!empty($post_data["cover"]))
                 {
                     $upload = new CommonRepository();
-                    $result = $upload->upload($post_data["cover"], 'org-'. $admin->id.'-unique-modules' , 'cover_module_'.$encode_id);
+                    $result = $upload->upload($post_data["cover"], 'org-modules' , 'cover_org_menu_'.$encode_id);
                     if($result["status"])
                     {
                         $module->cover_pic = $result["data"];

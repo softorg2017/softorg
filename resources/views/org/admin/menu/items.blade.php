@@ -41,6 +41,7 @@
                     <tr role='row' class='heading'>
                         <th>标题</th>
                         <th>所属目录</th>
+                        <th>目录s</th>
                         <th>浏览次数</th>
                         <th>管理员</th>
                         <th>创建时间</th>
@@ -49,6 +50,7 @@
                         <th>操作</th>
                     </tr>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -135,10 +137,21 @@
                         }
                     },
                     {
+                        'data': 'menu_id',
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+//                            return row.menu == null ? '未分类' : row.menu.title;
+                            if(row.menu == null) return '未分类';
+                            else {
+                                return '<a href="/org-admin/item/menu?id='+row.menu.encode_id+'">'+row.menu.title+'</a>';
+                            }
+                        }
+                    },
+                    {
                         'data': 'menus',
                         'orderable': false,
                         render: function(data, type, row, meta) {
-//                            return row.menu == null ? '未分类' : row.menu.name;
+//                            return row.menu == null ? '未分类' : row.menu.title;
                             var html = '';
                             $.each(data,function( key, val ) {
                                 html += '<a href="/{{config('common.org.admin.prefix')}}/item/menu?id='+this.encode_id+'">'+this.title+'</a><br>';

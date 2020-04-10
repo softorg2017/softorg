@@ -45,14 +45,14 @@
                 </div>
                 {{--标语 slogan--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">标语 Slogan</label>
+                    <label class="control-label col-md-2">标语</label>
                     <div class="col-md-8 ">
                         <div><input type="text" class="form-control" name="slogan" placeholder="请输入标语 slogan" value="{{$org->slogan or ''}}"></div>
                     </div>
                 </div>
                 {{--描述--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">企业简介</label>
+                    <label class="control-label col-md-2">简介</label>
                     <div class="col-md-8 ">
                         {{--<div><input type="text" class="form-control" name="description" placeholder="请输入描述" value="{{$org->description or ''}}"></div>--}}
                         <div><textarea name="description" id="" cols="100%" rows="5">{{$org->description or ''}}</textarea></div>
@@ -74,7 +74,7 @@
                 </div>
                 {{--Email--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">Email</label>
+                    <label class="control-label col-md-2">邮箱</label>
                     <div class="col-md-8 ">
                         <div><input type="text" class="form-control" name="email" placeholder="请输入邮箱" value="{{$org->email or ''}}"></div>
                     </div>
@@ -91,13 +91,6 @@
                     <label class="control-label col-md-2">微信号</label>
                     <div class="col-md-8 ">
                         <div><input type="text" class="form-control" name="wechat_id" placeholder="请输入微信号" value="{{$org->wechat_id or ''}}"></div>
-                    </div>
-                </div>
-                {{--微信二维码--}}
-                <div class="form-group">
-                    <label class="control-label col-md-2">微信二维码</label>
-                    <div class="col-md-8 ">
-                        <div><input type="file" name="wechat_qrcode-" placeholder="请上传微信二维码" value="{{$org->wechat_qrcode or ''}}"></div>
                     </div>
                 </div>
                 {{--微信二维码--}}

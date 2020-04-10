@@ -502,7 +502,7 @@ class IndexRepository {
             $record["from"] = request('from',NULL);
             $this->record($record);
 
-            return view(config('common.org.view.frontend.online').'.entrance.item')
+            return view('org.frontend.entrance.item')
                 ->with(['org'=>$item->org,'menus'=>$item->org->menus,'data'=>$item,'encode_id'=>$decode_id]);
         }
         else dd("内容不存在");

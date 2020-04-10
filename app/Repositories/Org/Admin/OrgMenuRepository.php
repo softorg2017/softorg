@@ -184,7 +184,7 @@ class OrgMenuRepository {
                 if(!empty($post_data["cover"]))
                 {
                     $upload = new CommonRepository();
-                    $result = $upload->upload($post_data["cover"], 'org-'. $admin->id.'-unique-menus' , 'cover_menu_'.$encode_id);
+                    $result = $upload->upload($post_data["cover"], 'org-menus' , 'cover_org_menu_'.$encode_id);
                     if($result["status"])
                     {
                         $menu->cover_pic = $result["data"];

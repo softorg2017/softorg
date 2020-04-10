@@ -23,7 +23,7 @@ class OrgItemRepository {
     public function get_list_datatable($post_data)
     {
         $org_id = Auth::guard("org_admin")->user()->org_id;
-        $query = OrgItem::select("*")->where('org_id',$org_id)->with(['admin','menus']);
+        $query = OrgItem::select("*")->where('org_id',$org_id)->with(['admin','menu','menus']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
@@ -48,6 +48,7 @@ class OrgItemRepository {
         foreach ($list as $k => $v)
         {
             $list[$k]->encode_id = encode($v->id);
+            if($v->menu) $v->menu->encode_id =  encode($v->menu->id);
             foreach ($v->menus as $key => $val)
             {
                 $val->encode_id = encode($val->id);
@@ -64,7 +65,7 @@ class OrgItemRepository {
 
         $org_id = Auth::guard("org_admin")->user()->org_id;
 //        $query = OrgItem::select("*")->with(['admin','menus'])->where('id',$decode_id);
-        $query = OrgMenu::find($decode_id)->items()->with(['admin','menus']);
+        $query = OrgMenu::find($decode_id)->items()->with(['admin','menu','menus']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
@@ -208,7 +209,7 @@ class OrgItemRepository {
                 if(!empty($post_data["cover"]))
                 {
                     $upload = new CommonRepository();
-                    $result = $upload->upload($post_data["cover"], 'org-item' , 'cover_org_item_'.$encode_id);
+                    $result = $upload->upload($post_data["cover"], 'org-items' , 'cover_org_item_'.$encode_id);
                     if($result["status"])
                     {
                         $item->cover_pic = $result["data"];
@@ -221,7 +222,7 @@ class OrgItemRepository {
                 // 保存二维码
                 $url = 'http://www.softorg.cn/org/item/'.$encode_id;  // 目标URL
                 // 保存位置
-                $qrcode_path = 'resource/org/item';
+                $qrcode_path = 'resource/org/items';
                 if(!file_exists(storage_path($qrcode_path)))
                     mkdir(storage_path($qrcode_path), 0777, true);
                 // qrcode图片文件

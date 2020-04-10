@@ -63,28 +63,35 @@
                         <div><input type="text" class="form-control" name="contents" placeholder="内容" value="{{$data->content or ''}}"></div>
                     </div>
                 </div>
-                {{--cover 封面图片--}}
-                @if(!empty($data->cover_pic))
-                    <div class="form-group">
-                        <label class="control-label col-md-2">封面图片</label>
-                        <div class="col-md-8 ">
-                            <div class="edit-img"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$data->cover_pic)}}" alt=""></div>
+
+                {{--cover--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">封面图片</label>
+                    <div class="col-md-8 fileinput-group">
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                @if(!empty($data->cover_pic))
+                                    <img src="{{ url(env('DOMAIN_CDN').'/'.$data->cover_pic) }}" alt="" />
+                                @endif
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail">
+                            </div>
+                            <div class="btn-tool-group">
+                                <span class="btn-file">
+                                    <button class="btn btn-sm btn-primary fileinput-new">选择图片</button>
+                                    <button class="btn btn-sm btn-warning fileinput-exists">更改</button>
+                                    <input type="file" name="cover" />
+                                </span>
+                                <span class="">
+                                    <button class="btn btn-sm btn-danger fileinput-exists" data-dismiss="fileinput">移除</button>
+                                </span>
+                            </div>
                         </div>
+                        <div id="titleImageError" style="color: #a94442"></div>
+
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">更换封面图片</label>
-                        <div class="col-md-8 ">
-                            <div><input type="file" name="cover" placeholder="请上传封面图片"></div>
-                        </div>
-                    </div>
-                @else
-                    <div class="form-group">
-                        <label class="control-label col-md-2">上传封面图片</label>
-                        <div class="col-md-8 ">
-                            <div><input type="file" name="cover" placeholder="请上传封面图片"></div>
-                        </div>
-                    </div>
-                @endif
+                </div>
 
             </div>
             </form>

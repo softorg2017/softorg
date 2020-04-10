@@ -40,14 +40,21 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">标题</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="title" placeholder="请输入标题" value="{{$data->title or ''}}"></div>
+                        <input type="text" class="form-control" name="title" placeholder="请输入标题" value="{{$data->title or ''}}">
+                    </div>
+                </div>
+                {{--副标题--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">副标题</label>
+                    <div class="col-md-8 ">
+                        <input type="text" class="form-control" name="subtitle" placeholder="请输入副标题" value="{{$data->subtitle or ''}}">
                     </div>
                 </div>
                 {{--说明--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">描述</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="description" placeholder="描述" value="{{$data->description or ''}}"></div>
+                        <input type="text" class="form-control" name="description" placeholder="描述" value="{{$data->description or ''}}">
                     </div>
                 </div>
                 {{--目录--}}

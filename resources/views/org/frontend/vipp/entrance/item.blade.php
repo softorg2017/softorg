@@ -41,7 +41,7 @@
 @section('custom-content')
 
     {{--banner--}}
-    @include('templates.themes.vipp.component.banner1')
+    {{--@include('templates.themes.vipp.component.banner1')--}}
 
     {{--4栏--}}
     <div class="row full wrapper-content product-column product-four-column slide-to-top">

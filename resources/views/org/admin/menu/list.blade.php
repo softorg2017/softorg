@@ -200,11 +200,12 @@
                         render: function(value) {
                             var html =
                                 '<a class="btn btn-xs bg-purple" href="/org-admin/menu/items?id='+value+'">内容列表</a>'+
-                                '<a class="btn btn-xs menu-enable-submit" data-id="'+value+'">启用</a>'+
-                                '<a class="btn btn-xs menu-disable-submit" data-id="'+value+'">禁用</a>'+
+                                '<a class="btn btn-xs item-enable-submit" data-id="'+value+'">启用</a>'+
+                                '<a class="btn btn-xs item-disable-submit" data-id="'+value+'">禁用</a>'+
                                 '<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/statistics/menu?id='+value+'">流量统计</a>'+
-                                '<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/admin/menu/edit?id='+value+'">编辑</a>'+
-                                '<a class="btn btn-xs menu-delete-submit" data-id="'+value+'" >删除</a>';
+                                {{--'<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/menu/edit?id='+value+'">编辑</a>'+--}}
+                                '<a class="btn btn-xs item-edit-submit" data-id="'+value+'">编辑</a>'+
+                                '<a class="btn btn-xs item-delete-submit" data-id="'+value+'" >删除</a>';
                             return html;
                         }
                     }
@@ -280,8 +281,15 @@
 <script>
     $(function() {
 
+        // 【编辑】
+        $("#menu-main-body").on('click', ".item-edit-submit", function() {
+            var that = $(this);
+            {{--layer.msg("/{{config('common.org.admin.prefix')}}/menu/edit?id="+that.attr('data-id'));--}}
+                window.location.href = "/{{config('common.org.admin.prefix')}}/menu/edit?id="+that.attr('data-id');
+        });
+
         // 【删除】
-        $("#menu-main-body").on('click', ".menu-delete-submit", function() {
+        $("#menu-main-body").on('click', ".item-delete-submit", function() {
             var that = $(this);
             layer.msg('确定要删除该"目录"么', {
                 time: 0
@@ -304,7 +312,7 @@
         });
 
         // 【启用】
-        $("#menu-main-body").on('click', ".menu-enable-submit", function() {
+        $("#menu-main-body").on('click', ".item-enable-submit", function() {
             var that = $(this);
             layer.msg('确定启用该"目录"？', {
                 time: 0
@@ -327,7 +335,7 @@
         });
 
         // 【禁用】
-        $("#menu-main-body").on('click', ".menu-disable-submit", function() {
+        $("#menu-main-body").on('click', ".item-disable-submit", function() {
             var that = $(this);
             layer.msg('确定禁用该"目录"？', {
                 time: 0
