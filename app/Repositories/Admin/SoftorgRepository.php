@@ -1278,11 +1278,19 @@ class SoftorgRepository {
         $decode_id = decode($encode_id);
         if(intval($decode_id) !== 0 && !$decode_id) dd("参数有误");
 
-        $org_id = Auth::guard("admin")->user()->org_id;
-        $qrcode_path = "resource/org/".$org_id."/unique/";
+        $org_id = Auth::guard("org_admin")->user()->org_id;
+        $qrcode_path = "resource/org/item/";
 
         $sort = $post_data['sort'];
-        if($sort == "product")
+        if($sort == "item")
+        {
+            $qrcode = $qrcode_path."qrcode_item_".$encode_id.".png";
+        }
+        else if($sort == "org-item")
+        {
+            $qrcode = $qrcode_path."qrcode_org_item_".$encode_id.".png";
+        }
+        else if($sort == "product")
         {
             $qrcode = $qrcode_path."products/qrcode__product_".$encode_id.".png";
         }

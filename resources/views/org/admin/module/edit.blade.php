@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title')
     @if($operate == 'create') 添加模块 @else 编辑模块 @endif

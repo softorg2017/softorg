@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title','编辑机构(企业)信息')
 @section('header','编辑机构(企业)信息')
@@ -97,7 +97,35 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">微信二维码</label>
                     <div class="col-md-8 ">
-                        <div><input type="file" name="wechat_qrcode" placeholder="请上传微信二维码" value="{{$org->wechat_qrcode or ''}}"></div>
+                        <div><input type="file" name="wechat_qrcode-" placeholder="请上传微信二维码" value="{{$org->wechat_qrcode or ''}}"></div>
+                    </div>
+                </div>
+                {{--微信二维码--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">微信二维码</label>
+                    <div class="col-md-8 fileinput-group">
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                @if(!empty($org->wechat_qrcode))
+                                    <img src="{{ url(env('DOMAIN_CDN').'/'.$org->wechat_qrcode) }}" alt="" />
+                                @endif
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail">
+                            </div>
+                            <div class="btn-tool-group">
+                                <span class="btn-file">
+                                    <button class="btn btn-sm btn-primary fileinput-new">选择图片</button>
+                                    <button class="btn btn-sm btn-warning fileinput-exists">更改</button>
+                                    <input type="file" name="wechat_qrcode" />
+                                </span>
+                                <span class="">
+                                    <button class="btn btn-sm btn-danger fileinput-exists" data-dismiss="fileinput">移除</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="titleImageError" style="color: #a94442"></div>
+
                     </div>
                 </div>
                 {{--微博名称--}}
@@ -114,11 +142,33 @@
                         <div><input type="text" class="form-control" name="weibo_address" placeholder="请输入微博地址" value="{{$org->weibo_address or ''}}"></div>
                     </div>
                 </div>
+
                 {{--logo--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">logo</label>
-                    <div class="col-md-8 ">
-                        <div><input type="file" name="logo" placeholder="请上传logo" value="{{$org->logo or ''}}"></div>
+                    <div class="col-md-8 fileinput-group">
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                @if(!empty($org->logo))
+                                    <img src="{{ url(env('DOMAIN_CDN').'/'.$org->logo) }}" alt="" />
+                                @endif
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail">
+                            </div>
+                            <div class="btn-tool-group">
+                                <span class="btn-file">
+                                    <button class="btn btn-sm btn-primary fileinput-new">选择图片</button>
+                                    <button class="btn btn-sm btn-warning fileinput-exists">更改</button>
+                                    <input type="file" name="logo" />
+                                </span>
+                                <span class="">
+                                    <button class="btn btn-sm btn-danger fileinput-exists" data-dismiss="fileinput">移除</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="titleImageError" style="color: #a94442"></div>
+
                     </div>
                 </div>
 
@@ -146,7 +196,7 @@
         // 添加or修改产品信息
         $("#edit-softorg-submit").on('click', function() {
             var options = {
-                url: "{{url(config('common.org.admin.prefix').'/admin/info/edit')}}",
+                url: "{{url(config('common.org.admin.prefix').'/info/edit')}}",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -155,7 +205,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "{{url(config('common.org.admin.prefix').'/admin/info/index')}}";
+                        location.href = "{{url(config('common.org.admin.prefix').'/info/index')}}";
                     }
                 }
             };

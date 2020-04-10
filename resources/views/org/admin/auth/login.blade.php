@@ -5,13 +5,13 @@
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{url(config('common.org.admin.prefix').'/admin')}}"><b>轻机构</b> 后台登录</a>
+        <a href="{{url(config('common.org.admin.prefix').'/admin')}}"><b>登录入口</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">管理员登陆</p>
 
-        <form action="/admin/login" method="post" id="form-admin-login">
+        <form action="/org-admin/login" method="post" id="form-admin-login">
             {{ csrf_field() }}
             <div class="form-group has-feedback">
                 <input type="email" class="form-control" name="email" placeholder="邮箱">
@@ -65,7 +65,7 @@
         // 提交表单
         $("#admin-login-submit").on('click', function() {
             var options = {
-                url: "{{url(config('common.org.admin.prefix').'/admin/login')}}",
+                url: "{{url(config('common.org.admin.prefix').'/login')}}",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",

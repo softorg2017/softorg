@@ -20,7 +20,7 @@ class OrgAdminMiddleware
     {
         if(!Auth::guard('org_admin')->check()) // 未登录
         {
-            return redirect(config('common.org.admin.prefix').'/admin/login');
+            return redirect(config('common.org.admin.prefix').'/login');
             $return["status"] = false;
             $return["log"] = "admin-no-login";
             $return["msg"] = "请先登录";

@@ -1,11 +1,11 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title','编辑管理员信息')
 @section('header','编辑管理员信息')
 @section('description','编辑管理员信息')
 
 @section('breadcrumb')
-    <li><a href="{{url(config('common.org.admin.prefix').'/admin')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/')}}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -40,8 +40,29 @@
                 {{--portrait--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">头像</label>
-                    <div class="col-md-8 ">
-                        <div><input type="file" name="portrait_img" placeholder="请上传头像" value="{{$org->portrait_img or ''}}"></div>
+                    <div class="col-md-8 fileinput-group">
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                @if(!empty($me->portrait_img))
+                                    <img src="{{ url(env('DOMAIN_CDN').'/'.$me->portrait_img) }}" alt="" />
+                                @endif
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail">
+                            </div>
+                            <div class="btn-tool-group">
+                                <span class="btn-file">
+                                    <button class="btn btn-sm btn-primary fileinput-new">选择图片</button>
+                                    <button class="btn btn-sm btn-warning fileinput-exists">更改</button>
+                                    <input type="file" name="portrait_img" />
+                                </span>
+                                <span class="">
+                                    <button class="btn btn-sm btn-danger fileinput-exists" data-dismiss="fileinput">移除</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="titleImageError" style="color: #a94442"></div>
+
                     </div>
                 </div>
 
@@ -69,7 +90,7 @@
         // 添加or修改产品信息
         $("#edit-softorg-submit").on('click', function() {
             var options = {
-                url: "{{url(config('common.org.admin.prefix').'/admin/administrator/edit')}}",
+                url: "{{url(config('common.org.admin.prefix').'/administrator/edit')}}",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -78,7 +99,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "{{url(config('common.org.admin.prefix').'/admin/administrator/index')}}";
+                        location.href = "{{url(config('common.org.admin.prefix').'/administrator/index')}}";
                     }
                 }
             };

@@ -29,6 +29,12 @@ class ItemController extends Controller
         else if(request()->isMethod('post')) return $this->repo->get_list_datatable(request()->all());
     }
 
+    public function viewMenuItemsList()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_menu_items();
+        else if(request()->isMethod('post')) return $this->repo->get_menu_items_list_datatable(request()->all());
+    }
+
     public function createAction()
     {
         if(request()->isMethod('get')) return $this->repo->view_create();

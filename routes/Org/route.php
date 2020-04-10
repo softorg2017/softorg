@@ -4,7 +4,7 @@
 /*
  * 后台
  */
-Route::group(['prefix' => config('common.org.admin.prefix').'/admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => config('common.org.admin.prefix'), 'namespace' => 'Admin'], function () {
 
     App::setLocale("zh");
     Route::get('/i18n','IndexController@dataTableI18n');
@@ -26,15 +26,15 @@ Route::group(['prefix' => config('common.org.admin.prefix').'/admin', 'namespace
     Route::group(['middleware' => 'org.admin'], function () {
 
         Route::get('/', function () {
-            return view('admin.index');
+            return view('org.admin.index');
         });
 
         Route::get('/download_qrcode', function () {
-            return view('admin.index');
+            return view('org.admin.index');
         });
 
         Route::match(['get','post'], 'download_root_qrcode', 'SoftorgController@download_root_qrcode');
-        Route::match(['get','post'], 'download_qrcode', 'SoftorgController@download_qrcode');
+        Route::match(['get','post'], 'download-qrcode', 'SoftorgController@download_qrcode');
 
         // 机构模块
         Route::group(['prefix' => 'info'], function () {
@@ -155,6 +155,7 @@ Route::group(['prefix' => config('common.org.admin.prefix').'/admin', 'namespace
             Route::get('/', $controller.'@index');
             Route::get('index', $controller.'@index');
             Route::match(['get','post'], 'list', $controller.'@viewList');
+            Route::match(['get','post'], 'menu', $controller.'@viewMenuItemsList');
             Route::get('create', $controller.'@createAction');
             Route::match(['get','post'], 'edit', $controller.'@editAction');
             Route::post('delete', $controller.'@deleteAction');
@@ -297,8 +298,12 @@ Route::group(['prefix' => config('common.org.admin.prefix').'/admin', 'namespace
  */
 Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
 
+    $controller = "IndexController";
+    Route::get('item/{id?}', $controller.'@view_item');
+    Route::get('org-item/{id?}', $controller.'@view_item');
+
     // 前台主页
-    Route::group(['prefix' => config('common.org.front.index').'/{org_name}'], function () {
+    Route::group(['prefix' => 'org/{org_name}'], function () {
 
         $controller = "IndexController";
 

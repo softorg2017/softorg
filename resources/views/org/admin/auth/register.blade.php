@@ -1,11 +1,11 @@
 @extends('admin.layout.auth')
 
-@section('title','注册')
+@section('title','机构注册')
 
 @section('content')
 <div class="register-box">
     <div class="register-logo">
-        <a href="/admin"><b>Softorg</b> 注册</a>
+        <a href="/admin"><b>机构注册</b></a>
     </div>
 
     <div class="register-box-body">
@@ -21,20 +21,20 @@
                     <option value="5">企业</option>
                     <option value="11">个人用户</option>
                     <option value="19">个体工商户</option>
-                    <option value="1">机关单位</option>
-                    <option value="3">事业单位</option>
-                    <option value="7">社会团体</option>
-                    <option value="9">其他组织机构</option>
+                    {{--<option value="1">机关单位</option>--}}
+                    {{--<option value="3">事业单位</option>--}}
+                    {{--<option value="7">社会团体</option>--}}
+                    {{--<option value="9">其他组织机构</option>--}}
                     <option value="0">暂不选择</option>
                 </select>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="name" placeholder="机构全称">
+                <input type="text" class="form-control" name="name" placeholder="全称">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="website_name" placeholder="机构域名，唯一标识，仅限英文字符">
+                <input type="text" class="form-control" name="website_name" placeholder="机构号，唯一标识，不可修改，仅限英文字符">
                 <span class="glyphicon glyphicon-font form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

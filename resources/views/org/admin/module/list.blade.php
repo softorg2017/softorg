@@ -1,11 +1,12 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title','首页模块列表')
 @section('header','首页模块列表')
 @section('description','列表')
 @section('breadcrumb')
     <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
-    <li><a href="{{url(config('common.org.admin.prefix').'/admin/module/list')}}"><i class="fa "></i>首页模块列表</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/module/list')}}"><i class="fa "></i>首页模块列表</a></li>
+    <li><a href="#"><i class="fa "></i> Level</a></li>
 @endsection
 
 
@@ -19,7 +20,7 @@
                 <h3 class="box-title">首页模块列表</h3>
 
                 <div class="pull-right">
-                    <a href="{{url(config('common.org.admin.prefix').'/admin/module/create')}}">
+                    <a href="{{url(config('common.org.admin.prefix').'/module/create')}}">
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加首页模块</button>
                     </a>
                 </div>
@@ -41,9 +42,9 @@
                         <th>列数</th>
                         <th>目录</th>
                         <th>管理员</th>
-                        <th>状态</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     <tr>
@@ -56,18 +57,20 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-success">搜索</button>
-                                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">重置</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                            </div>
+                            <button type="button" class="btn btn-sm btn-success">搜索</button>
+                            <button type="button" class="btn btn-sm btn-success">重置</button>
+                            {{--<div class="btn-group">--}}
+                                {{--<button type="button" class="btn btn-sm btn-success">搜索</button>--}}
+                                {{--<button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown">--}}
+                                    {{--<span class="caret"></span>--}}
+                                    {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                                {{--</button>--}}
+                                {{--<ul class="dropdown-menu" role="menu">--}}
+                                    {{--<li><a href="#">重置</a></li>--}}
+                                    {{--<li class="divider"></li>--}}
+                                    {{--<li><a href="#">Separated link</a></li>--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
                         </td>
                     </tr>
                     </thead>
@@ -107,7 +110,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{url(config('common.org.admin.prefix').'/admin/module/list')}}",
+                    'url': "{{url(config('common.org.admin.prefix').'/module/list')}}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -179,15 +182,6 @@
                         }
                     },
                     {
-                        'data': 'active',
-                        'orderable': false,
-                        render: function(val) {
-                            if(val == 0) return '<small class="label bg-teal">未启用</small>';
-                            else if(val == 1) return '<small class="label bg-green">启</small>';
-                            else return '<small class="label bg-red">禁</small>';
-                        }
-                    },
-                    {
                         'data': 'created_at',
                         'orderable': true,
                         render: function(data) {
@@ -206,26 +200,23 @@
                         }
                     },
                     {
+                        'data': 'active',
+                        'orderable': false,
+                        render: function(val) {
+                            if(val == 0) return '<small class="label bg-teal">未启用</small>';
+                            else if(val == 1) return '<small class="label bg-green">启</small>';
+                            else return '<small class="label bg-red">禁</small>';
+                        }
+                    },
+                    {
                         'data': 'encode_id',
                         'orderable': false,
                         render: function(value) {
                             var html =
-                                    '<div class="btn-group">'+
-                                    '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
-                                    '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
-                                    '<span class="caret"></span>'+
-                                    '<span class="sr-only">Toggle Dropdown</span>'+
-                                    '</button>'+
-                                    '<ul class="dropdown-menu" role="menu">'+
-                                    '<li><a href="/{{config('common.org.admin.prefix')}}/admin/module/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a class="module-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a class="module-enable-submit" data-id="'+value+'">启用</a></li>'+
-                                    '<li><a class="module-disable-submit" data-id="'+value+'">禁用</a></li>'+
-                                    {{--'<li><a href="/{{config('common.org.admin.prefix')}}/admin/statistics/module?id='+value+'">流量统计</a></li>'+--}}
-                                    '<li class="divider"></li>'+
-                                    '<li><a href="#">Separated link</a></li>'+
-                                    '</ul>'+
-                                    '</div>';
+                                '<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/module/edit?id='+value+'">编辑</a>'+
+                                '<a class="btn btn-xs module-enable-submit" data-id="'+value+'">启用</a>'+
+                                '<a class="btn btn-xs module-disable-submit" data-id="'+value+'">禁用</a>'+
+                                '<a class="btn btn-xs module-delete-submit" data-id="'+value+'" >删除</a>';
                             return html;
                         }
                     }
@@ -301,6 +292,12 @@
 <script>
     $(function() {
 
+        // 【编辑】
+        $("#module-main-body").on('click', ".module-edit-submit", function() {
+            window.location.href = "{{config('common.org.admin.prefix')}}/module/edit?id='+value+'";
+            config('common.org.admin.prefix').
+        });
+
         // 【删除】
         $("#module-main-body").on('click', ".module-delete-submit", function() {
             var that = $(this);
@@ -309,7 +306,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "{{url(config('common.org.admin.prefix').'/admin/module/delete')}}",
+                            "{{url(config('common.org.admin.prefix').'/module/delete')}}",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')

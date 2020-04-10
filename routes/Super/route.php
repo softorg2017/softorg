@@ -4,7 +4,7 @@
 /*
  * 超级后台
  */
-Route::group(['prefix' => 'super/admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'super-admin', 'namespace' => 'Admin'], function () {
 
 
     // 登录

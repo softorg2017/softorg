@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title','企业站')
 

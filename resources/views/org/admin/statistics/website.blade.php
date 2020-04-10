@@ -1,11 +1,11 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title','流量统计')
 @section('header','流量统计')
 @section('description','流量统计')
 @section('breadcrumb')
-    <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{url('/admin/survey/list')}}"><i class="fa "></i>流量统计</a></li>
+    <li><a href="{{url('/')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url('/survey/list')}}"><i class="fa "></i>流量统计</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 

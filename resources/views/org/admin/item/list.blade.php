@@ -1,11 +1,11 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title','内容列表')
 @section('header','内容列表')
 @section('description','内容列表')
 @section('breadcrumb')
-    <li><a href="{{url(config('common.org.admin.prefix').'/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{url(config('common.org.admin.prefix').'/admin/product/list')}}"><i class="fa "></i>内容列表</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/product/list')}}"><i class="fa "></i>内容列表</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -22,7 +22,7 @@
                 <div class="caption">
                     <i class="icon-pin font-blue"></i>
                     <span class="caption-subject font-blue sbold uppercase"></span>
-                    <a href="{{url(config('common.org.admin.prefix').'/admin/item/create')}}">
+                    <a href="{{url(config('common.org.admin.prefix').'/item/create')}}">
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加内容</button>
                     </a>
                 </div>
@@ -34,18 +34,18 @@
                 </div>
             </div>
 
-            <div class="box-body" id="product-main-body">
+            <div class="box-body" id="item-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
                     <tr role='row' class='heading'>
                         <th>标题</th>
                         <th>所属目录</th>
-                        <th>管理员</th>
                         <th>浏览次数</th>
-                        <th>状态</th>
+                        <th>管理员</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     <tr>
@@ -101,12 +101,13 @@
 
             var dt = $('#datatable_ajax');
             var ajax_datatable = dt.DataTable({
-                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
+//                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
+                "aLengthMenu": [[20, 50, 200], ["20", "50", "200"]],
                 "processing": true,
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{url(config('common.org.admin.prefix').'/admin/item/list')}}",
+                    'url': "{{url(config('common.org.admin.prefix').'/item/list')}}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -131,7 +132,7 @@
                         "data": "encode_id",
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/org/item/'+data+'">'+row.title+'</a>';
+                            return '<a target="_blank" href="/item/'+data+'">'+row.title+'</a>';
                         }
                     },
                     {
@@ -141,16 +142,9 @@
 //                            return row.menu == null ? '未分类' : row.menu.name;
                             var html = '';
                             $.each(data,function( key, val ) {
-                                html += '<a href="/org/admin/menu/items?id='+this.encode_id+'">'+this.title+'</a><br>';
+                                html += '<a href="/org-admin/item/menu?id='+this.encode_id+'">'+this.title+'</a><br>';
                             });
                             return html;
-                        }
-                    },
-                    {
-                        "data": "id",
-                        'orderable': false,
-                        render: function(data, type, row, meta) {
-                            return row.admin == null ? '未知' : row.admin.nickname;
                         }
                     },
                     {
@@ -161,12 +155,10 @@
                         }
                     },
                     {
-                        'data': 'active',
+                        "data": "id",
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            if(data == 0) return '<small class="label bg-teal">未启用</small>';
-                            else if(data == 1) return '<small class="label bg-green">启</small>';
-                            else return '<small class="label bg-red">禁</small>';
+                            return row.admin == null ? '未知' : row.admin.nickname;
                         }
                     },
                     {
@@ -188,27 +180,26 @@
                         }
                     },
                     {
+                        'data': 'active',
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+                            if(data == 0) return '<small class="label bg-teal">未启用</small>';
+                            else if(data == 1) return '<small class="label bg-green">启</small>';
+                            else return '<small class="label bg-red">禁</small>';
+                        }
+                    },
+                    {
                         'data': 'encode_id',
                         'orderable': false,
                         render: function(value) {
                             var html =
-                                    '<div class="btn-group">'+
-                                    '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
-                                    '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
-                                    '<span class="caret"></span>'+
-                                    '<span class="sr-only">Toggle Dropdown</span>'+
-                                    '</button>'+
-                                    '<ul class="dropdown-menu" role="menu">'+
-                                    '<li><a href="/{{config('common.org.admin.prefix')}}/admin/item/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a class="product-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a class="product-enable-submit" data-id="'+value+'">启用</a></li>'+
-                                    '<li><a class="product-disable-submit" data-id="'+value+'">禁用</a></li>'+
-                                    '<li><a href="/{{config('common.org.admin.prefix')}}/admin/statistics/item?id='+value+'">流量统计</a></li>'+
-                                    '<li><a class="download-qrcode" data-id="'+value+'">下载二维码</a></li>'+
-                                    '<li class="divider"></li>'+
-                                    '<li><a href="#">Separated link</a></li>'+
-                                    '</ul>'+
-                                    '</div>';
+                                '<a class="btn btn-xs item-enable-submit" data-id="'+value+'">启用</a>'+
+                                '<a class="btn btn-xs item-disable-submit" data-id="'+value+'">禁用</a>'+
+                                '<a class="btn btn-xs item-download-qrcode-submit" data-id="'+value+'">下载二维码</a>'+
+                                '<a class="btn btn-xs item-statistics-submit" data-id="'+value+'">流量统计</a>'+
+                                {{--'<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/item/edit?id='+value+'">编辑</a> '+--}}
+                                '<a class="btn btn-xs item-edit-submit" data-id="'+value+'">编辑</a>'+
+                                '<a class="btn btn-xs item-delete-submit" data-id="'+value+'" >删除</a>';
                             return html;
                         }
                     }
@@ -284,15 +275,34 @@
 <script>
     $(function() {
 
+        // 【下载二维码】
+        $("#item-main-body").on('click', ".item-download-qrcode-submit", function() {
+            var that = $(this);
+            window.open("/{{config('common.org.admin.prefix')}}/download-qrcode?sort=org-item&id="+that.attr('data-id'));
+        });
+
+        // 【数据分析】
+        $("#item-main-body").on('click', ".item-statistics-submit", function() {
+            var that = $(this);
+            window.open("/{{config('common.org.admin.prefix')}}/statistics/item?id="+that.attr('data-id'));
+        });
+
+        // 【编辑】
+        $("#item-main-body").on('click', ".item-edit-submit", function() {
+            var that = $(this);
+            {{--layer.msg("/{{config('common.org.admin.prefix')}}/item/edit?id="+that.attr('data-id'));--}}
+            window.location.href = "/{{config('common.org.admin.prefix')}}/item/edit?id="+that.attr('data-id');
+        });
+
         // 【删除】
-        $("#product-main-body").on('click', ".product-delete-submit", function() {
+        $("#item-main-body").on('click', ".item-delete-submit", function() {
             var that = $(this);
             layer.msg('确定要删除该"产品"么', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "{{url(config('common.org.admin.prefix').'/admin/item/delete')}}",
+                            "{{url(config('common.org.admin.prefix').'/item/delete')}}",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')
@@ -308,14 +318,14 @@
         });
 
         // 【启用】
-        $("#product-main-body").on('click', ".product-enable-submit", function() {
+        $("#item-main-body").on('click', ".item-enable-submit", function() {
             var that = $(this);
             layer.msg('确定启用该"产品"？', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "{{url(config('common.org.admin.prefix').'/admin/item/enable')}}",
+                            "{{url(config('common.org.admin.prefix').'/item/enable')}}",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')
@@ -331,14 +341,14 @@
         });
 
         // 【禁用】
-        $("#product-main-body").on('click', ".product-disable-submit", function() {
+        $("#item-main-body").on('click', ".item-disable-submit", function() {
             var that = $(this);
             layer.msg('确定禁用该"产品"？', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "{{url(config('common.org.admin.prefix').'/admin/item/disable')}}",
+                            "{{url(config('common.org.admin.prefix').'/item/disable')}}",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')
@@ -351,12 +361,6 @@
                     );
                 }
             });
-        });
-
-        // 【下载】 二维码
-        $("#product-main-body").on('click', ".download-qrcode", function() {
-            var that = $(this);
-            window.open('/admin/download_qrcode?sort=item&id='+that.attr('data-id'));
         });
 
     });

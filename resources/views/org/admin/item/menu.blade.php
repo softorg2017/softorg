@@ -1,10 +1,11 @@
-@extends('super.admin.layout.layout')
+@extends('org.admin.layout.layout')
 
-@section('title','Organization.机构列表')
-@section('header','Organization.机构列表')
-@section('description','列表')
+@section('title') {{$data->title}} @endsection
+@section('header')【目录内容】@endsection
+@section('description','内容列表')
 @section('breadcrumb')
-    <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/item/list')}}"><i class="fa "></i>内容列表</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -16,41 +17,38 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">机构列表</h3>
+                <h3 class="box-title">【目录】{{$data->title}} </h3> 内容列表
 
-                <div class="pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
+                <div class="caption">
+                    <i class="icon-pin font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase"></span>
+                    <a href="{{url(config('common.org.admin.prefix').'/item/create')}}">
+                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加内容</button>
+                    </a>
+                </div>
+                <div class="pull-right" style="display:none;">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+                        <i class="fa fa-times"></i></button>
                 </div>
             </div>
 
-            <div class="box-body" id="org-main-body">
+            <div class="box-body" id="item-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
                     <tr role='row' class='heading'>
-                        <th>#ID</th>
-                        <th>名称</th>
-                        <th>域名</th>
-                        <th>类型</th>
-                        <th>状态</th>
-                        <th>产品</th>
-                        <th>文章</th>
-                        <th>活动</th>
-                        <th>问卷</th>
-                        <th>访问数</th>
-                        <th>分享数</th>
-                        <th>注册时间</th>
+                        <th>标题</th>
+                        <th>所属目录</th>
+                        <th>浏览次数</th>
+                        <th>管理员</th>
+                        <th>创建时间</th>
                         <th>修改时间</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -82,8 +80,8 @@
 
             <div class="box-footer">
                 <div class="row" style="margin:16px 0;">
-                    <div class="col-md-9">
-                        <button type="button" onclick="" class="btn btn-primary"><i class="fa fa-check"></i> 提交</button>
+                    <div class="col-md-offset-0 col-md-9">
+                        <button type="button" onclick="" class="btn btn-primary _none"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
                     </div>
                 </div>
@@ -103,16 +101,26 @@
 
             var dt = $('#datatable_ajax');
             var ajax_datatable = dt.DataTable({
-                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
+                "aLengthMenu": [[20, 50, 200], ["20", "50", "200"]],
                 "processing": true,
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': '/super/admin/org/list',
+                    'url': "{{url(config('common.org.admin.prefix').'/menu/items?id='.$encode_id)}}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
                         d._token = $('meta[name="_token"]').attr('content');
+//                        d.nickname 	= $('input[name="nickname"]').val();
+//                        d.certificate_type_id = $('select[name="certificate_type_id"]').val();
+//                        d.certificate_state = $('select[name="certificate_state"]').val();
+//                        d.admin_name = $('input[name="admin_name"]').val();
+//
+//                        d.created_at_from = $('input[name="created_at_from"]').val();
+//                        d.created_at_to = $('input[name="created_at_to"]').val();
+//                        d.updated_at_from = $('input[name="updated_at_from"]').val();
+//                        d.updated_at_to = $('input[name="updated_at_to"]').val();
+
                     },
                 },
                 "pagingType": "simple_numbers",
@@ -120,80 +128,36 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
-                        "data": "id",
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? '' : val;
-                        }
-                    },
-                    {
-                        'data': 'website_name',
+                        "data": "encode_id",
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/org/'+row.website_name+'">'+row.name+'</a>';
+                            return '<a target="_blank" href="/item/'+data+'">'+row.title+'</a>';
                         }
                     },
                     {
-                        'data': 'website_name',
+                        'data': 'menus',
                         'orderable': false,
-                        render: function(val) {
-                            return val == null ? '' : val;
-                        }
-                    },
-                    {
-                        'data': 'type',
-                        'orderable': true,
-                        render: function(val) {
-                            return val == null ? '' : val;
-                        }
-                    },
-                    {
-                        "data": "status",
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? '' : val;
-                        }
-                    },
-                    {
-                        'data': 'products_count',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
-                        }
-                    },
-                    {
-                        'data': 'articles_count',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
-                        }
-                    },
-                    {
-                        'data': 'activities_count',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
-                        }
-                    },
-                    {
-                        'data': 'surveys_count',
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
+                        render: function(data, type, row, meta) {
+//                            return row.menu == null ? '未分类' : row.menu.name;
+                            var html = '';
+                            $.each(data,function( key, val ) {
+                                html += '<a href="/{{config('common.org.admin.prefix')}}/item/menu?id='+this.encode_id+'">'+this.title+'</a><br>';
+                            });
+                            return html;
                         }
                     },
                     {
                         'data': 'visit_num',
                         'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
+                        render: function(data, type, row, meta) {
+                            return data == null ? 0 : data;
                         }
                     },
                     {
-                        'data': 'share_num',
+                        "data": "id",
                         'orderable': false,
-                        render: function(val) {
-                            return val == null ? 0 : val;
+                        render: function(data, type, row, meta) {
+                            return row.admin == null ? '未知' : row.admin.nickname;
                         }
                     },
                     {
@@ -215,38 +179,26 @@
                         }
                     },
                     {
-                        'data': 'id',
+                        'data': 'active',
                         'orderable': false,
                         render: function(data, type, row, meta) {
-
-                            var value = row.id;
-
-                            var apply_html= "";
-                            if(row.is_apply == 1) apply_html = '<li><a href="/admin/apply/list?sort=activity&id='+value+'">报名列表</a></li>';
-
-                            var sign_html= "";
-                            if(row.is_sign == 1) sign_html = '<li><a href="/admin/sign/list?sort=activity&id='+value+'">签到列表</a></li>';
-
+                            if(data == 0) return '<small class="label bg-teal">未启用</small>';
+                            else if(data == 1) return '<small class="label bg-green">启</small>';
+                            else return '<small class="label bg-red">禁</small>';
+                        }
+                    },
+                    {
+                        'data': 'encode_id',
+                        'orderable': false,
+                        render: function(value) {
                             var html =
-                                    '<div class="btn-group">'+
-                                    '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
-                                    '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
-                                    '<span class="caret"></span>'+
-                                    '<span class="sr-only">Toggle Dropdown</span>'+
-                                    '</button>'+
-                                    '<ul class="dropdown-menu" role="menu">'+
-                                    '<li><a href="/admin/activity/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a class="activity-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a class="activity-enable-submit" data-id="'+value+'">启用</a></li>'+
-                                    '<li><a class="activity-disable-submit" data-id="'+value+'">禁用</a></li>'+
-                                    apply_html+
-                                    sign_html+
-                                    '<li><a href="/admin/statistics/page?sort=activity&id='+value+'">流量统计</a></li>'+
-                                    '<li><a class="download-qrcode" data-id="'+value+'">下载二维码</a></li>'+
-                                    '<li class="divider"></li>'+
-                                    '<li><a href="#">Separated link</a></li>'+
-                                    '</ul>'+
-                                    '</div>';
+                                '<a class="btn btn-xs item-enable-submit" data-id="'+value+'">启用</a>'+
+                                '<a class="btn btn-xs item-disable-submit" data-id="'+value+'">禁用</a>'+
+                                '<a class="btn btn-xs item-download-qrcode-submit" data-id="'+value+'">下载二维码</a>'+
+                                '<a class="btn btn-xs item-statistics-submit" data-id="'+value+'">流量统计</a>'+
+                                {{--'<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/item/edit?id='+value+'">编辑</a> '+--}}
+                                '<a class="btn btn-xs item-edit-submit" data-id="'+value+'">编辑</a>'+
+                                '<a class="btn btn-xs item-delete-submit" data-id="'+value+'" >删除</a>';
                             return html;
                         }
                     }
@@ -322,15 +274,28 @@
 <script>
     $(function() {
 
-        // 【删除】 活动
-        $("#org-main-body").on('click', ".org-delete-submit", function() {
+        // 【下载二维码】
+        $("#item-main-body").on('click', ".item-download-qrcode-submit", function() {
             var that = $(this);
-            layer.msg('确定要删除该"机构"么', {
+            window.open("/{{config('common.org.admin.prefix')}}/download-qrcode?sort=org-item&id="+that.attr('data-id'));
+        });
+
+        // 【编辑】
+        $("#item-main-body").on('click', ".item-edit-submit", function() {
+            var that = $(this);
+            {{--layer.msg("/{{config('common.org.admin.prefix')}}/item/edit?id="+that.attr('data-id'));--}}
+                window.location.href = "/{{config('common.org.admin.prefix')}}/item/edit?id="+that.attr('data-id');
+        });
+
+        // 【删除】
+        $("#item-main-body").on('click', ".item-delete-submit", function() {
+            var that = $(this);
+            layer.msg('确定要删除么', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "/super/org/org/delete",
+                            "{{url(config('common.org.admin.prefix').'/item/delete')}}",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')
@@ -345,15 +310,15 @@
             });
         });
 
-        // 【启用】 活动
-        $("#org-main-body").on('click', ".org-enable-submit", function() {
+        // 【启用】
+        $("#item-main-body").on('click', ".item-enable-submit", function() {
             var that = $(this);
-            layer.msg('确定启用该"机构"？', {
+            layer.msg('确定启用？', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "/super/org/org/enable",
+                            "{{url(config('common.org.admin.prefix').'/item/enable')}}",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')
@@ -368,15 +333,15 @@
             });
         });
 
-        // 【禁用】 活动
-        $("#org-main-body").on('click', ".org-disable-submit", function() {
+        // 【禁用】
+        $("#item-main-body").on('click', ".item-disable-submit", function() {
             var that = $(this);
-            layer.msg('确定禁用该"机构"？', {
+            layer.msg('确定禁用？', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "/super/org/org/disable",
+                            "{{url(config('common.org.admin.prefix').'/item/disable')}}",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')
@@ -389,12 +354,6 @@
                     );
                 }
             });
-        });
-
-        // 【下载】 二维码
-        $("#org-main-body").on('click', ".download-qrcode", function() {
-            var that = $(this);
-            window.open('/super/download_qrcode?sort=org&id='+that.attr('data-id'));
         });
 
     });

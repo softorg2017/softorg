@@ -25,23 +25,33 @@
             ],
         ],
 
+        'reserved_keyword' => [
+            'item', 'menu', 'module', 'keyword'
+        ],
+
+
         'website' => [
             'front' => [
                 'prefix' => 'org'
             ],
         ],
 
-        'org' => [
 
+        'super' => [
+            'admin' => [
+                'prefix' => 'super-admin'
+            ],
+        ],
+
+
+        'org' => [
             'front' => [
                 'prefix' => 'org',
-                'index' => 'o'
+                'index' => 'org'
             ],
-
             'admin' => [
-                'prefix' => 'org'
+                'prefix' => 'org-admin'
             ],
-
             'view' => [
                 'frontend' => [
                     'template' => 'online',
@@ -52,6 +62,7 @@
                 ],
             ],
         ],
+
 
         'common' => [
             'module' => [

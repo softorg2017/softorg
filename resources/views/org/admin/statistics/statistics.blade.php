@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title','页面流量统计')
 @section('header','页面流量统计')

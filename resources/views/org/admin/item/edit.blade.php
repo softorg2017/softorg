@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title')
     @if($operate == 'create') 添加内容 @else 编辑内容 @endif
@@ -13,8 +13,8 @@
 @endsection
 
 @section('breadcrumb')
-    <li><a href="{{url(config('common.org.admin.prefix').'/admin')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{url(config('common.org.admin.prefix').'/admin/item/list')}}"><i class="fa "></i> 内容列表</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/item/list')}}"><i class="fa "></i> 内容列表</a></li>
     <li><a href="#"><i class="fa "></i> Here</a></li>
 @endsection
 
@@ -96,28 +96,34 @@
                         </div>
                     </div>
                 </div>
-                {{--cover 封面图片--}}
-                @if(!empty($data->cover_pic))
+                {{--cover--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">封面图片</label>
-                    <div class="col-md-8 ">
-                        <div class="edit-img"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$data->cover_pic)}}" alt=""></div>
+                    <div class="col-md-8 fileinput-group">
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                @if(!empty($data->cover_pic))
+                                    <img src="{{ url(env('DOMAIN_CDN').'/'.$data->cover_pic) }}" alt="" />
+                                @endif
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail">
+                            </div>
+                            <div class="btn-tool-group">
+                                <span class="btn-file">
+                                    <button class="btn btn-sm btn-primary fileinput-new">选择图片</button>
+                                    <button class="btn btn-sm btn-warning fileinput-exists">更改</button>
+                                    <input type="file" name="cover" />
+                                </span>
+                                <span class="">
+                                    <button class="btn btn-sm btn-danger fileinput-exists" data-dismiss="fileinput">移除</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="titleImageError" style="color: #a94442"></div>
+
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">更换封面图片</label>
-                    <div class="col-md-8 ">
-                        <div><input type="file" name="cover" placeholder="请上传封面图片"></div>
-                    </div>
-                </div>
-                @else
-                <div class="form-group">
-                    <label class="control-label col-md-2">上传封面图片</label>
-                    <div class="col-md-8 ">
-                        <div><input type="file" name="cover" placeholder="请上传封面图片"></div>
-                    </div>
-                </div>
-                @endif
 
             </div>
             </form>
@@ -150,7 +156,7 @@
         // 添加or编辑
         $("#edit-item-submit").on('click', function() {
             var options = {
-                url: "{{url(config('common.org.admin.prefix').'/admin/item/edit')}}",
+                url: "{{url(config('common.org.admin.prefix').'/item/edit')}}",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -159,7 +165,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "{{url(config('common.org.admin.prefix').'/admin/item/list')}}";
+                        location.href = "{{url(config('common.org.admin.prefix').'/item/list')}}";
                     }
                 }
             };
@@ -168,7 +174,7 @@
 
         $('#menus').select2({
             ajax: {
-                url: "{{url(config('common.org.admin.prefix').'/admin/item/select2_menus')}}",
+                url: "{{url(config('common.org.admin.prefix').'/item/select2_menus')}}",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {

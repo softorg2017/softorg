@@ -1,10 +1,10 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title','softorg')
-@section('header','机构(企业)基本信息')
+@section('header','基本信息')
 @section('description','机构(企业)基本信息')
 @section('breadcrumb')
-    <li><a href="{{url(config('common.org.admin.prefix').'/admin')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url(config('common.org.admin.prefix').'/')}}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -16,9 +16,9 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin: 15px 0;">
-                <h3 class="box-title">机构(企业)基本信息</h3>
+                <h3 class="box-title">基本信息</h3>
                 <div class="pull-right">
-                    <a href="{{url(config('common.org.admin.prefix').'/admin/info/edit')}}">
+                    <a href="{{url(config('common.org.admin.prefix').'/info/edit')}}">
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa "></i>编辑信息</button>
                     </a>
                 </div>
@@ -93,7 +93,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">微信二维码：</label>
                     <div class="col-md-8 ">
-                        <div class="info-img-block"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$org->wechat_qrcode)}}" alt=""></div>
+                        <div class="info-img-block"><img src="{{ url(env('DOMAIN_CDN').'/'.$org->wechat_qrcode) }}" alt=""></div>
                     </div>
                 </div>
                 {{--微博--}}
@@ -114,7 +114,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">logo：</label>
                     <div class="col-md-8 ">
-                        <div class="info-img-block"><img src="{{url(config('common.host.'.env('APP_ENV').'.cdn').'/'.$org->logo)}}" alt=""></div>
+                        <div class="info-img-block"><img src="{{ url(env('DOMAIN_CDN').'/'.$org->logo) }}" alt=""></div>
                     </div>
                 </div>
                 {{--qrcode--}}
@@ -129,7 +129,10 @@
 
             <div class="box-footer">
                 <div class="row" style="margin:16px 0;">
-                    <div class="col-md-8">
+                    <div class="col-md-8 col-md-offset-2">
+                        <a href="{{url(config('common.org.admin.prefix').'/info/edit')}}">
+                            <button type="button" onclick="" class="btn btn-success"><i class="fa "></i>编辑信息</button>
+                        </a>
                         <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
                     </div>
                 </div>

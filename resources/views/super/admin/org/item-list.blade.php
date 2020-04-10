@@ -168,21 +168,10 @@
                             var value = row.id;
 
                             var html =
-                                    '<div class="btn-group">'+
-                                    '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
-                                    '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
-                                    '<span class="caret"></span>'+
-                                    '<span class="sr-only">Toggle Dropdown</span>'+
-                                    '</button>'+
-                                    '<ul class="dropdown-menu" role="menu">'+
-                                    '<li><a href="/admin/item/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a class="item-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a class="item-enable-submit" data-id="'+value+'">启用</a></li>'+
-                                    '<li><a class="item-disable-submit" data-id="'+value+'">禁用</a></li>'+
-                                    '<li class="divider"></li>'+
-                                    '<li><a href="#">Separated link</a></li>'+
-                                    '</ul>'+
-                                    '</div>';
+                                '<a href="/admin/item/edit?id='+value+'">编辑</a> '+
+                                '<a class="item-enable-submit" data-id="'+value+'">启用</a> '+
+                                '<a class="item-disable-submit" data-id="'+value+'">禁用</a> '+
+                                '<a class="item-delete-submit" data-id="'+value+'" >删除</a> '+
                             return html;
                         }
                     }
@@ -266,16 +255,16 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "/super/admin/org/item/delete",
-                            {
-                                _token: $('meta[name="_token"]').attr('content'),
-                                id:that.attr('data-id')
-                            },
-                            function(data){
-                                if(!data.success) layer.msg(data.msg);
-                                else location.reload();
-                            },
-                            'json'
+                        "{{url(config('common.org.admin.prefix').'/item/delete')}}",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            id:that.attr('data-id')
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else location.reload();
+                        },
+                        'json'
                     );
                 }
             });
@@ -289,16 +278,16 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "/super/admin/org/item/enable",
-                            {
-                                _token: $('meta[name="_token"]').attr('content'),
-                                id:that.attr('data-id')
-                            },
-                            function(data){
-                                if(!data.success) layer.msg(data.msg);
-                                else location.reload();
-                            },
-                            'json'
+                        "{{url(config('common.org.admin.prefix').'/item/enable')}}",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            id:that.attr('data-id')
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else location.reload();
+                        },
+                        'json'
                     );
                 }
             });
@@ -312,7 +301,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                            "/super/admin/org/item/disable",
+                            "/super-admin/org/item/disable",
                             {
                                 _token: $('meta[name="_token"]').attr('content'),
                                 id:that.attr('data-id')

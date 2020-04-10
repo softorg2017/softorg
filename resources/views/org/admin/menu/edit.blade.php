@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('org.admin.layout.layout')
 
 @section('title')
     @if($operate == 'create') 添加目录 @else 编辑目录 @endif
@@ -110,7 +110,7 @@
         // 添加or编辑
         $("#edit-menu-submit").on('click', function() {
             var options = {
-                url: "{{url(config('common.org.admin.prefix').'/admin/menu/edit')}}",
+                url: "{{url(config('common.org.admin.prefix').'/menu/edit')}}",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -119,7 +119,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "{{url(config('common.org.admin.prefix').'/admin/menu/list')}}";
+                        location.href = "{{url(config('common.org.admin.prefix').'/menu/list')}}";
                     }
                 }
             };

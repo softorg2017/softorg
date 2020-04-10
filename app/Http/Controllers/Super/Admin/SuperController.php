@@ -27,7 +27,7 @@ class SuperController extends Controller
     // 【机构】列表
     public function view_org_list()
     {
-        if(request()->isMethod('get')) return view('super.admin.org.list.org');
+        if(request()->isMethod('get')) return view('super.admin.org.org-list');
         else if(request()->isMethod('post')) return $this->repo->get_org_list_datatable(request()->all());
     }
 
@@ -36,14 +36,14 @@ class SuperController extends Controller
     // 【目录】列表
     public function view_org_menu_list()
     {
-        if(request()->isMethod('get')) return view('super.admin.org.list.menu');
+        if(request()->isMethod('get')) return view('super.admin.org.menu-list');
         else if(request()->isMethod('post')) return $this->repo->get_org_menu_list_datatable(request()->all());
     }
 
     // 【内容】列表
     public function view_org_item_list()
     {
-        if(request()->isMethod('get')) return view('super.admin.org.list.item');
+        if(request()->isMethod('get')) return view('super.admin.org.item-list');
         else if(request()->isMethod('post')) return $this->repo->get_org_item_list_datatable(request()->all());
     }
 

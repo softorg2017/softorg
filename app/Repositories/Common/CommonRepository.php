@@ -48,6 +48,49 @@ class CommonRepository {
         return ["status" => true, "info" => "上传成功", "data" => $destinationPath . $fileName, "fileName"=>$fileName];
     }
 
+
+
+
+    // 生成详细页面二维码
+    public function create_qrcode($qrcode_path, $logo_path, $name)
+    {
+
+        // 创建画布
+        $img = Image::canvas(400, 400, '#fafafa');
+
+
+        if(file_exists(storage_path($qrcode_path)))
+        {
+            $qrcode = Image::make(storage_path($qrcode_path));
+            $img->insert($qrcode, 'bottom-right',20, 20);
+        }
+
+//        if(file_exists(storage_path($logo_path)))
+//        {
+//            $logo = Image::make(storage_path($logo_path));
+//            $logo->resize(40, 40);
+//
+//            // define polygon points
+//            $points = array(
+//                1,  1,  // Point 1 (x, y)
+//                39,  1, // Point 2 (x, y)
+//                39,  39,  // Point 3 (x, y)
+//                1, 39,  // Point 4 (x, y)
+//            );
+//            $logo->polygon($points, function ($draw) {
+////            $draw->background('#0000ff');
+//                $draw->border(1, '#ffffff');
+//            });
+//
+//            $img->insert($logo, 'bottom-right',180, 180);
+//        }
+
+        return $img->save(storage_path($name));
+    }
+
+
+
+
     // 生成机构根二维码
     public function create_root_qrcode($name, $org_name, $qrcode_path, $logo_path)
     {
@@ -114,6 +157,7 @@ class CommonRepository {
         return $img->save(storage_path($name));
 
     }
+
 
     // 生成详细页面二维码
     public function create_qrcode_image($org_name, $type_string, $title, $qrcode_path, $logo_path, $name)
@@ -196,6 +240,9 @@ class CommonRepository {
 
         return $img->save(storage_path($name));
     }
+
+
+
 
     public function autowrap($font_size, $angle, $font_face, $string, $width)
     {
