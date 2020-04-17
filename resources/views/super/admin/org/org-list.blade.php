@@ -24,16 +24,15 @@
                 </div>
             </div>
 
-            <div class="box-body" id="org-main-body">
+            <div class="box-body datatable-body" id="org-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
                     <tr role='row' class='heading'>
                         <th>#ID</th>
                         <th>名称</th>
-                        <th>域名</th>
+                        <th>如未号</th>
                         <th>类型</th>
-                        <th>状态</th>
                         <th>产品</th>
                         <th>文章</th>
                         <th>活动</th>
@@ -42,6 +41,7 @@
                         <th>分享数</th>
                         <th>注册时间</th>
                         <th>修改时间</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     <tr>
@@ -148,13 +148,6 @@
                         }
                     },
                     {
-                        "data": "status",
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? '' : val;
-                        }
-                    },
-                    {
                         'data': 'products_count',
                         'orderable': false,
                         render: function(val) {
@@ -202,7 +195,8 @@
                         render: function(data) {
                             newDate = new Date();
                             newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
+//                            return newDate.toLocaleString('chinese',{hour12:false});
+                            return newDate.toLocaleDateString();
                         }
                     },
                     {
@@ -211,46 +205,38 @@
                         render: function(data) {
                             newDate = new Date();
                             newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
+//                            return newDate.toLocaleString('chinese',{hour12:false});
+                            return newDate.toLocaleDateString();
                         }
                     },
                     {
-                        'data': 'id',
+                        "data": "status",
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? '' : val;
+                        }
+                    },
+                    {
+                        'data': 'encode_id',
                         'orderable': false,
                         render: function(data, type, row, meta) {
 
-                            var value = row.id;
+                            var value = row.encode_id;
 
                             var apply_html= "";
-                            if(row.is_apply == 1) apply_html = '<li><a href="/admin/apply/list?sort=activity&id='+value+'">报名列表</a></li>';
+                            if(row.is_apply == 1) apply_html = '<a href="/admin/apply/list?sort=activity&id='+value+'">报名列表</a></li>';
 
                             var sign_html= "";
-                            if(row.is_sign == 1) sign_html = '<li><a href="/admin/sign/list?sort=activity&id='+value+'">签到列表</a></li>';
+                            if(row.is_sign == 1) sign_html = '<a href="/admin/sign/list?sort=activity&id='+value+'">签到列表</a></li>';
 
                             var html =
-                                '<a href="/admin/activity/edit?id='+value+'">编辑</a> '+
-                                '<a class="activity-delete-submit" data-id="'+value+'" >删除</a> '+
-                                '<a class="activity-enable-submit" data-id="'+value+'">启用</a> '+
-                                '<a class="activity-disable-submit" data-id="'+value+'">禁用</a> '+
-                                    '<div class="btn-group">'+
-                                    '<button type="button" class="btn btn-sm btn-primary">操作</button>'+
-                                    '<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
-                                    '<span class="caret"></span>'+
-                                    '<span class="sr-only">Toggle Dropdown</span>'+
-                                    '</button>'+
-                                    '<ul class="dropdown-menu" role="menu">'+
-                                    '<li><a href="/admin/activity/edit?id='+value+'">编辑</a></li>'+
-                                    '<li><a class="activity-delete-submit" data-id="'+value+'" >删除</a></li>'+
-                                    '<li><a class="activity-enable-submit" data-id="'+value+'">启用</a></li>'+
-                                    '<li><a class="activity-disable-submit" data-id="'+value+'">禁用</a></li>'+
-                                    apply_html+
-                                    sign_html+
-                                    '<li><a href="/admin/statistics/page?sort=activity&id='+value+'">流量统计</a></li>'+
-                                    '<li><a class="download-qrcode" data-id="'+value+'">下载二维码</a></li>'+
-                                    '<li class="divider"></li>'+
-                                    '<li><a href="#">Separated link</a></li>'+
-                                    '</ul>'+
-                                    '</div>';
+                                '<a class="btn btn-xs item-enable-submit" data-id="'+value+'">启用</a>'+
+                                '<a class="btn btn-xs item-disable-submit" data-id="'+value+'">禁用</a>'+
+                                '<a class="btn btn-xs item-download-qrcode-submit" data-id="'+value+'">下载二维码</a>'+
+                                '<a class="btn btn-xs item-statistics-submit" data-id="'+value+'">流量统计</a>'+
+                                {{--'<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/org/edit?id='+value+'">编辑</a>'+--}}
+                                '<a class="btn btn-xs item-edit-submit" data-id="'+value+'">编辑</a>'+
+                                '<a class="btn btn-xs item-delete-submit" data-id="'+value+'">删除</a>';
                             return html;
                         }
                     }
@@ -326,8 +312,27 @@
 <script>
     $(function() {
 
-        // 【删除】 活动
-        $("#org-main-body").on('click', ".org-delete-submit", function() {
+        // 【下载二维码】
+        $("#org-main-body").on('click', ".item-download-qrcode-submit", function() {
+            var that = $(this);
+            window.open("/{{config('common.super.admin.prefix')}}/download-qrcode?sort=org&id="+that.attr('data-id'));
+        });
+
+        // 【数据分析】
+        $("#org-main-body").on('click', ".item-statistics-submit", function() {
+            var that = $(this);
+            window.open("/{{config('common.super.admin.prefix')}}/statistics/org?id="+that.attr('data-id'));
+        });
+
+        // 【编辑】
+        $("#org-main-body").on('click', ".item-edit-submit", function() {
+            var that = $(this);
+            {{--layer.msg("/{{config('common.super.admin.prefix')}}/item/edit?id="+that.attr('data-id'));--}}
+                window.location.href = "/{{config('common.super.admin.prefix')}}/org/edit?id="+that.attr('data-id');
+        });
+
+        // 【删除】
+        $("#org-main-body").on('click', ".item-delete-submit", function() {
             var that = $(this);
             layer.msg('确定要删除该"机构"么', {
                 time: 0
@@ -350,7 +355,7 @@
         });
 
         // 【启用】 活动
-        $("#org-main-body").on('click', ".org-enable-submit", function() {
+        $("#org-main-body").on('click', ".item-enable-submit", function() {
             var that = $(this);
             layer.msg('确定启用该"机构"？', {
                 time: 0
@@ -373,7 +378,7 @@
         });
 
         // 【禁用】 活动
-        $("#org-main-body").on('click', ".org-disable-submit", function() {
+        $("#org-main-body").on('click', ".item-disable-submit", function() {
             var that = $(this);
             layer.msg('确定禁用该"机构"？', {
                 time: 0
@@ -393,12 +398,6 @@
                     );
                 }
             });
-        });
-
-        // 【下载】 二维码
-        $("#org-main-body").on('click', ".download-qrcode", function() {
-            var that = $(this);
-            window.open('/super/download_qrcode?sort=org&id='+that.attr('data-id'));
         });
 
     });

@@ -1,4 +1,4 @@
-@extends('admin.layout.auth')
+@extends('org.admin.layout.auth')
 
 @section('title','登陆')
 
@@ -13,9 +13,13 @@
 
         <form action="/org-admin/login" method="post" id="form-admin-login">
             {{ csrf_field() }}
+            {{--<div class="form-group has-feedback">--}}
+                {{--<input type="email" class="form-control" name="email" placeholder="邮箱">--}}
+                {{--<span class="glyphicon glyphicon-envelope form-control-feedback"></span>--}}
+            {{--</div>--}}
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" name="email" placeholder="邮箱">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <input type="text" class="form-control" name="mobile" placeholder="手机">
+                <span class="glyphicon glyphicon-phone form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input type="password" class="form-control" name="password" placeholder="密码">
@@ -25,7 +29,7 @@
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox" name="remember"> 记住我
+                            <input type="checkbox" name="remember" value="1"> 记住我
                         </label>
                     </div>
                 </div>
@@ -45,7 +49,7 @@
         <!-- /.social-auth-links -->
 
         <a href="#">忘记密码</a><br>
-        <a href="{{url(config('common.org.admin.prefix').'/admin/register')}}" class="text-center">注册新用户</a>
+        <a href="{{url(config('common.org.admin.prefix').'/register')}}" class="text-center">注册新用户</a>
 
     </div>
     <!-- /.login-box-body -->
@@ -74,7 +78,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "{{url(config('common.org.admin.prefix').'/admin')}}";
+                        location.href = "{{ url(config('common.org.admin.prefix').'/') }}";
                     }
                 }
             };

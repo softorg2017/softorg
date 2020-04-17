@@ -8,6 +8,7 @@ use App\Models\Website;
 use App\Models\Verification;
 
 use App\Repositories\Common\CommonRepository;
+use App\Repositories\Org\MailRepository;
 use Response, Auth, Validator, DB, Exception;
 use QrCode;
 
@@ -18,7 +19,7 @@ class OrgAuthRepository {
     {
     }
 
-    // 注册
+    // 【注册】
     public function register_org($post_data)
     {
         $messages = [
@@ -102,28 +103,31 @@ class OrgAuthRepository {
                                     $post_data['code'] = $code;
                                     $post_data['target'] = $email;
 
-//                                    $mail = new MailRepository();
-    //                                $flag = $mail->send_admin_activation_email($post_data);
-    //                                if(count($flag) >= 1)
-    //                                {
-    //                                }
-
-//                                    $url = 'http://qingorg.cn:8088/email/send';
-                                    $url = config('common.MailService').'/softorg/email/activation';
-                                    $ch = curl_init();
-                                    curl_setopt($ch, CURLOPT_URL, $url);
-                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                                    curl_setopt($ch, CURLOPT_TIMEOUT, 7);
-                                    curl_setopt($ch, CURLOPT_POST, 1);
-                                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-                                    $response = curl_exec($ch);
-                                    curl_close($ch);
-                                    if(empty($response)) throw new Exception('curl get request failed');
-                                    else
+                                    $mail = new MailRepository();
+                                    $flag = $mail->send_admin_activation_email($post_data);
+                                    if(count($flag) >= 1)
                                     {
-                                        $response = json_decode($response,true);
-                                        if(!$response['success']) throw new Exception("send-email-failed");
+                                        $flag = $this->repo->send_email_quote($post_data);
+                                        if(count($flag) >= 1) throw new Exception("send-email-failed");
                                     }
+
+
+//                                    $url = config('common.MailService').'/softorg/email/activation';
+//                                    $ch = curl_init();
+//                                    curl_setopt($ch, CURLOPT_URL, $url);
+//                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//                                    curl_setopt($ch, CURLOPT_TIMEOUT, 7);
+//                                    curl_setopt($ch, CURLOPT_POST, 1);
+//                                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+//                                    $response = curl_exec($ch);
+//                                    curl_close($ch);
+//                                    if(empty($response)) throw new Exception('curl get request failed');
+//                                    else
+//                                    {
+//                                        $response = json_decode($response,true);
+//                                        if(!$response['success']) throw new Exception("send-email-failed");
+//                                    }
+
                                 }
                             }
                             else throw new Exception("insert-admin-failed");
@@ -149,7 +153,8 @@ class OrgAuthRepository {
         else return response_error([],'密码不一致！');
     }
 
-    // 管理员激活
+
+    // 【管理员激活】
     public function activation($post_data)
     {
         $admin_id = decode($post_data['admin']);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Test;
 
 use function foo\func;
 use Illuminate\Http\Request;
@@ -48,7 +48,7 @@ class TestController extends Controller
 
     public function send_sms()
     {
-        dd($this->sms->send_SMS('18516074258', 'verification_code', ['code' => 664664]));
+        dd($this->sms->send_SMS('15800689433', 'verification_code', ['code' => 664664]));
     }
 
     public function image()

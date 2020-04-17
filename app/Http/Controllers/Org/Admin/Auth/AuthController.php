@@ -31,17 +31,25 @@ class AuthController extends Controller
         else if(request()->isMethod('post'))
         {
             $where['email'] = request()->get('email');
+            $where['mobile'] = request()->get('mobile');
             $where['password'] = request()->get('password');
-            $email = request()->get('email');
-            $password = request()->get('password');
-            $admin = OrgAdministrator::whereEmail($email)->first();
+
+//            $email = request()->get('email');
+//            $admin = OrgAdministrator::whereEmail($email)->first();
+
+            $mobile = request()->get('mobile');
+            $admin = OrgAdministrator::whereMobile($mobile)->first();
+
             if($admin)
             {
                 if($admin->active == 1)
                 {
+                    $password = request()->get('password');
                     if(password_check($password,$admin->password))
                     {
-                        Auth::guard('org_admin')->login($admin,true);
+                        $remember = request()->get('remember');
+                        if($remember) Auth::guard('org_admin')->login($admin,true);
+                        else Auth::guard('org_admin')->login($admin);
                         return response_success();
                     }
                     else return response_error([],'账户or密码不正确 ');
@@ -56,7 +64,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::guard('org_admin')->logout();
-        return redirect('/org/admin/login');
+        return redirect(config('common.org.admin.prefix').'/login');
     }
 
     // 注册
@@ -64,7 +72,7 @@ class AuthController extends Controller
     {
         if(request()->isMethod('get'))
         {
-            return view('admin.auth.register');
+            return view('org.admin.auth.register');
         }
         else if(request()->isMethod('post'))
         {

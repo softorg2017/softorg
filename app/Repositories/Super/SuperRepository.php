@@ -41,6 +41,8 @@ class SuperRepository {
     }
 
 
+
+
     // 返回【机构】列表数据
     public function get_org_list_datatable($post_data)
     {
@@ -66,15 +68,16 @@ class SuperRepository {
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
 
-//        foreach ($list as $k => $v)
-//        {
-//            $list[$k]->encode_id = encode($v->id);
-//        }
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
+
         return datatable_response($list, $draw, $total);
     }
 
 
-    // 返回【产品】列表数据
+    // 返回【目录】列表数据
     public function get_org_menu_list_datatable($post_data)
     {
 //        $query = OrgMenu::with(['org'])->where('active', 1);
@@ -107,10 +110,11 @@ class SuperRepository {
         return datatable_response($list, $draw, $total);
     }
 
+
     // 返回【产品】列表数据
     public function get_org_item_list_datatable($post_data)
     {
-        $query = Product::with(['org'])->where('active', 1);
+        $query = OrgItem::with(['org']);
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
@@ -137,6 +141,88 @@ class SuperRepository {
             $list[$k]->encode_id = encode($v->id);
         }
         return datatable_response($list, $draw, $total);
+    }
+
+
+
+
+    // 返回【添加】视图
+    public function view_org_create()
+    {
+        $admin = Auth::guard('super_admin')->user();
+        return view('super.admin.org.edit')->with(['operate'=>'create', 'encode_id'=>encode(0)]);
+    }
+
+    // 返回【编辑】视图
+    public function view_org_edit()
+    {
+        $id = request("id",0);
+        $decode_id = decode($id);
+        if(!$decode_id) return response("参数有误", 404);
+
+        if($decode_id == 0)
+        {
+            $org = OrgOrganization::with(['admin'])->find($decode_id);
+            return view('super.admin.org.edit')->with(['operate'=>'create', 'encode_id'=>$id, 'org'=>$org]);
+        }
+        else
+        {
+            $org = OrgOrganization::with(['admin'])->find($decode_id);
+            if($org)
+            {
+                unset($org->id);
+                return view('super.admin.org.edit')->with(['operate'=>'edit', 'encode_id'=>$id, 'data'=>$org]);
+            }
+            else return response("该机构不存在！", 404);
+        }
+    }
+
+    // 保存企业信息
+    public function org_save($post_data)
+    {
+        $admin = Auth::guard('super_admin')->user();
+        $org_id = $admin->org_id;
+        $org = OrgOrganization::find($org_id);
+
+        if(!empty($post_data["logo"]))
+        {
+            $upload = new CommonRepository();
+            $result = $upload->create($post_data["logo"], 'org-'. $admin->id . '-common-logo');
+            if($result["status"]) $post_data["logo"] = $result["data"];
+            else return response_fail();
+        }
+        else unset($post_data["logo"]);
+
+        if(!empty($post_data["wechat_qrcode"]))
+        {
+            $upload = new CommonRepository();
+            $result = $upload->create($post_data["wechat_qrcode"], 'org-'. $admin->id . '-common-wechat_qrcode');
+            if($result["status"]) $post_data["wechat_qrcode"] = $result["data"];
+            else return response_fail();
+        }
+        else unset($post_data["wechat_qrcode"]);
+
+        // 目标URL
+        $url = 'http://softorg.cn/org/'.$admin->website_name;
+        // 保存位置
+        $qrcode_path = 'resource/org/'.$admin->id.'/unique/common';
+        if(!file_exists(storage_path($qrcode_path)))
+            mkdir(storage_path($qrcode_path), 0777, true);
+        // qrcode图片文件
+        $qrcode = $qrcode_path.'/qrcode.png';
+        QrCode::errorCorrection('H')->format('png')->size(320)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
+
+        $bool = $org->fill($post_data)->save();
+        if($bool)
+        {
+            $name = $qrcode_path.'/qrcode_img.png';
+            $common = new CommonRepository();
+            $logo = 'resource/'.$org->logo;
+//            $common->create_root_qrcode($name, $org->name, $qrcode, $logo);
+
+            return response_success();
+        }
+        else return response_fail();
     }
 
 

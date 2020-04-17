@@ -60,7 +60,7 @@
 
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/common.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/frontend/index.css') }}" media="all" />
-    <link type="text/css" rel="stylesheet" href="{{ asset('common/css/backend/index.css') }}" media="all" />
+{{--    <link type="text/css" rel="stylesheet" href="{{ asset('common/css/backend/index.css') }}" media="all" />--}}
     <link type="text/css" rel="stylesheet" href="{{ asset('root/css/index.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/animate/wicked.css') }}" media="all" />
     <link type="text/css" rel="stylesheet" href="{{ asset('common/css/animate/hover.css') }}" media="all" />

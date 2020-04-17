@@ -290,8 +290,8 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/softorg/index')}}"><i class="fa fa-circle-o text-aqua"></i>基本信息</a></li>
-                        <li><a href="{{url('/admin/softorg/edit')}}"><i class="fa fa-circle-o text-aqua"></i>编辑基本信息</a></li>
+                        <li><a href="{{url('/super-admin/softorg/index')}}"><i class="fa fa-circle-o text-aqua"></i>基本信息1</a></li>
+                        <li><a href="{{url('/super-admin/softorg/edit')}}"><i class="fa fa-circle-o text-aqua"></i>编辑基本信息</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

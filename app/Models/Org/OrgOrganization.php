@@ -12,6 +12,11 @@ class OrgOrganization extends Model
     ];
     protected $dateFormat = 'U';
 
+    function admin()
+    {
+        return $this->belongsTo('App\Models\Org\OrgAdministrator','admin_id','id');
+    }
+
     function administrators()
     {
         return $this->hasMany('App\Models\Org\OrgAdministrator','org_id','id');

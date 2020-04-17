@@ -32,17 +32,25 @@ class AuthController extends Controller
         else if(request()->isMethod('post'))
         {
             $where['email'] = request()->get('email');
+            $where['mobile'] = request()->get('mobile');
             $where['password'] = request()->get('password');
-            $email = request()->get('email');
-            $password = request()->get('password');
-            $admin = SuperAdministrator::whereEmail($email)->first();
+
+//            $email = request()->get('email');
+//            $admin = SuperAdministrator::whereEmail($email)->first();
+
+            $mobile = request()->get('mobile');
+            $admin = SuperAdministrator::whereMobile($mobile)->first();
+
             if($admin)
             {
                 if($admin->active == 1)
                 {
+                    $password = request()->get('password');
                     if(password_check($password,$admin->password))
                     {
-                        Auth::guard('super_admin')->login($admin,true);
+                        $remember = request()->get('remember');
+                        if($remember) Auth::guard('super_admin')->login($admin,true);
+                        else Auth::guard('super_admin')->login($admin);
                         return response_success();
                     }
                     else return response_error([],'账户or密码不正确 ');
@@ -57,7 +65,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::guard('super_admin')->logout();
-        return redirect('/super/admin/login');
+        return redirect('/super-admin/login');
     }
 
     // 注册

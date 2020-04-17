@@ -33,64 +33,64 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">全称</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="name" placeholder="请输入全称" value="{{$org->name}}"></div>
+                        <input type="text" class="form-control" name="name" placeholder="请输入全称" value="{{ $org->name or '' }}">
                     </div>
                 </div>
                 {{--名称--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">简称</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="short" placeholder="请输入简称" value="{{$org->short or ''}}"></div>
+                        <input type="text" class="form-control" name="short" placeholder="请输入简称" value="{{ $org->short or '' }}">
                     </div>
                 </div>
                 {{--标语 slogan--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">标语</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="slogan" placeholder="请输入标语 slogan" value="{{$org->slogan or ''}}"></div>
+                        <input type="text" class="form-control" name="slogan" placeholder="请输入标语" value="{{ $org->slogan or '' }}">
                     </div>
                 </div>
                 {{--描述--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">简介</label>
                     <div class="col-md-8 ">
-                        {{--<div><input type="text" class="form-control" name="description" placeholder="请输入描述" value="{{$org->description or ''}}"></div>--}}
-                        <div><textarea name="description" id="" cols="100%" rows="5">{{$org->description or ''}}</textarea></div>
+                        {{--<input type="text" class="form-control" name="description" placeholder="请输入描述" value="{{$org->description or ''}}">--}}
+                        <textarea name="description" id="" cols="100%" rows="5">{{ $org->description or '' }}</textarea>
                     </div>
                 </div>
                 {{--地址--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">地址</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="address" placeholder="请输入地址" value="{{$org->address or ''}}"></div>
+                        <input type="text" class="form-control" name="address" placeholder="请输入地址" value="{{ $org->address or '' }}">
                     </div>
                 </div>
                 {{--电话--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">电话</label>
-                    <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="telephone" placeholder="请输入电话" value="{{$org->telephone or ''}}"></div>
+                    < class="col-md-8 ">
+                        <input type="text" class="form-control" name="telephone" placeholder="请输入电话" value="{{ $org->telephone or '' }}">
                     </div>
                 </div>
                 {{--Email--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">邮箱</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="email" placeholder="请输入邮箱" value="{{$org->email or ''}}"></div>
+                        <input type="text" class="form-control" name="email" placeholder="请输入邮箱" value="{{ $org->email or '' }}">
                     </div>
                 </div>
                 {{--QQ--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">QQ</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="qq" placeholder="请输入QQ" value="{{$org->qq or ''}}"></div>
+                        <input type="text" class="form-control" name="qq" placeholder="请输入QQ" value="{{ $org->qq or '' }}">
                     </div>
                 </div>
                 {{--微信--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">微信号</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="wechat_id" placeholder="请输入微信号" value="{{$org->wechat_id or ''}}"></div>
+                        <input type="text" class="form-control" name="wechat_id" placeholder="请输入微信号" value="{{ $org->wechat_id or '' }}">
                     </div>
                 </div>
                 {{--微信二维码--}}
@@ -125,14 +125,14 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">微博名称</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="weibo_name" placeholder="请输入微博名称" value="{{$org->weibo_name or ''}}"></div>
+                        <input type="text" class="form-control" name="weibo_name" placeholder="请输入微博名称" value="{{ $org->weibo_name or ''}}">
                     </div>
                 </div>
                 {{--微博地址--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">微博地址</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="weibo_address" placeholder="请输入微博地址" value="{{$org->weibo_address or ''}}"></div>
+                        <input type="text" class="form-control" name="weibo_address" placeholder="请输入微博地址" value="{{ $org->weibo_address or '' }}">
                     </div>
                 </div>
 

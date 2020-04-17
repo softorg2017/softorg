@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="box-body" id="item-main-body">
+            <div class="box-body datatable-body" id="item-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
@@ -32,10 +32,10 @@
                         <th>#ID</th>
                         <th>标题</th>
                         <th>所属机构</th>
-                        <th>状态</th>
                         <th>访问数</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     <tr>
@@ -96,7 +96,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': '/super/admin/org/item/list',
+                    'url': '/super-admin/org/item/list',
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -129,13 +129,6 @@
                         }
                     },
                     {
-                        "data": "active",
-                        'orderable': false,
-                        render: function(val) {
-                            return val == null ? '' : val;
-                        }
-                    },
-                    {
                         'data': 'visit_num',
                         'orderable': false,
                         render: function(val) {
@@ -148,7 +141,8 @@
                         render: function(data) {
                             newDate = new Date();
                             newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
+//                            return newDate.toLocaleString('chinese',{hour12:false});
+                            return newDate.toLocaleDateString();
                         }
                     },
                     {
@@ -157,7 +151,15 @@
                         render: function(data) {
                             newDate = new Date();
                             newDate.setTime(data * 1000);
-                            return newDate.toLocaleString('chinese',{hour12:false});
+//                            return newDate.toLocaleString('chinese',{hour12:false});
+                            return newDate.toLocaleDateString();
+                        }
+                    },
+                    {
+                        "data": "active",
+                        'orderable': false,
+                        render: function(val) {
+                            return val == null ? '' : val;
                         }
                     },
                     {
@@ -168,10 +170,9 @@
                             var value = row.id;
 
                             var html =
-                                '<a href="/admin/item/edit?id='+value+'">编辑</a> '+
-                                '<a class="item-enable-submit" data-id="'+value+'">启用</a> '+
-                                '<a class="item-disable-submit" data-id="'+value+'">禁用</a> '+
-                                '<a class="item-delete-submit" data-id="'+value+'" >删除</a> '+
+                                '<a class="btn btn-xs item-enable-submit" data-id="'+value+'">启用</a>'+
+                                '<a class="btn btn-xs item-disable-submit" data-id="'+value+'">禁用</a>'+
+                                '<a class="btn btn-xs item-delete-submit" data-id="'+value+'" >删除</a>';
                             return html;
                         }
                     }

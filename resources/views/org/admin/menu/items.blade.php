@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="box-body" id="item-main-body">
+            <div class="box-body datatable-body" id="item-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>

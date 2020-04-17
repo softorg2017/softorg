@@ -22,7 +22,7 @@
     });
     // Route::get('/send/email', $controller.'@send_email');
 
-    // Route::get('/send_sms', "{$controller}@send_sms");
+     Route::get('/send_sms', "{$controller}@send_sms");
 
      Route::get('/image', "{$controller}@image");
 

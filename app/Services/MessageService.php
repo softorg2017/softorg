@@ -24,8 +24,8 @@ class MessageService
         // 服务结点
         $endPointName = "cn-hangzhou";
 
-        $access_key = config('sms.access_key');
-        $secret = config('sms.secret');
+        $access_key = env('SMS_ACCESS_KEY');
+        $secret = env('SMS_SECRET');
 
         if(self::$client == null) {
             $profile = DefaultProfile::getProfile($region, $access_key, $secret);

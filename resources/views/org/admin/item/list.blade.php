@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="box-body" id="item-main-body">
+            <div class="box-body datatable-body" id="item-main-body">
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered' id='datatable_ajax'>
                     <thead>
@@ -142,7 +142,7 @@
                         'orderable': false,
                         render: function(data, type, row, meta) {
 //                            return row.menu == null ? '未分类' : row.menu.title;
-                            if(row.menu == null) return '<small class="label bg-info">未分类</small>';
+                            if(row.menu == null) return '<small class="label btn-info">未分类</small>';
                             else {
                                 return '<a href="/org-admin/item/menu?id='+row.menu.encode_id+'">'+row.menu.title+'</a>';
                             }

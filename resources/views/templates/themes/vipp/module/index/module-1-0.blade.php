@@ -8,7 +8,7 @@
             </div>
 
 
-            <div class="module-block-container" style="display:none;">
+            <div class="module-block-container">
                 <div class="row full block-{{$data->column}}-column">
 
                     @foreach($data->menu->items as $v)
@@ -33,7 +33,7 @@
             </div>
 
 
-            <div class="module-block-container" style="display:none;">
+            <div class="module-block-container">
                 <div class="row full block-{{$data->column}}-column">
 
                     @foreach($data->menu->items as $v)

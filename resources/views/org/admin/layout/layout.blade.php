@@ -50,12 +50,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('common/css/common.css') }}" media="all" />
-    <link rel="stylesheet" href="{{ asset('common/css/frontend/index.css') }}" media="all" />
-    <link rel="stylesheet" href="{{ asset('common/css/backend/index.css') }}" media="all" />
 
-    <link rel="stylesheet" href="{{asset('css/common.css')}}">
-    <link rel="stylesheet" href="{{asset('css/admin/index.css')}}">
+
+    <link rel="stylesheet" media="all" href="{{asset('css/common.css')}}">
+    <link rel="stylesheet" media="all" href="{{asset('css/admin/index.css')}}">
+
+
+    <link rel="stylesheet" media="all" href="{{ asset('common/css/common.css') }}" />
+    <link rel="stylesheet" media="all" href="{{ asset('common/css/frontend/index.css') }}" />
+    <link rel="stylesheet" media="all" href="{{ asset('common/css/backend/index.css') }}" />
+
+    {{--<link rel="stylesheet" media="all" href="{{ asset('/common/css/common.css') }}" />--}}
+    {{--<link rel="stylesheet" media="all" href="{{ asset('/common/css/frontend.css') }}" />--}}
+    {{--<link rel="stylesheet" media="all" href="{{ asset('/common/css/backend.css') }}" />--}}
+
+    <link rel="stylesheet" media="all" href="{{ asset('http://cui.party/common/css/common.css') }}" />
+    <link rel="stylesheet" media="all" href="{{ asset('http://cui.party/common/css/frontend.css') }}" />
+    <link rel="stylesheet" media="all" href="{{ asset('http://gps.com/common/css/backend.css') }}" />
+
+    <link rel="stylesheet" media="all" href="{{ asset('http://gps.com/common/css/common.css') }}" />
+    <link rel="stylesheet" media="all" href="{{ asset('http://gps.com/common/css/frontend.css') }}" />
+    <link rel="stylesheet" media="all" href="{{ asset('http://cui.party/common/css/backend.css') }}" />
+
 
     @yield('style')
 

@@ -24,12 +24,27 @@ class SuperController extends Controller
         return $this->repo->view_admin_index();
     }
 
+
     // 【机构】列表
     public function view_org_list()
     {
         if(request()->isMethod('get')) return view('super.admin.org.org-list');
         else if(request()->isMethod('post')) return $this->repo->get_org_list_datatable(request()->all());
     }
+
+
+    public function createAction()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_org_create();
+        else if (request()->isMethod('post')) return $this->repo->save(request()->all());
+    }
+
+    public function editAction()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_org_edit();
+        else if (request()->isMethod('post')) return $this->repo->org_save(request()->all());
+    }
+
 
 
 

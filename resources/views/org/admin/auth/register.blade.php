@@ -1,15 +1,15 @@
-@extends('admin.layout.auth')
+@extends('org.admin.layout.auth')
 
-@section('title','机构注册')
+@section('title','注册')
 
 @section('content')
 <div class="register-box">
     <div class="register-logo">
-        <a href="/admin"><b>机构注册</b></a>
+        <a href="/admin"><b>如未科技</b></a>
     </div>
 
     <div class="register-box-body">
-        <p class="login-box-msg">注册一个机构</p>
+        <p class="login-box-msg">开放注册入口</p>
 
         <form action="" method="post" id="form-admin-register">
 
@@ -19,7 +19,7 @@
             <div class="form-group has-feedback">
                 <select class="form-control" name="type">
                     <option value="5">企业</option>
-                    <option value="11">个人用户</option>
+                    <option value="11">个人</option>
                     <option value="19">个体工商户</option>
                     {{--<option value="1">机关单位</option>--}}
                     {{--<option value="3">事业单位</option>--}}
@@ -42,6 +42,10 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
+                <input type="email" class="form-control" name="mobile" placeholder="手机号">
+                <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
                 <input type="password" class="form-control" name="password" placeholder="密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
@@ -57,7 +61,10 @@
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox" name="agree"> 阅读并接受 <a href="#">《用户协议》</a>及<a href="#">《隐私权保护声明》</a>
+                            <input type="checkbox" name="agree"> 阅读并接受
+                            <a href="javascript:void(0);">《用户协议》</a>
+                            <span>及</span>
+                            <a href="javascript:void(0);">《隐私权保护声明》</a>
                         </label>
                     </div>
                 </div>
@@ -75,7 +82,7 @@
             <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> 支付宝登陆</a>
         </div>
 
-        <a href="/admin/login" class="text-center">返回登陆</a>
+        <a href="/org-admin/login" class="text-center">返回登陆</a>
     </div>
     <!-- /.form-box -->
 </div>
