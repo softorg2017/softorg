@@ -1279,7 +1279,7 @@ class SoftorgRepository {
         if(intval($decode_id) !== 0 && !$decode_id) dd("参数有误");
 
         $org_id = Auth::guard("org_admin")->user()->org_id;
-        $qrcode_path = "resource/org/item/";
+        $qrcode_path = "resource/org/items/";
 
         $sort = $post_data['sort'];
         if($sort == "item")

@@ -29,9 +29,6 @@ Route::group(['prefix' => config('common.org.admin.prefix'), 'namespace' => 'Adm
             return view('org.admin.index');
         });
 
-        Route::get('/download_qrcode', function () {
-            return view('org.admin.index');
-        });
 
         Route::match(['get','post'], 'download_root_qrcode', 'SoftorgController@download_root_qrcode');
         Route::match(['get','post'], 'download-qrcode', 'SoftorgController@download_qrcode');
