@@ -220,7 +220,7 @@ class OrgItemRepository {
 
 
                 // 保存二维码
-                $url = 'http://www.softorg.cn/org/item/'.$encode_id;  // 目标URL
+                $url = 'http://www.softorg.cn/item/'.$encode_id;  // 目标URL
                 // 保存位置
                 $qrcode_path = 'resource/org/items';
                 if(!file_exists(storage_path($qrcode_path)))
