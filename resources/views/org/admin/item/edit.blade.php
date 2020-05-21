@@ -15,7 +15,7 @@
 @section('breadcrumb')
     <li><a href="{{url(config('common.org.admin.prefix').'/')}}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a href="{{url(config('common.org.admin.prefix').'/item/list')}}"><i class="fa "></i> 内容列表</a></li>
-    <li><a href="#"><i class="fa "></i> Here</a></li>
+    <li><a href="javascript:void(0);"><i class="fa "></i> Here</a></li>
 @endsection
 
 
@@ -33,28 +33,28 @@
             <div class="box-body">
 
                 {{csrf_field()}}
-                <input type="hidden" name="operate" value="{{$operate or ''}}" readonly>
-                <input type="hidden" name="encode_id" value="{{$encode_id or encode(0)}}" readonly>
+                <input type="hidden" name="operate" value="{{ $operate or '' }}" readonly>
+                <input type="hidden" name="encode_id" value="{{ $encode_id or encode(0) }}" readonly>
 
                 {{--标题--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">标题</label>
                     <div class="col-md-8 ">
-                        <input type="text" class="form-control" name="title" placeholder="请输入标题" value="{{$data->title or ''}}">
+                        <input type="text" class="form-control" name="title" placeholder="请输入标题" value="{{ $data->title or '' }}">
                     </div>
                 </div>
                 {{--副标题--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">副标题</label>
                     <div class="col-md-8 ">
-                        <input type="text" class="form-control" name="subtitle" placeholder="请输入副标题" value="{{$data->subtitle or ''}}">
+                        <input type="text" class="form-control" name="subtitle" placeholder="请输入副标题" value="{{ $data->subtitle or '' }}">
                     </div>
                 </div>
                 {{--说明--}}
                 <div class="form-group">
                     <label class="control-label col-md-2">描述</label>
                     <div class="col-md-8 ">
-                        <input type="text" class="form-control" name="description" placeholder="描述" value="{{$data->description or ''}}">
+                        <input type="text" class="form-control" name="description" placeholder="描述" value="{{ $data->description or '' }}">
                     </div>
                 </div>
                 {{--目录--}}
@@ -65,7 +65,7 @@
                             <option data-id="0">未分类</option>
                             @if(!empty($data->org->menus))
                             @foreach($data->org->menus as $v)
-                            <option data-id="{{$v->id}}" @if($data->menu_id == $v->id) selected="selected" @endif>{{$v->title}}</option>
+                            <option data-id="{{$v->id}}" @if($data->menu_id == $v->id) selected="selected" @endif>{{ $v->title }}</option>
                             @endforeach
                             @else
                             @foreach($org->menus as $v)
@@ -73,7 +73,7 @@
                             @endforeach
                             @endif
                         </select>
-                        <input type="hidden" value="{{$data->menu_id or 0}}" name="menu_id" id="menu-selected">
+                        <input type="hidden" value="{{ $data->menu_id or 0}}" name="menu_id" id="menu-selected">
                     </div>
                 </div>
                 {{--目录--}}
@@ -81,7 +81,7 @@
                     <label class="control-label col-md-2">添加目录</label>
                     <div class="col-md-8 ">
                         <select name="menus[]" id="menus" style="width:100%;" multiple="multiple">
-                            {{--<option value="{{$data->people_id or 0}}">{{$data->people->name or '请选择作者'}}</option>--}}
+                            {{--<option value="{{ $data->people_id or 0}}">{{ $data->people->name or '请选择作者'}}</option>--}}
                         </select>
                     </div>
                 </div>

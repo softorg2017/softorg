@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +11,7 @@ class User extends Authenticatable
     protected $table = "softorg_users";
 
     protected $fillable = [
-        'sort', 'type', 'mobile', 'email', 'password', 'name', 'nickname',
+        'status', 'sort', 'type', 'mobile', 'email', 'password', 'name', 'nickname',
         'org_id',
     ];
 
@@ -23,7 +23,7 @@ class User extends Authenticatable
 
     function ext()
     {
-        return $this->hasOne('App\UserExt','user_id','id');
+        return $this->hasOne('App\Models\UserExt','user_id','id');
     }
 
     function org()

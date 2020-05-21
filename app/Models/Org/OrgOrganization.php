@@ -7,10 +7,17 @@ class OrgOrganization extends Model
     //
     protected $table = "softorg_organization";
     protected $fillable = [
-        'sort', 'type', 'name', 'website_name', 'short', 'slogan', 'description', 'logo',
-        'address', 'telephone', 'email', 'qq', 'wechat', 'wechat_id', 'wechat_qrcode', 'weibo', 'weibo_name', 'weibo_address'
+        'sort', 'type', 'user_id', 'domain_name',
+        'name', 'full_name', 'short_name', 'short', 'slogan', 'description', 'logo',
+        'address', 'telephone', 'mobile', 'email',
+        'qq', 'wechat_id', 'wechat_qrcode', 'weibo_name', 'weibo_address'
     ];
     protected $dateFormat = 'U';
+
+    function user()
+    {
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
 
     function admin()
     {

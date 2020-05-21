@@ -127,10 +127,10 @@
                         }
                     },
                     {
-                        'data': 'website_name',
+                        'data': 'name',
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/org/'+row.website_name+'">'+row.name+'</a>';
+                            return '<a target="_blank" href="/org/'+row.id+'">'+row.name+'</a>';
                         }
                     },
                     {
@@ -236,7 +236,8 @@
                                 '<a class="btn btn-xs item-statistics-submit" data-id="'+value+'">流量统计</a>'+
                                 {{--'<a class="btn btn-xs" href="/{{config('common.org.admin.prefix')}}/org/edit?id='+value+'">编辑</a>'+--}}
                                 '<a class="btn btn-xs item-edit-submit" data-id="'+value+'">编辑</a>'+
-                                '<a class="btn btn-xs item-delete-submit" data-id="'+value+'">删除</a>';
+                                '<a class="btn btn-xs item-delete-submit" data-id="'+value+'">删除</a>'+
+                                '<a class="btn btn-xs item-login-submit" data-id="'+value+'">登录</a>';
                             return html;
                         }
                     }
@@ -322,6 +323,12 @@
         $("#org-main-body").on('click', ".item-statistics-submit", function() {
             var that = $(this);
             window.open("/{{config('common.super.admin.prefix')}}/statistics/org?id="+that.attr('data-id'));
+        });
+
+        // 【登录】
+        $("#org-main-body").on('click', ".item-login-submit", function() {
+            var that = $(this);
+            window.open("/{{config('common.super.admin.prefix')}}/org/login?id="+that.attr('data-id'));
         });
 
         // 【编辑】

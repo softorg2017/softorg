@@ -12,7 +12,7 @@ class OrgAdministrator extends Authenticatable
     protected $table = "softorg_org_administrator";
 
     protected $fillable = [
-        'org_id', 'active', 'name', 'email', 'password', 'nickname', 'truename', 'portrait_img',
+        'org_id', 'active', 'name', 'mobile', 'email', 'password', 'nickname', 'truename', 'portrait_img',
     ];
 
     protected $hidden = [

@@ -51,16 +51,6 @@ return [
             'provider' => 'super_admins',
         ],
 
-        'inside_admin' => [
-            'driver' => 'session',
-            'provider' => 'inside_admins',
-        ],
-
-        'outside_admin' => [
-            'driver' => 'session',
-            'provider' => 'outside_admins',
-        ],
-
         'org_admin' => [
             'driver' => 'session',
             'provider' => 'org_admins',
@@ -102,17 +92,7 @@ return [
 
         'super_admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Super\SuperAdministrator::class,
-        ],
-
-        'inside_admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Inside\InsideAdministrator::class,
-        ],
-
-        'outside_admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Outside\OutsideAdministrator::class,
+            'model' => App\Models\Sys\SysAdministrator::class,
         ],
 
         'org_admins' => [

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\Super;
+namespace App\Models\Sys;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class SuperAdministrator extends Authenticatable
+class SysAdministrator extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = "softorg_super_administrator";
+    protected $table = "softorg_sys_administrator";
 
     protected $fillable = [
-        'org_id', 'active', 'name', 'email', 'password', 'nickname', 'true_name', 'portrait_img',
+        'active', 'sort', 'type', 'mobile', 'email', 'password', 'name', 'nickname', 'true_name', 'portrait_img',
     ];
 
     protected $hidden = [

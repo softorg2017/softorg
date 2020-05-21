@@ -20,7 +20,7 @@ class SuperAdminMiddleware
     {
         if(!Auth::guard('super_admin')->check()) // 未登录
         {
-            return redirect('/super/admin/login');
+            return redirect('/super-admin/login');
 
 //            $return["status"] = false;
 //            $return["log"] = "admin-no-login";
@@ -28,8 +28,6 @@ class SuperAdminMiddleware
 //            return Response::json($return);
 
         }
-
         return $next($request);
-
     }
 }

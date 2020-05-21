@@ -14,7 +14,8 @@
 
 @section('breadcrumb')
     <li><a href="{{ url(config('common.super.admin.prefix').'/') }}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{ url(config('common.super.admin.prefix').'/org/list') }}"><i class="fa "></i>机构列表</a></li>
+    <li><a href="{{ url(config('common.super.admin.prefix').'/org/list') }}"><i class="fa fa-th-list"></i>机构列表</a></li>
+    <li><a href="javascript:void(0);"><i class="fa "></i> Here</a></li>
 @endsection
 
 
@@ -39,9 +40,10 @@
                 <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-softorg">
 
                     {{csrf_field()}}
+                    <input type="hidden" name="operate" value="{{ $operate or 'create' }}" readonly>
+                    <input type="hidden" name="id" value="{{ $id or 0 }}" readonly>
 
                     <div class="box-body">
-
 
                         {{--管理员手机--}}
                         <div class="form-group">
@@ -50,7 +52,7 @@
                                 @if($operate == 'create')
                                     <input type="text" class="form-control" name="website_name" placeholder="请输入如未号" value="{{ $data->website_name or '' }}">
                                 @else
-                                    <span class="_bold">{{ $data->website_name or '' }}</span>
+                                    <span class="_bold">{{ $data->softorg_id or '' }}</span>
                                 @endif
                             </div>
                         </div>
@@ -71,6 +73,14 @@
 
                     </div>
 
+
+
+                    <div class="box-header with-border" style="margin:16px 0;">
+                        <h3 class="box-title">机构信息</h3>
+                    </div>
+
+
+
                     <div class="box-body">
 
                         {{--名称--}}
@@ -84,7 +94,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">【简称】</label>
                             <div class="col-md-8 ">
-                                <input type="text" class="form-control" name="short" placeholder="请输入简称" value="{{ $data->short or '' }}">
+                                <input type="text" class="form-control" name="short_name" placeholder="请输入简称" value="{{ $data->short_name or '' }}">
                             </div>
                         </div>
                         {{--标语 slogan--}}
@@ -249,7 +259,7 @@
                         else
                         {
                             layer.msg(data.msg);
-                            location.href = "{{url(config('common.super.admin.prefix').'/org/list')}}";
+{{--                            location.href = "{{url(config('common.super.admin.prefix').'/org/list')}}";--}}
                         }
                     }
                 };

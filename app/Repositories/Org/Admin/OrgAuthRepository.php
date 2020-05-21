@@ -27,8 +27,8 @@ class OrgAuthRepository {
             'type.numeric' => '请选择机构代码',
             'captcha.required' => '请输入验证码',
             'captcha.captcha' => '验证码有误',
-            'website_name.unique' => '企业域名已经存在，请更换一个名字',
-            'website_name.alpha' => '企业域名必须是英文字符',
+            'domain_name.unique' => '企业域名已经存在，请更换一个名字',
+            'domain_name.alpha' => '企业域名必须是英文字符',
             'email.unique' => '管理员邮箱已存在，请更换邮箱',
         ];
         $v = Validator::make($post_data, [

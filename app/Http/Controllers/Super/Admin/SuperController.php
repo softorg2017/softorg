@@ -25,6 +25,14 @@ class SuperController extends Controller
     }
 
 
+    public function loginAction()
+    {
+        return $this->repo->org_login(request()->all());
+    }
+
+
+
+
     // 【机构】列表
     public function view_org_list()
     {

@@ -23,6 +23,8 @@ Route::group(['prefix' => 'super-admin', 'namespace' => 'Admin'], function () {
         Route::get('/', $controller.'@index');
         Route::get('index', $controller.'@index');
 
+        Route::match(['get','post'], 'org/login', $controller.'@loginAction');
+
         Route::match(['get','post'], 'org/list', $controller.'@view_org_list');
         Route::get('org/create', $controller.'@createAction');
         Route::match(['get','post'], 'org/edit', $controller.'@editAction');

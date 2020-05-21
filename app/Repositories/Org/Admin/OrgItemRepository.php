@@ -209,7 +209,7 @@ class OrgItemRepository {
                 if(!empty($post_data["cover"]))
                 {
                     $upload = new CommonRepository();
-                    $result = $upload->upload($post_data["cover"], 'org-items' , 'cover_org_item_'.$encode_id);
+                    $result = $upload->upload($post_data["cover"], 'org-items' , 'org_item_'.$encode_id.'_cover');
                     if($result["status"])
                     {
                         $item->cover_pic = $result["data"];
@@ -226,7 +226,7 @@ class OrgItemRepository {
                 if(!file_exists(storage_path($qrcode_path)))
                     mkdir(storage_path($qrcode_path), 0777, true);
                 // qrcode图片文件
-                $qrcode = $qrcode_path.'/qrcode_org_item_'.$encode_id.'.png';
+                $qrcode = $qrcode_path.'/org_item_'.$encode_id.'_qrcode.png';
                 QrCode::errorCorrection('H')->format('png')->size(480)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qrcode));
 
 
