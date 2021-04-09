@@ -12,6 +12,18 @@ require __DIR__.'/frontend.php';
 |
 */
 
+
+
+
+Route::group(['domain'=>env('DOMAIN_ROOT')], function(){
+    Route::get('{all}', function(){
+        return Redirect::away(env('DOMAIN_WWW').ltrim(Request::path(),'/'),301);
+    })->where('all','.*');
+});
+
+
+
+
 //Route::get('/', function () {
 //    return view('welcome');
 //    return redirect(config('common.website.front.prefix').'/softorg');
