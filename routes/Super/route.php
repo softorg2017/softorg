@@ -1,27 +1,35 @@
 <?php
 
-
 /*
  * 超级后台
  */
-Route::group(['prefix' => 'super-admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 
-    // 登录
-    Route::group(['namespace' => 'Auth'], function () {
-        $controller = "AuthController";
+    /*
+     * 登录
+     */
+    Route::group([], function () {
+
+        $controller = "SuperAuthController";
+
         Route::match(['get','post'], 'login', $controller.'@login');
         Route::match(['get','post'], 'logout', $controller.'@logout');
+
     });
 
 
-    // 后台管理，需要登录
-    Route::group(['middleware' => 'super.admin'], function () {
+    /*
+     * 后台管理，需要登录
+     */
+    Route::group(['middleware' => 'super'], function () {
 
-        $controller = "SuperController";
+        $controller = "SuperAdminController";
 
         Route::get('/', $controller.'@index');
         Route::get('index', $controller.'@index');
+
+        Route::match(['get','post'], '/user/user-login', $controller.'@operate_user_user_login');
 
         Route::match(['get','post'], 'org/login', $controller.'@loginAction');
 
@@ -40,5 +48,64 @@ Route::group(['prefix' => 'super-admin', 'namespace' => 'Admin'], function () {
     });
 
 
+});
+
+
+
+
+/*
+ * 前台
+ */
+Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
+
+    Route::get('/', function () {
+        dd('super');
+    });
+
+    $controller = "SuperIndexController";
+
+    Route::get('item/{id?}', $controller.'@view_item');
+    Route::get('org-item/{id?}', $controller.'@view_item');
+
+    // 前台主页
+    Route::group(['prefix' => 'org/{org_name}'], function () {
+
+        $controller = "IndexController";
+
+//        Route::get('/',$controller.'@root');
+//    Route::get('/index', $controller.'@index');
+        Route::get('/home', $controller.'@home');
+        Route::get('/information', $controller.'@information');
+        Route::get('/introduction', $controller.'@introduction');
+        Route::get('/contactus', $controller.'@contactus');
+        Route::get('/culture', $controller.'@culture');
+
+    });
+
+    // 前台
+    Route::group(['prefix' => config('common.org.front.prefix')], function () {
+
+        $controller = "IndexController";
+
+        Route::get('menu/{id?}', $controller.'@view_menu');
+        Route::get('item/{id?}', $controller.'@view_item');
+
+        Route::get('product/{id?}', $controller.'@view_product');
+        Route::get('article/{id?}', $controller.'@view_article');
+        Route::get('activity/{id?}', $controller.'@view_activity');
+        Route::get('slide/{id?}', $controller.'@view_slide');
+        Route::get('survey/{id?}', $controller.'@view_survey');
+
+        Route::get('activity/apply', $controller.'@view_activity_apply');
+        Route::match(['get','post'], '/apply', $controller.'@apply');
+        Route::match(['get','post'], '/apply/activation', $controller.'@apply_activation');
+        Route::match(['get','post'], '/sign', $controller.'@sign');
+        Route::match(['get','post'], '/answer', $controller.'@answer');
+
+        Route::match(['get','post'], '/share', $controller.'@share');
+    });
 
 });
+
+
+

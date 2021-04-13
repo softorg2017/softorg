@@ -21,8 +21,16 @@ class CommonController extends Controller
     }
 
 
+    public function root()
+    {
+        dd('common.root');
+//        return view('admin.company.index');
+    }
+
+
     public function index()
     {
+        dd('common.root');
         return view('admin.company.index');
     }
 

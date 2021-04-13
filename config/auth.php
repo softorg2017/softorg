@@ -36,7 +36,13 @@ return [
     */
 
     'guards' => [
+
         'web' => [
+            'driver' => 'session',
+            'provider' => 'web',
+        ],
+
+        'user' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -46,20 +52,52 @@ return [
             'provider' => 'admins',
         ],
 
+
+        'super' => [
+            'driver' => 'session',
+            'provider' => 'super',
+        ],
         'super_admin' => [
             'driver' => 'session',
             'provider' => 'super_admins',
         ],
 
+
+        'org' => [
+            'driver' => 'session',
+            'provider' => 'org',
+        ],
         'org_admin' => [
             'driver' => 'session',
             'provider' => 'org_admins',
         ],
 
+
+        'doc' => [
+            'driver' => 'session',
+            'provider' => 'doc',
+        ],
+        'doc_admin' => [
+            'driver' => 'session',
+            'provider' => 'doc_admins',
+        ],
+
+
+        'atom' => [
+            'driver' => 'session',
+            'provider' => 'atom',
+        ],
+        'atom_admin' => [
+            'driver' => 'session',
+            'provider' => 'atom_admins',
+        ],
+
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
     ],
 
     /*
@@ -80,6 +118,12 @@ return [
     */
 
     'providers' => [
+
+        'web' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
@@ -87,17 +131,47 @@ return [
 
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Administrator::class,
+            'model' => App\User::class,
         ],
 
+
+        'super' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
         'super_admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Sys\SysAdministrator::class,
+            'model' => App\User::class,
         ],
 
+
+        'org' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
         'org_admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Org\OrgAdministrator::class,
+            'model' => App\User::class,
+        ],
+
+
+        'doc' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+        'doc_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+
+
+        'atom' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+        'atom_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
         ],
 
         // 'users' => [

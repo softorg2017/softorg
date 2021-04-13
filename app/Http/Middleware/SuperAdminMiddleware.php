@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use App\Models\Softorg;
+
+
 use Auth, Response;
 
 class SuperAdminMiddleware
@@ -20,7 +21,7 @@ class SuperAdminMiddleware
     {
         if(!Auth::guard('super_admin')->check()) // 未登录
         {
-            return redirect('/super-admin/login');
+            return redirect('/admin/login');
 
 //            $return["status"] = false;
 //            $return["log"] = "admin-no-login";

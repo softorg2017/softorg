@@ -5,19 +5,19 @@
     <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
+        <div class="user-panel _none">
             <div class="pull-left image">
                 <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>{{Auth::guard('super_admin')->user()->nickname}}</p>
+                <p>{{ Auth::guard('super')->user()->nickname }}</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
 
         <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
+        <form action="#" method="get" class="sidebar-form _none">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
@@ -62,19 +62,19 @@
             <li class="header">机构管理</li>
 
             <li class="treeview">
-                <a href="{{url('/'.config('common.super.admin.prefix').'/org/list')}}">
+                <a href="{{url('/org/list')}}">
                     <i class="fa fa-th-list"></i><span>机构列表</span>
                 </a>
             </li>
 
             <li class="treeview">
-                <a href="{{url('/'.config('common.super.admin.prefix').'/org/menu/list')}}">
+                <a href="{{url('/org/menu/list')}}">
                     <i class="fa fa-folder-open-o"></i><span>目录列表</span>
                 </a>
             </li>
 
             <li class="treeview">
-                <a href="{{url('/'.config('common.super.admin.prefix').'/org/item/list')}}">
+                <a href="{{url('/org/item/list')}}">
                     <i class="fa fa fa-file-text-o"></i><span>内容列表</span>
                 </a>
             </li>
@@ -86,21 +86,20 @@
 
 
 
+            {{--平台--}}
+            <li class="header">平台</li>
 
             <li class="treeview">
-                <a href=""><i class="fa fa-th"></i> <span>其他</span>
-                    <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
+                <a href="{{ url('/') }}" target="_blank">
+                    <i class="fa fa-cube text-default"></i> <span>平台首页</span>
                 </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url('/super/admin/product/list') }}"><i class="fa fa-circle-o text-red"></i><span>产品列表</span></a></li>
-                    <li><a href="{{ url('/super/admin/article/list') }}"><i class="fa fa-circle-o text-red"></i><span>文章列表</span></a></li>
-                    <li><a href="{{ url('/super/admin/activity/list') }}"><i class="fa fa-circle-o text-red"></i><span>活动列表</span></a></li>
-                    <li><a href="{{ url('/super/admin/survey/list') }}"><i class="fa fa-circle-o text-red"></i><span>问卷列表</span></a></li>
-                    <li><a href="{{ url('/super/admin/slide/list') }}"><i class="fa fa-circle-o text-red"></i><span>幻灯片列表</span></a></li>
-                </ul>
             </li>
+            <li class="treeview">
+                <a href="{{ url('/admin/user/user-login?type=atom&id=100') }}" target="_blank">
+                    <i class="fa fa-sign-in text-default"></i> <span>登录原子</span>
+                </a>
+            </li>
+
 
 
         </ul>

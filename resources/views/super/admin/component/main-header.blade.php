@@ -6,7 +6,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>S</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Superman</b></span>
+        <span class="logo-lg"><b>Super</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -148,7 +148,7 @@
                         <!-- The user image in the navbar-->
                         <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">{{Auth::guard('super_admin')->user()->nickname}}</span>
+                        <span class="hidden-xs">{{Auth::guard('super')->user()->nickname}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
@@ -156,7 +156,7 @@
                             <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                             <p>
-                                {{Auth::guard('super_admin')->user()->nickname}} - Web Developer
+                                {{ Auth::guard('super')->user()->nickname }} - Web Developer
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>
@@ -181,7 +181,7 @@
                                 <a href="#" class="btn btn-default btn-flat">个人资料</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{url('/super/admin/logout')}}" class="btn btn-default btn-flat">退出</a>
+                                <a href="{{ url('/super/admin/logout') }}" class="btn btn-default btn-flat">退出</a>
                             </div>
                         </li>
                     </ul>

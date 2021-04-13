@@ -1,6 +1,7 @@
-@extends('super.admin.layout.layout')
+@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
-@section('title','超级管理员')
+@section('head_title','超级管理员系统')
+
 @section('header','超级管理员')
 @section('description','超级管理员')
 @section('breadcrumb')

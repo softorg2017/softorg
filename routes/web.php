@@ -15,7 +15,7 @@ require __DIR__.'/frontend.php';
 
 
 
-Route::group(['domain'=>env('DOMAIN_ROOT')], function(){
+Route::group(['domain' => env('DOMAIN_ROOT')], function(){
     Route::get('{all}', function(){
         return Redirect::away(env('DOMAIN_WWW').ltrim(Request::path(),'/'),301);
     })->where('all','.*');
@@ -61,6 +61,9 @@ Route::group(['prefix' => 'common'], function () {
 
     $controller = "CommonController";
 
+    //
+    Route::match(['get','post'], '/haha', $controller.'@index');
+
     // 验证码
     Route::match(['get','post'], 'change_captcha', $controller.'@change_captcha');
 
@@ -103,18 +106,34 @@ Route::group(['prefix' => 'developing', 'namespace' => 'Developing'], function (
 
 
 /*
- * 根
+ * 超级管理员
  */
-Route::group(['namespace' => 'Root'], function () {
-    require(__DIR__ . '/Root/route.php');
+Route::group(['domain' => 'super.'.env('DOMAIN_ROOT'), 'namespace' => 'Super'], function () {
+    require(__DIR__ . '/Super/route.php');
 });
 
 
 /*
- * 超级管理员
+ * ORG
  */
-Route::group(['namespace' => 'Super'], function () {
-    require(__DIR__ . '/Super/route.php');
+Route::group(['domain' => 'org.'.env('DOMAIN_ROOT'), 'namespace' => 'Org'], function () {
+    require(__DIR__ . '/Org/route.php');
+});
+
+
+/*
+ * DOC
+ */
+Route::group(['domain' => 'doc.'.env('DOMAIN_ROOT'), 'namespace' => 'Doc'], function () {
+    require(__DIR__ . '/Doc/route.php');
+});
+
+
+/*
+ * DOC
+ */
+Route::group(['domain' => 'atom.'.env('DOMAIN_ROOT'), 'namespace' => 'Atom'], function () {
+    require(__DIR__ . '/Atom/route.php');
 });
 
 
@@ -135,10 +154,10 @@ Route::group(['namespace' => 'Outside'], function () {
 
 
 /*
- * 企业站
+ * 根
  */
-Route::group(['namespace' => 'Org'], function () {
-    require(__DIR__ . '/Org/route.php');
+Route::group(['namespace' => 'Root'], function () {
+    require(__DIR__ . '/Root/route.php');
 });
 
 

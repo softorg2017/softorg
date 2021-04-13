@@ -5,13 +5,13 @@
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="/admin"><b>上海如未科技有限公司</b></a>
+        <a href="/admin"><b>如未科技</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">超级管理员登陆</p>
 
-        <form action="/super-admin/login" method="post" id="form-admin-login">
+        <form action="/admin/login" method="post" id="form-admin-login">
             {{ csrf_field() }}
             {{--<div class="form-group has-feedback">--}}
                 {{--<input type="email" class="form-control" name="email" placeholder="邮箱">--}}
@@ -68,7 +68,7 @@
         // 提交表单
         $("#admin-login-submit").on('click', function() {
             var options = {
-                url: "/super-admin/login",
+                url: "/admin/login",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -77,7 +77,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "/super-admin";
+                        location.href = "/admin";
                     }
                 }
             };
