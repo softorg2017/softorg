@@ -1,0 +1,148 @@
+
+/*** General *****************/
+body {
+	overflow-y: scroll;
+}
+.nav a {
+	text-decoration:underline;
+}
+.nav p, .nav h4{
+	font-family:'titilliumregular',Arial, Helvetica, sans-serif;
+}
+.nav label{
+	font-family:'exodemi_bold',Arial, Helvetica, sans-serif;
+	line-height: 33px;
+	font-size: 14px;
+	text-transform:uppercase;
+}
+.nav p{
+	font-size: 13px;
+	line-height: 21px;
+	text-align:justify;
+}
+.nav h4{
+	font-size: 19px;
+	letter-spacing:.1em;
+}
+.nav h6{
+	font-style:italic;
+	font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+	font-size:12px;
+	line-height: 20px;
+}
+.nav i{
+	display:block;
+}
+
+/*** .Nav Class ************************/
+.nav{
+	width: 550px;
+	margin: 20px auto;
+	overflow:hidden;
+	
+	text-align: left;
+	border:5px solid;
+	
+	border-radius:4px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+}
+.nav label{
+	display: block;
+	position: relative;
+	padding: 5px 20px;
+	height: 34px;
+	cursor: pointer;
+	z-index: 20;
+	
+	box-shadow: 0px 0px 0px 1px rgba(155,155,155,.5);
+	-webkit-box-shadow: 0px 0px 0px 1px rgba(155,155,155,.5);
+	-moz-box-shadow:0px 0px 0px 1px rgba(155,155,155,.5);
+	
+	transition:background-color .7s;
+	-webkit-transition:background-color .7s;
+	-moz-transition:background-color .7s;
+	-o-transition:background-color .7s;
+	-ms-transition:background-color .7s;
+}
+.nav label i{
+	display:block;
+	padding:3px 17px 0 0;
+	font-size:20px;
+}
+.nav input{
+	display: none;
+}
+.nav input:checked + label,
+.nav input:checked + label:hover{
+	box-shadow: 
+		0px 0px 0px 1px rgba(155,155,155,.3), 
+		0px 2px 2px rgba(0,0,0,.1);
+	-webkit-box-shadow:
+		0px 0px 0px 1px rgba(155,155,155,.3), 
+		0px 2px 2px rgba(0,0,0,.1);
+	-moz-box-shadow:
+		0px 0px 0px 1px rgba(155,155,155,.3), 
+		0px 2px 2px rgba(0,0,0,.1);
+}
+
+/*** Right Icon ***/
+.nav label i.i-right1,
+.nav label i.i-right2{
+	float:right;
+	margin-right:15px;
+	padding:6px 0 0 0;
+	
+	transition:all .7s;
+	-webkit-transition:all .7s;
+	-moz-transition:all .7s;
+	-o-transition:all .7s;
+	-ms-transition:all .7s;
+}
+.nav label i.i-right2{
+	display:none;
+}
+
+/*** .content Class *********************/
+.content{
+	position: relative;
+	height: 240px;
+	margin-top: -1px;
+	overflow:hidden;
+	z-index: 10;
+}
+.content p{
+	padding: 2px 15px 5px 10px;
+	margin-left:15px;
+	border-left:10px solid;
+}
+.content h4{
+	padding:8px 0 7px 15px;
+}
+.content h6{
+	padding:8px 15px 10px 15px;
+	margin:10px;
+	
+	border-radius:3px;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+}
+.content h6 i{
+	padding:0 5px;
+	font-size:10px;
+}
+.nav input:checked ~ div.content{	
+	box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3);
+	-webkit-box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3);
+	-moz-box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3);
+}
+
+/*** For Change Animation Effects ****/
+.nav input:checked ~ .content p{       
+	-webkit-animation: zoomIn .7s 1;
+	animation: zoomIn .7s 1;
+}
+.nav input:checked ~ .content h6{       
+	-webkit-animation: fadeIn 2s 1;
+	animation: fadeIn 2s 1;
+}

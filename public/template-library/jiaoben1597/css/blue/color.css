@@ -1,0 +1,44 @@
+body{
+	background-image:url(../../images/back.png);
+	background-repeat:repeat;
+}
+
+/* Nav */
+.nav a,.nav h4, .nav p{
+	color: #777777;
+}
+.nav{                             
+	border-color: #00BFFF;              /*Main Color*/
+}
+.nav label{                       
+	background-color: #00BFFF;           /*Main Color*/
+	color:#3B4E58;
+}
+.nav label:hover{                 
+	background: #BCBCBC;                /*Light Gray*/
+	color:#FFFFFF;
+}
+.nav input:checked + label,
+.nav input:checked + label:hover{ 
+	background: #6F6F6F;                /*Dark Gray*/
+	color:#FFFFFF;
+}
+
+/* Content */
+.content{
+	background: #ffffff; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #ffffff 0%,#e5e5e5 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #ffffff 0%,#e5e5e5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.content h6{                           /*Main Color*/
+	color:#333333;
+	background-color:rgba(0, 191, 255, .5);
+}
+.content p{                           
+	border-color: #00BFFF;             /*Main Color*/
+}

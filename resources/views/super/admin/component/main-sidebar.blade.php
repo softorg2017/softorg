@@ -95,6 +95,11 @@
                 </a>
             </li>
             <li class="treeview">
+                <a href="{{ url('/admin/user/user-login?type=gps&id=99') }}" target="_blank">
+                    <i class="fa fa-sign-in text-default"></i> <span>登录导航</span>
+                </a>
+            </li>
+            <li class="treeview">
                 <a href="{{ url('/admin/user/user-login?type=atom&id=100') }}" target="_blank">
                     <i class="fa fa-sign-in text-default"></i> <span>登录原子</span>
                 </a>

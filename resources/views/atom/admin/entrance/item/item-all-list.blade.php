@@ -323,6 +323,15 @@
                         "orderable": false,
                         render: function(data, type, row, meta) {
 
+                            if(row.deleted_at)
+                            {
+                                $html_delete = '<a class="btn btn-xs bg-olive item-restore-submit" data-id="'+data+'">恢复</a>';
+                            }
+                            else
+                            {
+                                $html_delete = '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'">删除</a>';
+                            }
+
                             if(row.item_status == 1)
                             {
                                 $html_able = '<a class="btn btn-xs btn-danger item-admin-disable-submit" data-id="'+data+'">封禁</a>';
@@ -346,8 +355,9 @@
 //                                    '<a class="btn btn-xs" href="/item/edit?id='+data+'">编辑</a>'+
                                     '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>'+
                                     $html_publish+
-                                    '<a class="btn btn-xs bg-navy item-admin-delete-submit" data-id="'+data+'">删除</a>'+
-                                    '<a class="btn btn-xs bg-navy item-admin-delete-permanently-submit" data-id="'+data+'">永久删除</a>'+
+                                    $html_delete+
+//                                    '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'">删除</a>'+
+                                    '<a class="btn btn-xs bg-navy item-delete-permanently-submit" data-id="'+data+'">永久删除</a>'+
 //                                    '<a class="btn btn-xs bg-primary item-detail-show" data-id="'+data+'">查看详情</a>'+
 //                                    '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
 //                                    '<a class="btn btn-xs bg-olive item-download-qr-code-submit" data-id="'+data+'">下载二维码</a>'+

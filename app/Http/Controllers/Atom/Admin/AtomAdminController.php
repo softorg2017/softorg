@@ -114,6 +114,16 @@ class AtomAdminController extends Controller
     {
         return $this->repo->operate_item_item_delete(request()->all());
     }
+    // 【内容】删除
+    public function operate_item_item_restore()
+    {
+        return $this->repo->operate_item_item_restore(request()->all());
+    }
+    // 【内容】删除
+    public function operate_item_item_delete_permanently()
+    {
+        return $this->repo->operate_item_item_delete_permanently(request()->all());
+    }
     // 【内容】发布
     public function operate_item_item_publish()
     {

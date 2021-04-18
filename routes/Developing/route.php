@@ -6,9 +6,6 @@ $controller = "IndexController";
 Route::get('/', $controller."@index");
 
 
-Route::get('/metinfo', function () {
-    return view('root.case.metinfo');
-});
 
 /*
  * 样式开发

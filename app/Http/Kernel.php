@@ -63,6 +63,9 @@ class Kernel extends HttpKernel
 
         'wechat.share' => \App\Http\Middleware\WechatShareMiddleware::class,
 
+        'gps' => \App\Http\Middleware\GPSMiddleware::class,
+        'gps.admin' => \App\Http\Middleware\GPSAdminMiddleware::class,
+
         'super' => \App\Http\Middleware\SuperMiddleware::class,
         'super.admin' => \App\Http\Middleware\SuperAdminMiddleware::class,
 

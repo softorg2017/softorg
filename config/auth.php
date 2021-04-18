@@ -42,6 +42,11 @@ return [
             'provider' => 'web',
         ],
 
+        'gps' => [
+            'driver' => 'session',
+            'provider' => 'gps',
+        ],
+
         'user' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -120,6 +125,11 @@ return [
     'providers' => [
 
         'web' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+
+        'gps' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],

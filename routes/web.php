@@ -92,6 +92,17 @@ Route::group(['prefix' => 'user', 'namespace' => 'Front'], function () {
 /*
  * TEST 测试
  */
+Route::group(['domain' => 'gps.'.env('DOMAIN_ROOT'), 'namespace' => 'GPS'], function () {
+    require(__DIR__ . '/GPS/route.php');
+});
+
+
+
+
+
+/*
+ * TEST 测试
+ */
 Route::group(['prefix' => 'test', 'namespace' => 'Test'], function () {
     require(__DIR__ . '/Test/route.php');
 });

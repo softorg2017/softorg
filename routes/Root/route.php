@@ -10,18 +10,6 @@ Route::get('/website/templates', $controller."@view_website_templates");
 
 
 
-/*
- * 样式开发
- */
-Route::group(['prefix' => 'case'], function () {
-
-    $controller = "CaseController";
-
-    Route::get('metinfo', $controller."@view_metinfo");
-
-});
-
-
 
 
 /*
@@ -30,7 +18,8 @@ Route::group(['prefix' => 'case'], function () {
 Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
 
 
-    $controller = "IndexController";
+    $controller = "RootIndexController";
+
     Route::get('/', $controller.'@view_root');
     Route::get('/root/template/{id?}', $controller.'@view_template_item');
     Route::get('/root/template-list', $controller.'@view_template_list');

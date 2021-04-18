@@ -4,7 +4,7 @@
 /*
  * 后台
  */
-Route::group(['prefix' => config('common.org.admin.prefix'), 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'org-admin', 'namespace' => 'Admin'], function () {
 
     App::setLocale("zh");
     Route::get('/i18n','IndexController@dataTableI18n');
@@ -302,7 +302,7 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     // 前台主页
     Route::group(['prefix' => 'org/{org_name}'], function () {
 
-        $controller = "IndexController";
+        $controller = "OrgIndexController";
 
         Route::get('/',$controller.'@root');
 //    Route::get('/index', $controller.'@index');
@@ -315,9 +315,9 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     });
 
     // 前台
-    Route::group(['prefix' => config('common.org.front.prefix')], function () {
+    Route::group(['prefix' => 'org'], function () {
 
-        $controller = "IndexController";
+        $controller = "OrgIndexController";
 
         Route::get('menu/{id?}', $controller.'@view_menu');
         Route::get('item/{id?}', $controller.'@view_item');

@@ -13,7 +13,7 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
     // 注册登录
     Route::group(['namespace' => 'Auth'], function () {
 
-        $controller = "AuthController";
+        $controller = "DocAuthController";
 
         Route::match(['get','post'], 'register', $controller.'@register');
         Route::match(['get','post'], 'register/org', $controller.'@register_org');
@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
 
         // 机构模块
         Route::group(['prefix' => 'info'], function () {
-            $controller = "InfoController";
+            $controller = "DocInfoController";
 
             Route::get('/', $controller.'@index');
             Route::get('index', $controller.'@index');
@@ -53,99 +53,8 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
 
         });
 
-        // 机构模块
-        Route::group(['prefix' => 'softorg'], function () {
-            $controller = "SoftorgController";
-
-            Route::get('/', $controller.'@index');
-            Route::get('index', $controller.'@index');
-            Route::match(['get','post'], 'edit', $controller.'@editAction');
-
-            Route::match(['get','post'], 'edit/home', $controller.'@homeAction');
-            Route::match(['get','post'], 'edit/information', $controller.'@informationAction');
-            Route::match(['get','post'], 'edit/introduction', $controller.'@introductionAction');
-            Route::match(['get','post'], 'edit/contact-us', $controller.'@contact_usAction');
-            Route::match(['get','post'], 'edit/culture', $controller.'@cultureAction');
-
-        });
-
-        // 管理员模块
-        Route::group(['prefix' => 'administrator'], function () {
-            $controller = "AdministratorController";
-
-            Route::get('/', $controller.'@index');
-            Route::get('index', $controller.'@index');
-            Route::match(['get','post'], 'edit', $controller.'@editAction');
-
-            Route::match(['get','post'], 'password/reset', $controller.'@password_reset');
-
-            Route::match(['get','post'], 'list', $controller.'@viewList');
-        });
 
 
-        // 流量统计
-        Route::group(['prefix' => 'statistics'], function () {
-            $controller = "StatisticsController";
-
-            Route::get('/', $controller.'@index');
-            Route::get('index', $controller.'@index');
-
-            Route::get('page', $controller.'@page');
-
-            Route::get('website', $controller.'@website');
-            Route::get('menu', $controller.'@menu');
-            Route::get('item', $controller.'@item');
-        });
-
-        // 样式模块
-        Route::group(['prefix' => 'module'], function () {
-            $controller = "ModuleController";
-
-            Route::get('/', $controller.'@index');
-            Route::get('index', $controller.'@index');
-            Route::match(['get','post'], 'list', $controller.'@viewList');
-            Route::get('create', $controller.'@createAction');
-            Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::match(['get','post'], 'sort', $controller.'@sortAction');
-            Route::post('delete', $controller.'@deleteAction');
-            Route::post('enable', $controller.'@enableAction');
-            Route::post('disable', $controller.'@disableAction');
-
-            Route::post('delete_multiple_option', $controller.'@deleteMultipleOption');
-        });
-
-        // 目录模块
-        Route::group(['prefix' => 'menu'], function () {
-            $controller = "MenuController";
-
-            Route::get('/', $controller.'@index');
-            Route::get('index', $controller.'@index');
-            Route::match(['get','post'], 'list', $controller.'@viewList');
-            Route::match(['get','post'], 'items', $controller.'@viewItemsList');
-            Route::get('create', $controller.'@createAction');
-            Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::match(['get','post'], 'sort', $controller.'@sortAction');
-            Route::post('delete', $controller.'@deleteAction');
-            Route::post('enable', $controller.'@enableAction');
-            Route::post('disable', $controller.'@disableAction');
-        });
-
-        // 内容模块
-        Route::group(['prefix' => 'item'], function () {
-            $controller = "ItemController";
-
-            Route::get('/', $controller.'@index');
-            Route::get('index', $controller.'@index');
-            Route::match(['get','post'], 'list', $controller.'@viewList');
-            Route::match(['get','post'], 'menu', $controller.'@viewMenuItemsList');
-            Route::get('create', $controller.'@createAction');
-            Route::match(['get','post'], 'edit', $controller.'@editAction');
-            Route::post('delete', $controller.'@deleteAction');
-            Route::post('enable', $controller.'@enableAction');
-            Route::post('disable', $controller.'@disableAction');
-
-            Route::get('select2_menus', $controller.'@select2_menus');
-        });
 
     });
 
@@ -155,13 +64,13 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
 /*
  * 前台
  */
-Route::group(['namespace' => 'Frontend', 'middleware' => 'wechat.share'], function () {
+Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
 
     Route::get('/', function () {
         dd('doc');
     });
 
-    $controller = "IndexController";
+    $controller = "DocIndexController";
     Route::get('item/{id?}', $controller.'@view_item');
     Route::get('org-item/{id?}', $controller.'@view_item');
 
@@ -183,7 +92,7 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'wechat.share'], functi
     // 前台
     Route::group(['prefix' => config('common.org.front.prefix')], function () {
 
-        $controller = "IndexController";
+        $controller = "DocIndexController";
 
         Route::get('menu/{id?}', $controller.'@view_menu');
         Route::get('item/{id?}', $controller.'@view_item');

@@ -37,7 +37,7 @@
         // 添加or编辑
         $("#edit-item-submit").on('click', function() {
             var options = {
-                url: "{{ url('/atom/item/item-edit') }}",
+                url: "{{ url('/admin/item/item-edit') }}",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -48,11 +48,11 @@
                         layer.msg(data.msg);
 
                         var $type = $('input[name=type]').val();
-                        if($type == "object") location.href = "{{ url('/atom/item/item-object-list') }}";
-                        else if($type == "people") location.href = "{{ url('/atom/item/item-people-list') }}";
-                        else if($type == "product") location.href = "{{ url('/atom/item/item-product-list') }}";
-                        else if($type == "event") location.href = "{{ url('/atom/item/item-event-list') }}";
-                        else if($type == "conception") location.href = "{{ url('/atom/item/item-conception-list') }}";
+                        if($type == "object") location.href = "{{ url('/admin/item/item-object-list') }}";
+                        else if($type == "people") location.href = "{{ url('/admin/item/item-people-list') }}";
+                        else if($type == "product") location.href = "{{ url('/admin/item/item-product-list') }}";
+                        else if($type == "event") location.href = "{{ url('/admin/item/item-event-list') }}";
+                        else if($type == "conception") location.href = "{{ url('/admin/item/item-conception-list') }}";
                         else location.href = "{{ url('/atom/item/item-all-list') }}";
                     }
                 }
@@ -62,7 +62,7 @@
 
         $('#people').select2({
             ajax: {
-                url: "/atom/item/select2_people",
+                url: "/admin/item/select2_people",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
@@ -92,7 +92,7 @@
 
         $('#menus').select2({
             ajax: {
-                url: "{{url('/atom/item/select2_menus')}}",
+                url: "{{url('/admin/item/select2_menus')}}",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {

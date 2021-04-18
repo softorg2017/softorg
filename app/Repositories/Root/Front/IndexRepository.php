@@ -24,6 +24,7 @@ class IndexRepository {
     // root
     public function root()
     {
+//        dd('root');
 //        $info = json_decode(json_encode(config('mitong.company.info')));
 //        $menus = RootMenu::where(['active'=>1])->orderby('order', 'asc')->get();
 

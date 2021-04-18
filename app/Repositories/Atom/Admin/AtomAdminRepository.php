@@ -365,8 +365,8 @@ class AtomAdminRepository {
         }
         else $query->orderBy("id", "desc");
 
-        if($limit == -1) $list = $query->get();
-        else $list = $query->skip($skip)->take($limit)->get();
+        if($limit == -1) $list = $query->withTrashed()->get();
+        else $list = $query->skip($skip)->take($limit)->withTrashed()->get();
 
         foreach ($list as $k => $v)
         {
@@ -391,7 +391,7 @@ class AtomAdminRepository {
     public function get_item_all_datatable($post_data)
     {
         $me = Auth::guard("admin")->user();
-        $query = Doc_Item::select('*')
+        $query = Doc_Item::select('*')->withTrashed()
             ->with('owner')
             ->where('owner_id','>=',1)
             ->where('item_category',0)
@@ -445,7 +445,7 @@ class AtomAdminRepository {
     public function get_item_object_datatable($post_data)
     {
         $me = Auth::guard("admin")->user();
-        $query = Doc_Item::select('*')
+        $query = Doc_Item::select('*')->withTrashed()
             ->with('owner')
             ->where(['item_category'=>0,'item_type'=>1]);
 
@@ -497,7 +497,7 @@ class AtomAdminRepository {
     public function get_item_people_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
-        $query = Doc_Item::select('*')
+        $query = Doc_Item::select('*')->withTrashed()
             ->with('owner')
             ->where(['item_category'=>0,'item_type'=>11]);
 
@@ -549,7 +549,7 @@ class AtomAdminRepository {
     public function get_item_product_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
-        $query = Doc_Item::select('*')
+        $query = Doc_Item::select('*')->withTrashed()
             ->with([
                 'owner',
                 'pivot_product_people'=>function ($query) { $query->where('relation_type',1); }
@@ -604,7 +604,7 @@ class AtomAdminRepository {
     public function get_item_event_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
-        $query = Doc_Item::select('*')
+        $query = Doc_Item::select('*')->withTrashed()
             ->with('owner')
             ->where(['item_category'=>0,'item_type'=>33]);
 
@@ -656,7 +656,7 @@ class AtomAdminRepository {
     public function get_item_conception_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
-        $query = Doc_Item::select('*')
+        $query = Doc_Item::select('*')->withTrashed()
             ->with('owner')
             ->where(['item_category'=>0,'item_type'=>9]);
 
@@ -1064,7 +1064,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::find($id);
+        $item = Doc_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -1095,7 +1095,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::find($id);
+        $item = Doc_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -1119,6 +1119,147 @@ class AtomAdminRepository {
 
 
             $bool = $item->delete();
+            if(!$bool) throw new Exception("delete--item--fail");
+
+            DB::commit();
+
+
+            // 删除原封面图片
+//            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+//            {
+//                unlink(storage_path("resource/" . $mine_cover_pic));
+//            }
+//
+//            // 删除原附件
+//            if(!empty($mine_attachment_src) && file_exists(storage_path("resource/" . $mine_attachment_src)))
+//            {
+//                unlink(storage_path("resource/" . $mine_attachment_src));
+//            }
+//
+//            // 删除二维码
+//            if(file_exists(storage_path("resource/unique/qr_code/".'qr_code_item_'.$id.'.png')))
+//            {
+//                unlink(storage_path("resource/unique/qr_code/".'qr_code_item_'.$id.'.png'));
+//            }
+//
+//            // 删除UEditor图片
+//            $img_tags = get_html_img($mine_content);
+//            foreach ($img_tags[2] as $img)
+//            {
+//                if (!empty($img) && file_exists(public_path($img)))
+//                {
+//                    unlink(public_path($img));
+//                }
+//            }
+
+
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+    // 【ITEM】恢复
+    public function operate_item_item_restore($post_data)
+    {
+        $messages = [
+            'operate.required' => '参数有误',
+            'id.required' => '请输入关键词ID',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'item-restore') return response_error([],"参数有误！");
+        $id = $post_data["id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
+
+        $item = Doc_Item::withTrashed()->find($id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+
+        $me = Auth::guard('atom')->user();
+        if($item->owner_id != $me->id) return response_error([],"你没有操作权限！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $bool = $item->restore();
+            if(!$bool) throw new Exception("delete--restore--fail");
+
+            DB::commit();
+
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+    // 【ITEM】彻底删除
+    public function operate_item_item_delete_permanently($post_data)
+    {
+        $messages = [
+            'operate.required' => '参数有误',
+            'id.required' => '请输入关键词ID',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'item-delete-permanently') return response_error([],"参数有误！");
+        $id = $post_data["id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
+
+        $item = Doc_Item::withTrashed()->find($id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+
+        $me = Auth::guard('atom')->user();
+        if($item->owner_id != $me->id) return response_error([],"你没有操作权限！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            if($id == $me->advertising_id)
+            {
+                $me->timestamps = false;
+                $me->advertising_id = 0;
+                $bool_0 = $me->save();
+                if(!$bool_0) throw new Exception("update--user--fail");
+            }
+
+            $mine_cover_pic = $item->cover_pic;
+            $mine_attachment_src = $item->attachment_src;
+            $mine_content = $item->content;
+
+
+            $bool = $item->forceDelete();
             if(!$bool) throw new Exception("delete--item--fail");
 
             DB::commit();
@@ -1187,7 +1328,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::find($id);
+        $item = Doc_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();

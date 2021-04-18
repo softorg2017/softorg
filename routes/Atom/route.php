@@ -70,6 +70,8 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
 
         Route::match(['get','post'], '/item/item-get', $controller.'@operate_item_item_get');
         Route::match(['get','post'], '/item/item-delete', $controller.'@operate_item_item_delete');
+        Route::match(['get','post'], '/item/item-restore', $controller.'@operate_item_item_restore');
+        Route::match(['get','post'], '/item/item-delete-permanently', $controller.'@operate_item_item_delete_permanently');
         Route::match(['get','post'], '/item/item-publish', $controller.'@operate_item_item_publish');
 
         Route::match(['get','post'], '/item/item-admin-disable', $controller.'@operate_item_admin_disable');

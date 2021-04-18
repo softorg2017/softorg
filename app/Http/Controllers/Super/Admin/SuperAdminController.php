@@ -41,7 +41,12 @@ class SuperAdminController extends Controller
             Auth::login($user,true);
 
             $type = request()->get('type','');
-            if($type == "atom")
+            if($type == "gps")
+            {
+                Auth::guard('gps')->login($user,true);
+                return redirect(env('DOMAIN_GPS').'/admin');
+            }
+            else if($type == "atom")
             {
                 Auth::guard('atom')->login($user,true);
                 return redirect(env('DOMAIN_ATOM').'/admin');

@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DOC_ATOM').'layout.layout')
+@extends(env('TEMPLATE_ATOM_ADMIN').'layout.layout')
 
 
 @section('head_title')
@@ -264,5 +264,5 @@
 @section('custom-script')
 {{--<script src="https://cdn.bootcss.com/select2/4.0.5/js/select2.min.js"></script>--}}
 <script src="{{ asset('/lib/js/select2-4.0.5.min.js') }}"></script>
-@include(env('TEMPLATE_DOC_ATOM').'entrance.item.item-edit-script')
+@include(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-script')
 @endsection

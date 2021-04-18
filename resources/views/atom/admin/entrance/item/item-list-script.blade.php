@@ -37,14 +37,14 @@
         // 【数据分析】
         $("#item-main-body").on('click', ".item-statistic-submit", function() {
             var that = $(this);
-            window.open("/atom/statistic/statistic-item?id="+that.attr('data-id'));
+            window.open("/admin/statistic/statistic-item?id="+that.attr('data-id'));
 //            window.location.href = "/atom/statistic/statistic-item?id="+that.attr('data-id');
         });
 
         // 【编辑】
         $("#item-main-body").on('click', ".item-edit-link", function() {
             var that = $(this);
-            window.location.href = "/atom/item/item-edit?id="+that.attr('data-id');
+            window.location.href = "/admin/item/item-edit?id="+that.attr('data-id');
         });
 
 
@@ -58,7 +58,7 @@
                 type:"post",
                 dataType:'json',
                 async:false,
-                url: "{{ url('/atom/item/item-get') }}",
+                url: "{{ url('/admin/item/item-get') }}",
                 data: {
                     _token: $('meta[name="_token"]').attr('content'),
                     operate:"item-get",
@@ -94,7 +94,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/atom/item/item-delete') }}",
+                        "{{ url('/admin/item/item-delete') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
                             operate: "item-delete",
@@ -121,7 +121,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/atom/item/item-restore') }}",
+                        "{{ url('/admin/item/item-restore') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
                             operate: "item-restore",
@@ -148,7 +148,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/atom/item/item-delete-permanently') }}",
+                        "{{ url('/admin/item/item-delete-permanently') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
                             operate: "item-delete-permanently",
@@ -175,7 +175,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/atom/item/item-publish') }}",
+                        "{{ url('/admin/item/item-publish') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
                             operate: "item-publish",
@@ -203,7 +203,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/atom/item/item-ad-set') }}",
+                        "{{ url('/admin/item/item-ad-set') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
                             operate: "item-ad-set",
@@ -231,7 +231,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/atom/item/item-ad-cancel') }}",
+                        "{{ url('/admin/item/item-ad-cancel') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
                             operate: "item-ad-cancel",
@@ -262,7 +262,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/atom/item/item-enable') }}",
+                        "{{ url('/admin/item/item-enable') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
                             operate: "item-enable",
@@ -289,7 +289,7 @@
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/atom/item/item-disable') }}",
+                        "{{ url('/admin/item/item-disable') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
                             operate: "item-disable",
