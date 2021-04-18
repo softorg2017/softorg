@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Super\Admin;
+namespace App\Http\Controllers\GPS\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -7,19 +7,19 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 
-use App\Repositories\Super\Admin\SuperAuthRepository;
+use App\Repositories\GPS\Admin\GPSAuthRepository;
 
 use Response, Auth, Validator, DB, Exception;
 
 
-class SuperAuthController extends Controller
+class GPSAuthController extends Controller
 {
     //
     private $service;
     private $repo;
     public function __construct()
     {
-        $this->repo = new SuperAuthRepository;
+        $this->repo = new GPSAuthRepository;
     }
 
     // 登陆
@@ -27,7 +27,7 @@ class SuperAuthController extends Controller
     {
         if(request()->isMethod('get'))
         {
-            return view('super.admin.auth.login');
+            return view('gps.admin.auth.login');
         }
         else if(request()->isMethod('post'))
         {
@@ -49,8 +49,8 @@ class SuperAuthController extends Controller
                     if(password_check($password,$admin->password))
                     {
                         $remember = request()->get('remember');
-                        if($remember) Auth::guard('super')->login($admin,true);
-                        else Auth::guard('super')->login($admin,true);
+                        if($remember) Auth::guard('gps')->login($admin,true);
+                        else Auth::guard('gps')->login($admin,true);
                         return response_success();
                     }
                     else return response_error([],'账户or密码不正确 ');
@@ -64,8 +64,8 @@ class SuperAuthController extends Controller
     // 退出
     public function logout()
     {
-        Auth::guard('super')->logout();
-        return redirect('/super/login');
+        Auth::guard('gps')->logout();
+        return redirect('/gps/login');
     }
 
 

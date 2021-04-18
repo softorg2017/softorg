@@ -112,22 +112,22 @@
                     </tr>
                     <tr>
                         <td>user</td>
-                        <td>@if(auth()->guard()){{ auth()->guard()->user()->username }}@endif</td>
+                        <td>@if(auth()->guard()->check()){{ auth()->guard()->user()->username }}@endif</td>
                         <td><span class="label label-success">Approved</span></td>
                     </tr>
                     <tr>
                         <td>SUPER</td>
-                        <td>@if(auth()->guard('super')){{ auth()->guard('super')->user()->username }}@endif</td>
+                        <td>@if(auth()->guard('super')->check()){{ auth()->guard('super')->user()->username }}@endif</td>
                         <td><span class="label label-warning">Pending</span></td>
                     </tr>
                     <tr>
                         <td>GPS</td>
-                        <td>@if(auth()->guard('gps')){{ auth()->guard('gps')->user()->username }}@endif</td>
+                        <td>@if(auth()->guard('gps')->check()){{ auth()->guard('gps')->user()->username }}@endif</td>
                         <td><span class="label label-primary">Approved</span></td>
                     </tr>
                     <tr>
                         <td>ATOM</td>
-                        <td>@if(auth()->guard('atom')){{ auth()->guard('atom')->user()->username }}@endif</td>
+                        <td>@if(auth()->guard('atom')->check()){{ auth()->guard('atom')->user()->username }}@endif</td>
                         <td><span class="label label-danger">Denied</span></td>
                     </tr>
                     </tbody>
