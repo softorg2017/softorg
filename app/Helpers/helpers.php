@@ -81,25 +81,25 @@ if(!function_exists('time_show'))
         time_init();
 
         if( ($stamp >= $beforeday_start_unix) && ($stamp < $yesterday_start_unix) ) {
-            return "前天".date(" H:i",$stamp);
+            return "前天".date(" G:i",$stamp);
         }
         elseif( ($stamp >= $yesterday_start_unix) && ($stamp < $today_start_unix) ) {
-            return "昨天".date(" H:i",$stamp);
+            return "昨天".date(" G:i",$stamp);
         }
         elseif( ($stamp >= $today_start_unix) && ($stamp <= $today_ended_unix) ) {
-            return "今天".date(" H:i",$stamp);
+            return "今天".date(" G:i",$stamp);
         }
         elseif( ($stamp >= $today_ended_unix) && ($stamp < $tomorrow_ended_unix) ) {
-            return "明天".date(" H:i",$stamp);
+            return "明天".date(" G:i",$stamp);
         }
         elseif( ($stamp >= $tomorrow_ended_unix) && ($stamp < $afterday_ended_unix) ) {
-            return "后天".date(" H:i",$stamp);
+            return "后天".date(" G:i",$stamp);
         }
         else {
             if( ($this_year_start_unix <= $stamp) && ($stamp <= $this_year_ended_unix) ) {
-                return date("n月j日 H:i",$stamp);
+                return date("n月j日 G:i",$stamp);
             } else {
-                return date("Y-n-j H:i",$stamp);
+                return date("Y-n-j G:i",$stamp);
             }
         }
     }
@@ -109,7 +109,49 @@ if(!function_exists('date_show'))
 {
     function date_show($stamp)
     {
-        return date("Y-m-j",$stamp);
+        global $today_start_unix;	//今天开始；
+        global $today_ended_unix;	//今天结束；
+
+        global $yesterday_start_unix;	//昨天开始；
+        global $yesterday_ended_unix;	//昨天结束；
+
+        global $beforeday_start_unix;	//前天开始；
+        global $beforeday_ended_unix;	//前天结束；
+
+        global $tomorrow_start_unix;	//明天开始；
+        global $tomorrow_ended_unix;	//明天结束；
+
+        global $afterday_start_unix;	//后天开始；
+        global $afterday_ended_unix;	//后天结束；
+
+        global $this_year_start_unix;	//今年开始；
+        global $this_year_ended_unix;	//今年结束；
+
+        time_init();
+
+        if( ($stamp >= $beforeday_start_unix) && ($stamp < $yesterday_start_unix) ) {
+            return "前天";
+        }
+        elseif( ($stamp >= $yesterday_start_unix) && ($stamp < $today_start_unix) ) {
+            return "昨天";
+        }
+        elseif( ($stamp >= $today_start_unix) && ($stamp <= $today_ended_unix) ) {
+            return "今天";
+        }
+        elseif( ($stamp >= $today_ended_unix) && ($stamp < $tomorrow_ended_unix) ) {
+            return "明天";
+        }
+        elseif( ($stamp >= $tomorrow_ended_unix) && ($stamp < $afterday_ended_unix) ) {
+            return "后天";
+        }
+        else {
+            if( ($this_year_start_unix <= $stamp) && ($stamp <= $this_year_ended_unix) ) {
+                return date("n月j日",$stamp);
+            } else {
+                return date("Y-n-j",$stamp);
+            }
+        }
+
     }
 }
 
@@ -224,16 +266,37 @@ if(!function_exists('getBrowserInfo'))
 
         $info['type'] = 'PC';
         if(stripos($Agent, 'Mobile')) $info['type'] = 'Mobile';
+        if(isMobileEquipment()) $info['type'] = 'Mobile';
 
         $info['system'] = 'Unknown';
+        if(stripos($Agent, 'PowerPC')) $info['system'] = 'PowerPC';
+        else if(stripos($Agent, 'AIX')) $info['system'] = 'AIX';
+        else if(stripos($Agent, 'HPUX')) $info['system'] = 'HPUX';
+        else if(stripos($Agent, 'NetBSD')) $info['system'] = 'NetBSD';
+        else if(stripos($Agent, 'BSD')) $info['system'] = 'BSD';
+        else if(stripos($Agent, 'OSF1')) $info['system'] = 'OSF1';
+        else if(stripos($Agent, 'IRIX')) $info['system'] = 'IRIX';
+        else if(stripos($Agent, 'FreeBSD')) $info['system'] = 'FreeBSD';
+        else if(stripos($Agent, 'teleport')) $info['system'] = 'teleport';
+        else if(stripos($Agent, 'flashget')) $info['system'] = 'flashget';
+        else if(stripos($Agent, 'webzip')) $info['system'] = 'webzip';
+        else if(stripos($Agent, 'offline')) $info['offline'] = 'offline';
+
         if(stripos($Agent, 'Windows')) $info['system'] = 'Windows';
         if(stripos($Agent, 'Windows Phone')) $info['system'] = 'WinPhone';
-        if(stripos($Agent, 'Android')) $info['system'] = 'Android';
+        if(stripos($Agent, 'Sun')) $info['system'] = 'SunOS';
+        if(stripos($Agent, 'IBM')) $info['system'] = 'IBM';
+        if(stripos($Agent, 'Unix')) $info['system'] = 'Unix';
+        if(stripos($Agent, 'Linux')) $info['system'] = 'Linux';
+        if(stripos($Agent, 'Ubuntu')) $info['system'] = 'Ubuntu';
+        if(stripos($Agent, 'CentOS')) $info['system'] = 'CentOS';
         if(stripos($Agent, 'Mac')) $info['system'] = 'Mac';
         if(stripos($Agent, 'iPad')) $info['system'] = 'iPad';
         if(stripos($Agent, 'iPhone')) $info['system'] = 'iPhone';
+        if(stripos($Agent, 'Android')) $info['system'] = 'Android';
 
-        $info['browser'] = 'Ohters';
+
+        $info['browser'] = 'Unknown';
         if(stripos($Agent, 'Mozilla') && !stripos($Agent, 'MSIE')) $info['browser'] = 'Netscape';
         if(stripos($Agent, 'Mozilla') && stripos($Agent, 'MSIE')) $info['browser'] = 'IExplorer';
         if(stripos($Agent, 'Safari')) $info['browser'] = 'Safari';
@@ -241,12 +304,14 @@ if(!function_exists('getBrowserInfo'))
         if(stripos($Agent, 'Firefox')) $info['browser'] = 'Firefox';
         if(stripos($Agent, 'FxiOS')) $info['browser'] = 'Firefox';
         if(stripos($Agent, 'Opera')) $info['browser'] = 'Opera';
+        if(stripos($Agent, 'Edge')) $info['browser'] = "Edge";
         if(stripos($Agent, 'QQBroser')) $info['browser'] = 'QQBroser';
 
-        $info['app'] = 'default';
+        $info['app'] = 'Unknown';
         if(stripos($Agent, 'MicroMessenger')) $info['app'] = 'WeChat';
         if(stripos($Agent, 'QQ') && !stripos($Agent, 'MQQBrowser')) $info['app'] = 'QQ';
         if(stripos($Agent, 'QQ/')) $info['app'] = 'QQ';
+        if(stripos($Agent, 'Alipay')) $info['app'] = 'Alipay';
 
         return $info;
     }
@@ -417,6 +482,18 @@ if(!function_exists('get_html_img')){
         return $matches;
     }
 }
+/*
+ * 获取html
+ */
+if(!function_exists('get_html_video')){
+
+    function get_html_video($html){
+        $strPreg = '/<\s*embed\s+[^>]*?src\s*=\s*(\'|\")(.*?)\\1[^>]*?\/?\s*>/i';
+        preg_match_all($strPreg, $html, $matches);
+        return $matches;
+    }
+}
+
 
 
 
@@ -427,7 +504,10 @@ if (!function_exists('upload')) {
     function upload($file, $saveFolder, $patch = 'research')
     {
         $allowedExtensions = [
-            'jpg', 'jpeg', 'png', 'gif', 'csv',
+            'txt', 'pdf', 'csv',
+            'png', 'jpg', 'jpeg', 'gif', "PNG", "JPG", "JPEG", "GIF",
+            'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx',
+            'wps', 'dps', 'et',
         ];
         $extension = $file->getClientOriginalExtension();
 
@@ -464,14 +544,15 @@ EOF;
         return $returnData;
     }
 }
-/**
- * 上传文件
- */
+
 if (!function_exists('upload_storage')) {
     function upload_storage($file, $filename = '', $saveFolder = 'research/common')
     {
         $allowedExtensions = [
-            'png', 'jpg', 'jpeg', 'gif', "PNG", "JPG", "JPEG", "GIF", 'csv', 'xls', 'pdf'
+            'txt', 'pdf', 'csv',
+            'png', 'jpg', 'jpeg', 'gif', "PNG", "JPG", "JPEG", "GIF",
+            'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx',
+            'wps', 'dps', 'et',
         ];
         $extension = $file->getClientOriginalExtension();
 
@@ -510,14 +591,61 @@ EOF;
         return $returnData;
     }
 }
-/**
- * 上传文件
- */
-if (!function_exists('upload_s')) {
-    function upload_s($file, $saveFolder = 'common', $patch = 'research', $filename = '')
+
+if (!function_exists('upload_file_storage')) {
+    function upload_file_storage($file, $saveFolder = 'common', $patch = 'research', $filename = '')
     {
         $allowedExtensions = [
-            'png', 'jpg', 'jpeg', 'gif', "PNG", "JPG", "JPEG", "GIF", 'csv', 'xls', 'pdf'
+            'txt', 'pdf', 'csv',
+            'png', 'jpg', 'jpeg', 'gif', "PNG", "JPG", "JPEG", "GIF",
+            'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx',
+            'wps', 'dps', 'et',
+        ];
+        $extension = $file->getClientOriginalExtension();
+
+        /*判断后缀是否合法*/
+        if (in_array(strtolower($extension), $allowedExtensions)) {
+            /*保存文件*/
+            $date = date('Y-m-d');
+            $upload_path = <<<EOF
+resource/$patch/$saveFolder/$date/
+EOF;
+
+            $mysql_save_path = <<<EOF
+$patch/$saveFolder/$date/
+EOF;
+            $path = storage_path($upload_path);
+            if (!is_dir($path)) {
+                mkdir($path, 0766, true);
+            }
+            if($filename == '') $filename = uniqid() . time() . '.' . $extension;
+            else $filename = $filename . '.' . $extension;
+
+            $clientName = $file -> getClientOriginalName();
+
+            $file->move($path, $filename);
+            $returnData = [
+                'result' => true,
+                'msg' => '上传成功',
+                'local' => $mysql_save_path . $filename,
+                'name' => $clientName,
+                'extension' => $extension,
+            ];
+        } else {
+            $returnData = [
+                'result' => false,
+                'msg' => '上传文件格式不正确',
+            ];
+        }
+        return $returnData;
+    }
+}
+
+if (!function_exists('upload_s')) {
+    function upload_s($file, $saveFolder, $patch = 'research')
+    {
+        $allowedExtensions = [
+            'jpg', 'jpeg', 'png', 'csv',
         ];
         $extension = $file->getClientOriginalExtension();
 
@@ -537,9 +665,7 @@ EOF;
             if (!is_dir($path)) {
                 mkdir($path, 0766, true);
             }
-            if($filename == '') $filename = uniqid() . time() . '.' . $extension;
-            else $filename = $filename . '.' . $extension;
-
+            $filename = uniqid() . time() . '.' . $extension;
             $image->save($path . $filename);
             $returnData = [
                 'result' => true,
@@ -562,7 +688,7 @@ if (!function_exists('commonUpload'))
     function commonUpload($file, $saveFolder)
     {
         $allowedExtensions = [
-            'jpg', 'jpeg', 'png', 'gif', 'csv', 'xls', 'pdf'
+            'jpg', 'jpeg', 'png', 'csv', 'xls', 'pdf', 'gif'
         ];
         $extension = $file->getClientOriginalExtension();
 
@@ -604,6 +730,9 @@ if (! function_exists('storage_path')) {
     }
 }
 
+
+
+
 /*检查是否是手机号码*/
 if(! function_exists('isMobile'))
 {
@@ -611,7 +740,8 @@ if(! function_exists('isMobile'))
     {
         if (!is_numeric($mobile)) return false;
 //        return preg_match('#^13[\d]{9}$|^14[\d]{9}}$|^15[\d]{9}$|^17[\d]{9}$|^18[\d]{9}$#', $mobile) ? true : false;
-        $rule = '#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,1,6,7,8]{1}\d{8}$|^18[\d]{9}$|^19[1,5,6,7,8,9]{1}\d{8}$#';
+        $rule = '#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,1,6,7,8,9]{1}\d{8}$|^18[\d]{9}$|^19[1,5,6,7,8,9]{1}\d{8}$#';
+        $rule = '#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,1,6,7,8,9]{1}\d{8}$|^18[\d]{9}$|^19[\d]{9}$#';
         return preg_match($rule, $mobile) ? true : false;
     }
 }
@@ -637,7 +767,8 @@ if(!function_exists('isMobileEquipment')){
         // 脑残法，判断手机发送的客户端标志,兼容性有待提高
         if (isset ($_SERVER['HTTP_USER_AGENT']))
         {
-            $clientkeywords = array ('nokia',
+            $clientkeywords = array (
+                'nokia',
                 'sony',
                 'ericsson',
                 'mot',
@@ -930,6 +1061,17 @@ if(!function_exists('datatable_response'))
             );
         }
         return Response::json($result);
+    }
+}
+
+
+// 访问是否来自微信端
+if(!function_exists('is_weixin'))
+{
+    function is_weixin()
+    {
+        if ( strpos($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') !== false ) return true;
+        return false;
     }
 }
 

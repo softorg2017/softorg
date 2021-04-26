@@ -5,7 +5,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Repositories\Root\Front\IndexRepository;
+use App\Repositories\Root\Front\RootIndexRepository;
+
+use Response, Auth, Validator, DB, Exception, Cache;
+use QrCode, Excel;
 
 class RootIndexController extends Controller
 {
@@ -15,28 +18,73 @@ class RootIndexController extends Controller
     private $repo;
     public function __construct()
     {
-        $this->repo = new IndexRepository;
+        $this->repo = new RootIndexRepository;
     }
 
 
 
 
-    // 返回【主页】视图
-    public function root()
-    {
-        return $this->repo->root();
-    }
-
-    // 返回【主页】视图
+    // 主页视图
     public function view_root()
     {
-        return $this->repo->root();
+        return $this->repo->view_root();
+    }
+
+
+    // 【K】【】
+    public function login_link()
+    {
+        $state  = url()->previous();
+        if(is_weixin())
+        {
+            $app_id = env('WECHAT_LOOKWIT_APPID');
+            $app_secret = env('WECHAT_LOOKWIT_SECRET');
+            $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$app_id}&redirect_uri=http%3A%2F%2Flookwit.com%2Fweixin%2Fauth&response_type=code&scope=snsapi_userinfo&state={$state}#wechat_redirect";
+            return redirect($url);
+
+        }
+        else
+        {
+            $app_id = env('WECHAT_WEBSITE_LOOKWIT_APPID');
+            $app_secret = env('WECHAT_WEBSITE_LOOKWIT_SECRET');
+            $url = "https://open.weixin.qq.com/connect/qrconnect?appid={$app_id}&redirect_uri=http%3A%2F%2Flookwit.com%2Fweixin%2Flogin&response_type=code&scope=snsapi_login&state={$state}#wechat_redirect";
+            return redirect($url);
+        }
+    }
+
+    // 退出
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+
+
+
+
+    // 【K】【基本信息】返回
+    public function view_my_info_index()
+    {
+        return $this->repo->view_my_info_index();
+    }
+
+    // 【K】【基本信息】编辑
+    public function view_my_info_edit()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_my_info_edit();
+        else if (request()->isMethod('post')) return $this->repo->operate_my_info_save(request()->all());
     }
 
     // 返回【联系我们】视图
     public function view_contact()
     {
         return $this->repo->contact();
+    }
+
+    // 返回【详情】视图
+    public function view_user($id=0)
+    {
+        return $this->repo->view_user(request()->all(),$id);
     }
 
     // 返回【详情】视图
@@ -87,22 +135,6 @@ class RootIndexController extends Controller
     public function message_grab_item()
     {
         return $this->repo->message_grab_item(request()->all());
-    }
-
-    // 专车券
-    public function message_grab_zc()
-    {
-        return $this->repo->message_grab_zc(request()->all());
-    }
-    // 价格动态
-    public function message_grab_jg()
-    {
-        return $this->repo->message_grab_jg(request()->all());
-    }
-    // 开盘提醒
-    public function message_grab_kp()
-    {
-        return $this->repo->message_grab_kp(request()->all());
     }
 
 

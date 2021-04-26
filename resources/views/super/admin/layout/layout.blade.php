@@ -70,6 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('/css/admin/index.css') }}">
 
     @yield('css')
+    @yield('style')
     @yield('custom-css')
     @yield('custom-style')
 
@@ -99,19 +100,19 @@ desired effect
 
 
     {{--main-header--}}
-    @include(env('TEMPLATE_SUPER_ADMIN').'component.main-header')
+    @include(env('TEMPLATE_SUPER_ADMIN').'layout.main-header')
 
     {{--main-sidebar--}}
-    @include(env('TEMPLATE_SUPER_ADMIN').'component.main-sidebar')
+    @include(env('TEMPLATE_SUPER_ADMIN').'layout.main-sidebar')
 
     {{--main-content--}}
-    @include(env('TEMPLATE_SUPER_ADMIN').'component.main-content')
+    @include(env('TEMPLATE_SUPER_ADMIN').'layout.main-content')
 
     {{--main-footer--}}
-    @include(env('TEMPLATE_SUPER_ADMIN').'component.main-footer')
+    @include(env('TEMPLATE_SUPER_ADMIN').'layout.main-footer')
 
     {{--control-sidebar--}}
-    @include(env('TEMPLATE_SUPER_ADMIN').'component.control-sidebar')
+    @include(env('TEMPLATE_SUPER_ADMIN').'layout.control-sidebar')
 
 
 </div>
@@ -172,6 +173,7 @@ desired effect
 <script src="{{ asset('/js/admin/index.js') }}"></script>
 
 @yield('js')
+@yield('script')
 @yield('custom-js')
 @yield('custom-script')
 

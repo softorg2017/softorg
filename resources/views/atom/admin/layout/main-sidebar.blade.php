@@ -97,6 +97,12 @@
                 </a>
             </li>
 
+            <li class="treeview">
+                <a href="{{ env('DOMAIN_SUPER') }}/admin" target="_blank">
+                    <i class="fa fa-cube text-default"></i> <span>Super.Admin</span>
+                </a>
+            </li>
+
 
 
 

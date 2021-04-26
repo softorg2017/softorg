@@ -77,8 +77,11 @@
             </li>
 
 
+
+
             {{--内容管理--}}
             <li class="header">AdminLTE</li>
+
             <li class="treeview {{ $sidebar_test_active or '' }}">
                 <a target="_blank" href="{{ url('/AdminLTE') }}">
                     <i class="fa fa-bar-chart text-green"></i> <span>AdminLTE</span>
@@ -92,12 +95,18 @@
 
 
 
+
             {{--平台--}}
             <li class="header">平台</li>
 
             <li class="treeview">
-                <a href="{{ url('/') }}" target="_blank">
+                <a href="{{ env('DOMAIN_WWW') }}" target="_blank">
                     <i class="fa fa-cube text-default"></i> <span>平台首页</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="{{ env('DOMAIN_SUPER') }}/admin" target="_blank">
+                    <i class="fa fa-cube text-default"></i> <span>Super.Admin</span>
                 </a>
             </li>
 

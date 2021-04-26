@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DEFAULT').'frontend.layout.layout')
+@extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
 @section('head_title','我的信息 - 朝鲜族组织平台')
 @section('meta_title')@endsection
@@ -14,7 +14,7 @@
 
 @section('sidebar')
 
-    @include(env('TEMPLATE_DEFAULT').'frontend.component.sidebar-root')
+    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-root')
 
 @endsection
 
@@ -81,9 +81,51 @@
                                     <label class="control-label">{{  $info->email or '' }}</label>
                                 </div>
                             </div>
+                            {{--QQ--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">QQ：</label>
+                                <div class="col-md-8 ">
+                                    <label class="control-label">{{  $info->QQ_number or '' }}</label>
+                                </div>
+                            </div>
+                            {{--微信号--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">微信号：</label>
+                                <div class="col-md-8 ">
+                                    <label class="control-label">{{  $info->wechat_id or '' }}</label>
+                                </div>
+                            </div>
+                            {{--微信二维码--}}
+                            <div class="form-group" style="display:none;">
+                                <label class="control-label col-md-2">微信二维码：</label>
+                                <div class="col-md-8 ">
+                                    <div style="width:100px;height:100px;"><img src="{{ url(env('DOMAIN_CDN').'/'.$info->wechat_qr_code_img) }}" alt=""></div>
+                                </div>
+                            </div>
+                            {{--微博名称--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">微博名称：</label>
+                                <div class="col-md-8 ">
+                                    <label class="control-label">{{  $info->weibo_name or '' }}</label>
+                                </div>
+                            </div>
+                            {{--微博地址--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">微博地址：</label>
+                                <div class="col-md-8 ">
+                                    <label class="control-label">{{  $info->weibo_address or '' }}</label>
+                                </div>
+                            </div>
+                            {{--网站--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">网站：</label>
+                                <div class="col-md-8 ">
+                                    <label class="control-label">{{  $info->website or '' }}</label>
+                                </div>
+                            </div>
                             {{--描述--}}
                             <div class="form-group">
-                                <label class="control-label col-md-2">个人签名：</label>
+                                <label class="control-label col-md-2">描述：</label>
                                 <div class="col-md-8 ">
                                     <label class="">{{  $info->description or '' }}</label>
                                 </div>
@@ -150,8 +192,8 @@
 
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 hidden-xs hidden-sm container-body-right">
 
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.right-root')
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.right-me')
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-root')
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-me')
 
     </div>
 

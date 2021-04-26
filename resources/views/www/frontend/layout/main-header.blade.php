@@ -4,18 +4,18 @@
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation" style="margin-left:0;background-color:#1a2226;">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle visible-xs" data-toggle="offcanvas" role="button">
+        <a href="#" class="sidebar-toggle visible-xs" data-toggle="offcanvas" role="button" style="padding:18px 16px;">
             <span class="sr-only">Toggle navigation</span>
         </a>
 
         <div class="navbar-custom-menu" style="height:50px;line-height:50px;float:left;">
             <a href="{{ url('/') }}">
                 <span class="logo-big hidden-xs">
-                    <img src="/favicon_transparent.png" class="img-icon" alt="Image">
-                    <b class="hidden-xs">朝鲜族组织平台</b>
+                    {{--<img src="{{ asset('/images/lookwit-white.png') }}" class="img-icon" alt="Image">--}}
+                    <b class="hidden-xs">首页</b>
                 </span>
                 <span class="logo-big visible-xs">
-                    <img src="/favicon_transparent.png" class="img-icon" alt="Image">
+                    {{--<img src="{{ asset('/images/lookwit-white.png') }}" class="img-icon" alt="Image">--}}
                     <b class="">首页</b>
                 </span>
             </a>
@@ -97,17 +97,17 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="user-image" alt="User Image">
+                            <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="user-image" alt="User">
                             <span class="hidden-xs"><span>{{ Auth::user()->username }}</span></span>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                    <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="img-circle" alt="User Image">
+                                    <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="img-circle" alt="User">
                                     <p>
                                         {{ Auth::user()->username }}
-                                        <small>Member since Nov. 2020</small>
+                                        {{--<small>Member since Nov. 2020</small>--}}
                                     </p>
                             </li>
                             <!-- Menu Body -->

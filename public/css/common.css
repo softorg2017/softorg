@@ -1,4 +1,4 @@
-._none {display:none;}
+._none {display:none !important;}
 ._pointer {cursor:pointer}
 ._left {float:left;}
 ._right {float:right;}

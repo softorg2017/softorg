@@ -1,6 +1,7 @@
 @extends(env('TEMPLATE_GPS_ADMIN').'layout.layout')
 
-@section('head_title','GPS - 测试')
+@section('head_title','测试 - GPS')
+
 @section('header','测试')
 @section('description','测试')
 @section('breadcrumb')
@@ -19,13 +20,43 @@
             </div>
 
             <div class="box-body">
-                <a target="_blank" class="margin btn btn-sm btn-primary" href="{{ url('/testing') }}">Root</a>
+                <a class="margin btn btn-sm btn-primary" href="{{ url('/testing/url') }}">URL</a>
+                <a class="margin btn btn-sm btn-primary" href="{{ url('/testing/++') }}">++</a>
+                <a class="margin btn btn-sm btn-primary" href="{{ url('/testing/headers') }}">headers</a>
+                <a class="margin btn btn-sm btn-primary" href="{{ url('/testing/json') }}">json</a>
+            </div>
+
+            <div class="box-footer">
+            </div>
+
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="box box-default">
+
+            <div class="box-header with-border">
+                <h3 class="box-title"><b>Result</b></h3>
             </div>
 
             <div class="box-body">
-                <a target="_blank" class="margin btn btn-sm btn-primary" href="{{ url('/testing/url') }}">URL</a>
-                <a target="_blank" class="margin btn btn-sm btn-primary" href="{{ url('/testing/++') }}">++</a>
-                <a target="_blank" class="margin btn btn-sm btn-primary" href="{{ url('/testing/headers') }}">headers</a>
+                {{--{!! print_r($output) !!}--}}
+                <br><br>
+                @if(!empty($output) && count($output))
+                    @foreach($output as $v)
+                        @if(is_array($v))
+                            <pre> {!! print_r($v) !!} </pre>
+                        @else
+                            {!! $v !!}
+                        @endif
+                        <br>
+                        <br>
+                    @endforeach
+                @endif
             </div>
 
             <div class="box-footer">

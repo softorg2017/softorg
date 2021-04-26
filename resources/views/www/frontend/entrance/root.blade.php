@@ -1,8 +1,8 @@
-@extends(env('TEMPLATE_DEFAULT').'frontend.layout.layout')
+@extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
 
 @section('head_title')
-    {{ $head_title or '朝鲜族组织平台 - 发现身边的朝鲜族社群组织' }}
+    {{ $head_title or '如未科技' }}
 @endsection
 @section('meta_title')@endsection
 @section('meta_author')@endsection
@@ -17,7 +17,7 @@
 
 @section('sidebar')
 
-    @include(env('TEMPLATE_DEFAULT').'frontend.component.sidebar-root')
+    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-root')
 
 @endsection
 
@@ -33,29 +33,29 @@
 
     <div class="col-xs-12 col-sm-12 col-md-9 container-body-left">
 
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.left-tag')
+        @include(env('TEMPLATE_ROOT_FRONT').'component.left-tag')
 
         @if($page_type == 'tag')
 
             <div class="container-box pull-left margin-bottom-16px">
                 @if(request('type') != 'activity')
-                    @include(env('TEMPLATE_DEFAULT').'frontend.component.user-list',['user_list'=>$user_list])
+                    @include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$user_list])
                 @endif
             </div>
 
             <div class="container-box pull-left margin-bottom-16px">
-                @include(env('TEMPLATE_DEFAULT').'frontend.component.item-list',['item_list'=>$item_list])
+                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
             </div>
 
         @else
 
             <div class="container-box pull-left margin-bottom-16px">
-                @include(env('TEMPLATE_DEFAULT').'frontend.component.item-list',['item_list'=>$item_list])
+                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
             </div>
 
             <div class="container-box pull-left margin-bottom-16px">
                 @if(request('type') != 'activity')
-                    @include(env('TEMPLATE_DEFAULT').'frontend.component.user-list',['user_list'=>$user_list])
+                    @include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$user_list])
                 @endif
             </div>
 
@@ -68,7 +68,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-3 hidden-xs hidden-sm container-body-right">
 
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.right-root')
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-root')
         {{--@include(env('TEMPLATE_DEFAULT').'frontend.component.right-me')--}}
 
     </div>

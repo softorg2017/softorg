@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DEFAULT').'frontend.layout.layout')
+@extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
 @section('head_title','404 页面不存在或参数有误 - 朝鲜族组织平台')
 @section('meta_title')@endsection

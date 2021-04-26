@@ -32,9 +32,9 @@ Route::group(['domain' => env('DOMAIN_ROOT')], function(){
 
 
 
-Route::get(config('common.website.front.prefix').'/', function () {
+Route::get('org', function () {
 //    return view('welcome');
-    return redirect(config('common.website.front.prefix').'/softorg');
+    return redirect('org/softorg');
 });
 
 
@@ -48,7 +48,7 @@ Route::get(config('common.website.front.prefix').'/', function () {
 
 
 Route::get('/home', function () {
-    return view('front.'.config('common.view.front.template').'.index');
+    return view('front.online.index');
 });
 
 
@@ -90,7 +90,7 @@ Route::group(['prefix' => 'user', 'namespace' => 'Front'], function () {
 
 
 /*
- * TEST 测试
+ * GPS 导航
  */
 Route::group(['domain' => 'gps.'.env('DOMAIN_ROOT'), 'namespace' => 'GPS'], function () {
     require(__DIR__ . '/GPS/route.php');
@@ -103,7 +103,7 @@ Route::group(['domain' => 'gps.'.env('DOMAIN_ROOT'), 'namespace' => 'GPS'], func
 /*
  * TEST 测试
  */
-Route::group(['prefix' => 'test', 'namespace' => 'Test'], function () {
+Route::group(['prefix' => 'testing', 'namespace' => 'Test'], function () {
     require(__DIR__ . '/Test/route.php');
 });
 

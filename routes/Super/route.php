@@ -29,6 +29,36 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/', $controller.'@index');
         Route::get('index', $controller.'@index');
 
+
+        /*
+         * info
+         */
+        Route::match(['get','post'], '/info/', $controller.'@view_info_index');
+        Route::match(['get','post'], '/info/index', $controller.'@view_info_index');
+        Route::match(['get','post'], '/info/edit', $controller.'@operate_info_edit');
+        Route::match(['get','post'], '/info/password-reset', $controller.'@operate_info_password_reset');
+
+
+
+
+        /*
+         * user
+         */
+        Route::match(['get','post'], '/user/select2_user', $controller.'@operate_user_select2_user');
+
+        Route::match(['get','post'], '/user/user-create', $controller.'@operate_user_user_create');
+        Route::match(['get','post'], '/user/user-edit', $controller.'@operate_user_user_edit');
+
+        Route::match(['get','post'], '/user/user-all-list', $controller.'@view_user_all_list');
+        Route::match(['get','post'], '/user/user-org-list', $controller.'@view_user_org_list');
+        Route::match(['get','post'], '/user/user-sponsor-list', $controller.'@view_user_sponsor_list');
+        Route::match(['get','post'], '/user/user-individual-list', $controller.'@view_user_individual_list');
+
+
+
+
+
+
         Route::match(['get','post'], '/user/user-login', $controller.'@operate_user_user_login');
 
         Route::match(['get','post'], 'org/login', $controller.'@loginAction');

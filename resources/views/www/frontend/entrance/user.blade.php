@@ -1,16 +1,8 @@
-@extends(env('TEMPLATE_DEFAULT').'frontend.layout.layout')
+@extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
 
 @section('head_title')
-    @if(request('type') == 'root')
-        {{ $data->username or '' }}的主页
-    @elseif(request('type') == 'article')
-        {{ $data->username or '' }}的文章
-    @elseif(request('type') == 'activity')
-        {{ $data->username or '' }}的活动
-    @else
-        {{ $data->username or '' }}的主页
-    @endif
+    {{ $data->username or '' }} - 我的互联网名片 - 如未科技
 @endsection
 @section('meta_title')@endsection
 @section('meta_author')@endsection
@@ -18,7 +10,7 @@
 @section('meta_keywords')@endsection
 
 
-@section('wx_share_title'){{ $data->username or '朝鲜族组织平台' }}@endsection
+@section('wx_share_title'){{ $data->username or '如未科技' }}@endsection
 @section('wx_share_desc')欢迎加入我们@endsection
 @section('wx_share_imgUrl'){{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}@endsection
 
@@ -27,7 +19,7 @@
 
 @section('sidebar')
 
-    @include(env('TEMPLATE_DEFAULT').'frontend.component.sidebar-user')
+    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-user')
 
 @endsection
 
@@ -39,16 +31,16 @@
 @section('content')
 
     <div style="display:none;">
-        <input type="hidden" id="" value="{{$encode or ''}}" readonly>
+        <input type="hidden" id="" value="{{ $encode or '' }}" readonly>
     </div>
 
     <div class="container">
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-body-right pull-right">
 
-            @include(env('TEMPLATE_DEFAULT').'frontend.component.right-user', ['data'=>$data])
+            @include(env('TEMPLATE_ROOT_FRONT').'component.right-user', ['data'=>$data])
 
-            @include(env('TEMPLATE_DEFAULT').'frontend.component.right-user-menu', ['data'=>$data])
+            @include(env('TEMPLATE_ROOT_FRONT').'component.right-user-menu', ['data'=>$data])
 
         </div>
 
@@ -70,8 +62,8 @@
                 {{--<div class="item-row margin-bottom-4px pull-right visible-xs">--}}
                     {{--<strong>Ta的内容</strong>--}}
                 {{--</div>--}}
-                @include(env('TEMPLATE_DEFAULT').'frontend.component.item-list',['item_list'=>$item_list])
-                {!! $item_list->links() !!}
+                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
+                {{--{!! $item_list->links() !!}--}}
             @endif
 
 
@@ -93,54 +85,12 @@
             @endif
 
             @if($data->user_type == 88 && request('type') == 'org')
-                @include(env('TEMPLATE_DEFAULT').'frontend.component.user-list',['user_list'=>$data->pivot_org_list])
+                @include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$data->pivot_org_list])
             @endif
 
         </div>
 
 
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-body-right pull-right" style="clear:right;">
-
-            @if($data->user_type == 11)
-                {{--@if(!empty($data->ad))--}}
-                    {{--<div class="item-row margin-top-4px margin-bottom-2px pull-right">--}}
-                        {{--<strong>Ta的贴片广告</strong>--}}
-                    {{--</div>--}}
-                {{--@endif--}}
-                @include(env('TEMPLATE_DEFAULT').'frontend.component.right-ad-paste', ['item'=>$data->ad])
-            @endif
-
-
-            @if($data->user_type == 88)
-                @if(count($data->pivot_org_list))
-                    <div class="item-row margin-top-4px margin-bottom-2px pull-right">
-                        <strong>Ta赞助的组织</strong>
-                    </div>
-                @endif
-                @include(env('TEMPLATE_DEFAULT').'frontend.component.right-org', ['org_list'=>$data->pivot_org_list])
-            @endif
-
-
-            @if($data->user_type == 88)
-                @if(count($data->ad_list))
-                    <div class="item-row margin-top-4px margin-bottom-2px pull-right">
-                        <strong>Ta的广告</strong>
-                    </div>
-                @endif
-                @include(env('TEMPLATE_DEFAULT').'frontend.component.right-ad-list', ['ad_list'=>$data->ad_list,'ad_tag'=>'广告'])
-            @endif
-
-
-            @if($data->user_type == 11)
-                @if(count($data->pivot_sponsor_list))
-                    <div class="item-row margin-top-16px margin-bottom-2px pull-right">
-                        <strong>Ta的赞助商</strong>
-                    </div>
-                @endif
-                @include(env('TEMPLATE_DEFAULT').'frontend.component.right-sponsor', ['sponsor_list'=>$data->pivot_sponsor_list])
-            @endif
-
-        </div>
 
     </div>
 

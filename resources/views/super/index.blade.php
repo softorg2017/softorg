@@ -1,7 +1,8 @@
 @extends('super.layout.layout')
 
-@section('title','softorg 超级后台')
-@section('header','softorg 超级后台')
+@section('head_title','超级后台')
+
+@section('header','超级后台')
 @section('description','超级后台')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i>首页</a></li>

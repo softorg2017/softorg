@@ -1,9 +1,9 @@
 @extends(env('TEMPLATE_GPS_ADMIN').'layout.layout')
 
-@section('head_title','导航系统')
+@section('head_title','GPS - 如未科技')
 
-@section('header','')
-@section('description','')
+@section('header','GPS')
+@section('description','导航系统 - 如未科技')
 
 @section('breadcrumb')
     <li><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i>首页</a></li>

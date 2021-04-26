@@ -100,19 +100,19 @@ desired effect
 
 
     {{--main-header--}}
-    @include(env('TEMPLATE_ATOM_ADMIN').'component.main-header')
+    @include(env('TEMPLATE_ATOM_ADMIN').'layout.main-header')
 
     {{--main-sidebar--}}
-    @include(env('TEMPLATE_ATOM_ADMIN').'component.main-sidebar')
+    @include(env('TEMPLATE_ATOM_ADMIN').'layout.main-sidebar')
 
     {{--main-content--}}
-    @include(env('TEMPLATE_ATOM_ADMIN').'component.main-content')
+    @include(env('TEMPLATE_ATOM_ADMIN').'layout.main-content')
 
     {{--main-footer--}}
-    @include(env('TEMPLATE_ATOM_ADMIN').'component.main-footer')
+    @include(env('TEMPLATE_ATOM_ADMIN').'layout.main-footer')
 
     {{--control-sidebar--}}
-    @include(env('TEMPLATE_ATOM_ADMIN').'component.control-sidebar')
+    @include(env('TEMPLATE_ATOM_ADMIN').'layout.control-sidebar')
 
 
 </div>

@@ -31,11 +31,9 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
 
-            <li class="header">HEADER</li>
-
             <!-- Optionally, you can add icons to the links -->
 
-            <li class="treeview">
+            <li class="treeview _none">
                 <a href="">
                     <i class="fa fa-th"></i> <span>Super</span>
                     <span class="pull-right-container">
@@ -57,12 +55,31 @@
             </li>
 
 
+            {{--用户管理--}}
+            <li class="header">用户管理</li>
+
+            <li class="treeview {{ $sidebar_user_all_list_active or '' }}">
+                <a href="{{ url('/admin/user/user-all-list') }}">
+                    <i class="fa fa-user"></i><span>全部用户</span>
+                </a>
+            </li>
+            <li class="treeview {{ $sidebar_user_org_list_active or '' }}">
+                <a href="{{ url('/admin/user/user-org-list') }}">
+                    <i class="fa fa-user"></i><span>社群组织</span>
+                </a>
+            </li>
+            <li class="treeview {{ $sidebar_user_individual_list_active or '' }}">
+                <a href="{{ url('/admin/user/user-individual-list') }}">
+                    <i class="fa fa-user"></i><span>个人用户</span>
+                </a>
+            </li>
+
 
 
             <li class="header">机构管理</li>
 
             <li class="treeview">
-                <a href="{{url('/org/list')}}">
+                <a href="{{url('/user/list')}}">
                     <i class="fa fa-th-list"></i><span>机构列表</span>
                 </a>
             </li>

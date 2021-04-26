@@ -59,9 +59,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
 
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
-
         'wechat.share' => \App\Http\Middleware\WechatShareMiddleware::class,
+
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
 
         'gps' => \App\Http\Middleware\GPSMiddleware::class,
         'gps.admin' => \App\Http\Middleware\GPSAdminMiddleware::class,
@@ -77,6 +77,10 @@ class Kernel extends HttpKernel
 
         'atom' => \App\Http\Middleware\AtomMiddleware::class,
         'atom.admin' => \App\Http\Middleware\AtomAdminMiddleware::class,
+
+        'notification' => \App\Http\Middleware\NotificationMiddleware::class,
+        'login' => \App\Http\Middleware\LoginMiddleware::class,
+        'login.turn' => \App\Http\Middleware\TurnToLoginMiddleware::class,
     ];
 
 
