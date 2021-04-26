@@ -25,10 +25,16 @@ class WeixinController extends Controller
         return $this->repo->index();
     }
 
-    // 公众号
+    // 公众号授权
+    public function weixin_login()
+    {
+        return $this->repo->weixin_login(request()->all());
+    }
+
+    // 公众号授权
     public function weixin_auth()
     {
-        $this->repo->weixin_auth(request()->all());
+        return $this->repo->weixin_auth(request()->all());
     }
 
     // 公众号

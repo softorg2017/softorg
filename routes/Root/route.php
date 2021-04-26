@@ -16,34 +16,6 @@ Route::group(['namespace' => 'Front'], function () {
 
 
 
-    /*
-     * weixin
-     */
-    Route::group(['prefix' => 'weixin'], function () {
-
-        $wxController = "RootWeixinController";
-
-        Route::match(['get', 'post'],'auth/MP_verify_0m3bPByLDcHKLvIv.txt', function () {
-            return "0m3bPByLDcHKLvIv";
-        });
-
-        Route::match(['get', 'post'],'auth/MP_verify_eTPw6Fu85pGY5kiV.txt', function () {
-            return "eTPw6Fu85pGY5kiV";
-        });
-
-        Route::match(['get', 'post'],'auth/MP_verify_enRXVHgfnjolnsIN.txt', function () {
-            return "enRXVHgfnjolnsIN";
-        });
-
-        Route::match(['get', 'post'],'auth', $wxController."@weixin_auth");
-        Route::match(['get', 'post'],'login', $wxController."@weixin_login");
-
-
-        Route::match(['get', 'post'],'gongzhonghao', $wxController."@gongzhonghao");
-        Route::match(['get', 'post'],'root', $wxController."@root");
-        Route::match(['get', 'post'],'test', $wxController."@test");
-
-    });
 
 
 
@@ -157,13 +129,34 @@ Route::group(['namespace' => 'Front'], function () {
 
 
 
-
-
-
-
 /*
- * 前台
+ * weixin
  */
+Route::group(['prefix' => 'weixin'], function () {
+
+    $wxController = "WeixinController";
+
+    Route::match(['get', 'post'],'auth/MP_verify_0m3bPByLDcHKLvIv.txt', function () {
+        return "0m3bPByLDcHKLvIv";
+    });
+
+    Route::match(['get', 'post'],'auth/MP_verify_eTPw6Fu85pGY5kiV.txt', function () {
+        return "eTPw6Fu85pGY5kiV";
+    });
+
+    Route::match(['get', 'post'],'auth/MP_verify_enRXVHgfnjolnsIN.txt', function () {
+        return "enRXVHgfnjolnsIN";
+    });
+
+    Route::match(['get', 'post'],'auth', $wxController."@weixin_auth");
+    Route::match(['get', 'post'],'login', $wxController."@weixin_login");
+
+
+    Route::match(['get', 'post'],'gongzhonghao', $wxController."@gongzhonghao");
+    Route::match(['get', 'post'],'root', $wxController."@root");
+    Route::match(['get', 'post'],'test', $wxController."@test");
+
+});
 
 
 
@@ -279,31 +272,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 
 
-
-
-
-/*
- * weixin
- */
-Route::group(['prefix' => 'weixin'], function () {
-
-    $controller = "WeixinController";
-
-    Route::match(['get', 'post'],'auth/MP_verify_0m3bPByLDcHKLvIv.txt', function () {
-        return "0m3bPByLDcHKLvIv";
-    });
-
-    Route::match(['get', 'post'],'auth/MP_verify_eTPw6Fu85pGY5kiV.txt', function () {
-        return "eTPw6Fu85pGY5kiV";
-    });
-
-    Route::match(['get', 'post'],'auth', $controller."@weixin_auth");
-
-
-    Route::match(['get', 'post'],'gongzhonghao', $controller."@gongzhonghao");
-//    Route::match(['get', 'post'],'root', $controller."@root");
-//    Route::match(['get', 'post'],'test', $controller."@test");
-
-});
 
 
