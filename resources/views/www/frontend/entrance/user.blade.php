@@ -14,7 +14,7 @@
 @section('meta_keywords')@endsection
 
 
-@section('wx_share_title') @if(!empty($data->ture_name)){{ $data->ture_name or '如未科技' }}@else{{ $data->username or '如未科技' }}@endif @endsection
+@section('wx_share_title') @if(!empty($data->true_name)){{ $data->true_name or '如未科技' }}@else{{ $data->true_name or '如未科技' }}@endif @endsection
 @section('wx_share_desc') @if(!empty($data->company)){{ $data->company or '' }}@endif / @if(!empty($data->position)){{ $data->position or '' }}@endif @endsection
 @section('wx_share_imgUrl'){{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}@endsection
 
