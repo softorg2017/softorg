@@ -10,7 +10,7 @@
     <a href="{{ url('/') }}">
         <div class="box-body {{ $sidebar_menu_root_active or '' }}">
             <i class="fa fa-list text-orange" style="width:24px;"></i>
-            <span>我的名片</span>
+            <span>我的名片夹</span>
         </div>
     </a>
 

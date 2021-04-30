@@ -12,7 +12,7 @@
 
 @section('wx_share_title')如未科技@endsection
 @section('wx_share_desc')发现身边的精彩@endsection
-@section('wx_share_imgUrl'){{ url('/k-org.cn.png') }}@endsection
+@section('wx_share_imgUrl'){{ url('/images/lookwit-black.png') }}@endsection
 
 
 @section('sidebar')
@@ -33,7 +33,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-9 container-body-left">
 
-        @include(env('TEMPLATE_ROOT_FRONT').'component.left-tag')
+        {{--@include(env('TEMPLATE_ROOT_FRONT').'component.left-tag')--}}
 
         @if($page_type == 'tag')
 
@@ -61,15 +61,15 @@
 
         @endif
 
-        {!! $item_list->links() !!}
+        {{--{!! $item_list->links() !!}--}}
 
     </div>
 
 
     <div class="col-xs-12 col-sm-12 col-md-3 hidden-xs hidden-sm container-body-right">
 
-        @include(env('TEMPLATE_ROOT_FRONT').'component.right-root')
-        {{--@include(env('TEMPLATE_DEFAULT').'frontend.component.right-me')--}}
+        {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-root')--}}
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-me')
 
     </div>
 

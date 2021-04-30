@@ -37,7 +37,7 @@ class RootIndexRepository {
         }
         else
         {
-            dd('root');
+//            dd('root');
         }
 
         $head_title = "如未科技";
@@ -93,13 +93,13 @@ class RootIndexRepository {
 //        $client_items = RootItem::where(['category'=>51, 'active'=>1])->orderby('id', 'desc')->get();
 //        $coverage_items = RootItem::where(['category'=>41, 'active'=>1])->orderby('id', 'desc')->get();
 
-        $html = view('root.frontend.entrance.root')->with([
-//                'service_items'=>$service_items,
-//                'template_items'=>$template_items,
-//                'client_items'=>$client_items,
-//                'coverage_items'=>$coverage_items
-            ])->__toString();
-        return $html;
+//        $html = view('root.frontend.entrance.root')->with([
+////                'service_items'=>$service_items,
+////                'template_items'=>$template_items,
+////                'client_items'=>$client_items,
+////                'coverage_items'=>$coverage_items
+//            ])->__toString();
+//        return $html;
     }
 
 

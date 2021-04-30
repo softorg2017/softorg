@@ -1,9 +1,9 @@
 <div class="box-body bg-white margin-bottom-4px right-home">
 
     @if(!Auth::check())
-        <a href="{{ url('/') }}">
+        <a href="{{ url('/login-link') }}">
             <div class="box-body">
-                <i class="fa fa-sign-in text-blue" style="width:24px;"></i><span>登录</span>
+                <i class="fa fa-sign-in text-blue" style="width:24px;"></i><span>登录我的名片</span>
             </div>
         </a>
         {{--<a href="{{url('/register')}}">--}}
