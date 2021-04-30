@@ -32,20 +32,41 @@ class TokenManager
             $ticket = $cache['ticket'];
             $nonce_str = $cache['nonce_str'];
             $timestamp = $cache['timestamp'];
+            $cache = 'cache';
+            if((time() - $timestamp) > 3540)
+            {
+                self::init();
+                $appID = self::$app_id;
+                $ticket = self::getTicket();
+                $nonce_str = self::getNonceStr();
+                $timestamp = time();
+                $cache = 'overtime init';
+
+                $cache_config['app_id'] = $appID;
+                $cache_config['ticket'] = $ticket;
+                $cache_config['nonce_str'] = $nonce_str;
+                $cache_config['timestamp'] = $timestamp;
+
+                Cache::forget(self::cache_key);
+                Cache::put(self::cache_key, $cache_config, 59); //59 minutes
+            }
         }
         else
         {
+            self::init();
+            $appID = self::$app_id;
             $ticket = self::getTicket();
             $nonce_str = self::getNonceStr();
             $timestamp = time();
-            $appID = self::$app_id;
+            $cache = 'init';
 
             $cache_config['app_id'] = $appID;
             $cache_config['ticket'] = $ticket;
             $cache_config['nonce_str'] = $nonce_str;
             $cache_config['timestamp'] = $timestamp;
 
-            Cache::put(self::cache_key, $cache_config, 119); //119 minutes
+            Cache::forget(self::cache_key);
+            Cache::put(self::cache_key, $cache_config, 59); //59 minutes
         }
 
 //        $params = ['jsapi_ticket' => $ticket, 'noncestr' => $nonce_str, 'timestamp' => $timestamp, 'url' => $url];
@@ -93,8 +114,8 @@ class TokenManager
     public static function init()
     {
         if (empty(self::$app_id) or empty(self::$secret) or empty(self::$token)) {
-            self::$app_id = env('WECHAT_APPID');
-            self::$secret = env('WECHAT_SECRET');
+            self::$app_id = env('WECHAT_LOOKWIT_APPID');
+            self::$secret = env('WECHAT_LOOKWIT_SECRET');
         }
     }
 
