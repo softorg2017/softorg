@@ -11,7 +11,7 @@ class TokenManager
     private static $instance;
     const token_url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=@app_id&secret=@secret';
     const ticket_url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=@access_token&type=jsapi';
-    const cache_key = 'wechat_config';
+    const cache_key = 'lookwit_wechat_config';
 
     private function __construct()
     {
