@@ -24,14 +24,22 @@ class RootIndexController extends Controller
 
 
 
-    // 主页视图
+    // 【平台首页】视图
     public function view_root()
     {
         return $this->repo->view_root();
     }
 
+    // 【平台介绍】视图
+    public function view_introduction()
+    {
+        return $this->repo->view_introduction();
+    }
 
-    // 【K】【】
+
+
+
+    // 登录
     public function login_link()
     {
         $state  = url()->previous();
@@ -51,7 +59,6 @@ class RootIndexController extends Controller
             return redirect($url);
         }
     }
-
     // 退出
     public function logout()
     {
@@ -62,13 +69,13 @@ class RootIndexController extends Controller
 
 
 
-    // 【K】【基本信息】返回
+    // 【基本信息】返回
     public function view_my_info_index()
     {
         return $this->repo->view_my_info_index();
     }
 
-    // 【K】【基本信息】编辑
+    // 【基本信息】编辑
     public function view_my_info_edit()
     {
         if(request()->isMethod('get')) return $this->repo->view_my_info_edit();

@@ -17,7 +17,7 @@
 
 @section('sidebar')
 
-    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-root')
+    {{--@include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-root')--}}
 
 @endsection
 
@@ -35,31 +35,13 @@
 
         {{--@include(env('TEMPLATE_ROOT_FRONT').'component.left-tag')--}}
 
-        @if($page_type == 'tag')
+        <div class="container-box pull-left margin-bottom-16px">
+            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
+        </div>
 
-            <div class="container-box pull-left margin-bottom-16px">
-                @if(request('type') != 'activity')
-                    @include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$user_list])
-                @endif
-            </div>
-
-            <div class="container-box pull-left margin-bottom-16px">
-                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
-            </div>
-
-        @else
-
-            <div class="container-box pull-left margin-bottom-16px">
-                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
-            </div>
-
-            <div class="container-box pull-left margin-bottom-16px">
-                @if(request('type') != 'activity')
-                    @include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$user_list])
-                @endif
-            </div>
-
-        @endif
+        <div class="container-box pull-left margin-bottom-16px">
+            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$user_list])--}}
+        </div>
 
         {{--{!! $item_list->links() !!}--}}
 

@@ -29,11 +29,15 @@ Route::group(['namespace' => 'Front'], function () {
 
 
         Route::get('/', $controller.'@view_root');
+        Route::get('/introduction', $controller.'@view_introduction');
+
         Route::get('/user/{id?}', $controller.'@view_user');
         Route::get('/item/{id?}', $controller.'@view_item');
 
         Route::get('/root/template/{id?}', $controller.'@view_template_item');
         Route::get('/root/template-list', $controller.'@view_template_list');
+
+
 
 
         Route::group(['middleware' => ['login.turn']], function () {
@@ -46,10 +50,10 @@ Route::group(['namespace' => 'Front'], function () {
 
 
 
-
-
-
             Route::get('/home/notification', $controller.'@view_home_notification');
+
+
+
 
             Route::group(['middleware' => 'notification'], function () {
 

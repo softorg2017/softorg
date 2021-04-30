@@ -6,6 +6,7 @@ use App\User;
 use App\Models\Def\Def_Item;
 use App\Models\Def\Def_Pivot_User_Relation;
 use App\Models\Def\Def_Notification;
+use App\Models\Def\Def_Record;
 
 use App\Models\Root\RootModule;
 use App\Models\Root\RootMenu;
@@ -21,23 +22,19 @@ class RootIndexRepository {
 
     private $model;
     private $repo;
+    private $service;
     public function __construct()
     {
-//        $this->model = new OrgOrganization;
+//        $this->model = new User;
     }
 
 
-    // root
+    // 【平台首页】视图
     public function view_root()
     {
         if(auth()->check())
         {
             return redirect(env('DOMAIN_WWW').'/user/'.auth()->id());
-            dd(auth()->user()->username);
-        }
-        else
-        {
-//            dd('root');
         }
 
         $head_title = "如未科技";
@@ -49,12 +46,20 @@ class RootIndexRepository {
         $page["item_id"] = 0;
         $page["user_id"] = 0;
 
-//        $service_items = Def_Item::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->paginate(8);
-//        $return['item_list'] = $service_items;
 
-        $return['user_list'] = [];
+        // 插入记录表
+        $record["record_category"] = 1; // record_category=1 browse/share
+        $record["record_type"] = 1; // record_type=1 browse
+        $record["page_type"] = 1; // page_type=1 default platform
+        $record["page_module"] = 1; // page_module=1 index
+//        $record["page_num"] = $item_list->toArray()["current_page"];
+        $record["page_num"] = 1;
+        $record["from"] = request('from',NULL);
+        $this->record($record);
 
-//        $return[$sidebar_active] = 'active';
+
+        $sidebar_active  = 'menu';
+        $return[$sidebar_active] = 'active';
         $return['head_title'] = $head_title;
         $return['getType'] = 'items';
         $return['page_type'] = 'root';
@@ -62,7 +67,8 @@ class RootIndexRepository {
 
 
 
-        $view = 'www.frontend.entrance.root';
+
+        $view = env('TEMPLATE_ROOT_FRONT').'entrance.root';
         return view($view)->with($return);
 
 
@@ -100,6 +106,43 @@ class RootIndexRepository {
 ////                'coverage_items'=>$coverage_items
 //            ])->__toString();
 //        return $html;
+    }
+
+    // 【平台介绍】视图
+    public function view_introduction()
+    {
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+            $record["creator_id"] = $me_id;
+        }
+        else $me_id = 0;
+
+        $introduction = Def_Item::find(1);
+
+
+        // 插入记录表
+        $record["record_category"] = 1; // record_category=1 browse/share
+        $record["record_type"] = 1; // record_type=1 browse
+        $record["page_type"] = 1; // page_type=1 default platform
+        $record["page_module"] = 2; // page_module=2 introduction
+        $record["page_num"] = 1;
+        $record["from"] = request('from',NULL);
+        $this->record($record);
+
+        $page["type"] = 1;
+        $page["module"] = 2;
+        $page["num"] = 0;
+        $page["item_id"] = 0;
+        $page["user_id"] = 0;
+
+        $return['data'] = $introduction;
+        $return['page'] = $page;
+
+        $path = request()->path();
+
+        return view(env('TEMPLATE_ROOT_FRONT').'entrance.root-introduction')->with($return);
     }
 
 
@@ -291,13 +334,9 @@ class RootIndexRepository {
 
         $type = !empty($post_data['type']) ? $post_data['type'] : 'root';
 
-        $user = User::with([
-                'introduction',
-//                'items'=>function($query) { $query->with('owner')->where(['item_status'=>1,'active'=>1])->orderBy('published_at','desc'); },
-//                'ad',
-//                'ad_list'=>function($query) { $query->where(['item_category'=>1,'item_type'=>88])->orderby('updated_at','desc'); },
-//                'pivot_sponsor_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1,'user.user_status'=>1])->orderby('updated_at','desc'); },
-//                'pivot_org_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1])->orderby('updated_at','desc'); },
+        $user = User::select('*')
+            ->with([
+                'introduction'
             ])
             ->withCount([
 //                'items as article_count' => function($query) { $query->where(['item_status'=>1,'item_category'=>1,'item_type'=>1]); },
@@ -316,22 +355,8 @@ class RootIndexRepository {
             if($user->user_status != 1)
             {
                 $error["text"] = '该用户被禁啦！';
-                return view(env('TEMPLATE_DEFAULT').'frontend.errors.404')->with('error',$error);
+                return view(env('TEMPLATE_ROOT_FRONT').'errors.404')->with('error',$error);
             }
-
-//            if($user->user_type == 11)
-//            {
-//                $user->load([
-//                    'ad',
-//                    'pivot_sponsor_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1,'user.user_status'=>1])->orderby('updated_at','desc'); }
-//                ]);
-//            }
-//            else if($user->user_type == 88)
-//            {
-//                $user->load([
-//                    'pivot_org_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1])->orderby('updated_at','desc'); }
-//                ]);
-//            }
         }
         else
         {
@@ -340,8 +365,28 @@ class RootIndexRepository {
         }
 
 
-        $user->timestamps = false;
-        $user->increment('visit_num');
+
+        // 访问记录
+        if(Auth::check() && Auth::id() == $user_id)
+        {
+        }
+        else
+        {
+            $user->timestamps = false;
+            $user->increment('visit_num');
+
+            // 插入记录表
+            $record["record_category"] = 1; // record_category=1 browse/share
+            $record["record_type"] = 1; // record_type=1 browse
+            $record["page_type"] = 2; // page_type=2 user
+//        $record["page_num"] = $item_list->toArray()["current_page"];
+            $record["page_num"] = 1;
+            $record["object_id"] = $user_id;
+            $record["from"] = request('from',NULL);
+            $this->record($record);
+        }
+
+
 
         $is_follow = 0;
 
@@ -391,16 +436,6 @@ class RootIndexRepository {
         {
             $record["page_module"] = 1;  // page_module=0 default index
         }
-
-        // 插入记录表
-        $record["record_category"] = 1; // record_category=1 browse/share
-        $record["record_type"] = 1; // record_type=1 browse
-        $record["page_type"] = 2; // page_type=2 user
-//        $record["page_num"] = $item_list->toArray()["current_page"];
-        $record["page_num"] = 1;
-        $record["object_id"] = $user_id;
-        $record["from"] = request('from',NULL);
-//        $this->record($record);
 
 
         $page["type"] = 2;
@@ -452,7 +487,7 @@ class RootIndexRepository {
 
 
 
-    // 【K】【添加关注】
+    // 【添加关注】
     public function user_relation_add($post_data)
     {
         $messages = [
@@ -543,7 +578,7 @@ class RootIndexRepository {
         }
         else return response_error([],"请先登录！");
     }
-    // 【K】【取消关注】
+    // 【取消关注】
     public function user_relation_remove($post_data)
     {
         $messages = [
@@ -644,7 +679,8 @@ class RootIndexRepository {
 
 
 
-    // 【K】【我的】【关注】
+
+    // 【我的】【关注】
     public function view_my_follow($post_data)
     {
         if(Auth::check())
@@ -680,7 +716,7 @@ class RootIndexRepository {
                 'sidebar_menu_my_follow_active'=>'active'
             ]);
     }
-    // 【K】【我的】【粉丝】
+    // 【我的】【粉丝】
     public function view_my_fans($post_data)
     {
         if(Auth::check())
@@ -824,8 +860,6 @@ class RootIndexRepository {
     }
 
 
-
-
     // item
     public function view_template_item($id = 0)
     {
@@ -887,7 +921,6 @@ class RootIndexRepository {
 
     }
 
-
     // ITEM 留言
     public function message_grab_item($post_data)
     {
@@ -926,9 +959,34 @@ class RootIndexRepository {
 //            exit($e->getMessage());
             return response_fail([],$msg);
         }
+    }
 
 
 
+
+
+
+
+
+    // 记录访问
+    public function record($post_data)
+    {
+        $record = new Def_Record();
+
+        $browseInfo = getBrowserInfo();
+        $type = $browseInfo['type'];
+        if($type == "Mobile") $post_data["open_device_type"] = 1;
+        else if($type == "PC") $post_data["open_device_type"] = 2;
+
+        $post_data["referer"] = $browseInfo['referer'];
+        $post_data["open_system"] = $browseInfo['system'];
+        $post_data["open_browser"] = $browseInfo['browser'];
+        $post_data["open_app"] = $browseInfo['app'];
+
+        $post_data["ip"] = Get_IP();
+        $bool = $record->fill($post_data)->save();
+        if($bool) return true;
+        else return false;
     }
 
 

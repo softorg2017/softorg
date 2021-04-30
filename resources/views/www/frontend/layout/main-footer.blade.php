@@ -6,13 +6,17 @@
     </div>
     <!-- Default to the left -->
     {{--<strong>Copyright &copy; 上海如哉网络科技有限公司 2017-2020 <a href="#">Company</a>.</strong> All rights reserved. 沪ICP备17052782号-4--}}
-    <small>
+    <small class="">
         {{--注册组织•赞助商请联系管理员--}}
-        <a href="/introduction">平台介绍</a>
+        <a href="/">首页</a>
         <span style="margin-left:4px;margin-right:4px;">|</span>
-        <a href="/org">组织登录</a>
-        <span style="margin-left:4px;margin-right:4px;">|</span>
-        <a href="/org/register">注册新组织</a>
+        <a href="/login-link">登录</a>
+        {{--<span style="margin-left:4px;margin-right:4px;">|</span>--}}
+        {{--<a href="/introduction">平台介绍</a>--}}
+        {{--<span style="margin-left:4px;margin-right:4px;">|</span>--}}
+        {{--<a href="/org">组织登录</a>--}}
+        {{--<span style="margin-left:4px;margin-right:4px;">|</span>--}}
+        {{--<a href="/org/register">注册新组织</a>--}}
     </small>
     <br>
     {{--<small>如有疑问请联系管理员 电话：<strong>17721364771</strong></small>--}}
