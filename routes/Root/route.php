@@ -40,11 +40,35 @@ Route::group(['namespace' => 'Front'], function () {
 
             $controller = "RootIndexController";
 
+            Route::post('user/relation/add', $controller.'@user_relation_add');
+            Route::post('user/relation/remove', $controller.'@user_relation_remove');
+
+
+
+
+
+
+
             Route::get('/home/notification', $controller.'@view_home_notification');
 
             Route::group(['middleware' => 'notification'], function () {
 
                 $controller = "RootIndexController";
+
+                Route::get('/my-info/index', $controller.'@view_my_info_index');
+                Route::match(['get','post'], '/my-info/edit', $controller.'@view_my_info_edit');
+
+                Route::get('/my-cards', $controller.'@view_my_cards');
+                Route::get('/my-follow', $controller.'@view_my_follow');
+                Route::get('/my-favor', $controller.'@view_my_favor');
+                Route::get('/my-notification', $controller.'@view_my_notification');
+
+
+
+
+
+
+
 
                 Route::get('/home/mine/original', $controller.'@view_home_mine_original');
 
@@ -67,14 +91,6 @@ Route::group(['namespace' => 'Front'], function () {
 
                 Route::get('/home/relation/follow', $controller.'@view_relation_follow');
                 Route::get('/home/relation/fans', $controller.'@view_relation_fans');
-
-
-                Route::get('/my-info/index', $controller.'@view_my_info_index');
-                Route::match(['get','post'], '/my-info/edit', $controller.'@view_my_info_edit');
-
-                Route::get('/my-follow', $controller.'@view_my_follow');
-                Route::get('/my-favor', $controller.'@view_my_favor');
-                Route::get('/my-notification', $controller.'@view_my_notification');
 
             });
 

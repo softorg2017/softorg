@@ -24,7 +24,21 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
      */
     Route::group(['middleware' => 'super'], function () {
 
+
+        Route::group(['prefix' => 'sql'], function () {
+
+            $controller = "SuperSqlController";
+
+            Route::get('/init', $controller.'@sql_init');
+            Route::get('/insert', $controller.'@sql_insert');
+
+        });
+
+
+
+
         $controller = "SuperAdminController";
+
 
         Route::get('/', $controller.'@index');
         Route::get('index', $controller.'@index');

@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_ADMIN').'admin.layout.layout')
+@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
 @section('head_title','组织列表 - 管理员后台 - 如未科技')
@@ -63,9 +63,6 @@
                     <thead>
                         <tr role='row' class='heading'>
                             <th>ID</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -313,45 +310,6 @@
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             return data;
-                        }
-                    },
-                    {
-                        "className": "text-left",
-                        "width":"128px",
-                        "title": "负责人",
-                        "data": "id",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-                            if(row.principal) {
-                                return '<a target="_blank" href="/user/'+data+'">'+row.principal.username+'</a>';
-                            }
-                            else return '--';
-                        }
-                    },
-                    {
-                        "width":"72px",
-                        "title": "成员数",
-                        "data": "id",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-                            if(row.member_count && row.member_count > 0)
-                            {
-                                return '<a target="_blank" href="/admin/user/member?user-id='+data+'">'+row.member_count+'</a>';
-                            }
-                            else return '--';
-                        }
-                    },
-                    {
-                        "width":"72px",
-                        "title": "粉丝数",
-                        "data": "fund_total",
-                        "orderable": true,
-                        render: function(data, type, row, meta) {
-                            if(row.fans_count && row.fans_count > 0)
-                            {
-                                return '<a target="_blank" href="/admin/user/fans?user-id='+data+'">'+row.fans_count+'</a>';
-                            }
-                            else return '--';
                         }
                     },
                     {

@@ -1,6 +1,6 @@
-@extends(env('TEMPLATE_DEFAULT').'frontend.layout.layout')
+@extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
-@section('head_title','我的关注 - 朝鲜族组织平台')
+@section('head_title','我的名片夹')
 @section('meta_title')@endsection
 @section('meta_author')@endsection
 @section('meta_description')@endsection
@@ -11,8 +11,8 @@
 @section('description','')
 
 
-@section('wx_share_title')组织列表@endsection
-@section('wx_share_desc')朝鲜族社群组织活动分享平台@endsection
+@section('wx_share_title')名片夹@endsection
+@section('wx_share_desc')如未科技@endsection
 @section('wx_share_imgUrl'){{ url('/k-org.cn.png') }}@endsection
 
 
@@ -20,7 +20,7 @@
 
 @section('sidebar')
 
-    @include(env('TEMPLATE_DEFAULT').'frontend.component.sidebar-root')
+    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-root')
 
 @endsection
 
@@ -39,15 +39,15 @@
         {{--@foreach($datas as $num => $item)--}}
             {{--@include('frontend.component.topic')--}}
         {{--@endforeach--}}
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.user-list-for-relation',['user_list'=>$user_list])
+        @include(env('TEMPLATE_ROOT_FRONT').'component.user-list-for-relation',['user_list'=>$user_list])
         {!! $user_list->links() !!}
 
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 hidden-xs hidden-sm container-body-right">
 
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.right-root')
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.right-me')
+        {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-root')--}}
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-me')
 
     </div>
 

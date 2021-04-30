@@ -265,9 +265,9 @@
                         console.log(data);
 //                        window.open('/');
                         var temp_window=window.open();
-                        if(data.data.user.user_type == 1) temp_window.location='/';
-                        else if(data.data.user.user_type == 11) temp_window.location='/org';
-                        else if(data.data.user.user_type == 88) temp_window.location='/sponsor';
+                        if(data.data.user.user_type == 1) temp_window.location = "{{ env('DOMAIN_DEFAULT') }}";
+                        else if(data.data.user.user_type == 11) temp_window.location = '/org';
+                        else if(data.data.user.user_type == 88) temp_window.location = '/sponsor';
 
                     }
                 },

@@ -72,7 +72,7 @@ class User extends Authenticatable
     // 与我相关的内容
     function fans_list()
     {
-        return $this->hasMany('App\Models\D\def_pivot_User_Relation','relation_user_id','id');
+        return $this->hasMany('App\Models\Def\Def_Pivot_User_Relation','relation_user_id','id');
     }
 
 

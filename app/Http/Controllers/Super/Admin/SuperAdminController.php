@@ -6,6 +6,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\User;
+use App\Models\Def\Def_User;
+use App\Models\Def\Def_Item;
+
 use App\Models\Doc\Doc_Item;
 
 use App\Repositories\Super\Admin\SuperAdminRepository;
@@ -29,8 +32,6 @@ class SuperAdminController extends Controller
     {
         return $this->repo->view_admin_index();
     }
-
-
 
 
     /*
@@ -132,8 +133,8 @@ class SuperAdminController extends Controller
 //                    Auth::guard('sponsor')->login($user,true);
 //                }
 //
-//                $return['user'] = $user;
-//                return response_success($return);
+                $return['user'] = $user;
+                return response_success($return);
             }
         }
         else return response_error([]);

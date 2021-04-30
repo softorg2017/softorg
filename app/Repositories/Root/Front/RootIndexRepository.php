@@ -5,6 +5,7 @@ use App\User;
 
 use App\Models\Def\Def_Item;
 use App\Models\Def\Def_Pivot_User_Relation;
+use App\Models\Def\Def_Notification;
 
 use App\Models\Root\RootModule;
 use App\Models\Root\RootMenu;
@@ -26,30 +27,6 @@ class RootIndexRepository {
     }
 
 
-
-
-    // 【K】【】
-    public function login_link()
-    {
-        $state  = url()->previous();
-        if(is_weixin())
-        {
-            $app_id = env('WECHAT_LOOKWIT_APPID');
-            $app_secret = env('WECHAT_LOOKWIT_SECRET');
-            $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$app_id}&redirect_uri=http%3A%2F%2Fwww.lookwit.com%2Fweixin%2Fauth&response_type=code&scope=snsapi_userinfo&state={$state}#wechat_redirect";
-            return redirect($url);
-
-        }
-        else
-        {
-            $app_id = env('WECHAT_WEBSITE_LOOKWIT_APPID');
-            $app_secret = env('WECHAT_WEBSITE_LOOKWIT_SECRET');
-            $url = "https://open.weixin.qq.com/connect/qrconnect?appid={$app_id}&redirect_uri=http%3A%2F%2Fwww.lookwit.com%2Fweixin%2Flogin&response_type=code&scope=snsapi_login&state={$state}#wechat_redirect";
-            return redirect($url);
-        }
-    }
-
-
     // root
     public function view_root()
     {
@@ -60,10 +37,10 @@ class RootIndexRepository {
         }
         else
         {
-
+            dd('root');
         }
 
-        $head_title = "首页 - 朝鲜族组织平台";
+        $head_title = "如未科技";
         $return['head_title'] = $head_title;
 
         $page["type"] = 1;
@@ -72,8 +49,8 @@ class RootIndexRepository {
         $page["item_id"] = 0;
         $page["user_id"] = 0;
 
-        $service_items = RootItem::where(['category'=>11, 'menu_id'=>0, 'active'=>1])->orderby('id', 'desc')->paginate(8);
-        $return['item_list'] = $service_items;
+//        $service_items = Def_Item::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->paginate(8);
+//        $return['item_list'] = $service_items;
 
         $return['user_list'] = [];
 
@@ -94,33 +71,33 @@ class RootIndexRepository {
 //        $info = json_decode(json_encode(config('mitong.company.info')));
 //        $menus = RootMenu::where(['active'=>1])->orderby('order', 'asc')->get();
 
-        $service_items = RootItem::where(['category'=>11, 'menu_id'=>0, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
-        foreach($service_items as $item)
-        {
-            $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
-        }
-
-
-        $template_menu = RootMenu::where(['name'=>'template'])->first();
-        if($template_menu)
-        {
-            $template_items = RootItem::where(['menu_id'=>$template_menu->id, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
-            foreach($template_items as $item)
-            {
-                $item->custom = json_decode($item->custom);
-            }
-        }
-        else $template_items = [];
-
-        $client_items = RootItem::where(['category'=>51, 'active'=>1])->orderby('id', 'desc')->get();
-        $coverage_items = RootItem::where(['category'=>41, 'active'=>1])->orderby('id', 'desc')->get();
+//        $service_items = Def_Item::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
+//        foreach($service_items as $item)
+//        {
+//            $item->custom = json_decode($item->custom);
+//            $item->custom2 = json_decode($item->custom2);
+//        }
+//
+//
+//        $template_menu = RootMenu::where(['name'=>'template'])->first();
+//        if($template_menu)
+//        {
+//            $template_items = RootItem::where(['menu_id'=>$template_menu->id, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
+//            foreach($template_items as $item)
+//            {
+//                $item->custom = json_decode($item->custom);
+//            }
+//        }
+//        else $template_items = [];
+//
+//        $client_items = RootItem::where(['category'=>51, 'active'=>1])->orderby('id', 'desc')->get();
+//        $coverage_items = RootItem::where(['category'=>41, 'active'=>1])->orderby('id', 'desc')->get();
 
         $html = view('root.frontend.entrance.root')->with([
-                'service_items'=>$service_items,
-                'template_items'=>$template_items,
-                'client_items'=>$client_items,
-                'coverage_items'=>$coverage_items
+//                'service_items'=>$service_items,
+//                'template_items'=>$template_items,
+//                'client_items'=>$client_items,
+//                'coverage_items'=>$coverage_items
             ])->__toString();
         return $html;
     }
@@ -220,6 +197,7 @@ class RootIndexRepository {
 
 
 
+
     // root
     public function view_user1($id)
     {
@@ -314,16 +292,16 @@ class RootIndexRepository {
         $type = !empty($post_data['type']) ? $post_data['type'] : 'root';
 
         $user = User::with([
-            'introduction',
+                'introduction',
 //                'items'=>function($query) { $query->with('owner')->where(['item_status'=>1,'active'=>1])->orderBy('published_at','desc'); },
 //                'ad',
 //                'ad_list'=>function($query) { $query->where(['item_category'=>1,'item_type'=>88])->orderby('updated_at','desc'); },
 //                'pivot_sponsor_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1,'user.user_status'=>1])->orderby('updated_at','desc'); },
 //                'pivot_org_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1])->orderby('updated_at','desc'); },
-        ])
+            ])
             ->withCount([
-                'items as article_count' => function($query) { $query->where(['item_status'=>1,'item_category'=>1,'item_type'=>1]); },
-                'items as activity_count' => function($query) { $query->where(['item_status'=>1,'item_category'=>1,'item_type'=>11]); },
+//                'items as article_count' => function($query) { $query->where(['item_status'=>1,'item_category'=>1,'item_type'=>1]); },
+//                'items as activity_count' => function($query) { $query->where(['item_status'=>1,'item_category'=>1,'item_type'=>11]); },
             ])
             ->find($user_id);
 
@@ -341,19 +319,19 @@ class RootIndexRepository {
                 return view(env('TEMPLATE_DEFAULT').'frontend.errors.404')->with('error',$error);
             }
 
-            if($user->user_type == 11)
-            {
-                $user->load([
-                    'ad',
-                    'pivot_sponsor_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1,'user.user_status'=>1])->orderby('updated_at','desc'); }
-                ]);
-            }
-            else if($user->user_type == 88)
-            {
-                $user->load([
-                    'pivot_org_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1])->orderby('updated_at','desc'); }
-                ]);
-            }
+//            if($user->user_type == 11)
+//            {
+//                $user->load([
+//                    'ad',
+//                    'pivot_sponsor_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1,'user.user_status'=>1])->orderby('updated_at','desc'); }
+//                ]);
+//            }
+//            else if($user->user_type == 88)
+//            {
+//                $user->load([
+//                    'pivot_org_list'=>function($query) { $query->where(['relation_active'=>1,'relation_category'=>88,'relation_type'=>1])->orderby('updated_at','desc'); }
+//                ]);
+//            }
         }
         else
         {
@@ -373,40 +351,6 @@ class RootIndexRepository {
             $me_id = $me->id;
             $record["creator_id"] = $me_id;
 
-            $item_query = Def_Item::with([
-                'owner',
-//                'forward_item'=>function($query) { $query->with('user'); },
-                'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
-            ])
-                ->where('item_status',1)
-                ->where('active',1)
-                ->where('owner_id',$user_id);
-
-            if($type == 'root')
-            {
-                $item_query->whereIn('item_type',[1,11]);
-                $record["page_module"] = 1; // page_module=0 default index
-            }
-            else if($type == 'introduction')
-            {
-                $record["page_module"] = 2; // page_module=2 introduction
-            }
-            else if($type == 'article')
-            {
-                $item_query->whereIn('item_type',[1]);
-                $record["page_module"] = 9; // page_module=0 article
-            }
-            else if($type == 'activity')
-            {
-                $item_query->whereIn('item_type',[11]);
-                $record["page_module"] = 11; // page_module=0 activity
-            }
-            else
-            {
-                $record["page_module"] = 1; // page_module=0 default index
-            }
-
-            $item_list = $item_query->orderBy('published_at','desc')->paginate(20);
 
             if($user_id != $me_id)
             {
@@ -422,44 +366,8 @@ class RootIndexRepository {
         }
         else
         {
-            $item_query = Def_Item::with(['owner'])
-                ->where('item_status',1)
-                ->where('active',1)
-                ->where('owner_id',$user_id);
-
-            if($type == 'root')
-            {
-                $item_query->whereIn('item_type',[1,11]);
-                $record["page_module"] = 1; // page_module=0 default index
-            }
-            else if($type == 'introduction')
-            {
-                $record["page_module"] = 2; // page_module=2 introduction
-            }
-            else if($type == 'article')
-            {
-                $item_query->whereIn('item_type',[1]);
-                $record["page_module"] = 9; // page_module=0 article
-            }
-            else if($type == 'activity')
-            {
-                $item_query->whereIn('item_type',[11]);
-                $record["page_module"] = 11; // page_module=0 activity
-            }
-            else
-            {
-                $record["page_module"] = 1; // page_module=0 default index
-            }
-
-            $item_list = $item_query->orderBy('published_at','desc')->paginate(20);
         }
 
-        foreach ($item_list as $item)
-        {
-            $item->custom_decode = json_decode($item->custom);
-            $item->content_show = strip_tags($item->content);
-            $item->img_tags = get_html_img($item->content);
-        }
 //        dd($item->toArray());
 
 
@@ -488,7 +396,8 @@ class RootIndexRepository {
         $record["record_category"] = 1; // record_category=1 browse/share
         $record["record_type"] = 1; // record_type=1 browse
         $record["page_type"] = 2; // page_type=2 user
-        $record["page_num"] = $item_list->toArray()["current_page"];
+//        $record["page_num"] = $item_list->toArray()["current_page"];
+        $record["page_num"] = 1;
         $record["object_id"] = $user_id;
         $record["from"] = request('from',NULL);
 //        $this->record($record);
@@ -496,7 +405,8 @@ class RootIndexRepository {
 
         $page["type"] = 2;
         $page["module"] = 1;
-        $page["num"] = $item_list->toArray()["current_page"];
+//        $page["num"] = $item_list->toArray()["current_page"];
+        $page["num"] = 1;
         $page["item_id"] = 0;
         $page["user_id"] = $id;
 
@@ -532,12 +442,281 @@ class RootIndexRepository {
         return view(env('TEMPLATE_ROOT_FRONT').'entrance.user')
             ->with([
                 'data'=>$user,
-                'item_list'=>$item_list,
+//                'item_list'=>$item_list,
                 'is_follow'=>$is_follow,
                 'page' => $page,
                 $sidebar_active => 'active',
             ]);
     }
+
+
+
+
+    // 【K】【添加关注】
+    public function user_relation_add($post_data)
+    {
+        $messages = [
+            'user_id.required' => '参数有误',
+            'user_id.numeric' => '参数有误',
+            'user_id.exists' => '参数有误',
+        ];
+        $v = Validator::make($post_data, [
+            'user_id' => 'required|numeric|exists:user,id'
+        ], $messages);
+        if ($v->fails())
+        {
+            $errors = $v->errors();
+            return response_error([],$errors->first());
+        }
+
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+
+            $user_id = $post_data['user_id'];
+            $user = User::find($user_id);
+
+            DB::beginTransaction();
+            try
+            {
+                $me_relation = Def_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$me_id,'relation_user_id'=>$user_id])->first();
+                if($me_relation)
+                {
+                    if($me_relation->relation_type == 71) $me_relation->relation_type = 21;
+                    else $me_relation->relation_type = 41;
+                    $me_relation->save();
+                }
+                else
+                {
+                    $me_relation = new Def_Pivot_User_Relation;
+                    $me_relation->relation_category = 1;
+                    $me_relation->relation_type = 41;
+                    $me_relation->mine_user_id = $me_id;
+                    $me_relation->relation_user_id = $user_id;
+                    $me_relation->save();
+                }
+                $me->timestamps = false;
+                $me->increment('follow_num');
+
+                $it_relation = Def_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$user_id,'relation_user_id'=>$me_id])->first();
+                if($it_relation)
+                {
+                    if($it_relation->relation_type == 41) $it_relation->relation_type = 21;
+                    else $it_relation->relation_type = 71;
+                    $it_relation->save();
+                }
+                else
+                {
+                    $it_relation = new Def_Pivot_User_Relation;
+                    $it_relation->relation_category = 1;
+                    $it_relation->relation_type = 71;
+                    $it_relation->mine_user_id = $user_id;
+                    $it_relation->relation_user_id = $me_id;
+                    $it_relation->save();
+                }
+                $user->timestamps = false;
+                $user->increment('fans_num');
+
+                $notification_insert['notification_category'] = 9;
+                $notification_insert['notification_type'] = 1;
+                $notification_insert['owner_id'] = $user_id;
+                $notification_insert['user_id'] = $user_id;
+                $notification_insert['belong_id'] = $user_id;
+                $notification_insert['source_id'] = $me_id;
+
+                $notification = new Def_Notification;
+                $bool = $notification->fill($notification_insert)->save();
+                if(!$bool) throw new Exception("insert--notification--fail");
+
+                DB::commit();
+                return response_success(['relation_type'=>$me_relation->relation_type]);
+            }
+            catch (Exception $e)
+            {
+                DB::rollback();
+                $msg = '操作失败，请重试！';
+                $msg = $e->getMessage();
+//                exit($e->getMessage());
+                return response_fail([], $msg);
+            }
+        }
+        else return response_error([],"请先登录！");
+    }
+    // 【K】【取消关注】
+    public function user_relation_remove($post_data)
+    {
+        $messages = [
+            'user_id.required' => '参数有误',
+            'user_id.numeric' => '参数有误',
+            'user_id.exists' => '参数有误',
+        ];
+        $v = Validator::make($post_data, [
+            'user_id' => 'required|numeric|exists:user,id'
+        ], $messages);
+        if ($v->fails())
+        {
+            $errors = $v->errors();
+            return response_error([],$errors->first());
+        }
+
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+
+            $user_id = $post_data['user_id'];
+            $user = K_User::find($user_id);
+
+            DB::beginTransaction();
+            try
+            {
+                $me_relation = K_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$me_id,'relation_user_id'=>$user_id])->first();
+                if($me_relation)
+                {
+                    if($me_relation->relation_type == 21)
+                    {
+                        $me_relation->relation_type = 71;
+                        $me_relation->save();
+                    }
+                    else if($me_relation->relation_type == 41)
+                    {
+//                        $me_relation->relation_type = 91;
+//                        $me_relation->save();
+
+                        $bool = $me_relation->delete();
+                        if(!$bool) throw new Exception("delete--pivot_relation--fail");
+                    }
+                    else
+                    {
+//                        $me_relation->relation_type = 91;
+//                        $me_relation->save();
+
+                        $bool = $me_relation->delete();
+                        if(!$bool) throw new Exception("delete--pivot_relation--fail");
+                    }
+                }
+                $me->timestamps = false;
+                $me->decrement('follow_num');
+
+                $it_relation = K_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$user_id,'relation_user_id'=>$me_id])->first();
+                if($it_relation)
+                {
+                    if($it_relation->relation_type == 21)
+                    {
+                        $it_relation->relation_type = 41;
+                        $it_relation->save();
+                    }
+                    else if($it_relation->relation_type == 71)
+                    {
+//                        $it_relation->relation_type = 92;
+//                        $it_relation->save();
+
+                        $bool = $it_relation->delete();
+                        if(!$bool) throw new Exception("delete--pivot_relation--fail");
+                    }
+                    else
+                    {
+//                        $it_relation->relation_type = 92;
+//                        $it_relation->save();
+
+                        $bool = $it_relation->delete();
+                        if(!$bool) throw new Exception("delete--pivot_relation--fail");
+                    }
+                }
+                $user->timestamps = false;
+                $user->decrement('fans_num');
+
+                DB::commit();
+                return response_success(['relation_type'=>$me_relation->relation_type]);
+            }
+            catch (Exception $e)
+            {
+                DB::rollback();
+                $msg = '操作失败，请重试！';
+                $msg = $e->getMessage();
+//                exit($e->getMessage());
+                return response_fail([], $msg);
+            }
+        }
+        else return response_error([],"请先登录！");
+    }
+
+
+
+    // 【K】【我的】【关注】
+    public function view_my_follow($post_data)
+    {
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+
+            $user_list = Def_Pivot_User_Relation::with([
+                    'relation_user'=>function($query) {
+                        $query->withCount([
+                            'fans_list as fans_count' => function($query) { $query->where(['relation_type'=>41]); },
+//                            'items as article_count' => function($query) { $query->where(['item_category'=>1,'item_type'=>1]); },
+//                            'items as activity_count' => function($query) { $query->where(['item_category'=>1,'item_type'=>11]); },
+                        ]);
+                    },
+                ])
+                ->where(['mine_user_id'=>$me_id])
+                ->whereIn('relation_type',[21,41])
+                ->orderby('id','desc')
+                ->paginate(20);
+
+            foreach ($user_list as $user)
+            {
+                $user->relation_with_me = $user->relation_type;
+            }
+
+        }
+        else return response_error([],"请先登录！");
+
+        return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-follow')
+            ->with([
+                'user_list'=>$user_list,
+                'sidebar_menu_my_follow_active'=>'active'
+            ]);
+    }
+    // 【K】【我的】【粉丝】
+    public function view_my_fans($post_data)
+    {
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+
+            $user_list = Def_Pivot_User_Relation::with(['relation_user'])
+                ->where(['mine_user_id'=>$me_id])->whereIn('relation_type',[21,71])
+                ->get();
+            foreach ($user_list as $user)
+            {
+                $user->relation_with_me = $user->relation_type;
+            }
+        }
+        else return response_error([],"请先登录！");
+
+
+        return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-fans')
+            ->with([
+                'user_list'=>$user_list,
+                'sidebar_menu_my_fans_active'=>'active'
+            ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // contact

@@ -75,6 +75,53 @@ class RootIndexController extends Controller
         else if (request()->isMethod('post')) return $this->repo->operate_my_info_save(request()->all());
     }
 
+
+
+
+
+
+
+    // 【添加关注】
+    public function user_relation_add()
+    {
+        return $this->repo->user_relation_add(request()->all());
+    }
+    // 【取消关注】
+    public function user_relation_remove()
+    {
+        return $this->repo->user_relation_remove(request()->all());
+    }
+
+
+
+    // 【我的关注】
+    public function view_my_cards()
+    {
+        return $this->repo->view_my_follow(request()->all());
+    }
+    // 【我的关注】
+    public function view_my_follow()
+    {
+        return $this->repo->view_my_follow(request()->all());
+    }
+    // 【我的粉丝】
+    public function view_my_fans()
+    {
+        return $this->repo->view_my_fans(request()->all());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     // 返回【联系我们】视图
     public function view_contact()
     {

@@ -358,7 +358,7 @@ class SuperAdminRepository {
         return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-sponsor-list')
             ->with(['sidebar_user_sponsor_list_active'=>'active menu-open']);
     }
-    // 【用户】【赞助商】返回-列表-数据
+    // 【K】【用户】【赞助商】返回-列表-数据
     public function get_user_sponsor_list_datatable($post_data)
     {
         $me = Auth::guard("user")->user();

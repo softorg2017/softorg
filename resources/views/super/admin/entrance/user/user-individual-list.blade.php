@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_ADMIN').'admin.layout.layout')
+@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
 @section('head_title','个人用户列表 - 管理员后台 - 如未科技')
@@ -63,6 +63,7 @@
                         <thead>
                         <tr role='row' class='heading'>
                             <th>ID</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -302,15 +303,20 @@
                     },
                     {
                         "width": "72px",
-                        "title": "粉丝数",
-                        "data": "fund_total",
+                        "title": "浏览数",
+                        "data": "visit_num",
                         "orderable": true,
                         render: function(data, type, row, meta) {
-                            if(row.fans_count && row.fans_count > 0)
-                            {
-                                return '<a target="_blank" href="/admin/user/agent?id='+data+'">'+row.fans_count+'</a>';
-                            }
-                            else return '--';
+                            return data;
+                        }
+                    },
+                    {
+                        "width": "72px",
+                        "title": "分享数",
+                        "data": "share_num",
+                        "orderable": true,
+                        render: function(data, type, row, meta) {
+                            return data;
                         }
                     },
                     {

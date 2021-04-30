@@ -56,14 +56,16 @@
                     <a target="_blank" class="margin btn btn-sm btn-success" href="http://org.lookwit.com/admin/">ORG</a>
                     <a target="_blank" class="margin btn btn-sm btn-success" href="http://doc.lookwit.com/admin">DOC</a>
                     <a target="_blank" class="margin btn btn-sm btn-success" href="http://atom.lookwit.com/admim">ATOM</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://super.lookwit.com/admin/sql/insert">Super.SQL.Insert</a>
                 </div>
                 <div>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com">Softorg</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://gps.softorg.com/admin/">GPS</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://super.softorg.com/admin/">SUPER</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://org.softorg.com/admin/">ORG</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://doc.softdoc.com/admin">DOC</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://atom.softorg.com/admin">ATOM</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://ruwei.com">Lookwit</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://gps.ruwei.com/admin/">GPS</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://super.ruwei.com/admin/">SUPER</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://org.ruwei.com/admin/">ORG</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://doc.ruwei.com/admin">DOC</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://atom.ruwei.com/admin">ATOM</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://super.ruwei.com/admin/sql/insert">Super.SQL.Insert</a>
                 </div>
             </div>
 
@@ -108,40 +110,40 @@
 
             </div>
 
-            <div class="box-header with-border">
-                <h3 class="box-title"><b>LY.Product</b></h3>
-            </div>
+        <div class="box-header with-border">
+            <h3 class="box-title"><b>Super.SQL</b></h3>
+        </div>
 
-            <div class="box-body">
-                <div>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.cn">softorg</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.cn/super-admin/">超级管理员</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.cn/org-admin/">机构管理员</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softdoc.cn">softdoc</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://chaoxianzu-org.cn/">K-ORG</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/developing/style/gps">softorg.GPS</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/super/admin">企业站超级管理员</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/org/register">企业站注册</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/org/admin">企业站后台</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/o/softorg">企业站前台</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/inside/admin">Inside后台</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/outside/admin">Outside后台</a>
-                </div>
-                <div>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.com">softorg</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.com/super-admin/">超级管理员</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.com/org-admin/">机构管理员</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softdoc.com">softdoc</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger" href="http://chaoxianzu-org.com/">K-ORG</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/developing/style/gps">softorg.GPS</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/super/admin">企业站超级管理员</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/org/register">企业站注册</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/org/admin">企业站后台</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/o/softorg">企业站前台</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/inside/admin">Inside后台</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/outside/admin">Outside后台</a>
-                </div>
+        <div class="box-body">
+            <div>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://lookwit.com">lookwit</a>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.cn/super-admin/">超级管理员</a>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.cn/org-admin/">机构管理员</a>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softdoc.cn">softdoc</a>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://k-org.cn/">K-ORG</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/developing/style/gps">softorg.GPS</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/super/admin">企业站超级管理员</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/org/register">企业站注册</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/org/admin">企业站后台</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/o/softorg">企业站前台</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/inside/admin">Inside后台</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.cn/outside/admin">Outside后台</a>
             </div>
+            <div>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://ruwei.com">lookwit</a>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.com/super-admin/">超级管理员</a>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softorg.com/org-admin/">机构管理员</a>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://softdoc.com">softdoc</a>
+                <a target="_blank" class="margin btn btn-sm btn-danger" href="http://k-org.com/">K-ORG</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/developing/style/gps">softorg.GPS</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/super/admin">企业站超级管理员</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/org/register">企业站注册</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/org/admin">企业站后台</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/o/softorg">企业站前台</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/inside/admin">Inside后台</a>
+                <a target="_blank" class="margin btn btn-sm btn-primary" href="http://softorg.com/outside/admin">Outside后台</a>
+            </div>
+        </div>
 
             <div class="box-body">
                 <div>

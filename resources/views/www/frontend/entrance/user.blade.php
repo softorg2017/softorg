@@ -39,16 +39,18 @@
 
     <div class="container">
 
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-body-right pull-right">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-body-right pull-right _none">
 
-            @include(env('TEMPLATE_ROOT_FRONT').'component.right-user', ['data'=>$data])
+            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-user', ['data'=>$data])--}}
 
-            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-user-menu', ['data'=>$data])--}}
+            @include(env('TEMPLATE_ROOT_FRONT').'component.right-user-menu', ['data'=>$data])
 
         </div>
 
 
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 container-body-left margin-bottom-8px">
+
+            @include(env('TEMPLATE_ROOT_FRONT').'component.left-user', ['data'=>$data])
 
             {{--<div class="box-body visible-xs visible-sm" style="margin-bottom:4px;background:#fff;">--}}
                 {{--<i class="fa fa-user text-orange"></i>&nbsp; <b>{{ $data->name or '' }}</b>--}}
@@ -87,9 +89,16 @@
             </div>
             @endif
 
-            @if($data->user_type == 88 && request('type') == 'org')
-                @include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$data->pivot_org_list])
-            @endif
+            {{--@if($data->user_type == 88 && request('type') == 'org')--}}
+                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$data->pivot_org_list])--}}
+            {{--@endif--}}
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 hidden-xs hidden-sm container-body-right">
+
+            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-root')--}}
+            @include(env('TEMPLATE_ROOT_FRONT').'component.right-me')
 
         </div>
 

@@ -11,7 +11,7 @@
         <a href="{{ url('/user/'.$data->id.'?type=introduction') }}">
             <div class="box-body item-row padding-8px pull-right {{ $sidebar_menu_introduction_active or '' }}">
                 <i class="fa fa-file-image-o text-orange"></i>
-                <span>Ta的简介</span>
+                <span>我的名片夹</span>
             </div>
         </a>
 
