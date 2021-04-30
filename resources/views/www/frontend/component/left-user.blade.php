@@ -13,7 +13,13 @@
         </div>
         <div class="">
             {{--姓名--}}
-            <h3 class="profile-username text-center" style="margin-top:8px;">{{ $data->username or '' }}</h3>
+            <h3 class="profile-username text-center" style="margin-top:8px;">
+                @if(!empty($data->true_name))
+                    {{ $data->true_name or '' }}
+                @else
+                    {{ $data->username or '' }}
+                @endif
+            </h3>
 
             {{--公司--}}
             @if(!empty($data->company))
