@@ -211,7 +211,7 @@
                     </a>
                     <a href="{{ url('/my-cards') }}" class="btn btn-primary btn-block">
                         <i class="fa fa-list-alt"></i>
-                        <span class="">名片夹</span>
+                        <span class="">我的名片夹</span>
                     </a>
                 @endif
             @endif

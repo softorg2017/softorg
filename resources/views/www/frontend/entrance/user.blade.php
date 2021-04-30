@@ -2,7 +2,7 @@
 
 
 @section('head_title')
-    {{ $data->username or '' }} - 我的互联网名片 - 如未科技
+    {{ $data->username or '' }} - 我的互联网名片
 @endsection
 @section('meta_title')@endsection
 @section('meta_author')@endsection
