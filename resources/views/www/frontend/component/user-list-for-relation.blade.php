@@ -18,7 +18,11 @@
                 <div class="item-row item-title-row">
 
                     <a href="{{ url('/user/'.$u->relation_user->id) }}">
-                        <b>{{ $u->relation_user->username or '' }}</b>
+                        @if(!empty($u->relation_user->true_name))
+                            <b>{{ $u->relation_user->true_name or '' }}</b>
+                        @else
+                            <b>{{ $u->relation_user->username or '' }}</b>
+                        @endif
                     </a>
 
                     @if(Auth::check() && $u->relation_user_id != Auth::user()->id)
