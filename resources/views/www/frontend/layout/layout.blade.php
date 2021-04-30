@@ -252,6 +252,8 @@ desired effect
 {{--<script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>--}}
 <script>
 
+    console.log('test');
+
     var wechat_config = {!! $wechat_config or '' !!};
     console.log(wechat_config.cache);
     var timestamp = Date.parse(new Date());
