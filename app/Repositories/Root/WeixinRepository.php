@@ -491,7 +491,7 @@ class WeixinRepository {
         DB::beginTransaction();
         try
         {
-            $user = new K_User;
+            $user = new User;
             $user_create['user_category'] = 1;
             $user_create['user_type'] = 1;
             $user_create['wx_unionid'] = $unionid;

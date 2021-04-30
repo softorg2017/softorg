@@ -3,8 +3,8 @@ namespace App\Repositories\Root\Front;
 
 use App\User;
 
-use App\Models\K\K_Item;
-use App\Models\K\K_Pivot_User_Relation;
+use App\Models\Def\Def_Item;
+use App\Models\Def\Def_Pivot_User_Relation;
 
 use Response, Auth, Validator, DB, Exception, Cache, Log;
 use QrCode;
@@ -487,7 +487,7 @@ class RootWeixinRepository {
         DB::beginTransaction();
         try
         {
-            $user = new K_User;
+            $user = new User;
             $user_create['user_category'] = 1;
             $user_create['user_type'] = 1;
             $user_create['wx_unionid'] = $unionid;
