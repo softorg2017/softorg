@@ -12,11 +12,7 @@
 
 @section('wx_share_title'){{ $data->username or '如未科技' }}@endsection
 @section('wx_share_desc')
-    @if(!empty($data->company)){{ $data->company or '' }}@endif
-    /
-    @if(!empty($data->position)){{ $data->position or '' }}@endif
-    /
-    我的互联网名片
+    @if(!empty($data->company)){{ $data->company or '' }}@endif - @if(!empty($data->position)){{ $data->position or '' }}@endif - 我的互联网名片
 @endsection
 @section('wx_share_imgUrl'){{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}@endsection
 
