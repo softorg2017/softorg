@@ -10,7 +10,11 @@
         {{--注册组织•赞助商请联系管理员--}}
         <a href="/">首页</a>
         <span style="margin-left:4px;margin-right:4px;">|</span>
-        <a href="/login-link">登录</a>
+        @if(!Auth::check())
+            <a href="/login-link">登录</a>
+        @else
+            <a href="{{ url('/user/'.Auth::id()) }}">返回我的名片</a>
+        @endif
         {{--<span style="margin-left:4px;margin-right:4px;">|</span>--}}
         {{--<a href="/introduction">平台介绍</a>--}}
         {{--<span style="margin-left:4px;margin-right:4px;">|</span>--}}

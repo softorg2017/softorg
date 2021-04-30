@@ -42,14 +42,15 @@ class RootIndexController extends Controller
     // 登录
     public function login_link()
     {
-        $state  = url()->previous();
+        $state = url()->previous();
+        $return = request('return',null);
+        if($return == 'root') $state = '';
         if(is_weixin())
         {
             $app_id = env('WECHAT_LOOKWIT_APPID');
             $app_secret = env('WECHAT_LOOKWIT_SECRET');
             $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$app_id}&redirect_uri=http%3A%2F%2Fwww.lookwit.com%2Fweixin%2Fauth&response_type=code&scope=snsapi_userinfo&state={$state}#wechat_redirect";
             return redirect($url);
-
         }
         else
         {

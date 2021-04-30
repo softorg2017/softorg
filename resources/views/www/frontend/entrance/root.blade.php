@@ -31,7 +31,7 @@
 
 <div class="container">
 
-    <div class="col-xs-12 col-sm-12 col-md-9 container-body-left">
+    <div class="col-xs-12 col-sm-12 col-md-9 container-body-left _none">
 
         {{--@include(env('TEMPLATE_ROOT_FRONT').'component.left-tag')--}}
 
@@ -48,7 +48,7 @@
     </div>
 
 
-    <div class="col-xs-12 col-sm-12 col-md-3 hidden-xs hidden-sm container-body-right">
+    <div class="col-xs-12 col-sm-12 col-md-3 hidden-xs- hidden-sm- container-body-right">
 
         {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-root')--}}
         @include(env('TEMPLATE_ROOT_FRONT').'component.right-me')

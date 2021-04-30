@@ -4,11 +4,11 @@
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation" style="margin-left:0;background-color:#1a2226;">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle visible-xs" data-toggle="offcanvas" role="button" style="padding:18px 16px;">
+        <a href="#" class="sidebar-toggle visible-xs _none" data-toggle="offcanvas" role="button" style="padding:18px 16px;">
             <span class="sr-only">Toggle navigation</span>
         </a>
 
-        <div class="navbar-custom-menu" style="height:50px;line-height:50px;float:left;">
+        <div class="navbar-custom-menu" style="height:50px;line-height:50px;margin-left:8px;float:left;">
             <a href="{{ url('/') }}">
                 <span class="logo-big hidden-xs">
                     <img src="{{ asset('/favicon_white_0.png') }}" class="img-icon" alt="Image">
@@ -45,10 +45,9 @@
 
                 @if(Auth::check())
                 @if(!empty($notification_count))
-                <li class="">
-                    <a  href="{{ url('/my-notification') }}" data-type="notification">
+                <li class="_none">
+                    <a href="{{ url('/my-notification') }}" data-type="notification">
                         <i class="fa fa-envelope-o"></i>
-
                         <span class="label label-success">@if(!empty($notification_count)){{ $notification_count or '' }}@endif</span>
                     </a>
                 </li>
