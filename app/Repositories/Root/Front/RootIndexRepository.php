@@ -601,12 +601,12 @@ class RootIndexRepository {
             $me_id = $me->id;
 
             $user_id = $post_data['user_id'];
-            $user = K_User::find($user_id);
+            $user = User::find($user_id);
 
             DB::beginTransaction();
             try
             {
-                $me_relation = K_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$me_id,'relation_user_id'=>$user_id])->first();
+                $me_relation = Def_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$me_id,'relation_user_id'=>$user_id])->first();
                 if($me_relation)
                 {
                     if($me_relation->relation_type == 21)
@@ -634,7 +634,7 @@ class RootIndexRepository {
                 $me->timestamps = false;
                 $me->decrement('follow_num');
 
-                $it_relation = K_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$user_id,'relation_user_id'=>$me_id])->first();
+                $it_relation = Def_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$user_id,'relation_user_id'=>$me_id])->first();
                 if($it_relation)
                 {
                     if($it_relation->relation_type == 21)

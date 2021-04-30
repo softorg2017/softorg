@@ -26,13 +26,13 @@
                         <span class="tool-inn tool-set _none"><i class="fa fa-cog"></i></span>
 
                         @if($u->relation_type == 21)
-                            <span class="tool-inn tool-info follow-remove follow-remove-it"><i class="fa fa-exchange"></i> 相互关注</span>
+                            <span class="tool-inn tool-info follow-remove follow-remove-it"><i class="fa fa-exchange"></i> 相互收藏</span>
                         @elseif($u->relation_type == 41)
                             <span class="tool-inn tool-info follow-remove follow-remove-it"><i class="fa fa-check"></i> 已收藏</span>
                         @elseif($u->relation_type == 71)
-                            <span class="tool-inn tool-info follow-add follow-add-it"><i class="fa fa-plus text-yellow"></i> 关注</span>
+                            <span class="tool-inn tool-info follow-add follow-add-it"><i class="fa fa-star-o text-yellow"></i> 收藏名片</span>
                         @else
-                            <span class="tool-inn tool-info follow-add follow-add-it"><i class="fa fa-plus text-yellow"></i> 关注</span>
+                            <span class="tool-inn tool-info follow-add follow-add-it"><i class="fa fa-star-o text-yellow"></i> 收藏名片</span>
                         @endif
 
                         <div class="tool-menu-list _none" style="z-index:999;">

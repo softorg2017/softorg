@@ -43,10 +43,10 @@ jQuery( function ($) {
                 if(!data.success) layer.msg(data.msg);
                 else
                 {
-                    var html = '<i class="fa fa-check"></i> 已关注';
+                    var html = '<i class="fa fa-star"></i> 已收藏';
                     $that.removeClass('follow-add follow-add-it').addClass('follow-remove follow-remove-it');
                     $that.html(html);
-                    layer.msg("关注成功！");
+                    layer.msg("收藏成功！");
                 }
             },
             'json'
@@ -57,7 +57,7 @@ jQuery( function ($) {
         var $that = $(this);
         var $user_id = $that.attr('data-user-id');
 
-        layer.msg('确认"取消关注"？', {
+        layer.msg('确认"移除名片"？', {
             time: 0
             ,btn: ['确定', '取消']
             ,yes: function(index){
@@ -72,10 +72,10 @@ jQuery( function ($) {
                         if(!data.success) layer.msg(data.msg);
                         else
                         {
-                            var html = '<i class="fa fa-plus"></i> 关注';
+                            var html = '<i class="fa fa-star-o"></i> 收藏名片';
                             $that.removeClass('follow-remove follow-remove-it').addClass('follow-add follow-add-it');
                             $that.html(html);
-                            layer.msg("已取消关注！");
+                            layer.msg("已移除名片！");
                         }
                     },
                     'json'
@@ -116,13 +116,13 @@ jQuery( function ($) {
                 {
                     var html = '';
                     console.log(data.data.relation_type);
-                    if(data.data.relation_type == 21) html = '<i class="fa fa-exchange"></i> 相互关注';
-                    else if(data.data.relation_type == 41) html = '<i class="fa fa-check"></i> 已关注';
+                    if(data.data.relation_type == 21) html = '<i class="fa fa-exchange"></i> 相互收藏';
+                    else if(data.data.relation_type == 41) html = '<i class="fa fa-star"></i> 已收藏';
                     else html = '';
                     $user_option.find('.tool-inn.tool-info').removeClass('follow-add follow-add-it').addClass('follow-remove follow-remove-it');
                     $user_option.find('.tool-inn.tool-info').html(html);
 
-                    var li_html = '<li class="follow-remove follow-remove-it">已关注</li>';
+                    var li_html = '<li class="follow-remove follow-remove-it">已收藏</li>';
                     $user_option.find('.tool-menu-list ul').prepend(li_html);
                 }
             },
@@ -139,7 +139,7 @@ jQuery( function ($) {
         var $user_id = $user_option.attr('data-user');
         var $relation_type = $user_option.data('type');
 
-        layer.msg('确认"取消关注"？', {
+        layer.msg('确认"移除名片"？', {
             time: 0
             ,btn: ['确定', '取消']
             ,yes: function(index){
@@ -156,9 +156,10 @@ jQuery( function ($) {
                         else
                         {
                             layer.closeAll();
-                            var html = '<i class="fa fa-plus"></i> 关注';
+                            var html = '<i class="fa fa-star-o"></i> 收藏名片';
                             $user_option.find('.tool-inn.tool-info').removeClass('follow-remove follow-remove-it').addClass('follow-add follow-add-it');
                             $user_option.find('.tool-inn.tool-info').html(html);
+                            layer.msg("已移除名片！");
                         }
                     },
                     'json'
