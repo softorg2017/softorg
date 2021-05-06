@@ -84,7 +84,7 @@
 
 
     {{--<div class="box box-primary">--}}
-        <div class="box-body box-profile">
+        <div class="box-body box-profile" style="padding-top:0;">
 
             {{--头像--}}
             <a class="lightcase-image _none" href="{{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}">
