@@ -365,6 +365,12 @@ class RootIndexRepository {
         }
 
 
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+            $record["creator_id"] = $me_id;
+        }
 
         // 访问记录
         if(Auth::check() && Auth::id() == $user_id)
