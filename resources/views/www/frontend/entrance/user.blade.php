@@ -15,7 +15,7 @@
 
 
 @section('wx_share_title') @if(!empty($data->true_name)){{ $data->true_name or '如未科技' }}@else{{ $data->true_name or '如未科技' }}@endif @endsection
-@section('wx_share_desc') @if(!empty($data->company)){{ $data->company or '' }}@endif / @if(!empty($data->position)){{ $data->position or '' }}@endif @endsection
+@section('wx_share_desc') @if(!empty($data->company)){{ $data->company or '' }}@endif @if(!empty($data->position))/ {{ $data->position or '' }}@endif @if(!empty($data->business_description))/ {{ $data->business_description or '' }}@endif @endsection
 @section('wx_share_imgUrl'){{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}@endsection
 
 

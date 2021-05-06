@@ -24,8 +24,8 @@ class User extends Authenticatable
         'QQ_number', 'wechat_id', 'wechat_qr_code_img', 'weibo_name', 'weibo_address', 'website',
         'contact_address',
         'contact_phone', 'contact_wechat_id', 'contact_wechat_qr_code_img',
-        'linkman', 'linkman_phone', 'linkman_wechat_id', 'linkman_wechat_qr_code_img',
-        'company', 'department', 'position',
+        'linkman', 'linkman_name', 'linkman_phone', 'linkman_wechat_id', 'linkman_wechat_qr_code_img',
+        'company', 'department', 'position', 'business_description',
         'visit_num', 'share_num', 'favor_num',  'follow_num', 'fans_num',
     ];
 

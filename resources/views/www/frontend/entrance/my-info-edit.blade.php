@@ -73,6 +73,13 @@
                                     <input type="text" class="form-control" name="position" placeholder="职位" value="{{ $info->position or '' }}">
                                 </div>
                             </div>
+                            {{--商业描述--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">商业描述</label>
+                                <div class="col-md-9 ">
+                                    <textarea class="form-control" name="business_description" rows="3" cols="" placeholder="商业描述">{{ $info->business_description or '' }}</textarea>
+                                </div>
+                            </div>
                             {{--地址--}}
                             <div class="form-group">
                                 <label class="control-label col-md-2">地址</label>

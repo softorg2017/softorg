@@ -11,7 +11,7 @@
         <div class="widget-user-image" style="position:relative;top:0;margin-top:-45px;">
             <img src="{{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}" class="img-circle" alt="User Image" style="border-radius:2px;">
         </div>
-        <div class="">
+        <div class="" style="margin-bottom:24px;">
             {{--姓名--}}
             <h3 class="profile-username text-center" style="margin-top:8px;">
                 @if(!empty($data->true_name))
@@ -23,11 +23,15 @@
 
             {{--公司--}}
             @if(!empty($data->company))
-                <p class="text-muted text-center" style="margin-bottom:6px;"><b>{{ $data->company or '暂无' }}</b></p>
+                <p class="text-muted text-center" style="margin-bottom:4px;"><b>{{ $data->company or '暂无' }}</b></p>
             @endif
             {{--职位--}}
-            @if(!empty($data->company))
-                <p class="text-muted text-center" style="margin-bottom:24px;"><b>{{ $data->position or '暂无' }}</b></p>
+            @if(!empty($data->position))
+                <p class="text-muted text-center" style="margin-bottom:4px;"><b>{{ $data->position or '暂无' }}</b></p>
+            @endif
+            {{--职位--}}
+            @if(!empty($data->business_description))
+                <p class="text-muted text-center" style="margin-bottom:4px;"><small>{{ $data->business_description or '暂无' }}</small></p>
             @endif
         </div>
         <div class="box-footer"  style="padding:4px;">
