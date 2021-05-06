@@ -148,6 +148,63 @@ class RootIndexRepository {
 
 
 
+    // 【分享记录】
+    public function record_share($post_data)
+    {
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+            $record["creator_id"] = $me_id;
+        }
+        else $me_id = 0;
+
+        $record_module = isset($post_data["record_module"]) ? $post_data["record_module"] : 0;
+        $page_type = isset($post_data["page_type"]) ? $post_data["page_type"] : 0;
+        $page_module = isset($post_data["page_module"]) ? $post_data["page_module"] : 0;
+        $page_num = isset($post_data["page_num"]) ? $post_data["page_num"] : 0;
+        $item_id = isset($post_data["item_id"]) ? $post_data["item_id"] : 0;
+        $user_id = isset($post_data["user_id"]) ? $post_data["user_id"] : 0;
+
+        // 插入记录表
+        $record["record_category"] = 1; // record_category=1 browse/share
+        $record["record_type"] = 2; // record_type=2 share
+        $record["record_module"] = $record_module; // record_module 1.微信好友|QQ好友 2.朋友圈|QQ空间
+        $record["page_type"] = $page_type; // page_type=1 default platform
+        $record["page_module"] = $page_module; // page_module=2 introduction
+        $record["page_num"] = $page_num;
+        $record["item_id"] = $item_id;
+        $record["object_id"] = $user_id;
+        $record["from"] = request('from',NULL);
+        $this->record($record);
+
+        if($page_type == 1)
+        {
+
+        }
+        else if($page_type == 2)
+        {
+            $user = User::find($user_id);
+            $user->timestamps = false;
+            $user->increment('share_num');
+        }
+        else if($page_type == 3)
+        {
+            $item = Def_Item::find($item_id);
+            $item->timestamps = false;
+            $item->increment('share_num');
+
+            $user = User::find($item->owner_id);
+            $user->timestamps = false;
+            $user->increment('share_num');
+        }
+
+        return response_success([]);
+    }
+
+
+
+
     /*
      * 用户基本信息
      */

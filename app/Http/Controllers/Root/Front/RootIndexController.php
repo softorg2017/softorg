@@ -70,6 +70,15 @@ class RootIndexController extends Controller
 
 
 
+    // 【分享】
+    public function record_share()
+    {
+        return $this->repo->record_share(request()->all());
+    }
+
+
+
+
     // 【基本信息】返回
     public function view_my_info_index()
     {

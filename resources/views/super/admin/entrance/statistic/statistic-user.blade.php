@@ -37,7 +37,7 @@
             </div>
 
             {{--首页访问量--}}
-            <div class="box-body">
+            <div class="box-body _none">
                 <div class="row">
                     <div class="col-md-12">
                         <div id="echart-root" style="width:100%;height:240px;"></div>
@@ -46,7 +46,7 @@
             </div>
 
             {{--简介--}}
-            <div class="box-body">
+            <div class="box-body _none">
                 <div class="row">
                     <div class="col-md-12">
                         <div id="echart-introduction" style="width:100%;height:240px;"></div>
@@ -195,6 +195,16 @@
         $.each({!! $all !!},function(key,v){
             $all_res[(v.day - 1)] = { value:v.count, name:v.day };
         });
+        // 首页访问统计
+        var $root_res = new Array();
+        $.each({!! $rooted !!},function(key,v){
+            $root_res[(v.day - 1)] = { value:v.count, name:v.day };
+        });
+
+        var $introduction_res = new Array();
+        $.each({!! $introduction !!},function(key,v){
+            $introduction_res[(v.day - 1)] = { value:v.count, name:v.day };
+        });
         var option_all = {
             title: {
                 text: '网站总流量'
@@ -261,17 +271,48 @@
                         {{--@endif--}}
                         {{--@endforeach--}}
                     {{--]--}}
+                },
+                {
+                    name:'首页访问量',
+                    type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#36a'
+                            }
+                        }
+                    },
+                    data: $root_res
+                },
+                {
+                    name:'简介页-访问量',
+                    type:'line',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#3a6'
+                            }
+                        }
+                    },
+                    data: $introduction_res
                 }
             ]
         };
         var myChart_all = echarts.init(document.getElementById('echart-all'));
         myChart_all.setOption(option_all);
 
-        // 首页访问统计
-        var $root_res = new Array();
-        $.each({!! $rooted !!},function(key,v){
-            $root_res[(v.day - 1)] = { value:v.count, name:v.day };
-        });
         var option_root = {
             title: {
                 text: '首页访问量'
@@ -335,14 +376,10 @@
                 }
             ]
         };
-        var myChart_root = echarts.init(document.getElementById('echart-root'));
-        myChart_root.setOption(option_root);
+//        var myChart_root = echarts.init(document.getElementById('echart-root'));
+//        myChart_root.setOption(option_root);
 
         // 简介访问统计
-        var $introduction_res = new Array();
-        $.each({!! $introduction !!},function(key,v){
-            $introduction_res[(v.day - 1)] = { value:v.count, name:v.day };
-        });
         var option_introduction = {
             title: {
                 text: '介绍页-流量统计'
@@ -406,8 +443,8 @@
                 }
             ]
         };
-        var myChart_introduction = echarts.init(document.getElementById('echart-introduction'));
-        myChart_introduction.setOption(option_introduction);
+//        var myChart_introduction = echarts.init(document.getElementById('echart-introduction'));
+//        myChart_introduction.setOption(option_introduction);
 
 
 

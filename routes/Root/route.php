@@ -27,6 +27,8 @@ Route::group(['namespace' => 'Front'], function () {
         Route::match(['get', 'post'],'login-link', $controller."@login_link");
         Route::get('/logout', $controller."@logout");
 
+        Route::match(['get', 'post'],'record/share', $controller."@record_share");
+
 
         Route::get('/', $controller.'@view_root');
         Route::get('/introduction', $controller.'@view_introduction');
