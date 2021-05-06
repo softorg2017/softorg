@@ -1,11 +1,11 @@
 @extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
-@section('head_title','组织列表 - 管理员后台 - 如未科技')
+@section('head_title','【Super】组织机构 - 超级管理员后台 - 如未科技')
 
 
 @section('header','')
-@section('description','组织列表 - 管理员后台 - 如未科技')
+@section('description','组织机构列表 - 超级管理员后台 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
@@ -19,7 +19,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">组织列表</h3>
+                <h3 class="box-title">组织机构列表</h3>
 
                 <div class="caption pull-right">
                     <i class="icon-pin font-blue"></i>

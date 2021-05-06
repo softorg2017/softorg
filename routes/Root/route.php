@@ -18,7 +18,7 @@ Route::group(['namespace' => 'Front'], function () {
 
 
 
-
+    // 微信分享页面
     Route::group(['middleware' => 'wechat.share'], function () {
 
 
@@ -40,21 +40,31 @@ Route::group(['namespace' => 'Front'], function () {
 
 
 
-        Route::group(['middleware' => ['login.turn']], function () {
+        /*
+         * 需要登录
+         */
+
+        // 提示登录
+        Route::group(['middleware' => ['login']], function () {
 
             $controller = "RootIndexController";
 
             Route::post('user/relation/add', $controller.'@user_relation_add');
             Route::post('user/relation/remove', $controller.'@user_relation_remove');
 
+        });
 
+
+        // 登录跳转
+        Route::group(['middleware' => ['login.turn']], function () {
+
+            $controller = "RootIndexController";
 
 
             Route::get('/home/notification', $controller.'@view_home_notification');
 
 
-
-
+            // 消息通知
             Route::group(['middleware' => 'notification'], function () {
 
                 $controller = "RootIndexController";
@@ -99,6 +109,15 @@ Route::group(['namespace' => 'Front'], function () {
             });
 
         });
+
+
+
+
+
+
+
+
+
 
 
 

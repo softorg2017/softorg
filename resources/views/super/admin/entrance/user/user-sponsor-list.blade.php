@@ -1,11 +1,11 @@
 @extends(env('TEMPLATE_ADMIN').'admin.layout.layout')
 
 
-@section('head_title','赞助商列表 - 管理员后台 - 如未科技')
+@section('head_title','【Super】赞助商 - 超级管理员后台 - 如未科技')
 
 
 @section('header','')
-@section('description','赞助商列表 - 管理员后台 - 如未科技')
+@section('description','赞助商列表 - 超级管理员后台 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>

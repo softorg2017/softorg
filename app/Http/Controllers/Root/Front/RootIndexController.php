@@ -42,7 +42,7 @@ class RootIndexController extends Controller
     // 登录
     public function login_link()
     {
-        $state = url()->previous();
+        $state = urlencode(url()->previous());
         $return = request('return',null);
         if($return == 'root') $state = '';
         if(is_weixin())
