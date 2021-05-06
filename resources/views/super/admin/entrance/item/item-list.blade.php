@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_ADMIN').'admin.layout.layout')
+@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
 @section('head_title','【Super】内容列表 - 超级管理员后台系统 - 如未科技')
@@ -164,7 +164,7 @@
             var dt = $('#datatable_ajax');
             var ajax_datatable = dt.DataTable({
 //                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
-                "aLengthMenu": [[20, 50, 200], ["20", "50", "200"]],
+                "aLengthMenu": [[50, 100, 200], ["50", "100", "200"]],
                 "processing": true,
                 "serverSide": true,
                 "searching": false,
@@ -426,5 +426,5 @@
         TableDatatablesAjax.init();
     });
 </script>
-@include(env('TEMPLATE_ADMIN').'admin.entrance.item.item-script')
+@include(env('TEMPLATE_SUPER_ADMIN').'entrance.item.item-script')
 @endsection

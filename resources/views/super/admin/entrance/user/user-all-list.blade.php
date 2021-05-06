@@ -70,6 +70,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -243,7 +244,7 @@
             var dt = $('#datatable_ajax');
             var ajax_datatable = dt.DataTable({
 //                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
-                "aLengthMenu": [[40, 50, 200], ["40", "50", "200"]],
+                "aLengthMenu": [[50, 100, 200], ["50", "100", "200"]],
                 "processing": true,
                 "serverSide": true,
                 "searching": false,
@@ -287,6 +288,16 @@
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             return '<a target="_blank" href="/user/'+data+'">'+row.username+'</a>';
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "",
+                        "title": "真实姓名",
+                        "data": "id",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return '<a target="_blank" href="/user/'+data+'">'+row.true_name+'</a>';
                         }
                     },
                     {

@@ -4,6 +4,7 @@ namespace App\Repositories\Super\Admin;
 use App\User;
 
 use App\Models\Def\Def_Item;
+use App\Models\Def\Def_Record;
 use App\Models\Org\Org_Item;
 use App\Models\Doc\Doc_Item;
 
@@ -37,14 +38,14 @@ class SuperAdminRepository {
     public function view_info_index()
     {
         $me = Auth::guard('admin')->user();
-        return view(env('TEMPLATE_ADMIN').'admin.entrance.info.index')->with(['data'=>$me]);
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.info.index')->with(['data'=>$me]);
     }
 
     // 【基本信息】返回-编辑-视图
     public function view_info_edit()
     {
         $me = Auth::guard('admin')->user();
-        return view(env('TEMPLATE_ADMIN').'admin.entrance.info.edit')->with(['data'=>$me]);
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.info.edit')->with(['data'=>$me]);
     }
     // 【基本信息】保存数据
     public function operate_info_save($post_data)
@@ -105,7 +106,7 @@ class SuperAdminRepository {
     public function view_info_password_reset()
     {
         $me = Auth::guard('admin')->user();
-        return view(env('TEMPLATE_ADMIN').'admin.entrance.info.password-reset')->with(['data'=>$me]);
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.info.password-reset')->with(['data'=>$me]);
     }
     // 【密码】保存数据
     public function operate_info_password_reset_save($post_data)
@@ -407,7 +408,7 @@ class SuperAdminRepository {
     {
         $me = Auth::guard("user")->user();
         $query = User::select('*')
-            ->where(['active'=>1,'user_category'=>1,'user_type'=>1]);
+            ->where(['user_category'=>1,'user_type'=>1]);
 
         if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
 
@@ -439,6 +440,670 @@ class SuperAdminRepository {
 //        dd($list->toArray());
         return datatable_response($list, $draw, $total);
     }
+
+
+
+
+
+
+
+
+    // 【】流量统计
+    public function view_statistic_index()
+    {
+        $me = Auth::guard('super')->user();
+        $me_id = $me->id;
+
+        $this_month = date('Y-m');
+        $this_month_year = date('Y');
+        $this_month_month = date('m');
+        $last_month = date('Y-m',strtotime('last month'));
+        $last_month_year = date('Y',strtotime('last month'));
+        $last_month_month = date('m',strtotime('last month'));
+
+
+        // 总访问量【统计】
+        $all = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->get();
+        $all = $all->keyBy('day');
+
+        // 首页访问量【统计】
+        $rooted = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>1,'page_type'=>1,'page_module'=>1])
+            ->get();
+        $rooted = $rooted->keyBy('day');
+
+        // 介绍页访问量【统计】
+        $introduction = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>1,'page_type'=>1,'page_module'=>2])
+            ->get();
+        $introduction = $introduction->keyBy('day');
+
+
+
+
+        // 打开设备类型【占比】
+        $open_device_type = Def_Record::select('open_device_type',DB::raw('count(*) as count'))
+            ->groupBy('open_device_type')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->get();
+        foreach($open_device_type as $k => $v)
+        {
+            if($v->open_device_type == 0) $open_device_type[$k]->name = "默认";
+            else if($v->open_device_type == 1) $open_device_type[$k]->name = "移动端";
+            else if($v->open_device_type == 2)  $open_device_type[$k]->name = "PC端";
+        }
+
+        // 打开系统类型【占比】
+        $open_system = Def_Record::select('open_system',DB::raw('count(*) as count'))
+            ->groupBy('open_system')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->get();
+
+        // 打开APP类型【占比】
+        $open_app = Def_Record::select('open_app',DB::raw('count(*) as count'))
+            ->groupBy('open_app')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->get();
+
+
+
+        // 总分享【统计】
+        $shared_all = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->get();
+        $shared_all = $shared_all->keyBy('day');
+
+        // 首页分享【统计】
+        $shared_root = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->where(['page_type'=>1,'page_module'=>1])
+            ->get();
+        $shared_root = $shared_root->keyBy('day');
+
+
+
+
+        // 总分享【占比】
+        $shared_all_scale = Def_Record::select('record_module',DB::raw('count(*) as count'))
+//            ->groupBy('shared_location')
+            ->groupBy('record_module')
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->get();
+        foreach($shared_all_scale as $k => $v)
+        {
+//            if($v->shared_location == 1) $shared_all_scale[$k]->name = "微信好友";
+//            else if($v->shared_location == 2) $shared_all_scale[$k]->name = "微信朋友圈";
+//            else if($v->shared_location == 3) $shared_all_scale[$k]->name = "QQ好友";
+//            else if($v->shared_location == 4) $shared_all_scale[$k]->name = "QQ空间";
+//            else if($v->shared_location == 5) $shared_all_scale[$k]->name = "腾讯微博";
+//            else $shared_all_scale[$k]->name = "其他";
+
+            if($v->record_module == 1) $shared_all_scale[$k]->name = "微信好友|QQ好友";
+            else if($v->record_module == 2) $shared_all_scale[$k]->name = "朋友圈|QQ空间";
+            else $shared_all_scale[$k]->name = "其他";
+        }
+
+        // 首页分享【占比】
+        $shared_root_scale = Def_Record::select('record_module',DB::raw('count(*) as count'))
+//            ->groupBy('shared_location')
+            ->groupBy('record_module')
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->where(['page_type'=>1,'page_module'=>1])
+            ->get();
+        foreach($shared_root_scale as $k => $v)
+        {
+//            if($v->shared_location == 1) $shared_root_scale[$k]->name = "微信好友";
+//            else if($v->shared_location == 2) $shared_root_scale[$k]->name = "微信朋友圈";
+//            else if($v->shared_location == 3) $shared_root_scale[$k]->name = "QQ好友";
+//            else if($v->shared_location == 4) $shared_root_scale[$k]->name = "QQ空间";
+//            else if($v->shared_location == 5) $shared_root_scale[$k]->name = "腾讯微博";
+//            else $shared_root_scale[$k]->name = "其他";
+
+            if($v->record_module == 1) $shared_root_scale[$k]->name = "微信好友|QQ好友";
+            else if($v->record_module == 2) $shared_root_scale[$k]->name = "朋友圈|QQ空间";
+            else $shared_root_scale[$k]->name = "其他";
+        }
+
+
+        $view_data["all"] = $all;
+        $view_data["rooted"] = $rooted;
+        $view_data["introduction"] = $introduction;
+        $view_data["open_device_type"] = $open_device_type;
+        $view_data["open_app"] = $open_app;
+        $view_data["open_system"] = $open_system;
+        $view_data["shared_all"] = $shared_all;
+        $view_data["shared_all_scale"] = $shared_all_scale;
+        $view_data["shared_root"] = $shared_root;
+        $view_data["shared_root_scale"] = $shared_root_scale;
+        $view_data["sidebar_statistic_active"] = 'active';
+
+        $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.statistic.statistic-index';
+        return view($view_blade)->with($view_data);
+    }
+    // 【】流量统计
+    public function view_statistic_user($post_data)
+    {
+        $messages = [
+            'id.required' => 'id required',
+        ];
+        $v = Validator::make($post_data, [
+            'id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $user_id = $post_data["id"];
+        $user = User::find($user_id);
+
+        $this_month = date('Y-m');
+        $this_month_year = date('Y');
+        $this_month_month = date('m');
+        $last_month = date('Y-m',strtotime('last month'));
+        $last_month_year = date('Y',strtotime('last month'));
+        $last_month_month = date('m',strtotime('last month'));
+
+
+        // 总访问量【统计】
+        $all = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->where('object_id',$user_id)
+            ->get();
+        $all = $all->keyBy('day');
+
+        // 首页访问量【统计】
+        $rooted = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>1,'page_type'=>2,'page_module'=>1])
+            ->where('object_id',$user_id)
+            ->get();
+        $rooted = $rooted->keyBy('day');
+
+        // 介绍页访问量【统计】
+        $introduction = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>1,'page_type'=>2,'page_module'=>2])
+            ->where('object_id',$user_id)
+            ->get();
+        $introduction = $introduction->keyBy('day');
+
+
+
+
+        // 打开设备类型【占比】
+        $open_device_type = Def_Record::select('open_device_type',DB::raw('count(*) as count'))
+            ->groupBy('open_device_type')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->where('object_id',$user_id)
+            ->get();
+        foreach($open_device_type as $k => $v)
+        {
+            if($v->open_device_type == 0) $open_device_type[$k]->name = "默认";
+            else if($v->open_device_type == 1) $open_device_type[$k]->name = "移动端";
+            else if($v->open_device_type == 2)  $open_device_type[$k]->name = "PC端";
+        }
+
+        // 打开系统类型【占比】
+        $open_system = Def_Record::select('open_system',DB::raw('count(*) as count'))
+            ->groupBy('open_system')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->where('object_id',$user_id)
+            ->get();
+
+        // 打开APP类型【占比】
+        $open_app = Def_Record::select('open_app',DB::raw('count(*) as count'))
+            ->groupBy('open_app')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->where('object_id',$user_id)
+            ->get();
+
+
+
+
+        // 总分享【统计】
+        $shared_all = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->where('object_id',$user_id)
+            ->get();
+        $shared_all = $shared_all->keyBy('day');
+
+        // 首页分享【统计】
+        $shared_root = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>2,'page_type'=>2,'page_module'=>1])
+            ->where('object_id',$user_id)
+            ->get();
+        $shared_root = $shared_root->keyBy('day');
+
+
+
+
+        // 总分享【占比】
+        $shared_all_scale = Def_Record::select('record_module',DB::raw('count(*) as count'))
+            ->groupBy('record_module')
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->where('object_id',$user_id)
+            ->get();
+        foreach($shared_all_scale as $k => $v)
+        {
+            if($v->record_module == 1) $shared_all_scale[$k]->name = "微信好友|QQ好友";
+            else if($v->record_module == 2) $shared_all_scale[$k]->name = "朋友圈|QQ空间";
+            else $shared_all_scale[$k]->name = "其他";
+        }
+
+        // 首页分享【占比】
+        $shared_root_scale = Def_Record::select('record_module',DB::raw('count(*) as count'))
+            ->groupBy('record_module')
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->where(['page_type'=>1,'page_module'=>1])
+            ->where('object_id',$user_id)
+            ->get();
+        foreach($shared_root_scale as $k => $v)
+        {
+            if($v->record_module == 1) $shared_all_scale[$k]->name = "微信好友|QQ好友";
+            else if($v->record_module == 2) $shared_all_scale[$k]->name = "朋友圈|QQ空间";
+            else $shared_all_scale[$k]->name = "其他";
+        }
+
+
+        $view_data["user"] = $user;
+        $view_data["all"] = $all;
+        $view_data["rooted"] = $rooted;
+        $view_data["introduction"] = $introduction;
+        $view_data["open_device_type"] = $open_device_type;
+        $view_data["open_app"] = $open_app;
+        $view_data["open_system"] = $open_system;
+        $view_data["shared_all"] = $shared_all;
+        $view_data["shared_root"] = $shared_root;
+        $view_data["shared_all_scale"] = $shared_all_scale;
+        $view_data["shared_root_scale"] = $shared_root_scale;
+
+        $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.statistic.statistic-user';
+        return view($view_blade)->with($view_data);
+    }
+    // 【】流量统计
+    public function view_statistic_item($post_data)
+    {
+        $messages = [
+            'id.required' => 'id required',
+        ];
+        $v = Validator::make($post_data, [
+            'id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $item_id = $post_data["id"];
+        $item = Def_Item::find($item_id);
+
+        $this_month = date('Y-m');
+        $this_month_year = date('Y');
+        $this_month_month = date('m');
+        $last_month = date('Y-m',strtotime('last month'));
+        $last_month_year = date('Y',strtotime('last month'));
+        $last_month_month = date('m',strtotime('last month'));
+
+
+        // 访问量【统计】
+        $data = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->where('item_id',$item_id)
+            ->get();
+        $data = $data->keyBy('day');
+
+
+
+
+        // 打开设备类型【占比】
+        $open_device_type = Def_Record::select('open_device_type',DB::raw('count(*) as count'))
+            ->groupBy('open_device_type')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->where('item_id',$item_id)
+            ->get();
+        foreach($open_device_type as $k => $v)
+        {
+            if($v->open_device_type == 0) $open_device_type[$k]->name = "默认";
+            else if($v->open_device_type == 1) $open_device_type[$k]->name = "移动端";
+            else if($v->open_device_type == 2)  $open_device_type[$k]->name = "PC端";
+        }
+
+        // 打开系统类型【占比】
+        $open_system = Def_Record::select('open_system',DB::raw('count(*) as count'))
+            ->groupBy('open_system')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->where('item_id',$item_id)
+            ->get();
+
+        // 打开APP类型【占比】
+        $open_app = Def_Record::select('open_app',DB::raw('count(*) as count'))
+            ->groupBy('open_app')
+            ->where(['record_category'=>1,'record_type'=>1])
+            ->where('item_id',$item_id)
+            ->get();
+
+
+
+
+        // 分享【统计】
+        $shared_data = Def_Record::select(
+            DB::raw("DATE(FROM_UNIXTIME(created_at)) as date"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%c') as month_0"),
+            DB::raw("DATE_FORMAT(FROM_UNIXTIME(created_at),'%e') as day"),
+            DB::raw('count(*) as count')
+        )
+            ->groupBy(DB::raw("DATE(FROM_UNIXTIME(created_at))"))
+            ->whereYear(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_year)
+            ->whereMonth(DB::raw("DATE(FROM_UNIXTIME(created_at))"),$this_month_month)
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->where('item_id',$item_id)
+            ->get();
+        $shared_data = $shared_data->keyBy('day');
+
+
+        // 分享【占比】
+        $shared_data_scale = Def_Record::select('record_module',DB::raw('count(*) as count'))
+            ->groupBy('record_module')
+            ->where(['record_category'=>1,'record_type'=>2])
+            ->where('item_id',$item_id)
+            ->get();
+        foreach($shared_data_scale as $k => $v)
+        {
+            if($v->record_module == 1) $shared_data_scale[$k]->name = "微信好友|QQ好友";
+            else if($v->record_module == 2) $shared_data_scale[$k]->name = "朋友圈|QQ空间";
+            else $shared_data_scale[$k]->name = "其他";
+        }
+
+
+        $view_data["item"] = $item;
+        $view_data["data"] = $data;
+        $view_data["open_device_type"] = $open_device_type;
+        $view_data["open_app"] = $open_app;
+        $view_data["open_system"] = $open_system;
+        $view_data["shared_data"] = $shared_data;
+        $view_data["shared_data_scale"] = $shared_data_scale;
+
+        $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.statistic.statistic-item';
+        return view($view_blade)->with($view_data);
+    }
+
+
+    // 【K】【内容】【全部】返回-列表-视图
+    public function view_statistic_all_list($post_data)
+    {
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.statistic.statistic-all-list')
+            ->with([
+                'sidebar_statistic_all_list_active'=>'active'
+            ]);
+    }
+    // 【K】【内容】【全部】返回-列表-数据
+    public function get_statistic_all_datatable($post_data)
+    {
+        $me = Auth::guard("super")->user();
+        $query = Def_Record::select('*')
+            ->with(['creator','object','item']);
+
+        if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
+
+        if(!empty($post_data['open_device_type']))
+        {
+            if($post_data['open_device_type'] == "0")
+            {
+            }
+            else if(in_array($post_data['open_system'],[1,2]))
+            {
+                $query->where('open_device_type',$post_data['open_device_type']);
+            }
+            else if($post_data['open_device_type'] == "Unknown")
+            {
+                $query->where('open_device_type',"Unknown");
+            }
+            else if($post_data['open_device_type'] == "Others")
+            {
+                $query->whereNotIn('open_device_type',[1,2]);
+            }
+            else
+            {
+                $query->where('open_device_type',$post_data['open_device_type']);
+            }
+        }
+        else
+        {
+//            $query->whereIn('open_system',['Android','iPhone','iPad','Mac','Windows']);
+        }
+
+        if(!empty($post_data['open_system']))
+        {
+            if($post_data['open_system'] == "0")
+            {
+            }
+            else if($post_data['open_system'] == "1")
+            {
+                $query->whereIn('open_system',['Android','iPhone','iPad','Mac','Windows']);
+            }
+            else if(in_array($post_data['open_system'],['Android','iPhone','iPad','Mac','Windows']))
+            {
+                $query->where('open_system',$post_data['open_system']);
+            }
+            else if($post_data['open_system'] == "Unknown")
+            {
+                $query->where('open_system',"Unknown");
+            }
+            else if($post_data['open_system'] == "Others")
+            {
+                $query->whereNotIn('open_system',['Android','iPhone','iPad','Mac','Windows']);
+            }
+            else
+            {
+                $query->where('open_system',$post_data['open_system']);
+            }
+        }
+        else
+        {
+//            $query->whereIn('open_system',['Android','iPhone','iPad','Mac','Windows']);
+        }
+
+        if(!empty($post_data['open_browser']))
+        {
+            if($post_data['open_browser'] == "0")
+            {
+            }
+            else if($post_data['open_browser'] == "1")
+            {
+                $query->whereIn('open_browser',['Chrome','Firefox','Safari']);
+            }
+            else if(in_array($post_data['open_browser'],['Chrome','Firefox','Safari']))
+            {
+                $query->where('open_browser',$post_data['open_browser']);
+            }
+            else if($post_data['open_browser'] == "Unknown")
+            {
+                $query->where('open_browser',"Unknown");
+            }
+            else if($post_data['open_browser'] == "Others")
+            {
+                $query->whereNotIn('open_browser',['Chrome','Firefox','Safari']);
+            }
+            else
+            {
+                $query->where('open_browser',$post_data['open_browser']);
+            }
+        }
+        else
+        {
+//            $query->whereIn('open_browser',['Chrome','Firefox','Safari']);
+        }
+
+        if(!empty($post_data['open_app']))
+        {
+            if($post_data['open_app'] == "0")
+            {
+            }
+            else if($post_data['open_app'] == "1")
+            {
+                $query->whereIn('open_app',['WeChat','QQ','Alipay']);
+            }
+            else if(in_array($post_data['open_app'],['WeChat','QQ','Alipay']))
+            {
+                $query->where('open_app',$post_data['open_app']);
+            }
+            else if($post_data['open_app'] == "Unknown")
+            {
+                $query->where('open_app',"Unknown");
+            }
+            else if($post_data['open_app'] == "Others")
+            {
+                $query->whereNotIn('open_app',['WeChat','QQ','Alipay']);
+            }
+            else
+            {
+                $query->where('open_app',$post_data['open_app']);
+            }
+        }
+        else
+        {
+//            $query->whereIn('open_app',['WeChat','QQ']);
+        }
+
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+            $list[$k]->description = replace_blank($v->description);
+
+            if($v->owner_id == $me->id) $list[$k]->is_me = 1;
+            else $list[$k]->is_me = 0;
+        }
+//        dd($list->toArray());
+        return datatable_response($list, $draw, $total);
+    }
+
+
+
+
 
 
 

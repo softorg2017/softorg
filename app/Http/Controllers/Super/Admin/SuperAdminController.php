@@ -144,6 +144,38 @@ class SuperAdminController extends Controller
 
 
 
+    /*
+     * 统计
+     */
+    // 【统计】概览
+    public function view_statistic_index()
+    {
+        return $this->repo->view_statistic_index();
+    }
+    // 【统计】用户
+    public function view_statistic_user()
+    {
+        return $this->repo->view_statistic_user(request()->all());
+    }
+    // 【统计】内容
+    public function view_statistic_item()
+    {
+        return $this->repo->view_statistic_item(request()->all());
+    }
+    // 【K】【内容】返回-全部内容-列表-视图
+    public function view_statistic_all_list()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_statistic_all_list(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_statistic_all_datatable(request()->all());
+    }
+
+
+
+
+
+
+
+
     // 【机构】列表
     public function view_org_list()
     {

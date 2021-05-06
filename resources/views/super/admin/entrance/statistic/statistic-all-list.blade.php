@@ -1,11 +1,11 @@
-@extends(env('TEMPLATE_ADMIN').'admin.layout.layout')
+@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
-@section('head_title','记录列表 - 管理员后台系统 - 朝鲜族组织平台 - 如未科技')
+@section('head_title','记录列表 - 超级管理员后台系统 - 如未科技')
 
 
 @section('header','')
-@section('description','管理员后台系统 - 朝鲜族组织平台 - 如未科技')
+@section('description','超级管理员后台系统 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
@@ -503,5 +503,5 @@
         TableDatatablesAjax.init();
     });
 </script>
-@include(env('TEMPLATE_ADMIN').'admin.entrance.statistic.statistic-script')
+@include(env('TEMPLATE_SUPER_ADMIN').'entrance.statistic.statistic-script')
 @endsection

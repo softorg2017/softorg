@@ -1,7 +1,7 @@
-@extends(env('TEMPLATE_ADMIN').'admin.layout.layout')
+@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
-@section('head_title','【内容统计】 - 管理员后台系统 - 如未科技')
+@section('head_title','【Super】【内容统计】 - 管理员后台系统 - 如未科技')
 
 
 @section('header','')
