@@ -249,7 +249,7 @@
                             }
                             else if(row.page_type == 2)
                             {
-                                if(row.page_module == 0) return 'user';
+                                if(row.page_module == 0) return '<small class="btn-xs bg-olive">User</small>';
                                 else if(row.page_module == 1) return '<small class="btn-xs bg-olive">U•首页</small>';
                                 else if(row.page_module == 2) return '<small class="btn-xs bg-olive">U•介绍</small>';
                                 else if(row.page_module == 9) return '<small class="btn-xs bg-olive">U•文章</small>';
@@ -263,7 +263,6 @@
                                 else return "item page error";
                             }
                             else return "有误";
-
                         }
                     },
                     {
