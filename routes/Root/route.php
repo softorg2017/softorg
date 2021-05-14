@@ -73,6 +73,7 @@ Route::group(['namespace' => 'Front'], function () {
 
                 Route::get('/my-info/index', $controller.'@view_my_info_index');
                 Route::match(['get','post'], '/my-info/edit', $controller.'@view_my_info_edit');
+                Route::match(['get','post'], '/my-introduction/edit', $controller.'@view_my_introduction_edit');
 
                 Route::get('/my-cards', $controller.'@view_my_cards');
                 Route::get('/my-follow', $controller.'@view_my_follow');

@@ -2,6 +2,7 @@
 namespace App\Repositories\Root\Front;
 
 use App\User;
+use App\UserExt;
 
 use App\Models\Def\Def_Item;
 use App\Models\Def\Def_Pivot_User_Relation;
@@ -29,7 +30,7 @@ class RootIndexRepository {
     }
 
 
-    // 【平台首页】视图
+    // 返回【平台首页】视图
     public function view_root()
     {
         if(auth()->check())
@@ -108,7 +109,7 @@ class RootIndexRepository {
 //        return $html;
     }
 
-    // 【平台介绍】视图
+    // 返回【平台介绍】视图
     public function view_introduction()
     {
         if(Auth::check())
@@ -214,7 +215,6 @@ class RootIndexRepository {
         $me = Auth::user();
         return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-info-index')->with(['info'=>$me]);
     }
-
     // 【基本信息】返回-编辑-视图
     public function view_my_info_edit()
     {
@@ -281,6 +281,52 @@ class RootIndexRepository {
 
             }
             else throw new Exception("insert--item--fail");
+
+            DB::commit();
+            return response_success(['id'=>$me->id]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+    }
+
+
+    // 【图文详情】返回-编辑-视图
+    public function view_my_introduction_edit()
+    {
+        $me = Auth::user();
+        $ext = UserExt::where('user_id',$me->id)->first();
+        return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-introduction-edit')->with(['info'=>$me]);
+    }
+    // 【图文详情】保存-数据
+    public function operate_my_introduction_save($post_data)
+    {
+        $me = Auth::user();
+
+        $ext = UserExt::where('user_id',$me->id)->first();
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            if(!empty($post_data['custom']))
+            {
+                $post_data['custom'] = json_encode($post_data['custom']);
+            }
+
+            $mine_data = $post_data;
+            unset($mine_data['operate']);
+            unset($mine_data['operate_id']);
+            $bool = $ext->fill($mine_data)->save();
+            if($bool)
+            {
+            }
+            else throw new Exception("insert--ext--fail");
 
             DB::commit();
             return response_success(['id'=>$me->id]);
@@ -393,7 +439,7 @@ class RootIndexRepository {
 
         $user = User::select('*')
             ->with([
-                'introduction'
+                'ext'
             ])
             ->withCount([
 //                'items as article_count' => function($query) { $query->where(['item_status'=>1,'item_category'=>1,'item_type'=>1]); },

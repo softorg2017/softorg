@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                             {{--描述--}}
-                            <div class="form-group">
+                            <div class="form-group _none">
                                 <label class="control-label col-md-2">描述</label>
                                 <div class="col-md-9 ">
                                     {{--<input type="text" class="form-control" name="description" placeholder="描述" value="{{ $info->description or '' }}">--}}

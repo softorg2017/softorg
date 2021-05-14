@@ -79,17 +79,24 @@ class RootIndexController extends Controller
 
 
 
-    // 【基本信息】返回
+    // 返回【基本信息】视图
     public function view_my_info_index()
     {
         return $this->repo->view_my_info_index();
     }
 
-    // 【基本信息】编辑
+    // 编辑【基本信息】
     public function view_my_info_edit()
     {
         if(request()->isMethod('get')) return $this->repo->view_my_info_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_my_info_save(request()->all());
+    }
+
+    // 编辑【图文详情】
+    public function view_my_introduction_edit()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_my_introduction_edit();
+        else if (request()->isMethod('post')) return $this->repo->operate_my_introduction_save(request()->all());
     }
 
 
