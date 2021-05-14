@@ -182,7 +182,7 @@
                             <!-- The user image in the menu -->
                             <li class="user-header">
                                 @if(!Auth::guard('gps')->user()->portrait_img)
-                                    <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('atom')->user()->portrait_img) }}" class="img-circle" alt="User Image">
+                                    <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('gps')->user()->portrait_img) }}" class="img-circle" alt="User Image">
                                 @else
                                     <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                 @endif

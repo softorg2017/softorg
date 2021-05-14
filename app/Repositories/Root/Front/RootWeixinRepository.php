@@ -2,6 +2,7 @@
 namespace App\Repositories\Root\Front;
 
 use App\User;
+use App\UserExt;
 
 use App\Models\Def\Def_Item;
 use App\Models\Def\Def_Pivot_User_Relation;
@@ -493,6 +494,11 @@ class RootWeixinRepository {
             $user_create['wx_unionid'] = $unionid;
             $bool = $user->fill($user_create)->save();
             if(!$bool) throw new Exception("insert--user--failed");
+
+            $user_ext = new UserExt;
+            $user_ext_create['user_id'] = $user->id;
+            $bool_2 = $user_ext->fill($user_ext_create)->save();
+            if(!$bool_2) throw new Exception("insert--user-ext--failed");
 
             DB::commit();
             return ['success' => true];

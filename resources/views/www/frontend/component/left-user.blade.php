@@ -2,16 +2,24 @@
 
 
     <div class="box box-widget widget-user" style="margin-bottom:0px;box-shadow:0 0;">
+
+        {{--背景--}}
         <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header bg-aqua-active">
             {{--<h3 class="widget-user-username text-center">{{ $data->username or '' }}</h3>--}}
             {{--<h5 class="widget-user-desc">{{ $data->company or '暂无' }}</h5>--}}
             {{--<h5 class="widget-user-desc">{{ $data->position or '暂无' }}</h5>--}}
         </div>
+
+        {{--头像--}}
         <div class="widget-user-image" style="position:relative;top:0;margin-top:-45px;">
             <img src="{{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}" class="img-circle" alt="User Image" style="border-radius:2px;">
         </div>
-        <div class="" style="margin-bottom:24px;">
+
+
+        {{--主要信息--}}
+        <div class="margin-bottom-16px">
+
             {{--姓名--}}
             <h3 class="profile-username text-center" style="margin-top:8px;">
                 @if(!empty($data->true_name))
@@ -21,6 +29,7 @@
                 @endif
             </h3>
 
+            {{--辅助信息--}}
             {{--公司--}}
             @if(!empty($data->company))
                 <p class="text-muted text-center" style="margin-bottom:4px;"><b>{{ $data->company or '暂无' }}</b></p>
@@ -33,8 +42,12 @@
             @if(!empty($data->business_description))
                 <p class="text-muted text-center" style="margin-bottom:4px;"><small>{{ $data->business_description or '暂无' }}</small></p>
             @endif
+
         </div>
-        <div class="box-footer"  style="padding:4px;">
+
+
+        {{--粉丝与访问信息--}}
+        <div class="box-footer">
             <div class="row">
                 <div class="col-xs-6 border-right">
                     <div class="description-block">
@@ -80,32 +93,14 @@
             </div>
             <!-- /.row -->
         </div>
+
     </div>
 
 
     {{--<div class="box box-primary">--}}
-        <div class="box-body box-profile" style="padding-top:0;">
+        <div class="box-body box-profile">
 
-            {{--头像--}}
-            <a class="lightcase-image _none" href="{{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}">
-                <img class="profile-user-img img-responsive img-circle" src="{{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}" alt="User" style="border-radius:4px;">
-            </a>
-
-            {{--姓名--}}
-            {{--<h3 class="profile-username text-center" style="margin-top:8px;">{{ $data->username or '' }}</h3>--}}
-
-            {{--公司--}}
-            {{--@if(!empty($data->company))--}}
-                {{--<p class="text-muted text-center" style="margin-bottom:6px;"><b>{{ $data->company or '暂无' }}</b></p>--}}
-            {{--@endif--}}
-
-            {{--职位--}}
-            {{--@if(!empty($data->company))--}}
-                {{--<p class="text-muted text-center" style="margin-bottom:24px;"><b>{{ $data->position or '暂无' }}</b></p>--}}
-            {{--@endif--}}
-
-
-
+            {{--info--}}
             <ul class="list-group list-group-unbordered">
                 @if(!empty($data->contact_phone))
                     <li class="list-group-item">
@@ -191,48 +186,50 @@
                 {{--</li>--}}
             </ul>
 
-            {{--<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>--}}
 
+            {{--tool--}}
+            <div style="margin-top:12px;">
 
+                {{--<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>--}}
 
-
-            @if(!Auth::check())
-                <a href="javascript:void(0);" class="btn btn-danger btn-block follow-add follow-add-it" data-user-id="{{ $data->id }}">
-                    <i class="fa fa-star-o"></i>
-                    <span class="">收藏名片</span>
-                </a>
-            @else
-                @if(Auth::user()->id != $data->id)
-                    @if($is_follow)
-                        <a href="javascript:void(0);" class="btn btn-danger btn-block follow-remove follow-remove-it" data-user-id="{{ $data->id }}">
-                            <i class="fa fa-star"></i>
-                            <span class="">已收藏</span>
-                        </a>
+                @if(!Auth::check())
+                    <a href="javascript:void(0);" class="btn btn-danger btn-block follow-add follow-add-it" data-user-id="{{ $data->id }}">
+                        <i class="fa fa-star-o"></i>
+                        <span class="">收藏名片</span>
+                    </a>
+                @else
+                    @if(Auth::user()->id != $data->id)
+                        @if($is_follow)
+                            <a href="javascript:void(0);" class="btn btn-danger btn-block follow-remove follow-remove-it" data-user-id="{{ $data->id }}">
+                                <i class="fa fa-star"></i>
+                                <span class="">已收藏</span>
+                            </a>
+                        @else
+                            <a href="javascript:void(0);" class="btn btn-danger btn-block follow-add follow-add-it" data-user-id="{{ $data->id }}">
+                                <i class="fa fa-star-o"></i>
+                                <span class="">收藏名片</span>
+                            </a>
+                        @endif
                     @else
-                        <a href="javascript:void(0);" class="btn btn-danger btn-block follow-add follow-add-it" data-user-id="{{ $data->id }}">
-                            <i class="fa fa-star-o"></i>
-                            <span class="">收藏名片</span>
+                        <a href="{{ url('/my-info/edit') }}" class="btn btn-default btn-block btn-sm" data-user-id="{{ $data->id }}">
+                            <i class="fa fa-edit"></i>
+                            <span class="">编辑名片</span>
+                        </a>
+                        <a href="{{ url('/my-cards') }}" class="btn btn-primary btn-block">
+                            <i class="fa fa-list-alt"></i>
+                            <span class="">我的名片夹</span>
                         </a>
                     @endif
-                @else
-                    <a href="{{ url('/my-info/edit') }}" class="btn btn-default btn-block" data-user-id="{{ $data->id }}">
-                        <i class="fa fa-edit"></i>
-                        <span class="">编辑名片</span>
-                    </a>
-                    <a href="{{ url('/my-cards') }}" class="btn btn-primary btn-block">
-                        <i class="fa fa-list-alt"></i>
-                        <span class="">我的名片夹</span>
-                    </a>
                 @endif
-            @endif
 
-
+            </div>
 
         </div>
     {{--</div>--}}
 
 
     <div class="item-container _none">
+
         <div class="panel-default box-default item-portrait-container">
             <a target="_blank" href="{{ url('/user/'.$data->id) }}">
                 <img src="{{ url(env('DOMAIN_CDN').'/'.$data->portrait_img) }}" alt="">
@@ -313,6 +310,7 @@
                     <span class="text-muted">{{ $data->contact_address or '暂无' }}</span>
                 </div>
             @endif
+
         </div>
 
         @if(!Auth::check())
@@ -354,11 +352,17 @@
 </div>
 
 
-<div class="box-body bg-white margin-bottom-8px _none">
-
-    <div class="margin">
-        <i class="fa fa-user text-orange"></i>
-        <b>{{ $data->username or '' }}</b>
-    </div>
-
-</div>
+<style>
+    .box.widget-user { margin-bottom:0; box-shadow:0 0; }
+    .widget-user .widget-user-header { height:80px; }
+    .widget-user .widget-user-image { margin-bottom:16px; }
+    .widget-user .widget-user-image>img { min-height:90px; }
+    .description-block { margin:4px 0; }
+    .box-footer { padding:4px; }
+    .widget-user .box-footer { padding-top:4px; border-bottom: 1px solid #f4f4f4; }
+    .list-group { margin-bottom:0; }
+    .list-group-item { border:1px solid #eeeeee; }
+    .list-group-item:first-child { border-top:0; }
+    .list-group-item:last-child { border-bottom:0; }
+    .list-group-item i { width:20px; text-align:center; }
+</style>
