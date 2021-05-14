@@ -301,7 +301,7 @@ class RootIndexRepository {
     {
         $me = Auth::user();
         $ext = UserExt::where('user_id',$me->id)->first();
-        return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-introduction-edit')->with(['info'=>$me]);
+        return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-introduction-edit')->with(['data'=>$ext]);
     }
     // 【图文详情】保存-数据
     public function operate_my_introduction_save($post_data)

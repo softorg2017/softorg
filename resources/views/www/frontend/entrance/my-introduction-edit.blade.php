@@ -45,10 +45,24 @@
                         <div class="box-body">
                             {{csrf_field()}}
 
+                            {{--标题--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2"><sup class="text-red">*</sup> 标题</label>
+                                <div class="col-md-9 ">
+                                    <input type="text" class="form-control" name="title" placeholder="标题" value="{{ $data->title or '' }}">
+                                </div>
+                            </div>
+                            {{--描述--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">描述</label>
+                                <div class="col-md-9 ">
+                                    <textarea class="form-control" name="description" rows="3" placeholder="描述">{{ $data->description or '' }}</textarea>
+                                </div>
+                            </div>
                             {{--内容--}}
                             <div class="form-group">
                                 <label class="control-label col-md-2">内容详情</label>
-                                <div class="col-md-8 ">
+                                <div class="col-md-9 ">
                                     <div>
                                     @include('UEditor::head')
                                     <!-- 加载编辑器的容器 -->

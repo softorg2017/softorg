@@ -20,7 +20,7 @@ class UserExt extends Authenticatable
         'parent_id', 'p_id',
         'name', 'username', 'nickname', 'true_name', 'description', 'portrait_img',
         'tag',
-        'content',
+        'title', 'description', 'content',
         'mobile', 'telephone', 'email',
         'introduction_id', 'advertising_id',
         'QQ_number', 'wechat_id', 'wechat_qr_code_img', 'weibo_name', 'weibo_address', 'website',

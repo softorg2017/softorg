@@ -377,8 +377,16 @@
     <div class="box-body item-row item-content-row">
 
         <div class="item-row margin-bottom-8px" style="text-align:center;">
-            <h4>图文介绍</h4>
+            <h4>{{ $data->ext->title or '图文介绍' }}</h4>
         </div>
+
+        @if(!empty($data->ext->description))
+            <div class="item-row margin-bottom-8px">
+                <div class="text-row text-description-row text-muted">
+                    {{ $data->ext->description or '暂无描述' }}
+                </div>
+            </div>
+        @endif
 
         <div class="item-row">
             @if(!empty($data->ext->content))
