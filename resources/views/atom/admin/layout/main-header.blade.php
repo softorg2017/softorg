@@ -170,7 +170,7 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            @if(!Auth::guard('atom')->user()->portrait_img)
+                            @if(!empty(Auth::guard('atom')->user()->portrait_img))
                                 <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('atom')->user()->portrait_img) }}" class="user-image" alt="User Image">
                             @else
                                 <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
@@ -181,7 +181,7 @@
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                @if(!Auth::guard('atom')->user()->portrait_img)
+                                @if(!empty(Auth::guard('atom')->user()->portrait_img))
                                     <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('atom')->user()->portrait_img) }}" class="img-circle" alt="User Image">
                                 @else
                                     <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
