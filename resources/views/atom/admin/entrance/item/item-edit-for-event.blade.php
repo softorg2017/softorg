@@ -2,7 +2,7 @@
 
 
 @section('head_title')
-    {{ $title_text }} - 原子系统 - 如未科技
+    【a】{{ $title_text or '' }}
 @endsection
 
 
@@ -30,7 +30,7 @@
             <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-item">
             <div class="box-body">
 
-                {{csrf_field()}}
+                {{ csrf_field() }}
                 <input type="hidden" name="operate" value="{{ $operate or '' }}" readonly>
                 <input type="hidden" name="operate_id" value="{{ $operate_id or 0 }}" readonly>
                 <input type="hidden" name="category" value="{{ $category or 'item' }}" readonly>
@@ -59,32 +59,20 @@
                     </div>
                 </div>
 
-                {{--活动--}}
-                @if($type == "activity")
-                {{--活动时间--}}
+                {{--开始时间--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">活动时间</label>
+                    <label class="control-label col-md-2">开始时间</label>
                     <div class="col-md-8 ">
-                        <div class="col-sm-6 col-md-6 padding-0">
-                            <input type="text" class="form-control" name="start" placeholder="开始时间"
-                                   @if(!empty($data->start_time)) value="{{ date("Y-m-d H:i",$data->start_time) }}" @endif
-                            >
-                        </div>
-                        <div class="col-sm-6 col-md-6 padding-0">
-                            <input type="text" class="form-control" name="end" placeholder="结束时间"
-                                   @if(!empty($data->end_time)) value="{{ date("Y-m-d H:i",$data->end_time) }}" @endif
-                            >
-                        </div>
+                        <input type="text" class="form-control" name="birth_time" placeholder="开始时间" value="{{$data->birth_time or ''}}">
                     </div>
                 </div>
-                {{--活动地点--}}
+                {{--逝世时间--}}
                 <div class="form-group">
-                    <label class="control-label col-md-2">活动地点</label>
+                    <label class="control-label col-md-2">结束时间</label>
                     <div class="col-md-8 ">
-                        <input type="text" class="form-control" name="address" placeholder="地点" value="{{ $data->address or '' }}">
+                        <input type="text" class="form-control" name="death_time" placeholder="结束时间" value="{{$data->death_time or ''}}">
                     </div>
                 </div>
-                @endif
 
                 {{--链接地址--}}
                 <div class="form-group">

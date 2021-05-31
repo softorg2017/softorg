@@ -2,7 +2,7 @@
 
 
 @section('head_title')
-    {{ $title_text }} - 原子系统 - 如未科技
+    【a】{{ $title_text or '' }}
 @endsection
 
 
@@ -30,7 +30,7 @@
             <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-item">
             <div class="box-body">
 
-                {{csrf_field()}}
+                {{ csrf_field() }}
                 <input type="hidden" name="operate" value="{{ $operate or '' }}" readonly>
                 <input type="hidden" name="operate_id" value="{{ $operate_id or 0 }}" readonly>
                 <input type="hidden" name="icategory" value="{{ $category or 'people' }}" readonly>

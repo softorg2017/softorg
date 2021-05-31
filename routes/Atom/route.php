@@ -11,21 +11,6 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
 
 
     /*
-     * 注册登录
-     */
-    Route::group([], function () {
-
-        $controller = "AtomAuthController";
-
-        Route::match(['get','post'], 'register', $controller.'@register');
-        Route::match(['get','post'], 'login', $controller.'@login');
-        Route::match(['get','post'], 'logout', $controller.'@logout');
-        Route::match(['get','post'], 'activation', $controller.'@activation');
-
-    });
-
-
-    /*
      * 后台管理，需要登录
      */
     Route::group(['middleware' => 'atom'], function () {
@@ -92,7 +77,7 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
 Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
 
     Route::get('/', function () {
-        dd('atom');
+        dd('atom.frontend');
     });
 
     $controller = "AtomIndexController";

@@ -1,11 +1,11 @@
-@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
+@extends(env('TEMPLATE_ADMIN').'admin.layout.layout')
 
 
-@section('head_title','【Super】组织机构 - 超级管理员后台 - 如未科技')
+@section('head_title','【S】赞助商')
 
 
 @section('header','')
-@section('description','组织机构列表 - 超级管理员后台 - 如未科技')
+@section('description','赞助商列表 - 超级管理员后台 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
@@ -19,7 +19,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">组织机构列表</h3>
+                <h3 class="box-title">赞助商列表</h3>
 
                 <div class="caption pull-right">
                     <i class="icon-pin font-blue"></i>
@@ -45,7 +45,7 @@
                 <div class="row col-md-12 datatable-search-row">
                     <div class="input-group">
 
-                        <input type="text" class="form-control form-filter item-search-keyup" name="username" placeholder="用户名" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="username" placeholder="代理商" />
 
                         <button type="button" class="form-control btn btn-flat btn-success filter-submit" id="filter-submit">
                             <i class="fa fa-search"></i> 搜索
@@ -63,6 +63,9 @@
                     <thead>
                         <tr role='row' class='heading'>
                             <th>ID</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -248,7 +251,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/user/user-org-list') }}",
+                    'url': "{{ url('/admin/user/user-sponsor-list') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -271,7 +274,7 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
-                        "width":"48px",
+                        "width": "48px",
                         "title": "ID",
                         "data": "id",
                         "orderable": true,
@@ -281,8 +284,8 @@
                     },
                     {
                         "className": "text-left",
-                        "width":"",
-                        "title": "组织名称",
+                        "width": "",
+                        "title": "赞助商",
                         "data": "id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
@@ -313,6 +316,45 @@
                         }
                     },
                     {
+                        "className": "text-left",
+                        "width": "128px",
+                        "title": "负责人",
+                        "data": "id",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            if(row.principal) {
+                                return '<a target="_blank" href="/admin/user/agent?id='+data+'">'+row.principal.username+'</a>';
+                            }
+                            else return '--';
+                        }
+                    },
+                    {
+                        "width": "72px",
+                        "title": "成员数",
+                        "data": "id",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            if(row.member_count && row.member_count > 0)
+                            {
+                                return '<a target="_blank" href="/admin/user/member?user-id='+data+'">'+row.member_count+'</a>';
+                            }
+                            else return '--';
+                        }
+                    },
+                    {
+                        "width": "72px",
+                        "title": "粉丝数",
+                        "data": "fund_total",
+                        "orderable": true,
+                        render: function(data, type, row, meta) {
+                            if(row.fans_count && row.fans_count > 0)
+                            {
+                                return '<a target="_blank" href="/admin/user/fans?user-id='+data+'">'+row.fans_count+'</a>';
+                            }
+                            else return '--';
+                        }
+                    },
+                    {
                         "width": "72px",
                         "title": "浏览数",
                         "data": "visit_num",
@@ -331,9 +373,9 @@
                         }
                     },
                     {
-                        "width":"128px",
+                        "width": "128px",
                         "title": "创建时间",
-                        "data": 'created_at',
+                        "data": "created_at",
                         "orderable": true,
                         render: function(data, type, row, meta) {
 //                            return data;
@@ -392,8 +434,6 @@
                             }
 
                             var html =
-//                                '<a class="btn btn-xs item-download-qrcode-submit" data-id="'+value+'">下载二维码</a>'+
-//                                '<a class="btn btn-xs item-statistics-submit" data-id="'+value+'">流量统计</a>'+
 //                                '<a class="btn btn-xs btn-primary item-recharge-show" data-id="'+data+'">充值/退款</a>'+
                                 $html_0+
                                 '<a class="btn btn-xs btn-primary item-edit-submit" data-id="'+data+'">编辑</a>'+
@@ -401,6 +441,7 @@
                                 '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'" >删除</a>'+
                                 '<a class="btn btn-xs bg-olive item-login-submit" data-id="'+data+'">登录</a>'+
                                 '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
+//                                '<a class="btn btn-xs item-download-qr-code-submit" data-id="'+data+'">下载二维码</a>'+
                                 '';
                             return html;
                         }

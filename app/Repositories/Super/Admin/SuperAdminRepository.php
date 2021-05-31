@@ -260,7 +260,7 @@ class SuperAdminRepository {
     // 【K】【用户】【全部机构】返回-列表-视图
     public function view_user_all_list($post_data)
     {
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-all-list')
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-all')
             ->with(['sidebar_user_all_list_active'=>'active menu-open']);
     }
     // 【K】【用户】【全部机构】返回-列表-数据
@@ -312,7 +312,7 @@ class SuperAdminRepository {
     // 【K】【用户】【组织】返回-列表-视图
     public function view_user_org_list($post_data)
     {
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-org-list')
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-org')
             ->with(['sidebar_user_org_list_active'=>'active menu-open']);
     }
     // 【K】【用户】【组织】返回-列表-数据
@@ -356,7 +356,7 @@ class SuperAdminRepository {
     // 【K】【用户】【赞助商】返回-列表-视图
     public function view_user_sponsor_list($post_data)
     {
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-sponsor-list')
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-sponsor')
             ->with(['sidebar_user_sponsor_list_active'=>'active menu-open']);
     }
     // 【K】【用户】【赞助商】返回-列表-数据
@@ -400,7 +400,7 @@ class SuperAdminRepository {
     // 【K】【用户】【个人用户】返回-列表-视图
     public function view_user_individual_list($post_data)
     {
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-individual-list')
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-individual')
             ->with(['sidebar_user_individual_list_active'=>'active menu-open']);
     }
     // 【K】【用户】【个人用户】返回-列表-数据

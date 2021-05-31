@@ -2,11 +2,11 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="{{url('/admin')}}" class="logo">
+    <a href="{{url('/home')}}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>S</b></span>
+        <span class="logo-mini"><b>D</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Super</b></span>
+        <span class="logo-lg"><b>Doc</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -27,17 +27,22 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">
-                            <a href="{{ url('/org/create') }}">
+                            <a href="{{ url('/home/item/item-create') }}">
+                                <i class="fa fa-plus text-red"></i> 添加内容
+                            </a>
+                        </li>
+                        <li class="header">
+                            <a href="{{ url('/org-create') }}">
                                 <i class="fa fa-plus text-red"></i> 添加机构
                             </a>
                         </li>
                         <li class="header">
-                            <a href="{{ url('/menu/create') }}">
+                            <a href="{{ url('/menu-create') }}">
                                 <i class="fa fa-plus text-red"></i> 添加目录
                             </a>
                         </li>
                         <li class="header">
-                            <a href="{{ url('/item/create') }}">
+                            <a href="{{ url('/item-create') }}">
                                 <i class="fa fa-plus text-red"></i> 添加内容
                             </a>
                         </li>
@@ -146,25 +151,25 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        @if(!empty(Auth::guard('super')->user()->portrait_img))
-                            <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('super')->user()->portrait_img) }}" class="user-image" alt="User">
+                        @if(!empty(Auth::user()->portrait_img))
+                            <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="user-image" alt="User">
                         @else
                             <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                         @endif
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">{{ Auth::guard('super')->user()->username }}</span>
+                        <span class="hidden-xs">{{ Auth::user()->username }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            @if(!empty(Auth::guard('super')->user()->portrait_img))
-                                <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('super')->user()->portrait_img) }}" class="user-image" alt="User">
+                            @if(!empty(Auth::user()->portrait_img))
+                                <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="user-image" alt="User">
                             @else
                                 <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                             @endif
 
                             <p>
-                                {{ Auth::guard('super')->user()->username }} - Web Developer
+                                {{ Auth::user()->username }} - Web Developer
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>

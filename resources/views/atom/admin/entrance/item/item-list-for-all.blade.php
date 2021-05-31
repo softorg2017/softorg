@@ -1,11 +1,11 @@
 @extends(env('TEMPLATE_ATOM_ADMIN').'layout.layout')
 
 
-@section('head_title','内容列表 - 原子系统 - 如未科技')
+@section('head_title','【a】全部内容 - 原子系统 - 如未科技')
 
 
 @section('header','')
-@section('description','内容列表 - 原子系统 - 如未科技')
+@section('description','全部内容 - 原子系统 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>

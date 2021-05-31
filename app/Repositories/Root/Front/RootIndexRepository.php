@@ -251,13 +251,14 @@ class RootIndexRepository {
                         unlink(storage_path('resource/'.$mine_original_file));
                     }
 
-                    $result = upload_file_storage($post_data["portrait"]);
+//                    $result = upload_img_storage($post_data["portrait"],'','root/common');
+                    $result = upload_img_storage($post_data["portrait"],'user_'.$me->id,'root/unique/portrait','assign');
                     if($result["result"])
                     {
                         $me->portrait_img = $result["local"];
                         $me->save();
                     }
-                    else throw new Exception("upload--portrait-img-file--fail");
+                    else throw new Exception("upload--portrait_img--file--fail");
                 }
 
                 // 微信二维码
@@ -270,7 +271,7 @@ class RootIndexRepository {
                         unlink(storage_path("resource/" . $mine_wechat_qr_code_img));
                     }
 
-                    $result = upload_file_storage($post_data["wechat_qr_code"]);
+                    $result = upload_img_storage($post_data["wechat_qr_code"],'','root/common');
                     if($result["result"])
                     {
                         $me->wechat_qr_code_img = $result["local"];
@@ -344,93 +345,7 @@ class RootIndexRepository {
 
 
 
-    // root
-    public function view_user1($id)
-    {
-        if(Auth::check())
-        {
-//            $me = Auth::user();
-//            $return['data'] = $me;
-
-        }
-        else
-        {
-        }
-
-        $user = User::find($id);
-        $return['data'] = $user;
-
-        $head_title = "首页 - 朝鲜族组织平台";
-        $return['head_title'] = $head_title;
-
-        $page["data"] = 0;
-
-        $view = 'www.frontend.entrance.user';
-        return view($view)->with($return);
-
-        dd(1);
-
-        $head_title = "User";
-
-        $page["type"] = 1;
-        $page["module"] = 1;
-        $page["num"] = 0;
-        $page["item_id"] = 0;
-        $page["user_id"] = 0;
-
-        $service_items = RootItem::where(['category'=>11, 'menu_id'=>0, 'active'=>1])->orderby('id', 'desc')->paginate(8);
-        $return['item_list'] = $service_items;
-
-        $return['user_list'] = [];
-
-//        $return[$sidebar_active] = 'active';
-        $return['head_title'] = $head_title;
-        $return['getType'] = 'items';
-        $return['page_type'] = 'root';
-        $return['page'] = $page;
-
-
-
-        $view = 'www.frontend.entrance.root';
-        return view($view)->with($return);
-
-
-
-
-//        $info = json_decode(json_encode(config('mitong.company.info')));
-//        $menus = RootMenu::where(['active'=>1])->orderby('order', 'asc')->get();
-
-        $service_items = RootItem::where(['category'=>11, 'menu_id'=>0, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
-        foreach($service_items as $item)
-        {
-            $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
-        }
-
-
-        $template_menu = RootMenu::where(['name'=>'template'])->first();
-        if($template_menu)
-        {
-            $template_items = RootItem::where(['menu_id'=>$template_menu->id, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
-            foreach($template_items as $item)
-            {
-                $item->custom = json_decode($item->custom);
-            }
-        }
-        else $template_items = [];
-
-        $client_items = RootItem::where(['category'=>51, 'active'=>1])->orderby('id', 'desc')->get();
-        $coverage_items = RootItem::where(['category'=>41, 'active'=>1])->orderby('id', 'desc')->get();
-
-        $html = view('root.frontend.entrance.root')->with([
-            'service_items'=>$service_items,
-            'template_items'=>$template_items,
-            'client_items'=>$client_items,
-            'coverage_items'=>$coverage_items
-        ])->__toString();
-        return $html;
-    }
-
+    // 【用户】首页
     public function view_user($post_data,$id=0)
     {
         $user_id = $id;
@@ -863,89 +778,6 @@ class RootIndexRepository {
 
 
 
-
-    // contact
-    public function contact()
-    {
-        $houses = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->get();
-        foreach($houses as $item)
-        {
-            $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
-        }
-
-        $html = view('frontend.entrance.contact')->with(['houses'=>$houses])->__toString();
-        return $html;
-    }
-
-
-
-
-    // 【出租】
-    public function view_rent_out_list()
-    {
-        $items = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->paginate(8);
-        foreach($items as $item)
-        {
-            $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
-        }
-
-        $rent_items = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->limit(6)->get();
-
-        $html = view('frontend.entrance.list-for-rent-out')->with(['items'=>$items, 'rent_items'=>$rent_items])->__toString();
-        return $html;
-    }
-
-    // 【二手批发】
-    public function view_second_wholesale_list()
-    {
-        $items = RootItem::where(['category'=>12, 'active'=>1])->orderby('id', 'desc')->paginate(8);
-        foreach($items as $item)
-        {
-            $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
-        }
-
-        $rent_items = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->limit(6)->get();
-
-        $html = view('frontend.entrance.list-for-second-wholesale')->with(['items'=>$items, 'rent_items'=>$rent_items])->__toString();
-        return $html;
-    }
-
-    // 【回收】
-    public function view_recycle_page()
-    {
-        $items = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->get();
-        foreach($items as $item)
-        {
-            $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
-        }
-
-        $html = view('frontend.entrance.page-for-recycle')->with(['items'=>$items])->__toString();
-        return $html;
-    }
-
-    // 【资讯】
-    public function view_coverage_list()
-    {
-        $items = RootItem::where(['category'=>31, 'active'=>1])->orderby('id', 'desc')->paginate(8);
-        foreach($items as $item)
-        {
-            $item->custom = json_decode($item->custom);
-            $item->custom2 = json_decode($item->custom2);
-        }
-
-        $rent_items = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->limit(6)->get();
-
-        $html = view('frontend.entrance.list-for-coverage')->with(['items'=>$items, 'rent_items'=>$rent_items])->__toString();
-        return $html;
-    }
-
-
-
-
     // item
     public function view_item($id = 0)
     {
@@ -983,6 +815,10 @@ class RootIndexRepository {
         $html = view('root.frontend.entrance.item-template')->with(['item'=>$mine])->__toString();
         return $html;
     }
+
+
+
+
 
 
 

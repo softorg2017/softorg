@@ -34,7 +34,7 @@ Route::group(['domain' => env('DOMAIN_ROOT')], function(){
 
 Route::get('org', function () {
 //    return view('welcome');
-    return redirect('org/softorg');
+//    return redirect('org/softorg');
 });
 
 
@@ -47,7 +47,7 @@ Route::get('org', function () {
 
 
 
-Route::get('/home', function () {
+Route::get('/home-', function () {
     return view('front.online.index');
 });
 
@@ -141,7 +141,7 @@ Route::group(['domain' => 'doc.'.env('DOMAIN_ROOT'), 'namespace' => 'Doc'], func
 
 
 /*
- * DOC
+ * ATOM
  */
 Route::group(['domain' => 'atom.'.env('DOMAIN_ROOT'), 'namespace' => 'Atom'], function () {
     require(__DIR__ . '/Atom/route.php');
@@ -152,7 +152,7 @@ Route::group(['domain' => 'atom.'.env('DOMAIN_ROOT'), 'namespace' => 'Atom'], fu
  * 企业对内管理员
  */
 Route::group(['namespace' => 'Inside'], function () {
-    require(__DIR__ . '/Inside/route.php');
+//    require(__DIR__ . '/Inside/route.php');
 });
 
 
@@ -160,7 +160,7 @@ Route::group(['namespace' => 'Inside'], function () {
  * 企业对外管理员
  */
 Route::group(['namespace' => 'Outside'], function () {
-    require(__DIR__ . '/Outside/route.php');
+//    require(__DIR__ . '/Outside/route.php');
 });
 
 

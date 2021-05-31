@@ -1,13 +1,13 @@
 @extends(env('TEMPLATE_ATOM_ADMIN').'layout.layout')
 
 
-@section('head_title','作品 - 原子系统 - 如未科技')
+@section('head_title','【a】物 - 原子系统 - 如未科技')
 
 
 @section('header','')
-@section('description','作品 - 原子系统 - 如未科技')
+@section('description','物 - 原子系统 - 如未科技')
 @section('breadcrumb')
-    <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{url('/admim')}}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
@@ -169,7 +169,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/item/item-conception-list') }}",
+                    'url': "{{ url('/admin/item/item-object-list') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {

@@ -176,8 +176,8 @@ class WeixinRepository {
 
                             $type = $result[2]; // 得到图片类型 png?jpg?jpeg?gif?
                             $filename = uniqid().time().'.'.$type;
-                            $storage_path = "resource/research/common/".date('Y-m-d')."/";
-                            $sql_path = "research/common/".date('Y-m-d')."/";
+                            $storage_path = "resource/root/common/".date('Y-m-d')."/";
+                            $sql_path = "root/common/".date('Y-m-d')."/";
                             $sql_text = $sql_path.$filename;
 
                             $file = storage_path($storage_path.$filename);
@@ -279,8 +279,8 @@ class WeixinRepository {
 
                             $type = $result[2]; // 得到图片类型 png?jpg?jpeg?gif?
                             $filename = uniqid().time().'.'.$type;
-                            $storage_path = "resource/research/common/".date('Y-m-d')."/";
-                            $sql_path = "research/common/".date('Y-m-d')."/";
+                            $storage_path = "resource/root/common/".date('Y-m-d')."/";
+                            $sql_path = "root/common/".date('Y-m-d')."/";
                             $sql_text = $sql_path.$filename;
 
                             $file = storage_path($storage_path.$filename);

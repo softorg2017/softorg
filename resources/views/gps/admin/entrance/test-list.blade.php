@@ -1,6 +1,6 @@
 @extends(env('TEMPLATE_GPS_ADMIN').'layout.layout')
 
-@section('head_title','【GPS】测试')
+@section('head_title','【G】测试')
 
 @section('header','测试')
 @section('description','测试')

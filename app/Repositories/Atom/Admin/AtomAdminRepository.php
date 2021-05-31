@@ -72,22 +72,22 @@ class AtomAdminRepository {
             if($bool)
             {
                 // 头像
-                if(!empty($post_data["portrait_img"]))
+                if(!empty($post_data["portrait"]))
                 {
                     // 删除原文件
-                    $mine_original_file = $me->portrait_img;
-                    if(!empty($mine_original_file) && file_exists(storage_path("resource/" . $mine_original_file)))
+                    $mine_portrait_img = $me->portrait_img;
+                    if(!empty($mine_portrait_img) && file_exists(storage_path("resource/" . $mine_portrait_img)))
                     {
-                        unlink(storage_path("resource/" . $mine_original_file));
+                        unlink(storage_path("resource/" . $mine_portrait_img));
                     }
 
-                    $result = upload_file_storage($post_data["attachment"]);
+                    $result = upload_img_storage($post_data["portrait"],'user_'.$me->id,'doc/unique/portrait/');
                     if($result["result"])
                     {
                         $me->portrait_img = $result["local"];
                         $me->save();
                     }
-                    else throw new Exception("upload-portrait-img-file-fail");
+                    else throw new Exception("upload--portrait_img--file--fail");
                 }
 
             }
@@ -381,7 +381,7 @@ class AtomAdminRepository {
     // 【内容】【全部】返回-列表-视图
     public function view_item_all_list($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-all-list')
+        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-all')
             ->with([
                 'sidebar_item_active'=>'active',
                 'sidebar_item_all_list_active'=>'active'
@@ -435,7 +435,7 @@ class AtomAdminRepository {
     // 【内容】【活动】返回-列表-视图
     public function view_item_object_list($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-object-list')
+        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-object')
             ->with([
                 'sidebar_item_active'=>'active',
                 'sidebar_item_object_list_active'=>'active'
@@ -487,7 +487,7 @@ class AtomAdminRepository {
     // 【内容】【人】返回-列表-视图
     public function view_item_people_list($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-people-list')
+        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-people')
             ->with([
                 'sidebar_item_people'=>'active',
                 'sidebar_item_people_list_active'=>'active'
@@ -539,7 +539,7 @@ class AtomAdminRepository {
     // 【内容】【广告】返回-列表-视图
     public function view_item_product_list($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-product-list')
+        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-product')
             ->with([
                 'sidebar_item_active'=>'active',
                 'sidebar_item_product_list_active'=>'active'
@@ -594,7 +594,7 @@ class AtomAdminRepository {
     // 【内容】【广告】返回-列表-视图
     public function view_item_event_list($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-event-list')
+        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-event')
             ->with([
                 'sidebar_item_active'=>'active',
                 'sidebar_item_event_list_active'=>'active'
@@ -646,7 +646,7 @@ class AtomAdminRepository {
     // 【内容】【广告】返回-列表-视图
     public function view_item_conception_list($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-conception-list')
+        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-conception')
             ->with([
                 'sidebar_item_active'=>'active',
                 'sidebar_item_conception_list_active'=>'active'
@@ -713,27 +713,27 @@ class AtomAdminRepository {
         if($type == "object")
         {
             $item_type_text = '物';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-object-edit';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-object';
         }
         else if($type == "people")
         {
             $item_type_text = '人';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-people-edit';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-people';
         }
         else if($type == "product")
         {
             $item_type_text = '作品';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-product-edit';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-product';
         }
         else if($type == "event")
         {
             $item_type_text = '事件';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-event-edit';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-event';
         }
         else if($type == "conception")
         {
             $item_type_text = '概念';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-conception-edit';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-conception';
         }
         else
         {
@@ -792,8 +792,8 @@ class AtomAdminRepository {
             $item_type_text = '物';
             $title_text = '编辑'.$item_type_text;
             $list_text = $item_type_text.'列表';
-            $list_link = '/admin/item/item-article-list';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-object-edit';
+            $list_link = '/admin/item/item-list-for-object';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-object';
         }
         else if($mine->item_type == 11)
         {
@@ -801,8 +801,8 @@ class AtomAdminRepository {
             $item_type_text = '人';
             $title_text = '编辑'.$item_type_text;
             $list_text = $item_type_text.'列表';
-            $list_link = '/admin/item/item-people-list';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-people-edit';
+            $list_link = '/admin/item/item-list-for-people';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-people';
         }
         else if($mine->item_type == 22)
         {
@@ -810,8 +810,8 @@ class AtomAdminRepository {
             $item_type_text = '作品';
             $title_text = '编辑'.$item_type_text;
             $list_text = $item_type_text.'列表';
-            $list_link = '/admin/item/item-product-list';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-product-edit';
+            $list_link = '/admin/item/item-list-for-product';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-product';
         }
         else if($mine->item_type == 33)
         {
@@ -819,8 +819,8 @@ class AtomAdminRepository {
             $item_type_text = '事件';
             $title_text = '编辑'.$item_type_text;
             $list_text = $item_type_text.'列表';
-            $list_link = '/admin/item/item-event-list';
-            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-event-edit';
+            $list_link = '/admin/item/item-list-for-event';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-event';
         }
         else if($mine->item_type == 9)
         {
@@ -828,7 +828,8 @@ class AtomAdminRepository {
             $item_type_text = '概念';
             $title_text = '编辑'.$item_type_text;
             $list_text = $item_type_text.'列表';
-            $list_link = '/admin/item/item-conception-list';
+            $list_link = '/admin/item/item-list-for-conception';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-conception';
         }
 
 
@@ -974,51 +975,42 @@ class AtomAdminRepository {
                         unlink(storage_path("resource/" . $mine_cover_pic));
                     }
 
-                    $result = upload_storage($post_data["cover"]);
+                    $result = upload_storage($post_data["cover"],'','doc/common');
                     if($result["result"])
                     {
                         $mine->cover_pic = $result["local"];
                         $mine->save();
                     }
-                    else throw new Exception("upload--cover--fail");
-
-//                    $upload = new CommonRepository();
-//                    $result = $upload->upload($post_data["cover"], 'outside-unique-items' , 'cover_item_'.$encode_id);
-//                    if($result["status"])
-//                    {
-//                        $mine->cover_pic = $result["data"];
-//                        $mine->save();
-//                    }
-//                    else throw new Exception("upload-cover-fail");
+                    else throw new Exception("upload--cover_pic--fail");
                 }
 
                 // 附件
                 if(!empty($post_data["attachment"]))
                 {
                     // 删除原附件
-                    $mine_cover_pic = $mine->attachment;
-                    if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                    $mine_attachment_src = $mine->attachment;
+                    if(!empty($mine_attachment_src) && file_exists(storage_path("resource/" . $mine_attachment_src)))
                     {
-                        unlink(storage_path("resource/" . $mine_cover_pic));
+                        unlink(storage_path("resource/" . $mine_attachment_src));
                     }
 
-                    $result = upload_file_storage($post_data["attachment"]);
+                    $result = upload_file_storage($post_data["attachment"],'','doc/attachment');
                     if($result["result"])
                     {
                         $mine->attachment_name = $result["name"];
                         $mine->attachment_src = $result["local"];
                         $mine->save();
                     }
-                    else throw new Exception("upload--attachment--fail");
+                    else throw new Exception("upload--attachment_file--fail");
                 }
 
                 // 生成二维码
-                $qr_code_path = "resource/unique/qr_code/";  // 保存目录
+                $qr_code_path = "resource/doc/unique/qr_code/";  // 保存目录
                 if(!file_exists(storage_path($qr_code_path)))
                     mkdir(storage_path($qr_code_path), 0777, true);
                 // qr_code 图片文件
                 $url = env('DOMAIN_WWW').'/item/'.$mine->id;  // 目标 URL
-                $filename = 'qr_code_item_'.$mine->id.'.png';  // 目标 file
+                $filename = 'qr_code_doc_item_'.$mine->id.'.png';  // 目标 file
                 $qr_code = $qr_code_path.$filename;
                 QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
 
@@ -1125,32 +1117,32 @@ class AtomAdminRepository {
 
 
             // 删除原封面图片
-//            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
-//            {
-//                unlink(storage_path("resource/" . $mine_cover_pic));
-//            }
-//
-//            // 删除原附件
-//            if(!empty($mine_attachment_src) && file_exists(storage_path("resource/" . $mine_attachment_src)))
-//            {
-//                unlink(storage_path("resource/" . $mine_attachment_src));
-//            }
-//
-//            // 删除二维码
-//            if(file_exists(storage_path("resource/unique/qr_code/".'qr_code_item_'.$id.'.png')))
-//            {
-//                unlink(storage_path("resource/unique/qr_code/".'qr_code_item_'.$id.'.png'));
-//            }
-//
-//            // 删除UEditor图片
-//            $img_tags = get_html_img($mine_content);
-//            foreach ($img_tags[2] as $img)
-//            {
-//                if (!empty($img) && file_exists(public_path($img)))
-//                {
-//                    unlink(public_path($img));
-//                }
-//            }
+            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+            {
+                unlink(storage_path("resource/" . $mine_cover_pic));
+            }
+
+            // 删除原附件
+            if(!empty($mine_attachment_src) && file_exists(storage_path("resource/" . $mine_attachment_src)))
+            {
+                unlink(storage_path("resource/" . $mine_attachment_src));
+            }
+
+            // 删除二维码
+            if(file_exists(storage_path("resource/doc/unique/qr_code/".'qr_code_doc_item_'.$id.'.png')))
+            {
+                unlink(storage_path("resource/doc/unique/qr_code/".'qr_code_doc_item_'.$id.'.png'));
+            }
+
+            // 删除UEditor图片
+            $img_tags = get_html_img($mine_content);
+            foreach ($img_tags[2] as $img)
+            {
+                if (!empty($img) && file_exists(public_path($img)))
+                {
+                    unlink(public_path($img));
+                }
+            }
 
 
             return response_success([]);

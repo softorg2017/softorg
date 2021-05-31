@@ -7,7 +7,7 @@ class Doc_Pivot_Item_Relation extends Model
     //
     protected $table = "doc_pivot_item_relation";
     protected $fillable = [
-        'sort', 'type', 'relation', 'relation_type', 'mine_id', 'relation_id'
+        'active', 'category', 'type', 'relation', 'relation_active', 'relation_category', 'relation_type', 'mine_item_id', 'relation_item_id'
     ];
     protected $dateFormat = 'U';
 
@@ -15,19 +15,19 @@ class Doc_Pivot_Item_Relation extends Model
     // mine
     function mine_item()
     {
-        return $this->belongsTo('App\Models\Doc\Doc_Item','mine_id','id');
+        return $this->belongsTo('App\Models\Doc\Doc_Item','mine_item_id','id');
     }
 
     // relation
     function relation_item()
     {
-        return $this->belongsTo('App\Models\Doc\Doc_Item','relation_id','id');
+        return $this->belongsTo('App\Models\Doc\Doc_Item','relation_item_id','id');
     }
 
     // relations
-    function relations()
+    function relation_items()
     {
-        return $this->hasMany('App\Models\Doc\Doc_Item','relation_id','id');
+        return $this->hasMany('App\Models\Doc\Doc_Item','relation_item_id','id');
     }
 
 
