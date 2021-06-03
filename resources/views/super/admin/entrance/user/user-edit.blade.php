@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_ADMIN').'admin.layout.layout')
+@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 @section('create-text') 添加机构 @endsection
 @section('edit-text') 编辑机构 @endsection

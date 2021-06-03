@@ -97,44 +97,74 @@ class SuperAdminController extends Controller
 
 
 
+
+
+
+    // 【组织】添加
+    public function operate_user_user_create()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_user_create();
+        else if (request()->isMethod('post')) return $this->repo->operate_user_user_save(request()->all());
+    }
+    // 【组织】编辑
+    public function operate_user_user_edit()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_user_edit();
+        else if (request()->isMethod('post')) return $this->repo->operate_user_user_save(request()->all());
+    }
+
+
     // 【用户】登录
     public function operate_user_user_login()
     {
-        $user_id = request()->get('id');
+        $user_id = request()->get('user_id');
         $user = User::where('id',$user_id)->first();
         if($user)
         {
-            Auth::login($user,true);
 
             $type = request()->get('type','');
             if($type == "gps")
             {
+                $admin_id = request()->get('admin_id');
+                $admin = User::where('id',$admin_id)->first();
+
                 Auth::guard('gps')->login($user,true);
-                return redirect(env('DOMAIN_GPS').'/admin');
+                Auth::guard('gps_admin')->login($admin,true);
+
+                if(request()->isMethod('get')) return redirect(env('DOMAIN_GPS').'/admin');
+                else if(request()->isMethod('post')) return response_success();
+
             }
             else if($type == "atom")
             {
+                $admin_id = request()->get('admin_id');
+                $admin = User::where('id',$admin_id)->first();
+
                 Auth::guard('atom')->login($user,true);
-                return redirect(env('DOMAIN_ATOM').'/admin');
+                Auth::guard('atom_admin')->login($admin,true);
+
+                if(request()->isMethod('get')) return redirect(env('DOMAIN_ATOM').'/admin');
+                else if(request()->isMethod('post')) return response_success();
+            }
+            else if($type == "doc")
+            {
+                $admin_id = request()->get('admin_id');
+                $admin = User::where('id',$admin_id)->first();
+
+                Auth::guard('doc')->login($user,true);
+                Auth::guard('doc_admin')->login($admin,true);
+
+                if(request()->isMethod('get')) return redirect(env('DOMAIN_DOC').'/home');
+                else if(request()->isMethod('post')) return response_success();
             }
             else
             {
-//                if($user->user_type == 8)
-//                {
-//                    Auth::guard('atom')->login($user,true);
-//
-//                }
-//                else if($user->user_type == 11)
-//                {
-//                    Auth::guard('org')->login($user,true);
-//                }
-//                else if($user->user_type == 88)
-//                {
-//                    Auth::guard('sponsor')->login($user,true);
-//                }
+                Auth::login($user,true);
 //
                 $return['user'] = $user;
-                return response_success($return);
+
+                if(request()->isMethod('get')) return redirect(env('DOMAIN_DEFAULT'));
+                else if(request()->isMethod('post')) return response_success($return);
             }
         }
         else return response_error([]);

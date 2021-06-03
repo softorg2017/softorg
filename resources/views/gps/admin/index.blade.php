@@ -107,27 +107,38 @@
                     <tbody>
                     <tr>
                         <th>Guard</th>
-                        <th>Username</th>
+                        <th>User</th>
+                        <th>Admin</th>
                         <th>Status</th>
                     </tr>
                     <tr>
                         <td>user</td>
                         <td>@if(auth()->guard()->check()){{ auth()->guard()->user()->username }}@endif</td>
+                        <td>--</td>
                         <td><span class="label label-success">Approved</span></td>
                     </tr>
                     <tr>
                         <td>SUPER</td>
                         <td>@if(auth()->guard('super')->check()){{ auth()->guard('super')->user()->username }}@endif</td>
+                        <td>--</td>
                         <td><span class="label label-warning">Pending</span></td>
                     </tr>
                     <tr>
                         <td>GPS</td>
                         <td>@if(auth()->guard('gps')->check()){{ auth()->guard('gps')->user()->username }}@endif</td>
+                        <td>@if(auth()->guard('gps_admin')->check()){{ auth()->guard('gps_admin')->user()->username }}@endif</td>
                         <td><span class="label label-primary">Approved</span></td>
                     </tr>
                     <tr>
                         <td>ATOM</td>
                         <td>@if(auth()->guard('atom')->check()){{ auth()->guard('atom')->user()->username }}@endif</td>
+                        <td>@if(auth()->guard('atom_admin')->check()){{ auth()->guard('atom_admin')->user()->username }}@endif</td>
+                        <td><span class="label label-danger">Denied</span></td>
+                    </tr>
+                    <tr>
+                        <td>DOC</td>
+                        <td>@if(auth()->guard('doc')->check()){{ auth()->guard('doc')->user()->username }}@endif</td>
+                        <td>@if(auth()->guard('doc_admin')->check()){{ auth()->guard('doc_admin')->user()->username }}@endif</td>
                         <td><span class="label label-danger">Denied</span></td>
                     </tr>
                     </tbody>

@@ -254,15 +254,15 @@
                         "className": "",
                         "width": "64px",
                         "title": "发布者",
-                        "data": "owner_id",
+                        "data": "creator_id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
-                            return row.owner == null ? '未知' : '<a target="_blank" href="/user/'+row.owner.id+'">'+row.owner.username+'</a>';
+                            return row.creator == null ? '未知' : '<a target="_blank" href="/user/'+row.creator.id+'">'+row.creator.username+'</a>';
                         }
                     },
                     {
                         "className": "font-12px",
-                        "width": "128px",
+                        "width": "112px",
                         "title": "创建时间",
                         "data": 'created_at',
                         "orderable": true,
@@ -275,14 +275,14 @@
                             var $hour = ('00'+$date.getHours()).slice(-2);
                             var $minute = ('00'+$date.getMinutes()).slice(-2);
                             var $second = ('00'+$date.getSeconds()).slice(-2);
-//                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
+                            return $year+'-'+$month+'-'+$day;
+//                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
 //                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
                         }
                     },
                     {
                         "className": "font-12px",
-                        "width": "128px",
+                        "width": "112px",
                         "title": "修改时间",
                         "data": 'updated_at',
                         "orderable": true,

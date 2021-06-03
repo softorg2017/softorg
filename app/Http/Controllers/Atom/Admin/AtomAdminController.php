@@ -20,9 +20,10 @@ class AtomAdminController extends Controller
         $this->repo = new AtomAdminRepository;
     }
 
-	public function index()
+
+	public function view_admin_index()
 	{
-        return view('admin.index.index');
+        return $this->repo->view_admin_index();
 	}
 
     public function dataTableI18n()
@@ -41,48 +42,48 @@ class AtomAdminController extends Controller
 
 
     // 【内容】返回-列表-视图
-    public function view_item_item_list()
+    public function view_item_list()
     {
-        if(request()->isMethod('get')) return $this->repo->view_item_item_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_item_item_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_item_list(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_datatable(request()->all());
     }
     // 【内容】返回-全部内容-列表-视图
-    public function view_item_all_list()
+    public function view_item_list_for_all()
     {
-        if(request()->isMethod('get')) return $this->repo->view_item_all_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_item_all_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_all(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_all_datatable(request()->all());
     }
     // 【内容】返回-列表-视图
-    public function view_item_people_list()
+    public function view_item_list_for_people()
     {
-        if(request()->isMethod('get')) return $this->repo->view_item_people_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_item_people_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_people(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_people_datatable(request()->all());
     }
     // 【内容】返回-列表-视图
-    public function view_item_object_list()
+    public function view_item_list_for_object()
     {
-        if(request()->isMethod('get')) return $this->repo->view_item_object_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_item_object_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_object(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_object_datatable(request()->all());
     }
     // 【内容】返回-列表-视图
-    public function view_item_product_list()
+    public function view_item_list_for_product()
     {
-        if(request()->isMethod('get')) return $this->repo->view_item_product_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_item_product_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_product(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_product_datatable(request()->all());
     }
 
     // 【内容】返回-全部内容-列表-视图
-    public function view_item_event_list()
+    public function view_item_list_for_event()
     {
-        if(request()->isMethod('get')) return $this->repo->view_item_event_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_item_event_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_event(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_event_datatable(request()->all());
     }
 
     // 【内容】返回-全部内容-列表-视图
-    public function view_item_conception_list()
+    public function view_item_list_for_conception()
     {
-        if(request()->isMethod('get')) return $this->repo->view_item_conception_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_item_conception_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_conception(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_conception_datatable(request()->all());
     }
 
 

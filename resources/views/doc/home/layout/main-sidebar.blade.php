@@ -5,12 +5,16 @@
     <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel _none">
+        <div class="user-panel">
             <div class="pull-left image">
-                <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                @if(!empty(Auth::guard('doc_admin')->user()->portrait_img))
+                    <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('doc_admin')->user()->portrait_img) }}" class="img-circle" alt="User Image" style="height:45px;">
+                @else
+                    <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                @endif
             </div>
             <div class="pull-left info">
-                <p>{{ Auth::guard('super')->user()->nickname }}</p>
+                <p>{{ Auth::guard('doc_admin')->user()->username }}</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -71,6 +75,12 @@
                     <span>文章</span>
                 </a>
             </li>
+            <li class="treeview {{ $sidebar_item_list_for_activity_active or '' }}">
+                <a href="{{url('/home/item/item-list?item-type=activity')}}">
+                    <i class="fa fa-circle-o text-red"></i>
+                    <span>活动</span>
+                </a>
+            </li>
             <li class="treeview {{ $sidebar_item_list_for_menu_type_active or '' }}">
                 <a href="{{url('/home/item/item-list?item-type=menu_type')}}">
                     <i class="fa fa-circle-o text-red"></i>
@@ -104,15 +114,32 @@
             <li class="header">流量统计</li>
 
             <li class="treeview {{ $sidebar_statistic_active or '' }}">
-                <a href="{{ url('/admin/statistic') }}">
+                <a href="{{ url('/home/statistic') }}">
                     <i class="fa fa-bar-chart text-green"></i> <span>流量统计</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_statistic_all_list_active or '' }}">
-                <a href="{{ url('/admin/statistic/statistic-all-list') }}">
+            <li class="treeview {{ $sidebar_statistic_list_for_all_active or '' }}">
+                <a href="{{ url('/home/statistic/statistic-list-for-all') }}">
                     <i class="fa fa-bar-chart text-green"></i> <span>统计列表</span>
                 </a>
             </li>
+
+
+
+
+            {{--管理员--}}
+            <li class="header">管理员</li>
+
+            <li class="treeview {{ $sidebar_user_administrator_list_active or '' }}">
+                <a href="{{ url('/home/user/my-administrator-list') }}">
+                    <i class="fa fa-cny text-red"></i> <span>我的管理员</span>
+                </a>
+            </li>
+
+
+
+
+
 
 
 

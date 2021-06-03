@@ -13,25 +13,23 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
     /*
      * 后台管理，需要登录
      */
-    Route::group(['middleware' => 'atom'], function () {
+    Route::group(['middleware' => ['atom','atom.admin']], function () {
 
         $controller = "AtomAdminController";
 
-        Route::get('/', function () {
-            return view('atom.admin.index');
-        });
+        Route::get('/', $controller.'@view_admin_index');
 
 
         // item
         Route::match(['get','post'], '/item/select2_people', $controller.'@operate_item_select2_people');
 
-        Route::match(['get','post'], '/item/item-list', $controller.'@view_item_item_list');
-        Route::match(['get','post'], '/item/item-all-list', $controller.'@view_item_all_list');
-        Route::match(['get','post'], '/item/item-people-list', $controller.'@view_item_people_list');
-        Route::match(['get','post'], '/item/item-object-list', $controller.'@view_item_object_list');
-        Route::match(['get','post'], '/item/item-product-list', $controller.'@view_item_product_list');
-        Route::match(['get','post'], '/item/item-event-list', $controller.'@view_item_event_list');
-        Route::match(['get','post'], '/item/item-conception-list', $controller.'@view_item_conception_list');
+        Route::match(['get','post'], '/item/item-list', $controller.'@view_item_list');
+        Route::match(['get','post'], '/item/item-list-for-all', $controller.'@view_item_list_for_all');
+        Route::match(['get','post'], '/item/item-list-for-people', $controller.'@view_item_list_for_people');
+        Route::match(['get','post'], '/item/item-list-for-object', $controller.'@view_item_list_for_object');
+        Route::match(['get','post'], '/item/item-list-for-product', $controller.'@view_item_list_for_product');
+        Route::match(['get','post'], '/item/item-list-for-event', $controller.'@view_item_list_for_event');
+        Route::match(['get','post'], '/item/item-list-for-conception', $controller.'@view_item_list_for_conception');
 
 
         Route::match(['get','post'], '/item/item-create', $controller.'@operate_item_item_create');

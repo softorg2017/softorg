@@ -59,7 +59,7 @@
 
 
                 <!-- datatable start -->
-                <table class='table table-striped- table-bordered- table-hover' id='datatable_ajax'>
+                <table class='table table-striped table-bordered table-hover' id='datatable_ajax'>
                     <thead>
                         <tr role='row' class='heading'>
                             <th>ID</th>
@@ -363,8 +363,8 @@
 //                        }
 //                    },
                     {
-                        "width": "72px",
-                        "title": "浏览数",
+                        "width": "40px",
+                        "title": "浏览",
                         "data": "visit_num",
                         "orderable": true,
                         render: function(data, type, row, meta) {
@@ -372,8 +372,8 @@
                         }
                     },
                     {
-                        "width": "72px",
-                        "title": "分享数",
+                        "width": "40px",
+                        "title": "分享",
                         "data": "share_num",
                         "orderable": true,
                         render: function(data, type, row, meta) {
@@ -404,7 +404,8 @@
 //                        }
 //                    },
                     {
-                        "width": "128px",
+                        "className": "font-12px",
+                        "width": "112px",
                         "title": "创建时间",
                         "data": 'created_at',
                         "orderable": true,
@@ -451,7 +452,7 @@
                         }
                     },
                     {
-                        "width": "300px",
+                        "width": "320px",
                         "title": "操作",
                         "data": "id",
                         "orderable": false,
@@ -483,6 +484,7 @@
                                 '<a class="btn btn-xs bg-maroon item-change-password-show" data-id="'+data+'">修改密码</a>'+
                                 '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'" >删除</a>'+
                                 '<a class="btn btn-xs bg-olive item-login-submit" data-id="'+data+'">登录</a>'+
+                                '<a class="btn btn-xs bg-olive item-doc-login-submit" data-id="'+data+'">轻博</a>'+
                                 '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
                                 '';
                             return html;

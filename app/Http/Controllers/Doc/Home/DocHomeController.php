@@ -141,4 +141,18 @@ class DocHomeController extends Controller
     }
 
 
+
+
+
+
+
+
+    // 【用户】【赞助商】返回-列表
+    public function view_user_my_administrator_list()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_my_administrator_list(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_my_administrator_list_datatable(request()->all());
+    }
+
+
 }

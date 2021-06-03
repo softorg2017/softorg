@@ -5,12 +5,16 @@
     <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel _none">
+        <div class="user-panel">
             <div class="pull-left image">
-                <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                @if(!empty(Auth::guard('atom_admin')->user()->portrait_img))
+                    <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('atom_admin')->user()->portrait_img) }}" class="img-circle" alt="User Image" style="height:45px;">
+                @else
+                    <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                @endif
             </div>
             <div class="pull-left info">
-                <p>{{ Auth::guard('atom')->user()->username }}</p>
+                <p>{{ Auth::guard('atom_admin')->user()->username }}</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -37,33 +41,33 @@
             {{--内容管理--}}
             <li class="header">内容管理</li>
 
-            <li class="treeview {{ $sidebar_item_all_list_active or '' }} ">
-                <a href="{{ url('/admin/item/item-all-list') }}">
+            <li class="treeview {{ $sidebar_item_list_for_all_active or '' }} ">
+                <a href="{{ url('/admin/item/item-list-for-all') }}">
                     <i class="fa fa-file-text text-green"></i><span>全部内容</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_object_list_active or '' }}">
-                <a href="{{ url('/admin/item/item-object-list') }}">
+            <li class="treeview {{ $sidebar_item_list_for_object_active or '' }}">
+                <a href="{{ url('/admin/item/item-list-for-object') }}">
                     <i class="fa fa-file-text text-green"></i><span>物</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_people_list_active or '' }}">
-                <a href="{{ url('/admin/item/item-people-list') }}">
+            <li class="treeview {{ $sidebar_item_list_for_people_active or '' }}">
+                <a href="{{ url('/admin/item/item-list-for-people') }}">
                     <i class="fa fa-file-text text-green"></i><span>人</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_product_list_active or '' }}">
-                <a href="{{ url('/admin/item/item-product-list') }}">
+            <li class="treeview {{ $sidebar_item_list_for_product_active or '' }}">
+                <a href="{{ url('/admin/item/item-list-for-product') }}">
                     <i class="fa fa-file-text text-green"></i><span>作品</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_event_list_active or '' }}">
-                <a href="{{ url('/admin/item/item-event-list') }}">
+            <li class="treeview {{ $sidebar_item_list_for_event_active or '' }}">
+                <a href="{{ url('/admin/item/item-list-for-event') }}">
                     <i class="fa fa-file-text text-green"></i><span>事件</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_conception_list_active or '' }}">
-                <a href="{{ url('/admin/item/item-conception-list') }}">
+            <li class="treeview {{ $sidebar_item_list_for_conception_active or '' }}">
+                <a href="{{ url('/admin/item/item-list-for-conception') }}">
                     <i class="fa fa-file-text text-green"></i><span>概念</span>
                 </a>
             </li>

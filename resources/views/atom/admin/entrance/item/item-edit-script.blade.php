@@ -48,12 +48,12 @@
                         layer.msg(data.msg);
 
                         var $type = $('input[name=type]').val();
-                        if($type == "object") location.href = "{{ url('/admin/item/item-object-list') }}";
-                        else if($type == "people") location.href = "{{ url('/admin/item/item-people-list') }}";
-                        else if($type == "product") location.href = "{{ url('/admin/item/item-product-list') }}";
-                        else if($type == "event") location.href = "{{ url('/admin/item/item-event-list') }}";
-                        else if($type == "conception") location.href = "{{ url('/admin/item/item-conception-list') }}";
-                        else location.href = "{{ url('/atom/item/item-all-list') }}";
+                        if($type == "object") location.href = "{{ url('/admin/item/item-list-for-object') }}";
+                        else if($type == "people") location.href = "{{ url('/admin/item/item-list-for-people') }}";
+                        else if($type == "product") location.href = "{{ url('/admin/item/item-list-for-product') }}";
+                        else if($type == "event") location.href = "{{ url('/admin/item/item-list-for-event') }}";
+                        else if($type == "conception") location.href = "{{ url('/admin/item/item-list-for-conception') }}";
+                        else location.href = "{{ url('/atom/item/item-list-for-all') }}";
                     }
                 }
             };

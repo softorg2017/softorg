@@ -76,6 +76,11 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 
 
 
+        Route::match(['get','post'], '/user/my-administrator-list', $controller.'@view_user_my_administrator_list');
+
+
+
+
 
 
 

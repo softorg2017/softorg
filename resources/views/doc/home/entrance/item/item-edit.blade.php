@@ -10,8 +10,8 @@
 @section('header','')
 @section('description','内容管理后台 - 如未科技')
 @section('breadcrumb')
-    <li><a href="{{url('/home')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{url('/home/item-list')}}"><i class="fa "></i>内容列表</a></li>
+    <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i>首页</a></li>
+    <li><a href="{{ url('/home/item-list') }}"><i class="fa "></i>内容列表</a></li>
 @endsection
 
 
@@ -111,10 +111,10 @@
                     <label class="control-label col-md-2"><sup class="text-red">*</sup> 选择时间</label>
                     <div class="col-md-8 ">
                         <div class="col-md-6" style="padding-left:0;">
-                            <input type="text" readonly- class="form-control" name="start" placeholder="选择开始时间" value="@if(!empty($data->start_time)){{ time_show($data->start_time) }}@endif">
+                            <input type="text" readonly- class="form-control" name="start" placeholder="选择开始时间" value="@if(!empty($data->start_time)){{ date("Y-m-d H:i",$data->start_time) }}@endif">
                         </div>
                         <div class="col-md-6" style="padding-right:0;">
-                            <input type="text" readonly- class="form-control" name="end" placeholder="选择结束时间" value="@if(!empty($data->end_time)){{ time_show($data->end_time) }}@endif">
+                            <input type="text" readonly- class="form-control" name="end" placeholder="选择结束时间" value="@if(!empty($data->end_time)){{ date("Y-m-d H:i",$data->end_time) }}@endif">
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                 <div class="form-group debate-show" style="display:none;">
                     <label class="control-label col-md-2"><sup class="text-red">*</sup> 反方观点</label>
                     <div class="col-md-8 ">
-                        <div><input type="text" class="form-control" name="custom[negative]" placeholder="正方观点" value="{{ $data->custom->negative or '' }}"></div>
+                        <div><input type="text" class="form-control" name="custom[negative]" placeholder="反方观点" value="{{ $data->custom->negative or '' }}"></div>
                     </div>
                 </div>
 
@@ -246,6 +246,17 @@
 @section('js')
 <script>
     $(function() {
+
+        var $item_type = $("input[name=item_type]").val();
+        if($item_type == 9)
+        {
+            $('.activity-show').show();
+            $('.time-show').show();
+        }
+        else if($item_type == 22)
+        {
+            $('.debate-show').show();
+        }
 
         // 提交
         $("#edit-item-submit").on('click', function() {

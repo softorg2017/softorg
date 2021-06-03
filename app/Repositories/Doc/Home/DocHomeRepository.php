@@ -7,6 +7,7 @@ use App\Models\Def\Def_Item;
 use App\Models\Def\Def_Record;
 use App\Models\Org\Org_Item;
 use App\Models\Doc\Doc_Item;
+use App\Models\Doc\Doc_Pivot_User_Admin;
 
 use App\Repositories\Common\CommonRepository;
 
@@ -32,31 +33,29 @@ class DocHomeRepository {
 
 
 
-
-
-
-
-
     /*
-     * 用户基本信息
+     * INFO 用户基本信息
      */
     // 【基本信息】返回视图
     public function view_info_index()
     {
-        $me = Auth::guard('admin')->user();
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.info.index')->with(['data'=>$me]);
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+        return view(env('TEMPLATE_DOC_HOME').'entrance.info.index')->with(['data'=>$me]);
     }
 
     // 【基本信息】返回-编辑-视图
     public function view_info_edit()
     {
-        $me = Auth::guard('admin')->user();
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.info.edit')->with(['data'=>$me]);
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+        return view(env('TEMPLATE_DOC_HOME').'entrance.info.edit')->with(['data'=>$me]);
     }
     // 【基本信息】保存数据
     public function operate_info_save($post_data)
     {
         $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
 
         // 启动数据库事务
         DB::beginTransaction();
@@ -112,16 +111,17 @@ class DocHomeRepository {
     // 【密码】返回修改视图
     public function view_info_password_reset()
     {
-        $me = Auth::guard('admin')->user();
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.info.password-reset')->with(['data'=>$me]);
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+        return view(env('TEMPLATE_DOC_HOME').'entrance.info.password-reset')->with(['data'=>$me]);
     }
     // 【密码】保存数据
     public function operate_info_password_reset_save($post_data)
     {
         $messages = [
-            'password_pre.required' => '请输入旧密码',
-            'password_new.required' => '请输入新密码',
-            'password_confirm.required' => '请输入确认密码',
+            'password_pre.required' => '请输入旧密码！',
+            'password_new.required' => '请输入新密码！',
+            'password_confirm.required' => '请输入确认密码！',
         ];
         $v = Validator::make($post_data, [
             'password_pre' => 'required',
@@ -140,17 +140,25 @@ class DocHomeRepository {
 
         if($password_new == $password_confirm)
         {
-            $me = Auth::guard('admin')->user();
-            if(password_check($password_pre,$me->password))
+            $me = Auth::guard('doc')->user();
+            $me_admin = Auth::guard('doc_admin')->user();
+            if($me->id != $me_admin->id)
             {
-                $me->password = password_encode($password_new);
-                $bool = $me->save();
-                if($bool) return response_success([], '密码修改成功！');
-                else return response_fail([], '密码修改失败！');
+                return response_error([],"你没有操作权限！");
             }
             else
             {
-                return response_fail([], '原密码有误！');
+                if(password_check($password_pre,$me->password))
+                {
+                    $me->password = password_encode($password_new);
+                    $bool = $me->save();
+                    if($bool) return response_success([], '密码修改成功！');
+                    else return response_fail([], '密码修改失败！');
+                }
+                else
+                {
+                    return response_fail([], '原密码有误！');
+                }
             }
         }
         else return response_error([],'两次密码输入不一致！');
@@ -160,113 +168,14 @@ class DocHomeRepository {
 
 
     /*
-     * 用户系统
+     * ITEM
      */
-    // 【代理商&用户】【修改密码】
-    public function operate_user_change_password($post_data)
-    {
-        $messages = [
-            'operate.required' => '参数有误',
-            'id.required' => '请输入用户ID',
-            'user-password.required' => '请输入密码',
-            'user-password-confirm.required' => '请输入确认密码',
-        ];
-        $v = Validator::make($post_data, [
-            'operate' => 'required',
-            'id' => 'required',
-            'user-password' => 'required',
-            'user-password-confirm' => 'required',
-        ], $messages);
-        if ($v->fails())
-        {
-            $messages = $v->errors();
-            return response_error([],$messages->first());
-        }
-
-        $operate = $post_data["operate"];
-        if($operate != 'change-password') return response_error([],"参数有误！");
-        $id = $post_data["id"];
-        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
-
-        $me = Auth::guard('admin')->user();
-        if($me->user_type != 0) return response_error([],"你没有操作权限");
-
-        $password = $post_data["user-password"];
-        $confirm = $post_data["user-password-confirm"];
-        if($password != $confirm) return response_error([],"两次密码不一致！");
-
-//        if(!password_is_legal($password)) ;
-        $pattern = '/^[a-zA-Z0-9]{1}[a-zA-Z0-9]{5,19}$/i';
-        if(!preg_match($pattern,$password)) return response_error([],"密码格式不正确！");
-
-
-        $user = User::find($id);
-        if(!$user) return response_error([],"该用户不存在，刷新页面重试");
-
-
-        // 启动数据库事务
-        DB::beginTransaction();
-        try
-        {
-            $user->password = password_encode($password);
-            $user->save();
-
-            $bool = $user->save();
-            if(!$bool) throw new Exception("update--user--fail");
-
-            DB::commit();
-            return response_success(['id'=>$user->id]);
-        }
-        catch (Exception $e)
-        {
-            DB::rollback();
-            $msg = '操作失败，请重试！';
-            $msg = $e->getMessage();
-//            exit($e->getMessage());
-            return response_fail([],$msg);
-        }
-
-    }
-
-
-    // 【select2】
-    public function operate_business_select2_user($post_data)
-    {
-        $me = Auth::guard('admin')->user();
-        if(empty($post_data['keyword']))
-        {
-            $list =User::select(['id','username as text'])
-                ->where(['userstatus'=>'正常','status'=>1])
-                ->whereIn('usergroup',['Agent','Agent2'])
-                ->orderBy('id','desc')
-                ->get()
-                ->toArray();
-        }
-        else
-        {
-            $keyword = "%{$post_data['keyword']}%";
-            $list =User::select(['id','username as text'])
-                ->where(['userstatus'=>'正常','status'=>1])
-                ->whereIn('usergroup',['Agent','Agent2'])
-                ->where('sitename','like',"%$keyword%")
-                ->orderBy('id','desc')
-                ->get()
-                ->toArray();
-        }
-        array_unshift($list, ['id'=>0,'text'=>'【全部代理】']);
-        return $list;
-    }
-
-
-
-
-
-
     // 【ITEM】返回-添加-视图
     public function view_item_item_create($post_data)
     {
-        $me = Auth::user();
-//        if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_DOC_HOME').'errors.404');
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+//        if(!in_array($me->user_type,[0,1,9])) return view(env('TEMPLATE_DOC_HOME').'errors.404');
 
         $item_type = 'item';
         $item_type_text = '内容';
@@ -289,7 +198,8 @@ class DocHomeRepository {
     // 【ITEM】返回-编辑-视图
     public function view_item_item_edit($post_data)
     {
-        $me = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
         if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_DOC_HOME').'errors.404');
 
         $id = $post_data["id"];
@@ -369,7 +279,7 @@ class DocHomeRepository {
         }
         else
         {
-            $mine = Doc_Item::with(['user'])->find($id);
+            $mine = Doc_Item::with(['owner'])->find($id);
             if($mine)
             {
                 $mine->custom = json_decode($mine->custom);
@@ -396,8 +306,8 @@ class DocHomeRepository {
     {
 //        dd('edit');
         $messages = [
-            'operate.required' => '参数有误',
-            'title.required' => '请输入标题',
+            'operate.required' => 'operate.required',
+            'title.required' => '请输入标题！',
         ];
         $v = Validator::make($post_data, [
             'operate' => 'required',
@@ -409,8 +319,9 @@ class DocHomeRepository {
             return response_error([],$messages->first());
         }
 
-        $me = Auth::user();
-        if(!in_array($me->user_type,[0,1])) return response_error([],"你没有操作权限！");
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+        if(!in_array($me->user_type,[0,1,9])) return response_error([],"用户类型错误！");
 
 
         $operate = $post_data["operate"];
@@ -420,8 +331,9 @@ class DocHomeRepository {
         if($operate == 'create') // 添加 ( $id==0，添加一个内容 )
         {
             $mine = new Doc_Item;
-            $post_data["owner_id"] = $me->id;
             $post_data["item_category"] = 1;
+            $post_data["owner_id"] = $me->id;
+            $post_data["creator_id"] = $me_admin->id;
 
 //            if($type == 'item') $post_data["item_type"] = 0;
 //            else if($type == 'article') $post_data["item_type"] = 1;
@@ -434,10 +346,13 @@ class DocHomeRepository {
         {
             $mine = Doc_Item::find($operate_id);
             if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
-
-            if($mine->owner_id != $me->id) $mine->timestamps = false;
+            if($me->id != $me_admin->id)
+            {
+                if($mine->creator_id != $me_admin->id) return response_error([],"不是你创建的，你没有操作权限！");
+            }
+            $post_data["updater_id"] = $me_admin->id;
         }
-        else return response_error([],"参数有误！");
+        else return response_error([],"参数【operate】有误！");
 
         // 启动数据库事务
         DB::beginTransaction();
@@ -539,8 +454,8 @@ class DocHomeRepository {
     public function operate_item_item_delete($post_data)
     {
         $messages = [
-            'operate.required' => '参数有误',
-            'id.required' => '请输入关键词ID',
+            'operate.required' => 'operate.required',
+            'id.required' => '请输入关键词ID！',
         ];
         $v = Validator::make($post_data, [
             'operate' => 'required',
@@ -557,11 +472,17 @@ class DocHomeRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::withTrashed()->find($id);
-        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+        $mine = Doc_Item::withTrashed()->find($id);
+        if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::user();
-        if($item->owner_id != $me->id) return response_error([],"你没有操作权限！");
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+
+        if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
+        if($me->id != $me_admin->id)
+        {
+            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+        }
 
         // 启动数据库事务
         DB::beginTransaction();
@@ -575,12 +496,12 @@ class DocHomeRepository {
                 if(!$bool_0) throw new Exception("update--user--fail");
             }
 
-            $mine_cover_pic = $item->cover_pic;
-            $mine_attachment_src = $item->attachment_src;
-            $mine_content = $item->content;
+            $mine_cover_pic = $mine->cover_pic;
+            $mine_attachment_src = $mine->attachment_src;
+            $mine_content = $mine->content;
 
 
-            $bool = $item->delete();
+            $bool = $mine->delete();
             if(!$bool) throw new Exception("delete--item--fail");
 
             DB::commit();
@@ -631,19 +552,19 @@ class DocHomeRepository {
 
 
 
-
-
-
     // 【内容】【全部】返回-列表-视图
     public function view_item_list($post_data)
     {
+        $sidebar_active = 'sidebar_item_list_active';
         $item_type = isset($post_data['item-type']) ? $post_data['item-type'] : '';
         if($item_type == "article") $sidebar_active = 'sidebar_item_list_for_article_active';
+        else if($item_type == "activity") $sidebar_active = 'sidebar_item_list_for_activity_active';
         else if($item_type == "menu_type") $sidebar_active = 'sidebar_item_list_for_menu_type_active';
         else if($item_type == "time_line") $sidebar_active = 'sidebar_item_list_for_time_line_active';
         else if($item_type == "debase") $sidebar_active = 'sidebar_item_list_for_debase_active';
         else if($item_type == "vote") $sidebar_active = 'sidebar_item_list_for_vote_active';
         else if($item_type == "ask") $sidebar_active = 'sidebar_item_list_for_ask_active';
+        else $sidebar_active = 'sidebar_item_list_active';
 
         return view(env('TEMPLATE_DOC_HOME').'entrance.item.item-list')
             ->with([
@@ -654,9 +575,11 @@ class DocHomeRepository {
     // 【内容】【全部】返回-列表-数据
     public function get_item_list_datatable($post_data)
     {
-        $me = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+
         $query = Doc_Item::select('*')->withTrashed()
-            ->with('owner')
+            ->with(['owner','creator'])
             ->where('owner_id', $me->id)
             ->where('item_category', '!=',0)
             ->where('item_type', '!=',0);
@@ -667,6 +590,7 @@ class DocHomeRepository {
 
         $item_type = isset($post_data['item-type']) ? $post_data['item-type'] : '';
         if($item_type == "article") $query->where('item_type', 1);
+        else if($item_type == "activity") $query->where('item_type', 9);
         else if($item_type == "menu_type") $query->where('item_type', 11);
         else if($item_type == "time_line") $query->where('item_type', 18);
         else if($item_type == "debase") $query->where('item_type', 22);
@@ -689,7 +613,7 @@ class DocHomeRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("id", "desc");
+        else $query->orderBy("updated_at", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -714,9 +638,10 @@ class DocHomeRepository {
     // 【内容】【全部】返回-列表-数据
     public function get_item_list_for_all_datatable($post_data)
     {
-        $me = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
         $query = Doc_Item::select('*')->withTrashed()
-            ->with('owner')
+            ->with('owner','creator')
             ->where('owner_id', $me->id)
             ->where('item_category', '!=',0)
             ->where('item_type', '!=',0);
@@ -749,7 +674,7 @@ class DocHomeRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("id", "desc");
+        else $query->orderBy("updated_at", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -801,10 +726,7 @@ class DocHomeRepository {
         else return view(env('TEMPLATE_DOC_HOME').'errors.404');
     }
 
-    /*
-     * 目录类型
-     */
-    // 返回列表数据
+    // 【目录类型】返回列表数据
     public function view_item_content_menu_type($post_data)
     {
         $item_id = $post_data['id'];
@@ -835,7 +757,7 @@ class DocHomeRepository {
 
     }
 
-    // 返回列表数据
+    // 【时间线】返回列表数据
     public function view_item_content_time_line($post_data)
     {
         $item_id = $post_data['id'];
@@ -861,43 +783,13 @@ class DocHomeRepository {
 
 
 
-    // 返回添加视图
-    public function view_item_content_create()
-    {
-        return view('home.content.menu');
-    }
-    // 返回编辑视图
-    public function view_item_content_edit()
-    {
-        $id = request("id",0);
-        $decode_id = decode($id);
-        if(!$decode_id && intval($id) !== 0) return view('home.404')->with(['error'=>'参数有误']);
-
-        if($decode_id == 0)
-        {
-            return view('home.content.menu')->with(['operate'=>'create', 'encode_id'=>$id]);
-        }
-        else
-        {
-            $data = Content::find($decode_id);
-            if($data)
-            {
-                unset($data->id);
-                return view('home.item.menu')->with(['operate'=>'edit', 'encode_id'=>$id, 'data'=>$data]);
-            }
-            else return view('home.404')->with(['error'=>'该内容不存在']);
-        }
-    }
-
-
     // 保存【目录类型】
     public function operate_item_content_save_for_menu_type($post_data)
     {
-//        dd($post_data);
         $messages = [
             'content_id.required' => 'content_id.required',
-            'title.required' => '请输入标题',
-            'p_id.required' => '请选择目录',
+            'title.required' => '请输入标题！',
+            'p_id.required' => '请选择目录！',
         ];
         $v = Validator::make($post_data, [
             'content_id' => 'required',
@@ -910,7 +802,8 @@ class DocHomeRepository {
             return response_error([],$messages->first());
         }
 
-        $me = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
 
 //        $post_data["category"] = 11;
         $item_id = $post_data["item_id"];
@@ -932,17 +825,23 @@ class DocHomeRepository {
                     if($operate == 'create') // $id==0，添加一个新的内容
                     {
                         $content = new Doc_Item;
-                        $post_data["owner_id"] = $me->id;
                         $post_data["item_category"] = 1;
                         $post_data["item_type"] = 11;
+                        $post_data["owner_id"] = $me->id;
+                        $post_data["creator_id"] = $me_admin->id;
                     }
-                    elseif('edit') // 编辑
+                    else if('edit') // 编辑
                     {
-                        if($content_id == $post_data["p_id"]) return response_error([],"不能选择自己为父节点");
+                        if($content_id == $post_data["p_id"]) return response_error([],"不能选择自己为父节点！");
 
                         $content = Doc_Item::find($content_id);
-                        if(!$content) return response_error([],"该内容不存在，刷新页面重试");
-                        if($content->owner_id != $me->id) return response_error([],"你没有操作权限");
+                        if(!$content) return response_error([],"该内容不存在，刷新页面重试！");
+                        if($content->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
+                        if($me->id != $me_admin->id)
+                        {
+                            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+                        }
+                        $post_data["updater_id"] = $me_admin->id;
 //                        if($content->type == 1) unset($post_data["type"]);
 
                         if($post_data["p_id"] != 0)
@@ -1033,7 +932,7 @@ class DocHomeRepository {
                 }
 
             }
-            else response_error([],"该内容不是您的，您不能操作！");
+            else response_error([],"该内容不是你的，你不能操作！");
 
         }
         else return response_error([],"该内容不存在");
@@ -1043,8 +942,8 @@ class DocHomeRepository {
     {
         $messages = [
             'content_id.required' => 'content_id.required',
-            'title.required' => '请输入标题',
-            'time_point.required' => '请输入时间点',
+            'title.required' => '请输入标题！',
+            'time_point.required' => '请输入时间点！',
         ];
         $v = Validator::make($post_data, [
             'content_id' => 'required',
@@ -1057,7 +956,8 @@ class DocHomeRepository {
             return response_error([],$messages->first());
         }
 
-        $me = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
 
 //        $post_data["category"] = 18;
         $item_id = $post_data["item_id"];
@@ -1079,15 +979,21 @@ class DocHomeRepository {
                     if($operate == 'create') // $id==0，添加一个新的内容
                     {
                         $content = new Doc_Item;
-                        $post_data["owner_id"] = $me->id;
                         $post_data["item_category"] = 1;
                         $post_data["item_type"] = 18;
+                        $post_data["owner_id"] = $me->id;
+                        $post_data["creator_id"] = $me_admin->id;
                     }
-                    elseif('edit') // 编辑
+                    else if('edit') // 编辑
                     {
                         $content = Doc_Item::find($content_id);
-                        if(!$content) return response_error([],"该内容不存在，刷新页面重试");
-                        if($content->owner_id != $me->id) return response_error([],"你没有操作权限");
+                        if(!$content) return response_error([],"该内容不存在，刷新页面重试！");
+                        if($content->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
+                        if($me->id != $me_admin->id)
+                        {
+                            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+                        }
+                        $post_data["updater_id"] = $me_admin->id;
 //                        if($content->type == 1) unset($post_data["type"]);
 
                         if($content_id == $item_id)
@@ -1147,7 +1053,7 @@ class DocHomeRepository {
                 }
 
             }
-            else response_error([],"该内容不是您的，您不能操作！");
+            else response_error([],"该内容不是你的，您不能操作！");
 
         }
         else return response_error([],"该内容不存在");
@@ -1157,12 +1063,14 @@ class DocHomeRepository {
     // 内容获取
     public function operate_item_content_get($post_data)
     {
-        $user = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+
         $item_id = $post_data["item_id"];
-        if(!$item_id) return response_error([],"该内容不存在，刷新页面试试");
+        if(!$item_id) return response_error([],"该内容不存在，刷新页面试试！");
 
         $content = Doc_Item::find($item_id);
-        if($content->owner_id != $user->id) return response_error([],"你没有操作权限");
+        if($content->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
         else
         {
             if(!empty($content->cover_pic))
@@ -1178,13 +1086,19 @@ class DocHomeRepository {
     // 删除
     public function operate_item_content_delete($post_data)
     {
-        $me = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+
         $id = $post_data["id"];
 //        $id = decode($post_data["id"]);
         if(!$id) return response_error([],"该内容不存在，刷新页面试试");
 
         $content = Doc_Item::find($id);
-        if($content->owner_id != $me->id) return response_error([],"你没有操作权限");
+        if($content->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
+        if($me->id != $me_admin->id)
+        {
+            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+        }
 
         DB::beginTransaction();
         try
@@ -1249,16 +1163,22 @@ class DocHomeRepository {
     // 启用
     public function operate_item_content_enable($post_data)
     {
-        $me = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"该内容不存在，刷新页面试试");
 
         $mine = Doc_Item::find($id);
-        if($mine->owner_id != $me->id) return response_error([],"你没有操作权限");
-        $update["active"] = 1;
+        if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
+        if($me->id != $me_admin->id)
+        {
+            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+        }
         DB::beginTransaction();
         try
         {
+            $update["active"] = 1;
             $mine->timestamps = false;
             $bool = $mine->fill($update)->save();
             if(!$bool) throw new Exception("update--item--fail");
@@ -1275,17 +1195,22 @@ class DocHomeRepository {
     // 禁用
     public function operate_item_content_disable($post_data)
     {
-        $me = Auth::user();
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+
         $id = $post_data["id"];
-//        $id = decode($post_data["id"]);
         if(intval($id) !== 0 && !$id) return response_error([],"该文章不存在，刷新页面试试");
 
         $mine = Doc_Item::find($id);
-        if($mine->owner_id != $me->id) return response_error([],"你没有操作权限");
-        $update["active"] = 9;
+        if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
+        if($me->id != $me_admin->id)
+        {
+            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+        }
         DB::beginTransaction();
         try
         {
+            $update["active"] = 9;
             $mine->timestamps = false;
             $bool = $mine->fill($update)->save();
             if(!$bool) throw new Exception("update--item--fail");
@@ -1303,11 +1228,66 @@ class DocHomeRepository {
 
 
 
+    // 【用户】【粉丝】返回-列表-视图
+    public function view_user_my_administrator_list($post_data)
+    {
+        return view(env('TEMPLATE_DOC_HOME').'entrance.administrator.user-my-administrator-list')
+            ->with(['sidebar_user_administrator_list_active'=>'active menu-open']);
+    }
+    // 【用户】【粉丝】返回-列表-数据
+    public function get_user_my_administrator_list_datatable($post_data)
+    {
+        $me = Auth::guard("doc")->user();
+        $me_admin = Auth::guard("doc_admin")->user();
+        $query = Doc_Pivot_User_Admin::select('*')
+            ->with('administrator')
+            ->where('admin_id','!=',$me_admin->id)
+            ->where(['user_id'=>$me->id]);
+
+        if(!empty($post_data['username']))
+        {
+            $username = $post_data['username'];
+            $query->whereHas('relation_user', function ($query1) use($username) { $query1->where('user.username', 'like', "%{$username}%"); } );
+        }
+
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 40;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("updated_at", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+//        dd($list->toArray());
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
+//        dd($list->toArray());
+        return datatable_response($list, $draw, $total);
+    }
 
 
 
 
-    // 【】流量统计
+    /*
+     * 流量统计
+     */
+    // 【流量统计】流量统计
     public function view_statistic_index()
     {
         $me = Auth::guard('super')->user();
@@ -1486,7 +1466,7 @@ class DocHomeRepository {
         $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.statistic.statistic-index';
         return view($view_blade)->with($view_data);
     }
-    // 【】流量统计
+    // 【流量统计】流量统计
     public function view_statistic_user($post_data)
     {
         $messages = [
@@ -1671,7 +1651,7 @@ class DocHomeRepository {
         $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.statistic.statistic-user';
         return view($view_blade)->with($view_data);
     }
-    // 【】流量统计
+    // 【流量统计】流量统计
     public function view_statistic_item($post_data)
     {
         $messages = [
@@ -1790,7 +1770,7 @@ class DocHomeRepository {
     }
 
 
-    // 【K】【内容】【全部】返回-列表-视图
+    // 【内容】【全部】返回-列表-视图
     public function view_statistic_all_list($post_data)
     {
         return view(env('TEMPLATE_SUPER_ADMIN').'entrance.statistic.statistic-all-list')
@@ -1798,7 +1778,7 @@ class DocHomeRepository {
                 'sidebar_statistic_all_list_active'=>'active'
             ]);
     }
-    // 【K】【内容】【全部】返回-列表-数据
+    // 【内容】【全部】返回-列表-数据
     public function get_statistic_all_datatable($post_data)
     {
         $me = Auth::guard("super")->user();

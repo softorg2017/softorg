@@ -8,7 +8,6 @@
 @section('description','概念 - 原子系统 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
 
@@ -164,12 +163,12 @@
             var dt = $('#datatable_ajax');
             var ajax_datatable = dt.DataTable({
 //                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
-                "aLengthMenu": [[20, 50, 200], ["20", "50", "200"]],
+                "aLengthMenu": [[20, 50, 100, 200], ["20", "50", "100", "200"]],
                 "processing": true,
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/item/item-conception-list') }}",
+                    'url': "{{ url('/admin/item/item-list-for-conception') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -233,10 +232,10 @@
                         "className": "",
                         "width": "64px",
                         "title": "发布者",
-                        "data": "owner_id",
+                        "data": "creator_id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
-                            return row.owner == null ? '未知' : '<a target="_blank" href="/user/'+row.owner.id+'">'+row.owner.username+'</a>';
+                            return row.creator == null ? '未知' : '<a target="_blank" href="/user/'+row.creator.id+'">'+row.creator.username+'</a>';
                         }
                     },
                     {

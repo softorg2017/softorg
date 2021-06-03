@@ -11,7 +11,6 @@
 @section('breadcrumb')
     <li><a href="{{ url('/admin') }}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="{{ url($list_link) }}"><i class="fa fa-list"></i>{{ $list_text or '内容列表' }}</a></li>
-    <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
 

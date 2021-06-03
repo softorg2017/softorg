@@ -46,6 +46,10 @@ return [
             'driver' => 'session',
             'provider' => 'gps',
         ],
+        'gps_admin' => [
+            'driver' => 'session',
+            'provider' => 'gps_admins',
+        ],
 
         'user' => [
             'driver' => 'session',
@@ -130,6 +134,10 @@ return [
         ],
 
         'gps' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+        'gps_admins' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],

@@ -257,6 +257,288 @@ class SuperAdminRepository {
 
 
 
+    // 【用户】返回-添加-视图
+    public function view_user_user_create()
+    {
+        $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-edit';
+        return view($view_blade)->with(['operate'=>'create', 'operate_id'=>0]);
+    }
+    // 【用户】返回-编辑-视图
+    public function view_user_user_edit()
+    {
+        $id = request("id",0);
+        $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-edit';
+
+        if($id == 0)
+        {
+            return view($view_blade)->with(['operate'=>'create', 'operate_id'=>$id]);
+        }
+        else
+        {
+            $mine = User::with(['parent'])->find($id);
+            if($mine)
+            {
+                if(!in_array($mine->user_type,[1,9,11,88])) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+                $mine->custom = json_decode($mine->custom);
+                $mine->custom2 = json_decode($mine->custom2);
+                $mine->custom3 = json_decode($mine->custom3);
+
+                return view($view_blade)->with(['operate'=>'edit', 'operate_id'=>$id, 'data'=>$mine]);
+            }
+            else return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+        }
+    }
+    // 【用户】【组织】保存数据
+    public function operate_user_user_save($post_data)
+    {
+//        dd($post_data);
+        $messages = [
+            'operate.required' => '参数有误',
+            'username.required' => '请输入用户名',
+            'mobile.required' => '请输入电话',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'username' => 'required',
+            'mobile' => 'required'
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+
+        $me = Auth::guard('super')->user();
+        if(!in_array($me->user_category,[0])) return response_error([],"你没有操作权限！");
+
+
+        $operate = $post_data["operate"];
+        $operate_id = $post_data["operate_id"];
+
+        if($operate == 'create') // 添加 ( $id==0，添加一个新用户 )
+        {
+            $mine = new User;
+            $post_data["user_category"] = 1;
+            $post_data["active"] = 1;
+            $post_data["password"] = password_encode("123456");
+        }
+        else if($operate == 'edit') // 编辑
+        {
+            $mine = User::find($operate_id);
+            if(!$mine) return response_error([],"该用户不存在，刷新页面重试！");
+        }
+        else return response_error([],"参数有误！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            if(!empty($post_data['custom']))
+            {
+                $post_data['custom'] = json_encode($post_data['custom']);
+            }
+
+            $mine_data = $post_data;
+            unset($mine_data['operate']);
+            unset($mine_data['operate_id']);
+            $bool = $mine->fill($mine_data)->save();
+            if($bool)
+            {
+                // 头像
+                if(!empty($post_data["portrait"]))
+                {
+                    // 删除原图片
+                    $mine_portrait_img = $mine->portrait_img;
+                    if(!empty($mine_portrait_img) && file_exists(storage_path("resource/" . $mine_portrait_img)))
+                    {
+                        unlink(storage_path("resource/" . $mine_portrait_img));
+                    }
+
+                    $result = upload_storage($post_data["portrait"]);
+                    if($result["result"])
+                    {
+                        $mine->portrait_img = $result["local"];
+                        $mine->save();
+                    }
+                    else throw new Exception("upload--portrait--fail");
+                }
+
+                // 微信二维码
+                if(!empty($post_data["wechat_qr_code"]))
+                {
+                    // 删除原图片
+                    $mine_wechat_qr_code_img = $mine->wechat_qr_code_img;
+                    if(!empty($mine_wechat_qr_code_img) && file_exists(storage_path("resource/" . $mine_wechat_qr_code_img)))
+                    {
+                        unlink(storage_path("resource/" . $mine_wechat_qr_code_img));
+                    }
+
+                    $result = upload_storage($post_data["wechat_qr_code"]);
+                    if($result["result"])
+                    {
+                        $mine->wechat_qr_code_img = $result["local"];
+                        $mine->save();
+                    }
+                    else throw new Exception("upload--wechat_qr_code--fail");
+                }
+
+                // 联系人微信二维码
+                if(!empty($post_data["linkman_wechat_qr_code"]))
+                {
+                    // 删除原图片
+                    $mine_linkman_wechat_qr_code_img = $mine->linkman_wechat_qr_code_img;
+                    if(!empty($mine_linkman_wechat_qr_code_img) && file_exists(storage_path("resource/" . $mine_linkman_wechat_qr_code_img)))
+                    {
+                        unlink(storage_path("resource/" . $mine_linkman_wechat_qr_code_img));
+                    }
+
+                    $result = upload_storage($post_data["linkman_wechat_qr_code"]);
+                    if($result["result"])
+                    {
+                        $mine->linkman_wechat_qr_code_img = $result["local"];
+                        $mine->save();
+                    }
+                    else throw new Exception("upload--linkman_wechat_qr_code--fail");
+                }
+
+            }
+            else throw new Exception("insert--user--fail");
+
+            DB::commit();
+            return response_success(['id'=>$mine->id]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+
+
+    // 【用户】删除
+    public function operate_user_user_delete($post_data)
+    {
+        $mine = Auth::guard('admin')->user();
+        if($mine->usergroup != "Manage") return response_error([],"你没有操作权限");
+
+        $id = $post_data["id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
+
+        $agent = K_User::find($id);
+        if(!in_array($agent->usergroup,['Agent','Agent2'])) return response_error([],"该用户不是代理商");
+        if($agent->fund_balance > 0) return response_error([],"该用户还有余额");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $content = $agent->content;
+            $cover_pic = $agent->cover_pic;
+
+            // 删除名下客户
+            $clients = K_User::where(['pid'=>$id,'usergroup'=>'Service'])->get();
+            foreach ($clients as $c)
+            {
+                $client_id =  $c->id;
+                $client  = K_User::find($client_id);
+
+                // 删除【站点】
+//                $deletedRows_1 = SEOSite::where('owner_id', $client_id)->delete();
+                $deletedRows_1 = SEOSite::where('createuserid', $client_id)->delete();
+
+                // 删除【关键词】
+//                $deletedRows_2 = SEOKeyword::where('owner_id', $client_id)->delete();
+                $deletedRows_2 = SEOKeyword::where('createuserid', $client_id)->delete();
+
+                // 删除【待选关键词】
+//                $deletedRows_3 = SEOCart::where('owner_id', $client_id)->delete();
+                $deletedRows_3 = SEOCart::where('createuserid', $client_id)->delete();
+
+                // 删除【关键词检测记录】
+//                $deletedRows_4 = SEOKeywordDetectRecord::where('owner_id', $client_id)->delete();
+                $deletedRows_4 = SEOKeywordDetectRecord::where('ownuserid', $client_id)->delete();
+
+                // 删除【扣费记录】
+//                $deletedRows_5 = ExpenseRecord::where('owner_id', $client_id)->delete();
+                $deletedRows_5 = ExpenseRecord::where('ownuserid', $client_id)->delete();
+
+                // 删除【用户】
+//                $client->pivot_menus()->detach(); // 删除相关目录
+                $bool = $client->delete();
+                if(!$bool) throw new Exception("delete--user-client--fail");
+            }
+
+            // 删除名下子代理
+            $sub_agents = K_User::where(['pid'=>$id,'usergroup'=>'Agent2'])->get();
+            foreach ($sub_agents as $sub_a)
+            {
+                $sub_agent_id = $sub_a->id;
+                $sub_agent_clients = K_User::where(['pid'=>$sub_agent_id,'usergroup'=>'Service'])->get();
+
+                foreach ($sub_agent_clients as $sub_agent_c)
+                {
+                    $sub_agent_client_id =  $sub_agent_c->id;
+                    $sub_agent_client = K_User::find($sub_agent_client_id);
+
+                    // 删除【站点】
+//                    $deletedRows_1 = SEOSite::where('owner_id', $sub_agent_client_id)->delete();
+                    $deletedRows_1 = SEOSite::where('createuserid', $sub_agent_client_id)->delete();
+
+                    // 删除【关键词】
+//                    $deletedRows_2 = SEOKeyword::where('owner_id', $sub_agent_client_id)->delete();
+                    $deletedRows_2 = SEOKeyword::where('createuserid', $sub_agent_client_id)->delete();
+
+                    // 删除【待选关键词】
+//                    $deletedRows_3 = SEOCart::where('owner_id', $sub_agent_client_id)->delete();
+                    $deletedRows_3 = SEOCart::where('createuserid', $sub_agent_client_id)->delete();
+
+                    // 删除【关键词检测记录】
+//                    $deletedRows_4 = SEOKeywordDetectRecord::where('owner_id', $sub_agent_client_id)->delete();
+                    $deletedRows_4 = SEOKeywordDetectRecord::where('ownuserid', $sub_agent_client_id)->delete();
+
+                    // 删除【扣费记录】
+//                    $deletedRows_5 = ExpenseRecord::where('owner_id', $sub_agent_client_id)->delete();
+                    $deletedRows_5 = ExpenseRecord::where('ownuserid', $sub_agent_client_id)->delete();
+
+                    // 删除【用户】
+//                    $sub_agent_c->pivot_menus()->detach(); // 删除相关目录
+                    $bool = $sub_agent_c->delete();
+                    if(!$bool) throw new Exception("delete--user-sub-client--fail");
+                }
+
+                // 删除【用户】
+//                $sub_a->pivot_menus()->detach(); // 删除相关目录
+                $bool = $sub_a->delete();
+                if(!$bool) throw new Exception("delete--user-sub--fail");
+            }
+
+            // 删除【用户】
+//            $agent->pivot_menus()->detach(); // 删除相关目录
+            $bool = $agent->delete();
+            if(!$bool) throw new Exception("delete--user-agent--fail");
+
+            DB::commit();
+
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '删除失败，请重试';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+    }
+
+
+
+
     // 【K】【用户】【全部机构】返回-列表-视图
     public function view_user_all_list($post_data)
     {

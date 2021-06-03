@@ -129,13 +129,23 @@
                 </a>
             </li>
             <li class="treeview">
-                <a href="{{ url('/admin/user/user-login?type=gps&id=99') }}" target="_blank">
+                <a href="{{ url('/admin/user/user-login?type=gps&user_id=99&admin_id=666001') }}" target="_blank">
                     <i class="fa fa-sign-in text-default"></i> <span>登录导航</span>
                 </a>
             </li>
             <li class="treeview">
-                <a href="{{ url('/admin/user/user-login?type=atom&id=100') }}" target="_blank">
+                <a href="{{ url('/admin/user/user-login?type=atom&user_id=100&admin_id=666001') }}" target="_blank">
                     <i class="fa fa-sign-in text-default"></i> <span>登录原子</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="{{ url('/admin/user/user-login?type=doc&user_id=10000&admin_id=666001') }}" target="_blank">
+                    <i class="fa fa-sign-in text-default"></i> <span>登录轻博</span>
+                </a>
+            </li>
+            <li class="treeview _none">
+                <a href="{{ url('/admin/user/user-login?type=org&user_id=10000&admin_id=666001') }}" target="_blank">
+                    <i class="fa fa-sign-in text-default"></i> <span>登录轻企</span>
                 </a>
             </li>
 

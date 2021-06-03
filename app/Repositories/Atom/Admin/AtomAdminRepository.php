@@ -19,17 +19,15 @@ class AtomAdminRepository {
 //        $this->model = new User;
     }
 
+
     // 返回（后台）主页视图
-    public function view_atom_index()
+    public function view_admin_index()
     {
         $me = Auth::guard("atom")->user();
+        $me_admin = Auth::guard("atom_admin")->user();
 
         return view(env('TEMPLATE_ATOM_ADMIN').'index')
-            ->with([
-                'index_data'=>[],
-                'consumption_data'=>[],
-                'insufficient_clients'=>[]
-            ]);
+            ->with([]);
     }
 
 
@@ -328,17 +326,20 @@ class AtomAdminRepository {
     }
 
 
+
+    /*
+     * Item
+     */
     // 【内容】返回-列表-视图
-    public function view_item_item_list($post_data)
+    public function view_item_list($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list')
             ->with([
-                'sidebar_item_active'=>'active',
-                'sidebar_item_item_list_active'=>'active'
+                'sidebar_item_list_active'=>'active'
             ]);
     }
     // 【内容】返回-列表-数据
-    public function get_item_item_datatable($post_data)
+    public function get_item_list_datatable($post_data)
     {
         $me = Auth::guard("admin")->user();
         $query = Doc_Item::select('*')
@@ -379,20 +380,20 @@ class AtomAdminRepository {
 
 
     // 【内容】【全部】返回-列表-视图
-    public function view_item_all_list($post_data)
+    public function view_item_list_for_all($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-all')
             ->with([
-                'sidebar_item_active'=>'active',
-                'sidebar_item_all_list_active'=>'active'
+                'sidebar_item_list_active'=>'active',
+                'sidebar_item_list_for_all_active'=>'active'
             ]);
     }
     // 【内容】【全部】返回-列表-数据
-    public function get_item_all_datatable($post_data)
+    public function get_item_list_for_all_datatable($post_data)
     {
         $me = Auth::guard("admin")->user();
         $query = Doc_Item::select('*')->withTrashed()
-            ->with('owner')
+            ->with(['owner','creator'])
             ->where('owner_id','>=',1)
             ->where('item_category',0)
             ->where('item_type','!=',0);
@@ -417,7 +418,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("id", "desc");
+        else $query->orderBy("updated_at", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -433,20 +434,20 @@ class AtomAdminRepository {
 
 
     // 【内容】【活动】返回-列表-视图
-    public function view_item_object_list($post_data)
+    public function view_item_list_for_object($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-object')
             ->with([
-                'sidebar_item_active'=>'active',
-                'sidebar_item_object_list_active'=>'active'
+                'sidebar_item_list_active'=>'active',
+                'sidebar_item_list_for_object_active'=>'active'
             ]);
     }
     // 【内容】【活动】返回-列表-数据
-    public function get_item_object_datatable($post_data)
+    public function get_item_list_for_object_datatable($post_data)
     {
         $me = Auth::guard("admin")->user();
         $query = Doc_Item::select('*')->withTrashed()
-            ->with('owner')
+            ->with(['owner','creator'])
             ->where(['item_category'=>0,'item_type'=>1]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
@@ -469,7 +470,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("id", "desc");
+        else $query->orderBy("updated_at", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -485,20 +486,20 @@ class AtomAdminRepository {
 
 
     // 【内容】【人】返回-列表-视图
-    public function view_item_people_list($post_data)
+    public function view_item_list_for_people($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-people')
             ->with([
-                'sidebar_item_people'=>'active',
-                'sidebar_item_people_list_active'=>'active'
+                'sidebar_item_list_people'=>'active',
+                'sidebar_item_list_for_people_active'=>'active'
             ]);
     }
     // 【内容】【文章】返回-列表-数据
-    public function get_item_people_datatable($post_data)
+    public function get_item_list_for_people_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
         $query = Doc_Item::select('*')->withTrashed()
-            ->with('owner')
+            ->with(['owner','creator'])
             ->where(['item_category'=>0,'item_type'=>11]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
@@ -521,7 +522,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("id", "desc");
+        else $query->orderBy("updated_at", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -537,21 +538,22 @@ class AtomAdminRepository {
 
 
     // 【内容】【广告】返回-列表-视图
-    public function view_item_product_list($post_data)
+    public function view_item_list_for_product($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-product')
             ->with([
-                'sidebar_item_active'=>'active',
-                'sidebar_item_product_list_active'=>'active'
+                'sidebar_item_list_active'=>'active',
+                'sidebar_item_list_for_product_active'=>'active'
             ]);
     }
     // 【内容】【广告】返回-列表-数据
-    public function get_item_product_datatable($post_data)
+    public function get_item_list_for_product_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
         $query = Doc_Item::select('*')->withTrashed()
             ->with([
                 'owner',
+                'creator',
                 'pivot_product_people'=>function ($query) { $query->where('relation_type',1); }
             ])
             ->where(['item_category'=>0,'item_type'=>22]);
@@ -576,7 +578,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("id", "desc");
+        else $query->orderBy("updated_at", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -592,20 +594,20 @@ class AtomAdminRepository {
 
 
     // 【内容】【广告】返回-列表-视图
-    public function view_item_event_list($post_data)
+    public function view_item_list_for_event($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-event')
             ->with([
-                'sidebar_item_active'=>'active',
-                'sidebar_item_event_list_active'=>'active'
+                'sidebar_item_list_active'=>'active',
+                'sidebar_item_list_for_event_active'=>'active'
             ]);
     }
     // 【内容】【广告】返回-列表-数据
-    public function get_item_event_datatable($post_data)
+    public function get_item_list_for_event_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
         $query = Doc_Item::select('*')->withTrashed()
-            ->with('owner')
+            ->with(['owner','creator'])
             ->where(['item_category'=>0,'item_type'=>33]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
@@ -628,7 +630,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("id", "desc");
+        else $query->orderBy("updated_at", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -644,20 +646,20 @@ class AtomAdminRepository {
 
 
     // 【内容】【广告】返回-列表-视图
-    public function view_item_conception_list($post_data)
+    public function view_item_list_for_conception($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-conception')
             ->with([
                 'sidebar_item_active'=>'active',
-                'sidebar_item_conception_list_active'=>'active'
+                'sidebar_item_list_for_conception_active'=>'active'
             ]);
     }
     // 【内容】【广告】返回-列表-数据
-    public function get_item_conception_datatable($post_data)
+    public function get_item_list_for_conception_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
         $query = Doc_Item::select('*')->withTrashed()
-            ->with('owner')
+            ->with(['owner','creator'])
             ->where(['item_category'=>0,'item_type'=>9]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
@@ -680,7 +682,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("id", "desc");
+        else $query->orderBy("updated_at", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -710,7 +712,12 @@ class AtomAdminRepository {
         $item_type = 'item';
         $item_type = $type;
 
-        if($type == "object")
+        if($type == "all")
+        {
+            $item_type_text = '内容';
+            $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-all';
+        }
+        else if($type == "object")
         {
             $item_type_text = '物';
             $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-edit-for-object';
@@ -742,7 +749,7 @@ class AtomAdminRepository {
         }
         $title_text = '添加'.$item_type_text;
         $list_text = $item_type_text;
-        $list_link = '/atom/item/item-'.$item_type.'-list';
+        $list_link = '/atom/item/item-list-for-'.$item_type;
 
         return view($view_blade)->with([
             'operate'=>'create',
@@ -872,9 +879,8 @@ class AtomAdminRepository {
     // 【ITEM】保存-数据
     public function operate_item_item_save($post_data)
     {
-//        dd(0);
         $messages = [
-            'operate.required' => '参数有误',
+            'operate.required' => 'operate.required.',
         ];
         $v = Validator::make($post_data, [
             'operate' => 'required',
@@ -886,7 +892,8 @@ class AtomAdminRepository {
         }
 
         $me = Auth::guard('atom')->user();
-        if(!in_array($me->user_type,[0,1])) return response_error([],"你没有操作权限！");
+        $me_admin = Auth::guard('atom_admin')->user();
+        if(!in_array($me->user_type,[0,1,9])) return response_error([],"用户类型错误！");
 
 
         $operate = $post_data["operate"];
@@ -896,10 +903,9 @@ class AtomAdminRepository {
         if($operate == 'create') // 添加 ( $id==0，添加一个内容 )
         {
             $mine = new Doc_Item;
-            $post_data["owner_id"] = $me->id;
             $post_data["item_category"] = 0;
             $post_data["owner_id"] = 100;
-            $post_data["creator_id"] = $me->id;
+            $post_data["creator_id"] = $me_admin->id;
             if($type == 'object') $post_data["item_type"] = 1;
             else if($type == 'people') $post_data["item_type"] = 11;
             else if($type == 'product') $post_data["item_type"] = 22;
@@ -910,8 +916,13 @@ class AtomAdminRepository {
         {
             $mine = Doc_Item::find($operate_id);
             if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
+            if($me->id != $me_admin->id)
+            {
+                if($mine->creator_id != $me_admin->id) return response_error([],"不是你创建的，你没有操作权限！");
+            }
+            $post_data["updater_id"] = $me_admin->id;
         }
-        else return response_error([],"参数有误！");
+        else return response_error([],"参数【operate】有误！");
 
         // 启动数据库事务
         DB::beginTransaction();
@@ -1092,6 +1103,11 @@ class AtomAdminRepository {
 
         $me = Auth::guard('atom')->user();
         if($item->owner_id != $me->id) return response_error([],"你没有操作权限！");
+        $me_admin = Auth::guard('atom_admin')->user();
+        if($me->id != $me_admin->id)
+        {
+            if($item->creator_id != $me_admin->id) return response_error([],"你没有操作权限！");
+        }
 
         // 启动数据库事务
         DB::beginTransaction();
