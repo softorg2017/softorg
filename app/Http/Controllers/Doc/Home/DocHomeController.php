@@ -147,11 +147,46 @@ class DocHomeController extends Controller
 
 
 
-    // 【用户】【赞助商】返回-列表
+    // 【用户】【我的管理员】返回-列表
     public function view_user_my_administrator_list()
     {
         if(request()->isMethod('get')) return $this->repo->view_user_my_administrator_list(request()->all());
         else if(request()->isMethod('post')) return $this->repo->get_user_my_administrator_list_datatable(request()->all());
+    }
+    // 【用户】【管理员】返回-列表
+    public function operate_user_relation_administrator()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_relation_administrator(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_relation_administrator_list_datatable(request()->all());
+    }
+
+
+    // 【管理员】添加
+    public function operate_user_administrator_relation_add()
+    {
+        return $this->repo->operate_user_administrator_relation_add(request()->all());
+    }
+    // 【管理员】批量添加
+    public function operate_user_administrator_relation_add_bulk()
+    {
+        return $this->repo->operate_user_administrator_relation_add_bulk(request()->all());
+    }
+
+
+    // 【管理员】删除
+    public function operate_user_administrator_relation_remove()
+    {
+        return $this->repo->operate_user_administrator_relation_remove(request()->all());
+    }
+    // 【管理员】关闭
+    public function operate_user_administrator_relation_close()
+    {
+        return $this->repo->operate_user_administrator_relation_close(request()->all());
+    }
+    // 【管理员】开启
+    public function operate_user_administrator_relation_open()
+    {
+        return $this->repo->operate_user_administrator_relation_open(request()->all());
     }
 
 

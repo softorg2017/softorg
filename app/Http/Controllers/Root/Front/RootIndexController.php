@@ -70,6 +70,15 @@ class RootIndexController extends Controller
 
 
 
+    // 登录我的轻博
+    public function operate_login_my_doc()
+    {
+        return $this->repo->operate_login_my_doc(request()->all());
+    }
+
+
+
+
     // 【分享】
     public function record_share()
     {

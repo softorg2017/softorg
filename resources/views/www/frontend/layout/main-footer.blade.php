@@ -11,9 +11,11 @@
         <a href="/">首页</a>
         <span style="margin-left:4px;margin-right:4px;">|</span>
         @if(!Auth::check())
-            <a href="/login-link">登录</a>
+            <a href="{{ url('/login-link') }}">登录</a>
         @else
             <a href="{{ url('/user/'.Auth::id()) }}">返回我的名片</a>
+            <span style="margin-left:4px;margin-right:4px;">|</span>
+            <a href="{{ url('/login-my-doc') }}">登录我的轻博</a>
         @endif
         {{--<span style="margin-left:4px;margin-right:4px;">|</span>--}}
         {{--<a href="/introduction">平台介绍</a>--}}

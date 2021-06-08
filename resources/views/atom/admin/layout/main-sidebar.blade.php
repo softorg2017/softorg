@@ -96,11 +96,15 @@
             <li class="header">平台</li>
 
             <li class="treeview">
-                <a href="{{ url('/') }}" target="_blank">
+                <a href="{{ env('DOMAIN_DEFAULT') }}" target="_blank">
                     <i class="fa fa-cube text-default"></i> <span>平台首页</span>
                 </a>
             </li>
-
+            <li class="treeview">
+                <a href="{{ env('DOMAIN_DOC') }}" target="_blank">
+                    <i class="fa fa-cube text-default"></i> <span>轻博首页</span>
+                </a>
+            </li>
             <li class="treeview">
                 <a href="{{ env('DOMAIN_SUPER') }}/admin" target="_blank">
                     <i class="fa fa-cube text-default"></i> <span>Super.Admin</span>

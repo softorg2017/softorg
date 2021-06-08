@@ -77,6 +77,11 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 
 
         Route::match(['get','post'], '/user/my-administrator-list', $controller.'@view_user_my_administrator_list');
+        Route::match(['get','post'], '/user/relation-administrator', $controller.'@operate_user_relation_administrator');
+        Route::match(['get','post'], '/user/administrator-relation-add', $controller.'@operate_user_administrator_relation_add');
+        Route::match(['get','post'], '/user/administrator-relation-add-bulk', $controller.'@operate_user_administrator_relation_add_bulk');
+
+        Route::match(['get','post'], '/user/administrator-relation-remove', $controller.'@operate_user_administrator_relation_remove');
 
 
 

@@ -27,7 +27,6 @@
 
 
 
-
         // 【下载二维码】
         $("#item-main-body").on('click', ".item-download-qr-code-submit", function() {
             var that = $(this);
@@ -37,32 +36,58 @@
         // 【数据分析】
         $("#item-main-body").on('click', ".item-statistics-submit", function() {
             var that = $(this);
-            window.open("/org/statistics/item?id="+that.attr('data-id'));
+            window.open("/home/statistics/item?id="+that.attr('data-id'));
         });
 
         // 【编辑】
         $("#item-main-body").on('click', ".item-edit-link", function() {
             var that = $(this);
-            window.location.href = "/org/item/item-edit?id="+that.attr('data-id');
+            window.location.href = "/home/item/item-edit?id="+that.attr('data-id');
         });
 
 
 
+        // 【关联】【管理员】
+        $("#item-main-body").on('click', ".item-administrator-relation-add-submit", function() {
+            var that = $(this);
+            layer.msg('确定"关联"么?', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                        "{{ url('/home/user/administrator-relation-add') }}",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            operate:"administrator-relation-add",
+                            id:that.attr('data-id')
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else
+                            {
+                                layer.msg("操作完成");
+                                location.href = "{{ url('/home/user/my-administrator-list') }}";
+                            }
+                        },
+                        'json'
+                    );
+                }
+            });
+        });
 
-        // 【移除粉丝】
-        $("#item-main-body").on('click', ".item-fans-remove-submit", function() {
+        // 【移除】【管理员】
+        $("#item-main-body").on('click', ".item-administrator-remove-submit", function() {
             var that = $(this);
             layer.msg('确定"移除"么?', {
                 time: 0
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     $.post(
-                        "{{ url('/org/user/fans-remove') }}",
+                        "{{ url('/home/user/administrator-relation-remove') }}",
                         {
                             _token: $('meta[name="_token"]').attr('content'),
-                            operate:"fans-remove",
-                            pivot_id:that.attr('data-pivot-id'),
-                            user_id:that.attr('data-user-id')
+                            operate:"administrator-relation-remove",
+                            pivot_id:that.attr('data-id')
                         },
                         function(data){
                             if(!data.success) layer.msg(data.msg);
@@ -77,6 +102,49 @@
                 }
             });
         });
+
+
+
+
+        // 【批量选择】全选or反选
+        $("#item-content-body").on('click', '#check-all', function () {
+            $('input[name="bulk-administrator-id"]').prop('checked',this.checked);//checked为true时为默认显示的状态
+        });
+        // 【批量关联】【赞助商】
+        $("#item-content-body").on('click', '#administrator-relation-bulk-submit', function() {
+            var $checked = [];
+            $('input[name="bulk-administrator-id"]:checked').each(function() {
+                $checked.push($(this).val());
+            });
+
+            layer.msg('确定"批量关联"么?', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                        "{{ url('/home/user/administrator-relation-add-bulk') }}",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            operate: "administrator-relation-add-bulk",
+                            bulk_administrator_id: $checked
+                        },
+                        function(data){
+                            layer.close(index);
+                            if(!data.success) layer.msg(data.msg);
+                            else
+                            {
+                                layer.msg("操作完成");
+                                location.href = "{{ url('/home/user/my-administrator-list') }}";
+                            }
+                        },
+                        'json'
+                    );
+                }
+            });
+
+        });
+
+
 
 
         // 【添加成员】

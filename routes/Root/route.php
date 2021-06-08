@@ -65,6 +65,8 @@ Route::group(['namespace' => 'Front'], function () {
 
             Route::get('/home/notification', $controller.'@view_home_notification');
 
+            Route::get('/login-my-doc', $controller.'@operate_login_my_doc');
+
 
             // 消息通知
             Route::group(['middleware' => 'notification'], function () {

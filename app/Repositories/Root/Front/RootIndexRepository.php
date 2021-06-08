@@ -937,4 +937,19 @@ class RootIndexRepository {
 
 
 
+    // 登录我的轻博
+    public function operate_login_my_doc($post_data)
+    {
+        $me = Auth::user();
+
+        Auth::guard('doc')->login($me,true);
+        Auth::guard('doc_admin')->login($me,true);
+
+        if(request()->isMethod('get')) return redirect(env('DOMAIN_DOC').'/home');
+        else if(request()->isMethod('post')) return response_success();
+    }
+
+
+
+
 }

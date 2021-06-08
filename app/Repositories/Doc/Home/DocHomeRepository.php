@@ -1281,6 +1281,354 @@ class DocHomeRepository {
         return datatable_response($list, $draw, $total);
     }
 
+    // 【用户】【赞助商】返回-列表-视图
+    public function view_user_relation_administrator($post_data)
+    {
+        return view(env('TEMPLATE_DOC_HOME').'entrance.administrator.user-administrator-relation')
+            ->with(['sidebar_user_relation_administrator_active'=>'active menu-open']);
+    }
+    // 【用户】【赞助商】返回-列表-数据
+    public function get_user_relation_administrator_list_datatable($post_data)
+    {
+        $me = Auth::guard("doc")->user();
+        $query = User::select('*')->where(['user_category'=>1,'user_type'=>1]);
+
+        if(!empty($post_data['username']))
+        {
+            $query->where('username', 'like', "%{$post_data['username']}%");
+        }
+        else
+        {
+            $query->where('username', '不可能存在的赞助商！');
+        }
+
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 40;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
+//        dd($list->toArray());
+        return datatable_response($list, $draw, $total);
+    }
+
+
+
+    // 【赞助商】添加关联
+    public function operate_user_administrator_relation_add($post_data)
+    {
+        $messages = [
+            'operate.required' => 'operate.required',
+            'id.required' => '请选择ID',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'administrator-relation-add') return response_error([],"参数【operate】有误！");
+        $id = $post_data["id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
+
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+        if(!in_array($me->user_type,[1,9,11])) return response_error([],"用户类型错误！");
+
+        $pivot_relation = Doc_Pivot_User_Admin::where(['user_id'=>$me->id,'admin_id'=>$id])->first();
+        if($pivot_relation) return response_error([],"该用户已经关联过了！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $mine = new Doc_Pivot_User_Admin;
+
+            $mine_data['relation_active'] = 1;
+            $mine_data['relation_category'] = 1;
+            $mine_data['relation_type'] = 11;
+            $mine_data['user_id'] = $me->id;
+            $mine_data['admin_id'] = $id;
+
+            $bool = $mine->fill($mine_data)->save();
+            if($bool)
+            {
+
+            }
+            else throw new Exception("insert--pivot_relation--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '删除失败，请重试';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+    }
+    // 【赞助商】批量添加关联
+    public function operate_user_administrator_relation_add_bulk($post_data)
+    {
+        $messages = [
+            'operate.required' => 'operate.required.',
+            'bulk_administrator_id.required' => '请选择管理员ID！',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'bulk_administrator_id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'administrator-relation-add-bulk') return response_error([],"参数有误！");
+
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+        if(!in_array($me->user_type,[1,9,11])) return response_error([],"你没有操作权限！");
+
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $administrator_ids = $post_data["bulk_administrator_id"];
+            foreach($administrator_ids as $key => $administrator_id)
+            {
+                if(intval($administrator_id) !== 0 && !$administrator_id) return response_error([],"参数ID有误！");
+                $pivot_relation = Doc_Pivot_User_Admin::where(['user_id'=>$me->id,'admin_id'=>$administrator_id])->first();
+                if(!$pivot_relation)
+                {
+                    $mine = new Doc_Pivot_User_Admin;
+
+                    $mine_data['relation_active'] = 1;
+                    $mine_data['relation_category'] = 1;
+                    $mine_data['relation_type'] = 11;
+                    $mine_data['user_id'] = $me->id;
+                    $mine_data['admin_id'] = $administrator_id;
+
+                    $bool = $mine->fill($mine_data)->save();
+                    if($bool)
+                    {
+
+                    }
+                    else throw new Exception("insert--doc_pivot_user_admin--fail");
+                }
+//                else return response_error([],"该管理员已经关联过了！");
+            }
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '删除失败，请重试';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+    }
+
+
+    // 【赞助商】删除
+    public function operate_user_administrator_relation_remove($post_data)
+    {
+        $messages = [
+            'operate.required' => 'operate.required.',
+            'pivot_id.required' => 'pivot_id.required.',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'pivot_id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'administrator-relation-remove') return response_error([],"参数有误！");
+        $pivot_id = $post_data["pivot_id"];
+        if(intval($pivot_id) !== 0 && !$pivot_id) return response_error([],"参数ID有误！");
+
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+//        if(!in_array($me->user_type,[11])) return response_error([],"你没有操作权限！");
+
+        $pivot_relation = Doc_Pivot_User_Admin::find($pivot_id);
+        if(!$pivot_relation) return response_error([],"该关联不存在，刷新页面重试");
+        if($pivot_relation->user_id != $me->id) return response_error([],"该关联有误！");
+//        if($pivot_relation->relation_type != 88) return response_error([],"非赞助商关联，不能执行该操作！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            // 删除【用户】
+//            $user->pivot_menus()->detach(); // 删除相关目录
+            $bool = $pivot_relation->delete();
+            if(!$bool) throw new Exception("delete--pivot_relation--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '删除失败，请重试';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+    }
+    // 【赞助商】关闭
+    public function operate_user_administrator_relation_close($post_data)
+    {
+        $messages = [
+            'operate.required' => '参数有误',
+            'id.required' => '请输入用户名',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'sponsor-close') return response_error([],"参数有误！");
+        $id = $post_data["id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
+
+        $me = Auth::guard('org')->user();
+        if(!in_array($me->user_type,[11])) return response_error([],"你没有操作权限！");
+
+        $pivot_relation = K_Pivot_User_Relation::find($id);
+        if(!$pivot_relation) return response_error([],"该关联不存在，刷新页面重试");
+        if($pivot_relation->mine_user_id != $me->id) return response_error([],"该关联有误！");
+        if($pivot_relation->relation_category != 88) return response_error([],"非赞助商关联，不能执行该操作！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $update["relation_active"] = 9;
+            $bool = $pivot_relation->fill($update)->save();
+            if($bool)
+            {
+            }
+            else throw new Exception("update--pivot_relation--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+    // 【赞助商】开启
+    public function operate_user_administrator_relation_open($post_data)
+    {
+        $messages = [
+            'operate.required' => '参数有误',
+            'id.required' => '请输入用户名',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'sponsor-open') return response_error([],"参数有误！");
+        $id = $post_data["id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
+
+        $me = Auth::guard('org')->user();
+        if(!in_array($me->user_type,[11])) return response_error([],"你没有操作权限！");
+
+        $pivot_relation = K_Pivot_User_Relation::find($id);
+        if(!$pivot_relation) return response_error([],"该关联不存在，刷新页面重试");
+        if($pivot_relation->mine_user_id != $me->id) return response_error([],"该关联有误！");
+        if($pivot_relation->relation_category != 88) return response_error([],"非赞助商关联，不能执行该操作！");
+
+        $me_sponsor_count = K_Pivot_User_Relation::where(['relation_active'=>1,'relation_type'=>88,'mine_user_id'=>$me->id])->count();
+        if($me_sponsor_count >= 3) return response_error([],"启用的赞助商不能超过3个！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $update["relation_active"] = 1;
+            $bool = $pivot_relation->fill($update)->save();
+            if($bool)
+            {
+            }
+            else throw new Exception("update--pivot_relation--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+
+
+
+
+
 
 
 
