@@ -468,7 +468,7 @@
                                 $html_able = '<a class="btn btn-xs btn-success user-admin-enable-submit" data-id="'+data+'">解禁</a>';
                             }
 
-                            if(row.user_type == 1)
+                            if(row.user_category == 1)
                             {
                                 $html_edit = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">编辑</a>';
                             }
