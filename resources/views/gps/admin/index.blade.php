@@ -112,31 +112,31 @@
                         <th>Status</th>
                     </tr>
                     <tr>
-                        <td>user</td>
+                        <td><a target="_blank" href="{{ env('DOMAIN_DEFAULT') }}">user</a></td>
                         <td>@if(auth()->guard()->check()){{ auth()->guard()->user()->username }}@endif</td>
                         <td>--</td>
                         <td><span class="label label-success">Approved</span></td>
                     </tr>
                     <tr>
-                        <td>SUPER</td>
+                        <td><a target="_blank" href="{{ env('DOMAIN_SUPER') }}/admin">SUPER</a></td>
                         <td>@if(auth()->guard('super')->check()){{ auth()->guard('super')->user()->username }}@endif</td>
                         <td>--</td>
                         <td><span class="label label-warning">Pending</span></td>
                     </tr>
                     <tr>
-                        <td>GPS</td>
+                        <td><a target="_blank" href="{{ env('DOMAIN_GPS') }}/admin">GPS</a></td>
                         <td>@if(auth()->guard('gps')->check()){{ auth()->guard('gps')->user()->username }}@endif</td>
                         <td>@if(auth()->guard('gps_admin')->check()){{ auth()->guard('gps_admin')->user()->username }}@endif</td>
                         <td><span class="label label-primary">Approved</span></td>
                     </tr>
                     <tr>
-                        <td>ATOM</td>
+                        <td><a target="_blank" href="{{ env('DOMAIN_ATOM') }}/admin">ATOM</a></td>
                         <td>@if(auth()->guard('atom')->check()){{ auth()->guard('atom')->user()->username }}@endif</td>
                         <td>@if(auth()->guard('atom_admin')->check()){{ auth()->guard('atom_admin')->user()->username }}@endif</td>
                         <td><span class="label label-danger">Denied</span></td>
                     </tr>
                     <tr>
-                        <td>DOC</td>
+                        <td><a target="_blank" href="{{ env('DOMAIN_DOC') }}/home">DOC</a></td>
                         <td>@if(auth()->guard('doc')->check()){{ auth()->guard('doc')->user()->username }}@endif</td>
                         <td>@if(auth()->guard('doc_admin')->check()){{ auth()->guard('doc_admin')->user()->username }}@endif</td>
                         <td><span class="label label-danger">Denied</span></td>

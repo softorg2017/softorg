@@ -113,6 +113,16 @@
                     <i class="fa fa-cube text-default"></i> <span>Super.Admin</span>
                 </a>
             </li>
+            <li class="treeview">
+                <a href="{{ env('DOMAIN_ATOM') }}/admin" target="_blank">
+                    <i class="fa fa-cube text-default"></i> <span>Atom.Admin</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="{{ env('DOMAIN_DOC') }}/home" target="_blank">
+                    <i class="fa fa-cube text-default"></i> <span>DOC.Home</span>
+                </a>
+            </li>
 
 
 
