@@ -414,7 +414,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "{{ url('/admin/user/user-all-list') }}";
+                        location.href = "{{ url('/admin/user/user-list-for-all') }}";
                     }
                 }
             };
