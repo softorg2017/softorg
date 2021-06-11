@@ -71,23 +71,29 @@ class SuperAdminController extends Controller
     }
 
 
-    // 【用户】[组织]返回-列表-视图
-    public function view_user_all_list()
+    // 【用户】【全部用户】返回-列表-视图
+    public function view_user_list_for_all()
     {
-        if(request()->isMethod('get')) return $this->repo->view_user_all_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_user_all_list_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_user_list_for_all(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_all_datatable(request()->all());
     }
-    // 【用户】[组织]返回-列表-视图
-    public function view_user_org_list()
+    // 【用户】【个人用户】返回-列表-视图
+    public function view_user_list_for_individual()
     {
-        if(request()->isMethod('get')) return $this->repo->view_user_org_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_user_org_list_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_user_list_for_individual(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_individual_datatable(request()->all());
     }
-    // 【用户】返回-个人用户列表-视图
-    public function view_user_individual_list()
+    // 【用户】【轻博】返回-列表-视图
+    public function view_user_list_for_doc()
     {
-        if(request()->isMethod('get')) return $this->repo->view_user_individual_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_user_individual_list_datatable(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_user_list_for_doc(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_doc_datatable(request()->all());
+    }
+    // 【用户】【组织】返回-列表-视图
+    public function view_user_list_for_org()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_list_for_org(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_org_datatable(request()->all());
     }
 
 
@@ -112,6 +118,8 @@ class SuperAdminController extends Controller
         if(request()->isMethod('get')) return $this->repo->view_user_user_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_user_user_save(request()->all());
     }
+
+
 
 
     // 【用户】登录

@@ -1,11 +1,11 @@
 @extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
-@section('head_title','【S】组织机构')
+@section('head_title','【S】组织列表')
 
 
 @section('header','')
-@section('description','组织机构列表 - 超级管理员后台 - 如未科技')
+@section('description','组织列表 - 超级管理员后台 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
@@ -19,7 +19,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">组织机构列表</h3>
+                <h3 class="box-title">组织列表</h3>
 
                 <div class="caption pull-right">
                     <i class="icon-pin font-blue"></i>
@@ -59,7 +59,7 @@
 
 
                 <!-- datatable start -->
-                <table class='table table-striped- table-bordered- table-hover' id='datatable_ajax'>
+                <table class='table table-striped table-bordered table-hover' id='datatable_ajax'>
                     <thead>
                         <tr role='row' class='heading'>
                             <th>ID</th>
@@ -151,87 +151,6 @@
         </div>
     </div>
 </div>
-
-
-<div class="modal fade" id="modal-body">
-    <div class="col-md-8 col-md-offset-2" id="edit-ctn" style="margin-top:64px;margin-bottom:64px;background:#fff;">
-
-        <div class="row">
-            <div class="col-md-12">
-                <!-- BEGIN PORTLET-->
-                <div class="box- box-info- form-container">
-
-                    <div class="box-header with-border" style="margin:16px 0;">
-                        <h3 class="box-title">代理商充值</h3>
-                        <div class="box-tools pull-right">
-                        </div>
-                    </div>
-
-                    <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-modal">
-                    <div class="box-body">
-
-                        {{csrf_field()}}
-                        <input type="hidden" name="operate" value="recharge" readonly>
-                        <input type="hidden" name="id" value="0" readonly>
-
-                        {{--类别--}}
-
-
-                        {{--用户ID--}}
-                        <div class="form-group">
-                            <label class="control-label col-md-2">用户ID</label>
-                            <div class="col-md-8 control-label" style="text-align:left;">
-                                <span class="recharge-user-id"></span>
-                            </div>
-                        </div>
-                        {{--用户名--}}
-                        <div class="form-group">
-                            <label class="control-label col-md-2">用户名</label>
-                            <div class="col-md-8 control-label" style="text-align:left;">
-                                <span class="recharge-username"></span>
-                            </div>
-                        </div>
-                        {{--真实姓名--}}
-                        <div class="form-group">
-                            <label class="control-label col-md-2">充值金额</label>
-                            <div class="col-md-8 ">
-                                <input type="text" class="form-control" name="recharge-amount" placeholder="充值金额" value="">
-                            </div>
-                        </div>
-                        {{--备注--}}
-                        <div class="form-group">
-                            <label class="control-label col-md-2">备注</label>
-                            <div class="col-md-8 ">
-                                {{--<input type="text" class="form-control" name="description" placeholder="描述" value="">--}}
-                                <textarea class="form-control" name="description" rows="3" cols="100%"></textarea>
-                            </div>
-                        </div>
-                        {{--说明--}}
-                        <div class="form-group">
-                            <label class="control-label col-md-2">说明</label>
-                            <div class="col-md-8 control-label" style="text-align:left;">
-                                <span class="">正数为充值，负数为退款，退款金额不能超过资金余额。</span>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    </form>
-
-                    <div class="box-footer">
-                        <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                                <button type="button" class="btn btn-success" id="item-recharge-submit"><i class="fa fa-check"></i> 提交</button>
-                                <button type="button" class="btn btn-default" id="item-recharge-cancel">取消</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END PORTLET-->
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 
@@ -248,7 +167,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/user/user-org-list') }}",
+                    'url': "{{ url('/admin/user/user-list-for-org') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -271,7 +190,8 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
-                        "width":"48px",
+                        "className": "font-12px",
+                        "width":"36px",
                         "title": "ID",
                         "data": "id",
                         "orderable": true,
@@ -292,12 +212,13 @@
                     {
                         "width": "72px",
                         "title": "用户类型",
-                        "data": 'user_type',
+                        "data": 'user_category',
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             if(data == 0) return 'item';
                             else if(data == 1) return '<small class="btn-xs bg-primary">个人用户</small>';
-                            else if(data == 11) return '<small class="btn-xs bg-olive">组织</small>';
+                            else if(data == 9) return '<small class="btn-xs bg-olive">轻博</small>';
+                            else if(data == 11) return '<small class="btn-xs bg-purple">组织</small>';
                             else if(data == 88) return '<small class="btn-xs bg-purple">赞助商</small>';
                             else return "有误";
                         }
@@ -313,8 +234,8 @@
                         }
                     },
                     {
-                        "width": "72px",
-                        "title": "浏览数",
+                        "width": "40px",
+                        "title": "浏览",
                         "data": "visit_num",
                         "orderable": true,
                         render: function(data, type, row, meta) {
@@ -322,8 +243,8 @@
                         }
                     },
                     {
-                        "width": "72px",
-                        "title": "分享数",
+                        "width": "40px",
+                        "title": "分享",
                         "data": "share_num",
                         "orderable": true,
                         render: function(data, type, row, meta) {
@@ -331,7 +252,8 @@
                         }
                     },
                     {
-                        "width":"128px",
+                        "className": "font-12px",
+                        "width":"112px",
                         "title": "创建时间",
                         "data": 'created_at',
                         "orderable": true,

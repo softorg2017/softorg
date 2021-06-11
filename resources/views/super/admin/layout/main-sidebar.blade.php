@@ -59,38 +59,41 @@
             <li class="header">用户管理</li>
 
             <li class="treeview {{ $sidebar_user_all_list_active or '' }}">
-                <a href="{{ url('/admin/user/user-all-list') }}">
+                <a href="{{ url('/admin/user/user-list-for-all') }}">
                     <i class="fa fa-user"></i><span>全部用户</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_user_org_list_active or '' }}">
-                <a href="{{ url('/admin/user/user-org-list') }}">
-                    <i class="fa fa-user"></i><span>社群组织</span>
+            <li class="treeview {{ $sidebar_user_list_for_individual_active or '' }}">
+                <a href="{{ url('/admin/user/user-list-for-individual') }}">
+                    <i class="fa fa-user"></i><span>个人</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_user_individual_list_active or '' }}">
-                <a href="{{ url('/admin/user/user-individual-list') }}">
-                    <i class="fa fa-user"></i><span>个人用户</span>
+            <li class="treeview {{ $sidebar_user_list_for_doc_active or '' }}">
+                <a href="{{ url('/admin/user/user-list-for-doc') }}">
+                    <i class="fa fa-user"></i><span>轻博</span>
+                </a>
+            </li>
+            <li class="treeview {{ $sidebar_user_list_for_org_active or '' }}">
+                <a href="{{ url('/admin/user/user-list-for-org') }}">
+                    <i class="fa fa-user"></i><span>组织</span>
                 </a>
             </li>
 
 
 
-            <li class="header">机构管理</li>
+            <li class="header _none">机构管理</li>
 
-            <li class="treeview">
+            <li class="treeview _none">
                 <a href="{{url('/user/list')}}">
                     <i class="fa fa-th-list"></i><span>机构列表</span>
                 </a>
             </li>
-
-            <li class="treeview">
+            <li class="treeview _none">
                 <a href="{{url('/org/menu/list')}}">
                     <i class="fa fa-folder-open-o"></i><span>目录列表</span>
                 </a>
             </li>
-
-            <li class="treeview">
+            <li class="treeview _none">
                 <a href="{{url('/org/item/list')}}">
                     <i class="fa fa fa-file-text-o"></i><span>内容列表</span>
                 </a>
@@ -99,7 +102,7 @@
 
 
 
-            <li class="header">内容管理</li>
+            <li class="header _none">内容管理</li>
 
 
 

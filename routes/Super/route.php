@@ -63,10 +63,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::match(['get','post'], '/user/user-create', $controller.'@operate_user_user_create');
         Route::match(['get','post'], '/user/user-edit', $controller.'@operate_user_user_edit');
 
-        Route::match(['get','post'], '/user/user-all-list', $controller.'@view_user_all_list');
-        Route::match(['get','post'], '/user/user-org-list', $controller.'@view_user_org_list');
-        Route::match(['get','post'], '/user/user-sponsor-list', $controller.'@view_user_sponsor_list');
-        Route::match(['get','post'], '/user/user-individual-list', $controller.'@view_user_individual_list');
+        Route::match(['get','post'], '/user/user-list-for-all', $controller.'@view_user_list_for_all');
+        Route::match(['get','post'], '/user/user-list-for-individual', $controller.'@view_user_list_for_individual');
+        Route::match(['get','post'], '/user/user-list-for-doc', $controller.'@view_user_list_for_doc');
+        Route::match(['get','post'], '/user/user-list-for-org', $controller.'@view_user_list_for_org');
+        Route::match(['get','post'], '/user/user-list-for-sponsor', $controller.'@view_user_list_for_sponsor');
 
 
 

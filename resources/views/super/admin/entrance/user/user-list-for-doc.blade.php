@@ -1,11 +1,11 @@
 @extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
-@section('head_title','【S】个人用户')
+@section('head_title','【S】轻博列表')
 
 
 @section('header','')
-@section('description','个人用户 - 管理员后台 - 如未科技')
+@section('description','轻博列表 - 超级管理员后台 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i>首页</a></li>
     <li><a href="#"><i class="fa "></i>Here</a></li>
@@ -19,7 +19,7 @@
         <div class="box box-info">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">个人用户列表</h3>
+                <h3 class="box-title">轻博列表</h3>
 
                 <div class="caption pull-right">
                     <i class="icon-pin font-blue"></i>
@@ -45,7 +45,7 @@
                 <div class="row col-md-12 datatable-search-row">
                     <div class="input-group">
 
-                        <input type="text" class="form-control form-filter item-search-keyup" name="username" placeholder="代理商" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="username" placeholder="用户名" />
 
                         <button type="button" class="form-control btn btn-flat btn-success filter-submit" id="filter-submit">
                             <i class="fa fa-search"></i> 搜索
@@ -61,17 +61,17 @@
                 <!-- datatable start -->
                 <table class='table table-striped table-bordered table-hover' id='datatable_ajax'>
                     <thead>
-                    <tr role='row' class='heading'>
-                        <th>ID</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>操作</th>
-                    </tr>
+                        <tr role='row' class='heading'>
+                            <th>ID</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>操作</th>
+                        </tr>
                     </thead>
                     <tbody>
                     </tbody>
@@ -167,7 +167,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/user/user-list-for-individual') }}",
+                    'url': "{{ url('/admin/user/user-list-for-doc') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -191,7 +191,7 @@
                 "columns": [
                     {
                         "className": "font-12px",
-                        "width": "36px",
+                        "width":"36px",
                         "title": "ID",
                         "data": "id",
                         "orderable": true,
@@ -200,36 +200,37 @@
                         }
                     },
                     {
-                        'className':"text-left",
-                        "width": "",
+                        "className": "text-left",
+                        "width":"",
                         "title": "组织名称",
                         "data": "id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/admin/user/agent?id='+data+'">'+row.username+'</a>';
-                        }
-                    },
-                    {
-                        "className": "text-left",
-                        "width": "",
-                        "title": "真实姓名",
-                        "data": "id",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/user/'+data+'">'+row.true_name+'</a>';
+                            return '<a target="_blank" href="/user/'+data+'">'+row.username+'</a>';
                         }
                     },
                     {
                         "width": "72px",
                         "title": "用户类型",
-                        "data": 'user_type',
+                        "data": 'user_category',
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             if(data == 0) return 'item';
                             else if(data == 1) return '<small class="btn-xs bg-primary">个人用户</small>';
-                            else if(data == 11) return '<small class="btn-xs bg-olive">组织</small>';
+                            else if(data == 9) return '<small class="btn-xs bg-olive">轻博</small>';
+                            else if(data == 11) return '<small class="btn-xs bg-purple">组织</small>';
                             else if(data == 88) return '<small class="btn-xs bg-purple">赞助商</small>';
                             else return "有误";
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "96px",
+                        "title": "手机号",
+                        "data": "mobile",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
                         }
                     },
                     {
@@ -252,7 +253,7 @@
                     },
                     {
                         "className": "font-12px",
-                        "width": "112px",
+                        "width":"112px",
                         "title": "创建时间",
                         "data": 'created_at',
                         "orderable": true,
@@ -294,7 +295,7 @@
                         }
                     },
                     {
-                        "width": "320px",
+                        "width": "300px",
                         "title": "操作",
                         "data": "id",
                         "orderable": false,
@@ -314,13 +315,13 @@
 
                             var html =
 //                                '<a class="btn btn-xs item-download-qrcode-submit" data-id="'+value+'">下载二维码</a>'+
+//                                '<a class="btn btn-xs item-statistics-submit" data-id="'+value+'">流量统计</a>'+
 //                                '<a class="btn btn-xs btn-primary item-recharge-show" data-id="'+data+'">充值/退款</a>'+
                                 $html_0+
-                                '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">编辑</a>'+
+                                '<a class="btn btn-xs btn-primary item-edit-submit" data-id="'+data+'">编辑</a>'+
                                 '<a class="btn btn-xs bg-maroon item-change-password-show" data-id="'+data+'">修改密码</a>'+
                                 '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'" >删除</a>'+
                                 '<a class="btn btn-xs bg-olive item-login-submit" data-id="'+data+'">登录</a>'+
-                                '<a class="btn btn-xs bg-olive item-doc-login-submit" data-id="'+data+'">轻博</a>'+
                                 '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
                                 '';
                             return html;

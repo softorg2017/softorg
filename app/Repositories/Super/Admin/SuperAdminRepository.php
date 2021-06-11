@@ -540,16 +540,17 @@ class SuperAdminRepository {
 
 
     // 【K】【用户】【全部机构】返回-列表-视图
-    public function view_user_all_list($post_data)
+    public function view_user_list_for_all($post_data)
     {
         return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-all')
-            ->with(['sidebar_user_all_list_active'=>'active menu-open']);
+            ->with(['sidebar_user_list_for_all_active'=>'active menu-open']);
     }
     // 【K】【用户】【全部机构】返回-列表-数据
-    public function get_user_all_list_datatable($post_data)
+    public function get_user_list_for_all_datatable($post_data)
     {
         $me = Auth::guard("user")->user();
-        $query = User::select('*')->where(['user_category'=>1]);
+        $query = User::select('*')
+            ->whereIn('user_category',[1,9,11]);
 //            ->whereHas('fund', function ($query1) { $query1->where('totalfunds', '>=', 1000); } )
 //            ->with('ep','parent','fund')
 //            ->withCount([
@@ -591,17 +592,108 @@ class SuperAdminRepository {
     }
 
 
-    // 【K】【用户】【组织】返回-列表-视图
-    public function view_user_org_list($post_data)
+    // 【K】【用户】【个人用户】返回-列表-视图
+    public function view_user_list_for_individual($post_data)
     {
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-org')
-            ->with(['sidebar_user_org_list_active'=>'active menu-open']);
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-individual')
+            ->with(['sidebar_user_list_for_individual_active'=>'active menu-open']);
     }
-    // 【K】【用户】【组织】返回-列表-数据
-    public function get_user_org_list_datatable($post_data)
+    // 【K】【用户】【个人用户】返回-列表-数据
+    public function get_user_list_for_individual_datatable($post_data)
     {
         $me = Auth::guard("user")->user();
-        $query = User::select('*')->where(['active'=>1,'user_category'=>1,'user_type'=>11]);
+        $query = User::select('*')
+            ->where(['active'=>1,'user_category'=>1,'user_type'=>1]);
+
+        if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
+
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 40;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
+//        dd($list->toArray());
+        return datatable_response($list, $draw, $total);
+    }
+
+
+    // 【K】【用户】【组织】返回-列表-视图
+    public function view_user_list_for_doc($post_data)
+    {
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-doc')
+            ->with(['sidebar_user_list_for_doc_active'=>'active menu-open']);
+    }
+    // 【K】【用户】【组织】返回-列表-数据
+    public function get_user_list_for_doc_datatable($post_data)
+    {
+        $me = Auth::guard("user")->user();
+        $query = User::select('*')
+            ->where(['active'=>1,'user_category'=>9]);
+
+        if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
+
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 40;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->withTrashed()->get();
+
+        foreach ($list as $k => $v)
+        {
+            $list[$k]->encode_id = encode($v->id);
+        }
+//        dd($list->toArray());
+        return datatable_response($list, $draw, $total);
+    }
+
+
+    // 【K】【用户】【组织】返回-列表-视图
+    public function view_user_list_for_org($post_data)
+    {
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-org')
+            ->with(['sidebar_user_list_for_org_active'=>'active menu-open']);
+    }
+    // 【K】【用户】【组织】返回-列表-数据
+    public function get_user_list_for_org_datatable($post_data)
+    {
+        $me = Auth::guard("user")->user();
+        $query = User::select('*')
+            ->where(['active'=>1,'user_category'=>11]);
 
         if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
 
@@ -636,16 +728,17 @@ class SuperAdminRepository {
 
 
     // 【K】【用户】【赞助商】返回-列表-视图
-    public function view_user_sponsor_list($post_data)
+    public function view_user_list_for_sponsor($post_data)
     {
         return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-sponsor')
-            ->with(['sidebar_user_sponsor_list_active'=>'active menu-open']);
+            ->with(['sidebar_user_list_for_sponsor_active'=>'active menu-open']);
     }
     // 【K】【用户】【赞助商】返回-列表-数据
-    public function get_user_sponsor_list_datatable($post_data)
+    public function get_user_list_for_sponsor_datatable($post_data)
     {
         $me = Auth::guard("user")->user();
-        $query = User::select('*')->where(['active'=>1,'user_category'=>1,'user_type'=>88]);
+        $query = User::select('*')
+            ->where(['active'=>1,'user_category'=>88]);
 
         if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
 
@@ -669,51 +762,6 @@ class SuperAdminRepository {
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->withTrashed()->get();
-
-        foreach ($list as $k => $v)
-        {
-            $list[$k]->encode_id = encode($v->id);
-        }
-//        dd($list->toArray());
-        return datatable_response($list, $draw, $total);
-    }
-
-
-    // 【K】【用户】【个人用户】返回-列表-视图
-    public function view_user_individual_list($post_data)
-    {
-        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-list-for-individual')
-            ->with(['sidebar_user_individual_list_active'=>'active menu-open']);
-    }
-    // 【K】【用户】【个人用户】返回-列表-数据
-    public function get_user_individual_list_datatable($post_data)
-    {
-        $me = Auth::guard("user")->user();
-        $query = User::select('*')
-            ->where(['user_category'=>1,'user_type'=>1]);
-
-        if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
-
-        $total = $query->count();
-
-        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
-        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
-        $limit = isset($post_data['length']) ? $post_data['length'] : 40;
-
-        if(isset($post_data['order']))
-        {
-            $columns = $post_data['columns'];
-            $order = $post_data['order'][0];
-            $order_column = $order['column'];
-            $order_dir = $order['dir'];
-
-            $field = $columns[$order_column]["data"];
-            $query->orderBy($field, $order_dir);
-        }
-        else $query->orderBy("id", "desc");
-
-        if($limit == -1) $list = $query->get();
-        else $list = $query->skip($skip)->take($limit)->get();
 
         foreach ($list as $k => $v)
         {
