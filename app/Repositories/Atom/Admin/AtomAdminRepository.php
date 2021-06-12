@@ -1283,6 +1283,10 @@ class AtomAdminRepository {
         if(!empty($post_data['major'])) $query->where('major', 'like', "%{$post_data['major']}%");
         if(!empty($post_data['nation'])) $query->where('nation', 'like', "%{$post_data['nation']}%");
 
+        $query->addSelect(DB::raw('cast(birth_time as DECIMAL) as t'));
+        $query->addSelect(DB::raw('cast(birth_time as DATE) as tt'));
+        $query->addSelect(DB::raw('FROM_UNIXTIME(UNIX_TIMESTAMP(cast(birth_time as DATE))) as ttt'));
+
         $total = $query->count();
 
         $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
@@ -1297,6 +1301,8 @@ class AtomAdminRepository {
             $order_dir = $order['dir'];
 
             $field = $columns[$order_column]["data"];
+            if($field == "birth_time") $query->orderByRaw(DB::raw('cast(birth_time as SIGNED) '.$order_dir));
+            else if($field == "death_time") $query->orderByRaw(DB::raw('cast(death_time as SIGNED) '.$order_dir));
             $query->orderBy($field, $order_dir);
         }
         else $query->orderBy("updated_at", "desc");

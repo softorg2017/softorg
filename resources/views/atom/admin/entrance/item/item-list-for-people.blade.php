@@ -262,7 +262,7 @@
                         "data": "birth_time",
                         "orderable": true,
                         render: function(data, type, row, meta) {
-                            return data;
+                            return data == null ? '未知' : data;
                         }
                     },
                     {
@@ -272,7 +272,7 @@
                         "data": "death_time",
                         "orderable": true,
                         render: function(data, type, row, meta) {
-                            return data;
+                            return data == null ? '至今' : data;
                         }
                     },
                     {
