@@ -1174,6 +1174,8 @@ class AtomAdminRepository {
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
         if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
         if(!empty($post_data['tag'])) $query->where('tag', 'like', "%{$post_data['tag']}%");
+        if(!empty($post_data['major'])) $query->where('major', 'like', "%{$post_data['major']}%");
+        if(!empty($post_data['nation'])) $query->where('nation', 'like', "%{$post_data['nation']}%");
 
         $total = $query->count();
 
@@ -1278,6 +1280,8 @@ class AtomAdminRepository {
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
         if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
         if(!empty($post_data['tag'])) $query->where('tag', 'like', "%{$post_data['tag']}%");
+        if(!empty($post_data['major'])) $query->where('major', 'like', "%{$post_data['major']}%");
+        if(!empty($post_data['nation'])) $query->where('nation', 'like', "%{$post_data['nation']}%");
 
         $total = $query->count();
 

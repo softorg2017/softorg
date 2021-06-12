@@ -40,6 +40,8 @@
                         <input type="text" class="form-control form-filter item-search-keyup" name="name" placeholder="名称" />
                         {{--<input type="text" class="form-control form-filter item-search-keyup" name="title" placeholder="标题" />--}}
                         <input type="text" class="form-control form-filter item-search-keyup" name="tag" placeholder="标签" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="major" placeholder="职业" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="nation" placeholder="国别" />
 
                         <button type="button" class="form-control btn btn-flat btn-success filter-submit" id="filter-submit">
                             <i class="fa fa-search"></i> 搜索
@@ -179,6 +181,8 @@
                         d.name = $('input[name="name"]').val();
                         d.title = $('input[name="title"]').val();
                         d.tag = $('input[name="tag"]').val();
+                        d.major = $('input[name="major"]').val();
+                        d.nation = $('input[name="nation"]').val();
 //                        d.nickname 	= $('input[name="nickname"]').val();
 //                        d.certificate_type_id = $('select[name="certificate_type_id"]').val();
 //                        d.certificate_state = $('select[name="certificate_state"]').val();
@@ -256,7 +260,7 @@
                         "width": "96px",
                         "title": "出生时间",
                         "data": "birth_time",
-                        "orderable": false,
+                        "orderable": true,
                         render: function(data, type, row, meta) {
                             return data;
                         }
@@ -266,7 +270,7 @@
                         "width": "96px",
                         "title": "逝世时间",
                         "data": "death_time",
-                        "orderable": false,
+                        "orderable": true,
                         render: function(data, type, row, meta) {
                             return data;
                         }

@@ -176,6 +176,8 @@
                         d.name = $('input[name="name"]').val();
                         d.title = $('input[name="title"]').val();
                         d.tag = $('input[name="tag"]').val();
+                        d.major = $('input[name="major"]').val();
+                        d.naiton = $('input[name="naiton"]').val();
 //                        d.nickname 	= $('input[name="nickname"]').val();
 //                        d.certificate_type_id = $('select[name="certificate_type_id"]').val();
 //                        d.certificate_state = $('select[name="certificate_state"]').val();
