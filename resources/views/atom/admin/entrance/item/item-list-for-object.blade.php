@@ -203,18 +203,8 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "",
-                        "title": "名称",
-                        "data": "name",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
-                        }
-                    },
-                    {
                         "className": "",
-                        "width": "64px",
+                        "width": "48px",
                         "title": "类型",
                         "data": "item_type",
                         'orderable': false,
@@ -224,8 +214,18 @@
                             else if(data == 11) return '<small class="btn-xs bg-primary">人</small>';
                             else if(data == 22) return '<small class="btn-xs bg-orange">作品</small>';
                             else if(data == 33) return '<small class="btn-xs bg-maroon">事件</small>';
-                            else if(data == 9) return '<small class="btn-xs bg-purple">概念</small>';
+                            else if(data == 91) return '<small class="btn-xs bg-purple">概念</small>';
                             else return "有误";
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "",
+                        "title": "名称",
+                        "data": "name",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
                         }
                     },
                     {
@@ -240,7 +240,7 @@
                     },
                     {
                         "className": "font-12px",
-                        "width": "128px",
+                        "width": "112px",
                         "title": "创建时间",
                         "data": 'created_at',
                         "orderable": true,
@@ -260,7 +260,7 @@
                     },
                     {
                         "className": "font-12px",
-                        "width": "128px",
+                        "width": "112px",
                         "title": "修改时间",
                         "data": 'updated_at',
                         "orderable": true,
@@ -316,7 +316,7 @@
                         }
                     },
                     {
-                        "width": "288px",
+                        "width": "240px",
                         "title": "操作",
                         "data": 'id',
                         "orderable": false,

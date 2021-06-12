@@ -60,6 +60,10 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -202,16 +206,6 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "",
-                        "title": "名称",
-                        "data": "name",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
-                        }
-                    },
-                    {
                         "className": "",
                         "width": "64px",
                         "title": "类型",
@@ -223,8 +217,58 @@
                             else if(data == 11) return '<small class="btn-xs bg-primary">人</small>';
                             else if(data == 22) return '<small class="btn-xs bg-orange">作品</small>';
                             else if(data == 33) return '<small class="btn-xs bg-maroon">事件</small>';
-                            else if(data == 9) return '<small class="btn-xs bg-purple">概念</small>';
+                            else if(data == 91) return '<small class="btn-xs bg-purple">概念</small>';
                             else return "有误";
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "",
+                        "title": "名称",
+                        "data": "name",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "",
+                        "title": "职业",
+                        "data": "major",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "",
+                        "title": "国别",
+                        "data": "nation",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "96px",
+                        "title": "出生时间",
+                        "data": "birth_time",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "96px",
+                        "title": "逝世时间",
+                        "data": "death_time",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
                         }
                     },
                     {
@@ -239,7 +283,7 @@
                     },
                     {
                         "className": "font-12px",
-                        "width": "128px",
+                        "width": "112px",
                         "title": "修改时间",
                         "data": 'updated_at',
                         "orderable": true,
