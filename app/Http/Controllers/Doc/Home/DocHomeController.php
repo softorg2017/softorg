@@ -35,9 +35,6 @@ class DocHomeController extends Controller
     /*
      * item
      */
-
-
-
     // 【ITEM】添加
     public function operate_item_item_create()
     {
@@ -67,7 +64,7 @@ class DocHomeController extends Controller
         return $this->repo->view_item_content_management(request()->all());
     }
 
-    // 编辑
+    // 【编辑】
     public function operate_item_content_edit()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
@@ -90,12 +87,13 @@ class DocHomeController extends Controller
         }
     }
 
-    // 编辑
+    // 【编辑】目录类型
     public function operate_item_content_edit_menu_type()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_item_content_save_for_menu_type(request()->all());
     }
+    // 【编辑】时间线
     public function operate_item_content_edit_time_line()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();

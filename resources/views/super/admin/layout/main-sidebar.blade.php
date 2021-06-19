@@ -81,28 +81,27 @@
 
 
 
-            <li class="header _none">机构管理</li>
 
-            <li class="treeview _none">
-                <a href="{{url('/user/list')}}">
-                    <i class="fa fa-th-list"></i><span>机构列表</span>
+            <li class="header"><i class="fa fa-circle-o"></i> 内容管理</li>
+
+            <li class="treeview {{ $sidebar_item_list_for_all_active or '' }}">
+                <a href="{{ url('/admin/item/item-list-for-all')}}">
+                    <i class="fa fa-list text-red"></i>
+                    <span>全部内容</span>
                 </a>
             </li>
-            <li class="treeview _none">
-                <a href="{{url('/org/menu/list')}}">
-                    <i class="fa fa-folder-open-o"></i><span>目录列表</span>
+            <li class="treeview {{ $sidebar_item_list_for_atom_active or '' }}">
+                <a href="{{ url('/admin/item/item-list-for-atom') }}">
+                    <i class="fa fa-circle-o text-red"></i>
+                    <span>ATOM</span>
                 </a>
             </li>
-            <li class="treeview _none">
-                <a href="{{url('/org/item/list')}}">
-                    <i class="fa fa fa-file-text-o"></i><span>内容列表</span>
+            <li class="treeview {{ $sidebar_item_list_for_doc_active or '' }}">
+                <a href="{{ url('/admin/item/item-list-for-doc') }}">
+                    <i class="fa fa-circle-o text-red"></i>
+                    <span>DOC</span>
                 </a>
             </li>
-
-
-
-
-            <li class="header _none">内容管理</li>
 
 
 

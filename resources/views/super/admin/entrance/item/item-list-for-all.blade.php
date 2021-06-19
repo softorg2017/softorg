@@ -64,6 +64,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -192,7 +193,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/item/item-all-list') }}",
+                    'url': "{{ url('/admin/item/item-list-for-all') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -243,18 +244,95 @@
                     },
                     {
                         "className": "text-left",
+                        "width": "120px",
+                        "title": "类型",
+                        "data": "item_type",
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+                            if(row.item_category == 0)
+                            {
+                            }
+                            else if(row.item_category == 1)
+                            {
+                                var $item_category_html = '<small class="btn-xs bg-primary">Doc</small>';
+                                var $item_type_html = 'item';
+
+                                if(data == 0) $item_type_html = 'item';
+                                else if(data == 1) $item_type_html = '<small class="btn-xs bg-primary">文章</small>';
+                                else if(data == 9) $item_type_html = '<small class="btn-xs bg-olive">活动</small>';
+                                else if(data == 11)
+                                {
+                                    if(row.item_id == 0)
+                                    {
+                                        $item_type_html = '<small class="btn-xs bg-orange">书目.封面</small>';
+                                    }
+                                    else
+                                    {
+                                        $item_type_html = '<small class="btn-xs bg-olive">书目.原子</small>';
+                                    }
+                                }
+                                else if(data == 18)
+                                {
+                                    if(row.item_id == 0)
+                                    {
+                                        $item_type_html = '<small class="btn-xs bg-purple">时间线.封面</small>';
+                                    }
+                                    else
+                                    {
+                                        $item_type_html = '<small class="btn-xs bg-olive">时间线.原子</small>';
+                                    }
+                                }
+                                else if(data == 22) $item_type_html = '<small class="btn-xs bg-orange">辩题</small>';
+                                else if(data == 29) $item_type_html = '<small class="btn-xs bg-maroon">投票</small>';
+                                else $item_type_html = '<small class="btn-xs bg-black">有误</small>';
+
+                                return $item_category_html + $item_type_html;
+                            }
+                            else if(row.item_category == 100)
+                            {
+                                var $item_category_html = '<small class="btn-xs bg-black">Atom</small>';
+                                var $item_type_html = 'item';
+
+                                if(data == 0) $item_type_html = 'item';
+                                else if(data == 1) $item_type_html = '<small class="btn-xs bg-olive">物</small>';
+                                else if(data == 11) $item_type_html = '<small class="btn-xs bg-primary">人</small>';
+                                else if(data == 22) $item_type_html = '<small class="btn-xs bg-orange">作品</small>';
+                                else if(data == 33) $item_type_html = '<small class="btn-xs bg-maroon">事件</small>';
+                                else if(data == 91) $item_type_html = '<small class="btn-xs bg-purple">概念</small>';
+                                else $item_type_html = '<small class="btn-xs bg-black">有误</small>';
+
+                                return $item_category_html + $item_type_html;
+                            }
+                            else
+                            {
+                            }
+                        }
+                    },
+                    {
+                        "className": "text-left",
                         "width": "",
                         "title": "标题",
                         "data": "title",
                         "orderable": false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
+                            if(row.item_category == 1)
+                            {
+                                return '<a target="_blank" href="/item/'+row.title+'">'+data+'</a>';
+                            }
+                            else if(row.item_category == 100)
+                            {
+                                return '<a target="_blank" href="/item/'+row.name+'">'+data+'</a>';
+                            }
+                            else
+                            {
+                                return '<a target="_blank" href="/item/'+row.title+'">'+data+'</a>';
+                            }
                         }
                     },
                     {
                         "className": "text-left",
-                        "width": "160px",
-                        "title": "发布者",
+                        "width": "120px",
+                        "title": "拥有者",
                         "data": "owner_id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
@@ -262,16 +340,13 @@
                         }
                     },
                     {
-                        "width": "48px",
-                        "title": "类型",
-                        "data": "item_type",
-                        'orderable': false,
+                        "className": "text-left",
+                        "width": "120px",
+                        "title": "发布者",
+                        "data": "creator_id",
+                        "orderable": false,
                         render: function(data, type, row, meta) {
-                            if(data == 0) return 'item';
-                            else if(data == 1) return '<small class="btn-xs bg-primary">文章</small>';
-                            else if(data == 11) return '<small class="btn-xs bg-olive">活动</small>';
-                            else if(data == 88) return '<small class="btn-xs bg-purple">广告</small>';
-                            else return "有误";
+                            return row.creator == null ? '未知' : '<a target="_blank" href="/user/'+row.creator.id+'">'+row.creator.username+'</a>';
                         }
                     },
                     {

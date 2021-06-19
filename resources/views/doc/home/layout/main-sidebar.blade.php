@@ -64,7 +64,7 @@
             <li class="header"><i class="fa fa-circle-o"></i> 内容管理</li>
 
             <li class="treeview {{ $sidebar_item_list_for_all_active or '' }}">
-                <a href="{{url('/home/item/item-list-all')}}">
+                <a href="{{url('/home/item/item-list-for-all')}}">
                     <i class="fa fa-list text-red"></i>
                     <span>全部内容</span>
                 </a>

@@ -72,6 +72,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 
 
+        /*
+         * item
+         */
+        Route::match(['get','post'], '/item/item-list-for-all', $controller.'@view_item_list_for_all');
+        Route::match(['get','post'], '/item/item-list-for-atom', $controller.'@view_item_list_for_atom');
+        Route::match(['get','post'], '/item/item-list-for-doc', $controller.'@view_item_list_for_doc');
+
+
+
+
 
 
         Route::match(['get','post'], '/user/user-login', $controller.'@operate_user_user_login');
@@ -79,7 +89,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::match(['get','post'], 'org/login', $controller.'@loginAction');
 
         Route::match(['get','post'], 'org/list', $controller.'@view_org_list');
-        Route::get('org/create', $controller.'@createAction');
+        Route::match(['get','post'], 'org/create', $controller.'@createAction');
         Route::match(['get','post'], 'org/edit', $controller.'@editAction');
 
         Route::match(['get','post'], 'org/menu/list', $controller.'@view_org_menu_list');

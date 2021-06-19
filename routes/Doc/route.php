@@ -68,10 +68,10 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
         Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
 
         Route::match(['get','post'], '/item/item-list', $controller.'@view_item_list');
-        Route::match(['get','post'], '/item/item-list-all', $controller.'@view_item_list_for_all');
-        Route::match(['get','post'], '/item/item-list-menu_type', $controller.'@view_item_list_for_menu_type');
-        Route::match(['get','post'], '/item/item-list-time_line', $controller.'@view_item_list_for_time_line');
-        Route::match(['get','post'], '/item/item-list-debase', $controller.'@view_item_list_for_debase');
+        Route::match(['get','post'], '/item/item-list-for-all', $controller.'@view_item_list_for_all');
+        Route::match(['get','post'], '/item/item-list-for-menu_type', $controller.'@view_item_list_for_menu_type');
+        Route::match(['get','post'], '/item/item-list-for-time_line', $controller.'@view_item_list_for_time_line');
+        Route::match(['get','post'], '/item/item-list-for-debase', $controller.'@view_item_list_for_debase');
 
 
 

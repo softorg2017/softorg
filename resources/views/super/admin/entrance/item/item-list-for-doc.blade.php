@@ -1,21 +1,20 @@
-@extends(env('TEMPLATE_DOC_HOME').'layout.layout')
+@extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
-@section('head_title','【d】全部内容')
+@section('head_title','【Super】全部内容 - 超级管理员后台系统 - 如未科技')
 
 
 @section('header','')
-@section('description','全部内容 - 原子系统 - 如未科技')
+@section('description','超级管理员后台系统 - 如未科技')
 @section('breadcrumb')
-    <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i>首页</a></li>
-    {{--<li><a href="#"><i class="fa "></i>Here</a></li>--}}
+    <li><a href="{{ url('/admin') }}"><i class="fa fa-home"></i>首页</a></li>
 @endsection
 
 
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-info">
+        <div class="box box-info main-list-body">
 
             <div class="box-header with-border" style="margin:16px 0;">
 
@@ -38,9 +37,7 @@
                 <div class="row col-md-12 datatable-search-row">
                     <div class="input-group">
 
-                        <input type="text" class="form-control form-filter item-search-keyup" name="name" placeholder="名称" />
-                        {{--<input type="text" class="form-control form-filter item-search-keyup" name="title" placeholder="标题" />--}}
-                        <input type="text" class="form-control form-filter item-search-keyup" name="tag" placeholder="标签" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="title" placeholder="标题" />
 
                         <button type="button" class="form-control btn btn-flat btn-success filter-submit" id="filter-submit">
                             <i class="fa fa-search"></i> 搜索
@@ -62,6 +59,11 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -69,6 +71,27 @@
                     </tbody>
                 </table>
 
+            </div>
+
+
+            <div class="box-footer">
+                <div class="row" style="margin:16px 0;">
+                    <div class="col-md-offset-0 col-md-4 col-sm-8 col-xs-12">
+                        {{--<button type="button" class="btn btn-primary"><i class="fa fa-check"></i> 提交</button>--}}
+                        {{--<button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>--}}
+                        <div class="input-group">
+                            <span class="input-group-addon"><input type="checkbox" id="check-review-all"></span>
+                            <select name="bulk-operat-status" class="form-control form-filter">
+                                <option value ="0">请选择</option>
+                                <option value ="封禁">封禁</option>
+                                <option value ="删除">删除</option>
+                                <option value ="永久删除">永久删除</option>
+                            </select>
+                            <span class="input-group-addon btn btn-default" id="operat-bulk-submit"><i class="fa fa-check"></i> 批量操作</span>
+                            <span class="input-group-addon btn btn-default" id="delete-bulk-submit"><i class="fa fa-trash-o"></i> 批量删除</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -164,19 +187,18 @@
             var dt = $('#datatable_ajax');
             var ajax_datatable = dt.DataTable({
 //                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
-                "aLengthMenu": [[20, 50, 200], ["20", "50", "200"]],
+                "aLengthMenu": [[50, 100, 200], ["50", "100", "200"]],
                 "processing": true,
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/home/item/item-list-for-all') }}",
+                    'url': "{{ url('/admin/item/item-list-for-doc') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
                         d._token = $('meta[name="_token"]').attr('content');
-                        d.name = $('input[name="name"]').val();
-                        d.title = $('input[name="title"]').val();
-                        d.tag = $('input[name="tag"]').val();
+                        d.keyword = $('input[name="keyword"]').val();
+                        d.website = $('input[name="website"]').val();
 //                        d.nickname 	= $('input[name="nickname"]').val();
 //                        d.certificate_type_id = $('select[name="certificate_type_id"]').val();
 //                        d.certificate_state = $('select[name="certificate_state"]').val();
@@ -194,6 +216,22 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
+                        "width": "32px",
+                        "title": "选择",
+                        "data": "id",
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+                            return '<label><input type="checkbox" name="bulk-id" class="minimal" value="'+data+'"></label>';
+                        }
+                    },
+                    {
+                        "width": "32px",
+                        "title": "序号",
+                        "data": null,
+                        "targets": 0,
+                        'orderable': false
+                    },
+                    {
                         "className": "font-12px",
                         "width": "48px",
                         "title": "ID",
@@ -201,6 +239,47 @@
                         "orderable": true,
                         render: function(data, type, row, meta) {
                             return data;
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "120px",
+                        "title": "类型",
+                        "data": "item_type",
+                        'orderable': false,
+                        render: function(data, type, row, meta) {
+                            var $item_type_html = 'item';
+
+                            if(data == 0) $item_type_html = 'item';
+                            else if(data == 1) $item_type_html = '<small class="btn-xs bg-primary">文章</small>';
+                            else if(data == 9) $item_type_html = '<small class="btn-xs bg-olive">活动</small>';
+                            else if(data == 11)
+                            {
+                                if(row.item_id == 0)
+                                {
+                                    $item_type_html = '<small class="btn-xs bg-orange">书目.封面</small>';
+                                }
+                                else
+                                {
+                                    $item_type_html = '<small class="btn-xs bg-olive">书目.原子</small>';
+                                }
+                            }
+                            else if(data == 18)
+                            {
+                                if(row.item_id == 0)
+                                {
+                                    $item_type_html = '<small class="btn-xs bg-purple">时间线.封面</small>';
+                                }
+                                else
+                                {
+                                    $item_type_html = '<small class="btn-xs bg-olive">时间线.原子</small>';
+                                }
+                            }
+                            else if(data == 22) $item_type_html = '<small class="btn-xs bg-orange">辩题</small>';
+                            else if(data == 29) $item_type_html = '<small class="btn-xs bg-maroon">投票</small>';
+                            else $item_type_html = '<small class="btn-xs bg-black">有误</small>';
+
+                            return $item_type_html;
                         }
                     },
                     {
@@ -214,50 +293,41 @@
                         }
                     },
                     {
-                        "className": "",
-                        "width": "96px",
-                        "title": "类型",
-                        "data": "item_type",
-                        'orderable': false,
+                        "className": "text-left",
+                        "width": "120px",
+                        "title": "拥有者",
+                        "data": "owner_id",
+                        "orderable": false,
                         render: function(data, type, row, meta) {
-                            if(data == 0) return 'item';
-                            else if(data == 1) return '<small class="btn-xs bg-primary">文章</small>';
-                            else if(data == 9) return '<small class="btn-xs bg-olive">活动</small>';
-                            else if(data == 11)
-                            {
-                                if(row.item_id == 0)
-                                {
-                                    return '<small class="btn-xs bg-orange">书目.封面</small>';
-                                }
-                                else
-                                {
-                                    return '<small class="btn-xs bg-orange">书目</small><small class="btn-xs bg-olive">原子</small>';
-                                }
-                            }
-                            else if(data == 18)
-                            {
-                                if(row.item_id == 0)
-                                {
-                                    return '<small class="btn-xs bg-purple">时间线.封面</small>';
-                                }
-                                else
-                                {
-                                    return '<small class="btn-xs bg-purple">时间线</small>.<small class="btn-xs bg-olive">原子</small>';
-                                }
-                            }
-                            else if(data == 22) return '<small class="btn-xs bg-orange">辩题</small>';
-                            else if(data == 29) return '<small class="btn-xs bg-maroon">投票</small>';
-                            else return "有误";
+                            return row.owner == null ? '未知' : '<a target="_blank" href="/user/'+row.owner.id+'">'+row.owner.username+'</a>';
                         }
                     },
                     {
-                        "className": "",
-                        "width": "64px",
+                        "className": "text-left",
+                        "width": "120px",
                         "title": "发布者",
                         "data": "creator_id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             return row.creator == null ? '未知' : '<a target="_blank" href="/user/'+row.creator.id+'">'+row.creator.username+'</a>';
+                        }
+                    },
+                    {
+                        "width": "32px",
+                        "title": "浏览",
+                        "data": "visit_num",
+                        "orderable": true,
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
+                        "width": "32px",
+                        "title": "分享",
+                        "data": "share_num",
+                        "orderable": true,
+                        render: function(data, type, row, meta) {
+                            return data;
                         }
                     },
                     {
@@ -275,8 +345,8 @@
                             var $hour = ('00'+$date.getHours()).slice(-2);
                             var $minute = ('00'+$date.getMinutes()).slice(-2);
                             var $second = ('00'+$date.getSeconds()).slice(-2);
-                            return $year+'-'+$month+'-'+$day;
-//                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
+//                            return $year+'-'+$month+'-'+$day;
+                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
 //                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
                         }
                     },
@@ -338,66 +408,40 @@
                         }
                     },
                     {
-                        "width": "240px",
+                        "width": "288px",
                         "title": "操作",
                         "data": 'id',
                         "orderable": false,
                         render: function(data, type, row, meta) {
 
-                            var $content_html = '';
-                            if(row.item_type == 11 || row.item_type == 18)
+                            if(row.item_status == 1)
                             {
-                                if(row.item_id == 0)
-                                {
-                                    $content_html = '<a class="btn btn-xs btn-success" href="/home/item/content-management?item_id='+data+'">内容管理</a>';
-                                }
-                                else {
-                                    $content_html = '<a class="btn btn-xs btn-success" href="/home/item/content-management?item_id='+row.item_id+'">内容管理</a>';
-                                }
+                                $html_able = '<a class="btn btn-xs btn-danger item-admin-disable-submit" data-id="'+data+'">封禁</a>';
                             }
                             else
                             {
-                                $content_html = '<a class="btn btn-xs btn-default disabled">内容管理</a>';
+                                $html_able = '<a class="btn btn-xs btn-success item-admin-enable-submit" data-id="'+data+'">解禁</a>';
                             }
 
-                            var $publish_html = '';
-//                            if(row.is_me == 1 && row.active == 0)
-                            if(row.active == 0)
+                            if(row.is_me == 1 && row.active == 0)
                             {
-                                $publish_html = '<a class="btn btn-xs bg-olive item-publish-submit" data-id="'+data+'">发布</a>';
+                                $html_publish = '<a class="btn btn-xs bg-olive item-publish-submit" data-id="'+data+'">发布</a>';
                             }
                             else
                             {
-                                $publish_html = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">发布</a>';
-                            }
-
-                            var $edit_html = '';
-                            $edit_html = '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>';
-
-                            if(row.deleted_at != null)
-                            {
-                                $edit_html = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">编辑</a>';
-                                $publish_html = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">发布</a>';
-                                $delete_html = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">删除</a>';
-                            }
-                            else
-                            {
-                                $delete_html = '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'">删除</a>'
+                                $html_publish = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">发布</a>';
                             }
 
                             var html =
-
-                                    $edit_html+
-                                    $publish_html+
-                                    $delete_html+
-
-//                                    '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>'+
-//                                    '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'">删除</a>'+
-//                                    '<a class="btn btn-xs bg-navy item-delete-permanently-submit" data-id="'+data+'">永久删除</a>'+
+                                    $html_able+
+//                                    '<a class="btn btn-xs" href="/item/edit?id='+data+'">编辑</a>'+
+                                    '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>'+
+                                    $html_publish+
+                                    '<a class="btn btn-xs bg-navy item-admin-delete-submit" data-id="'+data+'">删除</a>'+
+                                    '<a class="btn btn-xs bg-navy item-admin-delete-permanently-submit" data-id="'+data+'">永久删除</a>'+
 //                                    '<a class="btn btn-xs bg-primary item-detail-show" data-id="'+data+'">查看详情</a>'+
-//                                    '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
+                                    '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
 //                                    '<a class="btn btn-xs bg-olive item-download-qr-code-submit" data-id="'+data+'">下载二维码</a>'+
-                                    $content_html+
                                     '';
                             return html;
 
@@ -405,6 +449,12 @@
                     }
                 ],
                 "drawCallback": function (settings) {
+
+                    let startIndex = this.api().context[0]._iDisplayStart;//获取本页开始的条数
+                    this.api().column(1).nodes().each(function(cell, i) {
+                        cell.innerHTML =  startIndex + i + 1;
+                    });
+
                     ajax_datatable.$('.tooltips').tooltip({placement: 'top', html: true});
                     $("a.verify").click(function(event){
                         event.preventDefault();
@@ -472,5 +522,5 @@
         TableDatatablesAjax.init();
     });
 </script>
-@include(env('TEMPLATE_DOC_HOME').'entrance.item.item-list-script')
+@include(env('TEMPLATE_SUPER_ADMIN').'entrance.item.item-script')
 @endsection

@@ -225,97 +225,9 @@ class AtomAdminRepository {
 
 
     // 【select2】
-    public function operate_business_select2_user($post_data)
-    {
-        $me = Auth::guard('atom')->user();
-        if(empty($post_data['keyword']))
-        {
-            $list =Doc_User::select(['id','username as text'])
-                ->where(['userstatus'=>'正常','status'=>1])
-                ->whereIn('usergroup',['Agent','Agent2'])
-                ->orderBy('id','desc')
-                ->get()
-                ->toArray();
-        }
-        else
-        {
-            $keyword = "%{$post_data['keyword']}%";
-            $list =Doc_User::select(['id','username as text'])
-                ->where(['userstatus'=>'正常','status'=>1])
-                ->whereIn('usergroup',['Agent','Agent2'])
-                ->where('sitename','like',"%$keyword%")
-                ->orderBy('id','desc')
-                ->get()
-                ->toArray();
-        }
-        array_unshift($list, ['id'=>0,'text'=>'【全部代理】']);
-        return $list;
-    }
-
-
-
-
-
-
-
-
-    // 【用户】【全部机构】返回-列表-视图
-    public function view_user_all_list($post_data)
-    {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.user.user-all-list')
-            ->with(['sidebar_user_all_list_active'=>'active menu-open']);
-    }
-    // 【用户】【全部机构】返回-列表-数据
-    public function get_user_all_list_datatable($post_data)
-    {
-        $me = Auth::guard("admin")->user();
-        $query = Doc_User::select('*')->where(['user_category'=>1]);
-//            ->whereHas('fund', function ($query1) { $query1->where('totalfunds', '>=', 1000); } )
-//            ->with('ep','parent','fund')
-//            ->withCount([
-//                'members'=>function ($query) { $query->where('usergroup','Agent2'); },
-//                'fans'=>function ($query) { $query->where('usergroup','Service'); }
-//            ]);
-//            ->where(['userstatus'=>'正常','status'=>1])
-//            ->whereIn('usergroup',['Agent','Agent2']);
-
-        if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
-
-        $total = $query->count();
-
-        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
-        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
-        $limit = isset($post_data['length']) ? $post_data['length'] : 40;
-
-        if(isset($post_data['order']))
-        {
-            $columns = $post_data['columns'];
-            $order = $post_data['order'][0];
-            $order_column = $order['column'];
-            $order_dir = $order['dir'];
-
-            $field = $columns[$order_column]["data"];
-            $query->orderBy($field, $order_dir);
-        }
-        else $query->orderBy("id", "desc");
-
-        if($limit == -1) $list = $query->get();
-        else $list = $query->skip($skip)->take($limit)->get();
-
-        foreach ($list as $k => $v)
-        {
-            $list[$k]->encode_id = encode($v->id);
-        }
-//        dd($list->toArray());
-        return datatable_response($list, $draw, $total);
-    }
-
-
-
-    //
     public function operate_item_select2_people($post_data)
     {
-        $query = Doc_Item::select(['id','name as text'])->where(['item_category'=>0,'item_type'=>11]);
+        $query = Doc_Item::select(['id','name as text'])->where(['item_category'=>100,'item_type'=>11]);
         if(!empty($post_data['keyword']))
         {
             $keyword = "%{$post_data['keyword']}%";
@@ -534,7 +446,7 @@ class AtomAdminRepository {
         if($operate == 'create') // 添加 ( $id==0，添加一个内容 )
         {
             $mine = new Doc_Item;
-            $post_data["item_category"] = 0;
+            $post_data["item_category"] = 100;
             $post_data["owner_id"] = 100;
             $post_data["creator_id"] = $me_admin->id;
             if($type == 'object') $post_data["item_type"] = 1;
@@ -1168,7 +1080,7 @@ class AtomAdminRepository {
         $query = Doc_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
             ->where('owner_id','>=',1)
-            ->where('item_category',0)
+            ->where(['owner_id'=>100,'item_category'=>100])
             ->where('item_type','!=',0);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
@@ -1223,7 +1135,7 @@ class AtomAdminRepository {
         $me = Auth::guard("admin")->user();
         $query = Doc_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
-            ->where(['item_category'=>0,'item_type'=>1]);
+            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>1]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
         if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
@@ -1275,7 +1187,7 @@ class AtomAdminRepository {
         $me = Auth::guard("atom")->user();
         $query = Doc_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
-            ->where(['item_category'=>0,'item_type'=>11]);
+            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>11]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
         if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
@@ -1339,7 +1251,7 @@ class AtomAdminRepository {
                 'creator',
                 'pivot_product_people'=>function ($query) { $query->where('relation_type',1); }
             ])
-            ->where(['item_category'=>0,'item_type'=>22]);
+            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>22]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
         if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
@@ -1391,7 +1303,7 @@ class AtomAdminRepository {
         $me = Auth::guard("atom")->user();
         $query = Doc_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
-            ->where(['item_category'=>0,'item_type'=>33]);
+            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>33]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
         if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
@@ -1443,7 +1355,7 @@ class AtomAdminRepository {
         $me = Auth::guard("atom")->user();
         $query = Doc_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
-            ->where(['item_category'=>0,'item_type'=>91]);
+            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>91]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
         if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");

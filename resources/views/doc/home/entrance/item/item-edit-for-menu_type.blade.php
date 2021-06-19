@@ -154,7 +154,7 @@
                     <div class="form-group" id="form-rank-option">
                         <label class="control-label col-md-2">排序</label>
                         <div class="col-md-8 ">
-                            <input type="text" class="form-control" name="rank" placeholder="默认排序" value="0">
+                            <input type="text" class="form-control" name="rank" placeholder="默认排序" value="1">
                         </div>
                     </div>
                     {{--标题--}}

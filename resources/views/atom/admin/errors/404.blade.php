@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DOC_ATOM').'layout.layout')
+@extends(env('TEMPLATE_ATOM_ADMIN').'layout.layout')
 
 
 {{--html.head--}}

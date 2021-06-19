@@ -37,13 +37,11 @@ class SuperAdminController extends Controller
     /*
      * 用户基本信息
      */
-
     // 【基本信息】返回-视图
     public function view_info_index()
     {
         return $this->repo->view_info_index();
     }
-
     // 【基本信息】编辑
     public function operate_info_edit()
     {
@@ -63,56 +61,13 @@ class SuperAdminController extends Controller
     /*
      * 用户系统
      */
-
-    // 【用户】修改-密码
-    public function operate_user_change_password()
-    {
-        return $this->repo->operate_user_change_password(request()->all());
-    }
-
-
-    // 【用户】【全部用户】返回-列表-视图
-    public function view_user_list_for_all()
-    {
-        if(request()->isMethod('get')) return $this->repo->view_user_list_for_all(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_all_datatable(request()->all());
-    }
-    // 【用户】【个人用户】返回-列表-视图
-    public function view_user_list_for_individual()
-    {
-        if(request()->isMethod('get')) return $this->repo->view_user_list_for_individual(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_individual_datatable(request()->all());
-    }
-    // 【用户】【轻博】返回-列表-视图
-    public function view_user_list_for_doc()
-    {
-        if(request()->isMethod('get')) return $this->repo->view_user_list_for_doc(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_doc_datatable(request()->all());
-    }
-    // 【用户】【组织】返回-列表-视图
-    public function view_user_list_for_org()
-    {
-        if(request()->isMethod('get')) return $this->repo->view_user_list_for_org(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_org_datatable(request()->all());
-    }
-
-
-
-
-
-
-
-
-
-
-
-    // 【组织】添加
+    // 【用户】添加
     public function operate_user_user_create()
     {
         if(request()->isMethod('get')) return $this->repo->view_user_user_create();
         else if (request()->isMethod('post')) return $this->repo->operate_user_user_save(request()->all());
     }
-    // 【组织】编辑
+    // 【用户】编辑
     public function operate_user_user_edit()
     {
         if(request()->isMethod('get')) return $this->repo->view_user_user_edit();
@@ -120,6 +75,11 @@ class SuperAdminController extends Controller
     }
 
 
+    // 【用户】修改-密码
+    public function operate_user_change_password()
+    {
+        return $this->repo->operate_user_change_password(request()->all());
+    }
 
 
     // 【用户】登录
@@ -180,10 +140,69 @@ class SuperAdminController extends Controller
     }
 
 
+    // 【用户】【全部用户】返回-列表-视图
+    public function view_user_list_for_all()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_list_for_all(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_all_datatable(request()->all());
+    }
+    // 【用户】【个人用户】返回-列表-视图
+    public function view_user_list_for_individual()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_list_for_individual(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_individual_datatable(request()->all());
+    }
+    // 【用户】【轻博】返回-列表-视图
+    public function view_user_list_for_doc()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_list_for_doc(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_doc_datatable(request()->all());
+    }
+    // 【用户】【组织】返回-列表-视图
+    public function view_user_list_for_org()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_user_list_for_org(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_user_list_for_org_datatable(request()->all());
+    }
+
+
+
+
+
+
 
 
     /*
-     * 统计
+     * ITEM
+     */
+    // 【内容】【全部】返回-列表-视图
+    public function view_item_list_for_all()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_all(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_all_datatable(request()->all());
+    }
+    // 【内容】【全部】返回-列表-视图
+    public function view_item_list_for_atom()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_atom(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_atom_datatable(request()->all());
+    }
+    // 【内容】【全部】返回-列表-视图
+    public function view_item_list_for_doc()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_item_list_for_doc(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_item_list_for_doc_datatable(request()->all());
+    }
+
+
+
+
+
+
+
+
+    /*
+     * Statistic 统计
      */
     // 【统计】概览
     public function view_statistic_index()
