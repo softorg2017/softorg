@@ -268,7 +268,7 @@
                                     }
                                     else
                                     {
-                                        $item_type_html = '<small class="btn-xs bg-olive">书目.原子</small>';
+                                        $item_type_html = '<small class="btn-xs bg-orange">书目.原子</small>';
                                     }
                                 }
                                 else if(data == 18)
@@ -279,7 +279,7 @@
                                     }
                                     else
                                     {
-                                        $item_type_html = '<small class="btn-xs bg-olive">时间线.原子</small>';
+                                        $item_type_html = '<small class="btn-xs bg-purple">时间线.原子</small>';
                                     }
                                 }
                                 else if(data == 22) $item_type_html = '<small class="btn-xs bg-orange">辩题</small>';
