@@ -3,9 +3,10 @@ namespace App\Repositories\Super\Admin;
 
 use App\User;
 
+use App\Models\Def\Def_District;
 use App\Models\Def\Def_Item;
 use App\Models\Def\Def_Record;
-use App\Models\Org\Org_Item;
+
 use App\Models\Doc\Doc_Item;
 
 use App\Repositories\Common\CommonRepository;
@@ -963,6 +964,255 @@ class SuperAdminRepository {
     }
 
 
+
+
+
+
+
+
+    /*
+     * District 地域管理
+     */
+    // 【地域】返回-添加-视图
+    public function view_district_create()
+    {
+        $item_type = 'item';
+        $item_type_text = '地域';
+        $title_text = '添加'.$item_type_text;
+        $list_text = $item_type_text.'列表';
+        $list_link = '/admin/district/district-list-for-all';
+
+        $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.district.district-edit';
+        return view($view_blade)->with([
+            'operate'=>'create',
+            'operate_id'=>0,
+            'category'=>'item',
+            'type'=>$item_type,
+            'item_type_text'=>$item_type_text,
+            'title_text'=>$title_text,
+            'list_text'=>$list_text,
+            'list_link'=>$list_link,
+        ]);
+    }
+    // 【地域】返回-编辑-视图
+    public function view_district_edit()
+    {
+        $id = request("id",0);
+        $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.district.district-edit';
+
+        if($id == 0)
+        {
+            return view($view_blade)->with(['operate'=>'create', 'operate_id'=>$id]);
+        }
+        else
+        {
+            $mine = Def_District::with(['parent'])->find($id);
+            if($mine)
+            {
+//                if(!is_numeric($type)) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+                if(!in_array($mine->district_type,[1,2,3,4,11,21,31,41])) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+                $mine->custom = json_decode($mine->custom);
+                $mine->custom2 = json_decode($mine->custom2);
+                $mine->custom3 = json_decode($mine->custom3);
+
+                $item_type = 'item';
+                $item_type_text = '地域';
+                $title_text = '添加'.$item_type_text;
+                $list_text = $item_type_text.'列表';
+                $list_link = '/admin/district/district-list-for-all';
+
+                return view($view_blade)->with([
+                    'operate'=>'edit',
+                    'operate_id'=>$id,
+                    'data'=>$mine,
+                    'category'=>'item',
+                    'type'=>$item_type,
+                    'item_type_text'=>$item_type_text,
+                    'title_text'=>$title_text,
+                    'list_text'=>$list_text,
+                    'list_link'=>$list_link,
+                ]);
+            }
+            else return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+        }
+    }
+    // 【地域】【组织】保存数据
+    public function operate_district_save($post_data)
+    {
+//        dd($post_data);
+        $messages = [
+            'operate.required' => '参数有误',
+            'name.required' => 'name.required',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'name' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+
+        $me = Auth::guard('super')->user();
+        if(!in_array($me->user_category,[0])) return response_error([],"你没有操作权限！");
+
+
+        $operate = $post_data["operate"];
+        $operate_id = $post_data["operate_id"];
+
+        if($operate == 'create') // 添加 ( $id==0，添加一个新用户 )
+        {
+            $mine = new Def_District;
+            $post_data["district_category"] = 1;
+        }
+        else if($operate == 'edit') // 编辑
+        {
+            $mine = Def_District::find($operate_id);
+            if(!$mine) return response_error([],"该地域不存在，刷新页面重试！");
+        }
+        else return response_error([],"参数有误！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            if(!empty($post_data['custom']))
+            {
+                $post_data['custom'] = json_encode($post_data['custom']);
+            }
+
+            $mine_data = $post_data;
+            $mine_data['district_number'] = !empty($post_data['district_number']) ? $post_data['district_number'] : 0;
+            $mine_data['parent_id'] = !empty($post_data['select2_parent_id']) ? $post_data['select2_parent_id'] : 0;
+            unset($mine_data['operate']);
+            unset($mine_data['operate_id']);
+            $bool = $mine->fill($mine_data)->save();
+            if($bool)
+            {
+                // 封面图片
+                if(!empty($post_data["cover"]))
+                {
+                    // 删除原封面图片
+                    $mine_cover_pic = $mine->cover_pic;
+                    if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                    {
+                        unlink(storage_path("resource/" . $mine_cover_pic));
+                    }
+
+                    $result = upload_storage($post_data["cover"],'','doc/common');
+                    if($result["result"])
+                    {
+                        $mine->cover_pic = $result["local"];
+                        $mine->save();
+                    }
+                    else throw new Exception("upload--cover_pic--fail");
+                }
+
+
+            }
+            else throw new Exception("insert--user--fail");
+
+            DB::commit();
+            return response_success(['id'=>$mine->id]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+
+    // 【地域】【全部】返回-列表-视图
+    public function view_district_list_for_all($post_data)
+    {
+        return view(env('TEMPLATE_SUPER_ADMIN').'entrance.district.district-list-for-all')
+            ->with([
+                'sidebar_district_list_active'=>'active',
+                'sidebar_district_list_for_all_active'=>'active'
+            ]);
+    }
+    // 【地域】【全部】返回-列表-数据
+    public function get_district_list_for_all_datatable($post_data)
+    {
+        $me = Auth::guard('super')->user();
+        $query = Def_District::select('*')->withTrashed()
+            ->with(['parent']);
+
+        if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
+        if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
+        if(!empty($post_data['tag'])) $query->where('tag', 'like', "%{$post_data['tag']}%");
+
+        $item_type = isset($post_data['item_type']) ? $post_data['item_type'] : '';
+        if($item_type == "article") $query->where('item_type', 1);
+        else if($item_type == "menu_type") $query->where('item_type', 11);
+        else if($item_type == "time_line") $query->where('item_type', 18);
+        else if($item_type == "debase") $query->where('item_type', 22);
+        else if($item_type == "vote") $query->where('item_type', 29);
+        else if($item_type == "ask") $query->where('item_type', 31);
+
+        $total = $query->count();
+
+        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
+        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
+        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
+
+        if(isset($post_data['order']))
+        {
+            $columns = $post_data['columns'];
+            $order = $post_data['order'][0];
+            $order_column = $order['column'];
+            $order_dir = $order['dir'];
+
+            $field = $columns[$order_column]["data"];
+            $query->orderBy($field, $order_dir);
+        }
+        else $query->orderBy("id", "desc");
+
+        if($limit == -1) $list = $query->get();
+        else $list = $query->skip($skip)->take($limit)->get();
+
+        foreach ($list as $k => $v)
+        {
+//            $list[$k]->description = replace_blank($v->description);
+        }
+//        dd($list->toArray());
+        return datatable_response($list, $draw, $total);
+    }
+
+
+    //
+    public function operate_district_select2_parent($post_data)
+    {
+        $type = $post_data['type'];
+        if($type == 0)$district_type = 0;
+        else if($type == 1)$district_type = 0;
+        else if($type == 2)$district_type = 1;
+        else if($type == 3)$district_type = 2;
+        else if($type == 4)$district_type = 3;
+        else if($type == 21)$district_type = 4;
+        else if($type == 31)$district_type = 21;
+        else if($type == 41)$district_type = 31;
+        else $district_type = 0;
+        if(!is_numeric($type)) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+//        if(!in_array($type,[1,2,3,10,11,88])) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+
+        if(empty($post_data['keyword']))
+        {
+            $list =Def_District::select(['id','name as text'])->where('district_type', $district_type)->get()->toArray();
+        }
+        else
+        {
+            $keyword = "%{$post_data['keyword']}%";
+            $list =Def_District::select(['id','title as text'])->where('district_type', $district_type)->where('name','like',"%$keyword%")->get()->toArray();
+        }
+        return $list;
+    }
 
 
 

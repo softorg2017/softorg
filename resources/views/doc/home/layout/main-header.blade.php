@@ -31,17 +31,17 @@
                                 <i class="fa fa-plus text-red"></i> 添加内容
                             </a>
                         </li>
-                        <li class="header">
+                        <li class="header _none">
                             <a href="{{ url('/org-create') }}">
                                 <i class="fa fa-plus text-red"></i> 添加机构
                             </a>
                         </li>
-                        <li class="header">
+                        <li class="header _none">
                             <a href="{{ url('/menu-create') }}">
                                 <i class="fa fa-plus text-red"></i> 添加目录
                             </a>
                         </li>
-                        <li class="header">
+                        <li class="header _none">
                             <a href="{{ url('/item-create') }}">
                                 <i class="fa fa-plus text-red"></i> 添加内容
                             </a>

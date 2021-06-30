@@ -82,7 +82,7 @@
 
 
 
-            <li class="header"><i class="fa fa-circle-o"></i> 内容管理</li>
+            <li class="header">内容管理</li>
 
             <li class="treeview {{ $sidebar_item_list_for_all_active or '' }}">
                 <a href="{{ url('/admin/item/item-list-for-all')}}">
@@ -100,6 +100,18 @@
                 <a href="{{ url('/admin/item/item-list-for-doc') }}">
                     <i class="fa fa-circle-o text-red"></i>
                     <span>DOC</span>
+                </a>
+            </li>
+
+
+
+
+            <li class="header">地域管理</li>
+
+            <li class="treeview {{ $sidebar_district_list_for_all_active or '' }}">
+                <a href="{{ url('/admin/district/district-list-for-all')}}">
+                    <i class="fa fa-list text-red"></i>
+                    <span>全部地域</span>
                 </a>
             </li>
 

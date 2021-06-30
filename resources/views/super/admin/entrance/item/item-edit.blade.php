@@ -2,7 +2,7 @@
 
 
 @section('head_title')
-    【Super】{{ $title_text }} - 超级管理员系统  - 如未科技
+    【Super】{{ $title_text }}
 @endsection
 
 
@@ -11,7 +11,6 @@
 @section('breadcrumb')
     <li><a href="{{ url('/admin') }}"><i class="fa fa-home"></i>首页</a></li>
     <li><a href="{{ url($list_link) }}"><i class="fa fa-list"></i>{{ $list_text or '内容列表' }}</a></li>
-    <li><a href="#"><i class="fa "></i>Here</a></li>
 @endsection
 
 
@@ -353,7 +352,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "{{ url('/admin/item/item-all-list') }}";
+                        location.href = "{{ url('/admin/item/item-list-for-all') }}";
                     }
                 }
             };
@@ -362,7 +361,7 @@
 
         $('#menus').select2({
             ajax: {
-                url: "{{url('/admin/item/select2_menus')}}",
+                url: "{{ url('/admin/item/select2_menus') }}",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {

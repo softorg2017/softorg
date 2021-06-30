@@ -1,14 +1,13 @@
 @extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
-@section('head_title','【Super】内容列表 - 超级管理员后台系统 - 如未科技')
+@section('head_title','【Super】内容列表')
 
 
 @section('header','')
 @section('description','超级管理员后台系统 - 如未科技')
 @section('breadcrumb')
-    <li><a href="{{url('/admin')}}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="#"><i class="fa "></i>Here</a></li>
+    <li><a href="{{ url('/admin') }}"><i class="fa fa-home"></i>首页</a></li>
 @endsection
 
 

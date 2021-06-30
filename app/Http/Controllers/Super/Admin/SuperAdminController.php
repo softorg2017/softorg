@@ -173,7 +173,7 @@ class SuperAdminController extends Controller
 
 
     /*
-     * ITEM
+     * ITEM 内容
      */
     // 【内容】【全部】返回-列表-视图
     public function view_item_list_for_all()
@@ -181,17 +181,53 @@ class SuperAdminController extends Controller
         if(request()->isMethod('get')) return $this->repo->view_item_list_for_all(request()->all());
         else if(request()->isMethod('post')) return $this->repo->get_item_list_for_all_datatable(request()->all());
     }
-    // 【内容】【全部】返回-列表-视图
+    // 【内容】【原子】返回-列表-视图
     public function view_item_list_for_atom()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_list_for_atom(request()->all());
         else if(request()->isMethod('post')) return $this->repo->get_item_list_for_atom_datatable(request()->all());
     }
-    // 【内容】【全部】返回-列表-视图
+    // 【内容】【轻博】返回-列表-视图
     public function view_item_list_for_doc()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_list_for_doc(request()->all());
         else if(request()->isMethod('post')) return $this->repo->get_item_list_for_doc_datatable(request()->all());
+    }
+
+
+
+
+
+
+
+
+    /*
+     * District 地域管理
+     */
+    // 【地域】添加
+    public function operate_district_create()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_district_create();
+        else if (request()->isMethod('post')) return $this->repo->operate_district_save(request()->all());
+    }
+    // 【地域】编辑
+    public function operate_district_edit()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_district_edit();
+        else if (request()->isMethod('post')) return $this->repo->operate_district_save(request()->all());
+    }
+
+    // 【地域】【全部】返回-列表-视图
+    public function view_district_list_for_all()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_district_list_for_all(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_district_list_for_all_datatable(request()->all());
+    }
+
+    // 【地域】SELECT2
+    public function operate_district_select2_parent()
+    {
+        return $this->repo->operate_district_select2_parent(request()->all());
     }
 
 

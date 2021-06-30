@@ -1,7 +1,7 @@
 @extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
 
-@section('head_title','【Super】原子内容')
+@section('head_title','【Super】全部地域')
 
 
 @section('header','')
@@ -53,6 +53,7 @@
                     <thead>
                         <tr role='row' class='heading'>
                             <th>ID</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -191,7 +192,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/item/item-list-for-atom') }}",
+                    'url': "{{ url('/admin/district/district-list-for-all') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -241,23 +242,46 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "120px",
+                        "className": "text-left-",
+                        "width": "80px",
                         "title": "类型",
                         "data": "item_type",
                         'orderable': false,
                         render: function(data, type, row, meta) {
-                            var $item_type_html = 'item';
-
-                            if(data == 0) $item_type_html = 'item';
-                            else if(data == 1) $item_type_html = '<small class="btn-xs bg-olive">物</small>';
-                            else if(data == 11) $item_type_html = '<small class="btn-xs bg-primary">人</small>';
-                            else if(data == 22) $item_type_html = '<small class="btn-xs bg-orange">作品</small>';
-                            else if(data == 33) $item_type_html = '<small class="btn-xs bg-maroon">事件</small>';
-                            else if(data == 91) $item_type_html = '<small class="btn-xs bg-purple">概念</small>';
-                            else $item_type_html = '<small class="btn-xs bg-black">有误</small>';
-
-                            return $item_type_html;
+                            var $district_type_html = '';
+                            if(row.district_type == 1)
+                            {
+                                $district_type_html = '<small class="btn-xs bg-gery">国家</small>';
+                            }
+                            else if(row.district_type == 2)
+                            {
+                                $district_type_html = '<small class="btn-xs bg-olive">省</small>';
+                            }
+                            else if(row.district_type == 3)
+                            {
+                                $district_type_html = '<small class="btn-xs bg-primary">市</small>';
+                            }
+                            else if(row.district_type == 4)
+                            {
+                                $district_type_html = '<small class="btn-xs bg-purple">区</small>';
+                            }
+                            else if(row.district_type == 21)
+                            {
+                                $district_type_html = '<small class="btn-xs bg-orange">街道</small>';
+                            }
+                            else if(row.district_type == 31)
+                            {
+                                $district_type_html = '<small class="btn-xs bg-maroon">社区</small>';
+                            }
+                            else if(row.district_type == 41)
+                            {
+                                $district_type_html = '<small class="btn-xs bg-teal">住宅小区</small>';
+                            }
+                            else
+                            {
+                                $district_type_html = '<small class="btn-xs bg-black">有误</small>';
+                            }
+                            return $district_type_html;
                         }
                     },
                     {
@@ -267,33 +291,45 @@
                         "data": "name",
                         "orderable": false,
                         render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
+                            return data;
                         }
                     },
                     {
                         "className": "text-left",
-                        "width": "160px",
-                        "title": "发布者",
-                        "data": "owner_id",
+                        "width": "",
+                        "title": "所属",
+                        "data": "parent_id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
-                            return row.owner == null ? '未知' : '<a target="_blank" href="/user/'+row.owner.id+'">'+row.owner.username+'</a>';
+                            return row.parent == null ? '--' : row.parent.name;
                         }
                     },
                     {
-                        "width": "32px",
-                        "title": "浏览",
-                        "data": "visit_num",
-                        "orderable": true,
+                        "className": "text-left",
+                        "width": "64px",
+                        "title": "行政区划代码",
+                        "data": "district_number",
+                        "orderable": false,
                         render: function(data, type, row, meta) {
                             return data;
                         }
                     },
                     {
-                        "width": "32px",
-                        "title": "分享",
-                        "data": "share_num",
-                        "orderable": true,
+                        "className": "text-left",
+                        "width": "64px",
+                        "title": "邮编",
+                        "data": "postcode",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "64px",
+                        "title": "电话区号",
+                        "data": "area_code",
+                        "orderable": false,
                         render: function(data, type, row, meta) {
                             return data;
                         }
@@ -341,33 +377,21 @@
                     {
                         "width": "64px",
                         "title": "状态",
-                        "data": "active",
+                        "data": "district_status",
                         "orderable": false,
                         render: function(data, type, row, meta) {
 //                            return data;
-                            if(row.deleted_at != null)
+                            if(row.district_status == 0)
                             {
-                                return '<small class="btn-xs bg-black">已删除</small>';
+                                return '<small class="btn-xs bg-teal">待发布</small>';
                             }
-
-                            if(row.item_status == 1)
+                            else if(row.district_status == 1)
                             {
-                                if(data == 0)
-                                {
-                                    return '<small class="btn-xs bg-teal">待发布</small>';
-                                }
-                                else if(data == 1)
-                                {
-                                    return '<small class="btn-xs bg-olive">已发布</small>';
-//                                if(row.is_read == 0) return '<small class="btn-xs bg-olive">未读</small>';
-//                                else if(row.is_read == 1) return '<small class="btn-xs bg-primary">已读</small>';
-//                                else return "--";
-                                }
-                                else if(data == 9)
-                                {
-                                    return '<small class="btn-xs bg-purple">已完成</small>';
-                                }
-                                else return "有误";
+                                return '<small class="btn-xs bg-olive">已发布</small>';
+                            }
+                            else if(row.district_status == 9)
+                            {
+                                return '<small class="btn-xs btn-danger">已封禁</small>';
                             }
                             else
                             {
@@ -391,20 +415,10 @@
                                 $html_able = '<a class="btn btn-xs btn-success item-admin-enable-submit" data-id="'+data+'">解禁</a>';
                             }
 
-                            if(row.is_me == 1 && row.active == 0)
-                            {
-                                $html_publish = '<a class="btn btn-xs bg-olive item-publish-submit" data-id="'+data+'">发布</a>';
-                            }
-                            else
-                            {
-                                $html_publish = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">发布</a>';
-                            }
-
                             var html =
                                     $html_able+
 //                                    '<a class="btn btn-xs" href="/item/edit?id='+data+'">编辑</a>'+
                                     '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>'+
-                                    $html_publish+
                                     '<a class="btn btn-xs bg-navy item-admin-delete-submit" data-id="'+data+'">删除</a>'+
                                     '<a class="btn btn-xs bg-navy item-admin-delete-permanently-submit" data-id="'+data+'">永久删除</a>'+
 //                                    '<a class="btn btn-xs bg-primary item-detail-show" data-id="'+data+'">查看详情</a>'+
@@ -490,5 +504,5 @@
         TableDatatablesAjax.init();
     });
 </script>
-@include(env('TEMPLATE_SUPER_ADMIN').'entrance.item.item-script')
+@include(env('TEMPLATE_SUPER_ADMIN').'entrance.district.district-list-script')
 @endsection

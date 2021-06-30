@@ -1,16 +1,18 @@
 <?php
 namespace App\Models\Def;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Def_Notification extends Model
+class Def_District extends Model
 {
+    use SoftDeletes;
     //
-    protected $table = "def_notification";
+    protected $table = "def_district";
     protected $fillable = [
-        'active', 'notification_category', 'notification_type', 'category', 'type', 'sort', 'is_read',
+        'active', 'district_category', 'district_type', 'district_number', 'postcode',  'area_code',
         'owner_id', 'creator_id', 'user_id', 'belong_id', 'source_id', 'object_id', 'parent_id',
-        'item_id', 'communication_id', 'reply_id',
-        'title', 'description', 'ps', 'content'
+        'item_id', 'communication_id',
+        'name', 'title', 'description', 'ps', 'content',
     ];
     protected $dateFormat = 'U';
 
@@ -47,10 +49,21 @@ class Def_Notification extends Model
     }
 
 
+
+
+    // 父节点
+    function parent()
+    {
+        return $this->belongsTo('App\Models\Def\Def_District','parent_id','id');
+    }
+
+
+
+
     // 内容
     function item()
     {
-        return $this->belongsTo('App\Item','item_id','id');
+        return $this->belongsTo('App\Models\Def\Def_Item','item_id','id');
     }
 
     function communication()

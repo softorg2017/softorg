@@ -82,6 +82,32 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 
 
+        /*
+         * district
+         */
+        Route::match(['get','post'], '/district/district-create', $controller.'@operate_district_create');
+        Route::match(['get','post'], '/district/district-edit', $controller.'@operate_district_edit');
+
+        Route::match(['get','post'], '/district/district-list-for-all', $controller.'@view_district_list_for_all');
+
+        Route::match(['get','post'], '/district/district_select2_parent', $controller.'@operate_district_select2_parent');
+
+
+
+
+        /*
+         * statistic
+         */
+        Route::match(['get','post'], '/statistic', $controller.'@view_statistic_index');
+        Route::match(['get','post'], '/statistic/index', $controller.'@view_statistic_index');
+        Route::match(['get','post'], '/statistic/statistic-index', $controller.'@view_statistic_index');
+        Route::match(['get','post'], '/statistic/statistic-user', $controller.'@view_statistic_user');
+        Route::match(['get','post'], '/statistic/statistic-item', $controller.'@view_statistic_item');
+        Route::match(['get','post'], '/statistic/statistic-all-list', $controller.'@view_statistic_all_list');
+
+
+
+
 
 
         Route::match(['get','post'], '/user/user-login', $controller.'@operate_user_user_login');
@@ -99,19 +125,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::match(['get','post'], 'list/article', $controller.'@view_article_list');
         Route::match(['get','post'], 'list/activity', $controller.'@view_activity_list');
         Route::match(['get','post'], 'list/survey', $controller.'@view_survey_list');
-
-
-
-
-        /*
-         * statistic
-         */
-        Route::match(['get','post'], '/statistic', $controller.'@view_statistic_index');
-        Route::match(['get','post'], '/statistic/index', $controller.'@view_statistic_index');
-        Route::match(['get','post'], '/statistic/statistic-index', $controller.'@view_statistic_index');
-        Route::match(['get','post'], '/statistic/statistic-user', $controller.'@view_statistic_user');
-        Route::match(['get','post'], '/statistic/statistic-item', $controller.'@view_statistic_item');
-        Route::match(['get','post'], '/statistic/statistic-all-list', $controller.'@view_statistic_all_list');
 
     });
 
