@@ -260,11 +260,54 @@ class SuperAdminRepository {
     /*
      * USER 用户管理
      */
+    //
+    public function operate_user_select2_district($post_data)
+    {
+//        $type = $post_data['type'];
+//        if($type == 0) $district_type = 0;
+//        else if($type == 1) $district_type = 0;
+//        else if($type == 2) $district_type = 1;
+//        else if($type == 3) $district_type = 2;
+//        else if($type == 4) $district_type = 3;
+//        else if($type == 21) $district_type = 4;
+//        else if($type == 31) $district_type = 21;
+//        else if($type == 41) $district_type = 31;
+//        else $district_type = 0;
+//        if(!is_numeric($type)) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+//        if(!in_array($type,[1,2,3,10,11,88])) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+
+        if(empty($post_data['keyword']))
+        {
+            $list =Def_District::select(['id','name as text'])->get()->toArray();
+        }
+        else
+        {
+            $keyword = "%{$post_data['keyword']}%";
+            $list =Def_District::select(['id','name as text'])->where('name','like',"%$keyword%")->get()->toArray();
+        }
+        return $list;
+    }
+
     // 【用户】返回-添加-视图
     public function view_user_user_create()
     {
+        $item_type = 'item';
+        $item_type_text = '用户';
+        $title_text = '添加'.$item_type_text;
+        $list_text = $item_type_text.'列表';
+        $list_link = '/admin/user/user-list-for-all';
+
         $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-edit';
-        return view($view_blade)->with(['operate'=>'create', 'operate_id'=>0]);
+        return view($view_blade)->with([
+            'operate'=>'create',
+            'operate_id'=>0,
+            'category'=>'item',
+            'type'=>$item_type,
+            'item_type_text'=>$item_type_text,
+            'title_text'=>$title_text,
+            'list_text'=>$list_text,
+            'list_link'=>$list_link,
+        ]);
     }
     // 【用户】返回-编辑-视图
     public function view_user_user_edit()
@@ -272,21 +315,46 @@ class SuperAdminRepository {
         $id = request("id",0);
         $view_blade = env('TEMPLATE_SUPER_ADMIN').'entrance.user.user-edit';
 
+        $item_type = 'item';
+        $item_type_text = '用户';
+        $title_text = '编辑'.$item_type_text;
+        $list_text = $item_type_text.'列表';
+        $list_link = '/admin/user/user-list-for-all';
+
         if($id == 0)
         {
-            return view($view_blade)->with(['operate'=>'create', 'operate_id'=>$id]);
+            return view($view_blade)->with([
+                'operate'=>'create',
+                'operate_id'=>0,
+                'category'=>'item',
+                'type'=>$item_type,
+                'item_type_text'=>$item_type_text,
+                'title_text'=>$title_text,
+                'list_text'=>$list_text,
+                'list_link'=>$list_link,
+            ]);
         }
         else
         {
             $mine = User::with(['parent'])->find($id);
             if($mine)
             {
-                if(!in_array($mine->user_type,[1,9,11,88])) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
+                if(!in_array($mine->user_category,[1,9,11,88])) return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
                 $mine->custom = json_decode($mine->custom);
                 $mine->custom2 = json_decode($mine->custom2);
                 $mine->custom3 = json_decode($mine->custom3);
 
-                return view($view_blade)->with(['operate'=>'edit', 'operate_id'=>$id, 'data'=>$mine]);
+                return view($view_blade)->with([
+                    'operate'=>'edit',
+                    'operate_id'=>$id,
+                    'data'=>$mine,
+                    'category'=>'item',
+                    'type'=>$item_type,
+                    'item_type_text'=>$item_type_text,
+                    'title_text'=>$title_text,
+                    'list_text'=>$list_text,
+                    'list_link'=>$list_link,
+                ]);
             }
             else return view(env('TEMPLATE_SUPER_ADMIN').'errors.404');
         }
@@ -322,9 +390,9 @@ class SuperAdminRepository {
         if($operate == 'create') // 添加 ( $id==0，添加一个新用户 )
         {
             $mine = new User;
-            $post_data["user_category"] = 1;
+            $post_data["user_category"] = 11;
             $post_data["active"] = 1;
-            $post_data["password"] = password_encode("123456");
+            $post_data["password"] = password_encode("12345678");
         }
         else if($operate == 'edit') // 编辑
         {
@@ -343,8 +411,13 @@ class SuperAdminRepository {
             }
 
             $mine_data = $post_data;
+            $mine_data['district_id'] = !empty($post_data['select2_district_id']) ? $post_data['select2_district_id'] : 0;
+
             unset($mine_data['operate']);
             unset($mine_data['operate_id']);
+            unset($mine_data['category']);
+            unset($mine_data['type']);
+
             $bool = $mine->fill($mine_data)->save();
             if($bool)
             {
@@ -553,6 +626,7 @@ class SuperAdminRepository {
     {
         $me = Auth::guard("super")->user();
         $query = User::select('*')
+            ->with(['district'])
             ->whereIn('user_category',[1,9,11]);
 //            ->whereHas('fund', function ($query1) { $query1->where('totalfunds', '>=', 1000); } )
 //            ->with('ep','parent','fund')
@@ -606,6 +680,7 @@ class SuperAdminRepository {
     {
         $me = Auth::guard("super")->user();
         $query = User::select('*')
+            ->with(['district'])
             ->where(['active'=>1,'user_category'=>1,'user_type'=>1]);
 
         if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
@@ -651,6 +726,7 @@ class SuperAdminRepository {
     {
         $me = Auth::guard("super")->user();
         $query = User::select('*')
+            ->with(['district'])
             ->where(['active'=>1,'user_category'=>9]);
 
         if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
@@ -696,6 +772,7 @@ class SuperAdminRepository {
     {
         $me = Auth::guard("super")->user();
         $query = User::select('*')
+            ->with(['district'])
             ->where(['active'=>1,'user_category'=>11]);
 
         if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
@@ -741,6 +818,7 @@ class SuperAdminRepository {
     {
         $me = Auth::guard("super")->user();
         $query = User::select('*')
+            ->with(['district'])
             ->where(['active'=>1,'user_category'=>88]);
 
         if(!empty($post_data['username'])) $query->where('username', 'like', "%{$post_data['username']}%");
@@ -1017,7 +1095,7 @@ class SuperAdminRepository {
 
                 $item_type = 'item';
                 $item_type_text = '地域';
-                $title_text = '添加'.$item_type_text;
+                $title_text = '编辑'.$item_type_text;
                 $list_text = $item_type_text.'列表';
                 $list_link = '/admin/district/district-list-for-all';
 
@@ -1209,7 +1287,7 @@ class SuperAdminRepository {
         else
         {
             $keyword = "%{$post_data['keyword']}%";
-            $list =Def_District::select(['id','title as text'])->where('district_type', $district_type)->where('name','like',"%$keyword%")->get()->toArray();
+            $list =Def_District::select(['id','name as text'])->where('district_type', $district_type)->where('name','like',"%$keyword%")->get()->toArray();
         }
         return $list;
     }

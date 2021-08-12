@@ -34,3 +34,6 @@
 .radio label { width:100%; height:100%; }
 
 .dropdown-menu li a { cursor:pointer; }
+
+.form-horizontal .radio { padding-top:2px; min-height:24px; }
+.form-container .select2-container--classic .select2-selection--single { border-radius:0; }

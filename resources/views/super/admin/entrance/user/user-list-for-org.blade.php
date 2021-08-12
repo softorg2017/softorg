@@ -25,7 +25,7 @@
                     <i class="icon-pin font-blue"></i>
                     <span class="caption-subject font-blue sbold uppercase"></span>
                     <a href="{{ url('/admin/user/user-create') }}">
-                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加组织/赞助商</button>
+                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加组织机构</button>
                     </a>
                 </div>
 
@@ -63,6 +63,7 @@
                     <thead>
                         <tr role='row' class='heading'>
                             <th>ID</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -200,16 +201,6 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width":"",
-                        "title": "组织名称",
-                        "data": "id",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/user/'+data+'">'+row.username+'</a>';
-                        }
-                    },
-                    {
                         "width": "72px",
                         "title": "用户类型",
                         "data": 'user_category',
@@ -221,6 +212,26 @@
                             else if(data == 11) return '<small class="btn-xs bg-purple">组织</small>';
                             else if(data == 88) return '<small class="btn-xs bg-purple">赞助商</small>';
                             else return "有误";
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width":"",
+                        "title": "组织名称",
+                        "data": "id",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return '<a target="_blank" href="{{ env("DOMAIN_WWW") }}/user/'+data+'">'+row.username+'</a>';
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width":"",
+                        "title": "所属地域",
+                        "data": "district_id",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return row.district == null ? '未指定' : '<a target="_blank" href="{{ env("DOMAIN_WWW") }}/district/'+row.district.id+'">'+row.district.name+'</a>';
                         }
                     },
                     {

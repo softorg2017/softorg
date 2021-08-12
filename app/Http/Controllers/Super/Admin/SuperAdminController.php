@@ -61,6 +61,12 @@ class SuperAdminController extends Controller
     /*
      * 用户系统
      */
+    // 【用户】SELECT2 District
+    public function operate_user_select2_district()
+    {
+        return $this->repo->operate_user_select2_district(request()->all());
+    }
+
     // 【用户】添加
     public function operate_user_user_create()
     {

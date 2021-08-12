@@ -365,7 +365,7 @@ class RootIndexRepository {
 
         if($user)
         {
-            if($user->user_category != 1)
+            if(!in_array($user->user_category,[1,9,11,88]))
             {
                 $error["text"] = '该用户拒绝访问！';
                 return view(env('TEMPLATE_ROOT_FRONT').'errors.404')->with('error',$error);

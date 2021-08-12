@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name', 'username', 'nickname', 'true_name', 'description', 'portrait_img', 'tag',
         'mobile', 'telephone', 'email', 'password',
         'wx_unionid',
+        'district_category', 'district_type', 'district_id',
         'introduction_id', 'advertising_id',
         'QQ_number', 'wechat_id', 'wechat_qr_code_img', 'weibo_name', 'weibo_address', 'website',
         'contact_address',
@@ -99,6 +100,12 @@ class User extends Authenticatable
     function introduction()
     {
         return $this->hasOne('App\Models\Def\Def_Item','id','introduction_id');
+    }
+
+    // 广告
+    function district()
+    {
+        return $this->hasOne('App\Models\Def\Def_District','id','district_id');
     }
 
     // 与我相关的内容

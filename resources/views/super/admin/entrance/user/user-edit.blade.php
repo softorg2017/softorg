@@ -1,20 +1,16 @@
 @extends(env('TEMPLATE_SUPER_ADMIN').'layout.layout')
 
-@section('create-text') 添加机构 @endsection
-@section('edit-text') 编辑机构 @endsection
-@section('list-text') 全部机构 @endsection
 
 @section('head_title')
-    @if($operate == 'create') @yield('create-text') @else @yield('edit-text') @endif - 管理员后台 - 如未科技
+    【Super】{{ $title_text }}
 @endsection
 
 
 @section('header','')
-@section('description', '管理员后台-如未科技')
+@section('description', '超级管理员系统-如未科技')
 @section('breadcrumb')
     <li><a href="{{ url('/admin') }}"><i class="fa fa-home"></i>首页</a></li>
-    <li><a href="{{ url('/admin/user/user-all-list') }}"><i class="fa fa-list"></i>@yield('list-text')</a></li>
-    <li><a href="#"><i class="fa "></i>Here</a></li>
+    <li><a href="{{ url($list_link) }}"><i class="fa fa-list"></i>{{ $list_text or '内容列表' }}</a></li>
 @endsection
 
 
@@ -25,7 +21,7 @@
         <div class="box box-info form-container">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">@if($operate == 'create') @yield('create-text') @else @yield('edit-text') @endif</h3>
+                <h3 class="box-title">{{ $title_text or '' }}</h3>
                 <div class="box-tools pull-right">
                 </div>
             </div>
@@ -36,6 +32,8 @@
                 {{csrf_field()}}
                 <input type="hidden" name="operate" value="{{ $operate or '' }}" readonly>
                 <input type="hidden" name="operate_id" value="{{ $operate_id or 0 }}" readonly>
+                <input type="hidden" name="category" value="{{ $category or 'user' }}" readonly>
+                <input type="hidden" name="type" value="{{ $type or 'user' }}" readonly>
 
 
                 {{--类别--}}
@@ -46,30 +44,72 @@
 
                             @if($operate == 'create' || ($operate == 'edit' && $data->user_type == 11))
                             <button type="button" class="btn">
-                                <div class="radio">
+                                <span class="radio">
                                     <label>
-                                        <input type="radio" name="user_type" value="11" checked="checked"> 组织
+                                        <input type="radio" name="user_type" value="11" checked="checked"> 商户
                                         {{--<input type="radio" name="user_type" value=11--}}
                                                {{--@if($operate == 'edit' && $data->user_type == 11) checked="checked" @endif--}}
                                         {{--> 组织--}}
                                     </label>
-                                </div>
+                                </span>
+                            </button>
+                            @endif
+
+                            @if($operate == 'create' || ($operate == 'edit' && $data->user_type == 21))
+                            <button type="button" class="btn">
+                                <span class="radio">
+                                    <label>
+                                        <input type="radio" name="user_type" value="21"
+                                               @if($operate == 'edit' && $data->user_type == 21) checked="checked" @endif
+                                        > 机关单位
+                                    </label>
+                                </span>
+                            </button>
+                            @endif
+
+                            @if($operate == 'create' || ($operate == 'edit' && $data->user_type == 31))
+                            <button type="button" class="btn">
+                                <span class="radio">
+                                    <label>
+                                        <input type="radio" name="user_type" value="31"
+                                           @if($operate == 'edit' && $data->user_type == 31) checked="checked" @endif
+                                        > 事业单位
+                                    </label>
+                                </span>
                             </button>
                             @endif
 
                             @if(($operate == 'create' || $operate == 'edit' && $data->user_type == 88))
                             <button type="button" class="btn">
-                                <div class="radio">
+                                <span class="radio">
                                     <label>
                                         <input type="radio" name="user_type" value="88"
                                            @if($operate == 'edit' && $data->user_type == 88) checked="checked" @endif
                                         > 赞助商
                                     </label>
-                                </div>
+                                </span>
                             </button>
                             @endif
 
                         </div>
+                    </div>
+                </div>
+
+                {{--所属区域--}}
+                <div class="form-group">
+                    <label class="control-label col-md-2">所属区域</label>
+                    <div class="col-md-8 ">
+                        <select class="form-control" name="select2_district_id" id="select2_district">
+                            @if($operate == 'edit')
+                                @if($data->parent)
+                                    <option data-id="{{ $data->district_id }}" value="{{ $data->district_id }}">{{ $data->district->name }}</option>
+                                @else
+                                    <option data-id="0" value="0">未指定</option>
+                                @endif
+                            @elseif($operate == 'create')
+                                <option data-id="0" value="0">未指定</option>
+                            @endif
+                        </select>
                     </div>
                 </div>
 
@@ -449,6 +489,37 @@
             minimumInputLength: 0,
             theme: 'classic'
         });
+
+        $('#select2_district').select2({
+            ajax: {
+                url: "{{ url('/admin/user/user_select2_district') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        type: $("input[name=district_type]:checked").val(), // search term
+                        keyword: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+
+                    params.page = params.page || 1;
+//                    console.log(data);
+                    return {
+                        results: data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            minimumInputLength: 0,
+            theme: 'classic'
+        });
+        {{--$('#select2_parent').val(['{{ $data->parent_id }}']).trigger('change');--}}
 
     });
 </script>

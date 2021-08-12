@@ -58,7 +58,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         /*
          * user
          */
-        Route::match(['get','post'], '/user/select2_user', $controller.'@operate_user_select2_user');
+        Route::match(['get','post'], '/user/user_select2_district', $controller.'@operate_user_select2_district');
 
         Route::match(['get','post'], '/user/user-create', $controller.'@operate_user_user_create');
         Route::match(['get','post'], '/user/user-edit', $controller.'@operate_user_user_edit');
@@ -85,12 +85,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         /*
          * district
          */
+        Route::match(['get','post'], '/district/district_select2_parent', $controller.'@operate_district_select2_parent');
+
         Route::match(['get','post'], '/district/district-create', $controller.'@operate_district_create');
         Route::match(['get','post'], '/district/district-edit', $controller.'@operate_district_edit');
 
         Route::match(['get','post'], '/district/district-list-for-all', $controller.'@view_district_list_for_all');
-
-        Route::match(['get','post'], '/district/district_select2_parent', $controller.'@operate_district_select2_parent');
 
 
 

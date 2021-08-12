@@ -27,6 +27,11 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">
+                            <a href="{{ url('/admin/user/user-create') }}">
+                                <i class="fa fa-plus text-red"></i> 添加用户
+                            </a>
+                        </li>
+                        <li class="header">
                             <a href="{{ url('/admin/district/district-create') }}">
                                 <i class="fa fa-plus text-red"></i> 添加地域
                             </a>

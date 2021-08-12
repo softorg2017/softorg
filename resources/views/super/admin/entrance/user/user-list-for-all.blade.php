@@ -25,7 +25,7 @@
                     <i class="icon-pin font-blue"></i>
                     <span class="caption-subject font-blue sbold uppercase"></span>
                     <a href="{{ url('/admin/user/user-create') }}">
-                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加机构</button>
+                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加组织机构</button>
                     </a>
                 </div>
 
@@ -281,6 +281,27 @@
                         }
                     },
                     {
+                        "width": "80px",
+                        "title": "用户类型",
+                        "data": 'user_category',
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            if(data == 0) return 'item';
+                            else if(data == 1) return '<small class="btn-xs bg-primary">个人用户</small>';
+                            else if(data == 9) return '<small class="btn-xs bg-olive">轻博</small>';
+                            else if(data == 11)
+                            {
+                                if(row.user_type == 0) return '<small class="btn-xs bg-purple">组织</small>';
+                                else if(row.user_type == 11) return '<small class="btn-xs bg-purple">轻企</small>';
+                                else if(row.user_type == 21) return '<small class="btn-xs bg-purple">机关单位</small>';
+                                else if(row.user_type == 31) return '<small class="btn-xs bg-purple">事业单位</small>';
+                                else return '<small class="btn-xs bg-purple">组织</small>';
+                            }
+                            else if(data == 88) return '<small class="btn-xs bg-purple">赞助商</small>';
+                            else return "有误";
+                        }
+                    },
+                    {
                         "className": "text-left",
                         "width": "",
                         "title": "名称",
@@ -298,20 +319,6 @@
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             return '<a target="_blank" href="/user/'+data+'">'+row.true_name+'</a>';
-                        }
-                    },
-                    {
-                        "width": "72px",
-                        "title": "用户类型",
-                        "data": 'user_category',
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-                            if(data == 0) return 'item';
-                            else if(data == 1) return '<small class="btn-xs bg-primary">个人用户</small>';
-                            else if(data == 9) return '<small class="btn-xs bg-olive">轻博</small>';
-                            else if(data == 11) return '<small class="btn-xs bg-purple">轻企</small>';
-                            else if(data == 88) return '<small class="btn-xs bg-purple">赞助商</small>';
-                            else return "有误";
                         }
                     },
                     {
