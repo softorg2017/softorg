@@ -78,9 +78,9 @@ class Kernel extends HttpKernel
         'atom' => \App\Http\Middleware\AtomMiddleware::class,
         'atom.admin' => \App\Http\Middleware\AtomAdminMiddleware::class,
 
-        'notification' => \App\Http\Middleware\NotificationMiddleware::class,
         'login' => \App\Http\Middleware\LoginMiddleware::class,
         'login.turn' => \App\Http\Middleware\TurnToLoginMiddleware::class,
+        'notification' => \App\Http\Middleware\NotificationMiddleware::class,
     ];
 
 

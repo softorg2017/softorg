@@ -45,7 +45,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
     /*
      * 需要登录
      */
-    Route::group(['middleware' => ['login','notification']], function () {
+    Route::group(['middleware' => ['doc','doc.admin']], function () {
 
         $controller = 'DocHomeController';
 
