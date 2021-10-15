@@ -1,4 +1,3 @@
-
 .form-container .form-group {
     margin-bottom: 0;
     padding: 16px 0;
@@ -9,10 +8,9 @@
     padding-bottom: 32px;
     border-top: 0;
 }
+.form-container .select2-container--classic .select2-selection--single { border-radius:0; }
 
-.form-container .radio {
-    /*padding-top: 0;*/
-}
+
 
 
 .fileinput-group .thumbnail {
@@ -35,5 +33,4 @@
 
 .dropdown-menu li a { cursor:pointer; }
 
-.form-horizontal .radio { padding-top:2px; min-height:24px; }
-.form-container .select2-container--classic .select2-selection--single { border-radius:0; }
+.form-horizontal .checkbox, .form-horizontal .radio { padding-top:2px; min-height:24px; }
