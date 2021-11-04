@@ -16,32 +16,124 @@
         <div class="box box-default">
 
             <div class="box-body">
-                <div>
-                    <a target="_blank" class="margin btn btn-sm btn-default">btn-default</a>
-                    <a target="_blank" class="margin btn btn-sm btn-success">btn-success</a>
-                    <a target="_blank" class="margin btn btn-sm btn-warning">btn-warning</a>
-                    <a target="_blank" class="margin btn btn-sm btn-danger">btn-danger</a>
-                    <a target="_blank" class="margin btn btn-sm btn-primary">btn-primary</a>
-                    <a target="_blank" class="margin btn btn-sm btn-info">btn-info</a>
-                </div>
-                <div>
-                    <a target="_blank" class="margin btn btn-sm bg-defult" href="/">bg-default</a>
-                    <a target="_blank" class="margin btn btn-sm bg-success" href="/">bg-success</a>
-                    <a target="_blank" class="margin btn btn-sm bg-warning" href="/">bg-warning</a>
-                    <a target="_blank" class="margin btn btn-sm bg-danger" href="/">bg-danger</a>
-                    <a target="_blank" class="margin btn btn-sm bg-primary" href="/">bg-primary</a>
-                    <a target="_blank" class="margin btn btn-sm bg-info" href="/">bg-info</a>
 
-                    <a target="_blank" class="margin btn btn-sm bg-olive" href="/">bg-olive</a>
-                    <a target="_blank" class="margin btn btn-sm bg-purple" href="/">bg-purple</a>
-                    <a target="_blank" class="margin btn btn-sm bg-orange" href="/">bg-orange</a>
-                    <a target="_blank" class="margin btn btn-sm bg-maroon" href="/">bg-maroon</a>
-                    <a target="_blank" class="margin btn btn-sm bg-teal" href="/">bg-teal</a>
-                    <a target="_blank" class="margin btn btn-sm bg-navy" href="/">bg-navy</a>
-                    <a target="_blank" class="margin btn btn-sm bg-black" href="/">bg-black</a>
-                    <a target="_blank" class="margin btn btn-sm bg-grey" href="/">bg-grey</a>
+                <div> <b>btn</b> </div>
+                <div>
+                    <a target="_blank" class="margin btn btn-sm btn-success">-success</a>
+                    <a target="_blank" class="margin btn btn-sm btn-danger">-danger</a>
+                    <a target="_blank" class="margin btn btn-sm btn-warning">-warning</a>
+                    <a target="_blank" class="margin btn btn-sm btn-info">-info</a>
+                    <a target="_blank" class="margin btn btn-sm btn-primary">-primary 原色/基本的/主要的/初级的</a>
+                    <a target="_blank" class="margin btn btn-sm btn-error">-error</a>
+                    <a target="_blank" class="margin btn btn-sm btn-default">-default</a>
                 </div>
+                <div> <b>label</b> </div>
+                <div>
+                    <a target="_blank" class="margin btn btn-sm label-success">-success</a>
+                    <a target="_blank" class="margin btn btn-sm label-danger">-danger</a>
+                    <a target="_blank" class="margin btn btn-sm label-warning">-warning</a>
+                    <a target="_blank" class="margin btn btn-sm label-info">-info</a>
+                    <a target="_blank" class="margin btn btn-sm label-primary">-primary 原色/基本的/主要的/初级的</a>
+                    <a target="_blank" class="margin btn btn-sm label-error">-error</a>
+                </div>
+                <div> <b>alert</b> </div>
+                <div>
+                    <a target="_blank" class="margin btn btn-sm alert-success">-success</a>
+                    <a target="_blank" class="margin btn btn-sm alert-danger">-danger</a>
+                    <a target="_blank" class="margin btn btn-sm alert-warning">-warning</a>
+                    <a target="_blank" class="margin btn btn-sm alert-info">-info</a>
+                    <a target="_blank" class="margin btn btn-sm alert-primary">-primary 原色/基本的/主要的/初级的</a>
+                    <a target="_blank" class="margin btn btn-sm alert-error">-error</a>
+                </div>
+                <div> <b>callout</b> </div>
+                <div>
+                    <a target="_blank" class="margin btn btn-sm callout callout-success">-success</a>
+                    <a target="_blank" class="margin btn btn-sm callout callout-danger">-danger</a>
+                    <a target="_blank" class="margin btn btn-sm callout callout-warning">-warning</a>
+                    <a target="_blank" class="margin btn btn-sm callout callout-info">-info</a>
+                    <a target="_blank" class="margin btn btn-sm callout callout-primary">-primary 原色/基本的/主要的/初级的</a>
+                    <a target="_blank" class="margin btn btn-sm callout callout-error">-error</a>
+                </div>
+                <div> <b>bg</b> </div>
+                <div>
+                    <a target="_blank" class="margin btn btn-sm bg-success">-success</a>
+                    <a target="_blank" class="margin btn btn-sm bg-danger">-danger</a>
+                    <a target="_blank" class="margin btn btn-sm bg-warning">-warning</a>
+                    <a target="_blank" class="margin btn btn-sm bg-info">-info</a>
+                    <a target="_blank" class="margin btn btn-sm bg-primary">-primary 原色/基本的/主要的/初级的</a>
+                    <a target="_blank" class="margin btn btn-sm bg-error">-error</a>
+                    <a target="_blank" class="margin btn btn-sm bg-default">-default</a>
+                </div>
+                <div>
+                    <a target="_blank" class="margin btn btn-sm bg-red">-red</a>
+                    <a target="_blank" class="margin btn btn-sm bg-maroon">-maroon 褐红</a>
+                    <a target="_blank" class="margin btn btn-sm bg-fuchsia">-fuchsia 紫红</a>
+                    <a target="_blank" class="margin btn btn-sm bg-orange">-orange</a>
+                    <a target="_blank" class="margin btn btn-sm bg-yellow">-yellow</a>
+                    <a target="_blank" class="margin btn btn-sm bg-blue">-blue</a>
+                    <a target="_blank" class="margin btn btn-sm bg-light-blue">-light-blue</a>
+                    <a target="_blank" class="margin btn btn-sm bg-aqua">-aqua 浅绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-teal">-teal 青/蓝绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-green">-green</a>
+                    <a target="_blank" class="margin btn btn-sm bg-olive">-olive 橄榄绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-lime">-lime 酸橙绿/淡黄绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-purple">-purple</a>
+                    <a target="_blank" class="margin btn btn-sm bg-navy">-navy 深蓝</a>
+                    <a target="_blank" class="margin btn btn-sm bg-black">-black</a>
+                    <a target="_blank" class="margin btn btn-sm bg-grey">-grey</a>
+                    <a target="_blank" class="margin btn btn-sm bg-gray">-gray</a>
+                </div>
+                <div> <b>bg-xx-active</b> </div>
+                <div>
+                    <a target="_blank" class="margin btn btn-sm bg-red-active">-red</a>
+                    <a target="_blank" class="margin btn btn-sm bg-maroon-active">-maroon 褐红</a>
+                    <a target="_blank" class="margin btn btn-sm bg-fuchsia-active">-fuchsia 紫红</a>
+                    <a target="_blank" class="margin btn btn-sm bg-orange-active">-orange</a>
+                    <a target="_blank" class="margin btn btn-sm bg-yellow-active">-yellow</a>
+                    <a target="_blank" class="margin btn btn-sm bg-blue-active">-blue</a>
+                    <a target="_blank" class="margin btn btn-sm bg-light-blue-active">-light-blue</a>
+                    <a target="_blank" class="margin btn btn-sm bg-aqua-active">-aqua 浅绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-teal-active">-teal 青/蓝绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-green-active">-green</a>
+                    <a target="_blank" class="margin btn btn-sm bg-olive-active">-olive 橄榄绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-lime-active">-lime 酸橙绿/淡黄绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-purple-active">-purple</a>
+                    <a target="_blank" class="margin btn btn-sm bg-navy-active">-navy 深蓝</a>
+                    <a target="_blank" class="margin btn btn-sm bg-black-active">-black</a>
+                    <a target="_blank" class="margin btn btn-sm bg-grey-active">-grey</a>
+                    <a target="_blank" class="margin btn btn-sm bg-gray-active">-gray</a>
+                </div>
+                <div> <b>bg-xx-gradient 渐变</b> </div>
+                <div>
+                    <a target="_blank" class="margin btn btn-sm bg-red-gradient">-red</a>
+                    <a target="_blank" class="margin btn btn-sm bg-maroon-gradient">-maroon 褐红</a>
+                    <a target="_blank" class="margin btn btn-sm bg-fuchsia-gradient">-fuchsia 紫红</a>
+                    <a target="_blank" class="margin btn btn-sm bg-orange-gradient">-orange</a>
+                    <a target="_blank" class="margin btn btn-sm bg-yellow-gradient">-yellow</a>
+                    <a target="_blank" class="margin btn btn-sm bg-blue-gradient">-blue</a>
+                    <a target="_blank" class="margin btn btn-sm bg-light-blue-gradient">-light-blue</a>
+                    <a target="_blank" class="margin btn btn-sm bg-aqua-gradient">-aqua 浅绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-teal-gradient">-teal 青/蓝绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-green-gradient">-green</a>
+                    <a target="_blank" class="margin btn btn-sm bg-olive-gradient">-olive 橄榄绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-lime-gradient">-lime 酸橙绿/淡黄绿</a>
+                    <a target="_blank" class="margin btn btn-sm bg-purple-gradient">-purple</a>
+                    <a target="_blank" class="margin btn btn-sm bg-navy-gradient">-navy 深蓝</a>
+                    <a target="_blank" class="margin btn btn-sm bg-black-gradient">-black</a>
+                    <a target="_blank" class="margin btn btn-sm bg-grey-gradient">-grey</a>
+                    <a target="_blank" class="margin btn btn-sm bg-gray-gradient">-gray</a>
+                </div>
+
             </div>
+
+
+            .modal-primary .modal-body, .modal-primary .modal-header, .modal-primary .modal-footer,
+            .modal-warning .modal-body, .modal-warning .modal-header, .modal-warning .modal-footer,
+            .modal-info .modal-body, .modal-info .modal-header, .modal-info .modal-footer,
+            .modal-success .modal-body, .modal-success .modal-header, .modal-success .modal-footer,
+            .modal-danger .modal-body, .modal-danger .modal-header, .modal-danger .modal-footer
+
+
 
 
             <div class="box-header with-border">
