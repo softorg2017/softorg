@@ -2,6 +2,7 @@ html { overflow-x:hidden; }
 body {
     font:14px Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
     overflow-x:hidden;
+    background:url('/common/images/bg/bg.gif') repeat;
 }
 
 

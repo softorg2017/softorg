@@ -11,7 +11,7 @@
         <div class="navbar-custom-menu" style="height:50px;line-height:50px;margin-left:8px;float:left;">
             <a href="{{ url('/') }}">
                 <span class="logo-big hidden-xs">
-                    <img src="{{ asset('/favicon_white_0.png') }}" class="img-icon" alt="Image">
+                    <img src="{{ asset('/favicon.png') }}" class="img-icon" alt="Image">
                     <b class="hidden-xs">首页</b>
                 </span>
                 <span class="logo-big visible-xs">

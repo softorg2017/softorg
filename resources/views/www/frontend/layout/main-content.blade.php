@@ -1,7 +1,7 @@
 {{--<!-- Content Wrapper. Contains page content -->--}}
-<div class="content-wrapper main-body" style="margin-left:0;background:url(/bg.gif) repeat;">
+<div class="content-wrapper main-body">
     <!-- Content Header (Page header) -->
-    <section class="content-header" style="display:none;">
+    <section class="content-header _none">
         <h1>
             @yield('header')
             <small>@yield('description')</small>

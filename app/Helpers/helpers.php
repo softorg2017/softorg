@@ -500,7 +500,8 @@ if(!function_exists('get_html_video')){
 /**
  * 上传文件
  */
-if (!function_exists('upload')) {
+if (!function_exists('upload'))
+{
     function upload($file, $saveFolder, $patch = 'research')
     {
         $allowedExtensions = [
@@ -512,7 +513,8 @@ if (!function_exists('upload')) {
         $extension = $file->getClientOriginalExtension();
 
         /*判断后缀是否合法*/
-        if (in_array($extension, $allowedExtensions)) {
+        if (in_array($extension, $allowedExtensions))
+        {
             $image = Image::make($file);
             /*保存图片*/
             $date = date('Y-m-d');
@@ -524,7 +526,8 @@ EOF;
 $patch/$saveFolder/$date/
 EOF;
             $path = public_path($upload_path);
-            if (!is_dir($path)) {
+            if (!is_dir($path))
+            {
                 mkdir($path, 0766, true);
             }
             $filename = uniqid() . time() . '.' . $extension;
@@ -535,7 +538,9 @@ EOF;
                 'local' => $mysql_save_path . $filename,
                 'extension' => $extension,
             ];
-        } else {
+        }
+        else
+        {
             $returnData = [
                 'result' => false,
                 'msg' => '上传图片格式不正确',
@@ -545,7 +550,8 @@ EOF;
     }
 }
 
-if (!function_exists('upload_storage')) {
+if (!function_exists('upload_storage'))
+{
     function upload_storage($file, $filename = '', $saveFolder = 'research/common', $folderType = 'date')
     {
         $allowedExtensions = [
@@ -557,9 +563,12 @@ if (!function_exists('upload_storage')) {
         $extension = $file->getClientOriginalExtension();
 
         /*判断后缀是否合法*/
-        if (in_array(strtolower($extension), $allowedExtensions)) {
+        if (in_array(strtolower($extension), $allowedExtensions))
+        {
             $image = Image::make($file);
+
             /*保存图片*/
+            if($saveFolder === null) $saveFolder = 'research/common';
             if($folderType == 'assign')
             {
                 $upload_path = <<<EOF
@@ -579,8 +588,10 @@ EOF;
 $saveFolder/$date/
 EOF;
             }
+
             $path = storage_path($upload_path);
-            if (!is_dir($path)) {
+            if (!is_dir($path))
+            {
                 mkdir($path, 0777, true);
             }
             if($filename == '') $filename = uniqid() . time() . '.' . $extension;
@@ -593,7 +604,9 @@ EOF;
                 'local' => $mysql_save_path . $filename,
                 'extension' => $extension,
             ];
-        } else {
+        }
+        else
+        {
             $returnData = [
                 'result' => false,
                 'msg' => '上传图片格式不正确',
@@ -603,21 +616,22 @@ EOF;
     }
 }
 
-if (!function_exists('upload_img_storage')) {
+if (!function_exists('upload_img_storage'))
+{
     function upload_img_storage($file, $filename = '', $saveFolder = 'research/common', $folderType = 'date')
     {
         $allowedExtensions = [
-            'txt', 'pdf', 'csv',
             'png', 'jpg', 'jpeg', 'gif', "PNG", "JPG", "JPEG", "GIF",
-            'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx',
-            'wps', 'dps', 'et',
         ];
         $extension = $file->getClientOriginalExtension();
 
         /*判断后缀是否合法*/
-        if (in_array(strtolower($extension), $allowedExtensions)) {
+        if (in_array(strtolower($extension), $allowedExtensions))
+        {
             $image = Image::make($file);
+
             /*保存图片*/
+            if($saveFolder === null) $saveFolder = 'research/common';
             if($folderType == 'assign')
             {
                 $upload_path = <<<EOF
@@ -637,8 +651,10 @@ EOF;
 $saveFolder/$date/
 EOF;
             }
+
             $path = storage_path($upload_path);
-            if (!is_dir($path)) {
+            if (!is_dir($path))
+            {
                 mkdir($path, 0777, true);
             }
             if($filename == '') $filename = uniqid() . time() . '.' . $extension;
@@ -651,7 +667,9 @@ EOF;
                 'local' => $mysql_save_path . $filename,
                 'extension' => $extension,
             ];
-        } else {
+        }
+        else
+        {
             $returnData = [
                 'result' => false,
                 'msg' => '上传图片格式不正确',
@@ -661,8 +679,9 @@ EOF;
     }
 }
 
-if (!function_exists('upload_file_storage')) {
-    function upload_file_storage($file, $filename = '', $saveFolder = 'research/common')
+if (!function_exists('upload_file_storage'))
+{
+    function upload_file_storage($file, $filename = '', $saveFolder = 'research/common', $folderType = 'date')
     {
         $allowedExtensions = [
             'txt', 'pdf', 'csv',
@@ -673,18 +692,33 @@ if (!function_exists('upload_file_storage')) {
         $extension = $file->getClientOriginalExtension();
 
         /*判断后缀是否合法*/
-        if (in_array(strtolower($extension), $allowedExtensions)) {
+        if (in_array(strtolower($extension), $allowedExtensions))
+        {
             /*保存文件*/
-            $date = date('Y-m-d');
-            $upload_path = <<<EOF
+            if($saveFolder === null) $saveFolder = 'research/common';
+            if($folderType == 'assign')
+            {
+                $upload_path = <<<EOF
+resource/$saveFolder/
+EOF;
+                $mysql_save_path = <<<EOF
+$saveFolder/
+EOF;
+            }
+            else
+            {
+                $date = date('Y-m-d');
+                $upload_path = <<<EOF
 resource/$saveFolder/$date/
 EOF;
-
-            $mysql_save_path = <<<EOF
+                $mysql_save_path = <<<EOF
 $saveFolder/$date/
 EOF;
+            }
+
             $path = storage_path($upload_path);
-            if (!is_dir($path)) {
+            if (!is_dir($path))
+            {
                 mkdir($path, 0766, true);
             }
             if($filename == '') $filename = uniqid() . time() . '.' . $extension;
@@ -700,52 +734,12 @@ EOF;
                 'name' => $clientName,
                 'extension' => $extension,
             ];
-        } else {
+        }
+        else
+        {
             $returnData = [
                 'result' => false,
                 'msg' => '上传文件格式不正确',
-            ];
-        }
-        return $returnData;
-    }
-}
-
-if (!function_exists('upload_s')) {
-    function upload_s($file, $saveFolder, $patch = 'research')
-    {
-        $allowedExtensions = [
-            'jpg', 'jpeg', 'png', 'csv',
-        ];
-        $extension = $file->getClientOriginalExtension();
-
-        /*判断后缀是否合法*/
-        if (in_array(strtolower($extension), $allowedExtensions)) {
-            $image = Image::make($file);
-            /*保存图片*/
-            $date = date('Y-m-d');
-            $upload_path = <<<EOF
-resource/$patch/$saveFolder/$date/
-EOF;
-
-            $mysql_save_path = <<<EOF
-$patch/$saveFolder/$date/
-EOF;
-            $path = storage_path($upload_path);
-            if (!is_dir($path)) {
-                mkdir($path, 0766, true);
-            }
-            $filename = uniqid() . time() . '.' . $extension;
-            $image->save($path . $filename);
-            $returnData = [
-                'result' => true,
-                'msg' => '上传成功',
-                'local' => $mysql_save_path . $filename,
-                'extension' => $extension,
-            ];
-        } else {
-            $returnData = [
-                'result' => false,
-                'msg' => '上传图片格式不正确',
             ];
         }
         return $returnData;
@@ -791,8 +785,8 @@ if (!function_exists('commonUpload'))
     }
 }
 
-if (! function_exists('storage_path')) {
-
+if (! function_exists('storage_path'))
+{
     function storage_path($path = '')
     {
         return app('path.storage').($path ? DIRECTORY_SEPARATOR.$path : $path);
