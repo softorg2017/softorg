@@ -3,7 +3,7 @@
 /*
  * 原子系统
  */
-Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 
     App::setLocale("zh");
@@ -79,6 +79,8 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     });
 
     $controller = "AtomIndexController";
+
+    Route::get('/', $controller.'@view_root');
 
 
 });

@@ -321,7 +321,7 @@
   background-color: #ffffff;
 }
 .skin-black .main-header .navbar .nav > li > a {
-  color: #333333;
+  color: #eee;
 }
 .skin-black .main-header .navbar .nav > li > a:hover,
 .skin-black .main-header .navbar .nav > li > a:active,
@@ -349,7 +349,7 @@
 }
 .skin-black .main-header .navbar .navbar-custom-menu .navbar-nav > li > a,
 .skin-black .main-header .navbar .navbar-right > li > a {
-  border-left: 1px solid #eee;
+  /*border-left: 1px solid #eee;*/
   border-right-width: 0;
 }
 .skin-black .main-header > .logo {

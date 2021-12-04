@@ -2,7 +2,7 @@
 
 
 {{--html.head--}}
-@section('head_title') 【GPS】developing @endsection
+@section('head_title') 【G】developing @endsection
 @section('meta_author')@endsection
 @section('meta_title')@endsection
 @section('meta_description')@endsection
@@ -25,7 +25,7 @@
 
 
 {{--custom-content--}}
-@section('custom-content')
+@section('content')
 
     {{--banner--}}
     @include(env('TEMPLATE_GPS').'developing.component.banner-for-root')
@@ -73,9 +73,6 @@
 
 {{--custom-css&style--}}
 @section('custom-css')
-    <link rel="stylesheet" href="/templates/jiaoben2806/css/bellows.css">
-    <link rel="stylesheet" href="/templates/jiaoben2806/css/bellows-theme.css">
-    {{--<link rel="stylesheet" href="/templates/jiaoben2806/css/main.css">--}}
 @endsection
 @section('custom-style')
 <style>
@@ -87,9 +84,6 @@
 
 {{--custom-js&script--}}
 @section('custom-js')
-    <script src="/templates/jiaoben2806/js/highlight.pack.js"></script>
-    <script src="/templates/jiaoben2806/js/velocity.min.js"></script>
-    <script src="/templates/jiaoben2806/js/bellows.js"></script>
 @endsection
 @section('custom-script')
 <script>

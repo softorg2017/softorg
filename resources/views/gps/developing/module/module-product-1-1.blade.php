@@ -14,7 +14,7 @@
                 <div class="item-col col-lg-3 col-md-4 col-sm-6 col-xs-6" style="display: table-cell;">
                     <div class="item-container">
 
-                        <figure class="image-container padding-top-3-4">
+                        <figure class="image-container padding-top-2-5">
                             <div class="image-box">
                                 <a class="clearfix zoom-" target="_blank"  href="{{ url('/item/'.$v->id) }}">
                                     <img class="grow" data-action="zoom-" src="{{ url(env('DOMAIN_CDN').'/'.$v->cover_pic) }}" alt="Property Image">

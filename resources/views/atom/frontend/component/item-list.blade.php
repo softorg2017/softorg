@@ -1,17 +1,72 @@
 @foreach($item_list as $num => $item)
-<div class="a-piece item-piece item-option radius-4px {{ $getType or 'items' }}"
-     data-item="{{ $item->id or 0}}"
+<div class="item-piece item-option padding-16px radius-4px border-color-1 {{ $getType or 'item' }}"
      data-id="{{ $item->id or 0}}"
      data-item-id="{{ $item->id or 0}}"
-     data-getType="{{ $getType or 'items' }}"
+     data-getType="{{ $getType or 'item' }}"
 >
 
-    <div class="item-container bg-white">
+
+    {{--<a class="zoom- clearfix" target="_blank" href="{{ url('/item/'.$item->id) }}">--}}
+        <div class="item-container model-left-right image-right bg-grey-f5-">
+
+            <figure class="title-container">
+                <div class="text-box">
+                    <span class="multi-ellipsis-2"><b>{{ $item->name or '' }}</b></span>
+                </div>
+            </figure>
+
+            {{--@if(file_exists(env('DOMAIN_CDN').'/'.$item->cover_pic))--}}
+            @if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic))
+            <figure class="image-container pull-right">
+                <div class="image-box">
+                    <img data-action="zoom" src="{{ env('DOMAIN_CDN').'/'.$item->cover_pic }}" alt="Property Image">
+                    {{--<span class="btn btn-warning">热销中</span>--}}
+                </div>
+            </figure>
+            @endif
+
+            <figure class="text-container pull-left @if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic)) with-image @else without-image @endif">
+                <div class="text-box">
+                    {{--<div class="text-title-row multi-ellipsis-2">--}}
+                        {{--<span class="multi-ellipsis-2"><b>{{ $item->name or '' }}</b></span>--}}
+                    {{--</div>--}}
+                    <div class="text-description-row">
+                        <div class="row-md">
+                            <span>租金: <i class="fa fa-cny"></i></span>
+                            <span class="">{{ $item->description or '' }} {{ $item->name or '' }}</span>
+                        </div>
+                        <div class="row-md">
+                            <span>租金: <i class="fa fa-cny"></i></span>
+                            <span class="color-red _bold">{{ $item->custom->price or '' }}</span>
+                        </div>
+                        <div class="row-md">
+                            <span>押金: <i class="fa fa-cny"></i> 123</span>
+                            <span><i class="fa fa-share-alt"></i> 1468</span>
+                            <span><i class="fa fa-star"></i> 560</span>
+                        </div>
+                        <div class="row-md">
+                            <a href="{{ url('/user/'.$item->owner->id) }}">
+                                {{ $item->owner->username or '' }}
+                            </a>
+                            <span>{{ date_show($item->updated_at->timestamp) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </figure>
+
+        </div>
+    {{--</a>--}}
 
 
-        <figure class="text-container clearfix">
+
+
+
+    <div class="item-container bg-white _none">
+
+
+        <figure class="text-container clearfix _none">
             <div class="text-box">
-                <div class="text-title-row multi-ellipsis-1">
+                <div class="text-title-row- multi-ellipsis-1">
                     <a href="{{ url('/user/'.$item->owner->id) }}" style="color:#ff7676;font-size:13px;">
                         <span class="item-user-portrait">
                             {{--<img src="/common/images/bg/background-image.png" data-src="{{ url(env('DOMAIN_CDN').'/'.$item->owner->portrait_img) }}" alt="">--}}
@@ -19,15 +74,15 @@
                         </span>
                         {{ $item->owner->username or '' }}
                     </a>
-{{--                    <span class="text-muted disabled pull-right"><small>{{ date_show($item->updated_at->timestamp) }}</small></span>--}}
-                    <span class="text-muted disabled pull-right"><small>{{ date_show($item->published_at) }}</small></span>
+                    <span class="text-muted disabled pull-right"><small>{{ date_show($item->updated_at->timestamp) }}</small></span>
+                    {{--<span class="text-muted disabled pull-right"><small>{{ date_show($item->published_at) }}</small></span>--}}
                 </div>
             </div>
         </figure>
 
 
         @if(!empty($item->cover_pic))
-        <figure class="image-container padding-top-2-5">
+        <figure class="image-container padding-top-1-5">
             <div class="image-box">
                 <a class="clearfix zoom-" target="_self" href="{{ url('/item/'.$item->id) }}">
                     {{--<img class="grow" src="/common/images/bg/background-image.png" data-src="{{ env('DOMAIN_CDN').'/'.$item->cover_pic }}" alt="Cover">--}}
@@ -55,11 +110,14 @@
         @endif
 
 
+        {{--内容主体--}}
         <figure class="text-container clearfix">
-            <div class="text-box with-border-top">
 
-                <div class="text-row text-title-row multi-ellipsis-1 margin-top-4px margin-bottom-4px">
-                    <a href="{{ url('/item/'.$item->id) }}"><b>{{ $item->title or '' }}</b></a>
+
+            <div class="text-box with-border-top-">
+
+                <div class="text-row text-title-row- multi-ellipsis-1 margin-top-4px margin-bottom-4px">
+                    <a href="{{ url('/item/'.$item->id) }}"><b>{{ $item->name or '' }}</b></a>
                 </div>
 
                 @if(empty($item->cover_pic))
@@ -89,38 +147,47 @@
 
             </div>
 
+            {{--工具栏--}}
             <div class="text-box with-border-top clearfix">
 
                 <div class="text-row text-tool-row">
 
+                    <a href="{{ url('/user/'.$item->owner->id) }}" style="color:#ff7676;font-size:13px;">
+                        <span class="item-user-portrait">
+                            {{--<img src="/common/images/bg/background-image.png" data-src="{{ url(env('DOMAIN_CDN').'/'.$item->owner->portrait_img) }}" alt="">--}}
+                            <img src="{{ url(env('DOMAIN_CDN').'/'.$item->owner->portrait_img) }}" alt="">
+                        </span>
+                        {{ $item->owner->username or '' }}
+                    </a>
+
                     {{--浏览--}}
                     <a class="tool-button" href="{{ url('/item/'.$item->id) }}" role="button">
                         <span>
-                            <i class="fa fa-eye"></i> @if($item->visit_num){{ $item->visit_num }} @endif
+                            <i class="icon ion-eye"></i> @if($item->visit_num){{ $item->visit_num }} @endif
                         </span>
                     </a>
 
                     {{--点赞&$收藏--}}
-                    <small class="tool-button operate-btn favor-btn" data-num="{{ $item->favor_num or 0 }}" role="button">
-                    @if(Auth::check())
-                            @if($item->pivot_item_relation->contains('relation_type', 1))
-                            <a class="remove-this-favor">
-                                <i class="fa fa-heart text-red"></i>
-                                <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
-                            </a>
-                            @else
-                                <a class="add-this-favor">
-                                <i class="fa fa-heart-o"></i>
-                                <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
-                            </a>
-                            @endif
-                        @else
-                            <a class="add-this-favor">
-                            <i class="fa fa-heart-o"></i>
-                            <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
-                        </a>
-                        @endif
-                    </small>
+                    {{--<small class="tool-button operate-btn favor-btn" data-num="{{ $item->favor_num or 0 }}" role="button">--}}
+                    {{--@if(Auth::check())--}}
+                            {{--@if($item->pivot_item_relation->contains('relation_type', 1))--}}
+                            {{--<a class="remove-this-favor">--}}
+                                {{--<i class="fa fa-heart text-red"></i>--}}
+                                {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
+                            {{--</a>--}}
+                            {{--@else--}}
+                                {{--<a class="add-this-favor">--}}
+                                {{--<i class="fa fa-heart-o"></i>--}}
+                                {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
+                            {{--</a>--}}
+                            {{--@endif--}}
+                        {{--@else--}}
+                            {{--<a class="add-this-favor">--}}
+                            {{--<i class="fa fa-heart-o"></i>--}}
+                            {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
+                        {{--</a>--}}
+                        {{--@endif--}}
+                    {{--</small>--}}
 
                     {{--分享--}}
                     <a class="tool-button _none" role="button">
@@ -130,7 +197,7 @@
                     {{--评论--}}
                     <a class="tool-button comment-toggle" href="{{ url('/item/'.$item->id) }}" role="button">
                         <span>
-                            <i class="fa fa-commenting-o"></i> @if($item->comment_num) {{ $item->comment_num }} @endif
+                            <i class="icon ion-android-textsms"></i> @if($item->comment_num) {{ $item->comment_num }} @endif
                         </span>
                     </a>
 
@@ -229,26 +296,26 @@
             </a>
 
             {{--点赞&$收藏--}}
-            <span class="tool-button operate-btn favor-btn" data-num="{{ $item->favor_num or 0 }}" role="button">
-                @if(Auth::check())
-                    @if($item->pivot_item_relation->contains('relation_type', 1))
-                        <a class="remove-this-favor">
-                            <i class="fa fa-heart text-red"></i>
-                            <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
-                        </a>
-                    @else
-                        <a class="add-this-favor">
-                            <i class="fa fa-heart-o"></i>
-                            <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
-                        </a>
-                    @endif
-                @else
-                    <a class="add-this-favor">
-                        <i class="fa fa-heart-o"></i>
-                        <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
-                    </a>
-                @endif
-            </span>
+            {{--<span class="tool-button operate-btn favor-btn" data-num="{{ $item->favor_num or 0 }}" role="button">--}}
+                {{--@if(Auth::check())--}}
+                    {{--@if($item->pivot_item_relation->contains('relation_type', 1))--}}
+                        {{--<a class="remove-this-favor">--}}
+                            {{--<i class="fa fa-heart text-red"></i>--}}
+                            {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
+                        {{--</a>--}}
+                    {{--@else--}}
+                        {{--<a class="add-this-favor">--}}
+                            {{--<i class="fa fa-heart-o"></i>--}}
+                            {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
+                        {{--</a>--}}
+                    {{--@endif--}}
+                {{--@else--}}
+                    {{--<a class="add-this-favor">--}}
+                        {{--<i class="fa fa-heart-o"></i>--}}
+                        {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
+                    {{--</a>--}}
+                {{--@endif--}}
+            {{--</span>--}}
 
             {{--分享--}}
             <a class="tool-button _none" role="button">

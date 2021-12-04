@@ -24,8 +24,3 @@ Route::group(['prefix' => 'style'], function () {
 
 });
 
-
-
-
-
-

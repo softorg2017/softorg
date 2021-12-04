@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="nav-bar-wrapper fixed">
+            <div class="content-wrapper">
+                <div class="nav-bar-fixed">
+                    <div class="top-navBar" :class="{'up': isUp}">
+                        <div class="nav-bar-content">
+                            <div class="content-wrapper flex-sb">
+                                <h1 class="logo">
+                                    <a href="" title="webrabbit博客1">
+                                        <img src="" alt="webrabbit博客1">
+                                    </a>
+                                </h1>
+                                <div class="nav-bar-item">
+                                    <ul>
+                                        <li><a href="">首页1</a></li>
+                                        <li><a href="">webrabbit开源博客</a></li>
+                                        <li><a href="/">IT技术笔记</a></li>
+                                        <li><a href="/">其他分享</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav-bar-content">
+                            <div class="content-wrapper flex-sb">
+                                <h1 class="logo">
+                                    <a href="/" title="webrabbit博客2">
+                                        <img src="" alt="webrabbit博客2">
+                                    </a>
+                                </h1>
+                                <div class="nav-bar-item">
+                                    <ul>
+                                        <li><a href="">首页2</a></li>
+                                        <li><a href="">webrabbit开源博客</a></li>
+                                        <li><a href="/">IT技术笔记</a></li>
+                                        <li><a href="/">其他分享</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-main">
+            滚动一下试试
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+            isUp: false, // 判断是否是向上滚动
+            changeUpDir: 0, // 设置从向下滚动到向上滚动时的位置（距离滚动条顶部）
+            changeDownDir: 0 // 设置从向上滚动到向下滚动时的位置（距离滚动条顶部）
+            }
+        },
+        mounted() {
+            const _this = this
+            let scrollTop = 0 // 初始化滚动条为位置为0
+            let topValue = this.getScrollTop() // 设置一个标识位，即复制一个滚动条位置，但是这个位置获取的时间比 scrollTop慢，
+            document.onscroll = function() {
+            scrollTop = _this.getScrollTop() // 滚动条的位置
+            if (scrollTop <= topValue) {  // 当后者滚动条大于前者滚动条时，即认为滚动条向上运动，但是我们设置一个临界值，当大于这个临界值时，即认为是用户有意向上滚动
+                _this.changeUpDir = scrollTop //  changeUpDir 这个是 刚好从向下滚动到向上滚动改变方向时的位置
+                if (_this.changeDownDir - scrollTop > 120) { // 这个是else 里面记录的值减滚动条位置 大于120 即认为是向上滚动
+                _this.isUp = true
+                }
+            } else {
+                _this.changeDownDir = scrollTop
+                if (scrollTop - _this.changeUpDir > 120) {
+                _this.isUp = false
+                }
+            }
+            setTimeout(function() { topValue = scrollTop }, 0)
+            }
+        },
+        methods: {
+            getScrollTop() { // 获取滚动条位置
+                var scrollTop=0; 
+                if(document.documentElement&&document.documentElement.scrollTop) {
+                    scrollTop=document.documentElement.scrollTop;
+                } else if(document.body) {
+                    scrollTop=document.body.scrollTop;
+                }
+                return scrollTop;
+            }
+        }
+    })
+</script>
+ 
+<style scoped lang="scss">
+        .nav-bar-wrapper {
+          width: 100%;
+          height: 78px;
+          border-bottom: 1px solid #f0f0f0;
+          box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+        .nav-bar-wrapper .content-wrapper {
+            width: 90%;
+            margin: 0 auto;
+        }
+        .nav-bar-wrapper .nav-bar-content h1 {
+            margin: 0;
+        }
+        .nav-bar-wrapper .nav-bar-content h1:hover {
+            animation: logo .6s;
+        }
+        .nav-bar-content .nav-bar-item ul li {
+            margin:0 10px;
+            color: #777;
+        }
+        .nav-bar-content .nav-bar-item ul li:hover {
+            color: #3399CC;
+        }
+        
+        .fixed {
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 800;
+          background: #fff;
+        }
+        @keyframes logo {
+          0% {
+            transform: scale(1);
+          }
+          25% {
+            transform: scale(1.1);
+          }
+          50% {
+            transform: scale(1);
+          }
+          75% {
+            transform: scale(1.1);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+        .nav-bar-fixed {
+          position: fixed;
+          width: 100%;
+          top: 30px;
+          left: 0;
+          height: 48px;
+          overflow: hidden;
+        }
+        .top-navBar {
+          width: 100%;
+          border-bottom: 1px solid #f0f0f0;
+          box-shadow: 0 2px 10px rgba(0,0,0,.05);
+          overflow: hidden;
+          transition: all .3s cubic-bezier(.645,.045,.355,1);
+          transform: translateY(-48px);
+        }
+        .up {
+          transform: translateY(0px);
+        }
+        ul li {
+            display: inline-block;
+            list-style: node;
+        }
+ 
+        .app-main {
+            height: 2000px;
+            font-size: 100px;
+            writing-mode:tb-rl;
+            margin: 110px auto;
+        }
+        .flex-sb {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+</style>

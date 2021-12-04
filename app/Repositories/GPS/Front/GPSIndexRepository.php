@@ -3,7 +3,7 @@ namespace App\Repositories\GPS\Front;
 
 use App\Models\Root\RootModule;
 use App\Models\Root\RootMenu;
-use App\Models\Root\RootItem;
+use App\Models\Doc\Doc_Item;
 use App\Models\Root\RootMessage;
 
 use App\Repositories\Common\CommonRepository;
@@ -27,11 +27,11 @@ class GPSIndexRepository {
 //        $info = json_decode(json_encode(config('mitong.company.info')));
 //        $menus = RootMenu::where(['active'=>1])->orderby('order', 'asc')->get();
 
-        $item = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->first();
+        $item = Doc_Item::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->first();
         $item->custom = json_decode($item->custom);
         $item->custom2 = json_decode($item->custom2);
 
-        $items = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
+        $items = Doc_Item::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->limit(8)->get();
         foreach($items as $item)
         {
             $item->custom = json_decode($item->custom);
@@ -48,7 +48,7 @@ class GPSIndexRepository {
     // contact
     public function contact()
     {
-        $houses = RootItem::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->get();
+        $houses = Doc_Item::where(['category'=>11, 'active'=>1])->orderby('id', 'desc')->get();
         foreach($houses as $item)
         {
             $item->custom = json_decode($item->custom);
@@ -65,8 +65,8 @@ class GPSIndexRepository {
     // item
     public function view_item($id = 0)
     {
-        if($id != 0) $mine = RootItem::where(['id'=>$id])->orderby('id', 'desc')->first();
-        else $mine = RootItem::orderby('id', 'desc')->first();
+        if($id != 0) $mine = Doc_Item::where(['id'=>$id])->orderby('id', 'desc')->first();
+        else $mine = Doc_Item::orderby('id', 'desc')->first();
 
         $mine->timestamps = false;
         $mine->increment('visit_num');
@@ -74,7 +74,7 @@ class GPSIndexRepository {
         $mine->custom = json_decode($mine->custom);
         $mine->custom2 = json_decode($mine->custom2);
 
-        $rent_items = RootItem::where(['category'=>11, 'active'=>1])->where('id', '<>', $id)->orderby('id', 'desc')->limit(6)->get();
+        $rent_items = Doc_Item::where(['category'=>11, 'active'=>1])->where('id', '<>', $id)->orderby('id', 'desc')->limit(6)->get();
         foreach($rent_items as $item)
         {
             $item->custom = json_decode($item->custom);

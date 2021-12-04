@@ -1,290 +1,317 @@
-<!DOCTYPE HTML>
-<html lang="zh">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>@yield('head_title')</title>
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <meta name="author" content="@yield('meta_author')" />
-        <meta name="title" content="@yield('meta_title')" />
-        <meta name="description" content="@yield('meta_description')" />
-        <meta name="keywords" content="@yield('meta_keywords')" />
+    <link rel="shortcut icon" type="image/ico" href="{{ url('favicon.ico') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url('favicon.png') }}">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="{{ url('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="196x196" href="{{ url('favicon.png') }}">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('head_title')</title>
+    <meta name="title" content="@yield('meta_title')" />
+    <meta name="author" content="@yield('meta_author')" />
+    <meta name="description" content="@yield('meta_description')" />
+    <meta name="keywords" content="@yield('meta_keywords')" />
+    <meta name="robots" content="all" />
+    <meta name="_token" content="{{ csrf_token() }}"/>
 
-        <!-- Styles -->
-        {{--<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CPoppins:400,600" rel="stylesheet">--}}
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    {{--<link rel="stylesheet" href="/AdminLTE/bootstrap/css/bootstrap.min.css">--}}
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/AdminLTE/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome -->
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">--}}
+    {{--<link href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/font-awesome-4.5.0.min.css') }}">
+    <!-- Ionicons -->
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">--}}
+    {{--<link href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/ionicons-2.0.1.min.css') }}">
+    <!-- Theme style -->
+    {{--<link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/AdminLTE.min.css') }}">
+    {{--<link href="https://cdn.bootcss.com/admin-lte/2.3.11/css/AdminLTE.min.css" rel="stylesheet">--}}
+<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect.
+    -->
+    {{--<link rel="stylesheet" href="/AdminLTE/dist/css/skins/skin-blue.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/skins/skin-blue.min.css') }}">
 
-        <!-- favicon and touch icons -->
-        <link rel="shortcut icon" type="image/ico" href="{{ url('favicon.ico') }}">
-        <link rel="shortcut icon" type="image/png" href="{{ url('favicon.png') }}">
+    {{--<link rel="stylesheet" href="/AdminLTE/plugins/iCheck/all.css">--}}
+    <link rel="stylesheet" href="{{ asset('/AdminLTE/plugins/iCheck/all.css') }}">
+    {{--<link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">--}}
+    {{--<link rel="stylesheet" href="{{ asset('/resource/component/css/iCheck-1.0.2-skins-all.css') }}">--}}
 
-        <link rel="icon" sizes="16x16 32x32 64x64" href="/favicon.ico">
-        <link rel="icon" sizes="any" mask href="/favicon-64.png">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    {{--<!--[if lt IE 9]>--}}
+    {{--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>--}}
+    {{--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>--}}
+    {{--<![endif]-->--}}
+    {{--<link href="https://cdn.bootcss.com/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css" rel="stylesheet">--}}
 
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-64.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-64.png">
-        <link rel="icon" type="image/png" sizes="196x196" href="/favicon-64.png">
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/layer/3.0.3/skin/moon/style.min.css">--}}
+    {{--<link rel="stylesheet" href="{{ asset('/resource/component/css/layer-style-3.0.3.min.css') }}">--}}
+    {{--<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/theme/moon/style.min.css">--}}
+    {{--<link rel="stylesheet" href="{{ asset('/resource/component/css/layer-style-3.1.1.min.css') }}">--}}
 
-        <link rel="apple-touch-icon" sizes="60x60" href="/favicon-64.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/favicon-64.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/favicon-64.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/favicon-64.png">
-        <link rel="apple-touch-icon" sizes="160x160" href="/favicon-64.png">
-        <link rel="apple-touch-icon" sizes="192x192" href="/favicon-64.png">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables/dataTables.bootstrap.css') }}">
 
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.3/css/fileinput.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-fileinput-4.4.8.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/fileinput-only.css') }}">
 
-        <!-- Bootstrap -->
-        <link href="{{ asset('/templates/moban2030/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('/templates/moban2030/plugins/slick/slick.css') }}" rel="stylesheet">
-        <link href="{{ asset('/templates/moban2030/plugins/slick-nav/slicknav.css') }}" rel="stylesheet">
-        <link href="{{ asset('/templates/moban2030/plugins/wow/animate.css') }}" rel="stylesheet">
-        <link href="{{ asset('/templates/moban2030/assets/css/bootstrap.css') }}" rel="stylesheet">
-        <link href="{{ asset('/templates/moban2030/assets/css/theme.css') }}" rel="stylesheet">
-        <link href="https://cdn.bootcss.com/layer/3.0.3/skin/default/layer.min.css" rel="stylesheet">
-        {{--<link href="https://cdn.bootcss.com/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css" rel="stylesheet">--}}
-        <link href="https://cdn.bootcss.com/lightcase/2.5.0/css/lightcase.min.css" rel="stylesheet">
-
-        {{--<link href="{{ asset('/templates/moban2030/assets/others/common.css') }}" rel="stylesheet">--}}
-        <link href="{{ asset('/common/css/common.css') }}" rel="stylesheet">
-        <link href="{{ asset('/common/css/frontend.css') }}" rel="stylesheet">
-        <link href="{{ asset('/common/css/animate/hover.css') }}" rel="stylesheet" media="all" />
-        <link href="{{ asset('/common/css/animate/wicked.css') }}" rel="stylesheet" media="all" />
-
-
-        @yield('custom-css')
-        @yield('custom-style')
-
-        {{--<script>--}}
-            {{--var _hmt = _hmt || [];--}}
-            {{--(function() {--}}
-                {{--var hm = document.createElement("script");--}}
-                {{--hm.src = "https://hm.baidu.com/hm.js?db38c4f99dac05fe97e03f26eef0d213";--}}
-                {{--var s = document.getElementsByTagName("script")[0];--}}
-                {{--s.parentNode.insertBefore(hm, s);--}}
-            {{--})();--}}
-        {{--</script>--}}
-
-        {{--<script>--}}
-            {{--(function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};--}}
-                {{--b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);--}}
-                {{--s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)--}}
-            {{--})(window,document,"script","_qha",271423,false);--}}
-        {{--</script>--}}
-
-    </head>
-    <body class="">
-
-        {{--<div id="page-loader">--}}
-            {{--<div class="loaders">--}}
-                {{--<img src="{{ url('/templates/moban2030/assets/images/loader/3.gif') }}" alt="First Loader">--}}
-                {{--<img src="{{ url('/templates/moban2030/assets/images/loader/4.gif') }}" alt="First Loader">--}}
-            {{--</div>--}}
-        {{--</div>--}}
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">--}}
+    {{--<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-datetimepicker-4.17.47.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-datepicker-1.9.0.min.css') }}">
 
 
-        {{--header--}}
-        @yield('component-header')
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-switch-3.3.4.min.css') }}">
+
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/swiper-4.2.2.min.css') }}">
+
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.css">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/jquery.fancybox-3.3.5.css') }}">
+
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/lightcase/2.5.0/css/lightcase.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/lightcase-2.5.0.min.css') }}">
+
+    {{--<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/timelinejs/3.6.6/css/timeline.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/timeline-3.6.6.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/slick-1.6.0.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/slicknav-1.0.10.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/animate-3.5.1.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('/resource/custom/developing/css/theme.css') }}">
 
 
-        {{--content--}}
-        @yield('custom-content')
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/bellows.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/bellows-theme.css') }}">
 
 
-        {{--footer--}}
-        @yield('component-footer')
+    <link rel="stylesheet" href="{{ asset('/resource/common/css/animate/wicked.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/common/css/animate/hover.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('/resource/common/css/common.css') }}">
+    {{--<link rel="stylesheet" href="{{ asset('/resource/common/css/frontend.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/common/css/layout.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('/resource/others/css/frontend/index.css') }}">
+
+    {{--<link rel="stylesheet" href="{{ asset('/resource/common/css/frontend/index.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/common/css/frontend/item.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/common/css/frontend/menu.css') }}">
 
 
-        {{--bottom--}}
-        {{--@include('frontend.component.bottom')--}}
+    @yield('css')
+    @yield('style')
+    @yield('custom-css')
+    @yield('custom-style')
+
+    <style>
+        /*.item-piece img { background:url("/common/images/bg/background-image.png");background-size:cover; }*/
+
+        .header-logo {
+            -webkit-transition: width .3s ease-in-out;
+            -o-transition: width .3s ease-in-out;
+            transition: width .3s ease-in-out;
+            display: block;
+            float: left;
+            height: 50px;
+            font-size: 20px;
+            line-height: 50px;
+            text-align: center;
+            width: calc(100% - 584px);
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            padding: 0 15px;
+            font-weight: 300;
+            color:#fff;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="hold-transition skin-black sidebar-mini">
+<div class="wrapper">
 
 
-        <a href="#top" id="scroll-top"><i class="fa fa-angle-up"></i></a>
+    {{--main-header--}}
+    @include(env('TEMPLATE_GPS_DEVELOP').'layout.main-header')
+
+    {{--main-sidebar--}}
+    @include(env('TEMPLATE_GPS_DEVELOP').'layout.main-sidebar')
+
+    {{--main-content--}}
+    @include(env('TEMPLATE_GPS_DEVELOP').'layout.main-content')
+
+    {{--main-footer--}}
+    @include(env('TEMPLATE_GPS_DEVELOP').'layout.main-footer')
+
+    {{--control-sidebar--}}
+    @include(env('TEMPLATE_GPS_DEVELOP').'layout.control-sidebar')
 
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="{{ asset('/templates/moban2030/assets/js/jquery.min.js') }}"></script>
-        {{--<script src="{{ asset('/templates/moban2030/assets/js/jquery.migrate.js') }}"></script>--}}
-        <script src="{{ asset('/templates/moban2030/assets/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('/templates/moban2030/plugins/slick-nav/jquery.slicknav.min.js') }}"></script>
-        <script src="{{ asset('/templates/moban2030/plugins/slick/slick.min.js') }}"></script>
-        <script src="{{ asset('/templates/moban2030/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-        {{--<script src="{{ asset('/templates/moban2030/plugins/tweetie/tweetie.js') }}"></script>--}}
-        <script src="{{ asset('/templates/moban2030/plugins/forms/jquery.form.min.js') }}"></script>
-        <script src="{{ asset('/templates/moban2030/plugins/forms/jquery.validate.min.js') }}"></script>
-{{--        <script src="{{ asset('/templates/moban2030/plugins/modernizr/modernizr.custom.js') }}"></script>--}}
-        <script src="{{ asset('/templates/moban2030/plugins/wow/wow.min.js') }}"></script>
-        <script src="{{ asset('/templates/moban2030/plugins/zoom/zoom.js') }}"></script>
-{{--        <script src="{{ asset('/templates/moban2030/plugins/mixitup/mixitup.min.js') }}"></script>--}}
-        <!---<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyD2MtZynhsvwI2B40juK6SifR_OSyj4aBA&libraries=places"></script>--->
-{{--        <script src="{{ asset('/templates/moban2030/plugins/whats-nearby/source/WhatsNearby.js') }}"></script>--}}
-        <script src="{{ asset('/templates/moban2030/assets/js/theme.js') }}"></script>
-        <script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
-        {{--<script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>--}}
-        <script src="https://cdn.bootcss.com/lightcase/2.5.0/js/lightcase.min.js"></script>
+</div>
+<!-- ./wrapper -->
 
-        <script src="{{ asset('/templates/moban2030/assets/others/common.js') }}"></script>
+<!-- REQUIRED JS SCRIPTS -->
+
+{{--<!-- jQuery 2.2.3 -->--}}
+{{--<script src="/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
+<script src="{{ asset('/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+{{--<script src="{{ asset('/resource/component/js/jquery-3.1.1.min.js') }}"></script>--}}
+
+{{--<!-- Bootstrap 3.3.6 -->--}}
+{{--<script src="/AdminLTE/bootstrap/js/bootstrap.min.js"></script>--}}
+<script src="{{ asset('/AdminLTE/bootstrap/js/bootstrap.min.js') }}"></script>
+
+{{--<!-- AdminLTE App -->--}}
+{{--<script src="/AdminLTE/dist/js/app.min.js"></script>--}}
+<script src="{{ asset('/AdminLTE/dist/js/app.min.js') }}"></script>
 
 
-        <script src="{{ asset('/common/js/frontend.js') }}"></script>
+{{--<script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>--}}
+{{--<script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>--}}
+{{--<script src="{{ asset('/resource/component/js/icheck-1.0.2.min.js') }}"></script>--}}
+<script src="{{ asset('/AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
+
+<script src="{{ asset('/AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/jquery-ui-1.12.1.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/jquery.cookie-1.4.1.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>--}}
+{{--<script src="{{ asset('/resource/component/js/bootstrap-modal-2.2.6.min.js') }}"></script>--}}
+
+{{--<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/layer-3.0.3.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.3/js/fileinput.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/fileinput-4.4.8.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/fileinput-only.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/jquery.form-4.2.2.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/moment.js/2.19.0/moment.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/moment-2.19.0.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/moment-2.19.0-locale-zh-cn.js') }}"></script>
+<script src="{{ asset('/resource/component/js/moment-2.19.0-locale-ko.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/bootstrap-switch-3.3.4.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/swiper-4.2.2.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/jquery.sticky/1.0.4/jquery.sticky.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/jquery.sticky-1.0.4.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.js"></script>--}}
+<script src="{{ asset('/resource/component/js/jquery.fancybox-3.3.5.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/lightcase/2.5.0/js/lightcase.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/lightcase-2.5.0.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/Readmore.js/2.2.0/readmore.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/readmore-2.2.0.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcdn.net/ajax/libs/timelinejs/3.6.6/js/timeline-min.min.js"></script>--}}
+{{--<script src="https://cdn.bootcdn.net/ajax/libs/timelinejs/3.6.6/js/timeline.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/timeline-min-3.6.6.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/timeline-3.6.6.min.js') }}"></script>
+
+{{--<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>--}}
+{{--<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>--}}
+{{--<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.zh-CN.min.js"></script>--}}
+<script src="{{ asset('/resource/component/js/bootstrap-datetimepicker-4.17.47.min.js') }}"></script>
+{{--<script src="{{ asset('/resource/component/js/bootstrap-datepicker-1.9.0.zh-CN.min.js') }}"></script>--}}
+<script src="{{ asset('/resource/component/js/bootstrap-datepicker-1.9.0.min.js') }}"></script>
+
+<script src="{{ asset('/resource/component/js/jquery.slicknav-1.0.10.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/slick-1.6.0.min.js') }}"></script>
 
 
-        <script>
-            $(function() {
-
-                $("#bottom-bm-close").on('click', function () {
-                    $('#bottom-bm-container').slideUp();
-                });
-
-                // 预约
-                $("#btnSubmit").on('click', function() {
-
-                    var form = $("#form-book-appointment");
-                    var name = $("#book-name");
-                    var name_val = name.val();
-                    var mobile = $("#book-mobile");
-                    var mobile_val = mobile.val();
+<script src="{{ asset('/resource/custom/developing/js/theme.js') }}"></script>
 
 
-                    if(name_val == "")
-                    {
-                        layer.msg("名字不能为空");
-                        name.focus();
-                        return false;
-                    }
+<script src="{{ asset('/resource/component/js/highlight.pack.js') }}"></script>
+<script src="{{ asset('/resource/component/js/velocity.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/bellows.js') }}"></script>
+<script src="{{ asset('/resource/common/js/frontend.js') }}"></script>
+<script>
+    $(function() {
+//        $('article').readmore({
+//            speed: 150,
+//            moreLink: '<a href="#">展开更多</a>',
+//            lessLink: '<a href="#">收起</a>'
+//        });
 
-                    var filter=/^1[3|4|5|7|8][0-9]\d{8}$/;
-                    if(!filter.test(mobile_val))
-                    {
-                        layer.msg("请输入正确的手机号!");
-                        mobile.focus();
-                        mobile.value="";
-                        return false;
-                    }
+        $('.lightcase-image').lightcase({
+            maxWidth: 9999,
+            maxHeight: 9999
+        });
 
-                    var options = {
-                        url: "{{url('/message/grab/yy')}}",
-                        type: "post",
-                        dataType: "json",
-                        // target: "#div2",
-                        success: function (data) {
-                            if(!data.success) layer.msg(data.msg);
-                            else
-                            {
-                                layer.msg(data.msg);
-                                name.val('');
-                                mobile.val('');
-                                {{--location.href = "{{url('/admin/item/list')}}";--}}
-                                    return true;
-                            }
-                        }
-                    };
-                    form.ajaxSubmit(options);
-                });
+        var viewportSize = $(window).height();
+        var lazy_load = function(){
+            var scrollTop = $(window).scrollTop();
+            $("img").each(function(){
+                var _this = $(this);
+                var x = viewportSize + scrollTop + _this.position().top;
+                if(x>0){
+                    _this.attr("src",_this.attr("data-src"));
+                }
+            })
+        };
+//        setInterval(lazy_load,1000);
+
+    });
+</script>
 
 
-                // 抢专车券
-                $("#grab-zc-submit").on('click', function() {
-
-                    var form = $("#form-grab-zc");
-                    var mobile = $("#grab-zc-mobile");
-                    var mobile_val = mobile.val();
-
-                    var filter=/^1[3|4|5|7|8][0-9]\d{8}$/;
-                    if(!filter.test(mobile_val))
-                    {
-                        layer.msg("请输入正确的手机号!");
-                        mobile.focus();
-                        mobile.val('');
-                        return false;
-                    }
-
-                    var options = {
-                        url: "{{url('/message/grab/zc')}}",
-                        type: "post",
-                        dataType: "json",
-                        // target: "#div2",
-                        success: function (data) {
-                            if(!data.success) layer.msg(data.msg);
-                            else
-                            {
-                                layer.msg(data.msg);
-                                mobile.val('');
-                                {{--location.href = "{{url('/admin/item/list')}}";--}}
-                                $('#grab-modal').modal('hide');
-                                $('.modal-backdrop').hide();
-                                return true;
-                            }
-                        }
-                    };
-                    form.ajaxSubmit(options);
-                });
-
-
-                // 询价
-                $("#grab-item-submit").on('click', function() {
-
-                    var form = $("#form-grab-item");
-                    var name = $("grab-item-name");
-                    var name_val = name.val();
-                    var mobile = $("#grab-item-mobile");
-                    var mobile_val = mobile.val();
-
-                    if(name_val == "")
-                    {
-                        layer.msg("名字不能为空");
-                        name.focus();
-                        return false;
-                    }
-
-                    var filter=/^1[3|4|5|7|8][0-9]\d{8}$/;
-                    if(!filter.test(mobile_val))
-                    {
-                        layer.msg("请输入正确的手机号!");
-                        mobile.focus();
-                        mobile.val('');
-                        return false;
-                    }
-
-                    var options = {
-                        url: "{{url('/message/grab/item')}}",
-                        type: "post",
-                        dataType: "json",
-                        // target: "#div2",
-                        success: function (data) {
-                            if(!data.success) layer.msg(data.msg);
-                            else
-                            {
-                                layer.msg(data.msg);
-                                mobile.val('');
-                                {{--location.href = "{{url('/admin/item/list')}}";--}}
-                                $('#grab-modal').modal('hide');
-                                $('.modal-backdrop').hide();
-                                return true;
-                            }
-                        }
-                    };
-                    form.ajaxSubmit(options);
-                });
+@yield('js')
+@yield('script')
+@yield('custom-js')
+@yield('custom-script')
 
 
 
-                $("#grab-modal").on('click', '.icon-close', function () {
-                    $('#grab-modal').hide();
-                    $('#grab-modal').modal('hide');
-                    $('.modal-backdrop').hide();
-                });
-
-            });
-        </script>
-
-
-        @yield('custom-js')
-        @yield('custom-script')
-
-
-
-    </body>
+</body>
 </html>

@@ -241,7 +241,8 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
 
     $controller = "DocIndexController";
 
-    Route::get('item/{id?}', $controller.'@view_item');
+    Route::get('/', $controller.'@view_root');
+    Route::get('/item/{id?}', $controller.'@view_item');
 
 
     // 前台

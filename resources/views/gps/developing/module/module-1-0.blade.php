@@ -15,7 +15,7 @@
                     <div class="item-container case-bin">
                         <a target="_blank" href="{{ url('/item/'.$v->id) }}">
 
-                            <figure class="image-container padding-top-3-5">
+                            <figure class="image-container padding-top-2-5">
                                 <div class="image-box">
                                     <b></b>
                                     <img class="grow" data-action="zoom-" src="{{ config('common.host.'.env('APP_ENV').'.cdn').'/'.$v->cover_pic }}" alt="Property Image">

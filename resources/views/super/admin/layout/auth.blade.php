@@ -17,11 +17,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Font Awesome -->
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">--}}
     {{--<link href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">--}}
-    <link rel="stylesheet" href="{{ asset('/lib/css/font-awesome-4.5.0.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/font-awesome-4.5.0.min.css') }}">
     <!-- Ionicons -->
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">--}}
     {{--<link href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">--}}
-    <link rel="stylesheet" href="{{ asset('/lib/css/ionicons-2.0.1.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/ionicons-2.0.1.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">
     {{--<link href="https://cdn.bootcss.com/admin-lte/2.3.11/css/AdminLTE.min.css" rel="stylesheet">--}}
@@ -40,13 +40,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{--<link href="https://cdn.bootcss.com/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css" rel="stylesheet">--}}
 
     {{--<link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.3/css/fileinput.min.css" rel="stylesheet">--}}
-    <link rel="stylesheet" href="{{ asset('/lib/css/bootstrap-fileinput-4.4.8.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/lib/css/fileinput-only.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-fileinput-4.4.8.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/fileinput-only.css') }}">
 
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables/dataTables.bootstrap.css') }}">
 
     {{--<link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">--}}
-    {{--<link rel="stylesheet" href="{{ asset('/lib/css/iCheck-1.0.2-skins-all.css') }}">--}}
+    {{--<link rel="stylesheet" href="{{ asset('/resource/component/css/iCheck-1.0.2-skins-all.css') }}">--}}
     <link rel="stylesheet" href="/AdminLTE/plugins/iCheck/all.css">
 
 </head>
@@ -86,20 +86,20 @@ desired effect
 {{--<script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>--}}
 
 {{--<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>--}}
-<script src="{{ asset('/lib/js/layer-3.0.3.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/layer-3.0.3.min.js') }}"></script>
 
 {{--<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.3/js/fileinput.min.js"></script>--}}
-<script src="{{ asset('/lib/js/fileinput-4.4.8.min.js') }}"></script>
-<script src="{{ asset('/lib/js/fileinput-only.js') }}"></script>
+<script src="{{ asset('/resource/component/js/fileinput-4.4.8.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/fileinput-only.js') }}"></script>
 
 {{--<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>--}}
-<script src="{{ asset('/lib/js/jquery.form-4.2.2.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/jquery.form-4.2.2.min.js') }}"></script>
 
 <script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 
 {{--<script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>--}}
-{{--<script src="{{ asset('/lib/js/icheck-1.0.2.min.js') }}"></script>--}}
+{{--<script src="{{ asset('/resource/component/js/icheck-1.0.2.min.js') }}"></script>--}}
 <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
 
 @yield('js')

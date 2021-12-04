@@ -10,14 +10,14 @@
 
 
         <div class="module-row module-body-container">
-            @foreach($items as $v)
-                <div class="col-lg-6 col-md-4 col-sm-6 item-col" >
-                    <a class="zoom- clearfix" target="_blank" href="{{ url('/item/'.$v->id) }}">
+            @foreach($items as $item)
+                <div class="col-lg-6 col-md-6 col-sm-12 item-col" >
+                    <a class="zoom- clearfix" target="_blank" href="{{ url('/item/'.$item->id) }}">
                         <div class="item-container model-left-right bg-grey-f5 item-col">
 
                             <figure class="image-container">
                                 <div class="image-box">
-                                    <img data-action="zoom-" src="{{ config('common.host.'.env('APP_ENV').'.cdn').'/'.$v->cover_pic }}" alt="Property Image">
+                                    <img data-action="zoom-" src="{{ config('common.host.'.env('APP_ENV').'.cdn').'/'.$item->cover_pic }}" alt="Property Image">
                                     {{--<span class="btn btn-warning">热销中</span>--}}
                                 </div>
                             </figure>
@@ -25,15 +25,15 @@
                             <figure class="text-container">
                                 <div class="text-box">
                                     <div class="text-title-row multi-ellipsis-2 hidden-xs">
-                                        <span class="multi-ellipsis-2 _bold">{{ $v->title or '' }}</span>
+                                        <span class="multi-ellipsis-2 _bold">{{ $item->title or '' }}</span>
                                     </div>
                                     <div class="text-title-row visible-xs">
-                                        <span class="multi-ellipsis-1 _bold">{{ $v->title or '' }}</span>
+                                        <span class="multi-ellipsis-1 _bold">{{ $item->title or '' }}</span>
                                     </div>
                                     <div class="text-description-row">
                                         <div class="row-sm">
                                             <span>租金: <i class="fa fa-cny"></i></span>
-                                            <span class="color-red _bold">{{ $v->custom->price or '' }}</span>
+                                            <span class="color-red _bold">{{ $item->custom->price or '' }}</span>
                                         </div>
                                         <div class="row-md">
                                             <span>押金: <i class="fa fa-cny"></i> 123</span>
