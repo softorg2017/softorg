@@ -6,65 +6,16 @@
 >
 
 
-    {{--<a class="zoom- clearfix" target="_blank" href="{{ url('/item/'.$item->id) }}">--}}
-        <div class="item-container model-left-right image-right bg-grey-f5-">
+    <div class="item-container model-left-right image-right bg-grey-f5-">
 
-            {{--头部--}}
-            <figure class="item-header-block">
-                <div class="text-box">
-                    <div class="item-title-row">
-                        <a class="clearfix zoom" target="_self" href="{{ url('/item/'.$item->id) }}">
-                            <span class="multi-ellipsis-2"><b>{{ $item->title or '' }}</b></span>
-                        </a>
-                    </div>
+        {{--头部--}}
+        <figure class="item-header-block">
+            <div class="text-box">
+                <div class="item-title-row">
+                    <a class="clearfix zoom" target="_self" href="{{ url('/item/'.$item->id) }}">
+                        <span class="multi-ellipsis-2"><b>{{ $item->title or '' }}</b></span>
+                    </a>
                 </div>
-            </figure>
-
-            {{--主体--}}
-            <figure class="item-body-block">
-
-                {{--图片--}}
-                @if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic))
-                <figure class="image-container pull-right">
-                    <div class="image-box">
-                        <img data-action="zoom" src="{{ env('DOMAIN_CDN').'/'.$item->cover_pic }}" alt="Property Image">
-                        {{--<span class="btn btn-warning">热销中</span>--}}
-                    </div>
-                </figure>
-                @endif
-
-                {{--文本--}}
-                <figure class="text-container pull-left @if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic)) with-image @else without-image @endif">
-                    <div class="text-box">
-                        {{--<div class="text-title-row multi-ellipsis-2">--}}
-                            {{--<span class="multi-ellipsis-2"><b>{{ $item->name or '' }}</b></span>--}}
-                        {{--</div>--}}
-                        <div class="row-sm">
-                            <div class="text-description-row">
-                                <span>租金: <i class="fa fa-cny"></i></span>
-                                <span class="">{{ $item->description or '' }} {{ $item->name or '' }}</span>
-                            </div>
-                        </div>
-                        <div class="row-sm">
-                            <div class="text-description-row">
-                                <span>租金: <i class="fa fa-cny"></i></span>
-                                <span class="color-red _bold">{{ $item->custom->price or '' }}</span>
-                            </div>
-                        </div>
-                        <div class="row-sm">
-                            <div class="text-description-row">
-                                <span>押金: <i class="fa fa-cny"></i> 123</span>
-                                <span><i class="fa fa-share-alt"></i> 1468</span>
-                                <span><i class="fa fa-star"></i> 560</span>
-                            </div>
-                        </div>
-                    </div>
-                </figure>
-
-            </figure>
-
-            {{--尾部--}}
-            <figure class="item-footer-block">
                 <div class="item-info-row">
                     <a class="clearfix zoom" target="_self" href="{{ url('/item/'.$item->id) }}">
                         <a href="{{ url('/user/'.$item->owner->id) }}">
@@ -73,10 +24,158 @@
                         <span class=""> • {{ date_show($item->updated_at->timestamp) }}</span>
                     </a>
                 </div>
+            </div>
+        </figure>
+
+        {{--主体--}}
+        <figure class="item-body-block">
+
+            {{--图片--}}
+            @if(!empty($item->cover_picture))
+            {{--@if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_picture))--}}
+            <figure class="image-container pull-right">
+                <div class="image-box">
+                    <img data-action="zoom" src="{{ $item->cover_picture or '' }}" alt="Property Image">
+                    {{--<img data-action="zoom" src="{{ env('DOMAIN_CDN').'/'.$item->cover_pic }}" alt="Property Image">--}}
+                    {{--<span class="btn btn-warning">热销中</span>--}}
+                </div>
+            </figure>
+            @endif
+
+            {{--文本--}}
+            <figure class="text-container pull-left @if(!empty($item->cover_picture)) with-image @else without-image @endif">
+                <div class="text-box">
+                    {{--<div class="text-title-row multi-ellipsis-2">--}}
+                        {{--<span class="multi-ellipsis-2"><b>{{ $item->name or '' }}</b></span>--}}
+                    {{--</div>--}}
+                    {{--<div class="row-sm">--}}
+                        {{--<div class="text-description-row">--}}
+                            {{--<span>租金: <i class="fa fa-cny"></i></span>--}}
+                            {{--<span class="">{{ $item->description or '' }} {{ $item->name or '' }}</span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="row-sm">--}}
+                        {{--<div class="text-description-row">--}}
+                            {{--<span>租金: <i class="fa fa-cny"></i></span>--}}
+                            {{--<span class="color-red _bold">{{ $item->custom->price or '' }}</span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="row-sm">--}}
+                        {{--<div class="text-description-row">--}}
+                            {{--<span>押金: <i class="fa fa-cny"></i> 123</span>--}}
+                            {{--<span><i class="fa fa-share-alt"></i> 1468</span>--}}
+                            {{--<span><i class="fa fa-star"></i> 560</span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    <div class="row-sm">
+                        <div class="text-description-row multi-ellipsis-4">
+                            @if(!empty($item->description))
+                                {{--{{ $item->description or '' }}--}}
+                                {!! $item->description or '' !!}
+                                <br>
+                            @endif
+                            {{ $item->content_show or '' }}
+                        </div>
+                    </div>
+                </div>
             </figure>
 
-        </div>
-    {{--</a>--}}
+        </figure>
+
+        {{--尾部--}}
+        <figure class="item-footer-block">
+            <div class="item-info-row">
+
+
+
+                {{--未删除--}}
+                @if($item->deleted_at == null)
+
+                    {{--是否发布--}}
+                    {{--@if($item->item_active == 0)--}}
+
+                        <a class="tool-button operate-btn edit-btn item-edit-this" role="button">
+                            <i class="icon ion-edit"></i> 编辑
+                        </a>
+                        <a class="tool-button operate-btn publish-btn item-publish-this" role="button">
+                            <i class="icon ion-paper-airplane"></i> 发布
+                        </a>
+                        <a class="tool-button operate-btn delete-btn item-delete-permanently-this" role="button">
+                            <i class="icon ion-trash-a"></i> 删除
+                        </a>
+
+                    {{--@elseif($item->item_active == 1)--}}
+                    {{--@endif--}}
+
+                    {{--是否是书目or时间线--}}
+                    @if($item->item_type == 11 || $item->item_type == 18)
+                        @if($item->item_id == 0)
+                            <a class="tool-button operate-btn" href="{{ url('/item/content-management?item_id='.$item->id) }}" role="button">
+                                <i class="icon ion-ios-paper"></i> 内容管理
+                            </a>
+                        @else
+                            <a class="tool-button operate-btn" href="{{ url('/item/content-management?item_id='.$item->item_id) }}" role="button">
+                                <i class="icon ion-ios-paper"></i> 内容管理
+                            </a>
+                        @endif
+                    @endif
+
+                @endif
+
+
+
+
+                {{--点赞--}}
+                <small class="tool-button operate-btn favor-btn" data-num="{{ $item->favor_num or 0 }}" role="button">
+                    @if(Auth::check())
+                        @if($item->pivot_item_relation->contains('relation_type', 11))
+                            <a class="remove-this-favor">
+                                <i class="fa fa-heart text-red"></i>
+                                <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
+                            </a>
+                        @else
+                            <a class="add-this-favor">
+                                <i class="fa fa-heart-o"></i>
+                                <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
+                            </a>
+                        @endif
+                    @else
+                        <a class="add-this-favor">
+                            <i class="fa fa-heart-o"></i>
+                            <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
+                        </a>
+                    @endif
+                </small>
+
+                {{--收藏--}}
+                <small class="tool-button operate-btn collection-btn" data-num="{{ $item->favor_num or 0 }}" role="button">
+                    @if(Auth::check())
+                        @if($item->pivot_item_relation->contains('relation_type', 21))
+                            <a class="remove-this-collection">
+                                <i class="fa fa-star text-red"></i>
+                                <span class="num">@if($item->collection_num){{ $item->collection_num }}@endif</span>
+                            </a>
+                        @else
+                            <a class="add-this-collection">
+                                <i class="fa fa-star-o"></i>
+                                <span class="num">@if($item->collection_num){{ $item->collection_num }}@endif</span>
+                            </a>
+                        @endif
+                    @else
+                        <a class="add-this-collection">
+                            <i class="fa fa-star-o"></i>
+                            <span class="num">@if($item->collection_num){{ $item->collection_num }}@endif</span>
+                        </a>
+                    @endif
+                </small>
+
+
+
+            </div>
+        </figure>
+
+    </div>
+
 
 
 
@@ -188,28 +287,6 @@
                         </span>
                     </a>
 
-                    {{--点赞&$收藏--}}
-                    {{--<small class="tool-button operate-btn favor-btn" data-num="{{ $item->favor_num or 0 }}" role="button">--}}
-                    {{--@if(Auth::check())--}}
-                            {{--@if($item->pivot_item_relation->contains('relation_type', 1))--}}
-                            {{--<a class="remove-this-favor">--}}
-                                {{--<i class="fa fa-heart text-red"></i>--}}
-                                {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
-                            {{--</a>--}}
-                            {{--@else--}}
-                                {{--<a class="add-this-favor">--}}
-                                {{--<i class="fa fa-heart-o"></i>--}}
-                                {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
-                            {{--</a>--}}
-                            {{--@endif--}}
-                        {{--@else--}}
-                            {{--<a class="add-this-favor">--}}
-                            {{--<i class="fa fa-heart-o"></i>--}}
-                            {{--<span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>--}}
-                        {{--</a>--}}
-                        {{--@endif--}}
-                    {{--</small>--}}
-
                     {{--分享--}}
                     <a class="tool-button _none" role="button">
                         <i class="fa fa-share"></i> @if($item->share_num) {{ $item->share_num }} @endif
@@ -221,6 +298,7 @@
                             <i class="icon ion-android-textsms"></i> @if($item->comment_num) {{ $item->comment_num }} @endif
                         </span>
                     </a>
+
 
                 </div>
 
@@ -243,7 +321,9 @@
     </div>
 
 
-    <!-- BEGIN PORTLET-->
+
+
+
     <div class="boxe panel-default- box-default item-entity-container _none">
 
         <div class="box-body item-row item-title-row" style="padding:4px 2px;margin-bottom:4px;border-bottom:1px solid #eee;">
@@ -476,7 +556,7 @@
         </div>
 
     </div>
-    <!-- END PORTLET-->
+
 </div>
 @endforeach
 

@@ -15,6 +15,15 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
+
+    RewriteCond %{HTTP_HOST} ^ruwei.com$ [NC]
+    RewriteRule ^(.*)$ http://www.ruwei.com/$1 [R=301,L]
+
+
+    RewriteCond %{HTTP_HOST} ^lookwit.com$ [NC]
+    RewriteRule ^(.*)$ http://www.lookwit.com/$1 [R=301,L]
+
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

@@ -68,7 +68,7 @@
 
 
 .item-info-row { line-height:20px; font-size:12px; color:#aaa; }
-.item-info-row a { color:#666; }
+.item-info-row a { color:#999; }
 .item-info-row a:hover { color:#ff7676; }
 /*.item-info-row i { width:auto; }*/
 .container-body-right .item-info-row i { width:16px; text-align:center; margin-right:4px; }
@@ -324,7 +324,7 @@ a.link { color:#3c8dbc; }
     }
 
 
-    .item-wrapper { padding:4px 12px; }
+    .item-wrapper { padding:8px 12px; }
 
     .item-left-box { width:56px; margin-right:8px; }
     .item-left-box img { width:48px; height:48px; margin-left:0; margin-right:8px; border-radius:50%; }

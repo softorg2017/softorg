@@ -6,7 +6,7 @@
 
     </div>
 
-    <nav class="navbar navbar-static-top navbar1" role="navigation" style="margin-left:0;background-color:#1a2226;">
+    <nav class="navbar navbar-static-top navbar1-" role="navigation" style="margin-left:0;background-color:#1a2226;">
 
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle visible-xs @yield('sidebar-toggle')" data-toggle="offcanvas" role="button">
@@ -14,7 +14,7 @@
         </a>
 
 
-        <div class="navbar-custom-menu" style="height:50px;line-height:50px;float:left;">
+        <div class="navbar-custom-menu pull-left" style="height:50px;line-height:50px;">
             <a href="{{ url('/') }}">
                 <span class="logo-big hidden-xs">
                     <img src="/resource/common/images/logo-white-transparent-64.png" class="img-icon" alt="Image">
@@ -28,14 +28,13 @@
         </div>
 
 
+        {{--<div class="header-logo" >--}}
+        {{--<span class="logo-lg"><b>@yield('header_title')</b></span>--}}
+        {{--</div>--}}
 
-    {{--<div class="header-logo" >--}}
-    {{--<span class="logo-lg"><b>@yield('header_title')</b></span>--}}
-    {{--</div>--}}
 
-
-    <!-- Navbar Right Menu -->
-        <div class="navbar-custom-menu">
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu pull-right">
 
             @if(!Auth::check())
                 <div class="navbar-custom-menu" style="height:50px;line-height:50px;padding:0 8px;float:left;">
@@ -51,9 +50,13 @@
 
                 @if(Auth::check())
                     <li class="">
+                        <a  href="{{ url('/item/item-create') }}" data-type="notification">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </li>
+                    <li class="">
                         <a  href="{{ url('/my-notification') }}" data-type="notification">
                             <i class="fa fa-envelope-o"></i>
-
                             <span class="label label-success">@if(!empty($notification_count)){{ $notification_count or '' }}@endif</span>
                         </a>
                     </li>
@@ -226,39 +229,10 @@
             </ul>
 
         </div>
-    </nav>
-
-
-    <nav class="navbar navbar-static-top navbar2" role="navigation" style="margin-left:0;background-color:#1a2226;">
-
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle visible-xs @yield('sidebar-toggle')" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-        </a>
-
-
-        <div class="navbar-custom-menu" style="height:50px;line-height:50px;float:left;">
-            <a href="{{ url('/') }}">
-                <span class="logo-big hidden-xs">
-                    <img src="/resource/common/images/logo-white-transparent-64.png" class="img-icon" alt="Image">
-                    <b class="hidden-xs">原子系统2</b>
-                </span>
-                <span class="logo-big visible-xs">
-                    <img src="/resource/common/images/logo-white-transparent-64.png" class="img-icon" alt="Image">
-                    <b class="">原子系统2</b>
-                </span>
-            </a>
-        </div>
-
-
-
-        {{--<div class="header-logo" >--}}
-        {{--<span class="logo-lg"><b>@yield('header_title')</b></span>--}}
-        {{--</div>--}}
 
 
         <!-- Navbar Right Menu -->
-        <div class="navbar-custom-menu">
+        <div class="navbar-custom-menu navbar2">
 
             <ul class="nav navbar-nav hidden-xs- hidden-sm-">
 
@@ -280,23 +254,15 @@
                         <span>作品</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ url('/?type=event') }}">
-                        <i class="fa fa-circle-o-notch text-default"></i>
-                        <span>事件</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('/?type=conception') }}">
-                        <i class="fa fa-circle-o-notch text-default"></i>
-                        <span>概念</span>
-                    </a>
-                </li>
 
             </ul>
 
         </div>
+
+
     </nav>
+
+
 
 
 

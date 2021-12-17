@@ -1,6 +1,9 @@
-@extends(env('TEMPLATE_DEFAULT').'frontend.layout.layout')
+@extends(env('TEMPLATE_DOC_FRONT').'layout.layout')
 
-@section('head_title','我的收藏 - 朝鲜族组织平台')
+
+@section('head_title')
+    {{ $head_title or '如未轻博' }}
+@endsection
 @section('meta_title')@endsection
 @section('meta_author')@endsection
 @section('meta_description')@endsection
@@ -13,9 +16,7 @@
 
 
 @section('sidebar')
-
-    @include(env('TEMPLATE_DEFAULT').'frontend.component.sidebar-root')
-
+    @include(env('TEMPLATE_DOC_FRONT').'component.sidebar.sidebar-root')
 @endsection
 
 
@@ -28,20 +29,30 @@
 
 <div class="container">
 
-    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 container-body-left">
+    <div class="main-body-section main-body-left-section section-wrapper page-root">
 
-        {{--@foreach($datas as $num => $item)--}}
-            {{--@include('frontend.component.topic')--}}
-        {{--@endforeach--}}
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.item-list-for-relation',['item_list'=>$item_list])
-        {!! $item_list->links() !!}
+        <div class="container-box pull-left margin-bottom-16px">
+
+            {{--@foreach($datas as $num => $item)--}}
+                {{--@include('frontend.component.topic')--}}
+            {{--@endforeach--}}
+            {{--@include(env('TEMPLATE_DOC_DEFAULT').'frontend.component.item-list-for-relation',['item_list'=>$item_list])--}}
+            @include(env('TEMPLATE_DOC_FRONT').'component.item-list',['item_list'=>$item_list])
+            {{--@if(count($item_list) > 0)--}}
+                {{--{!! $item_list->links() !!}--}}
+            {{--@endif--}}
+
+        </div>
 
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 hidden-xs hidden-sm container-body-right">
 
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.right-root')
-        @include(env('TEMPLATE_DEFAULT').'frontend.component.right-me')
+    <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
+
+        <div class="fixed-to-top">
+            @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')
+        </div>
+        {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-me')--}}
 
     </div>
 
@@ -63,13 +74,4 @@
 @endsection
 
 @section('js')
-<script>
-    $(function() {
-        $('article').readmore({
-            speed: 150,
-            moreLink: '<a href="#">展开更多</a>',
-            lessLink: '<a href="#">收起</a>'
-        });
-    });
-</script>
 @endsection

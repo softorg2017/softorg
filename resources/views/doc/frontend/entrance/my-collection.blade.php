@@ -10,11 +10,9 @@
 @section('meta_keywords')@endsection
 
 
-@section('wx_share_title')如未轻博@endsection
-@section('wx_share_desc')如未轻博@endsection
+@section('wx_share_title')朝鲜族组织平台@endsection
+@section('wx_share_desc')朝鲜族社群组织活动分享平台@endsection
 @section('wx_share_imgUrl'){{ url('/k-org.cn.png') }}@endsection
-
-
 
 
 @section('sidebar')
@@ -25,34 +23,26 @@
 @section('header','')
 @section('description','')
 @section('content')
+<div style="display:none;">
+    <input type="hidden" id="" value="{{ $encode or '' }}" readonly>
+</div>
+
 <div class="container">
 
     <div class="main-body-section main-body-left-section section-wrapper page-root">
 
         <div class="container-box pull-left margin-bottom-16px">
 
+            {{--@foreach($datas as $num => $item)--}}
+                {{--@include('frontend.component.topic')--}}
+            {{--@endforeach--}}
+            {{--@include(env('TEMPLATE_DOC_DEFAULT').'frontend.component.item-list-for-relation',['item_list'=>$item_list])--}}
             @include(env('TEMPLATE_DOC_FRONT').'component.item-list',['item_list'=>$item_list])
-
-            {{--<div class="nav-tabs-custom">--}}
-                {{--<ul class="nav nav-tabs">--}}
-                    {{--<li class="{{ $sidebar_menu_for_root_active or '' }}"><a href="/" data-toggle="tab-">全部</a></li>--}}
-                    {{--<li class="{{ $sidebar_menu_for_object_active or '' }}"><a href="/?type=object" data-toggle="tab-">物</a></li>--}}
-                    {{--<li class="{{ $sidebar_menu_for_people_active or '' }}"><a href="/?type=people" data-toggle="tab-">人</a></li>--}}
-                {{--</ul>--}}
-                {{--<div class="tab-content" style="width:100%; padding:0;float:left;">--}}
-                    {{--<div class="active tab-pane" id="all">--}}
-                    {{--</div>--}}
-                    {{--<div class="tab-pane" id="timeline">--}}
-                    {{--</div>--}}
-
-                    {{--<div class="tab-pane" id="settings">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
+            {{--@if(count($item_list))--}}
+                {{--{!! $item_list->links() !!}--}}
+            {{--@endif--}}
 
         </div>
-
-        {!! $item_list->links() !!}
 
     </div>
 
@@ -74,19 +64,14 @@
 <style>
     .box-footer a {color:#777;cursor:pointer;}
     .box-footer a:hover {color:orange;cursor:pointer;}
+    .comment-container {border-top:2px solid #ddd;}
     .comment-choice-container {border-top:2px solid #ddd;}
     .comment-choice-container .form-group { margin-bottom:0;}
+    .comment-entity-container {border-top:2px solid #ddd;}
+    .comment-piece {border-bottom:1px solid #eee;}
+    .comment-piece:first-child {}
 </style>
 @endsection
 
 @section('js')
-<script>
-    $(function() {
-//        $('article').readmore({
-//            speed: 150,
-//            moreLink: '<a href="#">展开更多</a>',
-//            lessLink: '<a href="#">收起</a>'
-//        });
-    });
-</script>
 @endsection

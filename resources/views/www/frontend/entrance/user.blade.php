@@ -40,7 +40,8 @@
 
     <div class="container">
 
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-body-right pull-right _none">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 main-body-right-section section-wrapper _none">
+
 
             {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-user', ['data'=>$data])--}}
 
@@ -49,51 +50,53 @@
         </div>
 
 
-        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 container-body-left margin-bottom-8px">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-body-left-section section-wrapper  container-body-left-">
+            <div class="container-box pull-left margin-bottom-8px">
 
-            @include(env('TEMPLATE_ROOT_FRONT').'component.left-user', ['data'=>$data])
+                @include(env('TEMPLATE_ROOT_FRONT').'component.left-user', ['data'=>$data])
 
-            {{--<div class="box-body visible-xs visible-sm" style="margin-bottom:4px;background:#fff;">--}}
-                {{--<i class="fa fa-user text-orange"></i>&nbsp; <b>{{ $data->name or '' }}</b>--}}
-            {{--</div>--}}
-
-            {{--<div class="box-body visible-xs visible-sm" style="margin-bottom:16px;background:#fff;">--}}
-                {{--<div class="margin">访问：{{ $data->visit_num or 0 }}</div>--}}
-                {{--<div class="margin">文章：{{ $data->article_count or 0 }}</div>--}}
-                {{--<div class="margin">活动：{{ $data->activity_count or 0 }}</div>--}}
-            {{--</div>--}}
-
-
-            @if(!in_array(request('type'),['org','introduction']))
-                {{--<div class="item-row margin-bottom-4px pull-right visible-xs">--}}
-                    {{--<strong>Ta的内容</strong>--}}
+                {{--<div class="box-body visible-xs visible-sm" style="margin-bottom:4px;background:#fff;">--}}
+                    {{--<i class="fa fa-user text-orange"></i>&nbsp; <b>{{ $data->name or '' }}</b>--}}
                 {{--</div>--}}
-                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
-                {{--{!! $item_list->links() !!}--}}
-            @endif
+
+                {{--<div class="box-body visible-xs visible-sm" style="margin-bottom:16px;background:#fff;">--}}
+                    {{--<div class="margin">访问：{{ $data->visit_num or 0 }}</div>--}}
+                    {{--<div class="margin">文章：{{ $data->article_count or 0 }}</div>--}}
+                    {{--<div class="margin">活动：{{ $data->activity_count or 0 }}</div>--}}
+                {{--</div>--}}
 
 
-            @if(request('type') == 'introduction')
-            <div class="item-piece item-option">
-                <div class="box-body item-row item-content-row">
-                    <div class="item-row">
-                        <h4>我的简介</h4>
-                    </div>
-                    <div class="item-row">
-                        @if(!empty($data->introduction->content))
-                            {!! $data->introduction->content or '' !!}
-                        @else
-                            <small>暂无简介</small>
-                        @endif
+                @if(!in_array(request('type'),['org','introduction']))
+                    {{--<div class="item-row margin-bottom-4px pull-right visible-xs">--}}
+                        {{--<strong>Ta的内容</strong>--}}
+                    {{--</div>--}}
+                    {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
+                    {{--{!! $item_list->links() !!}--}}
+                @endif
+
+
+                @if(request('type') == 'introduction')
+                <div class="item-piece item-option">
+                    <div class="box-body item-row item-content-row">
+                        <div class="item-row">
+                            <h4>我的简介</h4>
+                        </div>
+                        <div class="item-row">
+                            @if(!empty($data->introduction->content))
+                                {!! $data->introduction->content or '' !!}
+                            @else
+                                <small>暂无简介</small>
+                            @endif
+                        </div>
                     </div>
                 </div>
+                @endif
+
+                {{--@if($data->user_type == 88 && request('type') == 'org')--}}
+                    {{--@include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$data->pivot_org_list])--}}
+                {{--@endif--}}
+
             </div>
-            @endif
-
-            {{--@if($data->user_type == 88 && request('type') == 'org')--}}
-                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$data->pivot_org_list])--}}
-            {{--@endif--}}
-
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 hidden-xs- hidden-sm- container-body-right">

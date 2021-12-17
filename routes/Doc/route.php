@@ -242,7 +242,53 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     $controller = "DocIndexController";
 
     Route::get('/', $controller.'@view_root');
-    Route::get('/item/{id?}', $controller.'@view_item');
+    Route::get('/mine/item-mine', $controller.'@view_item_list_for_mine');
+    Route::get('/mine/item-my-original', $controller.'@view_item_list_for_my_original');
+
+    Route::get('/mine/item-my-todolist', $controller.'@view_item_list_for_my_todolist');
+    Route::get('/mine/item-my-schedule', $controller.'@view_item_list_for_my_schedule');
+
+    Route::get('/mine/item-my-collection', $controller.'@view_item_list_for_my_collection');
+    Route::get('/mine/item-my-favor', $controller.'@view_item_list_for_my_favor');
+
+//    Route::get('/item', $controller.'@view_item');
+    Route::get('/item/{?id}', $controller.'@view_item');
+
+    Route::match(['get','post'], '/item/item-create', $controller.'@operate_item_item_create');
+    Route::match(['get','post'], '/item/item-edit', $controller.'@operate_item_item_edit');
+    Route::post('/item/item-delete', $controller.'@operate_item_item_delete');
+
+
+    Route::match(['get','post'], '/item/content-management', $controller.'@view_item_content_management');
+    Route::post('/item/content-edit', $controller.'@operate_item_content_edit');
+    Route::post('/item/content-get', $controller.'@operate_item_content_get');
+    Route::post('/item/content-delete', $controller.'@operate_item_content_delete');
+    Route::post('/item/content-enable', $controller.'@operate_item_content_enable');
+    Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
+
+
+
+
+
+
+    // 点赞
+    Route::post('/item/item-add-favor', $controller.'@operate_item_add_favor');
+    Route::post('/item/item-remove-favor', $controller.'@operate_item_remove_favor');
+    // 收藏
+    Route::post('/item/item-add-collection', $controller.'@operate_item_add_collection');
+    Route::post('/item/item-remove-collection', $controller.'@operate_item_remove_collection');
+    // 待办事
+    Route::post('/item/item-add-todolist', $controller.'@operate_item_add_todolist');
+    Route::post('/item/item-remove-todolist', $controller.'@operate_item_remove_todolist');
+    // 日程
+    Route::post('/item/item-add-schedule', $controller.'@operate_item_add_schedule');
+    Route::post('/item/item-remove-schedule', $controller.'@operate_item_remove_schedule');
+    // 转发
+    Route::post('/item/item-forward', $controller.'@item_forward');
+
+
+
+
 
 
     // 前台

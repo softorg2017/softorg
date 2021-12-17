@@ -1,6 +1,6 @@
-@extends(env('TEMPLATE_DOC_FRONT').'frontend.layout.layout')
+@extends(env('TEMPLATE_DOC_FRONT').'layout.layout')
 
-@section('head_title','404 页面不存在或参数有误 - 朝鲜族组织平台')
+@section('head_title','404 页面不存在或参数有误 - 如未轻博')
 @section('meta_title')@endsection
 @section('meta_author')@endsection
 @section('meta_description')@endsection
@@ -12,7 +12,7 @@
 @section('content')
 <div class="container">
 
-    <div class="col-sm-12 col-md-12 container-body-left" style="width:100%;float:left;text-align:center;">
+    <div class="main-body-section main-body-left-section section-wrapper " style="float:left;text-align:center;">
 
         <div class="error-page">
 
@@ -48,7 +48,7 @@
                 </div>
 
                 <div>
-                    <span id="time" style="color:#ff0018;" data-time="5">5</span> 秒钟自动跳到首页
+                    <span id="time" style="color:#ff0018;" data-time="15">15</span> 秒钟自动跳到首页
                 </div>
 
                 <p style="display:none;">
@@ -61,10 +61,10 @@
 
     </div>
 
-    <div class="col-sm-12 col-md-3 hidden-xs hidden-sm container-body-right">
+    <div class="main-body-section main-body-right-section section-wrapper pull-right">
 
-        {{--@include(env('TEMPLATE_DEFAULT').'frontend.component.right-root')--}}
-        {{--@include(env('TEMPLATE_DEFAULT').'frontend.component.right-me')--}}
+        @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')
+        {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-me')--}}
 
     </div>
 

@@ -71,6 +71,7 @@
         <div class="item-row item-description-row with-background margin-bottom-2px">
             <div class="text-row text-description-row text-muted">
                 {{ $item->description or '' }}
+                {{--{!! $item->description or '' !!}--}}
             </div>
         </div>
         @endif

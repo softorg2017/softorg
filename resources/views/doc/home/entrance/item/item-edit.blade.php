@@ -270,7 +270,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "/home/item/item-list-all";
+                        location.href = "/home/item/item-list-for-all";
                     }
                 }
             };

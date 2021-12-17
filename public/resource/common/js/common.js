@@ -63,18 +63,32 @@ $(function() {
 
     $(window).scroll(function() {
 
-        if($(document).scrollTop()<=0)
+        if($(document).scrollTop() <= 0)
         {
-            console.log("滚动条已经到达顶部为0");
+            // console.log("滚动条已经到达顶部为0");
+        }
+
+        if($(document).scrollTop() > 60)
+        {
+            console.log('$(window).height() = ' + $(window).height());
+            console.log('$(document).height() = ' + $(document).height());
+            console.log($('.fixed-to-top').height());
+            $('.fixed-to-top').height();
+            // $(".fixed-to-top").addClass('fixed');
+        }
+
+        if($(document).scrollTop() <= 60)
+        {
+            // $(".fixed-to-top").removeClass('fixed');
         }
 
         if($(document).scrollTop() >= $(document).height() - $(window).height())
         {
-            console.log("滚动条已经到达底部为" + $(document).scrollTop());
+            // console.log("滚动条已经到达底部为" + $(document).scrollTop());
         }
 
-        console.log($(document).scrollTop());
-        console.log($('#content-container').scrollTop());
+        console.log('$(document).scrollTop() = ' + $(document).scrollTop());
+        console.log('$("#content-container").scrollTop() = ' + $('#content-container').scrollTop());
     });
 
 

@@ -1,0 +1,216 @@
+@font-face {
+	font-family: 'ecoico';
+	src:url('../fonts/timelineicons/ecoico.eot');
+	src:url('../fonts/timelineicons/ecoico.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/timelineicons/ecoico.woff') format('woff'),
+		url('../fonts/timelineicons/ecoico.ttf') format('truetype'),
+		url('../fonts/timelineicons/ecoico.svg#ecoico') format('svg');
+	font-weight: normal;
+	font-style: normal;
+} /* Made with http://icomoon.io/ */
+
+.cbp_tmtimeline {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: relative;
+} 
+
+/* The line */
+.cbp_tmtimeline::before {
+	content: '';
+	position: absolute;
+	top: 6px;
+	bottom: 0;
+	left: 4px;
+	width: 2px;
+	background: #afdcf8;
+}
+
+.cbp_tmtimeline > li {
+	position: relative;
+	margin-bottom:8px;
+}
+
+/* The date/time */
+.cbp_tmtimeline > li .cbp_tmtime {
+	display: block;
+	width: auto;
+	border-radius: 4px;
+	padding: 8px;
+	margin-left: 16px;
+}
+
+.cbp_tmtimeline > li .cbp_tmtime span {
+	text-align: left;
+}
+
+.cbp_tmtimeline > li .cbp_tmtime span:first-child {
+	/*font-size: 16px;*/
+	color: #bdd0db;
+	color: #3594cb;
+}
+
+.cbp_tmtimeline > li .cbp_tmtime span:last-child {
+	/*font-size: 16px;*/
+	color: #3594cb;
+}
+
+.cbp_tmtimeline > li:nth-child(odd) .cbp_tmtime span:last-child {
+	color: #6cbfee;
+	color: #3594cb;
+}
+
+/* Right content */
+.cbp_tmtimeline > li .cbp_tmlabel {
+	margin: 0 0 4px 16px;
+	background: #3594cb;
+	background: #fff;
+	color: #fff;
+	color: #888;
+	padding: 16px;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.4;
+	position: relative;
+	border-radius: 5px;
+}
+
+.cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel {
+	background: #6cbfee;
+	background: #fff;
+}
+
+.cbp_tmtimeline > li .cbp_tmlabel h2 {
+	margin-top: 0px;
+	padding: 0 0 10px 0;
+	/*border-bottom: 1px solid rgba(255,255,255,0.4);*/
+	border-bottom: 2px solid rgba(71,163,218,0.3);
+	font-size:16px;
+}
+
+/*.cbp_tmtimeline > li .cbp_tmlabel h2 a {*/
+	/*color: #666;*/
+/*}*/
+
+/* The triangle */
+.cbp_tmtimeline > li .cbp_tmlabel:after {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	/*border-right-color: #3594cb;*/
+	border-width: 10px;
+	top: 10px;
+}
+
+.cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel:after {
+	/*border-right-color: #6cbfee;*/
+}
+
+/* The icons */
+.cbp_tmtimeline > li .cbp_tmicon {
+	/*left: 20%;*/
+	top:16px;
+	width:4px;
+	height:4px;
+	margin:0 0 4px 3px;
+	/*font-family: 'ecoico';*/
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	font-size: 1.4em;
+	line-height: 16px;
+	-webkit-font-smoothing: antialiased;
+	position: absolute;
+	color: #fff;
+	background: #46a4da;
+	border-radius: 50%;
+	box-shadow: 0 0 0 4px #afdcf8;
+	text-align: center;
+}
+
+.cbp_tmicon-phone:before {
+	content: "\e000";
+}
+
+.cbp_tmicon-screen:before {
+	content: "\e001";
+}
+
+.cbp_tmicon-mail:before {
+	content: "\e002";
+}
+
+.cbp_tmicon-earth:before {
+	content: "\e003";
+}
+
+/* Example Media Queries */
+@media screen and (max-width: 65.375em) {
+
+	/*.cbp_tmtimeline > li .cbp_tmtime span:last-child {*/
+		/*font-size: 1.5em;*/
+	/*}*/
+}
+
+@media screen and (max-width: 47.2em) {
+	.cbp_tmtimeline:before {
+		/*display: none;*/
+	}、
+
+	.cbp_tmtimeline > li .cbp_tmtime {
+		width: 100%;
+		position: relative;
+		padding: 0 0 20px 0;
+	}
+
+	.cbp_tmtimeline > li .cbp_tmtime span {
+		text-align: left;
+	}
+
+	/*.cbp_tmtimeline > li .cbp_tmlabel {*/
+		/*margin: 0 0 30px 0;*/
+		/*padding: 1em;*/
+		/*font-weight: 400;*/
+		/*font-size: 95%;*/
+	/*}*/
+
+	/*.cbp_tmtimeline > li .cbp_tmlabel:after {*/
+		/*right: auto;*/
+		/*left: 20px;*/
+		/*border-right-color: transparent;*/
+		/*border-bottom-color: #3594cb;*/
+		/*top: -20px;*/
+	/*}*/
+
+	/*.cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel:after {*/
+		/*border-right-color: transparent;*/
+		/*border-bottom-color: #6cbfee;*/
+	/*}*/
+
+	/*.cbp_tmtimeline > li .cbp_tmicon {*/
+		/*position: relative;*/
+		/*float: right;*/
+		/*left: auto;*/
+		/*margin: -55px 5px 0 0px;*/
+	/*}	*/
+}
+
+.main-side-container .cbp_tmtimeline > li .cbp_tmicon { top:8px; }
+.main-side-container .cbp_tmtimeline > li .cbp_tmtime { padding:0; }
+.main-side-container .cbp_tmtimeline > li .cbp_tmtime span:last-child {
+	font-family:'Microsoft yahei';
+	/*font-size:14px;*/
+}
+.main-side-container .cbp_tmtimeline > li .cbp_tmtime span:last-child:hover { color:#ff7676; }
+.main-side-container .cbp_tmtimeline > li.active .cbp_tmtime span:last-child { font-size:14px; }
+.main-side-container .cbp_tmtimeline > li.active .cbp_tmlabel h2 a { color:#ff7676; font-weight:bold; }
+.main-side-container .cbp_tmtimeline > li  { margin-bottom:4px; }
+.main-side-container .cbp_tmtimeline > li .cbp_tmlabel { padding:0; margin:0 0 0 16px; }
+.main-side-container .cbp_tmtimeline > li .cbp_tmlabel h2 { padding:0; border-bottom:0; line-height:24px; font-size:14px; }

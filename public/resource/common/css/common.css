@@ -688,32 +688,13 @@ p { margin:0; }
 .multi-ellipsis-row-4 { -webkit-line-clamp:4; }
 .multi-ellipsis-row-5 { -webkit-line-clamp:5; }
 
-.multi-ellipsis-1 {
-    overflow:hidden;
-    word-wrap:break-word;
-    text-overflow:ellipsis;
-    display:-webkit-box;
-    -webkit-line-clamp:1;
-    -webkit-box-orient:vertical;
-}
 
-.multi-ellipsis-2 {
-    overflow:hidden;
-    word-wrap:break-word;
-    text-overflow:ellipsis;
-    display:-webkit-box;
-    -webkit-line-clamp:2;
-    -webkit-box-orient:vertical;
-}
-
-.multi-ellipsis-3 {
-    overflow: hidden;
-    word-wrap: break-word;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
+.multi-ellipsis-1 { overflow:hidden; word-wrap:break-word; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:1; }
+.multi-ellipsis-2 { overflow:hidden; word-wrap:break-word; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+.multi-ellipsis-3 { overflow:hidden; word-wrap:break-word; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; }
+.multi-ellipsis-4 { overflow:hidden; word-wrap:break-word; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:4; }
+.multi-ellipsis-5 { overflow:hidden; word-wrap:break-word; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:5; }
+.multi-ellipsis-6 { overflow:hidden; word-wrap:break-word; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; }
 
 
 canvas.drawer {

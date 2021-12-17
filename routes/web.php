@@ -151,7 +151,7 @@ Route::group(['domain' => 'atom.'.env('DOMAIN_ROOT'), 'namespace' => 'Atom'], fu
 /*
  * 企业对内管理员
  */
-Route::group(['namespace' => 'Inside'], function () {
+Route::group(['domain' => 'inside.'.env('DOMAIN_ROOT'), 'namespace' => 'Inside'], function () {
 //    require(__DIR__ . '/Inside/route.php');
 });
 
@@ -159,7 +159,7 @@ Route::group(['namespace' => 'Inside'], function () {
 /*
  * 企业对外管理员
  */
-Route::group(['namespace' => 'Outside'], function () {
+Route::group(['domain' => 'outside.'.env('DOMAIN_ROOT'), 'namespace' => 'Outside'], function () {
 //    require(__DIR__ . '/Outside/route.php');
 });
 
@@ -167,7 +167,7 @@ Route::group(['namespace' => 'Outside'], function () {
 /*
  * 根
  */
-Route::group(['namespace' => 'Root'], function () {
+Route::group(['domain' => 'www.'.env('DOMAIN_ROOT'), 'namespace' => 'Root'], function () {
     require(__DIR__ . '/Root/route.php');
 });
 

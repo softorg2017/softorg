@@ -36,19 +36,13 @@ table.dataTable .text-right { text-align:right; }
 
 
 
-.form-container .form-group {
-    margin-bottom: 0;
-    padding: 16px 0;
-    border-bottom: 1px solid #eee;
-}
-.form-container .box-footer {
-    padding-top: 16px;
-    padding-bottom: 32px;
-    border-top: 0;
-}
+.form-container .form-group { margin-bottom:0; padding:16px 0; border-bottom:1px solid #eee; }
+.form-container .box-footer { padding-top:16px; padding-bottom:32px; border-top:0;  }
 .form-container .select2-container--classic .select2-selection--single { border-radius:0; }
 
 
+.page-frontend .form-container .form-group { padding:8px 0; border-bottom:0; }
+.page-frontend .form-container .box-footer { padding:8px 0; }
 
 
 .fileinput-group .thumbnail {

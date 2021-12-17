@@ -83,15 +83,3 @@
     .container {width: auto;padding-left:0;padding-right:0;}
     .item-piece .media .media-left {width:120px;height:auto;max-height:120px;float:left;}
 }
-@media (min-width:768px)
-{
-    .container {width:738px;}
-}
-@media (min-width:992px)
-{
-    .container {width:970px;}
-}
-@media (min-width:1200px)
-{
-    .container {width:1000px;}
-}
