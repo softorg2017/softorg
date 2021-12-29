@@ -46,6 +46,9 @@ class DocIndexRepository {
 
         $menu_active = 'sidebar_menu_root_active';
 
+
+        $condition = request()->all();
+
         $type = !empty($post_data['type']) ? $post_data['type'] : 'root';
         if($type == 'root')
         {
@@ -118,6 +121,7 @@ class DocIndexRepository {
 //            dd($item->cover_picture);
         }
 
+        $return['condition'] = $condition;
         $head_title_prefix = '【轻博】';
         $head_title_prefix = '';
         $head_title_postfix = ' - 如未轻博';

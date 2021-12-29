@@ -105,7 +105,7 @@ class User extends Authenticatable
     // 广告
     function district()
     {
-        return $this->hasOne('App\Models\Doc\Doc_District','id','district_id');
+        return $this->hasOne('App\Models\Def\Def_District','id','district_id');
     }
 
     // 与我相关的内容

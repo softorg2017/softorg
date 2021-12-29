@@ -30,7 +30,7 @@
 
                 <div class="box-body" id="content-structure-list">
                     {{--封面--}}
-                    <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12 col-md-offset-2-">
                         <div class="input-group" data-id='{{ $data->id }}' style="margin-top:4px;margin-bottom:12px;">
                             <span class="input-group-addon"><b>封面</b></span>
                             <span class="form-control multi-ellipsis-1">{{ $data->title or '' }}</span>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     @foreach( $data->contents as $key => $content )
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-12 col-md-offset-2-">
                             <div class="input-group" data-id='{{ $content->id }}'
                                  style="margin-top:4px; margin-left:{{ $content->level*40 }}px">
                                 <span class="input-group-addon"><b>{{ $content->time_point or '' }}</b></span>
@@ -61,7 +61,7 @@
 
                 <div class="box-footer">
                     <div class="row" style="margin:16px 0;">
-                        <div class="col-md-9 col-md-offset-2">
+                        <div class="col-md-10 col-md-offset-2-">
                             <button type="button" class="btn btn-success show-create-content"><i class="fa fa-plus"></i> 添加新内容</button>
                             <a href="{{ url('/item/'.$data->id) }}" target="_blank"><button type="button" class="btn btn-primary">预览</button></a>
                             <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
@@ -93,28 +93,28 @@
                         {{--时间点--}}
                         <div class="form-group" id="form-time-point-option">
                             <label class="control-label col-md-2">时间点</label>
-                            <div class="col-md-8 ">
+                            <div class="col-md-12 ">
                                 <div><input type="text" class="form-control" name="time_point" placeholder="时间点" value=""></div>
                             </div>
                         </div>
                         {{--标题--}}
                         <div class="form-group">
                             <label class="control-label col-md-2">标题</label>
-                            <div class="col-md-8 ">
+                            <div class="col-md-12 ">
                                 <div><input type="text" class="form-control" name="title" placeholder="请输入标题" value=""></div>
                             </div>
                         </div>
                         {{--描述--}}
                         <div class="form-group">
                             <label class="control-label col-md-2">描述</label>
-                            <div class="col-md-8 ">
+                            <div class="col-md-12 ">
                                 <div><textarea class="form-control" name="description" rows="3" placeholder="描述"></textarea></div>
                             </div>
                         </div>
                         {{--内容--}}
                         <div class="form-group">
                             <label class="control-label col-md-2">详情</label>
-                            <div class="col-md-8 ">
+                            <div class="col-md-12 ">
                                 <div>
                                 @include('UEditor::head')
                                 <!-- 加载编辑器的容器 -->
@@ -132,7 +132,7 @@
                         {{--cover 封面图片--}}
                         <div class="form-group">
                             <label class="control-label col-md-2">封面图片</label>
-                            <div class="col-md-8 fileinput-group">
+                            <div class="col-md-12 fileinput-group">
 
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <div class="fileinput-new thumbnail cover_img_container">
@@ -158,7 +158,7 @@
                         {{--是否启用--}}
                         <div class="form-group form-active" id="form-active-option">
                             <label class="control-label col-md-2">是否启用</label>
-                            <div class="col-md-8">
+                            <div class="col-md-12 ">
                                 <div class="btn-group">
 
                                     <button type="button" class="btn radio active-none">
@@ -186,7 +186,7 @@
 
                 <div class="box-footer">
                     <div class="row" style="margin:16px 0;">
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-12 col-md-offset-2-">
                             <button type="button" class="btn btn-primary" id="edit-content-submit"><i class="fa fa-check"></i> 提交</button>
                             <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
                         </div>
