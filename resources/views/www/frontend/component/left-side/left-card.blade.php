@@ -40,7 +40,7 @@
             @endif
             {{--职位--}}
             @if(!empty($data->business_description))
-                <p class="text-muted text-center" style="margin-bottom:4px;"><small>{{ $data->business_description or '暂无' }}</small></p>
+                <p class="text-muted text-center margin-bottom-4px _none"><small>{{ $data->business_description or '暂无' }}</small></p>
             @endif
 
         </div>
@@ -118,17 +118,17 @@
                     </li>
                 @endif
                 {{--微信--}}
-                @if(!empty($data->wechat_id))
+                @if(!empty($data->wx_id))
                     <li class="list-group-item">
-                        @if(!empty($data->wechat_qr_code_img))
-                            <a class="lightcase-image" href="{{ url(env('DOMAIN_CDN').'/'.$data->wechat_qr_code_img) }}">
+                        @if(!empty($data->wx_qr_code_img))
+                            <a class="lightcase-image" href="{{ url(env('DOMAIN_CDN').'/'.$data->wx_qr_code_img) }}">
                                 <i class="fa fa-weixin text-primary"></i>
-                                <span class="text-muted">{{ $data->wechat_id or '暂无' }}</span>
+                                <span class="text-muted">{{ $data->wx_id or '暂无' }}</span>
                                 <i class="fa fa-qrcode text-danger" style="width:16px;font-weight:500;"></i>
                             </a>
                         @else
                             <i class="fa fa-weixin text-primary"></i>
-                            <span class="text-muted">{{ $data->wechat_id or '暂无' }}</span>
+                            <span class="text-muted">{{ $data->wx_id or '暂无' }}</span>
                         @endif
                     </li>
                 @endif
@@ -142,16 +142,16 @@
                     </li>
                 @endif
                 {{--微博--}}
-                @if(!empty($data->weibo_name))
+                @if(!empty($data->wb_name))
                     <li class="list-group-item">
-                        @if(!empty($data->weibo_address))
-                            <a target="_blank" href="{{ $data->weibo_address }}">
+                        @if(!empty($data->wb_address))
+                            <a target="_blank" href="{{ $data->wb_address }}">
                                 <i class="fa fa-weibo text-primary"></i>
-                                <span class="">{{ $data->weibo_name or '暂无' }}</span>
+                                <span class="">{{ $data->wb_name or '暂无' }}</span>
                             </a>
                         @else
                             <i class="fa fa-weibo text-primary"></i>
-                            <span class="text-muted">{{ $data->weibo_name or '暂无' }}</span>
+                            <span class="text-muted">{{ $data->wb_name or '暂无' }}</span>
                         @endif
                     </li>
                 @endif
@@ -272,10 +272,10 @@
                 <span class="text-muted">{{ $data->email or '暂无' }}</span>
             </div>
             @endif
-            @if(!empty($data->wechat_id))
+            @if(!empty($data->wx_id))
             <div class="item-info-row margin-4px">
                 <i class="fa fa-weixin text-primary"></i>
-                <span class="text-muted">{{ $data->wechat_id or '暂无' }}</span>
+                <span class="text-muted">{{ $data->wx_id or '暂无' }}</span>
             </div>
             @endif
             @if(!empty($data->QQ_number))
@@ -290,10 +290,10 @@
                 @endif
             </div>
             @endif
-            @if(!empty($data->weibo_name))
+            @if(!empty($data->wb_name))
                 <div class="item-info-row margin-4px">
-                    <i class="fa fa-weibo text-primary"></i>
-                    <span class="text-muted">{{ $data->weibo_name or '暂无' }}</span>
+                    <i class="fa fa-wb text-primary"></i>
+                    <span class="text-muted">{{ $data->wb_name or '暂无' }}</span>
                 </div>
             @endif
             @if(!empty($data->website))

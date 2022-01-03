@@ -129,8 +129,9 @@ class DocIndexRepository {
         $return[$sidebar_active] = 'active';
         $return[$menu_active] = 'active';
         $return['item_list'] = $item_list;
-        return view(env('TEMPLATE_DOC_FRONT').'entrance.root')
-            ->with($return);
+
+        $view = env('TEMPLATE_DOC_FRONT').'entrance.root';
+        return view($view)->with($return);
     }
 
 

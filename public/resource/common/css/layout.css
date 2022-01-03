@@ -87,7 +87,7 @@
 @media (max-width:767px)
 {
     .main-body-section { width:100%; }
-    .main-body-left-section { padding-right:0; }
+    .main-body-left-section { width:100%; padding-right:0; }
     .page-item .main-body-left-container { padding:8px; }
     .fixed .content-wrapper, .fixed .right-side, .control-sidebar { padding-top:50px; }
     .content { padding:0; }
@@ -259,7 +259,7 @@
     min-height:-moz-calc(100% - 64px);
     min-height:calc(100% - 64px);
     padding:0;
-    margin-top:64px;
+    margin-top:50px;
     line-height:1.6;
 }
 

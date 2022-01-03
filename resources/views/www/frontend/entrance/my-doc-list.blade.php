@@ -1,6 +1,6 @@
 @extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
-@section('head_title','我的名片夹')
+@section('head_title','我的轻博')
 @section('meta_title')@endsection
 @section('meta_author')@endsection
 @section('meta_description')@endsection
@@ -25,7 +25,7 @@
     <div class="main-body-section main-body-left-section section-wrapper page-root">
         <div class="container-box pull-left margin-bottom-16px">
 
-            @include(env('TEMPLATE_ROOT_FRONT').'component.user-list-for-relation',['user_list'=>$user_list])
+            @include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$user_list])
             {!! $user_list->links() !!}
 
         </div>

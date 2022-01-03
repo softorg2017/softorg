@@ -20,15 +20,13 @@
 @section('sidebar')
     @include(env('TEMPLATE_ATOM_FRONT').'component.sidebar.sidebar-root')
 @endsection
-
-
 @section('header','')
 @section('description','')
-@section('content')<div class="container">
+@section('content')
+<div class="container">
 
-    <div class="col-xs-12 col-sm-12 col-md-9 container-body-left">
-
-        <div class="container-box pull-left margin-bottom-16px">
+    <div class="main-body-section main-body-left-section section-wrapper page-root">
+        <div class="main-body-left-container bg-white">
 
 
             <div class="nav-tabs-custom">
@@ -64,7 +62,7 @@
     </div>
 
 
-    <div class="col-xs-12 col-sm-12 col-md-3 hidden-xs hidden-sm container-body-right">
+    <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
 
         @include(env('TEMPLATE_ATOM_FRONT').'component.right-side.right-root')
         {{--@include(env('TEMPLATE_ATOM_FRONT').'component.right-me')--}}

@@ -7,14 +7,14 @@
 @section('meta_keywords')@endsection
 
 
-@section('wx_share_title')朝鲜族组织平台@endsection
-@section('wx_share_desc')朝鲜族社群组织活动分享平台@endsection
-@section('wx_share_imgUrl'){{ url('/k-org.cn.png') }}@endsection
+@section('wx_share_title')@endsection
+@section('wx_share_desc')@endsection
+@section('wx_share_imgUrl')@endsection
 
 
 @section('sidebar')
 
-    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-root')
+    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar.sidebar-root')
 
 @endsection
 
@@ -98,8 +98,8 @@
 
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 hidden-xs hidden-sm container-body-right">
 
-        @include(env('TEMPLATE_ROOT_FRONT').'component.right-root')
-        @include(env('TEMPLATE_ROOT_FRONT').'component.right-me')
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-root')
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
 
     </div>
 
@@ -107,20 +107,12 @@
 @endsection
 
 
+
+
 @section('style')
-<style>
-    .box-footer a {color:#777;cursor:pointer;}
-    .box-footer a:hover {color:orange;cursor:pointer;}
-    .comment-container {border-top:2px solid #ddd;}
-    .comment-choice-container {border-top:2px solid #ddd;}
-    .comment-choice-container .form-group { margin-bottom:0;}
-    .comment-entity-container {border-top:2px solid #ddd;}
-    .comment-piece {border-bottom:1px solid #eee;}
-    .comment-piece:first-child {}
-</style>
 @endsection
 
-@section('js')
+@section('script')
 <script>
     $(function() {
 

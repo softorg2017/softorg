@@ -7,14 +7,14 @@
 @section('meta_keywords')@endsection
 
 
-@section('wx_share_title')朝鲜族组织平台@endsection
-@section('wx_share_desc')朝鲜族社群组织活动分享平台@endsection
-@section('wx_share_imgUrl'){{ url('/k-org.cn.png') }}@endsection
+@section('wx_share_title')@endsection
+@section('wx_share_desc')@endsection
+@section('wx_share_imgUrl')@endsection
 
 
 @section('sidebar')
 
-    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-root')
+    @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar.sidebar-root')
 
 @endsection
 
@@ -22,17 +22,11 @@
 @section('header','')
 @section('description','')
 @section('content')
-<div style="display:none;">
-    <input type="hidden" id="" value="{{ $encode or '' }}" readonly>
-</div>
-
 <div class="container">
 
-    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 container-body-left">
+    <div class="main-body-section main-body-left-section section-wrapper page-root">
+        <div class="container-box pull-left margin-bottom-16px">
 
-        <div class="row">
-            <div class="col-md-12">
-                <!-- BEGIN PORTLET-->
                 <div class="box box-info">
 
                     <div class="box-header with-border">
@@ -92,28 +86,28 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">微信号：</label>
                                 <div class="col-md-8 ">
-                                    <label class="control-label">{{  $info->wechat_id or '' }}</label>
+                                    <label class="control-label">{{  $info->wx_id or '' }}</label>
                                 </div>
                             </div>
                             {{--微信二维码--}}
                             <div class="form-group" style="display:none;">
                                 <label class="control-label col-md-2">微信二维码：</label>
                                 <div class="col-md-8 ">
-                                    <div style="width:100px;height:100px;"><img src="{{ url(env('DOMAIN_CDN').'/'.$info->wechat_qr_code_img) }}" alt=""></div>
+                                    <div style="width:100px;height:100px;"><img src="{{ url(env('DOMAIN_CDN').'/'.$info->wx_qr_code_img) }}" alt=""></div>
                                 </div>
                             </div>
                             {{--微博名称--}}
                             <div class="form-group">
                                 <label class="control-label col-md-2">微博名称：</label>
                                 <div class="col-md-8 ">
-                                    <label class="control-label">{{  $info->weibo_name or '' }}</label>
+                                    <label class="control-label">{{  $info->wb_name or '' }}</label>
                                 </div>
                             </div>
                             {{--微博地址--}}
                             <div class="form-group">
                                 <label class="control-label col-md-2">微博地址：</label>
                                 <div class="col-md-8 ">
-                                    <label class="control-label">{{  $info->weibo_address or '' }}</label>
+                                    <label class="control-label">{{  $info->wb_address or '' }}</label>
                                 </div>
                             </div>
                             {{--网站--}}
@@ -185,15 +179,13 @@
                 </div>
 
 
-            </div>
         </div>
-
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 hidden-xs hidden-sm container-body-right">
+    <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
 
-        @include(env('TEMPLATE_ROOT_FRONT').'component.right-root')
-        @include(env('TEMPLATE_ROOT_FRONT').'component.right-me')
+        {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-root')--}}
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
 
     </div>
 

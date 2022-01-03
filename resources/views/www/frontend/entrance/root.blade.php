@@ -17,7 +17,7 @@
 
 @section('sidebar')
 
-    {{--@include(env('TEMPLATE_ROOT_FRONT').'component.sidebar-root')--}}
+    {{--@include(env('TEMPLATE_ROOT_FRONT').'component.sidebar.sidebar-root')--}}
 
 @endsection
 
@@ -31,27 +31,49 @@
 
 <div class="container">
 
-    <div class="col-xs-12 col-sm-12 col-md-9 container-body-left _none">
-
-        {{--@include(env('TEMPLATE_ROOT_FRONT').'component.left-tag')--}}
-
+    <div class="main-body-section main-body-left-section section-wrapper page-root">
         <div class="container-box pull-left margin-bottom-16px">
-            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
+
+
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="{{ $tab_for_recommend_active or '' }}"><a href="/?item-type=doc" data-toggle="tab-">推荐</a></li>
+                    <li class="{{ $tab_for_focus_active or '' }}"><a href="/?item-type=focus" data-toggle="tab-">我的关注</a></li>
+                    <li class="{{ $tab_for_community_active or '' }}"><a href="/?item-type=community" data-toggle="tab-">我的社区</a></li>
+                </ul>
+                <div class="tab-content" style="width:100%; padding:10px 0;float:left;">
+                    <div class="active tab-pane" id="all">
+                        {{--@include(env('TEMPLATE_ATOM_FRONT').'component.item-list',['item_list'=>$item_list])--}}
+                    </div>
+                    {{--<div class="tab-pane" id="timeline">--}}
+                    {{--</div>--}}
+
+                    {{--<div class="tab-pane" id="settings">--}}
+                    {{--</div>--}}
+                </div>
+            </div>
+
+            {{--{!! $item_list->links() !!}--}}
+
+            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.left-tag')--}}
+
+            <div class="container-box pull-left margin-bottom-16px">
+                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.item-list',['item_list'=>$item_list])--}}
+            </div>
+
+            <div class="container-box pull-left margin-bottom-16px">
+                {{--@include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$user_list])--}}
+            </div>
+
+            {{--{!! $item_list->links() !!}--}}
+
         </div>
-
-        <div class="container-box pull-left margin-bottom-16px">
-            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.user-list',['user_list'=>$user_list])--}}
-        </div>
-
-        {{--{!! $item_list->links() !!}--}}
-
     </div>
 
+    <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
 
-    <div class="col-xs-12 col-sm-12 col-md-3 hidden-xs- hidden-sm- container-body-right">
-
-        {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-root')--}}
-        @include(env('TEMPLATE_ROOT_FRONT').'component.right-me')
+        {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-root')--}}
+        @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
 
     </div>
 

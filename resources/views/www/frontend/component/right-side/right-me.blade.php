@@ -22,34 +22,52 @@
             <i class="fa fa-home text-blue" style="width:24px;"></i><span>{{ Auth::user()->username }}</span>
         </div>
         {{--</a>--}}
-        <a href="{{ url('/user/'.Auth::id()) }}">
-            <div class="box-body {{ $sidebar_menu_me_active or '' }}">
+        <a href="{{ url('/my-card') }}">
+            <div class="box-body {{ $right_menu_my_card_active or '' }}">
                 <i class="fa fa-user text-red" style="width:24px;"></i>
-                <span>返回我的名片</span>
+                <span>我的名片</span>
             </div>
         </a>
-        <a href="{{ url('/my-cards') }}">
-            <div class="box-body {{ $sidebar_menu_my_cards_active or '' }}">
+        <a href="{{ url('/my-cards-case') }}">
+            <div class="box-body {{ $right_menu_my_cards_case_active or '' }}">
                 <i class="fa fa-list-alt text-red" style="width:24px;"></i>
                 <span>我的名片夹</span>
             </div>
         </a>
         <a href="{{ url('/my-follow') }}" class="_none">
-            <div class="box-body {{ $sidebar_menu_my_follow_active or '' }}">
+            <div class="box-body {{ $right_menu_my_follow_active or '' }}">
                 <i class="fa fa-list-alt text-red" style="width:24px;"></i>
                 <span>我的关注</span>
             </div>
         </a>
         <a href="{{ url('/my-favor') }}" class="_none">
-            <div class="box-body {{ $sidebar_menu_my_favor_active or '' }}">
+            <div class="box-body {{ $right_menu_my_favor_active or '' }}">
                 <i class="fa fa-heart text-red" style="width:24px;"></i>
                 <span>我的收藏</span>
             </div>
         </a>
         <a href="{{ url('/my-notification') }}" class="_none">
-            <div class="box-body {{ $sidebar_menu_my_notification_active or '' }}">
+            <div class="box-body {{ $right_menu_my_notification_active or '' }}">
                 <i class="fa fa-bell text-red" style="width:24px;"></i>
                 <span>消息通知</span>
+            </div>
+        </a>
+        <a href="{{ url(env('DOMAIN_DOC')) }}" class="" target="_blank">
+            <div class="box-body {{ $right_menu_my_doc_active or '' }}">
+                <i class="fa fa-list text-red" style="width:24px;"></i>
+                <span>我的轻博</span>
+            </div>
+        </a>
+        <a href="{{ url('/my-doc-list') }}" class="">
+            <div class="box-body {{ $right_menu_my_doc_list_active or '' }}">
+                <i class="fa fa-list text-red" style="width:24px;"></i>
+                <span>我的轻博账号</span>
+            </div>
+        </a>
+        <a href="{{ url('/my-community') }}" class="">
+            <div class="box-body {{ $right_menu_my_doc_list_active or '' }}">
+                <i class="fa fa-list text-red" style="width:24px;"></i>
+                <span>我的社区</span>
             </div>
         </a>
     @endif

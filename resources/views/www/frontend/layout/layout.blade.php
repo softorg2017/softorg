@@ -24,7 +24,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
-    {{--<link rel="stylesheet" href="/AdminLTE/bootstrap/css/bootstrap.min.css">--}}
     {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/AdminLTE/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
@@ -36,22 +35,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{--<link href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">--}}
     <link rel="stylesheet" href="{{ asset('/resource/component/css/ionicons-2.0.1.min.css') }}">
     <!-- Theme style -->
-    {{--<link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/AdminLTE.min.css') }}">
     {{--<link href="https://cdn.bootcss.com/admin-lte/2.3.11/css/AdminLTE.min.css" rel="stylesheet">--}}
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    {{--<link rel="stylesheet" href="/AdminLTE/dist/css/skins/skin-blue.min.css">--}}
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/skins/skin-blue.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/skins/_all-skins.css') }}">
+    {{--<link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/skins/skin-blue.min.css') }}">--}}
+    {{--<link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/skins/skin-black.min.css') }}">--}}
 
-    {{--<link rel="stylesheet" href="/AdminLTE/plugins/iCheck/all.css">--}}
     <link rel="stylesheet" href="{{ asset('/AdminLTE/plugins/iCheck/all.css') }}">
     {{--<link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">--}}
     {{--<link rel="stylesheet" href="{{ asset('/resource/component/css/iCheck-1.0.2-skins-all.css') }}">--}}
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     {{--<!--[if lt IE 9]>--}}
     {{--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>--}}
@@ -95,6 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('/resource/common/css/animate/wicked.css') }}">
     <link rel="stylesheet" href="{{ asset('/resource/common/css/animate/hover.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('/resource/common/css/AdminLTE/index.css') }}">
     <link rel="stylesheet" href="{{ asset('/resource/common/css/common.css') }}">
     <link rel="stylesheet" href="{{ asset('/resource/common/css/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('/resource/common/css/item.css') }}">
@@ -102,32 +101,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('/resource/common/css/frontend/index.css') }}">
     <link rel="stylesheet" href="{{ asset('/resource/others/css/frontend/index.css') }}">
 
+
     @yield('css')
     @yield('style')
     @yield('custom-css')
     @yield('custom-style')
 
-    <style>
-        /*.item-piece img { background:url("/common/images/bg/background-image.png");background-size:cover; }*/
+    {{--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>--}}
 
-        .header-logo {
-            -webkit-transition: width .3s ease-in-out;
-            -o-transition: width .3s ease-in-out;
-            transition: width .3s ease-in-out;
-            display: block;
-            float: left;
-            height: 50px;
-            font-size: 20px;
-            line-height: 50px;
-            text-align: center;
-            width: calc(100% - 584px);
-            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-            padding: 0 15px;
-            font-weight: 300;
-            color:#fff;
-            overflow: hidden;
-        }
+    <style>
+
     </style>
+
 
 </head>
 <!--
@@ -150,25 +135,23 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-black sidebar-mini page-frontend">
 <div class="wrapper">
 
-
     {{--main-header--}}
-    @include(env('TEMPLATE_WWW_FRONT').'layout.main-header')
+    @include(env('TEMPLATE_ROOT_FRONT').'layout.main-header')
 
     {{--main-sidebar--}}
-    @include(env('TEMPLATE_WWW_FRONT').'layout.main-sidebar')
+    @include(env('TEMPLATE_ROOT_FRONT').'layout.main-sidebar')
 
     {{--main-content--}}
-    @include(env('TEMPLATE_WWW_FRONT').'layout.main-content')
+    @include(env('TEMPLATE_ROOT_FRONT').'layout.main-content')
 
     {{--main-footer--}}
-    @include(env('TEMPLATE_WWW_FRONT').'layout.main-footer')
+    @include(env('TEMPLATE_ROOT_FRONT').'layout.main-footer')
 
     {{--control-sidebar--}}
-    @include(env('TEMPLATE_WWW_FRONT').'layout.control-sidebar')
-
+    @include(env('TEMPLATE_ROOT_FRONT').'layout.control-sidebar')
 
 </div>
 <!-- ./wrapper -->
@@ -253,12 +236,13 @@ desired effect
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 {{--<script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>--}}
 {{--<script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>--}}
-@include(env('TEMPLATE_WWW_FRONT').'layout.wx-script')
+@include(env('TEMPLATE_ROOT_FRONT').'layout.wx-script')
 
 
-<script src="{{ asset('js/frontend/index.js') }}"></script>
+<script src="{{ asset('/resource/common/js/common.js') }}"></script>
+<script src="{{ asset('/resource/custom/doc/js/index.js') }}"></script>
 
-@include(env('TEMPLATE_WWW_FRONT').'layout.layout-script')
+@include(env('TEMPLATE_DOC_FRONT').'layout.layout-script')
 
 
 @yield('js')

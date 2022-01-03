@@ -65,6 +65,11 @@ Route::group(['namespace' => 'Front'], function () {
 
             Route::get('/home/notification', $controller.'@view_home_notification');
 
+            Route::match(['get','post'], '/my-doc-create', $controller.'@operate_my_doc_create');
+            Route::match(['get','post'], '/my-doc-edit', $controller.'@operate_my_doc_edit');
+            Route::get('/my-doc-list', $controller.'@view_my_doc_list');
+
+            Route::get('/my-doc-login', $controller.'@operate_my_doc_login');
             Route::get('/login-my-doc', $controller.'@operate_login_my_doc');
 
 
@@ -77,7 +82,8 @@ Route::group(['namespace' => 'Front'], function () {
                 Route::match(['get','post'], '/my-info/edit', $controller.'@view_my_info_edit');
                 Route::match(['get','post'], '/my-introduction/edit', $controller.'@view_my_introduction_edit');
 
-                Route::get('/my-cards', $controller.'@view_my_cards');
+                Route::get('/my-card', $controller.'@view_my_card');
+                Route::get('/my-cards-case', $controller.'@view_my_cards_case');
                 Route::get('/my-follow', $controller.'@view_my_follow');
                 Route::get('/my-favor', $controller.'@view_my_favor');
                 Route::get('/my-notification', $controller.'@view_my_notification');

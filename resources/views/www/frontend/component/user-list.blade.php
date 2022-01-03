@@ -1,5 +1,5 @@
 @foreach($user_list as $u)
-<div class="a-piece a-option user-piece user-option user margin-bottom-8px radius-2px"
+<div class="item-piece item-wrapper a-option user-piece user-option user margin-bottom-8px radius-2px"
      data-user="{{ $u->id or 0 }}"
      data-type="{{ $u->relation_type or 0 }}"
 >
@@ -68,9 +68,13 @@
 
                 <div class="item-row item-info-row">
                     <span>粉丝 {{ $u->fans_num }}</span>
-                    <span> • 文章 {{ $u->article_count }}</span>
-                    <span> • 活动 {{ $u->activity_count }}</span>
+                    <span> • 内容 {{ $u->article_count }}</span>
                     <span> • 访问 {{ $u->visit_num }}</span>
+                </div>
+
+                <div class="item-row item-info-row">
+                    <a href="{{ url('/my-doc-edit?user-id='.$u->id) }}">编辑</a>
+                    <a href="{{ url('/my-doc-login?user-id='.$u->id) }}" target="_blank">登录</a>
                 </div>
 
                 @if(!empty($u->email))
@@ -89,18 +93,18 @@
                     </div>
                 @endif
 
-                @if(!empty($u->wechat_id))
-                    @if(!empty($u->wechat_qr_code_img))
-                    <a class="lightcase-image" href="{{ url(env('DOMAIN_CDN').'/'.$u->wechat_qr_code_img) }}">
+                @if(!empty($u->wx_id))
+                    @if(!empty($u->wx_qr_code_img))
+                    <a class="lightcase-image" href="{{ url(env('DOMAIN_CDN').'/'.$u->wx_qr_code_img) }}">
                         <div class="item-row item-info-row">
                             <i class="fa fa-weixin text-success" style="width:16px;"></i>
-                            <span class="text-muted">{{ $u->wechat_id or '暂无' }}</span>
+                            <span class="text-muted">{{ $u->wx_id or '暂无' }}</span>
                         </div>
                     </a>
                     @else
                         <div class="item-row item-info-row">
                             <i class="fa fa-weixin text-success" style="width:16px;"></i>
-                            <span class="text-muted">{{ $u->wechat_id or '暂无' }}</span>
+                            <span class="text-muted">{{ $u->wx_id or '暂无' }}</span>
                         </div>
                     @endif
                 @endif
@@ -139,19 +143,19 @@
                 </div>
                 @endif
 
-                @if(!empty($u->linkman_wechat_id))
-                    @if(!empty($u->linkman_wechat_qr_code_img))
-                    <a class="lightcase-image" href="{{ url(env('DOMAIN_CDN').'/'.$u->linkman_wechat_qr_code_img) }}">
+                @if(!empty($u->linkman_wx_id))
+                    @if(!empty($u->linkman_wx_qr_code_img))
+                    <a class="lightcase-image" href="{{ url(env('DOMAIN_CDN').'/'.$u->linkman_wx_qr_code_img) }}">
                         <div class="item-row item-info-row">
                             <i class="fa fa-weixin text-success" style="width:16px;"></i>
-                            <span class="text-muted">{{ $u->linkman_wechat_id or '暂无' }}</span>
+                            <span class="text-muted">{{ $u->linkman_wx_id or '暂无' }}</span>
                             <i class="fa fa-qrcode text-danger" style="width:16px;font-weight:500;"></i>
                         </div>
                     </a>
                     @else
                         <div class="item-row item-info-row">
                             <i class="fa fa-weixin text-success" style="width:16px;"></i>
-                            <span class="text-muted">{{ $u->linkman_wechat_id or '暂无' }}</span>
+                            <span class="text-muted">{{ $u->linkman_wx_id or '暂无' }}</span>
                         </div>
                     @endif
                 @endif

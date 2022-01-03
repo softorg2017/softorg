@@ -33,10 +33,10 @@ class RootIndexRepository {
     // 返回【平台首页】视图
     public function view_root()
     {
-        if(auth()->check())
-        {
-            return redirect(env('DOMAIN_WWW').'/user/'.auth()->id());
-        }
+//        if(auth()->check())
+//        {
+//            return redirect(env('DOMAIN_WWW').'/user/'.auth()->id());
+//        }
 
         $head_title = "如未科技";
         $return['head_title'] = $head_title;
@@ -67,7 +67,27 @@ class RootIndexRepository {
         $return['page'] = $page;
 
 
+        $item_type = request('item-type','recommend');
+        if($item_type == 'recommend')
+        {
+            $return['tab_for_recommend_active'] = 'active';
+        }
+        else if($item_type == 'focus')
+        {
+            $return['tab_for_focus_active'] = 'active';
+        }
+        else if($item_type == 'community')
+        {
+            $return['tab_for_community_active'] = 'active';
+        }
+        else
+        {
+        }
 
+
+
+        $condition = request()->all();
+        $return['condition'] = $condition;
 
         $view = env('TEMPLATE_ROOT_FRONT').'entrance.root';
         return view($view)->with($return);
@@ -297,6 +317,40 @@ class RootIndexRepository {
     }
 
 
+
+
+    // 【我的】【关注】
+    public function view_my_doc_list($post_data)
+    {
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+
+            $user_list = User::with([])
+                ->where(['user_category'=>9,'creator_id'=>$me_id])
+                ->orderby('id','desc')
+                ->paginate(20);
+
+//            foreach ($user_list as $user)
+//            {
+//                $user->relation_with_me = $user->relation_type;
+//            }
+
+        }
+        else return response_error([],"请先登录！");
+
+        $return['user_list'] = $user_list;
+        $return['right_menu_my_doc_list_active'] = 'active';
+        $return['sidebar_menu_my_doc_list_active'] = 'active';
+
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-list';
+        return view($view_blade)->with($return);
+    }
+
+
+
+
     // 【图文详情】返回-编辑-视图
     public function view_my_introduction_edit()
     {
@@ -344,6 +398,68 @@ class RootIndexRepository {
 
 
 
+
+    // 【用户】首页
+    public function view_my_card()
+    {
+        $me = Auth::user();
+        $user_id = $me->id;
+
+        $type = !empty($post_data['type']) ? $post_data['type'] : 'root';
+
+        $user = User::select('*')
+            ->with([
+                'ext'
+            ])
+            ->withCount([
+//                'items as article_count' => function($query) { $query->where(['item_status'=>1,'item_category'=>1,'item_type'=>1]); },
+//                'items as activity_count' => function($query) { $query->where(['item_status'=>1,'item_category'=>1,'item_type'=>11]); },
+            ])
+            ->find($user_id);
+
+
+
+
+
+        $is_follow = 0;
+
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+            $record["creator_id"] = $me_id;
+
+
+            if($user_id != $me_id)
+            {
+                $relation = Def_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$me_id,'relation_user_id'=>$user_id])->first();
+                view()->share(['relation'=>$relation]);
+            }
+
+            $relation_with_me = Def_Pivot_User_Relation::where(['relation_category'=>1,'mine_user_id'=>$me_id,'relation_user_id'=>$user_id])->first();
+            if($relation_with_me &&  in_array($relation_with_me->relation_type,[21,41]))
+            {
+                $is_follow = 1;
+            }
+        }
+        else
+        {
+        }
+
+
+
+
+        $condition = request()->all();
+        $return['condition'] = $condition;
+        $return['data'] = $user;
+        $return['is_follow'] = $is_follow;
+        $return['right_menu_my_card_active'] = 'active';
+        $return['sidebar_menu_my_card_active'] = 'active';
+
+        view()->share('user_root_active','active');
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-card';
+        return view($view_blade)->with($return);
+    }
 
     // 【用户】首页
     public function view_user($post_data,$id=0)
@@ -734,11 +850,12 @@ class RootIndexRepository {
         }
         else return response_error([],"请先登录！");
 
-        return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-follow')
-            ->with([
-                'user_list'=>$user_list,
-                'sidebar_menu_my_follow_active'=>'active'
-            ]);
+        $return['user_list'] = $user_list;
+        $return['right_menu_my_follow_active'] = 'active';
+        $return['sidebar_menu_my_follow_active'] = 'active';
+
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-follow';
+        return view($view_blade)->with($return);
     }
     // 【我的】【粉丝】
     public function view_my_fans($post_data)
@@ -767,6 +884,43 @@ class RootIndexRepository {
     }
 
 
+    // 【我的】【关注】
+    public function view_my_cards_case($post_data)
+    {
+        if(Auth::check())
+        {
+            $me = Auth::user();
+            $me_id = $me->id;
+
+            $user_list = Def_Pivot_User_Relation::with([
+                'relation_user'=>function($query) {
+                    $query->withCount([
+                        'fans_list as fans_count' => function($query) { $query->where(['relation_type'=>41]); },
+//                            'items as article_count' => function($query) { $query->where(['item_category'=>1,'item_type'=>1]); },
+//                            'items as activity_count' => function($query) { $query->where(['item_category'=>1,'item_type'=>11]); },
+                    ]);
+                },
+            ])
+                ->where(['mine_user_id'=>$me_id])
+                ->whereIn('relation_type',[21,41])
+                ->orderby('id','desc')
+                ->paginate(20);
+
+            foreach ($user_list as $user)
+            {
+                $user->relation_with_me = $user->relation_type;
+            }
+
+        }
+        else return response_error([],"请先登录！");
+
+        $return['user_list'] = $user_list;
+        $return['right_menu_my_cards_case_active'] = 'active';
+        $return['sidebar_menu_my_cards_case_active'] = 'active';
+
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-follow';
+        return view($view_blade)->with($return);
+    }
 
 
 
@@ -938,6 +1092,205 @@ class RootIndexRepository {
 
 
     // 登录我的轻博
+    /*
+     * DOC
+     */
+    // 【ITEM】返回-添加-视图
+    public function view_my_doc_create($post_data)
+    {
+        $me = Auth::user();
+
+        $operate_category = 'user';
+        $operate_type = 'user.doc';
+        $operate_type_text = '轻博';
+        $title_text = '创建新'.$operate_type_text;
+        $list_text = $operate_type_text.'列表';
+        $list_link = '/my-doc-list';
+
+        $return['operate'] = 'create';
+        $return['operate_id'] = 0;
+        $return['operate_category'] = $operate_category;
+        $return['operate_type'] = $operate_type;
+        $return['item_type_text'] = $operate_type_text;
+        $return['title_text'] = $title_text;
+        $return['list_text'] = $list_text;
+        $return['list_link'] = $list_link;
+
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-edit';
+        return view($view_blade)->with($return);
+    }
+    // 【ITEM】返回-编辑-视图
+    public function view_my_doc_edit($post_data)
+    {
+        $me = Auth::user();
+//        if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
+
+        $id = $post_data["user-id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
+        if($id == 0)
+        {
+            $return['operate'] = 'create';
+        }
+        else
+        {
+            $mine = User::with(['creator'])->find($id);
+            if(!$mine) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
+            $return['operate'] = 'edit';
+            $return['data'] = $mine;
+        }
+
+        $operate_category = 'user';
+        $operate_type = 'user.doc';
+        $operate_type_text = '轻博账号';
+        $title_text = '编辑'.$operate_type_text;
+        $list_text = $operate_type_text.'列表';
+        $list_link = '/my-doc-list';
+
+        $return['operate_id'] = $id;
+        $return['operate_category'] = $operate_category;
+        $return['operate_type'] = $operate_type;
+        $return['operate_type_text'] = $operate_type_text;
+        $return['title_text'] = $title_text;
+        $return['list_text'] = $list_text;
+        $return['list_link'] = $list_link;
+
+
+
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-edit';
+        return view($view_blade)->with($return);
+
+    }
+    // 【ITEM】保存-数据
+    public function operate_my_doc_save($post_data)
+    {
+//        dd($post_data);
+        $messages = [
+            'operate.required' => 'operate.required.',
+            'username.required' => '请输入用户名！',
+//            'mobile.required' => '请输入电话',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'username' => 'required',
+//            'mobile' => 'required'
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+
+        $me = Auth::user();
+        $me_id = $me->id;
+        if(!in_array($me->user_category,[0,1])) return response_error([],"你没有操作权限！");
+
+
+        $operate = $post_data["operate"];
+        $operate_id = $post_data["operate_id"];
+
+        if($operate == 'create') // 添加 ( $id==0，添加一个新用户 )
+        {
+            $mine = new User;
+            $post_data["creator_id"] = $me_id;
+            $post_data["user_category"] = 9;
+            $post_data["active"] = 1;
+            $post_data["password"] = password_encode("12345678");
+        }
+        else if($operate == 'edit') // 编辑
+        {
+            $mine = User::find($operate_id);
+            if(!$mine) return response_error([],"该用户不存在，刷新页面重试！");
+        }
+        else return response_error([],"参数有误！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            if(!empty($post_data['custom']))
+            {
+                $post_data['custom'] = json_encode($post_data['custom']);
+            }
+
+            $mine_data = $post_data;
+            $mine_data['district_id'] = !empty($post_data['select2_district_id']) ? $post_data['select2_district_id'] : 0;
+
+            unset($mine_data['operate']);
+            unset($mine_data['operate_id']);
+            unset($mine_data['category']);
+            unset($mine_data['type']);
+
+            $bool = $mine->fill($mine_data)->save();
+            if($bool)
+            {
+                // 头像
+                if(!empty($post_data["portrait"]))
+                {
+                    // 删除原图片
+                    $mine_portrait_img = $mine->portrait_img;
+                    if(!empty($mine_portrait_img) && file_exists(storage_path("resource/" . $mine_portrait_img)))
+                    {
+                        unlink(storage_path("resource/" . $mine_portrait_img));
+                    }
+
+//                    $result = upload_storage($post_data["portrait"]);
+//                    $result = upload_storage($post_data["portrait"], null, null, 'assign');
+                    $result = upload_img_storage($post_data["portrait"],'user_'.$mine->id,'doc/unique/portrait/','assign');
+                    if($result["result"])
+                    {
+                        $mine->portrait_img = $result["local"];
+                        $mine->save();
+                    }
+                    else throw new Exception("upload--portrait--fail");
+                }
+                else
+                {
+                    if($operate == 'create')
+                    {
+                        copy(storage_path("resource/unique/portrait/user0.jpeg"), storage_path("resource/doc/unique/portrait/user_".$mine->id.".jpeg"));
+                        $mine->portrait_img = "doc/unique/portrait/user_".$mine->id.".jpeg";
+                        $mine->save();
+                    }
+                }
+
+            }
+            else throw new Exception("insert--user--fail");
+
+            DB::commit();
+            return response_success(['id'=>$mine->id]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+
+    // 登录我的轻博
+    public function operate_my_doc_login($post_data)
+    {
+        $id = $post_data["user-id"];
+        if(!is_numeric($id)) return response_error([],"参数ID有误！");
+//        if(intval($id) !== 0 && !$id) dd("参数ID有误！");
+
+        $me = Auth::user();
+        $mine = User::with(['creator'])->find($id);
+        if(!$mine) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
+        if($mine->creator_id != $me->id) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
+
+        Auth::guard('doc')->login($mine,true);
+        Auth::guard('doc_admin')->login($me,true);
+
+        if(request()->isMethod('get')) return redirect(env('DOMAIN_DOC'));
+        else if(request()->isMethod('post')) return response_success();
+    }
+
+    // 登录我的轻博
     public function operate_login_my_doc($post_data)
     {
         $me = Auth::user();
@@ -945,7 +1298,7 @@ class RootIndexRepository {
         Auth::guard('doc')->login($me,true);
         Auth::guard('doc_admin')->login($me,true);
 
-        if(request()->isMethod('get')) return redirect(env('DOMAIN_DOC').'/home');
+        if(request()->isMethod('get')) return redirect(env('DOMAIN_DOC'));
         else if(request()->isMethod('post')) return response_success();
     }
 

@@ -16,16 +16,19 @@ class User extends Authenticatable
 
     protected $fillable = [
         'active', 'status', 'user_active', 'user_status', 'user_category', 'user_group', 'user_type', 'category', 'group', 'type',
-        'parent_id', 'p_id',
+        'creator_id', 'parent_id', 'p_id',
         'name', 'username', 'nickname', 'true_name', 'description', 'portrait_img', 'tag',
         'mobile', 'telephone', 'email', 'password',
         'wx_unionid',
         'district_category', 'district_type', 'district_id',
         'introduction_id', 'advertising_id',
-        'QQ_number', 'wechat_id', 'wechat_qr_code_img', 'weibo_name', 'weibo_address', 'website',
+        'QQ_number',
+        'wx_id', 'wx_qr_code_img',
+        'wb_name', 'wb_address',
+        'website',
         'contact_address',
-        'contact_phone', 'contact_wechat_id', 'contact_wechat_qr_code_img',
-        'linkman', 'linkman_name', 'linkman_phone', 'linkman_wechat_id', 'linkman_wechat_qr_code_img',
+        'contact_phone', 'contact_wx_id', 'contact_wx_qr_code_img',
+        'linkman', 'linkman_name', 'linkman_phone', 'linkman_wx_id', 'linkman_wx_qr_code_img',
         'company', 'department', 'position', 'business_description',
         'visit_num', 'share_num', 'favor_num',  'follow_num', 'fans_num',
     ];
@@ -40,6 +43,27 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\UserExt','user_id','id');
     }
+
+
+    // 拥有者
+    function owner()
+    {
+        return $this->belongsTo('App\User','owner_id','id');
+    }
+    // 创作者
+    function creator()
+    {
+        return $this->belongsTo('App\User','creator_id','id');
+    }
+    // 用户
+    function user()
+    {
+        return $this->belongsTo('App\User','user_id','id');
+    }
+
+
+
+
     // 所属代理商
     function parent()
     {

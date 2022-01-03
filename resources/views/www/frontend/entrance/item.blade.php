@@ -1,14 +1,14 @@
 @extends(env('TEMPLATE_DEFAULT').'frontend.layout.layout')
 
 
-@section('head_title') {{ $item->title or '朝鲜族组织平台' }} @endsection
+@section('head_title') {{ $item->title or '如未科技' }} @endsection
 @section('meta_title')@endsection
 @section('meta_author')@endsection
 @section('meta_description')@endsection
 @section('meta_keywords')@endsection
 
 
-@section('wx_share_title'){{ $item->title or '朝鲜族组织平台' }}@endsection
+@section('wx_share_title'){{ $item->title or '如未科技' }}@endsection
 @section('wx_share_desc'){{ '@'.$item->owner->username }}@endsection
 @section('wx_share_imgUrl'){{ url(env('DOMAIN_CDN').'/'.$item->owner->portrait_img) }}@endsection
 
@@ -17,7 +17,7 @@
 
 @section('sidebar')
 
-    @include(env('TEMPLATE_DEFAULT').'frontend.component.sidebar-item')
+    @include(env('TEMPLATE_DEFAULT').'frontend.component.sidebar.sidebar-item')
 
 @endsection
 
@@ -72,14 +72,10 @@
 
 @section('style')
 <style>
-    .box-footer a {color:#777;cursor:pointer;}
-    .box-footer a:hover {color:orange;cursor:pointer;}
-    .comment-choice-container {border-top:2px solid #ddd;}
-    .comment-choice-container .form-group { margin-bottom:0;}
 </style>
 @endsection
 
-@section('js')
+@section('script')
 <script>
     $(function() {
         $(".comments-get-default").click();

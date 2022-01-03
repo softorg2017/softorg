@@ -70,6 +70,28 @@ class RootIndexController extends Controller
 
 
 
+    // 【轻博】创建
+    public function operate_my_doc_create()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_my_doc_create(request()->all());
+        else if (request()->isMethod('post')) return $this->repo->operate_my_doc_save(request()->all());
+    }
+    // 【轻博】编辑
+    public function operate_my_doc_edit()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_my_doc_edit(request()->all());
+        else if (request()->isMethod('post')) return $this->repo->operate_my_doc_save(request()->all());
+    }
+    // 【轻博】列表
+    public function view_my_doc_list()
+    {
+        return $this->repo->view_my_doc_list(request()->all());
+    }
+    // 登录我的轻博
+    public function operate_my_doc_login()
+    {
+        return $this->repo->operate_my_doc_login(request()->all());
+    }
     // 登录我的轻博
     public function operate_login_my_doc()
     {
@@ -127,10 +149,15 @@ class RootIndexController extends Controller
 
 
 
-    // 【我的关注】
-    public function view_my_cards()
+    // 【我的名片】
+    public function view_my_card()
     {
-        return $this->repo->view_my_follow(request()->all());
+        return $this->repo->view_my_card();
+    }
+    // 【我的名片夹】
+    public function view_my_cards_case()
+    {
+        return $this->repo->view_my_cards_case(request()->all());
     }
     // 【我的关注】
     public function view_my_follow()
@@ -180,29 +207,7 @@ class RootIndexController extends Controller
     }
 
 
-    // 返回【钢琴出租】【列表】视图
-    public function view_rent_out_list()
-    {
-        return $this->repo->view_rent_out_list();
-    }
-    // 返回【二手批发】【列表】视图
-    public function view_second_wholesale_list()
-    {
-        return $this->repo->view_second_wholesale_list();
-    }
 
-    // 返回【钢琴回收】【单页】视图
-    public function view_recycle_page()
-    {
-        return $this->repo->view_recycle_page();
-    }
-
-
-    // 返回【最新动态】【列表】视图
-    public function view_coverage_list()
-    {
-        return $this->repo->view_coverage_list();
-    }
 
 
 

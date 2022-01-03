@@ -1,5 +1,5 @@
 @foreach($user_list as $u)
-<div class="a-piece a-option user-piece user-option user margin-bottom-8px radius-2px"
+<div class="item-piece item-wrapper a-option user-piece user-option user margin-bottom-4px radius-2px"
      data-user="{{ $u->relation_user->id or 0 }}"
      data-type="{{ $u->relation_type or 0 }}"
 >
@@ -80,21 +80,21 @@
                 @if(!empty($u->relation_user->email))
                     <div class="item-row item-info-row">
                         <i class="fa fa-envelope text-primary"></i>
-                        <span class="text-muted">{{ $data->email or '暂无' }}</span>
+                        <span class="text-muted">{{ $u->relation_user->email or '暂无' }}</span>
                     </div>
                 @endif
                 {{--微信--}}
-                @if(!empty($u->relation_user->wechat_id))
+                @if(!empty($u->relation_user->wx_id))
                     <div class="item-row item-info-row">
-                        @if(!empty($u->relation_user->wechat_qr_code_img))
-                            <a class="lightcase-image" href="{{ url(env('DOMAIN_CDN').'/'.$u->relation_user->wechat_qr_code_img) }}">
+                        @if(!empty($u->relation_user->wx_qr_code_img))
+                            <a class="lightcase-image" href="{{ url(env('DOMAIN_CDN').'/'.$u->relation_user->wx_qr_code_img) }}">
                                 <i class="fa fa-weixin text-primary"></i>
-                                <span class="text-muted">{{ $u->relation_user->wechat_id or '暂无' }}</span>
+                                <span class="text-muted">{{ $u->relation_user->wx_id or '暂无' }}</span>
                                 <i class="fa fa-qrcode text-danger" style="width:16px;font-weight:500;"></i>
                             </a>
                         @else
                             <i class="fa fa-weixin text-primary"></i>
-                            <span class="text-muted">{{ $u->relation_user->wechat_id or '暂无' }}</span>
+                            <span class="text-muted">{{ $u->relation_user->wx_id or '暂无' }}</span>
                         @endif
                     </div>
                 @endif
@@ -108,16 +108,16 @@
                     </div>
                 @endif
                 {{--微博--}}
-                @if(!empty($u->relation_user->weibo_name))
+                @if(!empty($u->relation_user->wb_name))
                     <div class="item-row item-info-row">
-                        @if(!empty($u->relation_user->weibo_address))
-                            <a target="_blank" href="{{ $u->relation_user->weibo_address }}">
-                                <i class="fa fa-weibo text-primary"></i>
-                                <span class="">{{ $u->relation_user->weibo_name or '暂无' }}</span>
+                        @if(!empty($u->relation_user->wb_address))
+                            <a target="_blank" href="{{ $u->relation_user->wb_address }}">
+                                <i class="fa fa-wb text-primary"></i>
+                                <span class="">{{ $u->relation_user->wb_name or '暂无' }}</span>
                             </a>
                         @else
-                            <i class="fa fa-weibo text-primary"></i>
-                            <span class="text-muted">{{ $u->relation_user->weibo_name or '暂无' }}</span>
+                            <i class="fa fa-wb text-primary"></i>
+                            <span class="text-muted">{{ $u->relation_user->wb_name or '暂无' }}</span>
                         @endif
                     </div>
                 @endif

@@ -1,5 +1,5 @@
 {{--<!-- Main Footer -->--}}
-<footer class="main-footer" style="margin-top:16px;margin-left:0;">
+<footer class="main-footer margin-left-0">
     <!-- To the right -->
     <div class="pull-right hidden-xs _none">
         Anything you want
@@ -14,8 +14,10 @@
             <a href="{{ url('/login-link') }}">登录</a>
         @else
             <a href="{{ url('/user/'.Auth::id()) }}">返回我的名片</a>
-            <span style="margin-left:4px;margin-right:4px;">|</span>
+            <span class="margin-left-4px margin-right-4px">|</span>
             <a href="{{ url('/login-my-doc') }}">登录我的轻博</a>
+            <span class="margin-left-4px margin-right-4px">|</span>
+            <a href="{{ url('/my-doc-create') }}">创建一个轻博</a>
         @endif
         {{--<span style="margin-left:4px;margin-right:4px;">|</span>--}}
         {{--<a href="/introduction">平台介绍</a>--}}

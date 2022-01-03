@@ -153,14 +153,14 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="user-image" alt="User Image">
-                            <span class="hidden-xs-"><span>{{ Auth::user()->username }}</span></span>
+                            <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('doc')->user()->portrait_img) }}" class="user-image" alt="User Image">
+                            <span class="hidden-xs-"><span>{{ Auth::guard('doc')->user()->username }}</span></span>
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="img-circle" alt="User Image">
+                                <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('doc')->user()->portrait_img) }}" class="img-circle" alt="User Image">
                                 <p>
                                     {{ Auth::user()->username }}
                                     <small>Member since Nov. 2020</small>
@@ -170,7 +170,7 @@
                             <li class="user-body">
                                 <div class="row">
                                     <div class="col-xs-4 text-center">
-                                        <a href="{{ url('/user/'.Auth::user()->id) }}">
+                                        <a href="{{ url('/user/'.Auth::guard('doc')->user()->id) }}">
                                             <i class="fa fa-home text-red"></i> 主页
                                         </a>
                                     </div>
