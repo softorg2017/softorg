@@ -37,13 +37,15 @@
 
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="{{ $tab_for_recommend_active or '' }}"><a href="/?item-type=doc" data-toggle="tab-">推荐</a></li>
-                    <li class="{{ $tab_for_focus_active or '' }}"><a href="/?item-type=focus" data-toggle="tab-">我的关注</a></li>
-                    <li class="{{ $tab_for_community_active or '' }}"><a href="/?item-type=community" data-toggle="tab-">我的社区</a></li>
+                    <li class="{{ $menu_active_for_recommend or '' }}"><a href="/" data-toggle="tab-">推荐</a></li>
+                    <li class="{{ $menu_active_for_focus or '' }}"><a href="/?item-type=focus" data-toggle="tab-">关注</a></li>
+                    <li class="{{ $menu_active_for_community or '' }}"><a href="/?item-type=community" data-toggle="tab-">社区资讯</a></li>
                 </ul>
                 <div class="tab-content" style="width:100%; padding:10px 0;float:left;">
                     <div class="active tab-pane" id="all">
-                        {{--@include(env('TEMPLATE_ATOM_FRONT').'component.item-list',['item_list'=>$item_list])--}}
+                        @if(!empty($item_list) && count($item_list))
+                            @include(env('TEMPLATE_COMMON_FRONT').'component.item-list',['item_list'=>$item_list])
+                        @endif
                     </div>
                     {{--<div class="tab-pane" id="timeline">--}}
                     {{--</div>--}}
@@ -81,6 +83,8 @@
 @endsection
 
 
+
+
 @section('style')
 <style>
     .box-footer a {color:#777;cursor:pointer;}
@@ -90,7 +94,13 @@
 </style>
 @endsection
 
+
+
+
 @section('js')
+    @include(env('TEMPLATE_COMMON_FRONT').'component.item-script')
+@endsection
+@section('script')
 <script>
     $(function() {
 //        $('article').readmore({
@@ -101,3 +111,4 @@
     });
 </script>
 @endsection
+

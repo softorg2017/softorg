@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Def_Record extends Model
 {
     //
-    protected $table = "def_record";
+    protected $connection = 'mysql_def';
+    protected $table = "record";
     protected $fillable = [
         'record_category', 'record_type', 'record_module', 'category', 'type', 'sort', 'form', 'module',
         'owner_id', 'creator_id', 'user_id', 'belong_id', 'source_id', 'object_id', 'visitor_id', 'item_id',

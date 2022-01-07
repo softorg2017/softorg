@@ -183,6 +183,7 @@ class DocIndexController extends Controller
     /*
      * 列表
      */
+    // 【我的】
     public function view_item_list_for_mine()
     {
         return $this->repo->view_item_list_for_mine(request()->all());
@@ -194,24 +195,24 @@ class DocIndexController extends Controller
     }
 
     // 【我的待办事】
-    public function view_item_list_for_my_todolist()
+    public function view_item_list_for_my_todo_list()
     {
-        return $this->repo->view_item_list_for_my_todolist(request()->all());
+        return $this->repo->view_item_list_for_my_todo_list(request()->all());
     }
     // 【我的日程】
     public function view_item_list_for_my_schedule()
     {
         return $this->repo->view_item_list_for_my_schedule(request()->all());
     }
-    // 【收藏内容】
-    public function view_item_list_for_my_collection()
-    {
-        return $this->repo->view_item_list_for_my_collection(request()->all());
-    }
     // 【点赞内容】
     public function view_item_list_for_my_favor()
     {
         return $this->repo->view_item_list_for_my_favor(request()->all());
+    }
+    // 【收藏内容】
+    public function view_item_list_for_my_collection()
+    {
+        return $this->repo->view_item_list_for_my_collection(request()->all());
     }
     // 【发现】
     public function view_home_mine_discovery()
@@ -267,11 +268,11 @@ class DocIndexController extends Controller
         return $this->repo->operate_item_remove_this(request()->all(),21);
     }
     // 【待办事】
-    public function operate_item_add_todolist()
+    public function operate_item_add_todo_list()
     {
         return $this->repo->operate_item_add_this(request()->all(),41);
     }
-    public function operate_item_remove_todolist()
+    public function operate_item_remove_todo_list()
     {
         return $this->repo->operate_item_remove_this(request()->all(),41);
     }

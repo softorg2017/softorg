@@ -44,6 +44,21 @@
 
 
                 @if(Auth::check())
+                    <li class="">
+                        <a  href="{{ url('/item/item-create') }}" data-type="notification">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a  href="{{ url('/my-notification') }}" data-type="notification">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">@if(!empty($notification_count)){{ $notification_count or '' }}@endif</span>
+                        </a>
+                    </li>
+                @endif
+
+
+                @if(Auth::check())
                 @if(!empty($notification_count))
                 <li class="_none">
                     <a href="{{ url('/my-notification') }}" data-type="notification">

@@ -38,6 +38,11 @@ class TurnToLoginMiddleware
                 return redirect($url);
             }
         }
+        else
+        {
+            $me = Auth::user();
+            view()->share('me',$me);
+        }
         return $next($request);
 
     }

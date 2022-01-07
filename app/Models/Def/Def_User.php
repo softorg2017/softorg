@@ -10,10 +10,9 @@ class Def_User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
+//    protected $connection = 'mysql_def';
     protected $connection = 'mysql0';
-
     protected $table = "def_user";
-
     protected $fillable = [
         'active', 'status', 'user_active', 'user_status', 'user_category', 'user_group', 'user_type', 'category', 'group', 'type',
         'parent_id', 'p_id',

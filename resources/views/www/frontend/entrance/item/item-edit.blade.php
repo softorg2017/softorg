@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DOC_FRONT').'layout.layout')
+@extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
 
 @section('head_title')
@@ -106,14 +106,14 @@
 
                         {{--标题--}}
                         <div class="form-group">
-                            <label class="control-label col-md-2 _none"><sup class="text-red">*</sup> 标题</label>
+                            <label class="control-label- col-md-2"><sup class="text-red">*</sup> 标题</label>
                             <div class="col-md-12 ">
                                 <div><input type="text" class="form-control" name="title" placeholder="请输入标题，必填" value="{{ $data->title or '' }}"></div>
                             </div>
                         </div>
                         {{--描述--}}
                         <div class="form-group">
-                            <label class="control-label col-md-2 _none">描述</label>
+                            <label class="control-label- col-md-2">描述</label>
                             <div class="col-md-12 ">
                                 <textarea class="form-control" name="description" rows="3" placeholder="描述">{{ $data->description or '' }}</textarea>
                             </div>
@@ -137,7 +137,7 @@
 
                         {{--内容--}}
                         <div class="form-group">
-                            <label class="control-label- col-md-2 _none-">图文详情</label>
+                            <label class="control-label- col-md-2">图文详情</label>
                             <div class="col-md-12 ">
                                 <div>
                                 @include('UEditor::head')
@@ -200,7 +200,7 @@
                         {{--分享--}}
                         @if($operate == 'create')
                             <div class="form-group form-typ ">
-                                <label class="control-label col-md-2 _none">分享</label>
+                                <label class="control-label col-md-2">分享</label>
                                 <div class="col-md-12">
                                     <div class="btn-group">
 
@@ -246,9 +246,9 @@
     <div class="main-body-section main-body-right-section section-wrapper">
         <div class="main-body-right-container fixed-to-top">
 
-            @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')
-            {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$item->owner])--}}
-            {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$user])--}}
+            @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
+            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-user', ['data'=>$item->owner])--}}
+            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-user', ['data'=>$user])--}}
 
         </div>
     </div>

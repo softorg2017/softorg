@@ -211,15 +211,15 @@
                             </a>
                         @endif
                     @else
-                        <a href="{{ url('/my-cards') }}" class="btn btn-primary btn-block">
+                        <a href="{{ url('/my-cards') }}" class="btn btn-block btn-sm btn-primary _none">
                             <i class="fa fa-list-alt"></i>
                             <span class="">我的名片夹</span>
                         </a>
-                        <a href="{{ url('/my-info/edit') }}" class="btn btn-default btn-block btn-sm" data-user-id="{{ $data->id }}">
+                        <a href="{{ url('/my-info/edit') }}" class="btn btn-block btn-sm btn-primary" data-user-id="{{ $data->id }}">
                             <i class="fa fa-edit"></i>
                             <span class="">编辑名片</span>
                         </a>
-                        <a href="{{ url('/my-introduction/edit') }}" class="btn btn-default btn-block btn-sm" data-user-id="{{ $data->id }}">
+                        <a href="{{ url('/my-introduction/edit') }}" class="btn btn-block btn-sm btn-primary _none" data-user-id="{{ $data->id }}">
                             <i class="fa fa-edit"></i>
                             <span class="">编辑图文</span>
                         </a>
@@ -373,7 +373,7 @@
 
 
 @if(!empty($data->ext->content))
-<div class="item-piece item-option margin-top-32px">
+<div class="item-piece item-option margin-top-4px">
     <div class="box-body item-row item-content-row">
 
         <div class="item-row margin-bottom-8px" style="text-align:center;">

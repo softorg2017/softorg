@@ -1,8 +1,8 @@
 <?php
-namespace App\Models\Doc;
+namespace App\Models\Def;
 use Illuminate\Database\Eloquent\Model;
 
-class Doc_Pivot_Item_Relation extends Model
+class Def_Pivot_Item_Relation extends Model
 {
     //
     protected $connection = 'mysql_doc';
@@ -17,19 +17,19 @@ class Doc_Pivot_Item_Relation extends Model
     // mine
     function mine_item()
     {
-        return $this->belongsTo('App\Models\Doc\Doc_Item','mine_item_id','id');
+        return $this->belongsTo('App\Models\Def\Def_Item','mine_item_id','id');
     }
 
     // relation
     function relation_item()
     {
-        return $this->belongsTo('App\Models\Doc\Doc_Item','relation_item_id','id');
+        return $this->belongsTo('App\Models\Def\Def_Item','relation_item_id','id');
     }
 
     // relations
     function relation_items()
     {
-        return $this->hasMany('App\Models\Doc\Doc_Item','relation_item_id','id');
+        return $this->hasMany('App\Models\Def\Def_Item','relation_item_id','id');
     }
 
 

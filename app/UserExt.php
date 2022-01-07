@@ -10,7 +10,8 @@ class UserExt extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
-    protected $connection = 'mysql0';
+//    protected $connection = 'mysql0';
+    protected $connection = 'mysql_def';
 
     protected $table = "user_ext";
 
@@ -23,10 +24,12 @@ class UserExt extends Authenticatable
         'title', 'description', 'content',
         'mobile', 'telephone', 'email',
         'introduction_id', 'advertising_id',
-        'QQ_number', 'wechat_id', 'wechat_qr_code_img', 'weibo_name', 'weibo_address', 'website',
+        'QQ_number', 'wx_id', 'wx_qr_code_img',
+        'wb_name', 'wb_address',
+        'website',
         'contact_address',
-        'contact_phone', 'contact_wechat_id', 'contact_wechat_qr_code_img',
-        'linkman', 'linkman_name', 'linkman_phone', 'linkman_wechat_id', 'linkman_wechat_qr_code_img',
+        'contact_phone', 'contact_wx_id', 'contact_wx_qr_code_img',
+        'linkman', 'linkman_name', 'linkman_phone', 'linkman_wx_id', 'linkman_wx_qr_code_img',
         'company', 'department', 'position', 'business_description',
         'visit_num', 'share_num', 'favor_num',  'follow_num', 'fans_num',
     ];

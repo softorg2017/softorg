@@ -19,7 +19,7 @@
 <div class="container">
 
     <div class="main-body-section main-body-left-section section-wrapper page-root">
-        <div class="container-box pull-left margin-bottom-16px">
+        <div class="container-box pull-left margin-bottom-4px">
 
             @include(env('TEMPLATE_ROOT_FRONT').'component.left-side.left-card', ['data'=>$data])
 

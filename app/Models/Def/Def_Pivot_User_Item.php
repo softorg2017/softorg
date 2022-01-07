@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Def_Pivot_User_Item extends Model
 {
     //
-    protected $table = "def_pivot_user_item";
+    protected $connection = 'mysql_def';
+    protected $table = "pivot_user_item";
     protected $fillable = [
         'sort', 'type', 'user_id', 'item_id'
     ];

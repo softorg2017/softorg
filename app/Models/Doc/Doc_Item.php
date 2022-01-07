@@ -7,11 +7,13 @@ class Doc_Item extends Model
 {
     use SoftDeletes;
     //
-    protected $table = "doc_item";
+    protected $connection = 'mysql_lw';
+    protected $table = "item";
     protected $fillable = [
         'active', 'status', 'item_active', 'item_status', 'item_category', 'item_type', 'category', 'type', 'sort',
         'owner_active',
-        'owner_id', 'creator_id', 'updater_id', 'user_id', 'belong_id', 'source_id', 'object_id', 'p_id', 'parent_id', 'quote_item_id',
+        'owner_id', 'creator_id', 'updater_id', 'user_id', 'belong_id', 'source_id', 'object_id',
+        'p_id', 'parent_id', 'quote_item_id',
         'rank', 'version',
         'org_id', 'admin_id',
         'item_id', 'menu_id',
@@ -20,7 +22,7 @@ class Doc_Item extends Model
         'tag',
         'atom_category', 'major', 'nation', 'birth_time', 'death_time',
         'time_point', 'time_type', 'start_time', 'end_time', 'address',
-        'visit_num', 'share_num', 'favor_num', 'comment_num',
+        'visit_num', 'share_num', 'favor_num', 'collect_num', 'comment_num',
         'published_at'
     ];
 
@@ -112,14 +114,14 @@ class Doc_Item extends Model
     // 多对多 人关联的作品
     function pivot_people_product()
     {
-        return $this->belongsToMany('App\Models\Doc\Doc_Item','doc_pivot_item_relation','mine_item_id','relation_item_id')
+        return $this->belongsToMany('App\Models\Doc\Doc_Item','pivot_item_relation','mine_item_id','relation_item_id')
             ->wherePivot('relation_type', 1);
 //            ->withTimestamps();
     }
     // 多对多 作品关联的人
     function pivot_product_people()
     {
-        return $this->belongsToMany('App\Models\Doc\Doc_Item','doc_pivot_item_relation','relation_item_id','mine_item_id')
+        return $this->belongsToMany('App\Models\Doc\Doc_Item','pivot_item_relation','relation_item_id','mine_item_id')
             ->wherePivot('relation_type', 1);
 //            ->withTimestamps();
     }

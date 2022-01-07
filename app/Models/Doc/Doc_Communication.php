@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Doc_Communication extends Model
 {
     //
-    protected $table = "doc_communication";
+    protected $connection = 'mysql_doc';
+    protected $table = "communication";
     protected $fillable = [
         'active', 'communication_category', 'communication_type', 'category', 'type', 'sort',
         'owner_id', 'creator_id', 'user_id', 'belong_id', 'source_id', 'object_id', 'parent_id',

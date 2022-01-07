@@ -2,12 +2,12 @@
 namespace App\Repositories\Doc\Front;
 
 use App\User;
-use App\Models\Doc\Doc_Item;
-use App\Models\Doc\Doc_Pivot_User_Item;
-use App\Models\Doc\Doc_Pivot_User_Relation;
-use App\Models\Doc\Doc_Pivot_Item_Relation;
-use App\Models\Doc\Doc_Communication;
-use App\Models\Doc\Doc_Notification;
+use App\Models\Def\Def_Item;
+use App\Models\Def\Def_Pivot_User_Item;
+use App\Models\Def\Def_Pivot_User_Relation;
+use App\Models\Def\Def_Pivot_Item_Relation;
+use App\Models\Def\Def_Communication;
+use App\Models\Def\Def_Notification;
 
 use App\Repositories\Common\CommonRepository;
 
@@ -20,7 +20,7 @@ class DocIndexRepository {
     private $repo;
     public function __construct()
     {
-//        $this->model = new User;
+        $this->modelItem = new Def_Item;
         $this->view_template_front = env('TEMPLATE_DOC_FRONT');
 
         Blade::setEchoFormat('%s');
@@ -32,10 +32,10 @@ class DocIndexRepository {
     // 返回（后台）主页视图
     public function view_root($post_data)
     {
-//        $me = Auth::user();
+//        $me = Auth::guard("doc")->user();
         $me = Auth::guard("doc")->user();
         $me_id = $me->id;
-        $item_query = Doc_Item::select('*')->withTrashed()
+        $item_query = $this->modelItem->select('*')->withTrashed()
             ->with([
                 'owner',
                 'creator',
@@ -141,9 +141,9 @@ class DocIndexRepository {
     public function view_item($post_data,$id=0)
     {
         $user = [];
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
-            $user = Auth::user();
+            $user = Auth::guard("doc")->user();
             $user_id = $user->id;
         }
         else $user_id = 0;
@@ -152,7 +152,7 @@ class DocIndexRepository {
         if(intval($id) !== 0 && !$id) view('doc.frontend.errors.404');
 
 
-        $item = Doc_Item::with([
+        $item = $this->modelItem->with([
             'user',
             'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
         ])->find($id);
@@ -170,7 +170,7 @@ class DocIndexRepository {
                         'contents'=>function($query) { $query->where('active',1)->orderBy('rank','asc'); }
                     ]);
                 }
-                else $parent_item = Doc_Item::with([
+                else $parent_item = $this->modelItem->with([
                     'contents'=>function($query) { $query->where('active',1)->orderBy('rank','asc'); }
                 ])->find($item->item_id);
 
@@ -203,7 +203,7 @@ class DocIndexRepository {
                 }
                 else
                 {
-                    $parent_item = Doc_Item::with([
+                    $parent_item = $this->modelItem->with([
                         'contents'=>function($query) {
                             $query->where('active',1);
                             $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
@@ -383,23 +383,24 @@ class DocIndexRepository {
         $me_admin = Auth::guard('doc_admin')->user();
 //        if(!in_array($me->user_type,[0,1,9])) return view(env('TEMPLATE_DOC_FRONT').'errors.404');
 
-        $item_type = 'item';
-        $item_type_text = '内容';
-        $title_text = '添加'.$item_type_text;
-        $list_text = $item_type_text.'列表';
+        $operate_category = 'item';
+        $operate_type = 'item';
+        $operate_type_text = '内容';
+        $title_text = '添加'.$operate_type_text;
+        $list_text = $operate_type_text.'列表';
         $list_link = '/item/item-list';
 
+        $return['operate'] = 'create';
+        $return['operate_id'] = 0;
+        $return['operate_category'] = $operate_category;
+        $return['operate_type'] = $operate_type;
+        $return['operate_type_text'] = $operate_type_text;
+        $return['title_text'] = $title_text;
+        $return['list_text'] = $list_text;
+        $return['list_link'] = $list_link;
+
         $view_blade = env('TEMPLATE_DOC_FRONT').'entrance.item.item-edit';
-        return view($view_blade)->with([
-            'operate'=>'create',
-            'operate_id'=>0,
-            'category'=>'item',
-            'type'=>$item_type,
-            'item_type_text'=>$item_type_text,
-            'title_text'=>$title_text,
-            'list_text'=>$list_text,
-            'list_link'=>$list_link,
-        ]);
+        return view($view_blade)->with($return);
     }
     // 【ITEM】返回-编辑-视图
     public function view_item_item_edit($post_data)
@@ -409,100 +410,86 @@ class DocIndexRepository {
         if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_DOC_FRONT').'errors.404');
 
         $id = $post_data["item-id"];
-        $mine = Doc_Item::with(['owner'])->find($id);
+        $mine = $this->modelItem->with(['owner'])->find($id);
         if(!$mine) return view(env('TEMPLATE_DOC_FRONT').'errors.404');
 
 
-        $item_type = 'item';
-        $item_type_text = '内容';
-        $title_text = '编辑'.$item_type_text;
-        $list_text = $item_type_text.'列表';
-        $list_link = '/admin/item/item-list';
+        $operate_category = 'item';
 
         if($mine->item_type == 0)
         {
-            $item_type = 'item';
-            $item_type_text = '内容';
-            $title_text = '编辑'.$item_type_text;
-            $list_text = $item_type_text.'列表';
+            $operate_type = 'item';
+            $operate_type_text = '内容';
             $list_link = '/home/item/item-list-for-all';
         }
         else if($mine->item_type == 1)
         {
-            $item_type = 'article';
-            $item_type_text = '文章';
-            $title_text = '编辑'.$item_type_text;
-            $list_text = $item_type_text.'列表';
+            $operate_type = 'article';
+            $operate_type_text = '文章';
             $list_link = '/home/item/item-article-list';
         }
         else if($mine->item_type == 9)
         {
-            $item_type = 'activity';
-            $item_type_text = '活动';
-            $title_text = '编辑'.$item_type_text;
-            $list_text = $item_type_text.'列表';
+            $operate_type = 'activity';
+            $operate_type_text = '活动';
             $list_link = '/home/item/item-list-for-activity';
         }
         else if($mine->item_type == 11)
         {
-            $item_type = 'menu_type';
-            $item_type_text = '书目';
-            $title_text = '编辑'.$item_type_text;
-            $list_text = $item_type_text.'列表';
+            $operate_type = 'menu_type';
+            $operate_type_text = '书目';
             $list_link = '/home/item/item-list-for-menu_type';
         }
         else if($mine->item_type == 18)
         {
-            $item_type = 'time_line';
-            $item_type_text = '时间线';
-            $title_text = '编辑'.$item_type_text;
-            $list_text = $item_type_text.'列表';
+            $operate_type = 'time_line';
+            $operate_type_text = '时间线';
             $list_link = '/home/item/item-list-for-time_line';
         }
         else if($mine->item_type == 88)
         {
-            $item_type = 'advertising';
-            $item_type_text = '广告';
-            $title_text = '编辑'.$item_type_text;
-            $list_text = $item_type_text.'列表';
+            $operate_type = 'advertising';
+            $operate_type_text = '广告';
             $list_link = '/home/item/item-list-for-advertising';
         }
+        else
+        {
+            $operate_type = 'item';
+            $operate_type_text = '内容';
+            $list_link = '/admin/item/item-list';
+        }
+
+        $title_text = '编辑'.$operate_type_text;
+        $list_text = $operate_type_text.'列表';
+
+
+        $return['operate_id'] = $id;
+        $return['operate_category'] = $operate_category;
+        $return['operate_type'] = $operate_type;
+        $return['operate_type_text'] = $operate_type_text;
+        $return['title_text'] = $title_text;
+        $return['list_text'] = $list_text;
+        $return['list_link'] = $list_link;
 
         $view_blade = env('TEMPLATE_DOC_FRONT').'entrance.item.item-edit';
 
         if($id == 0)
         {
-            return view($view_blade)->with([
-                'operate'=>'create',
-                'operate_id'=>$id,
-                'category'=>'item',
-                'type'=>$item_type,
-                'item_type_text'=>$item_type_text,
-                'title_text'=>$title_text,
-                'list_text'=>$list_text,
-                'list_link'=>$list_link,
-            ]);
+            $return['operate'] = 'create';
+            return view($view_blade)->with($return);
         }
         else
         {
-            $mine = Doc_Item::with(['owner'])->find($id);
+            $mine = $this->modelItem->with(['owner'])->find($id);
             if($mine)
             {
                 $mine->custom = json_decode($mine->custom);
                 $mine->custom2 = json_decode($mine->custom2);
                 $mine->custom3 = json_decode($mine->custom3);
 
-                return view($view_blade)->with([
-                    'operate'=>'edit',
-                    'operate_id'=>$id,
-                    'category'=>'item',
-                    'type'=>$item_type,
-                    'item_type_text'=>$item_type_text,
-                    'title_text'=>$title_text,
-                    'list_text'=>$list_text,
-                    'list_link'=>$list_link,
-                    'data'=>$mine
-                ]);
+                $return['operate'] = 'edit';
+                $return['data'] = $mine;
+                return view($view_blade)->with($return);
             }
             else return response("该内容不存在！", 404);
         }
@@ -532,11 +519,12 @@ class DocIndexRepository {
 
         $operate = $post_data["operate"];
         $operate_id = $post_data["operate_id"];
-        $type = $post_data["type"];
+        $operate_category = $post_data["operate_category"];
+        $operate_type = $post_data["operate_type"];
 
         if($operate == 'create') // 添加 ( $id==0，添加一个内容 )
         {
-            $mine = new Doc_Item;
+            $mine = new Def_Item;
             $post_data["item_category"] = 1;
             $post_data["owner_id"] = $me->id;
             $post_data["creator_id"] = $me_admin->id;
@@ -550,7 +538,7 @@ class DocIndexRepository {
         }
         else if($operate == 'edit') // 编辑
         {
-            $mine = Doc_Item::find($operate_id);
+            $mine = $this->modelItem->find($operate_id);
             if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
             if($me->id != $me_admin->id)
             {
@@ -573,8 +561,8 @@ class DocIndexRepository {
             $mine_data = $post_data;
             unset($mine_data['operate']);
             unset($mine_data['operate_id']);
-            unset($mine_data['category']);
-            unset($mine_data['type']);
+            unset($mine_data['operate_category']);
+            unset($mine_data['operate_type']);
 
             if(!empty($post_data['start'])) {
                 $mine_data['time_type'] = 1;
@@ -678,7 +666,7 @@ class DocIndexRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $mine = Doc_Item::withTrashed()->find($id);
+        $mine = $this->modelItem->withTrashed()->find($id);
         if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('doc')->user();
@@ -767,12 +755,12 @@ class DocIndexRepository {
         $item_id = $post_data['item_id'];
         if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
 
-        $mine = Doc_Item::find($item_id);
+        $mine = $this->modelItem->find($item_id);
         if($mine)
         {
             if($mine->item_type == 11)
             {
-                $item = Doc_Item::with([
+                $item = $this->modelItem->with([
                     'contents'=>function($query) { $query->orderBy('rank','asc'); }
                 ])->find($item_id);
                 $item->contents_recursion = $this->get_recursion($item->contents,0);
@@ -780,7 +768,7 @@ class DocIndexRepository {
             }
             else if($mine->item_type == 18)
             {
-                $item = Doc_Item::with([
+                $item = $this->modelItem->with([
                     'contents'=>function($query) {
                         $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
                         $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
@@ -801,7 +789,7 @@ class DocIndexRepository {
         if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
         // abort(404);
 
-        $item = Doc_Item::with([
+        $item = $this->modelItem->with([
             'contents'=>function($query) { $query->orderBy('rank','asc'); }
         ])->find($item_id);
         if($item)
@@ -831,7 +819,7 @@ class DocIndexRepository {
         if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
         // abort(404);
 
-        $item = Doc_Item::with([
+        $item = $this->modelItem->with([
             'contents'=>function($query) {
                 $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
                 $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
@@ -873,7 +861,7 @@ class DocIndexRepository {
 //        $post_data["category"] = 11;
         $item_id = $post_data["item_id"];
         if(!$item_id) return response_error();
-        $item = Doc_Item::find($item_id);
+        $item = $this->modelItem->find($item_id);
         if($item)
         {
             if($item->owner_id == $me->id)
@@ -889,7 +877,7 @@ class DocIndexRepository {
                     $operate = $post_data["operate"];
                     if($operate == 'create') // $id==0，添加一个新的内容
                     {
-                        $content = new Doc_Item;
+                        $content = new Def_Item;
                         $post_data["item_category"] = 1;
                         $post_data["item_type"] = 11;
                         $post_data["owner_id"] = $me->id;
@@ -899,7 +887,7 @@ class DocIndexRepository {
                     {
                         if($content_id == $post_data["p_id"]) return response_error([],"不能选择自己为父节点！");
 
-                        $content = Doc_Item::find($content_id);
+                        $content = $this->modelItem->find($content_id);
                         if(!$content) return response_error([],"该内容不存在，刷新页面重试！");
                         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
                         if($me->id != $me_admin->id)
@@ -915,16 +903,16 @@ class DocIndexRepository {
                             $p_id = $post_data["p_id"];
                             while($is_child)
                             {
-                                $p = Doc_Item::find($p_id);
+                                $p = $this->modelItem->find($p_id);
                                 if(!$p) return response_error([],"参数有误，刷新页面重试");
                                 if($p->p_id == 0) $is_child = false;
                                 if($p->p_id == $content_id)
                                 {
-                                    $content_children = Doc_Item::where('p_id',$content_id)->get();
+                                    $content_children = $this->modelItem->where('p_id',$content_id)->get();
                                     $children_count = count($content_children);
                                     if($children_count)
                                     {
-                                        $num = Doc_Item::where('p_id',$content_id)->update(['p_id'=>$content->p_id]);
+                                        $num = $this->modelItem->where('p_id',$content_id)->update(['p_id'=>$content->p_id]);
                                         if($num != $children_count)  throw new Exception("update--children--fail");
                                     }
                                 }
@@ -944,7 +932,7 @@ class DocIndexRepository {
 
                     if($post_data["p_id"] != 0)
                     {
-                        $parent = Doc_Item::find($post_data["p_id"]);
+                        $parent = $this->modelItem->find($post_data["p_id"]);
                         if(!$parent) return response_error([],"父节点不存在，刷新页面重试");
                     }
 
@@ -1027,7 +1015,7 @@ class DocIndexRepository {
 //        $post_data["category"] = 18;
         $item_id = $post_data["item_id"];
         if(!$item_id) return response_error();
-        $item = Doc_Item::find($item_id);
+        $item = $this->modelItem->find($item_id);
         if($item)
         {
             if($item->owner_id == $me->id)
@@ -1043,7 +1031,7 @@ class DocIndexRepository {
                     $operate = $post_data["operate"];
                     if($operate == 'create') // $id==0，添加一个新的内容
                     {
-                        $content = new Doc_Item;
+                        $content = new Def_Item;
                         $post_data["item_category"] = 1;
                         $post_data["item_type"] = 18;
                         $post_data["owner_id"] = $me->id;
@@ -1051,7 +1039,7 @@ class DocIndexRepository {
                     }
                     else if('edit') // 编辑
                     {
-                        $content = Doc_Item::find($content_id);
+                        $content = $this->modelItem->find($content_id);
                         if(!$content) return response_error([],"该内容不存在，刷新页面重试！");
                         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
                         if($me->id != $me_admin->id)
@@ -1134,7 +1122,7 @@ class DocIndexRepository {
         $item_id = $post_data["item_id"];
         if(!$item_id) return response_error([],"该内容不存在，刷新页面试试！");
 
-        $content = Doc_Item::find($item_id);
+        $content = $this->modelItem->find($item_id);
         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
         else
         {
@@ -1158,7 +1146,7 @@ class DocIndexRepository {
 //        $id = decode($post_data["id"]);
         if(!$id) return response_error([],"该内容不存在，刷新页面试试");
 
-        $content = Doc_Item::find($id);
+        $content = $this->modelItem->find($id);
         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
         if($me->id != $me_admin->id)
         {
@@ -1168,11 +1156,11 @@ class DocIndexRepository {
         DB::beginTransaction();
         try
         {
-            $content_children = Doc_Item::where('p_id',$id)->get();
+            $content_children = $this->modelItem->where('p_id',$id)->get();
             $children_count = count($content_children);
             if($children_count)
             {
-                $num = Doc_Item::where('p_id',$id)->update(['p_id'=>$content->p_id]);
+                $num = $this->modelItem->where('p_id',$id)->update(['p_id'=>$content->p_id]);
                 if($num != $children_count)  throw new Exception("update--children--fail");
             }
             $bool = $content->delete();
@@ -1234,7 +1222,7 @@ class DocIndexRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"该内容不存在，刷新页面试试");
 
-        $mine = Doc_Item::find($id);
+        $mine = $this->modelItem->find($id);
         if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
         if($me->id != $me_admin->id)
         {
@@ -1266,7 +1254,7 @@ class DocIndexRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"该文章不存在，刷新页面试试");
 
-        $mine = Doc_Item::find($id);
+        $mine = $this->modelItem->find($id);
         if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
         if($me->id != $me_admin->id)
         {
@@ -1300,8 +1288,8 @@ class DocIndexRepository {
     // 返回（后台）主页视图
     public function view_item_list_for_mine($post_data)
     {
-        $me = Auth::user();
-        $item_query = Doc_Item::select('*')->withTrashed()
+        $me = Auth::guard('doc')->user();
+        $item_query = $this->modelItem->select('*')->withTrashed()
             ->with(['owner','creator'])
             ->where('owner_id',$me->id)
             ->where(['item_category'=>1]);
@@ -1394,12 +1382,12 @@ class DocIndexRepository {
     // 【我的原创】
     public function view_item_list_for_my_original($post_data)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
-            $me = Auth::user();
+            $me = Auth::guard("doc")->user();
             $me_id = $me->id;
 
-            $items = Doc_Item::select("*")->with([
+            $items = $this->modelItem->select("*")->with([
                 'user',
                 'forward_item'=>function($query) { $query->with('user'); },
                 'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
@@ -1419,15 +1407,15 @@ class DocIndexRepository {
     }
 
     // 【待办事】
-    public function view_item_list_for_my_todolist($post_data)
+    public function view_item_list_for_my_todo_list($post_data)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
-            $user = Auth::user();
+            $user = Auth::guard("doc")->user();
             $user_id = $user->id;
 
             // Method 1
-            $query = Doc_User::with([
+            $query = User::with([
                 'pivot_item'=>function($query) use($user_id) { $query->with([
                     'user',
                     'forward_item'=>function($query) { $query->with('user'); },
@@ -1456,13 +1444,13 @@ class DocIndexRepository {
     // 【日程】
     public function view_item_list_for_my_schedule($post_data)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
-            $user = Auth::user();
+            $user = Auth::guard("doc")->user();
             $user_id = $user->id;
 
             // Method 1
-//            $query = Doc_User::with([
+//            $query = User::with([
 //                'pivot_item'=>function($query) use($user_id) { $query->with([
 //                    'user',
 //                    'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
@@ -1485,12 +1473,54 @@ class DocIndexRepository {
     }
 
 
+    // 【点赞】
+    public function view_item_list_for_my_favor($post_data)
+    {
+        if(Auth::guard('doc')->check())
+        {
+            $user = Auth::guard('doc')->user();
+            $user_id = $user->id;
+
+            // Method 1
+            $query = User::with([
+                'pivot_item'=>function($query) use($user_id) { $query->with([
+                    'user',
+                    'forward_item'=>function($query) { $query->with('user'); },
+                    'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
+                ])->wherePivot('relation_type',11)->orderby('pivot_user_item.id','desc'); }
+            ])->find($user_id);
+            $item_list = $query->pivot_item;
+        }
+        else $item_list = [];
+
+        foreach ($item_list as $item)
+        {
+            $item->custom_decode = json_decode($item->custom);
+            $item->content_show = strip_tags($item->content);
+            $item->img_tags = get_html_img($item->content);
+        }
+
+        $menu_active = 'sidebar_menu_for_my_favor_active';
+        $sidebar_active = 'sidebar_menu_for_my_favor_active';
+
+        $head_title_text = "我的点赞";
+        $head_title_prefix = '【轻博】';
+        $head_title_prefix = '';
+        $head_title_postfix = ' - 如未轻博';
+        $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
+        $return[$sidebar_active] = 'active';
+        $return[$menu_active] = 'active';
+        $return['item_list'] = $item_list;
+
+        $view = env('TEMPLATE_DOC_FRONT').'entrance.my-favor';
+        return view($view)->with($return);
+    }
     // 【收藏】
     public function view_item_list_for_my_collection($post_data)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
-            $user = Auth::user();
+            $user = Auth::guard('doc')->user();
             $user_id = $user->id;
 
             // Method 1
@@ -1498,7 +1528,7 @@ class DocIndexRepository {
                 'pivot_item'=>function($query) use($user_id) { $query->with([
                     'user',
                     'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
-                ])->wherePivot('relation_type',21)->orderby('doc_pivot_user_item.id','desc'); }
+                ])->wherePivot('relation_type',21)->orderby('pivot_user_item.id','desc'); }
             ])->find($user_id);
             $item_list = $query->pivot_item;
         }
@@ -1525,60 +1555,19 @@ class DocIndexRepository {
         $view = env('TEMPLATE_DOC_FRONT').'entrance.my-collection';
         return view($view)->with($return);
     }
-    // 【点赞】
-    public function view_item_list_for_my_favor($post_data)
-    {
-        if(Auth::check())
-        {
-            $user = Auth::user();
-            $user_id = $user->id;
-
-            // Method 1
-            $query = User::with([
-                'pivot_item'=>function($query) use($user_id) { $query->with([
-                    'user',
-                    'forward_item'=>function($query) { $query->with('user'); },
-                    'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
-                ])->wherePivot('relation_type',11)->orderby('doc_pivot_user_item.id','desc'); }
-            ])->find($user_id);
-            $item_list = $query->pivot_item;
-        }
-        else $item_list = [];
-
-        foreach ($item_list as $item)
-        {
-            $item->custom_decode = json_decode($item->custom);
-            $item->content_show = strip_tags($item->content);
-            $item->img_tags = get_html_img($item->content);
-        }
-
-        $menu_active = 'sidebar_menu_for_my_favor_active';
-        $sidebar_active = 'sidebar_menu_for_my_favor_active';
-
-        $head_title_text = "我的点赞";
-        $head_title_prefix = '【轻博】';
-        $head_title_prefix = '';
-        $head_title_postfix = ' - 如未轻博';
-        $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
-        $return[$sidebar_active] = 'active';
-        $return[$menu_active] = 'active';
-        $return['item_list'] = $item_list;
-        $view = env('TEMPLATE_DOC_FRONT').'entrance.my-favor';
-        return view($view)->with($return);
-    }
 
 
     // 【发现】
     public function view_item_list_for_my_discovery($post_data)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
-            $user = Auth::user();
+            $user = Auth::guard("doc")->user();
             $user_id = $user->id;
         }
         else $user_id = 0;
 
-        $items = Doc_Item::with([
+        $items = $this->modelItem->with([
             'user',
             'forward_item'=>function($query) { $query->with('user'); },
             'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
@@ -1596,19 +1585,19 @@ class DocIndexRepository {
     // 【关注】
     public function view_item_list_for_my_follow($post_data)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
-            $user = Auth::user();
+            $user = Auth::guard("doc")->user();
             $user_id = $user->id;
         }
         else $user_id = 0;
 //
-//        $items = Doc_Item::with([
+//        $items = $this->modelItem->with([
 //            'user',
 //            'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
 //        ])->where('is_shared','>=',99)->orderBy('id','desc')->get();
 
-        $user = Doc_User::with([
+        $user = User::with([
             'relation_items'=>function($query) use($user_id) {$query->with([
                 'user',
                 'forward_item'=>function($query) { $query->with('user'); },
@@ -1632,19 +1621,19 @@ class DocIndexRepository {
     // 【好友圈】
     public function view_item_list_for_my_circle($post_data)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
-            $user = Auth::user();
+            $user = Auth::guard("doc")->user();
             $user_id = $user->id;
         }
         else $user_id = 0;
 //
-//        $items = Doc_Item::with([
+//        $items = $this->modelItem->with([
 //            'user',
 //            'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
 //        ])->where('is_shared','>=',99)->orderBy('id','desc')->get();
 
-        $user = Doc_User::with([
+        $user = User::with([
             'relation_items'=>function($query) use($user_id) { $query->with([
                 'user',
                 'forward_item'=>function($query) { $query->with('user'); },
@@ -1672,7 +1661,7 @@ class DocIndexRepository {
     // 【ITEM】【添加】【点赞 | 收藏 | +待办事 | +日程】
     public function operate_item_add_this($post_data,$type=0)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
             $messages = [
                 'type.required' => '参数type有误！',
@@ -1689,11 +1678,11 @@ class DocIndexRepository {
             }
 
             $item_id = $post_data['item_id'];
-            $item = Doc_Item::find($item_id);
+            $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::user();
-                $pivot = Doc_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->first();
+                $me = Auth::guard("doc")->user();
+                $pivot = Def_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->first();
                 if(!$pivot)
                 {
                     DB::beginTransaction();
@@ -1741,7 +1730,7 @@ class DocIndexRepository {
                         $communication_insert['source_id'] = $me->id;
                         $communication_insert['item_id'] = $item_id;
 
-                        $communication = new Doc_Communication;
+                        $communication = new Def_Communication;
                         $bool = $communication->fill($communication_insert)->save();
                         if(!$bool) throw new Exception("insert--communication--fail");
 
@@ -1758,10 +1747,10 @@ class DocIndexRepository {
                                 $notification_insert['source_id'] = $me->id;
                                 $notification_insert['item_id'] = $item_id;
 
-                                $notification_once = Doc_Notification::where($notification_insert)->first();
+                                $notification_once = Def_Notification::where($notification_insert)->first();
                                 if(!$notification_once)
                                 {
-                                    $notification = new Doc_Notification;
+                                    $notification = new Def_Notification;
                                     $bool = $notification->fill($notification_insert)->save();
                                     if(!$bool) throw new Exception("insert--notification--fail");
                                 }
@@ -1800,7 +1789,7 @@ class DocIndexRepository {
     // 【ITEM】【移除】【点赞 | 收藏 | +待办事 | +日程】
     public function operate_item_remove_this($post_data,$type=0)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
             $messages = [
                 'type.required' => '参数有误',
@@ -1817,17 +1806,17 @@ class DocIndexRepository {
             }
 
             $item_id = $post_data['item_id'];
-            $item = Doc_Item::find($item_id);
+            $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::user();
-                $pivots = Doc_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->get();
+                $me = Auth::guard("doc")->user();
+                $pivots = Def_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->get();
                 if(count($pivots) > 0)
                 {
                     DB::beginTransaction();
                     try
                     {
-                        $num = Doc_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->delete();
+                        $num = Def_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->delete();
                         if($num != count($pivots)) throw new Exception("delete--pivots--fail");
 
                         // 记录机制 Communication
@@ -1868,7 +1857,7 @@ class DocIndexRepository {
                         $communication_insert['source_id'] = $me->id;
                         $communication_insert['item_id'] = $item_id;
 
-                        $communication = new Doc_Communication;
+                        $communication = new Def_Communication;
                         $bool = $communication->fill($communication_insert)->save();
                         if(!$bool) throw new Exception("insert--communication--fail");
 
@@ -1905,7 +1894,7 @@ class DocIndexRepository {
     // 【ITEM】【转发】
     public function operate_item_forward($post_data)
     {
-        if(Auth::check())
+        if(Auth::guard('doc')->check())
         {
             $messages = [
                 'type.required' => '参数有误',
@@ -1922,16 +1911,16 @@ class DocIndexRepository {
             }
 
             $item_id = $post_data['item_id'];
-            $item = Doc_Item::find($item_id);
+            $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::user();
+                $me = Auth::guard("doc")->user();
                 $me_id = $me->id;
 
                 DB::beginTransaction();
                 try
                 {
-                    $mine = new Doc_Item;
+                    $mine = new Def_Item;
                     $post_data['user_id'] = $me_id;
                     $post_data['category'] = 99;
                     $post_data['is_shared'] = 100;
@@ -1947,7 +1936,7 @@ class DocIndexRepository {
 //                        $insert['user_id'] = $user->id;
 //                        $insert['item_id'] = $item_id;
 //
-//                        $communication = new Doc_Communication;
+//                        $communication = new Def_Communication;
 //                        $bool = $communication->fill($insert)->save();
 //                        if(!$bool) throw new Exception("insert--communication--fail");
 //
@@ -2502,7 +2491,7 @@ class DocIndexRepository {
         if(!preg_match($pattern,$password)) return response_error([],"密码格式不正确！");
 
 
-        $user = Doc_User::find($id);
+        $user = User::find($id);
         if(!$user) return response_error([],"该用户不存在，刷新页面重试");
 
 

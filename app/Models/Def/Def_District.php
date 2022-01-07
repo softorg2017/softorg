@@ -7,7 +7,8 @@ class Def_District extends Model
 {
     use SoftDeletes;
     //
-    protected $table = "def_district";
+    protected $connection = 'mysql_def';
+    protected $table = "district";
     protected $fillable = [
         'active', 'district_category', 'district_type', 'district_number', 'postcode',  'area_code',
         'owner_id', 'creator_id', 'user_id', 'belong_id', 'source_id', 'object_id', 'parent_id',

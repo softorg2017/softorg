@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Doc_Notification extends Model
 {
     //
-    protected $table = "doc_notification";
+    protected $connection = 'mysql_doc';
+    protected $table = "notification";
     protected $fillable = [
         'active', 'notification_category', 'notification_type', 'category', 'type', 'sort', 'is_read',
         'owner_id', 'creator_id', 'user_id', 'belong_id', 'source_id', 'object_id', 'parent_id',

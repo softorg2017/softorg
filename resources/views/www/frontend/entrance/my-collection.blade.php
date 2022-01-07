@@ -38,7 +38,7 @@
             {{--@endforeach--}}
             {{--@include(env('TEMPLATE_DOC_DEFAULT').'frontend.component.item-list-for-relation',['item_list'=>$item_list])--}}
             @include(env('TEMPLATE_COMMON_FRONT').'component.item-list',['item_list'=>$item_list])
-            {{--@if(count($item_list) > 0)--}}
+            {{--@if(count($item_list))--}}
                 {{--{!! $item_list->links() !!}--}}
             {{--@endif--}}
 

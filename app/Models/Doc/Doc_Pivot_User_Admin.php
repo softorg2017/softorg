@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Doc_Pivot_User_Admin extends Model
 {
     //
-    protected $table = "doc_pivot_user_admin";
+    protected $connection = 'mysql_doc';
+    protected $table = "pivot_user_admin";
     protected $fillable = [
         'active', 'category', 'type', 'relation_active', 'relation_category', 'relation_type', 'relation',
         'user_id', 'admin_id'

@@ -7,18 +7,22 @@ class Def_Item extends Model
 {
     use SoftDeletes;
     //
-    protected $table = "def_item";
+    protected $connection = 'mysql_def';
+    protected $table = "item";
     protected $fillable = [
         'active', 'status', 'item_active', 'item_status', 'item_category', 'item_type', 'category', 'type', 'sort',
         'owner_active',
-        'owner_id', 'creator_id', 'updater_id', 'user_id', 'belong_id', 'source_id', 'object_id', 'p_id', 'parent_id',
+        'owner_id', 'creator_id', 'updater_id', 'user_id', 'belong_id', 'source_id', 'object_id',
+        'p_id', 'parent_id', 'quote_item_id',
         'rank', 'version',
         'org_id', 'admin_id',
         'item_id', 'menu_id',
         'name', 'title', 'subtitle', 'description', 'content', 'custom', 'custom2', 'custom3',
-        'link_url', 'cover_pic', 'attachment_name', 'attachment_src', 'tag',
+        'link_url', 'cover_pic', 'attachment_name', 'attachment_src',
+        'tag',
+        'atom_category', 'major', 'nation', 'birth_time', 'death_time',
         'time_point', 'time_type', 'start_time', 'end_time', 'address',
-        'visit_num', 'share_num', 'favor_num', 'comment_num',
+        'visit_num', 'share_num', 'favor_num', 'collect_num', 'comment_num',
         'published_at'
     ];
     protected $dateFormat = 'U';
@@ -50,16 +54,64 @@ class Def_Item extends Model
 
 
 
-    // 其他人的
-    function pivot_item_relation()
+    // 多对多 人关联的作品
+    function pivot_people_product()
     {
-        return $this->hasMany('App\Models\Def\Def_Pivot_User_Item','item_id','id');
+        return $this->belongsToMany('App\Models\Def\Def_Item','pivot_item_relation','mine_item_id','relation_item_id')
+            ->wherePivot('relation_type', 1);
+//            ->withTimestamps();
+    }
+    // 多对多 作品关联的人
+    function pivot_product_people()
+    {
+        return $this->belongsToMany('App\Models\Def\Def_Item','pivot_item_relation','relation_item_id','mine_item_id')
+            ->wherePivot('relation_type', 1);
+//            ->withTimestamps();
     }
 
-    // 其他人的
-    function others()
+
+
+
+    // 子节点
+    function items()
     {
-        return $this->hasMany('App\Models\Def\Def_Pivot_User_Item','item_id','id');
+        return $this->hasMany('App\Models\Def\Def_Item','item_id','id');
+    }
+
+    // 父节点
+    function belong_item()
+    {
+        return $this->belongsTo('App\Models\Def\Def_Item','item_id','id');
+    }
+
+    // 父节点
+    function parent()
+    {
+        return $this->belongsTo('App\Models\Def\Def_Item','p_id','id');
+    }
+
+    // 子节点
+    function children()
+    {
+        return $this->hasMany('App\Models\Def\Def_Item','p_id','id');
+    }
+
+    // 内容
+    function contents()
+    {
+        return $this->hasMany('App\Models\Def\Def_Item','item_id','id');
+    }
+
+    // 评论
+    function communications()
+    {
+        return $this->hasMany('App\Models\Def\Def_Communication','item_id','id');
+    }
+
+    // 评论
+    function comments()
+    {
+        return $this->hasMany('App\Models\Def\Def_Communication','item_id','id');
     }
 
     // 收藏
@@ -77,10 +129,43 @@ class Def_Item extends Model
 
 
 
+    // 其他人的
+    function pivot_item_relation()
+    {
+        return $this->hasMany('App\Models\Def\Def_Pivot_User_Item','item_id','id');
+    }
+
+    // 其他人的
+    function others()
+    {
+        return $this->hasMany('App\Models\Def\Def_Pivot_User_Item','item_id','id');
+    }
+
+
+
+
+
+    // 与我相关的话题
+    function pivot_collection_course_users()
+    {
+        return $this->belongsToMany('App\User','pivot_user_collection','item_id','user_id');
+    }
+
+    // 与我相关的话题
+    function pivot_collection_chapter_users()
+    {
+        return $this->belongsToMany('App\User','pivot_user_collection','item_id','user_id');
+    }
+
+
+
+
+
+
     // 与我相关的话题
     function pivot_collection_item_users()
     {
-        return $this->belongsToMany('App\User','def_pivot_user_item','item_id','user_id');
+        return $this->belongsToMany('App\User','pivot_user_item','item_id','user_id');
     }
 
 
@@ -95,14 +180,14 @@ class Def_Item extends Model
     // 多对多 关联的目录
     function menus()
     {
-        return $this->belongsToMany('App\Models\Def\Def_Menu','def_pivot_menu_item','item_id','menu_id');
+        return $this->belongsToMany('App\Models\Def\Def_Menu','pivot_menu_item','item_id','menu_id');
     }
 
 
     /**
      * 获得此文章的所有评论。
      */
-    public function comments()
+    public function comment_s()
     {
         return $this->morphMany('App\Models\Comment', 'itemable');
     }

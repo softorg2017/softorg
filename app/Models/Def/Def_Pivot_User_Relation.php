@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Def_Pivot_User_Relation extends Model
 {
     //
-    protected $table = "def_pivot_user_relation";
+    protected $connection = 'mysql_def';
+    protected $table = "pivot_user_relation";
     protected $fillable = [
         'active', 'category', 'type', 'relation_active', 'relation_category', 'relation_type', 'relation',
         'mine_user_id', 'relation_user_id'

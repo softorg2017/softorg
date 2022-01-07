@@ -26,6 +26,11 @@ class LoginMiddleware
 //            $return["msg"] = "请先登录";
 //            return Response::json($return);
         }
+        else
+        {
+            $me = Auth::user();
+            view()->share('me',$me);
+        }
         return $next($request);
 
     }

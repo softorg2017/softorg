@@ -2,16 +2,19 @@
 namespace App\Models\Def;
 use Illuminate\Database\Eloquent\Model;
 
-class Def_Notification extends Model
+class Def_Communication extends Model
 {
     //
     protected $connection = 'mysql_def';
-    protected $table = "notification";
+    protected $table = "communication";
     protected $fillable = [
-        'active', 'notification_category', 'notification_type', 'category', 'type', 'sort', 'is_read',
+        'active', 'communication_category', 'communication_type', 'category', 'type', 'sort',
         'owner_id', 'creator_id', 'user_id', 'belong_id', 'source_id', 'object_id', 'parent_id',
-        'item_id', 'communication_id', 'reply_id',
-        'title', 'description', 'ps', 'content'
+        'item_id', 'communication_id', 'reply_id', 'dialog_id', 'order',
+        'title', 'description', 'ps', 'content',
+        'is_anonymous', 'is_shared',
+        'support',
+        'favor_num', 'comment_num'
     ];
     protected $dateFormat = 'U';
 
@@ -54,15 +57,42 @@ class Def_Notification extends Model
         return $this->belongsTo('App\Models\Def\Def_Item','item_id','id');
     }
 
-    function communication()
+    //
+    function chapter()
     {
-        return $this->belongsTo('App\Models\Def\Def_Communication','communication_id','id');
+        return $this->belongsTo('App\Models\Content','content_id','id');
     }
 
+    // 回复
     function reply()
     {
         return $this->belongsTo('App\Models\Def\Def_Communication','reply_id','id');
     }
 
+    // 子节点
+    function children()
+    {
+        return $this->hasMany('App\Models\Def\Def_Communication','reply_id','id');
+    }
+
+    // 对话
+    function dialogs()
+    {
+        return $this->hasMany('App\Models\Def\Def_Communication','dialog_id','id');
+    }
+
+    // 点赞
+    function favors()
+    {
+        return $this->hasMany('App\Models\Def\Def_Communication','reply_id','id');
+    }
+
+    /**
+     * 获得此人的所有标签。
+     */
+    public function tags()
+    {
+        return $this->morphToMany('App\Models\Tag', 'taggable');
+    }
 
 }
