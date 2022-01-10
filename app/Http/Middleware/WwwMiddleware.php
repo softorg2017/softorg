@@ -23,6 +23,8 @@ class WwwMiddleware
     {
         if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
         {
+            view()->share('evn','test');
+
             if(!Auth::guard('test')->check()) // 未登录
             {
                 $this->auth_check = 0;
@@ -31,13 +33,13 @@ class WwwMiddleware
             {
                 $this->auth_check = 1;
                 $this->me = Auth::guard('test')->user();
-                view()->share('me',$this->me);
+                view()->share('me',Auth::guard('test')->user());
             }
-
-            view()->share('evn','test');
         }
         else
         {
+            view()->share('evn','production');
+
             if(!Auth::check()) // 未登录
             {
                 $this->auth_check = 0;
@@ -46,10 +48,8 @@ class WwwMiddleware
             {
                 $this->auth_check = 1;
                 $this->me = Auth::user();
-                view()->share('me',$this->me);
+                view()->share('me',Auth::user());
             }
-
-            view()->share('evn','production');
         }
 
         view()->share('auth_check',$this->auth_check);

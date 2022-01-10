@@ -43,7 +43,7 @@
             <ul class="nav navbar-nav hidden-xs- hidden-sm-">
 
 
-                @if(Auth::check())
+                @if($auth_check)
                     <li class="">
                         <a  href="{{ url('/item/item-create') }}" data-type="notification">
                             <i class="fa fa-plus"></i>

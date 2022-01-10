@@ -59,6 +59,7 @@ class RootIndexRepository {
             {
                 $this->auth_check = 1;
                 $this->me = Auth::guard('test')->user();
+                view()->share('me',$this->me);
             }
         }
         else
@@ -67,9 +68,12 @@ class RootIndexRepository {
             {
                 $this->auth_check = 1;
                 $this->me = Auth::user();
+                view()->share('me',$this->me);
             }
             else $this->auth_check = 0;
         }
+        view()->share('evn',$this->env);
+        view()->share('auth_check',$this->auth_check);
     }
 
 
@@ -175,9 +179,11 @@ class RootIndexRepository {
     // 返回【平台介绍】视图
     public function view_introduction()
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
             $record["creator_id"] = $me_id;
         }
@@ -215,9 +221,11 @@ class RootIndexRepository {
     // 【分享记录】
     public function record_share($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
             $record["creator_id"] = $me_id;
         }
@@ -275,19 +283,22 @@ class RootIndexRepository {
     // 【基本信息】返回--视图
     public function view_my_info_index()
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-info-index')->with(['info'=>$me]);
     }
     // 【基本信息】返回-编辑-视图
     public function view_my_info_edit()
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-info-edit')->with(['info'=>$me]);
     }
     // 【基本信息】保存-数据
     public function operate_my_info_save($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
 
         // 启动数据库事务
         DB::beginTransaction();
@@ -365,9 +376,11 @@ class RootIndexRepository {
     // 【我的】【我的轻博账户】
     public function view_my_doc_account_list($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
 
             $user_list = User::with([])
@@ -396,14 +409,16 @@ class RootIndexRepository {
     // 【图文详情】返回-编辑-视图
     public function view_my_introduction_edit()
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         $ext = UserExt::where('user_id',$me->id)->first();
         return view(env('TEMPLATE_ROOT_FRONT').'entrance.my-introduction-edit')->with(['data'=>$ext]);
     }
     // 【图文详情】保存-数据
     public function operate_my_introduction_save($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
 
         $ext = UserExt::where('user_id',$me->id)->first();
 
@@ -444,7 +459,8 @@ class RootIndexRepository {
     // 【用户】首页
     public function view_my_card()
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         $user_id = $me->id;
 
         $type = !empty($post_data['type']) ? $post_data['type'] : 'root';
@@ -462,9 +478,9 @@ class RootIndexRepository {
 
         $is_follow = 0;
 
-        if(Auth::check())
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
             $record["creator_id"] = $me_id;
 
@@ -499,6 +515,8 @@ class RootIndexRepository {
     // 【用户】首页
     public function view_user($post_data,$id=0)
     {
+        $this->get_me();
+
         $user_id = $id;
 
         $type = !empty($post_data['type']) ? $post_data['type'] : 'root';
@@ -534,15 +552,15 @@ class RootIndexRepository {
         }
 
 
-        if(Auth::check())
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
             $record["creator_id"] = $me_id;
         }
 
         // 访问记录
-        if(Auth::check() && Auth::id() == $user_id)
+        if($this->auth_check && $this->me->id == $user_id)
         {
         }
         else
@@ -565,9 +583,9 @@ class RootIndexRepository {
 
         $is_follow = 0;
 
-        if(Auth::check())
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
             $record["creator_id"] = $me_id;
 
@@ -679,9 +697,11 @@ class RootIndexRepository {
             return response_error([],$errors->first());
         }
 
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
 
             $user_id = $post_data['user_id'];
@@ -770,9 +790,11 @@ class RootIndexRepository {
             return response_error([],$errors->first());
         }
 
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
 
             $user_id = $post_data['user_id'];
@@ -858,9 +880,11 @@ class RootIndexRepository {
     // 【user-list】【我的关注】
     public function view_my_follow($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
 
             $user_list = Def_Pivot_User_Relation::with([
@@ -895,9 +919,11 @@ class RootIndexRepository {
     // 【user-list】【我的粉丝】
     public function view_my_fans($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
 
             $user_list = Def_Pivot_User_Relation::with(['relation_user'])
@@ -922,9 +948,11 @@ class RootIndexRepository {
     // 【user-list】【我的名片夹】
     public function view_my_cards_case($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
 
             $user_list = Def_Pivot_User_Relation::with([
@@ -970,7 +998,8 @@ class RootIndexRepository {
     // 【ITEM】返回-添加-视图
     public function view_item_item_create($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
 //        if(!in_array($me->user_type,[0,1,9])) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
 
         $operate_category = 'item';
@@ -995,7 +1024,8 @@ class RootIndexRepository {
     // 【ITEM】返回-编辑-视图
     public function view_item_item_edit($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
 
         $id = $post_data["item-id"];
@@ -1085,7 +1115,6 @@ class RootIndexRepository {
     // 【ITEM】保存-数据
     public function operate_item_item_save($post_data)
     {
-//        dd('edit');
         $messages = [
             'operate.required' => 'operate.required',
             'title.required' => '请输入标题！',
@@ -1100,9 +1129,9 @@ class RootIndexRepository {
             return response_error([],$messages->first());
         }
 
-        $me = Auth::user();
-        $me_admin = Auth::guard('doc_admin')->user();
-        if(!in_array($me->user_type,[0,1,9])) return response_error([],"用户类型错误！");
+        $this->get_me();
+        $me = $this->me;
+//        if(!in_array($me->user_type,[0,1,9])) return response_error([],"用户类型错误！");
 
 
         $operate = $post_data["operate"];
@@ -1115,7 +1144,7 @@ class RootIndexRepository {
             $mine = new Def_Item;
             $post_data["item_category"] = 1;
             $post_data["owner_id"] = $me->id;
-            $post_data["creator_id"] = $me_admin->id;
+            $post_data["creator_id"] = $me->id;
 
 //            if($type == 'item') $post_data["item_type"] = 0;
 //            else if($type == 'article') $post_data["item_type"] = 1;
@@ -1128,11 +1157,11 @@ class RootIndexRepository {
         {
             $mine = $this->modelItem->find($operate_id);
             if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
-            if($me->id != $me_admin->id)
-            {
-                if($mine->creator_id != $me_admin->id) return response_error([],"不是你创建的，你没有操作权限！");
-            }
-            $post_data["updater_id"] = $me_admin->id;
+//            if($me->id != $me_admin->id)
+//            {
+//                if($mine->creator_id != $me_admin->id) return response_error([],"不是你创建的，你没有操作权限！");
+//            }
+//            $post_data["updater_id"] = $me_admin->id;
         }
         else return response_error([],"参数【operate】有误！");
 
@@ -1176,7 +1205,7 @@ class RootIndexRepository {
                         unlink(storage_path("resource/" . $mine_cover_pic));
                     }
 
-                    $result = upload_storage($post_data["cover"],'','doc/common');
+                    $result = upload_storage($post_data["cover"],'','common');
                     if($result["result"])
                     {
                         $mine->cover_pic = $result["local"];
@@ -1195,7 +1224,7 @@ class RootIndexRepository {
                         unlink(storage_path("resource/" . $mine_cover_pic));
                     }
 
-                    $result = upload_file_storage($post_data["attachment"],'','doc/attachment');
+                    $result = upload_file_storage($post_data["attachment"],'','attachment');
                     if($result["result"])
                     {
                         $mine->attachment_name = $result["name"];
@@ -1206,12 +1235,13 @@ class RootIndexRepository {
                 }
 
                 // 生成二维码
-                $qr_code_path = "resource/doc/unique/qr_code/";  // 保存目录
+                $qr_code_path = "resource/unique/qr_code/";  // 保存目录
                 if(!file_exists(storage_path($qr_code_path)))
                     mkdir(storage_path($qr_code_path), 0777, true);
                 // qr_code 图片文件
-                $url = env('DOMAIN_DOC').'/item/'.$mine->id;  // 目标 URL
-                $filename = 'qr_code_doc_item_'.$mine->id.'.png';  // 目标 file
+                if($this->env == 'test') $url = env('DOMAIN_TEST_WWW').'/item/'.$mine->id;  // 目标 URL
+                else $url = env('DOMAIN_WWW').'/item/'.$mine->id;  // 目标 URL
+                $filename = 'qr_code_item_'.$mine->id.'.png';  // 目标 file
                 $qr_code = $qr_code_path.$filename;
                 QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
 
@@ -1257,7 +1287,8 @@ class RootIndexRepository {
         $mine = $this->modelItem->withTrashed()->find($id);
         if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
 
         if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
 
@@ -1352,7 +1383,8 @@ class RootIndexRepository {
         $item = Def_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
 
         return response_success($item,"");
@@ -1383,7 +1415,8 @@ class RootIndexRepository {
         $item = Def_Item::withTrashed()->find($item_id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
 //        if(!in_array($me->user_type,[0,1,9,11,19])) return response_error([],"用户类型错误！");
 //        if($me->user_type == 19 && ($item->item_active != 0 || $item->creator_id != $me->id)) return response_error([],"你没有操作权限！");
         if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
@@ -1448,7 +1481,8 @@ class RootIndexRepository {
         $item = Def_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
 //        if(!in_array($me->user_type,[0,1,9,11])) return response_error([],"用户类型错误！");
         if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
 
@@ -1499,7 +1533,8 @@ class RootIndexRepository {
         $item = Def_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::guard('staff')->user();
+        $this->get_me();
+        $me = $this->me;
 //        if(!in_array($me->user_type,[0,1,9,11,19])) return response_error([],"用户类型错误！");
 //        if($me->user_type == 19 && ($item->item_active != 0 || $item->creator_id != $me->id)) return response_error([],"你没有操作权限！");
         if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
@@ -1553,7 +1588,8 @@ class RootIndexRepository {
         $item = Def_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
 
         // 启动数据库事务
@@ -1604,7 +1640,8 @@ class RootIndexRepository {
         $item = DEF_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::guard('staff')->user();
+        $this->get_me();
+        $me = $this->me;
 //        if(!in_array($me->user_type,[0,1,9,11,19,41])) return response_error([],"用户类型错误！");
         if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
 
@@ -1807,7 +1844,9 @@ class RootIndexRepository {
             return response_error([],$messages->first());
         }
 
-        $me = Auth::user();
+        $this->get_me();
+
+        $me = $this->me;
         $me_admin = Auth::guard('doc_admin')->user();
 
 //        $post_data["category"] = 11;
@@ -1961,7 +2000,9 @@ class RootIndexRepository {
             return response_error([],$messages->first());
         }
 
-        $me = Auth::user();
+        $this->get_me();
+
+        $me = $this->me;
         $me_admin = Auth::guard('doc_admin')->user();
 
 //        $post_data["category"] = 18;
@@ -2068,7 +2109,9 @@ class RootIndexRepository {
     // 内容获取
     public function operate_item_content_get($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+
+        $me = $this->me;
         $me_admin = Auth::guard('doc_admin')->user();
 
         $item_id = $post_data["item_id"];
@@ -2091,7 +2134,9 @@ class RootIndexRepository {
     // 删除
     public function operate_item_content_delete($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+
+        $me = $this->me;
         $me_admin = Auth::guard('doc_admin')->user();
 
         $id = $post_data["id"];
@@ -2168,7 +2213,9 @@ class RootIndexRepository {
     // 启用
     public function operate_item_content_enable($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+
+        $me = $this->me;
         $me_admin = Auth::guard('doc_admin')->user();
 
         $id = $post_data["id"];
@@ -2200,7 +2247,9 @@ class RootIndexRepository {
     // 禁用
     public function operate_item_content_disable($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+
+        $me = $this->me;
         $me_admin = Auth::guard('doc_admin')->user();
 
         $id = $post_data["id"];
@@ -2236,7 +2285,9 @@ class RootIndexRepository {
     // 【ITEM】【添加】【点赞 | 收藏 | +待办事 | +日程】
     public function operate_item_add_this($post_data,$type=0)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
             $messages = [
                 'type.required' => '参数type有误！',
@@ -2256,7 +2307,7 @@ class RootIndexRepository {
             $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::user();
+                $me = $this->me;
                 $pivot = Def_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->first();
                 if(!$pivot)
                 {
@@ -2364,7 +2415,9 @@ class RootIndexRepository {
     // 【ITEM】【移除】【点赞 | 收藏 | +待办事 | +日程】
     public function operate_item_remove_this($post_data,$type=0)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
             $messages = [
                 'type.required' => '参数有误',
@@ -2384,7 +2437,7 @@ class RootIndexRepository {
             $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::user();
+                $me = $this->me;
                 $pivots = Def_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->get();
                 if(count($pivots) > 0)
                 {
@@ -2469,7 +2522,9 @@ class RootIndexRepository {
     // 【ITEM】【转发】
     public function operate_item_forward($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
             $messages = [
                 'type.required' => '参数有误',
@@ -2489,7 +2544,7 @@ class RootIndexRepository {
             $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::user();
+                $me = $this->me;
                 $me_id = $me->id;
 
                 DB::beginTransaction();
@@ -2540,10 +2595,12 @@ class RootIndexRepository {
 
     public function view_item($post_data,$id=0)
     {
+        $this->get_me();
+
         $user = [];
-        if(Auth::check())
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
             view()->share('me',$me);
         }
@@ -2664,7 +2721,8 @@ class RootIndexRepository {
     // 返回（后台）主页视图
     public function view_item_list_for_mine($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         $item_query = $this->modelItem->select('*')->withTrashed()
             ->with(['owner','creator','pivot_item_relation'])
             ->where('owner_id',$me->id)
@@ -2758,9 +2816,11 @@ class RootIndexRepository {
     // 【我的原创】
     public function view_item_list_for_my_original($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::user();
+            $me = $this->me;
             $me_id = $me->id;
 
             $items = $this->modelItem->select("*")->with([
@@ -2785,9 +2845,11 @@ class RootIndexRepository {
     // 【待办事】
     public function view_item_list_for_my_todo_list($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::user();
+            $user = $this->me;
             $user_id = $user->id;
 
             // Method 1
@@ -2820,9 +2882,11 @@ class RootIndexRepository {
     // 【日程】
     public function view_item_list_for_my_schedule($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::user();
+            $user = $this->me;
             $user_id = $user->id;
 
             // Method 1
@@ -2852,9 +2916,11 @@ class RootIndexRepository {
     // 【点赞】
     public function view_item_list_for_my_favor($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::user();
+            $user = $this->me;
             $user_id = $user->id;
 
             // Method 1
@@ -2890,9 +2956,11 @@ class RootIndexRepository {
     // 【收藏】
     public function view_item_list_for_my_collection($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::user();
+            $user = $this->me;
             $user_id = $user->id;
 
             // Method 1
@@ -2928,9 +2996,11 @@ class RootIndexRepository {
     // 【发现】
     public function view_item_list_for_my_discovery($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::user();
+            $user = $this->me;
             $user_id = $user->id;
         }
         else $user_id = 0;
@@ -2953,9 +3023,11 @@ class RootIndexRepository {
     // 【关注】
     public function view_item_list_for_my_follow($post_data)
     {
-        if(Auth::check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::user();
+            $user = $this->me;
             $user_id = $user->id;
         }
         else $user_id = 0;
@@ -2989,9 +3061,9 @@ class RootIndexRepository {
     // 【好友圈】
     public function view_item_list_for_my_circle($post_data)
     {
-        if(Auth::check())
+        if($this->auth_check)
         {
-            $user = Auth::user();
+            $user = $this->me;
             $user_id = $user->id;
         }
         else $user_id = 0;
@@ -3125,7 +3197,8 @@ class RootIndexRepository {
     // 【ITEM】返回-添加-视图
     public function view_my_doc_create($post_data)
     {
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
 
         $operate_category = 'user';
         $operate_type = 'user.doc';
@@ -3149,7 +3222,7 @@ class RootIndexRepository {
     // 【ITEM】返回-编辑-视图
     public function view_my_doc_edit($post_data)
     {
-        $me = Auth::user();
+        $me = $this->me;
 //        if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
 
         $id = $post_data["user-id"];
@@ -3190,7 +3263,6 @@ class RootIndexRepository {
     // 【ITEM】保存-数据
     public function operate_my_doc_save($post_data)
     {
-//        dd($post_data);
         $messages = [
             'operate.required' => 'operate.required.',
             'username.required' => '请输入用户名！',
@@ -3207,8 +3279,8 @@ class RootIndexRepository {
             return response_error([],$messages->first());
         }
 
-
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         $me_id = $me->id;
         if(!in_array($me->user_category,[0,1])) return response_error([],"你没有操作权限！");
 
@@ -3305,7 +3377,8 @@ class RootIndexRepository {
         if(!is_numeric($id)) return response_error([],"参数ID有误！");
 //        if(intval($id) !== 0 && !$id) dd("参数ID有误！");
 
-        $me = Auth::user();
+        $this->get_me();
+        $me = $this->me;
         $mine = User::with(['creator'])->find($id);
         if(!$mine) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
         if($mine->creator_id != $me->id) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
@@ -3320,7 +3393,7 @@ class RootIndexRepository {
     // 登录我的轻博
     public function operate_login_my_doc($post_data)
     {
-        $me = Auth::user();
+        $me = $this->me;
 
         Auth::guard('doc')->login($me,true);
         Auth::guard('doc_admin')->login($me,true);
