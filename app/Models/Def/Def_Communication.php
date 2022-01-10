@@ -19,6 +19,23 @@ class Def_Communication extends Model
     protected $dateFormat = 'U';
 
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->connection = 'mysql_test';
+        }
+        else
+        {
+            $this->connection = 'mysql_def';
+        }
+    }
+
+
+
+
     // 拥有者
     function owner()
     {

@@ -4,7 +4,7 @@
 /*
  * 前端
  */
-Route::group(['namespace' => 'Front'], function () {
+Route::group(['middleware' => 'www', 'namespace' => 'Front'], function () {
 
 
     $controller = "IndexController";

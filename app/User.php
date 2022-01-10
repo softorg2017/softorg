@@ -40,6 +40,24 @@ class User extends Authenticatable
 
     protected $dateFormat = 'U';
 
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->connection = 'mysql_test';
+        }
+        else
+        {
+            $this->connection = 'mysql_def';
+        }
+    }
+
+
+
+
     function ext()
     {
         return $this->hasOne('App\UserExt','user_id','id');

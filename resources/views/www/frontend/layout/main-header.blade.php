@@ -31,7 +31,7 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
 
-            @if(!Auth::check())
+            @if(!$auth_check)
             <div class="navbar-custom-menu" style="height:50px;line-height:50px;padding:0 8px;float:left;">
                 <a href="{{ url('/login-link') }}">
                     <i class="fa fa-sign-in"></i>
@@ -58,7 +58,7 @@
                 @endif
 
 
-                @if(Auth::check())
+                @if($auth_check)
                 @if(!empty($notification_count))
                 <li class="_none">
                     <a href="{{ url('/my-notification') }}" data-type="notification">
@@ -108,31 +108,31 @@
                 </li>
 
                 {{--<!-- User Account Menu -->--}}
-                @if(Auth::check())
+                @if($auth_check)
                 <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="user-image" alt="User">
+                            <img src="{{ url(env('DOMAIN_CDN').'/'.$me->portrait_img) }}" class="user-image" alt="User">
                             <span class=""><span> &nbsp; </span></span>
-                            <span class="hidden-xs pull-right"><span>{{ Auth::user()->username }}</span></span>
+                            <span class="hidden-xs pull-right"><span>{{ $me->username }}</span></span>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                    <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::user()->portrait_img) }}" class="img-circle" alt="User">
+                                    <img src="{{ url(env('DOMAIN_CDN').'/'.$me->portrait_img) }}" class="img-circle" alt="User">
                                     <p>
-                                        {{ Auth::user()->username }}
-                                        <small>{{ Auth::user()->company }}</small>
-                                        <small>{{ Auth::user()->position }}</small>
+                                        {{ $me->username }}
+                                        <small>{{ $me->company }}</small>
+                                        <small>{{ $me->position }}</small>
                                     </p>
                             </li>
                             <!-- Menu Body -->
                             <li class="user-body">
                                 <div class="row">
                                     <div class="col-xs-6 text-center">
-                                        <a href="{{ url('/user/'.Auth::user()->id) }}">
+                                        <a href="{{ url('/user/'.$me->id) }}">
                                             <i class="fa fa-user text-red"></i> 我的名片
                                         </a>
                                     </div>
@@ -150,21 +150,21 @@
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                @if(Auth::user()->user_type == 1)
+                                @if($me->user_type == 1)
                                 <div class="pull-left">
                                     <a href="{{ url('/my-info/edit') }}" class="btn btn-default btn-flat">
                                         <i class="fa fa-edit"></i>
                                         <span>编辑名片</span>
                                     </a>
                                 </div>
-                                @elseif(Auth::user()->user_type == 11)
+                                @elseif($me->user_type == 11)
                                     <div class="pull-left">
                                         <a href="{{ url('/org') }}" class="btn btn-default btn-flat">
                                             <i class="fa fa-home"></i>
                                             <span>返回后台</span>
                                         </a>
                                     </div>
-                                @elseif(Auth::user()->user_type == 88)
+                                @elseif($me->user_type == 88)
                                     <div class="pull-left">
                                         <a href="{{ url('/sponsor') }}" class="btn btn-default btn-flat">
                                             <i class="fa fa-home"></i>

@@ -19,6 +19,12 @@ class RootIndexController extends Controller
     public function __construct()
     {
         $this->repo = new RootIndexRepository;
+
+//        $this->middleware(function ($request, $next)
+//        {
+//            dd(request()->session()->all());
+//            return $next($request);
+//        });
     }
 
 

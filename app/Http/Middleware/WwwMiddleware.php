@@ -4,11 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-
-
+use App\Administrator;
 use Auth, Response;
 
-class SuperMiddleware
+class WwwMiddleware
 {
     protected $auth;
     protected $evn;
@@ -24,46 +23,37 @@ class SuperMiddleware
     {
         if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
         {
-            if(!Auth::guard('test_super')->check()) // 未登录
+            if(!Auth::guard('test')->check()) // 未登录
             {
-                return redirect('/admin/login');
-
-//            $return["status"] = false;
-//            $return["log"] = "admin-no-login";
-//            $return["msg"] = "请先登录";
-//            return Response::json($return);
-
+                $this->auth_check = 0;
             }
             else
             {
                 $this->auth_check = 1;
-                $this->me = Auth::guard('test_super')->user();
+                $this->me = Auth::guard('test')->user();
+                view()->share('me',$this->me);
             }
 
-
+            view()->share('evn','test');
         }
         else
         {
-            if(!Auth::guard('super')->check()) // 未登录
+            if(!Auth::check()) // 未登录
             {
-                return redirect('/admin/login');
-
-//            $return["status"] = false;
-//            $return["log"] = "admin-no-login";
-//            $return["msg"] = "请先登录";
-//            return Response::json($return);
-
+                $this->auth_check = 0;
             }
             else
             {
                 $this->auth_check = 1;
-                $this->me = Auth::guard('super')->user();
+                $this->me = Auth::user();
+                view()->share('me',$this->me);
             }
 
+            view()->share('evn','production');
         }
 
-        view()->share('me',$this->me);
         view()->share('auth_check',$this->auth_check);
         return $next($request);
+
     }
 }

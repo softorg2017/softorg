@@ -93,6 +93,24 @@ return [
 //            ],
         ],
 
+        'mysql_test' => [
+            'driver' => 'mysql',
+            'host' => env('DB_ORG_HOST', '127.0.0.1'),
+            'port' => env('DB_ORG_PORT', '3306'),
+            'database' => env('DB_TEST_DATABASE', ''),
+            'username' => env('DB_TEST_USERNAME', ''),
+            'password' => env('DB_TEST_PASSWORD', ''),
+            'unix_socket' => env('DB_TEST_SOCKET', ''),
+            'prefix' => env('DB_TEST_PREFIX', 'test_'),
+            'charset' => 'utf8',
+            'collation' => 'utf8_general_ci',
+            'strict' => false,
+            'engine' => null,
+//            'options'   =>[
+//                PDO::ATTR_EMULATE_PREPARES => false,
+//            ],
+        ],
+
         'mysql_lw' => [
             'driver' => 'mysql',
             'host' => env('DB_ORG_HOST', '127.0.0.1'),

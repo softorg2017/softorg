@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories\Root\Front;
 
+use App\Http\Middleware\WwwMiddleware;
+
 use App\User;
 use App\UserExt;
 
@@ -19,29 +21,62 @@ use App\Models\Root\RootMessage;
 
 use App\Repositories\Common\CommonRepository;
 
-use Response, Auth, Validator, DB, Exception, Cache;
+use Request, Response, Auth, Validator, DB, Exception, Cache;
 use QrCode, Excel;
 
 class RootIndexRepository {
 
+    private $evn;
+    private $auth_check;
+    private $me;
+    private $me_admin;
     private $model;
+    private $modelItem;
     private $repo;
     private $service;
     public function __construct()
     {
-//        $this->modelUser = new User;
+        $this->modelUser = new User;
         $this->modelItem = new Def_Item;
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->env = 'test';
+        }
+        else
+        {
+            $this->env = 'production';
+        }
+
+    }
+
+
+    public function get_me()
+    {
+        if($this->env == 'test')
+        {
+            if(Auth::guard('test')->check())
+            {
+                $this->auth_check = 1;
+                $this->me = Auth::guard('test')->user();
+            }
+        }
+        else
+        {
+            if(Auth::check())
+            {
+                $this->auth_check = 1;
+                $this->me = Auth::user();
+            }
+            else $this->auth_check = 0;
+        }
     }
 
 
     // 返回【平台首页】视图
     public function view_root()
     {
-        if(Auth::check())
-        {
-            $me = Auth::user();
-            view()->share('me',$me);
-        }
+        $this->get_me();
 
         $head_title = "如未科技";
         $return['head_title'] = $head_title;
@@ -67,14 +102,14 @@ class RootIndexRepository {
         $item_type = request('item-type','recommend');
         if($item_type == 'recommend')
         {
-            $item_query = $this->modelItem->select('*')->withTrashed()
+            $item_query = $this->modelItem->select('*')
                 ->with(['owner','creator'])
                 ->where('owner_id','>',0)
                 ->where(['item_category'=>1]);
 
-            if(auth()->check())
+            if($this->auth_check)
             {
-                $me_id = auth()->id();
+                $me_id = $this->me->id;
                 $item_query->with([
                     'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
                 ]);

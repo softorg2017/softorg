@@ -265,7 +265,8 @@
                         console.log(data);
 //                        window.open('/');
                         var temp_window=window.open();
-                        temp_window.location = "{{ env('DOMAIN_DEFAULT') }}";
+                        if(data.data.env == 'test') temp_window.location = "{{ env('DOMAIN_TEST_DEFAULT') }}"
+                        else temp_window.location = "{{ env('DOMAIN_DEFAULT') }}";
 
                     }
                 },

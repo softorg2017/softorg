@@ -15,11 +15,21 @@ use Response, Auth, Validator, DB, Exception;
 class SuperAuthController extends Controller
 {
     //
+    private $evn;
     private $service;
     private $repo;
     public function __construct()
     {
         $this->repo = new SuperAuthRepository;
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->env = 'test';
+        }
+        else
+        {
+            $this->env = 'production';
+        }
     }
 
     // 登陆
@@ -49,8 +59,23 @@ class SuperAuthController extends Controller
                     if(password_check($password,$admin->password))
                     {
                         $remember = request()->get('remember');
-                        if($remember) Auth::guard('super')->login($admin,true);
-                        else Auth::guard('super')->login($admin,true);
+                        if($remember)
+                        {
+                            if($this->env == 'test')
+                            {        dd(1);
+
+                                Auth::guard('test_super')->login($admin,true);
+                            }
+                            else Auth::guard('super')->login($admin,true);
+                        }
+                        else
+                        {
+                            if($this->env == 'test')
+                            {
+                                Auth::guard('test_super')->login($admin,true);
+                            }
+                            else Auth::guard('super')->login($admin,true);
+                        }
                         return response_success();
                     }
                     else return response_error([],'账户or密码不正确 ');
@@ -65,7 +90,7 @@ class SuperAuthController extends Controller
     public function logout()
     {
         Auth::guard('super')->logout();
-        return redirect('/super/login');
+        return redirect('/admin/login');
     }
 
 

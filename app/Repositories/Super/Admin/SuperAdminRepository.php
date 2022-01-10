@@ -16,11 +16,44 @@ use QrCode, Excel;
 
 class SuperAdminRepository {
 
-    private $model;
+    private $evn;
+    private $auth_check;
+    private $me;
+    private $me_admin;
+    private $modelUser;
+    private $modelItem;
     private $repo;
     public function __construct()
     {
-//        $this->model = new User;
+//        $this->modelUser = new User;
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->env = 'test';
+
+//            if(Auth::guard('test_super')->check())
+//            {
+//                $this->auth_check = 1;
+//                $this->me = Auth::guard('test_super')->user();
+//                view()->share('me',$this->me);
+//            }
+//            else $this->auth_check = 0;
+        }
+        else
+        {
+            $this->env = 'production';
+
+//            if(Auth::guard('super')->check())
+//            {
+//                $this->auth_check = 1;
+//                $this->me = Auth::guard('super')->user();
+//                view()->share('me',$this->me);
+//            }
+//            else $this->auth_check = 0;
+        }
+
+//        view()->share('env',$this->env);
+//        view()->share('auth_check',$this->auth_check);
     }
 
     // 返回（后台）主页视图
@@ -624,7 +657,6 @@ class SuperAdminRepository {
     // 【K】【用户】【全部机构】返回-列表-数据
     public function get_user_list_for_all_datatable($post_data)
     {
-        $me = Auth::guard("super")->user();
         $query = User::select('*')
             ->with(['district'])
             ->whereIn('user_category',[1,9,11]);
@@ -678,7 +710,6 @@ class SuperAdminRepository {
     // 【K】【用户】【个人用户】返回-列表-数据
     public function get_user_list_for_individual_datatable($post_data)
     {
-        $me = Auth::guard("super")->user();
         $query = User::select('*')
             ->with(['district'])
             ->where(['active'=>1,'user_category'=>1,'user_type'=>1]);
@@ -724,7 +755,6 @@ class SuperAdminRepository {
     // 【K】【用户】【组织】返回-列表-数据
     public function get_user_list_for_doc_datatable($post_data)
     {
-        $me = Auth::guard("super")->user();
         $query = User::select('*')
             ->with(['district'])
             ->where(['active'=>1,'user_category'=>9]);
@@ -770,7 +800,6 @@ class SuperAdminRepository {
     // 【K】【用户】【组织】返回-列表-数据
     public function get_user_list_for_org_datatable($post_data)
     {
-        $me = Auth::guard("super")->user();
         $query = User::select('*')
             ->with(['district'])
             ->where(['active'=>1,'user_category'=>11]);
@@ -816,7 +845,6 @@ class SuperAdminRepository {
     // 【K】【用户】【赞助商】返回-列表-数据
     public function get_user_list_for_sponsor_datatable($post_data)
     {
-        $me = Auth::guard("super")->user();
         $query = User::select('*')
             ->with(['district'])
             ->where(['active'=>1,'user_category'=>88]);
@@ -1794,7 +1822,7 @@ class SuperAdminRepository {
     // 【K】【内容】【全部】返回-列表-数据
     public function get_statistic_all_datatable($post_data)
     {
-        $me = Auth::guard("super")->user();
+        $me = $this->me;
         $query = Def_Record::select('*')
             ->with(['creator','object','item']);
 

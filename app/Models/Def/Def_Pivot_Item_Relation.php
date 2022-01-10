@@ -14,6 +14,23 @@ class Def_Pivot_Item_Relation extends Model
     protected $dateFormat = 'U';
 
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->connection = 'mysql_test';
+        }
+        else
+        {
+            $this->connection = 'mysql_def';
+        }
+    }
+
+
+
+
     // mine
     function mine_item()
     {

@@ -19,10 +19,21 @@ use QrCode, Excel;
 class SuperAdminController extends Controller
 {
     //
+    private $evn;
+    private $service;
     private $repo;
     public function __construct()
     {
         $this->repo = new SuperAdminRepository;
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->env = 'test';
+        }
+        else
+        {
+            $this->env = 'production';
+        }
     }
 
 
@@ -133,12 +144,25 @@ class SuperAdminController extends Controller
             }
             else
             {
-                Auth::login($user,true);
-//
                 $return['user'] = $user;
+                $return['env'] = '';
 
-                if(request()->isMethod('get')) return redirect(env('DOMAIN_DEFAULT'));
-                else if(request()->isMethod('post')) return response_success($return);
+                if($this->env == 'test')
+                {
+                    $return['env'] = 'test';
+                    Auth::guard('test')->login($user,true);
+                    if(request()->isMethod('get')) return redirect(env('DOMAIN_TEST_DEFAULT'));
+                    else if(request()->isMethod('post')) return response_success($return);
+                }
+                else
+                {
+                    Auth::login($user,true);
+                    if(request()->isMethod('get')) return redirect(env('DOMAIN_DEFAULT'));
+                    else if(request()->isMethod('post')) return response_success($return);
+                }
+
+//                if(request()->isMethod('get')) return redirect(env('DOMAIN_DEFAULT'));
+//                else if(request()->isMethod('post')) return response_success($return);
             }
         }
         else return response_error([]);

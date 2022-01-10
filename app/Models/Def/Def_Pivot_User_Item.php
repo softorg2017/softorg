@@ -13,6 +13,23 @@ class Def_Pivot_User_Item extends Model
     protected $dateFormat = 'U';
 
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->connection = 'mysql_test';
+        }
+        else
+        {
+            $this->connection = 'mysql_def';
+        }
+    }
+
+
+
+
     // 用户
     function user()
     {

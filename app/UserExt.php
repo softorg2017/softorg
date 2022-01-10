@@ -39,6 +39,24 @@ class UserExt extends Authenticatable
 
     protected $dateFormat = 'U';
 
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
+        {
+            $this->connection = 'mysql_test';
+        }
+        else
+        {
+            $this->connection = 'mysql_def';
+        }
+    }
+
+
+
+
     function user()
     {
         return $this->belongsTo('App\User','user_id','id');
