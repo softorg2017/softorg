@@ -122,18 +122,12 @@ Route::group(['prefix' => 'developing', 'namespace' => 'Developing'], function (
 Route::group(['domain' => 'super.'.env('DOMAIN_ROOT'), 'namespace' => 'Super'], function () {
     require(__DIR__ . '/Super/route.php');
 });
-Route::group(['domain' => 'test.super.'.env('DOMAIN_ROOT'), 'namespace' => 'Super'], function () {
-    require(__DIR__ . '/Super/route.php');
-});
 
 
 /*
  * ORG
  */
 Route::group(['domain' => 'org.'.env('DOMAIN_ROOT'), 'namespace' => 'Org'], function () {
-    require(__DIR__ . '/Org/route.php');
-});
-Route::group(['domain' => 'test.org.'.env('DOMAIN_ROOT'), 'namespace' => 'Org'], function () {
     require(__DIR__ . '/Org/route.php');
 });
 
@@ -144,18 +138,12 @@ Route::group(['domain' => 'test.org.'.env('DOMAIN_ROOT'), 'namespace' => 'Org'],
 Route::group(['domain' => 'doc.'.env('DOMAIN_ROOT'), 'namespace' => 'Doc'], function () {
     require(__DIR__ . '/Doc/route.php');
 });
-Route::group(['domain' => 'test.doc.'.env('DOMAIN_ROOT'), 'namespace' => 'Doc'], function () {
-    require(__DIR__ . '/Doc/route.php');
-});
 
 
 /*
  * ATOM
  */
 Route::group(['domain' => 'atom.'.env('DOMAIN_ROOT'), 'namespace' => 'Atom'], function () {
-    require(__DIR__ . '/Atom/route.php');
-});
-Route::group(['domain' => 'test.atom.'.env('DOMAIN_ROOT'), 'namespace' => 'Atom'], function () {
     require(__DIR__ . '/Atom/route.php');
 });
 
@@ -180,9 +168,6 @@ Route::group(['domain' => 'outside.'.env('DOMAIN_ROOT'), 'namespace' => 'Outside
  * 根
  */
 Route::group(['domain' => 'www.'.env('DOMAIN_ROOT'), 'namespace' => 'Root'], function () {
-    require(__DIR__ . '/Root/route.php');
-});
-Route::group(['domain' => 'test.www.'.env('DOMAIN_ROOT'), 'namespace' => 'Root'], function () {
     require(__DIR__ . '/Root/route.php');
 });
 

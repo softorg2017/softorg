@@ -59,14 +59,14 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
 
-        'www' => \App\Http\Middleware\WwwMiddleware::class,
+        'wx.share' => \App\Http\Middleware\WxShareMiddleware::class,
 
-        'wechat.share' => \App\Http\Middleware\WechatShareMiddleware::class,
+        'login.alert' => \App\Http\Middleware\LoginAlertMiddleware::class,
+        'login.turn' => \App\Http\Middleware\LoginTurnMiddleware::class,
+
+        'notification' => \App\Http\Middleware\NotificationMiddleware::class,
 
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
-
-        'gps' => \App\Http\Middleware\GPSMiddleware::class,
-        'gps.admin' => \App\Http\Middleware\GPSAdminMiddleware::class,
 
         'super' => \App\Http\Middleware\SuperMiddleware::class,
         'super.admin' => \App\Http\Middleware\SuperAdminMiddleware::class,
@@ -80,9 +80,8 @@ class Kernel extends HttpKernel
         'atom' => \App\Http\Middleware\AtomMiddleware::class,
         'atom.admin' => \App\Http\Middleware\AtomAdminMiddleware::class,
 
-        'login' => \App\Http\Middleware\LoginMiddleware::class,
-        'login.turn' => \App\Http\Middleware\TurnToLoginMiddleware::class,
-        'notification' => \App\Http\Middleware\NotificationMiddleware::class,
+        'gps' => \App\Http\Middleware\GPSMiddleware::class,
+        'gps.admin' => \App\Http\Middleware\GPSAdminMiddleware::class,
     ];
 
 

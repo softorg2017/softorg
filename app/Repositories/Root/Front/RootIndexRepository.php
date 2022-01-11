@@ -31,6 +31,7 @@ class RootIndexRepository {
     private $me;
     private $me_admin;
     private $model;
+    private $modelUser;
     private $modelItem;
     private $repo;
     private $service;
@@ -47,32 +48,19 @@ class RootIndexRepository {
         {
             $this->env = 'production';
         }
-
+        view()->share('evn',$this->env);
     }
 
 
     public function get_me()
     {
-        if($this->env == 'test')
+        if(Auth::check())
         {
-            if(Auth::guard('test')->check())
-            {
-                $this->auth_check = 1;
-                $this->me = Auth::guard('test')->user();
-                view()->share('me',$this->me);
-            }
+            $this->auth_check = 1;
+            $this->me = Auth::user();
+            view()->share('me',$this->me);
         }
-        else
-        {
-            if(Auth::check())
-            {
-                $this->auth_check = 1;
-                $this->me = Auth::user();
-                view()->share('me',$this->me);
-            }
-            else $this->auth_check = 0;
-        }
-        view()->share('evn',$this->env);
+        else $this->auth_check = 0;
         view()->share('auth_check',$this->auth_check);
     }
 

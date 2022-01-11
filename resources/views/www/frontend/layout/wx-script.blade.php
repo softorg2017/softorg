@@ -1,11 +1,13 @@
 <script>
 
-    var wechat_config = {!! $wechat_config or '' !!};
-    console.log(wechat_config.cache);
+    var wx_config = {!! $wx_config or '' !!};
+
+    console.log(wx_config.cache);
+
     var timestamp = Date.parse(new Date());
     var time = Date.parse(new Date());
-    console.log(timestamp / 1000 - wechat_config.timestamp);
-    console.log(new Date(wechat_config.timestamp * 1000).toLocaleString());
+//    console.log(timestamp / 1000 - wx_config.timestamp);
+//    console.log(new Date(wx_config.timestamp * 1000).toLocaleString());
 
     $(function()
     {
@@ -19,10 +21,10 @@
 
             wx.config({
                 debug: false,
-                appId: wechat_config.app_id, // 必填，公众号的唯一标识
-                timestamp: wechat_config.timestamp, // 必填，生成签名的时间戳
-                nonceStr: wechat_config.nonce_str, // 必填，生成签名的随机串
-                signature: wechat_config.signature, // 必填，签名，见附录1
+                appId: wx_config.app_id, // 必填，公众号的唯一标识
+                timestamp: wx_config.timestamp, // 必填，生成签名的时间戳
+                nonceStr: wx_config.nonce_str, // 必填，生成签名的随机串
+                signature: wx_config.signature, // 必填，签名，见附录1
                 jsApiList: [
                     'checkJsApi',
 //                    'updateAppMessageShareData',

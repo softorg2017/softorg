@@ -6,15 +6,15 @@ use Closure;
 use Auth, Response;
 use Lib\Wechat\TokenManager;
 
-class WechatShareMiddleware
+class WxShareMiddleware
 {
 
     public function handle($request, Closure $next)
     {
-        if(env('APP_ENV') != 'local')
+        if(env('APP_ENV') != 'dev')
         {
-            $wechat_config = json_encode(TokenManager::getConfig());
-            view()->share('wechat_config', $wechat_config);
+            $wx_config = json_encode(TokenManager::getConfig());
+            view()->share('wx_config', $wx_config);
         }
 
         return $next($request);

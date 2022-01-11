@@ -4,7 +4,7 @@
 /*
  * 前端
  */
-Route::group(['middleware' => 'www', 'namespace' => 'Front'], function () {
+Route::group(['namespace' => 'Front'], function () {
 
 
     $controller = "IndexController";
@@ -16,10 +16,8 @@ Route::group(['middleware' => 'www', 'namespace' => 'Front'], function () {
 
 
 
-
-
     // 微信分享页面
-    Route::group(['middleware' => 'wechat.share'], function () {
+    Route::group(['middleware' => 'wx.share'], function () {
 
 
         $controller = "RootIndexController";
@@ -50,7 +48,7 @@ Route::group(['middleware' => 'www', 'namespace' => 'Front'], function () {
          */
 
         // 提示登录
-        Route::group(['middleware' => ['login']], function () {
+        Route::group(['middleware' => ['login.alert']], function () {
 
             $controller = "RootIndexController";
 

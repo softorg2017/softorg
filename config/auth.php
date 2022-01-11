@@ -42,14 +42,6 @@ return [
             'provider' => 'web',
         ],
 
-        'test' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-
-
-
-
         'gps' => [
             'driver' => 'session',
             'provider' => 'gps',
@@ -58,40 +50,16 @@ return [
             'driver' => 'session',
             'provider' => 'gps_admins',
         ],
-        'test_gps' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-        'test_gps_admin' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-
-
-
 
         'user' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'test_user' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-
-
-
 
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-        'test_admin' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-
-
 
 
         'super' => [
@@ -102,16 +70,6 @@ return [
             'driver' => 'session',
             'provider' => 'super_admins',
         ],
-        'test_super' => [
-            'driver' => 'session',
-            'provider' => 'test_super',
-        ],
-        'test_super_admin' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-
-
 
 
         'org' => [
@@ -122,16 +80,6 @@ return [
             'driver' => 'session',
             'provider' => 'org_admins',
         ],
-        'test_org' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-        'test_org_admin' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-
-
 
 
         'doc' => [
@@ -142,16 +90,6 @@ return [
             'driver' => 'session',
             'provider' => 'doc_admins',
         ],
-        'test_doc' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-        'test_doc_admin' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-
-
 
 
         'atom' => [
@@ -162,25 +100,11 @@ return [
             'driver' => 'session',
             'provider' => 'atom_admins',
         ],
-        'test_atom' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-        'test_atom_admin' => [
-            'driver' => 'session',
-            'provider' => 'test',
-        ],
-
-
 
 
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
-        ],
-        'test_api' => [
-            'driver' => 'token',
-            'provider' => 'test',
         ],
 
     ],
@@ -209,7 +133,6 @@ return [
             'model' => App\User::class,
         ],
 
-
         'gps' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
@@ -219,12 +142,10 @@ return [
             'model' => App\User::class,
         ],
 
-
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
 
         'admins' => [
             'driver' => 'eloquent',
@@ -237,14 +158,6 @@ return [
             'model' => App\User::class,
         ],
         'super_admins' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
-        'test_super' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
-        'test_super_admins' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
@@ -275,14 +188,6 @@ return [
             'model' => App\User::class,
         ],
         'atom_admins' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
-
-
-
-
-        'test' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
