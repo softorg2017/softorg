@@ -792,6 +792,13 @@ if (! function_exists('storage_path'))
         return app('path.storage').($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
+if (! function_exists('storage_resource_path'))
+{
+    function storage_resource_path($path = '')
+    {
+        return storage_path('resource').($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+}
 
 
 

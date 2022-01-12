@@ -308,9 +308,9 @@ class RootIndexRepository {
                 {
                     // 删除原文件
                     $mine_original_file = $me->portrait_img;
-                    if(!empty($mine_original_file) && file_exists(storage_path('resource/'.$mine_original_file)))
+                    if(!empty($mine_original_file) && file_exists(storage_resource_path($mine_original_file)))
                     {
-                        unlink(storage_path('resource/'.$mine_original_file));
+                        unlink(storage_resource_path($mine_original_file));
                     }
 
 //                    $result = upload_img_storage($post_data["portrait"],'','root/common');
@@ -324,22 +324,22 @@ class RootIndexRepository {
                 }
 
                 // 微信二维码
-                if(!empty($post_data["wechat_qr_code"]))
+                if(!empty($post_data["wx_qr_code"]))
                 {
                     // 删除原图片
-                    $mine_wechat_qr_code_img = $me->wechat_qr_code_img;
-                    if(!empty($mine_wechat_qr_code_img) && file_exists(storage_path("resource/" . $mine_wechat_qr_code_img)))
+                    $mine_wx_qr_code_img = $me->wx_qr_code_img;
+                    if(!empty($mine_wx_qr_code_img) && file_exists(storage_resource_path($mine_wx_qr_code_img)))
                     {
-                        unlink(storage_path("resource/" . $mine_wechat_qr_code_img));
+                        unlink(storage_resource_path("resource/" . $mine_wx_qr_code_img));
                     }
 
-                    $result = upload_img_storage($post_data["wechat_qr_code"],'','root/common');
+                    $result = upload_img_storage($post_data["wx_qr_code"],'','www/common');
                     if($result["result"])
                     {
-                        $me->wechat_qr_code_img = $result["local"];
+                        $me->wx_qr_code_img = $result["local"];
                         $me->save();
                     }
-                    else throw new Exception("upload--wechat_qr_code--fail");
+                    else throw new Exception("upload--wx_qr_code--fail");
                 }
 
             }
@@ -361,35 +361,6 @@ class RootIndexRepository {
 
 
 
-    // 【我的】【我的轻博账户】
-    public function view_my_doc_account_list($post_data)
-    {
-        $this->get_me();
-
-        if($this->auth_check)
-        {
-            $me = $this->me;
-            $me_id = $me->id;
-
-            $user_list = User::with([])
-                ->where(['user_category'=>9,'creator_id'=>$me_id])
-                ->orderby('id','desc')
-                ->paginate(20);
-
-//            foreach ($user_list as $user)
-//            {
-//                $user->relation_with_me = $user->relation_type;
-//            }
-
-        }
-        else return response_error([],"请先登录！");
-
-        $return['user_list'] = $user_list;
-        $return['menu_active_for_my_doc_account_list'] = 'active';
-
-        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-list';
-        return view($view_blade)->with($return);
-    }
 
 
 
@@ -1188,9 +1159,9 @@ class RootIndexRepository {
                 {
                     // 删除原封面图片
                     $mine_cover_pic = $mine->cover_pic;
-                    if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                    if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
                     {
-                        unlink(storage_path("resource/" . $mine_cover_pic));
+                        unlink(storage_resource_path($mine_cover_pic));
                     }
 
                     $result = upload_storage($post_data["cover"],'','common');
@@ -1207,9 +1178,9 @@ class RootIndexRepository {
                 {
                     // 删除原附件
                     $mine_cover_pic = $mine->attachment;
-                    if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                    if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
                     {
-                        unlink(storage_path("resource/" . $mine_cover_pic));
+                        unlink(storage_resource_path($mine_cover_pic));
                     }
 
                     $result = upload_file_storage($post_data["attachment"],'','attachment');
@@ -1223,15 +1194,20 @@ class RootIndexRepository {
                 }
 
                 // 生成二维码
-                $qr_code_path = "resource/unique/qr_code/";  // 保存目录
-                if(!file_exists(storage_path($qr_code_path)))
-                    mkdir(storage_path($qr_code_path), 0777, true);
+                $date_today = date('Y-m-d');
+                $qr_code_path = "www/unique/qr_code_for_item/".$date_today.'/';  // 保存目录
+                if(!file_exists(storage_resource_path($qr_code_path)))
+                {
+                    mkdir(storage_resource_path($qr_code_path), 0777, true);
+                }
                 // qr_code 图片文件
-                if($this->env == 'test') $url = env('DOMAIN_TEST_WWW').'/item/'.$mine->id;  // 目标 URL
-                else $url = env('DOMAIN_WWW').'/item/'.$mine->id;  // 目标 URL
-                $filename = 'qr_code_item_'.$mine->id.'.png';  // 目标 file
+                $url = env('DOMAIN_WWW').'/item/'.$mine->id;  // 目标 URL
+                $filename = 'qr_code_for_item_by_item_'.$mine->id.'.png';  // 目标 file
                 $qr_code = $qr_code_path.$filename;
-                QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
+                QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_resource_path($qr_code));
+
+                $mine->unique_path = $qr_code_path;
+                $mine->save();
 
             }
             else throw new Exception("insert--item--fail");
@@ -1250,100 +1226,7 @@ class RootIndexRepository {
 
     }
 
-    // 【ITEM】删除
-    public function operate_item_item_delete_($post_data)
-    {
-        $messages = [
-            'operate.required' => 'operate.required',
-            'id.required' => '请输入关键词ID！',
-        ];
-        $v = Validator::make($post_data, [
-            'operate' => 'required',
-            'id' => 'required',
-        ], $messages);
-        if ($v->fails())
-        {
-            $messages = $v->errors();
-            return response_error([],$messages->first());
-        }
 
-        $operate = $post_data["operate"];
-        if($operate != 'item-delete') return response_error([],"参数[operate]有误！");
-        $id = $post_data["id"];
-        if(intval($id) !== 0 && !$id) return response_error([],"参数[ID]有误！");
-
-        $mine = $this->modelItem->withTrashed()->find($id);
-        if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
-
-        $this->get_me();
-        $me = $this->me;
-
-        if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
-
-        // 启动数据库事务
-        DB::beginTransaction();
-        try
-        {
-            if($id == $me->advertising_id)
-            {
-                $me->timestamps = false;
-                $me->advertising_id = 0;
-                $bool_0 = $me->save();
-                if(!$bool_0) throw new Exception("update--user--fail");
-            }
-
-            $mine_cover_pic = $mine->cover_pic;
-            $mine_attachment_src = $mine->attachment_src;
-            $mine_content = $mine->content;
-
-
-            $bool = $mine->delete();
-            if(!$bool) throw new Exception("delete--item--fail");
-
-            DB::commit();
-
-
-            // 删除原封面图片
-            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
-            {
-                unlink(storage_path("resource/" . $mine_cover_pic));
-            }
-
-            // 删除原附件
-            if(!empty($mine_attachment_src) && file_exists(storage_path("resource/" . $mine_attachment_src)))
-            {
-                unlink(storage_path("resource/" . $mine_attachment_src));
-            }
-
-            // 删除二维码
-            if(file_exists(storage_path("resource/doc/unique/qr_code/".'qr_code_doc_item_'.$id.'.png')))
-            {
-                unlink(storage_path("resource/doc/unique/qr_code/".'qr_code_doc_item_'.$id.'.png'));
-            }
-
-            // 删除UEditor图片
-            $img_tags = get_html_img($mine_content);
-            foreach ($img_tags[2] as $img)
-            {
-                if (!empty($img) && file_exists(public_path($img)))
-                {
-                    unlink(public_path($img));
-                }
-            }
-
-
-            return response_success([]);
-        }
-        catch (Exception $e)
-        {
-            DB::rollback();
-            $msg = '操作失败，请重试！';
-            $msg = $e->getMessage();
-//            exit($e->getMessage());
-            return response_fail([],$msg);
-        }
-
-    }
 
 
     // 【任务】获取详情
@@ -1531,6 +1414,14 @@ class RootIndexRepository {
         DB::beginTransaction();
         try
         {
+            if($id == $me->advertising_id)
+            {
+                $me->timestamps = false;
+                $me->advertising_id = 0;
+                $bool_0 = $me->save();
+                if(!$bool_0) throw new Exception("update--user--fail");
+            }
+
             $item_copy = $item;
 
             $bool = $item->forceDelete();
@@ -1690,23 +1581,25 @@ class RootIndexRepository {
         $mine_cover_pic = $item->cover_pic;
         $mine_attachment_src = $item->attachment_src;
         $mine_content = $item->content;
+        $unique_path = $item->unique_path;
 
         // 删除二维码
-        if(file_exists(storage_path("resource/unique/qr_code/".'qr_code_item_'.$mine_id.'.png')))
+        $qr_code_img = storage_resource_path($unique_path.'qr_code_for_item_by_item_'.$mine_id.'.png');
+        if(file_exists($qr_code_img))
         {
-            unlink(storage_path("resource/unique/qr_code/".'qr_code_item_'.$mine_id.'.png'));
+            unlink($qr_code_img);
         }
 
         // 删除原封面图片
-        if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+        if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
         {
-            unlink(storage_path("resource/" . $mine_cover_pic));
+            unlink(storage_resource_path($mine_cover_pic));
         }
 
         // 删除原附件
-        if(!empty($mine_attachment_src) && file_exists(storage_path("resource/" . $mine_attachment_src)))
+        if(!empty($mine_attachment_src) && file_exists(storage_resource_path($mine_attachment_src)))
         {
-            unlink(storage_path("resource/" . $mine_attachment_src));
+            unlink(storage_resource_path($mine_attachment_src));
         }
 
         // 删除UEditor图片
@@ -1835,7 +1728,6 @@ class RootIndexRepository {
         $this->get_me();
 
         $me = $this->me;
-        $me_admin = Auth::guard('doc_admin')->user();
 
 //        $post_data["category"] = 11;
         $item_id = $post_data["item_id"];
@@ -1860,7 +1752,7 @@ class RootIndexRepository {
                         $post_data["item_category"] = 1;
                         $post_data["item_type"] = 11;
                         $post_data["owner_id"] = $me->id;
-                        $post_data["creator_id"] = $me_admin->id;
+                        $post_data["creator_id"] = $me->id;
                     }
                     else if('edit') // 编辑
                     {
@@ -1869,11 +1761,11 @@ class RootIndexRepository {
                         $content = $this->modelItem->find($content_id);
                         if(!$content) return response_error([],"该内容不存在，刷新页面重试！");
                         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
-                        if($me->id != $me_admin->id)
-                        {
-                            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
-                        }
-                        $post_data["updater_id"] = $me_admin->id;
+//                        if($me->id != $me->id)
+//                        {
+//                            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+//                        }
+//                        $post_data["updater_id"] = $me_admin->id;
 //                        if($content->type == 1) unset($post_data["type"]);
 
                         if($post_data["p_id"] != 0)
@@ -1923,9 +1815,9 @@ class RootIndexRepository {
                         {
                             // 删除原封面图片
                             $mine_cover_pic = $content->cover_pic;
-                            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                            if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
                             {
-                                unlink(storage_path("resource/" . $mine_cover_pic));
+                                unlink(storage_resource_path($mine_cover_pic));
                             }
 
                             $result = upload_img_storage($post_data["cover"],'','doc/common');
@@ -1938,14 +1830,18 @@ class RootIndexRepository {
                         }
 
                         // 生成二维码
-                        $qr_code_path = "resource/doc/unique/qr_code/";  // 保存目录
-                        if(!file_exists(storage_path($qr_code_path)))
-                            mkdir(storage_path($qr_code_path), 0777, true);
+                        $date_today = date('Y-m-d');
+                        $qr_code_path = "www/unique/qr_code/".$date_today;  // 保存目录
+                        if(!file_exists(storage_resource_path($qr_code_path)))
+                            mkdir(storage_resource_path($qr_code_path), 0777, true);
                         // qr_code 图片文件
                         $url = env('DOMAIN_DOC').'/item/'.$content->id;  // 目标 URL
-                        $filename = 'qr_code_doc_item_'.$content->id.'.png';  // 目标 file
+                        $filename = 'qr_code_for_item_by_item_'.$content->id.'.png';  // 目标 file
                         $qr_code = $qr_code_path.$filename;
-                        QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
+                        QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_resource_path($qr_code));
+
+                        $content->unique_path = $qr_code_path;
+                        $content->save();
 
                     }
                     else throw new Exception("insert--content--fail");
@@ -1991,7 +1887,6 @@ class RootIndexRepository {
         $this->get_me();
 
         $me = $this->me;
-        $me_admin = Auth::guard('doc_admin')->user();
 
 //        $post_data["category"] = 18;
         $item_id = $post_data["item_id"];
@@ -2016,18 +1911,18 @@ class RootIndexRepository {
                         $post_data["item_category"] = 1;
                         $post_data["item_type"] = 18;
                         $post_data["owner_id"] = $me->id;
-                        $post_data["creator_id"] = $me_admin->id;
+                        $post_data["creator_id"] = $me->id;
                     }
                     else if('edit') // 编辑
                     {
                         $content = $this->modelItem->find($content_id);
                         if(!$content) return response_error([],"该内容不存在，刷新页面重试！");
                         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
-                        if($me->id != $me_admin->id)
-                        {
-                            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
-                        }
-                        $post_data["updater_id"] = $me_admin->id;
+//                        if($me->id != $me_admin->id)
+//                        {
+//                            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+//                        }
+//                        $post_data["updater_id"] = $me_admin->id;
 //                        if($content->type == 1) unset($post_data["type"]);
 
                         if($content_id == $item_id)
@@ -2046,9 +1941,9 @@ class RootIndexRepository {
                         {
                             // 删除原封面图片
                             $mine_cover_pic = $content->cover_pic;
-                            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                            if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
                             {
-                                unlink(storage_path("resource/" . $mine_cover_pic));
+                                unlink(storage_resource_path($mine_cover_pic));
                             }
 
                             $result = upload_storage($post_data["cover"],'','doc/common');
@@ -2061,14 +1956,18 @@ class RootIndexRepository {
                         }
 
                         // 生成二维码
-                        $qr_code_path = "resource/doc/unique/qr_code/";  // 保存目录
-                        if(!file_exists(storage_path($qr_code_path)))
-                            mkdir(storage_path($qr_code_path), 0777, true);
+                        $date_today = date('Y-m-d');
+                        $qr_code_path = "www/unique/qr_code/".$date_today;  // 保存目录
+                        if(!file_exists(storage_resource_path($qr_code_path)))
+                            mkdir(storage_resource_path($qr_code_path), 0777, true);
                         // qr_code 图片文件
                         $url = env('DOMAIN_DOC').'/item/'.$content->id;  // 目标 URL
-                        $filename = 'qr_code_doc_item_'.$content->id.'.png';  // 目标 file
+                        $filename = 'qr_code_for_item_by_item_'.$content->id.'.png';  // 目标 file
                         $qr_code = $qr_code_path.$filename;
-                        QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
+                        QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_resource_path($qr_code));
+
+                        $content->unique_path = $qr_code_path;
+                        $content->save();
 
                     }
                     else throw new Exception("insert--content--fail");
@@ -2100,7 +1999,6 @@ class RootIndexRepository {
         $this->get_me();
 
         $me = $this->me;
-        $me_admin = Auth::guard('doc_admin')->user();
 
         $item_id = $post_data["item_id"];
         if(!$item_id) return response_error([],"该内容不存在，刷新页面试试！");
@@ -2123,9 +2021,7 @@ class RootIndexRepository {
     public function operate_item_content_delete($post_data)
     {
         $this->get_me();
-
         $me = $this->me;
-        $me_admin = Auth::guard('doc_admin')->user();
 
         $id = $post_data["id"];
 //        $id = decode($post_data["id"]);
@@ -2133,10 +2029,10 @@ class RootIndexRepository {
 
         $content = $this->modelItem->find($id);
         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
-        if($me->id != $me_admin->id)
-        {
-            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
-        }
+//        if($me->id != $me_admin->id)
+//        {
+//            if($content->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+//        }
 
         DB::beginTransaction();
         try
@@ -2159,21 +2055,21 @@ class RootIndexRepository {
 
 
             // 删除原封面图片
-            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+            if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
             {
-                unlink(storage_path("resource/" . $mine_cover_pic));
+                unlink(storage_resource_path($mine_cover_pic));
             }
 
             // 删除原附件
-            if(!empty($mine_attachment_src) && file_exists(storage_path("resource/" . $mine_attachment_src)))
+            if(!empty($mine_attachment_src) && file_exists(storage_resource_path($mine_attachment_src)))
             {
-                unlink(storage_path("resource/" . $mine_attachment_src));
+                unlink(storage_resource_path($mine_attachment_src));
             }
 
             // 删除二维码
-            if(file_exists(storage_path("resource/doc/unique/qr_code/".'qr_code_doc_item_'.$id.'.png')))
+            if(file_exists(storage_resource_path("www/unique/qr_code/".'qr_code_doc_item_'.$id.'.png')))
             {
-                unlink(storage_path("resource/doc/unique/qr_code/".'qr_code_doc_item_'.$id.'.png'));
+                unlink(storage_resource_path("www/unique/qr_code/".'qr_code_doc_item_'.$id.'.png'));
             }
 
             // 删除UEditor图片
@@ -2204,17 +2100,16 @@ class RootIndexRepository {
         $this->get_me();
 
         $me = $this->me;
-        $me_admin = Auth::guard('doc_admin')->user();
 
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"该内容不存在，刷新页面试试");
 
         $mine = $this->modelItem->find($id);
         if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
-        if($me->id != $me_admin->id)
-        {
-            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
-        }
+//        if($me->id != $me_admin->id)
+//        {
+//            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+//        }
         DB::beginTransaction();
         try
         {
@@ -2238,17 +2133,16 @@ class RootIndexRepository {
         $this->get_me();
 
         $me = $this->me;
-        $me_admin = Auth::guard('doc_admin')->user();
 
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"该文章不存在，刷新页面试试");
 
         $mine = $this->modelItem->find($id);
         if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
-        if($me->id != $me_admin->id)
-        {
-            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
-        }
+//        if($me->id != $me_admin->id)
+//        {
+//            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+//        }
         DB::beginTransaction();
         try
         {
@@ -2685,7 +2579,9 @@ class RootIndexRepository {
         $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
         $return['item'] = $item;
         $return['user'] = $user;
-        return view('doc.frontend.entrance.item.item')->with($return);
+
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.item.item';
+        return view($view_blade)->with($return);
     }
 
 
@@ -3087,6 +2983,9 @@ class RootIndexRepository {
 
 
 
+
+
+
     // 留言
     public function message_contact($post_data)
     {
@@ -3182,8 +3081,8 @@ class RootIndexRepository {
     /*
      * DOC
      */
-    // 【ITEM】返回-添加-视图
-    public function view_my_doc_create($post_data)
+    // 【轻博账户】返回-添加-视图
+    public function view_my_doc_account_create($post_data)
     {
         $this->get_me();
         $me = $this->me;
@@ -3204,12 +3103,13 @@ class RootIndexRepository {
         $return['list_text'] = $list_text;
         $return['list_link'] = $list_link;
 
-        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-edit';
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-account-edit';
         return view($view_blade)->with($return);
     }
-    // 【ITEM】返回-编辑-视图
-    public function view_my_doc_edit($post_data)
+    // 【轻博账户】返回-编辑-视图
+    public function view_my_doc_account_edit($post_data)
     {
+        $this->get_me();
         $me = $this->me;
 //        if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
 
@@ -3244,12 +3144,12 @@ class RootIndexRepository {
 
 
 
-        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-edit';
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-account-edit';
         return view($view_blade)->with($return);
 
     }
-    // 【ITEM】保存-数据
-    public function operate_my_doc_save($post_data)
+    // 【轻博账户】保存-数据
+    public function operate_my_doc_account_save($post_data)
     {
         $messages = [
             'operate.required' => 'operate.required.',
@@ -3316,14 +3216,14 @@ class RootIndexRepository {
                 {
                     // 删除原图片
                     $mine_portrait_img = $mine->portrait_img;
-                    if(!empty($mine_portrait_img) && file_exists(storage_path("resource/" . $mine_portrait_img)))
+                    if(!empty($mine_portrait_img) && file_exists(storage_resource_path($mine_portrait_img)))
                     {
-                        unlink(storage_path("resource/" . $mine_portrait_img));
+                        unlink(storage_resource_path($mine_portrait_img));
                     }
 
 //                    $result = upload_storage($post_data["portrait"]);
 //                    $result = upload_storage($post_data["portrait"], null, null, 'assign');
-                    $result = upload_img_storage($post_data["portrait"],'user_'.$mine->id,'doc/unique/portrait/','assign');
+                    $result = upload_img_storage($post_data["portrait"],'portrait_for_user_by_user_'.$mine->id,'www/unique/portrait_for_user','');
                     if($result["result"])
                     {
                         $mine->portrait_img = $result["local"];
@@ -3335,8 +3235,13 @@ class RootIndexRepository {
                 {
                     if($operate == 'create')
                     {
-                        copy(storage_path("resource/unique/portrait/user0.jpeg"), storage_path("resource/doc/unique/portrait/user_".$mine->id.".jpeg"));
-                        $mine->portrait_img = "doc/unique/portrait/user_".$mine->id.".jpeg";
+                        $portrait_path = "www/unique/portrait_for_user/".date('Y-m-d');
+                        if (!is_dir(storage_resource_path($portrait_path)))
+                        {
+                            mkdir(storage_resource_path($portrait_path), 0777, true);
+                        }
+                        copy(storage_resource_path("materials/portrait/user0.jpeg"), storage_resource_path($portrait_path."/portrait_for_user_by_user_".$mine->id.".jpeg"));
+                        $mine->portrait_img = $portrait_path."/portrait_for_user_by_user_".$mine->id.".jpeg";
                         $mine->save();
                     }
                 }
@@ -3358,8 +3263,38 @@ class RootIndexRepository {
 
     }
 
-    // 登录我的轻博
-    public function operate_my_doc_login($post_data)
+    // 【轻博账户】返回-列表-视图
+    public function view_my_doc_account_list($post_data)
+    {
+        $this->get_me();
+
+        if($this->auth_check)
+        {
+            $me = $this->me;
+            $me_id = $me->id;
+
+            $user_list = User::with([])
+                ->where(['user_category'=>9,'creator_id'=>$me_id])
+                ->orderby('id','desc')
+                ->paginate(20);
+
+//            foreach ($user_list as $user)
+//            {
+//                $user->relation_with_me = $user->relation_type;
+//            }
+
+        }
+        else return response_error([],"请先登录！");
+
+        $return['user_list'] = $user_list;
+        $return['menu_active_for_my_doc_account_list'] = 'active';
+
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-doc-account-list';
+        return view($view_blade)->with($return);
+    }
+
+    // 【轻博账户】登录
+    public function operate_my_doc_account_login($post_data)
     {
         $id = $post_data["user-id"];
         if(!is_numeric($id)) return response_error([],"参数ID有误！");
@@ -3377,6 +3312,7 @@ class RootIndexRepository {
         if(request()->isMethod('get')) return redirect(env('DOMAIN_DOC'));
         else if(request()->isMethod('post')) return response_success();
     }
+
 
     // 登录我的轻博
     public function operate_login_my_doc($post_data)

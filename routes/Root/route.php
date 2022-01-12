@@ -66,11 +66,11 @@ Route::group(['namespace' => 'Front'], function () {
 
             Route::get('/home/notification', $controller.'@view_home_notification');
 
-            Route::match(['get','post'], '/my-doc-create', $controller.'@operate_my_doc_create');
-            Route::match(['get','post'], '/my-doc-edit', $controller.'@operate_my_doc_edit');
+            Route::match(['get','post'], '/my-doc-account-create', $controller.'@operate_my_doc_account_create');
+            Route::match(['get','post'], '/my-doc-account-edit', $controller.'@operate_my_doc_account_edit');
             Route::get('/my-doc-account-list', $controller.'@view_my_doc_account_list');
+            Route::get('/my-doc-account-login', $controller.'@operate_my_doc_account_login');
 
-            Route::get('/my-doc-login', $controller.'@operate_my_doc_login');
             Route::get('/login-my-doc', $controller.'@operate_login_my_doc');
 
 

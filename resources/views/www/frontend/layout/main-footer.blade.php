@@ -17,7 +17,7 @@
             <span class="margin-left-4px margin-right-4px">|</span>
             <a href="{{ url('/login-my-doc') }}">登录我的轻博</a>
             <span class="margin-left-4px margin-right-4px">|</span>
-            <a href="{{ url('/my-doc-create') }}">创建一个轻博</a>
+            <a href="{{ url('/my-doc-account-create') }}">创建一个轻博</a>
         @endif
         {{--<span style="margin-left:4px;margin-right:4px;">|</span>--}}
         {{--<a href="/introduction">平台介绍</a>--}}

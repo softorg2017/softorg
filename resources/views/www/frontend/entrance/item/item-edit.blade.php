@@ -200,7 +200,7 @@
                         {{--分享--}}
                         @if($operate == 'create')
                             <div class="form-group form-typ ">
-                                <label class="control-label col-md-2">分享</label>
+                                <label class="control-label- col-md-2">分享</label>
                                 <div class="col-md-12">
                                     <div class="btn-group">
 

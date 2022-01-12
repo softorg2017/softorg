@@ -73,8 +73,8 @@
                 </div>
 
                 <div class="item-row item-info-row">
-                    <a href="{{ url('/my-doc-edit?user-id='.$u->id) }}">编辑</a>
-                    <a href="{{ url('/my-doc-login?user-id='.$u->id) }}" target="_blank">登录</a>
+                    <a href="{{ url('/my-doc-account-edit?user-id='.$u->id) }}">编辑</a>
+                    <a href="{{ url('/my-doc-account-login?user-id='.$u->id) }}" target="_blank">登录</a>
                 </div>
 
                 @if(!empty($u->email))

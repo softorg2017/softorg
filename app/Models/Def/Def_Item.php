@@ -18,7 +18,7 @@ class Def_Item extends Model
         'org_id', 'admin_id',
         'item_id', 'menu_id',
         'name', 'title', 'subtitle', 'description', 'content', 'custom', 'custom2', 'custom3',
-        'link_url', 'cover_pic', 'attachment_name', 'attachment_src',
+        'link_url', 'unique_path', 'cover_pic', 'attachment_name', 'attachment_src',
         'tag',
         'atom_category', 'major', 'nation', 'birth_time', 'death_time',
         'time_point', 'time_type', 'start_time', 'end_time', 'address',

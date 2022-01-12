@@ -119,7 +119,7 @@
 
         $("#edit-my-doc-submit").on('click', function() {
             var options = {
-                url: "/my-doc-edit",
+                url: "/my-doc-account-edit",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -128,7 +128,7 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.href = "/my-doc-list";
+                        location.href = "/my-doc-account-list";
                     }
                 }
             };

@@ -237,7 +237,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 /*
  * 前台
  */
-Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
+Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
 
     Route::get('/', function () {
         dd('doc.front');
@@ -255,8 +255,8 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     Route::get('/mine/item-my-favor', $controller.'@view_item_list_for_my_favor');
     Route::get('/mine/item-my-collection', $controller.'@view_item_list_for_my_collection');
 
-//    Route::get('/item', $controller.'@view_item');
-    Route::get('/item/{?id}', $controller.'@view_item');
+
+
 
     Route::match(['get','post'], '/item/item-create', $controller.'@operate_item_item_create');
     Route::match(['get','post'], '/item/item-edit', $controller.'@operate_item_item_edit');
@@ -269,8 +269,6 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     Route::post('/item/content-delete', $controller.'@operate_item_content_delete');
     Route::post('/item/content-enable', $controller.'@operate_item_content_enable');
     Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
-
-
 
 
 
@@ -289,6 +287,12 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function 
     Route::post('/item/item-remove-schedule', $controller.'@operate_item_remove_schedule');
     // 转发
     Route::post('/item/item-forward', $controller.'@item_forward');
+
+
+
+
+//    Route::get('/item', $controller.'@view_item');
+    Route::get('/item/{?id}', $controller.'@view_item');
 
 
 

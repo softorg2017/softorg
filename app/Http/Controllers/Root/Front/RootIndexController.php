@@ -77,16 +77,16 @@ class RootIndexController extends Controller
 
 
     // 【轻博】创建
-    public function operate_my_doc_create()
+    public function operate_my_doc_account_create()
     {
-        if(request()->isMethod('get')) return $this->repo->view_my_doc_create(request()->all());
-        else if (request()->isMethod('post')) return $this->repo->operate_my_doc_save(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_my_doc_account_create(request()->all());
+        else if (request()->isMethod('post')) return $this->repo->operate_my_doc_account_save(request()->all());
     }
     // 【轻博】编辑
-    public function operate_my_doc_edit()
+    public function operate_my_doc_account_edit()
     {
-        if(request()->isMethod('get')) return $this->repo->view_my_doc_edit(request()->all());
-        else if (request()->isMethod('post')) return $this->repo->operate_my_doc_save(request()->all());
+        if(request()->isMethod('get')) return $this->repo->view_my_doc_account_edit(request()->all());
+        else if (request()->isMethod('post')) return $this->repo->operate_my_doc_account_save(request()->all());
     }
     // 【轻博】列表
     public function view_my_doc_account_list()
@@ -94,9 +94,9 @@ class RootIndexController extends Controller
         return $this->repo->view_my_doc_account_list(request()->all());
     }
     // 登录我的轻博
-    public function operate_my_doc_login()
+    public function operate_my_doc_account_login()
     {
-        return $this->repo->operate_my_doc_login(request()->all());
+        return $this->repo->operate_my_doc_account_login(request()->all());
     }
     // 登录我的轻博
     public function operate_login_my_doc()
