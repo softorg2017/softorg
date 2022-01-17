@@ -127,11 +127,14 @@ Route::group(['namespace' => 'Front'], function () {
 
 
                 Route::get('/mine/my-info-index', $controller.'@view_my_info_index');
-                Route::match(['get','post'], '/mine/my-info/edit', $controller.'@view_my_info_edit');
+                Route::match(['get','post'], '/mine/my-info-edit', $controller.'@view_my_info_edit');
                 Route::match(['get','post'], '/mine/my-introduction/edit', $controller.'@view_my_introduction_edit');
 
-                Route::get('/mine/my-card', $controller.'@view_my_card');
+                Route::get('/mine/my-card', $controller.'@view_my_card_index');
+                Route::match(['get','post'], '/mine/my-card-edit', $controller.'@view_my_card_edit');
+
                 Route::get('/mine/my-cards-case', $controller.'@view_my_cards_case');
+
                 Route::get('/mine/my-follow', $controller.'@view_my_follow');
                 Route::get('/mine/my-favor', $controller.'@view_my_favor');
                 Route::get('/mine/my-collection', $controller.'@view_my_collection');

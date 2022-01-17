@@ -416,7 +416,7 @@ class RootIndexRepository {
 
 
     // 【用户】首页
-    public function view_my_card()
+    public function view_my_card_index()
     {
         $this->get_me();
         $me = $this->me;
@@ -467,9 +467,95 @@ class RootIndexRepository {
         $return['is_follow'] = $is_follow;
         $return['menu_active_for_my_card'] = 'active';
 
-        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-card';
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-card-index';
         return view($view_blade)->with($return);
     }
+    // 【基本信息】返回-编辑-视图
+    public function view_my_card_edit()
+    {
+        $this->get_me();
+        $me = $this->me;
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.my-card-edit';
+        return view($view_blade)->with(['info'=>$me]);
+    }
+    // 【基本信息】保存-数据
+    public function operate_my_card_save($post_data)
+    {
+        $this->get_me();
+        $me = $this->me;
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            if(!empty($post_data['custom']))
+            {
+                $post_data['custom'] = json_encode($post_data['custom']);
+            }
+
+            $mine_data = $post_data;
+            unset($mine_data['operate']);
+            unset($mine_data['operate_id']);
+            $bool = $me->fill($mine_data)->save();
+            if($bool)
+            {
+                // 头像
+                if(!empty($post_data["portrait"]))
+                {
+                    // 删除原文件
+                    $mine_original_file = $me->portrait_img;
+                    if(!empty($mine_original_file) && file_exists(storage_resource_path($mine_original_file)))
+                    {
+                        unlink(storage_resource_path($mine_original_file));
+                    }
+
+//                    $result = upload_img_storage($post_data["portrait"],'','root/common');
+                    $result = upload_img_storage($post_data["portrait"],'user_'.$me->id,'root/unique/portrait','assign');
+                    if($result["result"])
+                    {
+                        $me->portrait_img = $result["local"];
+                        $me->save();
+                    }
+                    else throw new Exception("upload--portrait_img--file--fail");
+                }
+
+                // 微信二维码
+                if(!empty($post_data["wx_qr_code"]))
+                {
+                    // 删除原图片
+                    $mine_wx_qr_code_img = $me->wx_qr_code_img;
+                    if(!empty($mine_wx_qr_code_img) && file_exists(storage_resource_path($mine_wx_qr_code_img)))
+                    {
+                        unlink(storage_resource_path("resource/" . $mine_wx_qr_code_img));
+                    }
+
+                    $result = upload_img_storage($post_data["wx_qr_code"],'','www/common');
+                    if($result["result"])
+                    {
+                        $me->wx_qr_code_img = $result["local"];
+                        $me->save();
+                    }
+                    else throw new Exception("upload--wx_qr_code--fail");
+                }
+
+            }
+            else throw new Exception("insert--item--fail");
+
+            DB::commit();
+            return response_success(['id'=>$me->id]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+    }
+
+
+
 
     // 【用户】首页
     public function view_user($post_data,$id=0)

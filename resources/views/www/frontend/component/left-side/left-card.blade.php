@@ -215,7 +215,7 @@
                             <i class="fa fa-list-alt"></i>
                             <span class="">我的名片夹</span>
                         </a>
-                        <a href="{{ url('/my-info/edit') }}" class="btn btn-block btn-sm btn-primary" data-user-id="{{ $data->id }}">
+                        <a href="{{ url('/mine/my-card-edit') }}" class="btn btn-block btn-sm btn-primary" data-user-id="{{ $data->id }}">
                             <i class="fa fa-edit"></i>
                             <span class="">编辑名片</span>
                         </a>

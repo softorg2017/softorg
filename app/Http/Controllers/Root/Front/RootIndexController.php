@@ -156,9 +156,16 @@ class RootIndexController extends Controller
 
 
     // 【我的名片】
-    public function view_my_card()
+    public function view_my_card_index()
     {
-        return $this->repo->view_my_card();
+        return $this->repo->view_my_card_index();
+    }
+
+    // 编辑【基本信息】
+    public function view_my_card_edit()
+    {
+        if(request()->isMethod('get')) return $this->repo->view_my_card_edit();
+        else if (request()->isMethod('post')) return $this->repo->operate_my_card_save(request()->all());
     }
     // 【我的名片夹】
     public function view_my_cards_case()

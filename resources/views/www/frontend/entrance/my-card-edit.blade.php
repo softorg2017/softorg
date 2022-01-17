@@ -236,7 +236,7 @@
 
         $("#edit-info-submit").on('click', function() {
             var options = {
-                url: "/my-info/edit",
+                url: "/mine/my-card-edit",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
