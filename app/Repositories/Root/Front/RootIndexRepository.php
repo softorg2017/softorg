@@ -3211,6 +3211,14 @@ class RootIndexRepository {
             $bool = $mine->fill($mine_data)->save();
             if($bool)
             {
+                if($operate == 'create') // 添加 ( $id==0，添加一个新用户 )
+                {
+                    $user_ext = new UserExt;
+                    $user_ext_create['user_id'] = $mine->id;
+                    $bool_2 = $user_ext->fill($user_ext_create)->save();
+                    if(!$bool_2) throw new Exception("insert--user-ext--failed");
+                }
+
                 // 头像
                 if(!empty($post_data["portrait"]))
                 {
