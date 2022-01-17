@@ -588,7 +588,7 @@ class DocIndexRepository {
                         unlink(storage_path("resource/" . $mine_cover_pic));
                     }
 
-                    $result = upload_storage($post_data["cover"],'','doc/common');
+                    $result = upload_img_storage($post_data["cover"],'','common');
                     if($result["result"])
                     {
                         $mine->cover_pic = $result["local"];
@@ -602,12 +602,12 @@ class DocIndexRepository {
                 {
                     // 删除原附件
                     $mine_cover_pic = $mine->attachment;
-                    if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                    if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
                     {
-                        unlink(storage_path("resource/" . $mine_cover_pic));
+                        unlink(storage_resource_path($mine_cover_pic));
                     }
 
-                    $result = upload_file_storage($post_data["attachment"],'','doc/attachment');
+                    $result = upload_file_storage($post_data["attachment"],'','attachment');
                     if($result["result"])
                     {
                         $mine->attachment_name = $result["name"];
@@ -618,14 +618,20 @@ class DocIndexRepository {
                 }
 
                 // 生成二维码
-                $qr_code_path = "resource/doc/unique/qr_code/";  // 保存目录
-                if(!file_exists(storage_path($qr_code_path)))
-                    mkdir(storage_path($qr_code_path), 0777, true);
+                $date_today = date('Y-m-d');
+                $qr_code_path = "www/unique/qr_code_for_item/".$date_today.'/';  // 保存目录
+                if(!file_exists(storage_resource_path($qr_code_path)))
+                {
+                    mkdir(storage_resource_path($qr_code_path), 0777, true);
+                }
                 // qr_code 图片文件
                 $url = env('DOMAIN_DOC').'/item/'.$mine->id;  // 目标 URL
-                $filename = 'qr_code_doc_item_'.$mine->id.'.png';  // 目标 file
-                $qr_code = $qr_code_path.$filename;
-                QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
+                $filename = 'qr_code_for_item_by_item_'.$mine->id.'.png';  // 目标 file
+                $qr_code_file = $qr_code_path.$filename;
+                QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_resource_path($qr_code_file));
+
+                $mine->unique_path = $qr_code_path;
+                $mine->save();
 
             }
             else throw new Exception("insert--item--fail");
@@ -944,12 +950,12 @@ class DocIndexRepository {
                         {
                             // 删除原封面图片
                             $mine_cover_pic = $content->cover_pic;
-                            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                            if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
                             {
-                                unlink(storage_path("resource/" . $mine_cover_pic));
+                                unlink(storage_resource_path($mine_cover_pic));
                             }
 
-                            $result = upload_img_storage($post_data["cover"],'','doc/common');
+                            $result = upload_img_storage($post_data["cover"],'','common');
                             if($result["result"])
                             {
                                 $content->cover_pic = $result["local"];
@@ -959,14 +965,20 @@ class DocIndexRepository {
                         }
 
                         // 生成二维码
-                        $qr_code_path = "resource/doc/unique/qr_code/";  // 保存目录
-                        if(!file_exists(storage_path($qr_code_path)))
-                            mkdir(storage_path($qr_code_path), 0777, true);
+                        $date_today = date('Y-m-d');
+                        $qr_code_path = "www/unique/qr_code_for_item/".$date_today.'/';  // 保存目录
+                        if(!file_exists(storage_resource_path($qr_code_path)))
+                        {
+                            mkdir(storage_resource_path($qr_code_path), 0777, true);
+                        }
                         // qr_code 图片文件
                         $url = env('DOMAIN_DOC').'/item/'.$content->id;  // 目标 URL
-                        $filename = 'qr_code_doc_item_'.$content->id.'.png';  // 目标 file
-                        $qr_code = $qr_code_path.$filename;
-                        QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
+                        $filename = 'qr_code_for_item_by_item_'.$content->id.'.png';  // 目标 file
+                        $qr_code_file = $qr_code_path.$filename;
+                        QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_resource_path($qr_code_file));
+
+                        $content->unique_path = $qr_code_path;
+                        $content->save();
 
                     }
                     else throw new Exception("insert--content--fail");
@@ -1065,12 +1077,12 @@ class DocIndexRepository {
                         {
                             // 删除原封面图片
                             $mine_cover_pic = $content->cover_pic;
-                            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
+                            if(!empty($mine_cover_pic) && file_exists(storage_resource_path($mine_cover_pic)))
                             {
-                                unlink(storage_path("resource/" . $mine_cover_pic));
+                                unlink(storage_resource_path($mine_cover_pic));
                             }
 
-                            $result = upload_storage($post_data["cover"],'','doc/common');
+                            $result = upload_img_storage($post_data["cover"],'','common');
                             if($result["result"])
                             {
                                 $content->cover_pic = $result["local"];
@@ -1080,14 +1092,20 @@ class DocIndexRepository {
                         }
 
                         // 生成二维码
-                        $qr_code_path = "resource/doc/unique/qr_code/";  // 保存目录
-                        if(!file_exists(storage_path($qr_code_path)))
-                            mkdir(storage_path($qr_code_path), 0777, true);
+                        $date_today = date('Y-m-d');
+                        $qr_code_path = "www/unique/qr_code_for_item/".$date_today.'/';  // 保存目录
+                        if(!file_exists(storage_resource_path($qr_code_path)))
+                        {
+                            mkdir(storage_resource_path($qr_code_path), 0777, true);
+                        }
                         // qr_code 图片文件
                         $url = env('DOMAIN_DOC').'/item/'.$content->id;  // 目标 URL
-                        $filename = 'qr_code_doc_item_'.$content->id.'.png';  // 目标 file
-                        $qr_code = $qr_code_path.$filename;
-                        QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
+                        $filename = 'qr_code_for_item_by_item_'.$content->id.'.png';  // 目标 file
+                        $qr_code_file = $qr_code_path.$filename;
+                        QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_resource_path($qr_code_file));
+
+                        $content->unique_path = $qr_code_path;
+                        $content->save();
 
                     }
                     else throw new Exception("insert--content--fail");

@@ -34,10 +34,12 @@
 
     <div class="container">
 
-        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 container-body-left margin-bottom-8px bg-white">
+        <div class="main-body-section main-body-left-section section-wrapper ">
+            <div class="container-box pull-left margin-bottom-16px">
 
             @include(env('TEMPLATE_DEFAULT').'frontend.component.item')
 
+            </div>
         </div>
 
 
@@ -46,7 +48,7 @@
         </div>
 
 
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-body-right pull-right" style="clear:right;">
+        <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs" style="clear:right;">
 
             {{--@if(!empty($user->ad))--}}
                 {{--<div class="item-row margin-top-4px margin-bottom-2px pull-right">--}}

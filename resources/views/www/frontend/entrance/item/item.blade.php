@@ -50,9 +50,9 @@
             {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-user', ['data'=>$user])--}}
 
             @if($item->item_type == 11)
-                @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.side-menu', ['data'=>$user])
+                @include(env('TEMPLATE_COMMON_FRONT').'component.right-side.side-menu', ['data'=>$user])
             @elseif($item->item_type == 18)
-                @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.side-timeline', ['data'=>$user])
+                @include(env('TEMPLATE_COMMON_FRONT').'component.right-side.side-time_line', ['data'=>$user])
             @else
                 @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-root')
             @endif

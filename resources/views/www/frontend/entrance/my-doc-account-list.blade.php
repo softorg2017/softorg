@@ -1,6 +1,6 @@
 @extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
-@section('head_title','我的轻博')
+@section('head_title','我的轻博账号')
 @section('meta_title')@endsection
 @section('meta_author')@endsection
 @section('meta_description')@endsection
