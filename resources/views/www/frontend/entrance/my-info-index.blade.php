@@ -12,13 +12,11 @@
 @section('wx_share_imgUrl')@endsection
 
 
+
+
 @section('sidebar')
-
     @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar.sidebar-root')
-
 @endsection
-
-
 @section('header','')
 @section('description','')
 @section('content')

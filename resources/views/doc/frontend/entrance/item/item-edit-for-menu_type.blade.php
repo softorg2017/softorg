@@ -2,7 +2,7 @@
 
 
 @section('head_title')
-    【内容管理】 - 如未轻博
+    【轻博】【内容管理】 - 如未轻博
 @endsection
 @section('meta_title')@endsection
 @section('meta_author')@endsection

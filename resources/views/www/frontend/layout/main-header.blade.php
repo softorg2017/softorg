@@ -152,7 +152,7 @@
                             <li class="user-footer">
                                 @if($me->user_type == 1)
                                 <div class="pull-left">
-                                    <a href="{{ url('/my-info/edit') }}" class="btn btn-default btn-flat">
+                                    <a href="{{ url('/mine/my-card-edit') }}" class="btn btn-default btn-flat">
                                         <i class="fa fa-edit"></i>
                                         <span>编辑名片</span>
                                     </a>

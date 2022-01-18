@@ -254,8 +254,8 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
 
 
         Route::get('/mine/my-info-index', $controller.'@view_my_info_index');
-        Route::match(['get','post'], '/mine/my-info-edit', $controller.'@view_my_info_edit');
-        Route::match(['get','post'], '/mine/my-introduction/edit', $controller.'@view_my_introduction_edit');
+        Route::match(['get','post'], '/mine/my-info-edit', $controller.'@operate_my_info_edit');
+        Route::match(['get','post'], '/mine/my-info-introduction-edit', $controller.'@operate_my_info_introduction_edit');
 
 
 

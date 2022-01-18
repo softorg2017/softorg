@@ -190,7 +190,7 @@
                             <li class="user-footer">
                                 @if(Auth::user()->user_type == 1)
                                     <div class="pull-left">
-                                        <a href="{{ url('/my-info/index') }}" class="btn btn-default btn-flat">
+                                        <a href="{{ url('/mine/my-info-index') }}" class="btn btn-default btn-flat">
                                             <i class="fa fa-info"></i>
                                             <span>个人资料</span>
                                         </a>

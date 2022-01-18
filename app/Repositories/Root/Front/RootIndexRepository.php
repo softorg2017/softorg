@@ -52,6 +52,10 @@ class RootIndexRepository {
             $this->env = 'production';
         }
         view()->share('evn',$this->env);
+
+        Blade::setEchoFormat('%s');
+        Blade::setEchoFormat('e(%s)');
+        Blade::setEchoFormat('nl2br(e(%s))');
     }
 
 
@@ -513,7 +517,7 @@ class RootIndexRepository {
                     }
 
 //                    $result = upload_img_storage($post_data["portrait"],'','root/common');
-                    $result = upload_img_storage($post_data["portrait"],'user_'.$me->id,'root/unique/portrait','assign');
+                    $result = upload_img_storage($post_data["portrait"],'portrait_for_user_by_user_'.$me->id,'www/unique/portrait_for_user','');
                     if($result["result"])
                     {
                         $me->portrait_img = $result["local"];
@@ -529,7 +533,7 @@ class RootIndexRepository {
                     $mine_wx_qr_code_img = $me->wx_qr_code_img;
                     if(!empty($mine_wx_qr_code_img) && file_exists(storage_resource_path($mine_wx_qr_code_img)))
                     {
-                        unlink(storage_resource_path("resource/" . $mine_wx_qr_code_img));
+                        unlink(storage_resource_path($mine_wx_qr_code_img));
                     }
 
                     $result = upload_img_storage($post_data["wx_qr_code"],'','www/common');

@@ -12,13 +12,11 @@
 @section('wx_share_imgUrl')@endsection
 
 
+
+
 @section('sidebar')
-
     @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar.sidebar-root')
-
 @endsection
-
-
 @section('header','')
 @section('description','')
 @section('content')
@@ -230,13 +228,16 @@
 </style>
 @endsection
 
-@section('js')
+
+
+
+@section('script')
 <script>
     $(function() {
 
         $("#edit-info-submit").on('click', function() {
             var options = {
-                url: "/my-info/edit",
+                url: "/mine/my-info-edit",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
@@ -245,8 +246,7 @@
                     else
                     {
                         layer.msg(data.msg);
-//                        location.href = "/my-info/index";
-                        location.href = "/mine/my-card";
+                        location.href = "/mine/my-info-index";
                     }
                 }
             };

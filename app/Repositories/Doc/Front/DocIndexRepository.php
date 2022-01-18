@@ -286,24 +286,25 @@ class DocIndexRepository {
     // 【基本信息】返回视图
     public function view_my_info_index()
     {
-        $me = Auth::guard('staff')->user();
-        $view_template = env('TEMPLATE_DOC_FRONT');
-        $view_blade = $view_template.'entrance.my-info.my-info-index';
+        $this->get_me();
+        $me = $this->me;
+        $view_blade = env('TEMPLATE_DOC_FRONT').'entrance.my-info-index';
         return view($view_blade)->with(['info'=>$me]);
     }
 
     // 【基本信息】返回-编辑-视图
     public function view_my_info_edit()
     {
-        $me = Auth::guard('staff')->user();
-        $view_template = env('TEMPLATE_DOC_FRONT');
-        $view_blade = $view_template.'entrance.my-info.my-info-edit';
+        $this->get_me();
+        $me = $this->me;
+        $view_blade = env('TEMPLATE_DOC_FRONT').'entrance.my-info-edit';
         return view($view_blade)->with(['info'=>$me]);
     }
     // 【基本信息】保存数据
     public function operate_my_info_save($post_data)
     {
-        $me = Auth::guard('staff')->user();
+        $this->get_me();
+        $me = $this->me;
 
         // 启动数据库事务
         DB::beginTransaction();
@@ -325,12 +326,12 @@ class DocIndexRepository {
                 {
                     // 删除原文件
                     $mine_portrait_img = $me->portrait_img;
-                    if(!empty($mine_portrait_img) && file_exists(storage_path("resource/" . $mine_portrait_img)))
+                    if(!empty($mine_portrait_img) && file_exists(storage_resource_path($mine_portrait_img)))
                     {
-                        unlink(storage_path("resource/" . $mine_portrait_img));
+                        unlink(storage_resource_path($mine_portrait_img));
                     }
 
-                    $result = upload_img_storage($post_data["portrait"],'user_'.$me->id,'staff/unique/portrait/','assign');
+                    $result = upload_img_storage($post_data["portrait"],'portrait_for_user_by_user_'.$me->id,'www/unique/portrait_for_user','');
                     if($result["result"])
                     {
                         $me->portrait_img = $result["local"];
@@ -355,12 +356,12 @@ class DocIndexRepository {
         }
     }
 
-    // 【密码】返回修改视图
+    // 【密码】返回-修改-视图
     public function view_my_info_password_reset()
     {
-        $me = Auth::guard('staff')->user();
-        $view_template = env('TEMPLATE_DOC_FRONT');
-        $view_blade = $view_template.'entrance.my-info.my-info-password-reset';
+        $this->get_me();
+        $me = $this->me;
+        $view_blade = env('TEMPLATE_DOC_FRONT').'entrance.my-info.my-info-password-reset';
         return view($view_blade)->with(['data'=>$me]);
     }
     // 【密码】保存数据
@@ -414,8 +415,9 @@ class DocIndexRepository {
     // 【ITEM】返回-添加-视图
     public function view_item_item_create($post_data)
     {
-        $me = Auth::guard('doc')->user();
-        $me_admin = Auth::guard('doc_admin')->user();
+        $this->get_me();
+        $me = $this->me;
+        $me_admin = $this->me_admin;
 //        if(!in_array($me->user_type,[0,1,9])) return view($this->view_blade_404);
 
         $operate_category = 'item';
@@ -440,9 +442,10 @@ class DocIndexRepository {
     // 【ITEM】返回-编辑-视图
     public function view_item_item_edit($post_data)
     {
-        $me = Auth::guard('doc')->user();
-        $me_admin = Auth::guard('doc_admin')->user();
-        if(!in_array($me->user_type,[0,1])) return view($this->view_blade_404);
+        $this->get_me();
+        $me = $this->me;
+        $me_admin = $this->me_admin;
+//        if(!in_array($me->user_type,[0,1])) return view($this->view_blade_404);
 
         $id = $post_data["item-id"];
         $mine = $this->modelItem->with(['owner'])->find($id);
