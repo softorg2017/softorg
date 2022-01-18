@@ -21,7 +21,7 @@ use App\Models\Root\RootMessage;
 
 use App\Repositories\Common\CommonRepository;
 
-use Request, Response, Auth, Validator, DB, Exception, Cache;
+use Request, Response, Auth, Validator, DB, Exception, Cache, Blade;
 use QrCode, Excel;
 
 class RootIndexRepository {
