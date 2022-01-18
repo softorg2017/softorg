@@ -20,8 +20,6 @@
 @section('sidebar')
     @include(env('TEMPLATE_DOC_FRONT').'component.sidebar.sidebar-root')
 @endsection
-
-
 @section('header','')
 @section('description','')
 @section('content')
@@ -31,7 +29,7 @@
 
         <div class="container-box pull-left margin-bottom-16px">
 
-            @include(env('TEMPLATE_DOC_FRONT').'component.item-list',['item_list'=>$item_list])
+            @include(env('TEMPLATE_COMMON_FRONT').'component.item-list',['item_list'=>$item_list])
 
             {{--<div class="nav-tabs-custom">--}}
                 {{--<ul class="nav nav-tabs">--}}
@@ -70,6 +68,10 @@
 @endsection
 
 
+
+
+@section('css')
+@endsection
 @section('style')
 <style>
     .box-footer a {color:#777;cursor:pointer;}
@@ -79,7 +81,13 @@
 </style>
 @endsection
 
+
+
+
 @section('js')
+    @include(env('TEMPLATE_COMMON_FRONT').'component.item-script')
+@endsection
+@section('script')
 <script>
     $(function() {
 //        $('article').readmore({

@@ -35,10 +35,13 @@ class RootIndexRepository {
     private $modelItem;
     private $repo;
     private $service;
+    private $view_blade_404;
     public function __construct()
     {
         $this->modelUser = new User;
         $this->modelItem = new Def_Item;
+
+        $this->view_blade_404 = env('TEMPLATE_ROOT_FRONT').'errors.404';
 
         if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
         {
@@ -1315,7 +1318,7 @@ class RootIndexRepository {
 
 
 
-    // 【任务】获取详情
+    // 【ITEM】获取详情
     public function operate_item_item_get($post_data)
     {
         $messages = [
@@ -1347,7 +1350,7 @@ class RootIndexRepository {
         return response_success($item,"");
 
     }
-    // 【任务】删除
+    // 【ITEM】删除
     public function operate_item_item_delete($post_data)
     {
         $messages = [
@@ -1413,7 +1416,7 @@ class RootIndexRepository {
         }
 
     }
-    // 【任务】恢复
+    // 【ITEM】恢复
     public function operate_item_item_restore($post_data)
     {
         $messages = [
@@ -1465,7 +1468,7 @@ class RootIndexRepository {
         }
 
     }
-    // 【任务】彻底删除
+    // 【ITEM】彻底删除
     public function operate_item_item_delete_permanently($post_data)
     {
         $messages = [
@@ -1528,7 +1531,7 @@ class RootIndexRepository {
         }
 
     }
-    // 【任务】发布
+    // 【ITEM】发布
     public function operate_item_item_publish($post_data)
     {
         $messages = [
@@ -1580,7 +1583,7 @@ class RootIndexRepository {
         }
 
     }
-    // 【任务】完成
+    // 【ITEM】完成
     public function operate_item_item_complete($post_data)
     {
         $messages = [
@@ -1708,8 +1711,10 @@ class RootIndexRepository {
      */
     public function view_item_content_management($post_data)
     {
+        $this->get_me();
+
         $item_id = $post_data['item-id'];
-        if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
+        if(!$item_id) return view($this->view_blade_404)->with(['error'=>'参数有误！']);
 
         $mine = $this->modelItem->find($item_id);
         if($mine)
@@ -1741,9 +1746,10 @@ class RootIndexRepository {
     // 【目录类型】返回列表数据
     public function view_item_content_menu_type($post_data)
     {
+        $this->get_me();
+
         $item_id = $post_data['id'];
-        if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
-        // abort(404);
+        if(!$item_id) return view($this->view_blade_404)->with(['error'=>'参数有误！']);
 
         $item = $this->modelItem->with([
             'contents'=>function($query) { $query->orderBy('rank','asc'); }
@@ -1771,8 +1777,10 @@ class RootIndexRepository {
     // 【时间线】返回列表数据
     public function view_item_content_time_line($post_data)
     {
+        $this->get_me();
+
         $item_id = $post_data['id'];
-        if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
+        if(!$item_id) return view($this->view_blade_404)->with(['error'=>'参数有误！']);
         // abort(404);
 
         $item = $this->modelItem->with([

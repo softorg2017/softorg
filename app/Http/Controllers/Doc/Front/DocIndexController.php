@@ -111,6 +111,47 @@ class DocIndexController extends Controller
         else if (request()->isMethod('post')) return $this->repo->operate_item_item_save(request()->all());
     }
 
+    // 【任务】获取-详情
+    public function operate_item_item_get()
+    {
+        return $this->repo->operate_item_item_get(request()->all());
+    }
+    // 【任务】删除
+    public function operate_item_item_delete()
+    {
+        return $this->repo->operate_item_item_delete(request()->all());
+    }
+    // 【任务】恢复
+    public function operate_item_item_restore()
+    {
+        return $this->repo->operate_item_item_restore(request()->all());
+    }
+    // 【任务】永久删除
+    public function operate_item_item_delete_permanently()
+    {
+        return $this->repo->operate_item_item_delete_permanently(request()->all());
+    }
+    // 【任务】发布
+    public function operate_item_item_publish()
+    {
+        return $this->repo->operate_item_item_publish(request()->all());
+    }
+    // 【任务】完成
+    public function operate_item_item_complete()
+    {
+        return $this->repo->operate_item_item_complete(request()->all());
+    }
+    // 【任务】禁用
+    public function operate_item_item_disable()
+    {
+        return $this->repo->operate_item_admin_disable(request()->all());
+    }
+    // 【任务】启用
+    public function operate_item_item_enable()
+    {
+        return $this->repo->operate_item_admin_enable(request()->all());
+    }
+
 
 
 
@@ -378,47 +419,6 @@ class DocIndexController extends Controller
     {
         if(request()->isMethod('get')) return $this->repo->view_item_task_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_item_task_save(request()->all());
-    }
-
-    // 【任务】获取-详情
-    public function operate_item_task_get()
-    {
-        return $this->repo->operate_item_task_get(request()->all());
-    }
-    // 【任务】删除
-    public function operate_item_task_delete()
-    {
-        return $this->repo->operate_item_task_delete(request()->all());
-    }
-    // 【任务】恢复
-    public function operate_item_task_restore()
-    {
-        return $this->repo->operate_item_task_restore(request()->all());
-    }
-    // 【任务】永久删除
-    public function operate_item_task_delete_permanently()
-    {
-        return $this->repo->operate_item_task_delete_permanently(request()->all());
-    }
-    // 【任务】发布
-    public function operate_item_task_publish()
-    {
-        return $this->repo->operate_item_task_publish(request()->all());
-    }
-    // 【任务】完成
-    public function operate_item_task_complete()
-    {
-        return $this->repo->operate_item_task_complete(request()->all());
-    }
-    // 【任务】禁用
-    public function operate_item_task_disable()
-    {
-        return $this->repo->operate_item_admin_disable(request()->all());
-    }
-    // 【任务】启用
-    public function operate_item_task_enable()
-    {
-        return $this->repo->operate_item_admin_enable(request()->all());
     }
 
     // 【任务】备注编辑

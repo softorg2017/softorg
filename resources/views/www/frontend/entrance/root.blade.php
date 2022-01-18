@@ -84,7 +84,8 @@
 
 
 
-
+@section('css')
+@endsection
 @section('style')
 <style>
     .box-footer a {color:#777;cursor:pointer;}

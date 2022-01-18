@@ -64,7 +64,7 @@ Route::group(['namespace' => 'Front'], function () {
             $controller = "RootIndexController";
 
 
-            Route::get('/home/notification', $controller.'@view_home_notification');
+            Route::get('/mine/my-notification', $controller.'@view_home_notification');
 
             Route::match(['get','post'], '/my-doc-account-create', $controller.'@operate_my_doc_account_create');
             Route::match(['get','post'], '/my-doc-account-edit', $controller.'@operate_my_doc_account_edit');

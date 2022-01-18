@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'], function () {
     Route::group(['middleware' => 'doc.admin'], function () {
 
         Route::get('/', function () {
-            dd('doc');
+            dd('doc1');
             return view('doc.admin.index');
         });
 
@@ -239,54 +239,75 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
  */
 Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
 
-    Route::get('/', function () {
-        dd('doc.front');
-    });
 
     $controller = "DocIndexController";
 
     Route::get('/', $controller.'@view_root');
-    Route::get('/mine/item-mine', $controller.'@view_item_list_for_mine');
-    Route::get('/mine/item-my-original', $controller.'@view_item_list_for_my_original');
-
-    Route::get('/mine/item-my-todo-list', $controller.'@view_item_list_for_my_todo_list');
-    Route::get('/mine/item-my-schedule', $controller.'@view_item_list_for_my_schedule');
-
-    Route::get('/mine/item-my-favor', $controller.'@view_item_list_for_my_favor');
-    Route::get('/mine/item-my-collection', $controller.'@view_item_list_for_my_collection');
 
 
+    /*
+     * 需要登录
+     */
+    Route::group(['middleware' => ['doc','doc.admin']], function () {
+
+        $controller = "DocIndexController";
 
 
-    Route::match(['get','post'], '/item/item-create', $controller.'@operate_item_item_create');
-    Route::match(['get','post'], '/item/item-edit', $controller.'@operate_item_item_edit');
-    Route::post('/item/item-delete', $controller.'@operate_item_item_delete');
-
-
-    Route::match(['get','post'], '/item/content-management', $controller.'@view_item_content_management');
-    Route::post('/item/content-edit', $controller.'@operate_item_content_edit');
-    Route::post('/item/content-get', $controller.'@operate_item_content_get');
-    Route::post('/item/content-delete', $controller.'@operate_item_content_delete');
-    Route::post('/item/content-enable', $controller.'@operate_item_content_enable');
-    Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
+        Route::get('/mine/my-info-index', $controller.'@view_my_info_index');
+        Route::match(['get','post'], '/mine/my-info-edit', $controller.'@view_my_info_edit');
+        Route::match(['get','post'], '/mine/my-introduction/edit', $controller.'@view_my_introduction_edit');
 
 
 
 
-    // 点赞
-    Route::post('/item/item-add-favor', $controller.'@operate_item_add_favor');
-    Route::post('/item/item-remove-favor', $controller.'@operate_item_remove_favor');
-    // 收藏
-    Route::post('/item/item-add-collection', $controller.'@operate_item_add_collection');
-    Route::post('/item/item-remove-collection', $controller.'@operate_item_remove_collection');
-    // 待办事
-    Route::post('/item/item-add-todo-list', $controller.'@operate_item_add_todo_list');
-    Route::post('/item/item-remove-todo-list', $controller.'@operate_item_remove_todo_list');
-    // 日程
-    Route::post('/item/item-add-schedule', $controller.'@operate_item_add_schedule');
-    Route::post('/item/item-remove-schedule', $controller.'@operate_item_remove_schedule');
-    // 转发
-    Route::post('/item/item-forward', $controller.'@item_forward');
+        Route::get('/mine/item-mine', $controller.'@view_item_list_for_mine');
+        Route::get('/mine/item-my-original', $controller.'@view_item_list_for_my_original');
+
+        Route::get('/mine/item-my-todo-list', $controller.'@view_item_list_for_my_todo_list');
+        Route::get('/mine/item-my-schedule', $controller.'@view_item_list_for_my_schedule');
+
+        Route::get('/mine/item-my-favor', $controller.'@view_item_list_for_my_favor');
+        Route::get('/mine/item-my-collection', $controller.'@view_item_list_for_my_collection');
+
+
+
+
+        Route::match(['get','post'], '/item/item-create', $controller.'@operate_item_item_create');
+        Route::match(['get','post'], '/item/item-edit', $controller.'@operate_item_item_edit');
+        Route::post('/item/item-delete', $controller.'@operate_item_item_delete');
+        Route::post('/item/item-restore', $controller.'@operate_item_item_restore');
+        Route::post('/item/item-delete-permanently', $controller.'@operate_item_item_delete_permanently');
+        Route::post('/item/item-publish', $controller.'@operate_item_item_publish');
+        Route::post('/item/item-complete', $controller.'@operate_item_item_complete');
+
+
+        Route::match(['get','post'], '/item/content-management', $controller.'@view_item_content_management');
+        Route::post('/item/content-edit', $controller.'@operate_item_content_edit');
+        Route::post('/item/content-get', $controller.'@operate_item_content_get');
+        Route::post('/item/content-delete', $controller.'@operate_item_content_delete');
+        Route::post('/item/content-enable', $controller.'@operate_item_content_enable');
+        Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
+
+
+
+
+        // 点赞
+        Route::post('/item/item-add-favor', $controller.'@operate_item_add_favor');
+        Route::post('/item/item-remove-favor', $controller.'@operate_item_remove_favor');
+        // 收藏
+        Route::post('/item/item-add-collection', $controller.'@operate_item_add_collection');
+        Route::post('/item/item-remove-collection', $controller.'@operate_item_remove_collection');
+        // 待办事
+        Route::post('/item/item-add-todo-list', $controller.'@operate_item_add_todo_list');
+        Route::post('/item/item-remove-todo-list', $controller.'@operate_item_remove_todo_list');
+        // 日程
+        Route::post('/item/item-add-schedule', $controller.'@operate_item_add_schedule');
+        Route::post('/item/item-remove-schedule', $controller.'@operate_item_remove_schedule');
+        // 转发
+        Route::post('/item/item-forward', $controller.'@item_forward');
+
+
+    });
 
 
 
@@ -298,29 +319,6 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
 
 
 
-
-    // 前台
-    Route::group([], function () {
-
-        $controller = "DocIndexController";
-
-        Route::get('menu/{id?}', $controller.'@view_menu');
-        Route::get('item/{id?}', $controller.'@view_item');
-
-        Route::get('product/{id?}', $controller.'@view_product');
-        Route::get('article/{id?}', $controller.'@view_article');
-        Route::get('activity/{id?}', $controller.'@view_activity');
-        Route::get('slide/{id?}', $controller.'@view_slide');
-        Route::get('survey/{id?}', $controller.'@view_survey');
-
-        Route::get('activity/apply', $controller.'@view_activity_apply');
-        Route::match(['get','post'], '/apply', $controller.'@apply');
-        Route::match(['get','post'], '/apply/activation', $controller.'@apply_activation');
-        Route::match(['get','post'], '/sign', $controller.'@sign');
-        Route::match(['get','post'], '/answer', $controller.'@answer');
-
-        Route::match(['get','post'], '/share', $controller.'@share');
-    });
 
 });
 

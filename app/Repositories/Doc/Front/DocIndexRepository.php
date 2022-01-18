@@ -16,12 +16,21 @@ use QrCode, Excel;
 
 class DocIndexRepository {
 
+    private $evn;
+    private $auth_check;
+    private $me;
+    private $me_admin;
     private $model;
+    private $modelUser;
+    private $modelItem;
     private $repo;
+    private $view_blade_404;
     public function __construct()
     {
         $this->modelItem = new Def_Item;
         $this->view_template_front = env('TEMPLATE_DOC_FRONT');
+
+        $this->view_blade_404 = env('TEMPLATE_ROOT_FRONT').'errors.404';
 
         Blade::setEchoFormat('%s');
         Blade::setEchoFormat('e(%s)');
@@ -29,9 +38,35 @@ class DocIndexRepository {
     }
 
 
+    public function get_me()
+    {
+        if(Auth::guard("doc")->check())
+        {
+            $this->auth_check = 1;
+            $this->me = Auth::guard("doc")->user();
+            $this->me_admin = Auth::guard("doc_admin")->user();
+            view()->share('me',$this->me);
+
+            if(Auth::guard("doc_admin")->check())
+            {
+                $this->me_admin = Auth::guard("doc_admin")->user();
+            }
+            else
+            {
+                $this->me_admin = $this->me;
+            }
+        }
+        else $this->auth_check = 0;
+//        dd($this->me_admin->toArray());
+        view()->share('auth_check',$this->auth_check);
+    }
+
+
     // 返回（后台）主页视图
     public function view_root($post_data)
     {
+        $this->get_me();
+
 //        $me = Auth::guard("doc")->user();
         $me = Auth::guard("doc")->user();
         $me_id = $me->id;
@@ -149,7 +184,7 @@ class DocIndexRepository {
         else $user_id = 0;
 
         $id = request('id',0);
-        if(intval($id) !== 0 && !$id) view('doc.frontend.errors.404');
+        if(intval($id) !== 0 && !$id) view($this->view_blade_404);
 
 
         $item = $this->modelItem->with([
@@ -230,7 +265,7 @@ class DocIndexRepository {
             $item->custom_decode = json_decode($item->custom);
 
         }
-        else return view('doc.frontend.errors.404');
+        else return view($this->view_blade_404);
 
 
         $head_title_prefix = '';
@@ -381,7 +416,7 @@ class DocIndexRepository {
     {
         $me = Auth::guard('doc')->user();
         $me_admin = Auth::guard('doc_admin')->user();
-//        if(!in_array($me->user_type,[0,1,9])) return view(env('TEMPLATE_DOC_FRONT').'errors.404');
+//        if(!in_array($me->user_type,[0,1,9])) return view($this->view_blade_404);
 
         $operate_category = 'item';
         $operate_type = 'item';
@@ -407,11 +442,11 @@ class DocIndexRepository {
     {
         $me = Auth::guard('doc')->user();
         $me_admin = Auth::guard('doc_admin')->user();
-        if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_DOC_FRONT').'errors.404');
+        if(!in_array($me->user_type,[0,1])) return view($this->view_blade_404);
 
         $id = $post_data["item-id"];
         $mine = $this->modelItem->with(['owner'])->find($id);
-        if(!$mine) return view(env('TEMPLATE_DOC_FRONT').'errors.404');
+        if(!$mine) return view($this->view_blade_404);
 
 
         $operate_category = 'item';
@@ -650,16 +685,19 @@ class DocIndexRepository {
 
     }
 
-    // 【ITEM】删除
-    public function operate_item_item_delete($post_data)
+
+
+
+    // 【ITEM】获取详情
+    public function operate_item_item_get($post_data)
     {
         $messages = [
-            'operate.required' => 'operate.required',
-            'id.required' => '请输入关键词ID！',
+            'operate.required' => 'operate.required.',
+            'item_id.required' => '请输入ID！',
         ];
         $v = Validator::make($post_data, [
             'operate' => 'required',
-            'id' => 'required',
+            'item_id' => 'required',
         ], $messages);
         if ($v->fails())
         {
@@ -668,21 +706,168 @@ class DocIndexRepository {
         }
 
         $operate = $post_data["operate"];
-        if($operate != 'item-delete') return response_error([],"参数有误！");
-        $id = $post_data["id"];
-        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
+        if($operate != 'item-get') return response_error([],"参数[operate]有误！");
+        $id = $post_data["item_id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数[ID]有误！");
 
-        $mine = $this->modelItem->withTrashed()->find($id);
-        if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
+        $item = Def_Item::withTrashed()->find($id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
-        $me = Auth::guard('doc')->user();
-        $me_admin = Auth::guard('doc_admin')->user();
+        $this->get_me();
+        $me = $this->me;
+        if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
 
-        if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
-        if($me->id != $me_admin->id)
+        return response_success($item,"");
+
+    }
+    // 【ITEM】删除
+    public function operate_item_item_delete($post_data)
+    {
+        $messages = [
+            'operate.required' => '参数有误！',
+            'item_id.required' => '请输入ID！',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'item_id' => 'required',
+        ], $messages);
+        if ($v->fails())
         {
-            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+            $messages = $v->errors();
+            return response_error([],$messages->first());
         }
+
+        $operate = $post_data["operate"];
+        if($operate != 'item-delete') return response_error([],"参数[operate]有误！");
+        $item_id = $post_data["item_id"];
+        if(intval($item_id) !== 0 && !$item_id) return response_error([],"参数[ID]有误！");
+
+        $item = Def_Item::withTrashed()->find($item_id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+
+        $this->get_me();
+        $me = $this->me;
+//        if(!in_array($me->user_type,[0,1,9,11,19])) return response_error([],"用户类型错误！");
+//        if($me->user_type == 19 && ($item->item_active != 0 || $item->creator_id != $me->id)) return response_error([],"你没有操作权限！");
+        if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $item->timestamps = false;
+            if($item->item_active == 0 && $item->owner_id != $me->id)
+            {
+                $item_copy = $item;
+
+                $bool = $item->forceDelete();
+                if(!$bool) throw new Exception("item--delete--fail");
+                DB::commit();
+
+                $this->delete_the_item_files($item_copy);
+            }
+            else
+            {
+                $bool = $item->delete();
+                if(!$bool) throw new Exception("item--delete--fail");
+                DB::commit();
+            }
+
+            $item_html = $this->get_the_item_html($item);
+            return response_success(['item_html'=>$item_html]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+    // 【ITEM】恢复
+    public function operate_item_item_restore($post_data)
+    {
+        $messages = [
+            'operate.required' => '参数有误！',
+            'item_id.required' => '请输入ID！',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'item_id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'item-restore') return response_error([],"参数[operate]有误！");
+        $id = $post_data["item_id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数[ID]有误！");
+
+        $item = Def_Item::withTrashed()->find($id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+
+        $this->get_me();
+        $me = $this->me;
+//        if(!in_array($me->user_type,[0,1,9,11])) return response_error([],"用户类型错误！");
+        if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $item->timestamps = false;
+            $bool = $item->restore();
+            if(!$bool) throw new Exception("item--restore--fail");
+            DB::commit();
+
+            $item_html = $this->get_the_item_html($item);
+            return response_success(['item_html'=>$item_html]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+    // 【ITEM】彻底删除
+    public function operate_item_item_delete_permanently($post_data)
+    {
+        $messages = [
+            'operate.required' => '参数有误！',
+            'item_id.required' => '请输入ID！',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'item_id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'item-delete-permanently') return response_error([],"参数[operate]有误！");
+        $id = $post_data["item_id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数[ID]有误！");
+
+        $item = Def_Item::withTrashed()->find($id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+
+        $this->get_me();
+        $me = $this->me;
+//        if(!in_array($me->user_type,[0,1,9,11,19])) return response_error([],"用户类型错误！");
+//        if($me->user_type == 19 && ($item->item_active != 0 || $item->creator_id != $me->id)) return response_error([],"你没有操作权限！");
+        if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
 
         // 启动数据库事务
         DB::beginTransaction();
@@ -696,47 +881,125 @@ class DocIndexRepository {
                 if(!$bool_0) throw new Exception("update--user--fail");
             }
 
-            $mine_cover_pic = $mine->cover_pic;
-            $mine_attachment_src = $mine->attachment_src;
-            $mine_content = $mine->content;
+            $item_copy = $item;
 
-
-            $bool = $mine->delete();
-            if(!$bool) throw new Exception("delete--item--fail");
-
+            $bool = $item->forceDelete();
+            if(!$bool) throw new Exception("item--delete--fail");
             DB::commit();
 
-
-            // 删除原封面图片
-            if(!empty($mine_cover_pic) && file_exists(storage_path("resource/" . $mine_cover_pic)))
-            {
-                unlink(storage_path("resource/" . $mine_cover_pic));
-            }
-
-            // 删除原附件
-            if(!empty($mine_attachment_src) && file_exists(storage_path("resource/" . $mine_attachment_src)))
-            {
-                unlink(storage_path("resource/" . $mine_attachment_src));
-            }
-
-            // 删除二维码
-            if(file_exists(storage_path("resource/doc/unique/qr_code/".'qr_code_doc_item_'.$id.'.png')))
-            {
-                unlink(storage_path("resource/doc/unique/qr_code/".'qr_code_doc_item_'.$id.'.png'));
-            }
-
-            // 删除UEditor图片
-            $img_tags = get_html_img($mine_content);
-            foreach ($img_tags[2] as $img)
-            {
-                if (!empty($img) && file_exists(public_path($img)))
-                {
-                    unlink(public_path($img));
-                }
-            }
-
+            $this->delete_the_item_files($item_copy);
 
             return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+    // 【ITEM】发布
+    public function operate_item_item_publish($post_data)
+    {
+        $messages = [
+            'operate.required' => 'operate.required.',
+            'item_id.required' => 'item_id.required.',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'item_id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'item-publish') return response_error([],"参数[operate]有误！");
+        $id = $post_data["item_id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数[ID]有误！");
+
+        $item = Def_Item::withTrashed()->find($id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+
+        $this->get_me();
+        $me = $this->me;
+        if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $item->item_active = 1;
+            $item->published_at = time();
+            $bool = $item->save();
+            if(!$bool) throw new Exception("item--update--fail");
+            DB::commit();
+
+            $item_html = $this->get_the_item_html($item);
+            return response_success(['item_html'=>$item_html]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
+    // 【ITEM】完成
+    public function operate_item_item_complete($post_data)
+    {
+        $messages = [
+            'operate.required' => 'operate.required.',
+            'item_id.required' => 'item_id.required.',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'item_id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'item-complete') return response_error([],"参数[operate]有误！");
+        $id = $post_data["item_id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数[ID]有误！");
+
+        $item = DEF_Item::withTrashed()->find($id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+
+        $this->get_me();
+        $me = $this->me;
+//        if(!in_array($me->user_type,[0,1,9,11,19,41])) return response_error([],"用户类型错误！");
+        if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $item->is_completed = 1;
+            $item->completer_id = $me->id;
+            $item->completed_at = time();
+            $item->timestamps = false;
+            $bool = $item->save();
+            if(!$bool) throw new Exception("item--update--fail");
+            DB::commit();
+
+            $item->custom = json_decode($item->custom);
+            $item_array[0] = $item;
+            $return['item_list'] = $item_array;
+            $item_html = view(env('TEMPLATE_STAFF_FRONT').'component.item-list')->with($return)->__toString();
+            return response_success(['item_html'=>$item_html]);
         }
         catch (Exception $e)
         {
@@ -758,8 +1021,8 @@ class DocIndexRepository {
      */
     public function view_item_content_management($post_data)
     {
-        $item_id = $post_data['item_id'];
-        if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
+        $item_id = $post_data['item-id'];
+        if(!$item_id) return view($this->view_blade_404)->with(['error'=>'参数有误']);
 
         $mine = $this->modelItem->find($item_id);
         if($mine)
@@ -785,14 +1048,14 @@ class DocIndexRepository {
                 return view(env('TEMPLATE_DOC_FRONT').'entrance.item.item-edit-for-time_line')->with(['data'=>$item]);
             }
         }
-        else return view(env('TEMPLATE_DOC_FRONT').'errors.404');
+        else return view($this->view_blade_404);
     }
 
     // 【目录类型】返回列表数据
     public function view_item_content_menu_type($post_data)
     {
         $item_id = $post_data['id'];
-        if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
+        if(!$item_id) return view($this->view_blade_404)->with(['error'=>'参数有误']);
         // abort(404);
 
         $item = $this->modelItem->with([
@@ -815,14 +1078,14 @@ class DocIndexRepository {
 
             return view('home.item.item-edit-for-menu_type')->with(['data'=>$item]);
         }
-        else return view('home.404')->with(['error'=>'该内容不存在']);
+        else return view($this->view_blade_404)->with(['error'=>'该内容不存在']);
 
     }
     // 【时间线】返回列表数据
     public function view_item_content_time_line($post_data)
     {
         $item_id = $post_data['id'];
-        if(!$item_id) return view('home.404')->with(['error'=>'参数有误']);
+        if(!$item_id) return view($this->view_blade_404)->with(['error'=>'参数有误']);
         // abort(404);
 
         $item = $this->modelItem->with([
@@ -837,7 +1100,7 @@ class DocIndexRepository {
         {
             return view('home.item.item-edit-for-time_line')->with(['data'=>$item]);
         }
-        else return view('home.404')->with(['error'=>'该内容不存在']);
+        else return view($this->view_blade_404)->with(['error'=>'该内容不存在']);
 
     }
 
@@ -1306,7 +1569,9 @@ class DocIndexRepository {
     // 返回（后台）主页视图
     public function view_item_list_for_mine($post_data)
     {
-        $me = Auth::guard('doc')->user();
+        $this->get_me();
+        $me = $this->me;
+
         $item_query = $this->modelItem->select('*')->withTrashed()
             ->with(['owner','creator'])
             ->where('owner_id',$me->id)
@@ -1387,14 +1652,15 @@ class DocIndexRepository {
         }
 
         $head_title_prefix = '【轻博】';
-        $head_title_prefix = '';
+//        $head_title_prefix = '';
         $head_title_postfix = ' - 如未轻博';
         $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
         $return[$sidebar_active] = 'active';
         $return[$menu_active] = 'active';
         $return['item_list'] = $item_list;
-        $view = env('TEMPLATE_DOC_FRONT').'entrance.root';
-        return view($view)->with($return);
+
+        $view_blade = env('TEMPLATE_DOC_FRONT').'entrance.root';
+        return view($view_blade)->with($return);
     }
 
     // 【我的原创】
@@ -2052,7 +2318,7 @@ class DocIndexRepository {
             $mine = User::with(['parent'])->find($id);
             if($mine)
             {
-//                if(!in_array($mine->user_type,[11,88])) return view(env('TEMPLATE_DOC_FRONT').'errors.404');
+//                if(!in_array($mine->user_type,[11,88])) return view($this->view_blade_404);
                 $mine->custom = json_decode($mine->custom);
                 $mine->custom2 = json_decode($mine->custom2);
                 $mine->custom3 = json_decode($mine->custom3);
@@ -2060,7 +2326,7 @@ class DocIndexRepository {
                 $return['operate'] = 'edit';
                 $return['data'] = $mine;
             }
-            else return view($view_template.'errors.404');
+            else return view($this->view_blade_404);
         }
 
         return view($view_blade)->with($return);
@@ -2600,7 +2866,7 @@ class DocIndexRepository {
 
         $item_id = request("item-id",0);
         $mine = YF_Item::with([])->withTrashed()->find($item_id);
-        if(!$mine) return view($view_template.'errors.404');
+        if(!$mine) return view($this->view_blade_404);
         if($mine->creator_id != $me->id) return view($view_template.'errors.403');
 
         $item_type = 'item';
@@ -2763,314 +3029,6 @@ class DocIndexRepository {
 
             DB::commit();
             return response_success(['id'=>$mine->id]);
-        }
-        catch (Exception $e)
-        {
-            DB::rollback();
-            $msg = '操作失败，请重试！';
-            $msg = $e->getMessage();
-//            exit($e->getMessage());
-            return response_fail([],$msg);
-        }
-
-    }
-
-
-    // 【任务】获取详情
-    public function operate_item_task_get($post_data)
-    {
-        $messages = [
-            'operate.required' => '参数有误！',
-            'item_id.required' => '请输入ID！',
-        ];
-        $v = Validator::make($post_data, [
-            'operate' => 'required',
-            'item_id' => 'required',
-        ], $messages);
-        if ($v->fails())
-        {
-            $messages = $v->errors();
-            return response_error([],$messages->first());
-        }
-
-        $operate = $post_data["operate"];
-        if($operate != 'item-get') return response_error([],"参数operate有误！");
-        $id = $post_data["item_id"];
-        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
-
-        $item = YF_Item::withTrashed()->find($id);
-        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
-
-        $me = Auth::guard('staff')->user();
-        if($item->owner_id != $me->id) return response_error([],"你没有操作权限！");
-
-        return response_success($item,"");
-
-    }
-    // 【任务】删除
-    public function operate_item_task_delete($post_data)
-    {
-        $messages = [
-            'operate.required' => '参数有误！',
-            'item_id.required' => '请输入ID！',
-        ];
-        $v = Validator::make($post_data, [
-            'operate' => 'required',
-            'item_id' => 'required',
-        ], $messages);
-        if ($v->fails())
-        {
-            $messages = $v->errors();
-            return response_error([],$messages->first());
-        }
-
-        $operate = $post_data["operate"];
-        if($operate != 'item-delete') return response_error([],"参数operate有误！");
-        $item_id = $post_data["item_id"];
-        if(intval($item_id) !== 0 && !$item_id) return response_error([],"参数ID有误！");
-
-        $item = YF_Item::withTrashed()->find($item_id);
-        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
-
-        $me = Auth::guard('staff')->user();
-        if(!in_array($me->user_type,[0,1,9,11,19])) return response_error([],"用户类型错误！");
-        if($me->user_type == 19 && ($item->item_active != 0 || $item->creator_id != $me->id)) return response_error([],"你没有操作权限！");
-
-        // 启动数据库事务
-        DB::beginTransaction();
-        try
-        {
-            $item->timestamps = false;
-            if($me->user_type == 19 && $item->item_active == 0 && $item->creator_id != $me->id)
-            {
-                $item_copy = $item;
-
-                $bool = $item->forceDelete();
-                if(!$bool) throw new Exception("item--delete--fail");
-                DB::commit();
-
-                $this->delete_the_item_files($item_copy);
-            }
-            else
-            {
-                $bool = $item->delete();
-                if(!$bool) throw new Exception("item--delete--fail");
-                DB::commit();
-            }
-
-            $item_html = $this->get_the_item_html($item);
-            return response_success(['item_html'=>$item_html]);
-        }
-        catch (Exception $e)
-        {
-            DB::rollback();
-            $msg = '操作失败，请重试！';
-            $msg = $e->getMessage();
-//            exit($e->getMessage());
-            return response_fail([],$msg);
-        }
-
-    }
-    // 【任务】恢复
-    public function operate_item_task_restore($post_data)
-    {
-        $messages = [
-            'operate.required' => '参数有误！',
-            'item_id.required' => '请输入ID！',
-        ];
-        $v = Validator::make($post_data, [
-            'operate' => 'required',
-            'item_id' => 'required',
-        ], $messages);
-        if ($v->fails())
-        {
-            $messages = $v->errors();
-            return response_error([],$messages->first());
-        }
-
-        $operate = $post_data["operate"];
-        if($operate != 'item-restore') return response_error([],"参数operate有误！");
-        $id = $post_data["item_id"];
-        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
-
-        $item = YF_Item::withTrashed()->find($id);
-        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
-
-        $me = Auth::guard('staff')->user();
-        if(!in_array($me->user_type,[0,1,9,11])) return response_error([],"用户类型错误！");
-//        if($item->creator_id != $me->id) return response_error([],"你没有操作权限！");
-
-        // 启动数据库事务
-        DB::beginTransaction();
-        try
-        {
-            $item->timestamps = false;
-            $bool = $item->restore();
-            if(!$bool) throw new Exception("item--restore--fail");
-            DB::commit();
-
-            $item_html = $this->get_the_item_html($item);
-            return response_success(['item_html'=>$item_html]);
-        }
-        catch (Exception $e)
-        {
-            DB::rollback();
-            $msg = '操作失败，请重试！';
-            $msg = $e->getMessage();
-//            exit($e->getMessage());
-            return response_fail([],$msg);
-        }
-
-    }
-    // 【任务】彻底删除
-    public function operate_item_task_delete_permanently($post_data)
-    {
-        $messages = [
-            'operate.required' => '参数有误！',
-            'item_id.required' => '请输入ID！',
-        ];
-        $v = Validator::make($post_data, [
-            'operate' => 'required',
-            'item_id' => 'required',
-        ], $messages);
-        if ($v->fails())
-        {
-            $messages = $v->errors();
-            return response_error([],$messages->first());
-        }
-
-        $operate = $post_data["operate"];
-        if($operate != 'item-delete-permanently') return response_error([],"参数operate有误！");
-        $id = $post_data["item_id"];
-        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
-
-        $item = YF_Item::withTrashed()->find($id);
-        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
-
-        $me = Auth::guard('staff')->user();
-        if(!in_array($me->user_type,[0,1,9,11,19])) return response_error([],"用户类型错误！");
-        if($me->user_type == 19 && ($item->item_active != 0 || $item->creator_id != $me->id)) return response_error([],"你没有操作权限！");
-
-        // 启动数据库事务
-        DB::beginTransaction();
-        try
-        {
-            $item_copy = $item;
-
-            $bool = $item->forceDelete();
-            if(!$bool) throw new Exception("item--delete--fail");
-            DB::commit();
-
-            $this->delete_the_item_files($item_copy);
-
-            return response_success([]);
-        }
-        catch (Exception $e)
-        {
-            DB::rollback();
-            $msg = '操作失败，请重试！';
-            $msg = $e->getMessage();
-//            exit($e->getMessage());
-            return response_fail([],$msg);
-        }
-
-    }
-    // 【任务】发布
-    public function operate_item_task_publish($post_data)
-    {
-        $messages = [
-            'operate.required' => '参数有误！',
-            'item_id.required' => '请输入ID！',
-        ];
-        $v = Validator::make($post_data, [
-            'operate' => 'required',
-            'item_id' => 'required',
-        ], $messages);
-        if ($v->fails())
-        {
-            $messages = $v->errors();
-            return response_error([],$messages->first());
-        }
-
-        $operate = $post_data["operate"];
-        if($operate != 'item-publish') return response_error([],"参数operate有误！");
-        $id = $post_data["item_id"];
-        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
-
-        $item = YF_Item::withTrashed()->find($id);
-        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
-
-        $me = Auth::guard('staff')->user();
-        if($item->creator_id != $me->id) return response_error([],"你没有操作权限！");
-
-        // 启动数据库事务
-        DB::beginTransaction();
-        try
-        {
-            $item->item_active = 1;
-            $item->published_at = time();
-            $bool = $item->save();
-            if(!$bool) throw new Exception("item--update--fail");
-            DB::commit();
-
-            $item_html = $this->get_the_item_html($item);
-            return response_success(['item_html'=>$item_html]);
-        }
-        catch (Exception $e)
-        {
-            DB::rollback();
-            $msg = '操作失败，请重试！';
-            $msg = $e->getMessage();
-//            exit($e->getMessage());
-            return response_fail([],$msg);
-        }
-
-    }
-    // 【任务】完成
-    public function operate_item_task_complete($post_data)
-    {
-        $messages = [
-            'operate.required' => '参数有误！',
-            'item_id.required' => '请输入ID！',
-        ];
-        $v = Validator::make($post_data, [
-            'operate' => 'required',
-            'item_id' => 'required',
-        ], $messages);
-        if ($v->fails())
-        {
-            $messages = $v->errors();
-            return response_error([],$messages->first());
-        }
-
-        $operate = $post_data["operate"];
-        if($operate != 'item-complete') return response_error([],"参数operate有误！");
-        $id = $post_data["item_id"];
-        if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
-
-        $item = YF_Item::withTrashed()->find($id);
-        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
-
-        $me = Auth::guard('staff')->user();
-        if(!in_array($me->user_type,[0,1,9,11,19,41])) return response_error([],"用户类型错误！");
-
-        // 启动数据库事务
-        DB::beginTransaction();
-        try
-        {
-            $item->is_completed = 1;
-            $item->completer_id = $me->id;
-            $item->completed_at = time();
-            $item->timestamps = false;
-            $bool = $item->save();
-            if(!$bool) throw new Exception("item--update--fail");
-            DB::commit();
-
-            $item->custom = json_decode($item->custom);
-            $item_array[0] = $item;
-            $return['item_list'] = $item_array;
-            $item_html = view(env('TEMPLATE_DOC_FRONT').'component.item-list')->with($return)->__toString();
-            return response_success(['item_html'=>$item_html]);
         }
         catch (Exception $e)
         {
@@ -3275,7 +3233,7 @@ class DocIndexRepository {
         $return['item_list'] = $item_array;
 
         // method A
-        $item_html = view(env('TEMPLATE_DOC_FRONT').'component.item-list')->with($return)->__toString();
+        $item_html = view(env('TEMPLATE_COMMON_FRONT').'component.item-list')->with($return)->__toString();
 //        // method B
 //        $item_html = view(env('TEMPLATE_DOC_FRONT').'component.item-list')->with($return)->render();
 //        // method C
