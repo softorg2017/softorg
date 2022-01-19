@@ -327,6 +327,11 @@ class RootIndexController extends Controller
         return $this->repo->operate_item_content_delete(request()->all());
     }
     // 【启用】
+    public function operate_item_content_publish()
+    {
+        return $this->repo->operate_item_content_publish(request()->all());
+    }
+    // 【启用】
     public function operate_item_content_enable()
     {
         return $this->repo->operate_item_content_enable(request()->all());

@@ -24,15 +24,30 @@
                     <span class="input-group-addon"><b>{{ $content->time_point or '' }}</b></span>
                     <span class="form-control multi-ellipsis-1">{{ $content->title or '' }}</span>
 
-                    @if($content->item_active == 0)
-                        <span class="input-group-addon btn enable-this-content" title="启用"><b>未启用</b></span>
-                    @elseif($content->item_active == 1)
-                        <span class="input-group-addon btn disable-this-content" title="禁用"><b class="text-green">已启用</b></span>
+                    {{--是否发布--}}
+                    @if($content->is_published == 0)
+                        <span class="input-group-addon btn publish-this-content" title="点击发布"><b>待发布</b></span>
                     @else
-                        <span class="input-group-addon btn enable-this-content" title="启用"><b class="text-red">已禁用</b></span>
+                        <span class="input-group-addon btn disabled" title=""><b class="text-green">已发布</b></span>
                     @endif
 
-                    <span class="input-group-addon btn edit-this-content" style="border-left:0;"><i class="fa fa-pencil"></i></span>
+                    {{--是否启用--}}
+                    @if($content->item_active == 0)
+                        <span class="input-group-addon btn enable-this-content" title="点击启用"><b>未启用</b></span>
+                    @elseif($content->item_active == 1)
+                        <span class="input-group-addon btn disable-this-content" title="点击禁用"><b class="text-green">已启用</b></span>
+                    @else
+                        <span class="input-group-addon btn enable-this-content" title="点击启用"><b class="text-red">已禁用</b></span>
+                    @endif
+
+                    {{--编辑--}}
+                    @if($content->is_published == 0)
+                        <span class="input-group-addon btn edit-this-content"><i class="fa fa-pencil"></i></span>
+                    @else
+                        <span class="input-group-addon btn disabled"><i class="fa fa-pencil"></i></span>
+                    @endif
+
+                    {{--删除--}}
                     <span class="input-group-addon btn delete-this-content"><i class="fa fa-trash"></i></span>
                 </div>
             </div>
@@ -78,16 +93,16 @@
 
             {{--时间点--}}
             <div class="form-group" id="form-time-point-option">
-                <label class="control-label- col-md-2">时间点</label>
+                <label class="control-label- col-md-2"><sup class="text-red">*</sup> 时间点</label>
                 <div class="col-md-12 ">
-                    <input type="text" class="form-control" name="time_point" placeholder="时间点" value="">
+                    <input type="text" class="form-control" name="time_point" placeholder="请输入时间点，必填" value="">
                 </div>
             </div>
             {{--标题--}}
             <div class="form-group">
                 <label class="control-label- col-md-2"><sup class="text-red">*</sup> 标题</label>
                 <div class="col-md-12 ">
-                    <input type="text" class="form-control" name="title" placeholder="请输入标题" value="">
+                    <input type="text" class="form-control" name="title" placeholder="请输入标题，必填" value="">
                 </div>
             </div>
             {{--描述--}}
@@ -149,12 +164,12 @@
 
                         <button type="button" class="btn radio active-none">
                             <label>
-                                <input type="radio" name="item_active" value="0"> 不启用
+                                <input type="radio" name="item_active" value="0" checked="checked"> 不启用
                             </label>
                         </button>
                         <button type="button" class="btn radio">
                             <label>
-                                <input type="radio" name="active" value="1" checked="checked"> 启用
+                                <input type="radio" name="item_active" value="1"> 启用
                             </label>
                         </button>
                         <button type="button" class="btn radio active-disable _none">

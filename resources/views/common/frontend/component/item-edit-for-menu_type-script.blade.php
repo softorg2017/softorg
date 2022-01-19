@@ -149,6 +149,32 @@
             });
         });
 
+        // 【发布】
+        $("#content-structure-list").on('click', ".publish-this-content", function() {
+            var $that = $(this);
+            var input_group = $(this).parents('.input-group');
+            var id = input_group.attr('data-id');
+            var $msg = '确定要删除该"内容"么，该内容下子内容自动进入父节点';
+            layer.msg('发布该内容？', {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                        "/item/content-publish",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            id:id
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else location.reload();
+                        },
+                        'json'
+                    );
+                }
+            });
+        });
+
         // 【启用】
         $("#content-structure-list").on('click', ".enable-this-content", function() {
             var that = $(this);

@@ -133,42 +133,42 @@ class DocIndexController extends Controller
         else if (request()->isMethod('post')) return $this->repo->operate_item_item_save(request()->all());
     }
 
-    // 【任务】获取-详情
+    // 【ITEM】获取-详情
     public function operate_item_item_get()
     {
         return $this->repo->operate_item_item_get(request()->all());
     }
-    // 【任务】删除
+    // 【ITEM】删除
     public function operate_item_item_delete()
     {
         return $this->repo->operate_item_item_delete(request()->all());
     }
-    // 【任务】恢复
+    // 【ITEM】恢复
     public function operate_item_item_restore()
     {
         return $this->repo->operate_item_item_restore(request()->all());
     }
-    // 【任务】永久删除
+    // 【ITEM】永久删除
     public function operate_item_item_delete_permanently()
     {
         return $this->repo->operate_item_item_delete_permanently(request()->all());
     }
-    // 【任务】发布
+    // 【ITEM】发布
     public function operate_item_item_publish()
     {
         return $this->repo->operate_item_item_publish(request()->all());
     }
-    // 【任务】完成
+    // 【ITEM】完成
     public function operate_item_item_complete()
     {
         return $this->repo->operate_item_item_complete(request()->all());
     }
-    // 【任务】禁用
+    // 【ITEM】禁用
     public function operate_item_item_disable()
     {
         return $this->repo->operate_item_admin_disable(request()->all());
     }
-    // 【任务】启用
+    // 【ITEM】启用
     public function operate_item_item_enable()
     {
         return $this->repo->operate_item_admin_enable(request()->all());
@@ -177,13 +177,13 @@ class DocIndexController extends Controller
 
 
 
-    // 【ITEM】内容管理
+    // 【ITEM】【content】内容管理
     public function view_item_content_management()
     {
         return $this->repo->view_item_content_management(request()->all());
     }
 
-    // 【编辑】
+    // 【ITEM-content】编辑
     public function operate_item_content_edit()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
@@ -206,39 +206,48 @@ class DocIndexController extends Controller
         }
     }
 
-    // 【编辑】目录类型
+    // 【ITEM-content】目录类型
     public function operate_item_content_edit_menu_type()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_item_content_save_for_menu_type(request()->all());
     }
-    // 【编辑】时间线
+    // 【ITEM-content】时间线
     public function operate_item_content_edit_time_line()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_item_content_save_for_time_line(request()->all());
     }
 
-    // 【获取】
+    // 【ITEM-content】获取
     public function operate_item_content_get()
     {
         return $this->repo->operate_item_content_get(request()->all());
     }
-    // 【删除】
+    // 【ITEM-content】删除
     public function operate_item_content_delete()
     {
         return $this->repo->operate_item_content_delete(request()->all());
     }
-    // 【启用】
+    // 【ITEM-content】发布
+    public function operate_item_content_publish()
+    {
+        return $this->repo->operate_item_content_publish(request()->all());
+    }
+    // 【ITEM-content】启用
     public function operate_item_content_enable()
     {
         return $this->repo->operate_item_content_enable(request()->all());
     }
-    // 【禁用】
+    // 【ITEM-content】禁用
     public function operate_item_content_disable()
     {
         return $this->repo->operate_item_content_disable(request()->all());
     }
+
+
+
+
 
 
 

@@ -104,7 +104,7 @@ class RootIndexRepository {
             $item_query = $this->modelItem->select('*')
                 ->with(['owner','creator'])
                 ->where('owner_id','>',0)
-                ->where(['item_category'=>1]);
+                ->where(['is_published'=>1,'item_category'=>1]);
 
             if($this->auth_check)
             {
@@ -114,7 +114,7 @@ class RootIndexRepository {
                 ]);
             }
 
-            $item_list = $item_query->orderByDesc('published_at')->orderByDesc('updated_at')->paginate(20);
+            $item_list = $item_query->orderByDesc('published_at')->orderByDesc('id')->paginate(20);
             foreach($item_list as $item)
             {
                 $item->custom = json_decode($item->custom);
@@ -1568,7 +1568,7 @@ class RootIndexRepository {
         DB::beginTransaction();
         try
         {
-            $item->item_active = 1;
+            $item->is_published = 1;
             $item->published_at = time();
             $bool = $item->save();
             if(!$bool) throw new Exception("item--update--fail");
@@ -2197,10 +2197,42 @@ class RootIndexRepository {
 
     }
     // 启用
+    public function operate_item_content_publish($post_data)
+    {
+        $this->get_me();
+        $me = $this->me;
+
+        $id = $post_data["id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"该内容不存在，刷新页面试试");
+
+        $mine = $this->modelItem->find($id);
+        if($mine->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
+//        if($me->id != $me_admin->id)
+//        {
+//            if($mine->creator_id != $me_admin->id) return response_error([],"该内容不是你创建的，你不能操作！");
+//        }
+        DB::beginTransaction();
+        try
+        {
+            $update["is_published"] = 1;
+            $update["published_at"] = time();
+            $mine->timestamps = false;
+            $bool = $mine->fill($update)->save();
+            if(!$bool) throw new Exception("update--item--fail");
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            return response_fail([],'启用失败，请重试');
+        }
+    }
+    // 启用
     public function operate_item_content_enable($post_data)
     {
         $this->get_me();
-
         $me = $this->me;
 
         $id = $post_data["id"];
@@ -2233,7 +2265,6 @@ class RootIndexRepository {
     public function operate_item_content_disable($post_data)
     {
         $this->get_me();
-
         $me = $this->me;
 
         $id = $post_data["id"];
@@ -2609,11 +2640,11 @@ class RootIndexRepository {
                 {
                     $parent_item = $item;
                     $parent_item->load([
-                        'contents'=>function($query) { $query->where('active',1)->orderBy('rank','asc'); }
+                        'contents'=>function($query) { $query->where(['is_published'=>1,'item_active'=>1])->orderBy('rank','asc'); }
                     ]);
                 }
                 else $parent_item = $this->modelItem->with([
-                    'contents'=>function($query) { $query->where('active',1)->orderBy('rank','asc'); }
+                    'contents'=>function($query) { $query->where(['is_published'=>1,'item_active'=>1])->orderBy('rank','asc'); }
                 ])->find($item->item_id);
 
                 $contents_recursion = $this->get_recursion($parent_item->contents,0);
@@ -2635,7 +2666,7 @@ class RootIndexRepository {
                     $parent_item = $item;
                     $parent_item->load([
                         'contents'=>function($query) {
-                            $query->where('active',1);
+                            $query->where(['is_published'=>1,'item_active'=>1]);
                             $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
                             $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
                             $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
@@ -2647,7 +2678,7 @@ class RootIndexRepository {
                 {
                     $parent_item = $this->modelItem->with([
                         'contents'=>function($query) {
-                            $query->where('active',1);
+                            $query->where(['is_published'=>1,'item_active'=>1]);
                             $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
                             $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
                             $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
@@ -2701,6 +2732,11 @@ class RootIndexRepository {
         $html = view('root.frontend.entrance.item-template')->with(['item'=>$mine])->__toString();
         return $html;
     }
+
+
+
+
+
 
 
 

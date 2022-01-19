@@ -117,9 +117,11 @@
 .fold-button:hover { color:#222;background-color:#ccc; }
 .fold-button:hover, .fold-button:hover i { color:#fff; background-color:#207eb8; }
 
+.recursion-row { color:#bbb; padding:0 4px; width:100%; float:left; }
 .recursion-row { color:#bbb; padding:0 4px; }
-.recursion-row { color:#bbb; padding:0 4px; }
+.recursion-row.active { color:#222; background-color:#efe1ff; }
 .recursion-menu { min-height:24px; line-height:24px; margin:0; margin-bottom:1px; }
+.recursion-menu.active { color:#222; background-color:#efe1ff; }
 .recursion-icon { width:16px !important; height:16px; margin-right:0; color:#777; cursor:pointer;}
 .recursion-icon .fa-file-text {color:#888;}
 /*.recursion-icon .fa-plus-square {color:#3c8dbc;}*/
@@ -136,7 +138,7 @@
 .recursion-fold:hover { color:orange; }
 
 
-/*.recursion-icon .fa-plus-square {color:#3c8dbc;}*/
+    /*.recursion-icon .fa-plus-square {color:#3c8dbc;}*/
 /*.recursion-icon .fa-minus-square {color:green;}*/
 
 

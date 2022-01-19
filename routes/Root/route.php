@@ -86,6 +86,7 @@ Route::group(['namespace' => 'Front'], function () {
             Route::post('/item/content-edit', $controller.'@operate_item_content_edit');
             Route::post('/item/content-get', $controller.'@operate_item_content_get');
             Route::post('/item/content-delete', $controller.'@operate_item_content_delete');
+            Route::post('/item/content-publish', $controller.'@operate_item_content_publish');
             Route::post('/item/content-enable', $controller.'@operate_item_content_enable');
             Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
 

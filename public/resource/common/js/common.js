@@ -108,32 +108,38 @@ $(function() {
         });
     });
     // 收起
-    $(".main-body").on('click', '.recursion-row .fa-minus-square', function () {
-        var this_row = $(this).parents('.recursion-row');
-        var this_level = this_row.attr('data-level');
-        this_row.nextUntil('.recursion-row[data-level='+this_level+']').each( function () {
-            if($(this).attr('data-level') <= this_level ) return false;
+    $(".main-body").off("click", ".recursion-row .fa-minus-square").on('click', '.recursion-row .fa-minus-square', function () {
+        layer.msg('-');
+        console.log('- start');
+        var $this_row = $(this).parents('.recursion-row');
+        var $this_level = $this_row.attr('data-level');
+        $this_row.nextUntil('.recursion-row[data-level='+$this_level+']').each( function () {
+            if($(this).attr('data-level') <= $this_level ) return false;
             $(this).hide();
         });
         $(this).removeClass('fa-minus-square').addClass('fa-plus-square');
+        console.log('- ended');
     });
     // 展开
-    $(".main-body").on('click', '.recursion-row .fa-plus-square', function () {
-        var this_row = $(this).parents('.recursion-row');
-        var this_level = this_row.attr('data-level');
-        this_row.nextUntil('.recursion-row[data-level='+this_level+']').each( function () {
-            if($(this).attr('data-level') <= this_level ) return false;
+    $(".main-body").off("click", ".recursion-row .fa-plus-square").on('click', '.recursion-row .fa-plus-square', function () {
+        layer.msg('+');
+        console.log('+ start');
+        var $this_row = $(this).parents('.recursion-row');
+        var $this_level = $this_row.attr('data-level');
+        $this_row.nextUntil('.recursion-row[data-level='+$this_level+']').each( function () {
+            if($(this).attr('data-level') <= $this_level ) return false;
             $(this).find('.recursion-fold').removeClass('fa-plus-square').addClass('fa-minus-square');
             $(this).show();
         });
         $(this).removeClass('fa-plus-square').addClass('fa-minus-square');
+        console.log('+ ended');
     });
 
 });
 
 
 // 初始化展开
-function fold()
+function fold_init()
 {
 
     var item_active = $('.side-menu .recursion-item.active');

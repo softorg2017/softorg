@@ -244,6 +244,9 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
 
     Route::get('/', $controller.'@view_root');
 
+//    Route::get('/item', $controller.'@view_item');
+    Route::get('/item/{?id}', $controller.'@view_item');
+
 
     /*
      * 需要登录
@@ -285,6 +288,7 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
         Route::post('/item/content-edit', $controller.'@operate_item_content_edit');
         Route::post('/item/content-get', $controller.'@operate_item_content_get');
         Route::post('/item/content-delete', $controller.'@operate_item_content_delete');
+        Route::post('/item/content-publish', $controller.'@operate_item_content_publish');
         Route::post('/item/content-enable', $controller.'@operate_item_content_enable');
         Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
 
@@ -307,13 +311,14 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
         Route::post('/item/item-forward', $controller.'@item_forward');
 
 
+
+
     });
 
 
 
+    Route::get('/item/{id?}', $controller.'@view_item');
 
-//    Route::get('/item', $controller.'@view_item');
-    Route::get('/item/{?id}', $controller.'@view_item');
 
 
 

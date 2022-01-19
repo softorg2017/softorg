@@ -11,7 +11,7 @@ class Def_Item extends Model
     protected $table = "item";
     protected $fillable = [
         'active', 'status', 'item_active', 'item_status', 'item_category', 'item_type', 'category', 'type', 'sort',
-        'owner_active',
+        'owner_active', 'is_published', 'is_completed',
         'owner_id', 'creator_id', 'updater_id', 'user_id', 'belong_id', 'source_id', 'object_id',
         'p_id', 'parent_id', 'quote_item_id',
         'rank', 'version',
@@ -23,7 +23,7 @@ class Def_Item extends Model
         'atom_category', 'major', 'nation', 'birth_time', 'death_time',
         'time_point', 'time_type', 'start_time', 'end_time', 'address',
         'visit_num', 'share_num', 'favor_num', 'collect_num', 'comment_num',
-        'published_at'
+        'published_at', 'completed_at'
     ];
     protected $dateFormat = 'U';
 

@@ -240,7 +240,7 @@ desired effect
 
 
 <script src="{{ asset('/resource/common/js/common.js') }}"></script>
-<script src="{{ asset('/resource/custom/doc/js/index.js') }}"></script>
+{{--<script src="{{ asset('/resource/custom/doc/js/index.js') }}"></script>--}}
 
 @include(env('TEMPLATE_ROOT_FRONT').'layout.layout-script')
 

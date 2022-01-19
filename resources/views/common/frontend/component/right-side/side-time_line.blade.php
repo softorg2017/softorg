@@ -1,15 +1,20 @@
-<div class="main-side-block main-side-block-padding side-menu main-side-container pull-left padding-8px bg-white">
-
-    <a href="javascript:void(0);" class="visible-xs visible-sm header-hide-side side-hidden" role="button"><i class="fa fa-remove"></i></a>
+<div class="box-body right-menu main-side-block main-side-block-padding side-menu main-side-container pull-left padding-8px bg-white" style="width:100%;">
 
 
-    <div class="col-md-12 recursion-row" data-level="0">
+    {{--<a href="javascript:void(0);" class="visible-xs visible-sm header-hide-side side-hidden _none" role="button"><i class="fa fa-remove"></i></a>--}}
+
+
+    <div class="col-md-12 recursion-row @if($parent_item->id == $item->id) active @endif" data-level="0">
         <div class="recursion-menu">
             <span class="recursion-icon">
-                <i class="fa fa-bookmark text-orange"></i>
+                @if($parent_item->id == $item->id)
+                    <i class="fa fa-bookmark text-orange"></i>
+                @else
+                    <i class="fa fa-bookmark-o text-orange"></i>
+                @endif
             </span>
 
-            <span class="recursion-text @if($parent_item->id == $item->id) active @endif">
+            <span class="recursion-text @if($parent_item->id == $item->id) active- @endif">
                 <a class="row-ellipsis" href="{{ url('/item/'.$parent_item->id) }}">
                     <b>{{ $parent_item->title or '' }}</b>
                 </a>
@@ -19,19 +24,22 @@
 
 
     @foreach($time_points as $num => $val)
-    <div class="col-md-12 recursion-row" data-level="{{ $val->level or 0 }}" data-id="{{ $val->id or 0 }}"
-         style="">
+    <div class="col-md-12 recursion-row @if($val->id == $item->id) active @endif" data-level="{{ $val->level or 0 }}" data-id="{{ $val->id or 0 }}">
         {{--style="">--}}
         <div class="recursion-menu">
             <span class="recursion-icon">
-                    <i class="fa fa-circle-o"></i>
+                @if($val->id == $item->id)
+                    <small><i class="fa fa-circle text-orange"></i></small>
+                @else
+                    <small><i class="fa fa-circle-o"></i></small>
+                @endif
             </span>
-            <span class="recursion-text @if($val->id == $item->id) active @endif font-sm">
+            <span class="recursion-text font-sm @if($val->id == $item->id) active @endif">
                 <a class="row-ellipsis" href="{{ url('/item/'.$val->id) }}">
                     {{ $val->time_point or '' }}
                 </a>
             </span>
-            <span class="recursion-text @if($val->id == $item->id) active @endif font-sm">
+            <span class="recursion-text font-sm @if($val->id == $item->id) active @endif">
                 <a class="row-ellipsis" href="{{ url('/item/'.$val->id) }}">
                     {{ $val->title or '' }}
                 </a>

@@ -1,6 +1,7 @@
-<div class="main-side-block main-side-block-padding side-menu main-side-container pull-left padding-8px bg-white">
+<div class="box-body right-menu main-side-block main-side-block-padding side-menu main-side-container pull-left padding-8px bg-white">
 
-    <a href="javascript:void(0);" class="visible-xs visible-sm header-hide-side side-hidden" role="button"><i class="fa fa-remove"></i></a>
+
+    {{--<a href="javascript:void(0);" class="visible-xs visible-sm header-hide-side side-hidden _none" role="button"><i class="fa fa-remove"></i></a>--}}
 
     <div class="col-md-12 _none">
         <span class="recursion-icon">
@@ -20,17 +21,10 @@
         </span>
     </div>
 
-    <div class="col-md-12 main-side-menu-header" role="button">
-        <div class="col-xs-6 col-sm-6 col-md-6 fold-button fold-down">
-            <i class="fa fa-plus-square"></i> 全部展开
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 fold-button fold-up" role="button">
-            <i class="fa fa-minus-square"></i> 全部折叠
-        </div>
-    </div>
 
+    {{--封页--}}
     <div class="col-md-12 recursion-row" data-level="0">
-        <div class="recursion-menu">
+        <div class="recursion-menu @if($parent_item->id == $item->id) active @endif">
             <span class="recursion-icon">
                 <i class="fa fa-bookmark text-orange"></i>
             </span>
@@ -43,23 +37,38 @@
         </div>
     </div>
 
+
+    {{----}}
+    <div class="col-md-12 main-side-menu-header" role="button">
+        <div class="col-xs-6 col-sm-6 col-md-6 fold-button fold-down" role="button" style="text-align:left;">
+            <i class="fa fa-plus-square"></i> 全部展开
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 fold-button fold-up" role="button" style="text-align:right;">
+            <i class="fa fa-minus-square"></i> 全部折叠
+        </div>
+    </div>
+
+
+    {{----}}
     @foreach( $contents_recursion as $key => $recursion )
-        <div class="col-md-12 recursion-row" data-level="{{ $recursion->level or 0 }}" data-id="{{ $recursion->id or 0 }}"
-             style="display:@if($recursion->level != 0) none @endif">
+        <div class="col-md-12 recursion-row"
+             data-level="{{ $recursion->level or 0 }}"
+             data-id="{{ $recursion->id or 0 }}"
+             style="display:@if($recursion->level != 0) none @else block @endif">
              {{--style="">--}}
-            <div class="recursion-menu" style="margin-left:{{ $recursion->level*16 }}px">
+            <div class="recursion-menu @if($recursion->id == $item->id) active @endif" style="margin-left:{{ $recursion->level*16 }}px">
                 <span class="recursion-icon">
                     {{--@if($recursion->type == 1)--}}
                         @if($recursion->has_child == 1)
                             <i class="fa fa-plus-square recursion-fold"></i>
                         @else
-                            <i class="fa fa-file-text"></i>
+                            <small><i class="fa fa-file-text"></i></small>
                         @endif
                     {{--@else--}}
                         {{--<i class="fa fa-file-text"></i>--}}
                     {{--@endif--}}
                 </span>
-                <span class="recursion-text @if($recursion->id == $item->id) active @endif font-sm">
+                <span class="recursion-text font-sm @if($recursion->id == $item->id) active @endif">
                     <a class="row-ellipsis" href="{{ url('/item/'.$recursion->id) }}">
                         {{ $recursion->title or '' }}
                     </a>
@@ -67,5 +76,6 @@
             </div>
         </div>
     @endforeach
+
 
 </div>

@@ -93,7 +93,7 @@
                 @if($item->deleted_at == null)
 
                     {{--是否发布--}}
-                    @if($item->item_active == 0)
+                    @if($item->is_published == 0)
 
                         <a class="tool-button operate-btn edit-btn item-edit-this" role="button">
                             <i class="icon ion-edit"></i> 编辑

@@ -50,7 +50,7 @@
             {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$user])--}}
 
             @if($item->item_type == 11)
-                @include(env('TEMPLATE_COMMON_FRONT').'component.right-side.side-menu', ['data'=>$user])
+                @include(env('TEMPLATE_COMMON_FRONT').'component.right-side.side-menu_type', ['data'=>$user])
             @elseif($item->item_type == 18)
                 @include(env('TEMPLATE_COMMON_FRONT').'component.right-side.side-time_line', ['data'=>$user])
             @else
@@ -83,10 +83,12 @@
 @endsection
 
 
+
+
 @section('custom-css')
     @if($item->item_type == 18)
-        <link rel="stylesheet" type="text/css" href="{{ asset('/resource/library/jiaoben/jiaoben912/css/default.css') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('/resource/library/jiaoben/jiaoben912/css/component.css') }}" />
+        {{--<link rel="stylesheet" type="text/css" href="{{ asset('/resource/library/jiaoben/jiaoben912/css/default.css') }}" />--}}
+        {{--<link rel="stylesheet" type="text/css" href="{{ asset('/resource/library/jiaoben/jiaoben912/css/component.css') }}" />--}}
     @endif
 @endsection
 @section('style')
@@ -98,10 +100,13 @@
 </style>
 @endsection
 
-@section('js')
+
+
+
+@section('script')
 <script>
     $(function() {
-        fold();
+        fold_init();
         $(".comments-get-default").click();
     });
 </script>

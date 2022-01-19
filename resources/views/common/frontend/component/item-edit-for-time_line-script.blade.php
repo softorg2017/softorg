@@ -134,6 +134,33 @@
         });
 
 
+        // 【发布】
+        $("#content-structure-list").on('click', ".publish-this-content", function() {
+            var $that = $(this);
+            var $input_group = $(this).parents('.input-group');
+            var $id = $input_group.attr('data-id');
+            var $msg = '发布该内容？';
+            layer.msg($msg, {
+                time: 0
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    $.post(
+                        "/item/content-publish",
+                        {
+                            _token: $('meta[name="_token"]').attr('content'),
+                            id:$id
+                        },
+                        function(data){
+                            if(!data.success) layer.msg(data.msg);
+                            else location.reload();
+                        },
+                        'json'
+                    );
+                }
+            });
+        });
+
+
         // 【启用】
         $("#content-structure-list").on('click', ".enable-this-content", function() {
             var that = $(this);

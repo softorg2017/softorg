@@ -30,17 +30,35 @@
                     </span>
                     <span class="form-control multi-ellipsis-1">{{ $content->title or '' }}</span>
 
-                    @if($content->active == 0)
-                        <span class="input-group-addon btn enable-this-content" title="启用"><b>未启用</b></span>
-                    @elseif($content->active == 1)
-                        <span class="input-group-addon btn disable-this-content" title="禁用"><b class="text-green">已启用</b></span>
+                    {{--是否发布--}}
+                    @if($content->is_published == 0)
+                        <span class="input-group-addon btn publish-this-content" title="点击发布"><b>待发布</b></span>
                     @else
-                        <span class="input-group-addon btn enable-this-content" title="启用"><b class="text-red">已禁用</b></span>
+                        <span class="input-group-addon btn disabled" title="已发布"><b class="text-green">已发布</b></span>
                     @endif
+
+                    {{--是否启用--}}
+                    @if($content->item_active == 0)
+                        <span class="input-group-addon btn enable-this-content" title="点击启用"><b>未启用</b></span>
+                    @elseif($content->item_active == 1)
+                        <span class="input-group-addon btn disable-this-content" title="点击禁用"><b class="text-green">已启用</b></span>
+                    @else
+                        <span class="input-group-addon btn enable-this-content" title="点击启用"><b class="text-red">已禁用</b></span>
+                    @endif
+
+                    {{--添加新内容--}}
                     {{--@if($content->type == 1)--}}
-                    <span class="input-group-addon btn create-follow-menu" style="border-left:0;"><i class="fa fa-plus"></i></span>
+                    <span class="input-group-addon btn create-follow-menu"><i class="fa fa-plus"></i></span>
                     {{--@endif--}}
-                    <span class="input-group-addon btn edit-this-content" style="border-left:0;"><i class="fa fa-pencil"></i></span>
+
+                    {{--编辑--}}
+                    @if($content->is_published == 0)
+                        <span class="input-group-addon btn edit-this-content"><i class="fa fa-pencil"></i></span>
+                    @else
+                        <span class="input-group-addon btn disabled"><i class="fa fa-pencil"></i></span>
+                    @endif
+
+                    {{--删除--}}
                     <span class="input-group-addon btn delete-this-content"><i class="fa fa-trash"></i></span>
                 </div>
             </div>
@@ -204,17 +222,17 @@
 
                         <button type="button" class="btn radio active-none">
                             <label>
-                                <input type="radio" name="active" value="0"> 不启用
+                                <input type="radio" name="item_active" value="0"> 不启用
                             </label>
                         </button>
                         <button type="button" class="btn radio">
                             <label>
-                                <input type="radio" name="active" value="1" checked="checked"> 启用
+                                <input type="radio" name="item_active" value="1" checked="checked"> 启用
                             </label>
                         </button>
                         <button type="button" class="btn radio active-disable _none">
                             <label>
-                                <input type="radio" name="active" value="9"> 禁用
+                                <input type="radio" name="item_active" value="9"> 禁用
                             </label>
                         </button>
 
