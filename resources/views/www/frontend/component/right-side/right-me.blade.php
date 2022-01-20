@@ -52,7 +52,7 @@
                 <span>消息通知</span>
             </div>
         </a>
-        <a href="{{ url(env('DOMAIN_DOC')) }}" class="" target="_blank">
+        <a href="{{ url(env('DOMAIN_DOC')) }}" class="_none" target="_blank">
             <div class="box-body {{ $menu_active_for_my_doc or '' }}">
                 <i class="fa fa-list text-red" style="width:24px;"></i>
                 <span>登录我的轻博</span>
