@@ -87,47 +87,6 @@
             <div class="item-info-row">
 
 
-
-                @if(!empty($me) && $item->owner_id == $me->id)
-                {{--未删除--}}
-                @if($item->deleted_at == null)
-
-                    {{--是否发布--}}
-                    @if($item->is_published == 0)
-
-                        <a class="tool-button operate-btn edit-btn item-edit-this" role="button">
-                            <i class="icon ion-edit"></i> 编辑
-                        </a>
-                        <a class="tool-button operate-btn publish-btn item-publish-this" role="button">
-                            <i class="icon ion-paper-airplane"></i> 发布
-                        </a>
-                        <a class="tool-button operate-btn delete-btn item-delete-permanently-this" role="button">
-                            <i class="icon ion-trash-a"></i> 删除
-                        </a>
-
-                    @elseif($item->item_active == 1)
-                    @else
-                    @endif
-
-                    {{--是否是书目or时间线--}}
-                    @if($item->item_type == 11 || $item->item_type == 18)
-                        @if($item->item_id == 0)
-                            <a class="tool-button operate-btn" href="{{ url('/item/content-management?item-id='.$item->id) }}" role="button">
-                                <i class="icon ion-ios-paper"></i> 内容管理
-                            </a>
-                        @else
-                            <a class="tool-button operate-btn" href="{{ url('/item/content-management?item-id='.$item->item_id) }}" role="button">
-                                <i class="icon ion-ios-paper"></i> 内容管理
-                            </a>
-                        @endif
-                    @endif
-
-                @endif
-                @endif
-
-
-
-
                 {{--点赞--}}
                 <small class="tool-button operate-btn favor-btn" data-num="{{ $item->favor_num or 0 }}" role="button">
                     @if(!empty($me))
@@ -150,8 +109,9 @@
                     @endif
                 </small>
 
+
                 {{--收藏--}}
-                <small class="tool-button operate-btn collection-btn" data-num="{{ $item->favor_num or 0 }}" role="button">
+                <small class="tool-button operate-btn collection-btn" data-num="{{ $item->collection_num or 0 }}" role="button">
                     @if(!empty($me))
                         @if($item->pivot_item_relation->contains('relation_type', 21))
                             <a class="remove-this-collection">
@@ -172,6 +132,44 @@
                     @endif
                 </small>
 
+
+
+
+                {{--我的--}}
+                @if(!empty($me) && $item->owner_id == $me->id)
+                    {{--未删除--}}
+                    @if($item->deleted_at == null)
+
+                        {{--是否发布--}}
+                        @if($item->is_published == 0)
+
+                            <a class="tool-button operate-btn edit-btn item-edit-this" role="button">
+                                <i class="icon ion-edit"></i> 编辑
+                            </a>
+                            <a class="tool-button operate-btn publish-btn item-publish-this" role="button">
+                                <i class="icon ion-paper-airplane"></i> 发布
+                            </a>
+                            <a class="tool-button operate-btn delete-btn item-delete-permanently-this" role="button">
+                                <i class="icon ion-trash-a"></i> 删除
+                            </a>
+
+                        @endif
+
+                        {{--是否是书目or时间线--}}
+                        @if($item->item_type == 11 || $item->item_type == 18)
+                            @if($item->item_id == 0)
+                                <a class="tool-button operate-btn" href="{{ url('/item/content-management?item-id='.$item->id) }}" role="button">
+                                    <i class="icon ion-ios-paper"></i> 内容管理
+                                </a>
+                            @else
+                                <a class="tool-button operate-btn" href="{{ url('/item/content-management?item-id='.$item->item_id) }}" role="button">
+                                    <i class="icon ion-ios-paper"></i> 内容管理
+                                </a>
+                            @endif
+                        @endif
+
+                    @endif
+                @endif
 
 
             </div>

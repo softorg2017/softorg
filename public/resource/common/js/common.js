@@ -109,30 +109,24 @@ $(function() {
     });
     // 收起
     $(".main-body").off("click", ".recursion-row .fa-minus-square").on('click', '.recursion-row .fa-minus-square', function () {
-        layer.msg('-');
-        console.log('- start');
-        var $this_row = $(this).parents('.recursion-row');
-        var $this_level = $this_row.attr('data-level');
-        $this_row.nextUntil('.recursion-row[data-level='+$this_level+']').each( function () {
+        var $$this_row = $(this).parents('.recursion-row');
+        var $this_level = $$this_row.attr('data-level');
+        $$this_row.nextUntil('.recursion-row[data-level='+$this_level+']').each( function () {
             if($(this).attr('data-level') <= $this_level ) return false;
             $(this).hide();
         });
         $(this).removeClass('fa-minus-square').addClass('fa-plus-square');
-        console.log('- ended');
     });
     // 展开
     $(".main-body").off("click", ".recursion-row .fa-plus-square").on('click', '.recursion-row .fa-plus-square', function () {
-        layer.msg('+');
-        console.log('+ start');
-        var $this_row = $(this).parents('.recursion-row');
-        var $this_level = $this_row.attr('data-level');
-        $this_row.nextUntil('.recursion-row[data-level='+$this_level+']').each( function () {
+        var $$this_row = $(this).parents('.recursion-row');
+        var $this_level = $$this_row.attr('data-level');
+        $$this_row.nextUntil('.recursion-row[data-level='+$this_level+']').each( function () {
             if($(this).attr('data-level') <= $this_level ) return false;
             $(this).find('.recursion-fold').removeClass('fa-plus-square').addClass('fa-minus-square');
             $(this).show();
         });
         $(this).removeClass('fa-plus-square').addClass('fa-minus-square');
-        console.log('+ ended');
     });
 
 });
@@ -142,11 +136,11 @@ $(function() {
 function fold_init()
 {
 
-    var item_active = $('.side-menu .recursion-item.active');
-    if(item_active.length > 0)
+    var $item_active = $('.side-menu .recursion-item.active');
+    if($item_active.length > 0)
     {
         console.log(1);
-        var item_a = item_active.find('a').clone();
+        var item_a = $item_active.find('a').clone();
         $('.prev-content').find('.a-box').html('已经是封页了');
 
         var content_first = $('.side-menu .recursion-row').first();
@@ -156,17 +150,18 @@ function fold_init()
     $(".recursion-row .active").each(function() {
 
         console.log(2);
-        var this_row = $(this).parents('.recursion-row');
-        var this_level = this_row.attr('data-level');
-        this_row.find('.recursion-fold').removeClass('fa-plus-square').addClass('fa-minus-square');
+        var $this_row = $(this).parents('.recursion-row');
+        var this_level = $this_row.attr('data-level');
+        $this_row.find('.recursion-fold').removeClass('fa-plus-square').addClass('fa-minus-square');
 
-        var prev_row = this_row.prev(".recursion-row");
-        var next_row = this_row.next(".recursion-row");
+        var prev_row = $this_row.prev(".recursion-row");
+        var next_row = $this_row.next(".recursion-row");
 
         if(prev_row.length == 0)
         {
             var item_a = $('.side-menu .recursion-item').find('a').clone();
             $('.prev-content').find('.a-box').html(item_a);
+            $('.prev-content').find('.a-box').html('已经是封页了');
         }
         else
         {
@@ -187,7 +182,7 @@ function fold_init()
 
         if(this_level == 0)
         {
-            this_row.nextUntil('.recursion-row[data-level='+this_level+']').each( function () {
+            $this_row.nextUntil('.recursion-row[data-level='+this_level+']').each( function () {
                 if($(this).attr('data-level') <= this_level ) return false;
                 $(this).show();
                 $(this).find('.recursion-fold').removeClass('fa-plus-square').addClass('fa-minus-square');
@@ -195,7 +190,7 @@ function fold_init()
         }
         else if(this_level > 0)
         {
-            this_row.prevUntil().each( function ()
+            $this_row.prevUntil().each( function ()
             {
                 if( $(this).attr('data-level') == 0 )
                 {

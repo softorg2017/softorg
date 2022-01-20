@@ -36,7 +36,7 @@
         <div class="main-body-left-container bg-white">
 
 
-            @include(env('TEMPLATE_DOC_FRONT').'component.item', ['data'=>$user])
+            @include(env('TEMPLATE_COMMON_FRONT').'component.item', ['data'=>$item])
 
         </div>
     </div>

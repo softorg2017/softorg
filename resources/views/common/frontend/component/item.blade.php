@@ -106,10 +106,10 @@
         <div class="item-row item-tools-row margin-top-8px margin-bottom-8px">
             <div class="text-tool-row">
 
-                {{--点赞&$收藏--}}
+                {{--点赞--}}
                 <span class="tool-button operate-btn favor-btn" data-num="{{ $item->favor_num or 0 }}" role="button">
-                    @if(Auth::check())
-                        @if($item->pivot_item_relation->contains('relation_type', 1))
+                    @if($auth_check)
+                        @if($item->pivot_item_relation->contains('relation_type', 11))
                             <a class="remove-this-favor">
                                 <i class="fa fa-heart text-red"></i>
                                 <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
@@ -124,6 +124,28 @@
                         <a class="add-this-favor">
                             <i class="fa fa-heart-o"></i>
                             <span class="num">@if($item->favor_num){{ $item->favor_num }}@endif</span>
+                        </a>
+                    @endif
+                </span>
+
+                {{--收藏--}}
+                <span class="tool-button operate-btn collection-btn" data-num="{{ $item->collection_num or 0 }}" role="button">
+                    @if($auth_check)
+                        @if($item->pivot_item_relation->contains('relation_type', 21))
+                            <a class="remove-this-collection">
+                                <i class="fa fa-star text-red"></i>
+                                <span class="num">@if($item->collection_num){{ $item->collection_num }}@endif</span>
+                            </a>
+                        @else
+                            <a class="add-this-collection">
+                                <i class="fa fa-star-o"></i>
+                                <span class="num">@if($item->collection_num){{ $item->collection_num }}@endif</span>
+                            </a>
+                        @endif
+                    @else
+                        <a class="add-this-collection">
+                            <i class="fa fa-star-o"></i>
+                            <span class="num">@if($item->collection_num){{ $item->collection_num }}@endif</span>
                         </a>
                     @endif
                 </span>
@@ -150,7 +172,7 @@
 
 
     {{--评论部分--}}
-    <div class="item-comment-section">
+    <div class="item-comment-section _none">
 
 
         {{--添加评论--}}
@@ -257,7 +279,7 @@
 
 
         {{--评论列表--}}
-        <div class="item-comment-block item-comment-list-section comment-entity-container">
+        <div class="item-comment-block item-comment-list-section comment-entity-container _none">
 
             {{--@include('frontend.component.commentEntity.item')--}}
             <div class="comment-list-container">

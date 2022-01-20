@@ -22,22 +22,6 @@
     </div>
 
 
-    {{--封页--}}
-    <div class="col-md-12 recursion-row" data-level="0">
-        <div class="recursion-menu @if($parent_item->id == $item->id) active @endif">
-            <span class="recursion-icon">
-                <i class="fa fa-bookmark text-orange"></i>
-            </span>
-
-            <span class="recursion-text @if($parent_item->id == $item->id) active @endif">
-                <a class="row-ellipsis" href="{{ url('/item/'.$parent_item->id) }}">
-                    <b>{{ $parent_item->title or '' }}</b>
-                </a>
-            </span>
-        </div>
-    </div>
-
-
     {{----}}
     <div class="col-md-12 main-side-menu-header" role="button">
         <div class="col-xs-6 col-sm-6 col-md-6 fold-button fold-down" role="button" style="text-align:left;">
@@ -45,6 +29,22 @@
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 fold-button fold-up" role="button" style="text-align:right;">
             <i class="fa fa-minus-square"></i> 全部折叠
+        </div>
+    </div>
+
+
+    {{--封页--}}
+    <div class="col-md-12 recursion-row" data-level="0">
+        <div class="recursion-menu recursion-item @if($parent_item->id == $item->id) active @endif">
+            <span class="recursion-icon">
+                <i class="fa fa-bookmark text-orange"></i>
+            </span>
+
+            <span class="recursion-text">
+                <a class="row-ellipsis" href="{{ url('/item/'.$parent_item->id) }}">
+                    <b>{{ $parent_item->title or '' }}</b>
+                </a>
+            </span>
         </div>
     </div>
 
@@ -68,7 +68,7 @@
                         {{--<i class="fa fa-file-text"></i>--}}
                     {{--@endif--}}
                 </span>
-                <span class="recursion-text font-sm @if($recursion->id == $item->id) active @endif">
+                <span class="recursion-text font-sm">
                     <a class="row-ellipsis" href="{{ url('/item/'.$recursion->id) }}">
                         {{ $recursion->title or '' }}
                     </a>

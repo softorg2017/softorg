@@ -80,11 +80,11 @@
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                @if(Auth::check())
+                                @if($auth_check)
                                     <li>
                                         <a href="{{ url('/home') }}">
                                             <i class="fa fa-home text-default" style="width:16px;"></i>
-                                            <span>{{ Auth::user()->username }}</span>
+                                            <span>{{ $me->username }}</span>
                                         </a>
                                     </li>
                                     <li>

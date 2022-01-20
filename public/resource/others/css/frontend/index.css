@@ -57,7 +57,7 @@
 .item-content-row p {margin:0;}
 .item-tools-row {margin-top:4px;}
 .item-tools-row a {color:#888}
-.tool-button {margin-right:12px;}
+.tool-button {margin-right:8px;}
 
 .item-plural .media .media-left {display:block;}
 .item-plural article {max-height:66px;line-height:22px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient: vertical;overflow: hidden;}

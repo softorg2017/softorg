@@ -175,10 +175,12 @@ class DocIndexRepository {
     // 【内容详情】
     public function view_item($post_data,$id=0)
     {
+        $this->get_me();
+
         $user = [];
-        if(Auth::guard('doc')->check())
+        if($this->auth_check)
         {
-            $user = Auth::guard("doc")->user();
+            $user = $this->me;
             $user_id = $user->id;
         }
         else $user_id = 0;
