@@ -66,8 +66,17 @@ class DocIndexRepository {
     public function view_root($post_data)
     {
         $this->get_me();
-        $me = $this->me;
-        $me_id = $me->id;
+
+        if($this->auth_check)
+        {
+            $me = $this->me;
+            $me_id = $me->id;
+        }
+        else
+        {
+            $me = [];
+            $me_id = 0;
+        }
 
         $item_query = $this->modelItem->select('*')->withTrashed()
             ->with([
