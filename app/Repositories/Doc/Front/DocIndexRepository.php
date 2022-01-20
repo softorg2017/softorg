@@ -57,7 +57,7 @@ class DocIndexRepository {
             }
         }
         else $this->auth_check = 0;
-//        dd($this->me_admin->toArray());
+
         view()->share('auth_check',$this->auth_check);
     }
 
@@ -67,8 +67,7 @@ class DocIndexRepository {
     {
         $this->get_me();
 
-//        $me = Auth::guard("doc")->user();
-        $me = Auth::guard("doc")->user();
+        $me = $this->me;
         $me_id = $me->id;
         $item_query = $this->modelItem->select('*')->withTrashed()
             ->with([
@@ -157,8 +156,8 @@ class DocIndexRepository {
         }
 
         $return['condition'] = $condition;
-        $head_title_prefix = '【轻博】';
         $head_title_prefix = '';
+        $head_title_prefix = '【轻博】';
         $head_title_postfix = ' - 如未轻博';
         $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
         $return[$sidebar_active] = 'active';
@@ -177,13 +176,16 @@ class DocIndexRepository {
     {
         $this->get_me();
 
-        $user = [];
         if($this->auth_check)
         {
-            $user = $this->me;
-            $user_id = $user->id;
+            $me = $this->me;
+            $me_id = $me->id;
         }
-        else $user_id = 0;
+        else
+        {
+            $me = [];
+            $me_id = 0;
+        }
 
         $id = request('id',0);
         if(intval($id) !== 0 && !$id) view($this->view_blade_404);
@@ -191,7 +193,7 @@ class DocIndexRepository {
 
         $item = $this->modelItem->with([
             'user',
-            'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
+            'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
         ])->find($id);
         if($item)
         {
@@ -276,8 +278,10 @@ class DocIndexRepository {
         $head_title_postfix = ' - 如未轻博';
         $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
         $return['item'] = $item;
-        $return['user'] = $user;
-        return view('doc.frontend.entrance.item.item')->with($return);
+        $return['user'] = $me;
+
+        $view_blade = env('TEMPLATE_DOC_FRONT').'entrance.item.item';
+        return view($view_blade)->with($return);
     }
 
 
@@ -1715,9 +1719,11 @@ class DocIndexRepository {
     // 【我的原创】
     public function view_item_list_for_my_original($post_data)
     {
-        if(Auth::guard('doc')->check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $me = Auth::guard("doc")->user();
+            $me = $this->me;
             $me_id = $me->id;
 
             $items = $this->modelItem->select("*")->with([
@@ -1742,9 +1748,11 @@ class DocIndexRepository {
     // 【待办事】
     public function view_item_list_for_my_todo_list($post_data)
     {
-        if(Auth::guard('doc')->check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::guard("doc")->user();
+            $user = $this->me;
             $user_id = $user->id;
 
             // Method 1
@@ -1777,9 +1785,11 @@ class DocIndexRepository {
     // 【日程】
     public function view_item_list_for_my_schedule($post_data)
     {
-        if(Auth::guard('doc')->check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::guard("doc")->user();
+            $user = $this->me;
             $user_id = $user->id;
 
             // Method 1
@@ -1809,19 +1819,21 @@ class DocIndexRepository {
     // 【点赞】
     public function view_item_list_for_my_favor($post_data)
     {
-        if(Auth::guard('doc')->check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::guard('doc')->user();
-            $user_id = $user->id;
+            $me = $this->me;
+            $me_id = $me->id;
 
             // Method 1
             $query = User::with([
-                'pivot_item'=>function($query) use($user_id) { $query->with([
+                'pivot_item'=>function($query) use($me_id) { $query->with([
                     'user',
                     'forward_item'=>function($query) { $query->with('user'); },
-                    'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
+                    'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
                 ])->wherePivot('relation_type',11)->orderby('pivot_user_item.id','desc'); }
-            ])->find($user_id);
+            ])->find($me_id);
             $item_list = $query->pivot_item;
         }
         else $item_list = [];
@@ -1851,18 +1863,20 @@ class DocIndexRepository {
     // 【收藏】
     public function view_item_list_for_my_collection($post_data)
     {
-        if(Auth::guard('doc')->check())
+        $this->get_me();
+
+        if($this->auth_check)
         {
-            $user = Auth::guard('doc')->user();
-            $user_id = $user->id;
+            $me = $this->me;
+            $me_id = $me->id;
 
             // Method 1
             $query = User::with([
-                'pivot_item'=>function($query) use($user_id) { $query->with([
+                'pivot_item'=>function($query) use($me_id) { $query->with([
                     'user',
-                    'pivot_item_relation'=>function($query) use($user_id) { $query->where('user_id',$user_id); }
+                    'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
                 ])->wherePivot('relation_type',21)->orderby('pivot_user_item.id','desc'); }
-            ])->find($user_id);
+            ])->find($me_id);
             $item_list = $query->pivot_item;
         }
         else $item_list = [];
@@ -1893,9 +1907,9 @@ class DocIndexRepository {
     // 【发现】
     public function view_item_list_for_my_discovery($post_data)
     {
-        if(Auth::guard('doc')->check())
+        if($this->auth_check)
         {
-            $user = Auth::guard("doc")->user();
+            $user = $this->me;
             $user_id = $user->id;
         }
         else $user_id = 0;
@@ -1918,9 +1932,9 @@ class DocIndexRepository {
     // 【关注】
     public function view_item_list_for_my_follow($post_data)
     {
-        if(Auth::guard('doc')->check())
+        if($this->auth_check)
         {
-            $user = Auth::guard("doc")->user();
+            $user = $this->me;
             $user_id = $user->id;
         }
         else $user_id = 0;
@@ -1954,9 +1968,9 @@ class DocIndexRepository {
     // 【好友圈】
     public function view_item_list_for_my_circle($post_data)
     {
-        if(Auth::guard('doc')->check())
+        if($this->auth_check)
         {
-            $user = Auth::guard("doc")->user();
+            $user = $this->me;
             $user_id = $user->id;
         }
         else $user_id = 0;
@@ -1994,7 +2008,7 @@ class DocIndexRepository {
     // 【ITEM】【添加】【点赞 | 收藏 | +待办事 | +日程】
     public function operate_item_add_this($post_data,$type=0)
     {
-        if(Auth::guard('doc')->check())
+        if($this->auth_check)
         {
             $messages = [
                 'type.required' => '参数type有误！',
@@ -2014,7 +2028,7 @@ class DocIndexRepository {
             $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::guard("doc")->user();
+                $me = $this->me;
                 $pivot = Def_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->first();
                 if(!$pivot)
                 {
@@ -2122,7 +2136,7 @@ class DocIndexRepository {
     // 【ITEM】【移除】【点赞 | 收藏 | +待办事 | +日程】
     public function operate_item_remove_this($post_data,$type=0)
     {
-        if(Auth::guard('doc')->check())
+        if($this->auth_check)
         {
             $messages = [
                 'type.required' => '参数有误',
@@ -2142,7 +2156,7 @@ class DocIndexRepository {
             $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::guard("doc")->user();
+                $me = $this->me;
                 $pivots = Def_Pivot_User_Item::where(['type'=>1,'relation_type'=>$type,'user_id'=>$me->id,'item_id'=>$item_id])->get();
                 if(count($pivots) > 0)
                 {
@@ -2227,7 +2241,7 @@ class DocIndexRepository {
     // 【ITEM】【转发】
     public function operate_item_forward($post_data)
     {
-        if(Auth::guard('doc')->check())
+        if($this->auth_check)
         {
             $messages = [
                 'type.required' => '参数有误',
@@ -2247,7 +2261,7 @@ class DocIndexRepository {
             $item = $this->modelItem->find($item_id);
             if($item)
             {
-                $me = Auth::guard("doc")->user();
+                $me = $this->me;
                 $me_id = $me->id;
 
                 DB::beginTransaction();
