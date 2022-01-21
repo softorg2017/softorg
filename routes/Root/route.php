@@ -9,6 +9,8 @@ Route::group(['namespace' => 'Front'], function () {
 
     $controller = "IndexController";
 
+    Route::get('/logout', $controller."@logout");
+
     Route::get('/root', $controller."@index");
 
     Route::get('/website/templates', $controller."@view_website_templates");
@@ -23,7 +25,6 @@ Route::group(['namespace' => 'Front'], function () {
         $controller = "RootIndexController";
 
         Route::match(['get', 'post'],'login-link', $controller."@login_link");
-        Route::get('/logout', $controller."@logout");
 
         Route::match(['get', 'post'],'record/share', $controller."@record_share");
 

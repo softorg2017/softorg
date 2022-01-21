@@ -242,6 +242,8 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
 
     $controller = "DocIndexController";
 
+    Route::get('/logout', $controller."@logout");
+
     Route::get('/', $controller.'@view_root');
 
 //    Route::get('/item', $controller.'@view_item');

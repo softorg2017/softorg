@@ -78,8 +78,9 @@ class DocIndexController extends Controller
     // 退出
     public function logout()
     {
-        Auth::guard('staff')->logout();
-        return redirect('/login');
+        Auth::guard('doc')->logout();
+        Auth::guard('doc_admin')->logout();
+        return redirect('/');
     }
 
 
