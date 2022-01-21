@@ -48,7 +48,7 @@
             <ul class="nav navbar-nav hidden-xs- hidden-sm-">
 
 
-                @if(Auth::check())
+                @if($auth_check)
                     <li class="">
                         <a  href="{{ url('/item/item-create') }}" data-type="notification">
                             <i class="fa fa-plus"></i>
@@ -298,7 +298,7 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
 
-            @if(!Auth::check())
+            @if(!$auth_check)
             <div class="navbar-custom-menu" style="height:50px;line-height:50px;padding:0 8px;float:left;">
                 <a href="{{ url('/login-link') }}">
                     <i class="fa fa-sign-in"></i>
@@ -310,7 +310,7 @@
             <ul class="nav navbar-nav hidden-xs- hidden-sm-">
 
 
-                @if(Auth::check())
+                @if($auth_check)
                 <li class="">
                     <a  href="{{ url('/my-notification') }}" data-type="notification">
                         <i class="fa fa-envelope-o"></i>
@@ -378,7 +378,7 @@
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                @if(Auth::check())
+                                @if($auth_check)
                                     <li>
                                         <a href="{{ url('/home') }}">
                                             <i class="fa fa-home text-default" style="width:16px;"></i>
@@ -406,7 +406,7 @@
                 </li>
 
                 {{--<!-- User Account Menu -->--}}
-                @if(Auth::check())
+                @if($auth_check)
                 <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
