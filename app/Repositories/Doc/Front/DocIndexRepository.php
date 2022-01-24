@@ -1041,6 +1041,8 @@ class DocIndexRepository {
      */
     public function view_item_content_management($post_data)
     {
+        $this->get_me();
+
         $item_id = $post_data['item-id'];
         if(!$item_id) return view($this->view_blade_404)->with(['error'=>'参数有误']);
 
