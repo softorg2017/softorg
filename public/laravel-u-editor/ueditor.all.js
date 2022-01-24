@@ -17497,7 +17497,7 @@ UE.plugins['autofloat'] = function() {
     var me = this,
         lang = me.getLang();
     me.setOpt({
-        topOffset:0
+        topOffset:50
     });
     var optsAutoFloatEnabled = me.options.autoFloatEnabled !== false,
         topOffset = me.options.topOffset;
