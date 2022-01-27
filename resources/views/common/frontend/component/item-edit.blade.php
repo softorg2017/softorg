@@ -178,9 +178,55 @@
             {{--</div>--}}
             {{--@endif--}}
 
+            {{--是否发布--}}
+            <div class="form-group form-active" id="form-publish-option">
+                <label class="control-label- col-md-2">是否发布</label>
+                <div class="col-md-12 ">
+                    <div class="btn-group">
+
+                        <button type="button" class="btn radio">
+                            <label>
+                                <input type="radio" name="is_published" value="0" checked="checked"> 暂不发布
+                            </label>
+                        </button>
+                        <button type="button" class="btn radio">
+                            <label>
+                                <input type="radio" name="is_published" value="1"> 发布
+                            </label>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            {{--是否启用--}}
+            <div class="form-group form-active _none" id="form-active-option">
+                <label class="control-label- col-md-2">是否启用</label>
+                <div class="col-md-12 ">
+                    <div class="btn-group">
+
+                        <button type="button" class="btn radio active-none">
+                            <label>
+                                <input type="radio" name="item_active" value="0" checked="checked"> 不启用
+                            </label>
+                        </button>
+                        <button type="button" class="btn radio">
+                            <label>
+                                <input type="radio" name="item_active" value="1"> 启用
+                            </label>
+                        </button>
+                        <button type="button" class="btn radio active-disable _none">
+                            <label>
+                                <input type="radio" name="item_active" value="9"> 禁用
+                            </label>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
             {{--分享--}}
             @if($operate == 'create')
-                <div class="form-group form-typ ">
+                <div class="form-group form-type _none">
                     <label class="control-label- col-md-2">分享</label>
                     <div class="col-md-12">
                         <div class="btn-group">

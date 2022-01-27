@@ -1713,6 +1713,7 @@ class RootIndexRepository {
     /*
      *
      */
+    // 【ITEM-Content】
     public function view_item_content_management($post_data)
     {
         $this->get_me();
@@ -1747,7 +1748,7 @@ class RootIndexRepository {
         else return view(env('TEMPLATE_ROOT_FRONT').'errors.404');
     }
 
-    // 【目录类型】返回列表数据
+    // 【ITEM-Content】【目录类型】返回列表数据
     public function view_item_content_menu_type($post_data)
     {
         $this->get_me();
@@ -1778,7 +1779,7 @@ class RootIndexRepository {
         else return view('home.404')->with(['error'=>'该内容不存在']);
 
     }
-    // 【时间线】返回列表数据
+    // 【ITEM-Content】【时间线】返回列表数据
     public function view_item_content_time_line($post_data)
     {
         $this->get_me();
@@ -1804,7 +1805,7 @@ class RootIndexRepository {
     }
 
 
-    // 保存【目录类型】
+    // 【ITEM-Content】保存【目录类型】
     public function operate_item_content_save_for_menu_type($post_data)
     {
         $messages = [
@@ -1851,6 +1852,9 @@ class RootIndexRepository {
                         $post_data["item_type"] = 11;
                         $post_data["owner_id"] = $me->id;
                         $post_data["creator_id"] = $me->id;
+
+                        $content_brother = $this->modelItem->where(['item_id'=>$post_data["item_id"],'p_id'=>$post_data["p_id"]])->orderBy('rank','desc')->first();
+                        if($content_brother) $post_data["rank"] = $content_brother->rank + 1;
                     }
                     else if('edit') // 编辑
                     {
@@ -1965,7 +1969,7 @@ class RootIndexRepository {
         }
         else return response_error([],"该内容不存在");
     }
-    // 保存【时间点】
+    // 【ITEM-Content】保存【时间点】
     public function operate_item_content_save_for_time_line($post_data)
     {
         $messages = [
@@ -2095,7 +2099,220 @@ class RootIndexRepository {
     }
 
 
-    // 内容获取
+    // 【ITEM-Content】保存【目录类型】移动
+    public function operate_item_content_move($post_data)
+    {
+        $messages = [
+            'content_id.required' => 'content_id.required.',
+            'menu_id.required' => 'menu_id.required.',
+            'position_id.required' => 'position_id.required.',
+//            'position_direction.required' => 'position_direction.required.',
+        ];
+        $v = Validator::make($post_data, [
+            'content_id' => 'required',
+            'menu_id' => 'required',
+            'position_id' => 'required',
+//            'position_direction' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $this->get_me();
+        $me = $this->me;
+
+//        $post_data["category"] = 11;
+        $menu_id = $post_data["menu_id"];
+        $position_id = $post_data["position_id"];
+
+
+        $content_id = $post_data["content_id"];
+        if(!$content_id) return response_error();
+        $content = $this->modelItem->find($content_id);
+        if($content)
+        {
+            if($content->owner_id == $me->id)
+            {
+                DB::beginTransaction();
+                try
+                {
+                    $is_my_child = 0;
+                    $last_brother_rank = 0;
+
+                    if($position_id == 0)
+                    {
+                        $position_recursion_id = $menu_id;
+
+                        while($position_recursion_id > 0)
+                        {
+                            $position_recursion_content = $this->modelItem->find($position_recursion_id);
+                            if($position_recursion_content->id == $content_id)
+                            {
+                                $is_my_child = 1;
+                                break;
+                            }
+                            else
+                            {
+                                $position_recursion_id = $position_recursion_content->p_id;
+                            }
+
+                        }
+                    }
+                    elseif($position_id != 0)
+                    {
+                        $position_recursion_id = $position_id;
+
+                        while($position_recursion_id > 0)
+                        {
+                            $position_recursion_content = $this->modelItem->find($position_recursion_id);
+                            if($position_recursion_content->id == $content_id)
+                            {
+                                $is_my_child = 1;
+                                break;
+                            }
+                            else
+                            {
+                                $position_recursion_id = $position_recursion_content->p_id;
+                            }
+
+                        }
+                    }
+
+
+                    if($is_my_child || $content_id == $menu_id)
+                    {
+                        // 查找最后一个节点
+                        $last_brother = $this->modelItem
+                            ->where('item_id',$content->item_id)
+                            ->where('p_id',$content->p_id)
+                            ->orderBy('rank','desc')->first();
+                        $last_brother_rank = $last_brother->rank;
+                        $last_brother_rank_plus = $last_brother_rank + 2;
+
+                        $content_children = $this->modelItem->where('item_id',$content->item_id)->where('p_id',$content_id)->get();
+                        $children_count = count($content_children);
+                        if($children_count)
+                        {
+                            $this->modelItem->timestamps;
+                            $this->modelItem->where('p_id',$content_id)->increment('rank',$last_brother_rank_plus);
+                            $num = $this->modelItem->where('p_id',$content_id)->update(['p_id'=>$content->p_id]);
+//                            $content_children->increament('rank',$last_brother_rank_plus);
+//                            $content_children->update(['p_id'=>$item->p_id]);
+//                            if($num != $children_count)  throw new Exception("update--children--fail");
+                        }
+                    }
+
+                    if($content_id != $menu_id)
+                    {
+                        $content->p_id = $menu_id;
+                        $content->timestamps = false;
+                        $content->save();
+                    }
+
+                    if($position_id != 0)
+                    {
+                        $position_content = $this->modelItem->find($position_id);
+                        $position_content_rank = $position_content->rank;
+                        $position_direction = $post_data["position_direction"];
+                        if($position_direction == "before")
+                        {
+
+                            if($content_id == $menu_id)
+                            {
+                                $content->rank = $last_brother_rank + 1;
+                            }
+                            else
+                            {
+                                $position_content_brother = $this->modelItem
+                                    ->where('p_id',$position_content->p_id)
+                                    ->where('id','!=',$content_id)
+                                    ->get();
+                                $brother_count = count($position_content_brother);
+                                if($brother_count)
+                                {
+                                    $this->modelItem->timestamps;
+                                    $num = $this->modelItem
+                                        ->where('p_id',$position_content->p_id)
+                                        ->where('id','!=',$content_id)
+                                        ->increment('rank');
+//                                if($num != $brother_count)  throw new Exception("update--brother--fail");
+                                }
+
+                                $content->rank = 0;
+                            }
+//                            dd($content->rank);
+                            $content->timestamps = false;
+                            $content->save();
+                        }
+                        else if($position_direction == "after")
+                        {
+
+                            $position_content_brother = $this->modelItem
+                                ->where('p_id',$position_content->p_id)
+//                                ->where('rank','>=',$position_content->rank)
+//                                ->where('id','>=',$position_content->id)
+                                ->where(function ($query) use($position_content) {
+                                    $query->where('rank','>',$position_content->rank)->orWhere(function($query2) use($position_content) {
+                                        $query2->where('rank','=',$position_content->rank)->where('id','>',$position_content->id);
+                                    });
+                                })
+                                ->where('id','!=',$position_id)
+                                ->where('id','!=',$content_id)
+                                ->get();
+                            $brother_count = count($position_content_brother);
+                            if($brother_count)
+                            {
+                                $this->modelItem->timestamps;
+                                $num = $this->modelItem
+                                    ->where('p_id',$position_content->p_id)
+                                    ->where(function ($query) use($position_content) {
+                                        $query->where('rank','>',$position_content->rank)->orWhere(function($query2) use($position_content) {
+                                            $query2->where('rank','=',$position_content->rank)->where('id','>',$position_content->id);
+                                        });
+                                    })
+                                    ->where('id','!=',$position_id)
+                                    ->where('id','!=',$content_id)
+                                    ->increment('rank');
+//                            if($num != $brother_count)  throw new Exception("update--brother--fail");
+                            }
+
+                            $content->rank = $position_content_rank + 1;
+                            $content->timestamps = false;
+                            $content->save();
+//                        dd($item->toArray());
+
+                        }
+                    }
+                    else
+                    {
+                        $content->rank = 0;
+                        $content->timestamps = false;
+                        $content->save();
+                    }
+
+                    DB::commit();
+                    return response_success(['id'=>$content_id]);
+                }
+                catch (Exception $e)
+                {
+                    DB::rollback();
+                    $msg = '操作失败，请重试！';
+                    $msg = $e->getMessage();
+//                    exit($e->getMessage());
+                    return response_fail([], $msg);
+                }
+
+            }
+            else response_error([],"该内容不是你的，你不能操作！");
+
+        }
+        else return response_error([],"该内容不存在！");
+    }
+
+
+    // 【ITEM-Content】内容获取
     public function operate_item_content_get($post_data)
     {
         $this->get_me();
@@ -2119,7 +2336,7 @@ class RootIndexRepository {
             return response_success($content);
         }
     }
-    // 删除
+    // 【ITEM-Content】删除
     public function operate_item_content_delete($post_data)
     {
         $this->get_me();
@@ -2196,7 +2413,7 @@ class RootIndexRepository {
         }
 
     }
-    // 启用
+    // 【ITEM-Content】启用
     public function operate_item_content_publish($post_data)
     {
         $this->get_me();
@@ -2229,7 +2446,7 @@ class RootIndexRepository {
             return response_fail([],'启用失败，请重试');
         }
     }
-    // 启用
+    // 【ITEM-Content】启用
     public function operate_item_content_enable($post_data)
     {
         $this->get_me();
@@ -2261,7 +2478,7 @@ class RootIndexRepository {
             return response_fail([],'启用失败，请重试');
         }
     }
-    // 禁用
+    // 【ITEM-Content】禁用
     public function operate_item_content_disable($post_data)
     {
         $this->get_me();
@@ -2293,6 +2510,10 @@ class RootIndexRepository {
             return response_fail([],'禁用失败，请重试');
         }
     }
+
+
+
+
 
 
 

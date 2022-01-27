@@ -19,8 +19,8 @@
         </div>
         @foreach( $data->contents_recursion as $key => $content )
             <div class="col-md-12 col-md-offset-2-">
-                <div class="input-group" data-id='{{ $content->id }}' style="margin-top:4px; margin-left:{{ $content->level*34 }}px">
-                    <span class="input-group-addon">
+                <div class="input-group this-content" data-id='{{ $content->id }}' style="margin-top:4px; margin-left:{{ $content->level*34 }}px">
+                    <span class="input-group-addon" title="">
                         {{--@if($content->type == 1)--}}
                             {{--<i class="fa fa-list-ul"></i>--}}
                         {{--@else--}}
@@ -28,7 +28,7 @@
                         {{--@endif--}}
                         <b>{{ $content->rank or '0' }}</b>
                     </span>
-                    <span class="form-control multi-ellipsis-1">{{ $content->title or '' }}</span>
+                    <span class="form-control multi-ellipsis-1 this-content-title">{{ $content->title or '' }}</span>
 
                     {{--是否发布--}}
                     @if($content->is_published == 0)
@@ -53,10 +53,13 @@
 
                     {{--编辑--}}
                     @if($content->is_published == 0)
-                        <span class="input-group-addon btn edit-this-content"><i class="fa fa-pencil"></i></span>
+                        <span class="input-group-addon btn edit-this-content" title="编辑"><i class="fa fa-pencil"></i></span>
                     @else
-                        <span class="input-group-addon btn disabled"><i class="fa fa-pencil"></i></span>
+                        <span class="input-group-addon btn disabled" title="不可编辑"><i class="fa fa-pencil"></i></span>
                     @endif
+
+                    {{--移动--}}
+                    <span class="input-group-addon btn this-content-move-show" title="移动位置"><i class="icon ion-arrow-move"></i></span>
 
                     {{--删除--}}
                     <span class="input-group-addon btn delete-this-content"><i class="fa fa-trash"></i></span>
@@ -129,7 +132,7 @@
             <div class="form-group" id="form-menu-option">
                 <label class="control-label- col-md-2">所属目录</label>
                 <div class="col-md-12 ">
-                    <select name="p_id" id="menu" style="width:100%;">
+                    <select name="p_id" id="menu" class="form-control form-filter" style="width:100%;">
 
                         <option value="0">顶级目录</option>
 
@@ -138,7 +141,7 @@
 
                             <option value="{{ $content->id or '' }}">
                                 @for ($i = 0; $i < $content->level; $i++)
-                                    —>
+                                    ·· &nbsp;
                                 @endfor
                                 {{ $content->title or '' }}
                             </option>
@@ -150,12 +153,12 @@
                 </div>
             </div>
             {{--排序--}}
-            <div class="form-group" id="form-rank-option">
-                <label class="control-label- col-md-2">排序</label>
-                <div class="col-md-12 ">
-                    <input type="text" class="form-control" name="rank" placeholder="默认排序" value="1">
-                </div>
-            </div>
+            {{--<div class="form-group" id="form-rank-option">--}}
+                {{--<label class="control-label- col-md-2">排序</label>--}}
+                {{--<div class="col-md-12 ">--}}
+                    {{--<input type="text" class="form-control" name="rank" placeholder="默认排序" value="0">--}}
+                {{--</div>--}}
+            {{--</div>--}}
             {{--标题--}}
             <div class="form-group">
                 <label class="control-label- col-md-2"><sup class="text-red">*</sup> 标题</label>
@@ -214,20 +217,40 @@
 
                 </div>
             </div>
+            {{--是否发布--}}
+            <div class="form-group form-active" id="form-publish-option">
+                <label class="control-label- col-md-2">是否发布</label>
+                <div class="col-md-12 ">
+                    <div class="btn-group">
+
+                        <button type="button" class="btn radio active-none">
+                            <label>
+                                <input type="radio" name="is_published" value="0" checked="checked"> 暂不发布
+                            </label>
+                        </button>
+                        <button type="button" class="btn radio">
+                            <label>
+                                <input type="radio" name="is_published" value="1"> 发布
+                            </label>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
             {{--是否启用--}}
-            <div class="form-group form-active" id="form-active-option">
+            <div class="form-group form-active _none-" id="form-active-option">
                 <label class="control-label- col-md-2">是否启用</label>
                 <div class="col-md-12 ">
                     <div class="btn-group">
 
                         <button type="button" class="btn radio active-none">
                             <label>
-                                <input type="radio" name="item_active" value="0"> 不启用
+                                <input type="radio" name="item_active" value="0" checked="checked"> 不启用
                             </label>
                         </button>
                         <button type="button" class="btn radio">
                             <label>
-                                <input type="radio" name="item_active" value="1" checked="checked"> 启用
+                                <input type="radio" name="item_active" value="1"> 启用
                             </label>
                         </button>
                         <button type="button" class="btn radio active-disable _none">
@@ -254,4 +277,103 @@
     </div>
 
 
+</div>
+
+
+
+
+<div class="modal fade" id="modal-move-body">
+    <div class="col-md-6 col-md-offset-3" id="edit-ctn" style="margin-top:64px;margin-bottom:64px;background:#fff;">
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET-->
+                <div class="box- box-info- form-container">
+
+                    <div class="box-header with-border" style="margin:16px 0;">
+                        <h3 class="box-title">移动位置</h3>
+                        <div class="box-tools pull-right">
+                        </div>
+                    </div>
+
+                    <form action="" method="post" class="form-horizontal form-bordered" id="modal-form-content-move">
+                        <div class="box-body">
+
+                            {{ csrf_field() }}
+                            <input type="hidden" name="content-move-operate" value="content-move" readonly>
+                            <input type="hidden" name="content-move-id" value="0" readonly>
+
+                            {{--类别--}}
+
+
+                            {{--标题--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">标题</label>
+                                <div class="col-md-9 control-label" style="text-align:left;">
+                                    <span class="content-move-title"></span>
+                                </div>
+                            </div>
+                            {{--目录--}}
+                            <div class="form-group" id="form-move-menu-option">
+                                <label class="control-label col-md-2">目录</label>
+                                <div class="col-md-9 ">
+                                    <select class="form-control form-filter" name="move_menu" id="content-move-menu" onChange="content_move_menu_change();">
+
+                                        <option value="0">顶级目录</option>
+
+                                        @foreach( $data->contents_recursion as $key => $content )
+                                            {{--@if($content->type == 1)--}}
+
+                                            <option value="{{ $content->id or '' }}" data-child="{{ $content->has_child or 0 }}">
+                                                @for ($i = 0; $i < $content->level; $i++)
+                                                    ·· &nbsp;
+                                                @endfor
+                                                {{ $content->title or '' }}
+                                            </option>
+
+                                            {{--@endif--}}
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            {{--移动位置--}}
+                            <div class="form-group" id="form-move-position-option">
+                                <label class="control-label col-md-2">位置</label>
+                                <div class="col-md-9 ">
+                                    <select class="form-control form-filter" name="move_position" id="content-move-position">
+
+                                        <option value="0" data-id="0">选择位置</option>
+
+                                        @foreach( $data->contents_recursion_menu as $key => $content )
+                                            {{--@if($content->type == 1)--}}
+
+                                            <option value="{{ $content["value"] or '' }}" data-id="{{ $content["id"] or 0 }}" data-p-id="{{ $content["p_id"] or 0 }}" data-direction="{{ $content["direction"] or 'after' }}">
+                                                {{ $content["title"] or '' }}
+                                            </option>
+
+                                            {{--@endif--}}
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-9 col-md-offset-2">
+                                <button type="button" class="btn btn-success" id="content-move-submit"><i class="fa fa-check"></i> 提交</button>
+                                <button type="button" class="btn btn-default" id="content-move-cancel">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET-->
+            </div>
+        </div>
+    </div>
 </div>

@@ -90,6 +90,7 @@ Route::group(['namespace' => 'Front'], function () {
             Route::post('/item/content-publish', $controller.'@operate_item_content_publish');
             Route::post('/item/content-enable', $controller.'@operate_item_content_enable');
             Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
+            Route::post('/item/content-move', $controller.'@operate_item_content_move');
 
 
 

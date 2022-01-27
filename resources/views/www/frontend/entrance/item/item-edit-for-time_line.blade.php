@@ -221,8 +221,15 @@
 
 
 
-@section('js')
-    <script src="https://cdn.bootcss.com/select2/4.0.5/js/select2.min.js"></script>
+@section('custom-css')
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/select2-4.0.5.min.css') }}">
+@endsection
+
+
+
+
+@section('custom-js')
+    <script src="{{ asset('/resource/component/js/select2-4.0.5.min.js') }}"></script>
 @endsection
 @section('script')
     @include(env('TEMPLATE_COMMON_FRONT').'component.item-edit-for-time_line-script')

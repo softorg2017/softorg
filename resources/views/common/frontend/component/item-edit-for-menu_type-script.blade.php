@@ -32,7 +32,7 @@
             $("#form-edit-content").find('.active-disable').hide();
             $("#form-edit-content").find('.active-none').show();
             $('#form-edit-content').find('.cover_img_container').html('');
-            $('#form-edit-content').find('input[name=active][value="1"]').prop('checked',true);
+            $('#form-edit-content').find('input[name=item_active][value="0"]').prop('checked',true);
 
             $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
 
@@ -88,12 +88,12 @@
                             $("#form-active-option").show();
                         }
 
-                        $("#form-edit-content").find('input[name=active]:checked').prop('checked','');
-                        var $active = data.data.active;
+                        $("#form-edit-content").find('input[name=item_active]:checked').prop('checked','');
                         $("#form-edit-content").find('.active-none').hide();
                         $("#form-edit-content").find('.active-disable').show();
-                        if($active == 0) $("#form-edit-content").find('.active-none').show();
-                        $("#form-edit-content").find('input[name=active][value='+$active+']').prop('checked','checked');
+                        var $item_active = data.data.item_active;
+                        if($item_active == 0) $("#form-edit-content").find('.active-none').show();
+                        $("#form-edit-content").find('input[name=item_active][value='+$item_active+']').prop('checked','checked');
 
                         $("#form-edit-content").find('input[name=title]').val(data.data.title);
                         $("#form-edit-content").find('textarea[name=description]').val(data.data.description);
@@ -254,6 +254,126 @@
             $("#form-edit-content").ajaxSubmit(options);
         });
 
+
+
+
+
+
+
+        // 显示【移动】
+        $("#content-structure-list").on('click', ".this-content-move-show", function() {
+            var $that = $(this);
+            var $this_content = $that.parents('.this-content');
+            $('input[name=content-move-id]').val($this_content.attr('data-id'));
+            $('.content-move-title').html($this_content.find('.this-content-title').html());
+
+            $('#content-move-menu').find('option').prop('selected',null);
+            $('#content-move-menu').find('option[value=0]').prop("selected", true);
+
+            $("#content-move-position").find('option').hide();
+            $("#content-move-position").find('option[value=0]').show();
+            $("#content-move-position").find('option[data-p-id=0]').show();
+            $('#content-move-position').find('option').prop('selected',null);
+            $('#content-move-position').find('option[value=0]').prop("selected", true);
+
+            $('#modal-move-body').modal({show:true, backdrop:false});
+//            $('.modal-backdrop').each(function() {
+//                $(this).attr('id', 'id_' + Math.random());
+//            });
+        });
+        // 【移动】取消
+        $("#modal-move-body").on('click', "#content-move-cancel", function() {
+            var $that = $(this);
+            $('input[name=content-move-id]').val(0);
+            $('.content-move-title').html('');
+
+            $('#modal-move-body').modal('hide');
+//            $("#modal-move-body").on("hidden.bs.modal", function () {
+//                $("body").addClass("modal-open");
+//            });
+        });
+        // 【移动】确认
+        $("#modal-move-body").on('click', "#content-move-submit", function() {
+
+            var $this_content_id = $('input[name=content-move-id]').val();
+
+            var $move_menu = $('#content-move-menu');
+            var $move_menu_id = $move_menu.find("option:selected").val();
+            var $move_menu_has_child = $move_menu.find("option:selected").attr('data-child');
+
+            var $move_position = $('#content-move-position');
+            var $move_position_val = $move_position.find("option:selected").val();
+            var $move_position_id = $move_position.find("option:selected").attr('data-id');
+            var $move_position_direction = $move_position.find("option:selected").attr('data-direction');
+
+//            layer.msg($move_menu_id + '-' + $move_position_id + '-' + $move_menu_has_child);
+
+            if($move_menu_id == 0 && $move_position_id == 0)
+            {
+                layer.msg("请先选择位置！");
+                return false;
+            }
+
+            if($move_menu_has_child == 1 && $move_position_id == 0)
+            {
+                layer.msg("请先选择位置！");
+                return false;
+            }
+
+            if($move_position_id == $this_content_id)
+            {
+                layer.msg("没有改变位置！");
+                return false;
+            }
+
+
+            $.post(
+                "/item/content-move",
+                {
+                    _token: $('meta[name="_token"]').attr('content'),
+                    content_id:$this_content_id,
+                    menu_id:$move_menu_id,
+                    position_id:$move_position_id,
+                    position_direction:$move_position_direction
+                },
+                function(data){
+                    if(!data.success) layer.msg(data.msg);
+                    else location.reload();
+                },
+                'json'
+            );
+        });
+
+        $('.select2-move-menu').select2({
+            ajax: {
+                url: "{{ url('/item/content-get-menu') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        keyword: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+
+                    params.page = params.page || 1;
+                    return {
+                        results: data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            minimumInputLength: 0,
+            theme: 'classic'
+        });
+
+
+
     });
 
 
@@ -282,7 +402,18 @@
 
         $("#form-edit-content").find('.active-disable').hide();
         $("#form-edit-content").find('.active-none').show();
-        $('#form-edit-content').find('input[name=active][value="1"]').prop('checked',true);
+        $('#form-edit-content').find('input[name=item_active][value="0"]').prop('checked',true);
 
     }
+
+    function content_move_menu_change()
+    {
+        var $menu = $('#content-move-menu').val();
+        $('#content-move-position').find('option').prop('selected',null);
+        $("#content-move-position").find('option').hide();
+        $("#content-move-position").find('option[value=0]').show();
+        $("#content-move-position").find('option[data-p-id='+$menu+']').show();
+    }
+
+
 </script>

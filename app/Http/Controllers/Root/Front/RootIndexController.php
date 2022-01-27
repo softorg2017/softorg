@@ -274,13 +274,13 @@ class RootIndexController extends Controller
 
 
 
-    // 【ITEM】内容管理
+    // 【ITEM-Content】内容管理
     public function view_item_content_management()
     {
         return $this->repo->view_item_content_management(request()->all());
     }
 
-    // 【编辑】
+    // 【ITEM-Content】【编辑】
     public function operate_item_content_edit()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
@@ -303,40 +303,46 @@ class RootIndexController extends Controller
         }
     }
 
-    // 【编辑】目录类型
+    // 【【ITEM-Content】编辑】目录类型
     public function operate_item_content_edit_menu_type()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_item_content_save_for_menu_type(request()->all());
     }
-    // 【编辑】时间线
+    // 【ITEM-Content】【编辑】时间线
     public function operate_item_content_edit_time_line()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_item_content_save_for_time_line(request()->all());
     }
+    // 【ITEM-Content】移动位置
+    public function operate_item_content_move()
+    {
+        return $this->repo->operate_item_content_move(request()->all());
+    }
 
-    // 【获取】
+
+    // 【ITEM-Content】【获取】
     public function operate_item_content_get()
     {
         return $this->repo->operate_item_content_get(request()->all());
     }
-    // 【删除】
+    // 【ITEM-Content】【删除】
     public function operate_item_content_delete()
     {
         return $this->repo->operate_item_content_delete(request()->all());
     }
-    // 【启用】
+    // 【ITEM-Content】【启用】
     public function operate_item_content_publish()
     {
         return $this->repo->operate_item_content_publish(request()->all());
     }
-    // 【启用】
+    // 【ITEM-Content】【启用】
     public function operate_item_content_enable()
     {
         return $this->repo->operate_item_content_enable(request()->all());
     }
-    // 【禁用】
+    // 【ITEM-Content】【禁用】
     public function operate_item_content_disable()
     {
         return $this->repo->operate_item_content_disable(request()->all());
