@@ -19,7 +19,6 @@
         {{--info--}}
         <div class="item-row item-info-row margin-bottom-2px">
             <div class="text-row">
-                <span class="info-tags text-default">tags</span>
                 @if($item->item_type == 88)
                     <span class="info-tags text-danger">贴片广告</span>
                 @endif
@@ -36,7 +35,7 @@
         </div>
 
         {{--time 时间--}}
-        {{--@if($item->time_type == 1)--}}
+        @if($item->time_type == 1)
         <div class="item-row item-time-row margin-bottom-8px">
             <div class="text-row text-muted">
 
@@ -54,17 +53,17 @@
                 @endif
             </div>
         </div>
-        {{--@endif--}}
+        @endif
 
         {{--address 地址--}}
-        {{--@if(!empty($item->address))--}}
+        @if(!empty($item->address))
         <div class="item-row item-info-row margin-bottom-8px">
             <div class="text-row text-muted">
                 <i class="icon ion-location text-blue pull-left"></i>
-                <span class="">{{ $item->address or '' }} 浙江省 嘉兴市 南湖区 秋江花苑</span>
+                <span class="">{{ $item->address or '' }}</span>
             </div>
         </div>
-        {{--@endif--}}
+        @endif
 
         {{--description 描述--}}
         @if(!empty($item->description))

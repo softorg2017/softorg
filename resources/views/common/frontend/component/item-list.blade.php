@@ -17,12 +17,19 @@
                     </a>
                 </div>
                 <div class="item-info-row">
-                    <a class="clearfix zoom" target="_self" href="{{ url('/item/'.$item->id) }}">
-                        <a href="{{ url('/user/'.$item->owner->id) }}">
-                            {{ $item->owner->username or '' }}
-                        </a>
-                        <span class=""> • {{ date_show($item->updated_at->timestamp) }}</span>
+
+                    {{--tags 标签--}}
+                    @if($item->item_type == 11)
+                        <span class="info-tags text-default pull-left-">书目</span>
+                    @elseif($item->item_type == 18)
+                        <span class="info-tags text-default pull-left-">时间线</span>
+                    @endif
+
+                    <a href="{{ url('/user/'.$item->owner->id) }}">
+                        {{ $item->owner->username or '' }}
                     </a>
+                    <span class=""> • {{ date_show($item->updated_at->timestamp) }}</span>
+
                 </div>
             </div>
         </figure>
@@ -68,7 +75,7 @@
                         {{--</div>--}}
                     {{--</div>--}}
                     <div class="row-sm">
-                        <div class="text-description-row multi-ellipsis-4">
+                        <div class="text-description-row multi-ellipsis-3">
                             @if(!empty($item->description))
                                 {{--{{ $item->description or '' }}--}}
                                 {!! $item->description or '' !!}
