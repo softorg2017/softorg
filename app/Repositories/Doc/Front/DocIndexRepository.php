@@ -242,10 +242,12 @@ class DocIndexRepository {
                     $parent_item->load([
                         'contents'=>function($query) {
                             $query->where(['is_published'=>1,'item_active'=>1]);
-                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
-                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
-                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
-                            $query->orderBy('time_point','asc');
+//                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
+//                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
+//                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
+//                            $query->orderBy('time_point','asc');
+                            $query->orderBy('rank','asc');
+                            $query->orderBy('id','asc');
                         }
                     ]);
                 }
@@ -254,10 +256,12 @@ class DocIndexRepository {
                     $parent_item = $this->modelItem->with([
                         'contents'=>function($query) {
                             $query->where(['is_published'=>1,'item_active'=>1]);
-                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
-                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
-                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
-                            $query->orderBy('time_point','asc');
+//                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
+//                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
+//                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
+//                            $query->orderBy('time_point','asc');
+                            $query->orderBy('rank','asc');
+                            $query->orderBy('id','asc');
                         }
                     ])->find($item->item_id);
                 }

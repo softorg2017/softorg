@@ -213,6 +213,122 @@ class RootIndexRepository {
 
 
 
+    public function view_item($post_data,$id=0)
+    {
+        $this->get_me();
+
+        $user = [];
+        if($this->auth_check)
+        {
+            $me = $this->me;
+            $me_id = $me->id;
+            view()->share('me',$me);
+        }
+        else $user_id = 0;
+
+        $id = request('id',0);
+        if(intval($id) !== 0 && !$id) view('doc.frontend.errors.404');
+
+
+        $item = $this->modelItem->with([
+            'user',
+            'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
+        ])->find($id);
+        if($item)
+        {
+            $item->timestamps = false;
+            $item->increment('visit_num');
+
+            if($item->item_type == 11)
+            {
+                if($item->item_id == 0)
+                {
+                    $parent_item = $item;
+                    $parent_item->load([
+                        'contents'=>function($query) { $query->where(['is_published'=>1,'item_active'=>1])->orderBy('rank','asc'); }
+                    ]);
+                }
+                else $parent_item = $this->modelItem->with([
+                    'contents'=>function($query) { $query->where(['is_published'=>1,'item_active'=>1])->orderBy('rank','asc'); }
+                ])->find($item->item_id);
+
+                $contents_recursion = $this->get_recursion($parent_item->contents,0);
+                foreach ($contents_recursion as $v)
+                {
+                    $v->content_show = strip_tags($v->content);
+                    $v->img_tags = get_html_img($v->content);
+                }
+                view()->share(['contents_recursion'=>$contents_recursion]);
+
+                $parent_item->visit_total = $parent_item->visit_num + $parent_item->contents->sum('visit_num');
+                $parent_item->comments_total = $parent_item->comment_num + $parent_item->contents->sum('comment_num');
+                view()->share(['parent_item'=>$parent_item]);
+            }
+            else if($item->item_type == 18)
+            {
+                if($item->item_id == 0)
+                {
+                    $parent_item = $item;
+                    $parent_item->load([
+                        'contents'=>function($query) {
+                            $query->where(['is_published'=>1,'item_active'=>1]);
+//                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
+//                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
+//                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
+//                            $query->orderBy('time_point','asc');
+                            $query->orderBy('rank','asc');
+                            $query->orderBy('id','asc');
+                        }
+                    ]);
+                }
+                else
+                {
+                    $parent_item = $this->modelItem->with([
+                        'contents'=>function($query) {
+                            $query->where(['is_published'=>1,'item_active'=>1]);
+//                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
+//                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
+//                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
+//                            $query->orderBy('time_point','asc');
+                            $query->orderBy('rank','asc');
+                            $query->orderBy('id','asc');
+                        }
+                    ])->find($item->item_id);
+                }
+
+                $time_points = $parent_item->contents;
+                foreach ($time_points as $v)
+                {
+                    $v->content_show = strip_tags($v->content);
+                    $v->img_tags = get_html_img($v->content);
+                }
+                view()->share(['time_points'=>$time_points]);
+
+                $parent_item->visit_total = $parent_item->visit_num + $parent_item->contents->sum('visit_num');
+                $parent_item->comments_total = $parent_item->comment_num + $parent_item->contents->sum('comment_num');
+                view()->share(['parent_item'=>$parent_item]);
+            }
+
+            $item->custom_decode = json_decode($item->custom);
+
+        }
+        else return view('doc.frontend.errors.404');
+
+
+        $head_title_prefix = '';
+        $head_title_text = $item->title;
+        $head_title_postfix = ' - 如未轻博';
+        $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
+        $return['item'] = $item;
+        $return['user'] = $user;
+
+        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.item.item';
+        return view($view_blade)->with($return);
+    }
+
+
+
+
     // 【分享记录】
     public function record_share($post_data)
     {
@@ -2953,118 +3069,6 @@ class RootIndexRepository {
         }
         else return response_error([],'请先登录！');
 
-    }
-
-
-
-
-    public function view_item($post_data,$id=0)
-    {
-        $this->get_me();
-
-        $user = [];
-        if($this->auth_check)
-        {
-            $me = $this->me;
-            $me_id = $me->id;
-            view()->share('me',$me);
-        }
-        else $user_id = 0;
-
-        $id = request('id',0);
-        if(intval($id) !== 0 && !$id) view('doc.frontend.errors.404');
-
-
-        $item = $this->modelItem->with([
-            'user',
-            'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
-        ])->find($id);
-        if($item)
-        {
-            $item->timestamps = false;
-            $item->increment('visit_num');
-
-            if($item->item_type == 11)
-            {
-                if($item->item_id == 0)
-                {
-                    $parent_item = $item;
-                    $parent_item->load([
-                        'contents'=>function($query) { $query->where(['is_published'=>1,'item_active'=>1])->orderBy('rank','asc'); }
-                    ]);
-                }
-                else $parent_item = $this->modelItem->with([
-                    'contents'=>function($query) { $query->where(['is_published'=>1,'item_active'=>1])->orderBy('rank','asc'); }
-                ])->find($item->item_id);
-
-                $contents_recursion = $this->get_recursion($parent_item->contents,0);
-                foreach ($contents_recursion as $v)
-                {
-                    $v->content_show = strip_tags($v->content);
-                    $v->img_tags = get_html_img($v->content);
-                }
-                view()->share(['contents_recursion'=>$contents_recursion]);
-
-                $parent_item->visit_total = $parent_item->visit_num + $parent_item->contents->sum('visit_num');
-                $parent_item->comments_total = $parent_item->comment_num + $parent_item->contents->sum('comment_num');
-                view()->share(['parent_item'=>$parent_item]);
-            }
-            else if($item->item_type == 18)
-            {
-                if($item->item_id == 0)
-                {
-                    $parent_item = $item;
-                    $parent_item->load([
-                        'contents'=>function($query) {
-                            $query->where(['is_published'=>1,'item_active'=>1]);
-                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
-                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
-                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
-                            $query->orderBy('time_point','asc');
-                        }
-                    ]);
-                }
-                else
-                {
-                    $parent_item = $this->modelItem->with([
-                        'contents'=>function($query) {
-                            $query->where(['is_published'=>1,'item_active'=>1]);
-                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
-                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
-                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
-                            $query->orderBy('time_point','asc');
-                        }
-                    ])->find($item->item_id);
-                }
-
-                $time_points = $parent_item->contents;
-                foreach ($time_points as $v)
-                {
-                    $v->content_show = strip_tags($v->content);
-                    $v->img_tags = get_html_img($v->content);
-                }
-                view()->share(['time_points'=>$time_points]);
-
-                $parent_item->visit_total = $parent_item->visit_num + $parent_item->contents->sum('visit_num');
-                $parent_item->comments_total = $parent_item->comment_num + $parent_item->contents->sum('comment_num');
-                view()->share(['parent_item'=>$parent_item]);
-            }
-
-            $item->custom_decode = json_decode($item->custom);
-
-        }
-        else return view('doc.frontend.errors.404');
-
-
-        $head_title_prefix = '';
-        $head_title_text = $item->title;
-        $head_title_postfix = ' - 如未轻博';
-        $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
-        $return['item'] = $item;
-        $return['user'] = $user;
-
-        $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.item.item';
-        return view($view_blade)->with($return);
     }
 
 
