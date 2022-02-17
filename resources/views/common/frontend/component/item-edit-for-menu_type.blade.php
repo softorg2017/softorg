@@ -20,6 +20,8 @@
         @foreach( $data->contents_recursion as $key => $content )
             <div class="col-md-12 col-md-offset-2-">
                 <div class="input-group this-content" data-id='{{ $content->id }}' style="margin-top:4px; margin-left:{{ $content->level*34 }}px">
+
+                    {{--排名--}}
                     <span class="input-group-addon" title="">
                         {{--@if($content->type == 1)--}}
                             {{--<i class="fa fa-list-ul"></i>--}}
@@ -28,6 +30,8 @@
                         {{--@endif--}}
                         <b>{{ $content->rank or '0' }}</b>
                     </span>
+
+                    {{--标题--}}
                     <span class="form-control multi-ellipsis-1 this-content-title">{{ $content->title or '' }}</span>
 
                     {{--是否发布--}}
@@ -63,6 +67,7 @@
 
                     {{--删除--}}
                     <span class="input-group-addon btn delete-this-content"><i class="fa fa-trash"></i></span>
+
                 </div>
             </div>
         @endforeach

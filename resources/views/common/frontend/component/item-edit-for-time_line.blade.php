@@ -19,10 +19,25 @@
         </div>
         @foreach( $data->contents as $key => $content )
             <div class="col-md-12 col-md-offset-2-">
-                <div class="input-group" data-id='{{ $content->id }}'
-                     style="margin-top:4px; margin-left:{{ $content->level*40 }}px">
+                <div class="input-group this-content" data-id='{{ $content->id }}' style="margin-top:4px; margin-left:{{ $content->level*40 }}px">
+
+                    {{--排名--}}
+                    <span class="input-group-addon" title="">
+                        {{--@if($content->type == 1)--}}
+                        {{--<i class="fa fa-list-ul"></i>--}}
+                        {{--@else--}}
+                        {{--<i class="fa fa-file-text"></i>--}}
+                        {{--@endif--}}
+                        <b>{{ $content->rank or '0' }}</b>
+                        {{--<b>{{ $loop->iteration }}</b>--}}
+
+                    </span>
+
+                    {{--时间点--}}
                     <span class="input-group-addon"><b>{{ $content->time_point or '' }}</b></span>
-                    <span class="form-control multi-ellipsis-1">{{ $content->title or '' }}</span>
+
+                    {{--标题--}}
+                    <span class="form-control multi-ellipsis-1 this-content-title">{{ $content->title or '' }}</span>
 
                     {{--是否发布--}}
                     @if($content->is_published == 0)
@@ -47,8 +62,12 @@
                         <span class="input-group-addon btn disabled"><i class="fa fa-pencil"></i></span>
                     @endif
 
+                    {{--移动--}}
+                    <span class="input-group-addon btn this-content-move-show" title="移动位置"><i class="icon ion-arrow-move"></i></span>
+
                     {{--删除--}}
                     <span class="input-group-addon btn delete-this-content"><i class="fa fa-trash"></i></span>
+
                 </div>
             </div>
         @endforeach
@@ -216,3 +235,81 @@
 
 
 </div>
+
+
+
+
+<div class="modal fade" id="modal-move-body">
+    <div class="col-md-6 col-md-offset-3" id="edit-ctn" style="margin-top:64px;margin-bottom:64px;background:#fff;">
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PORTLET-->
+                <div class="box- box-info- form-container">
+
+                    <div class="box-header with-border" style="margin:16px 0;">
+                        <h3 class="box-title">移动位置</h3>
+                        <div class="box-tools pull-right">
+                        </div>
+                    </div>
+
+                    <form action="" method="post" class="form-horizontal form-bordered" id="modal-form-content-move">
+                        <div class="box-body">
+
+                            {{ csrf_field() }}
+                            <input type="hidden" name="content-move-operate" value="content-move" readonly>
+                            <input type="hidden" name="content-move-id" value="0" readonly>
+
+                            {{--类别--}}
+
+
+                            {{--标题--}}
+                            <div class="form-group">
+                                <label class="control-label col-md-2">标题</label>
+                                <div class="col-md-9 control-label" style="text-align:left;">
+                                    <span class="content-move-title"></span>
+                                </div>
+                            </div>
+
+                            {{--移动位置--}}
+                            <div class="form-group" id="form-move-position-option">
+                                <label class="control-label col-md-2">位置</label>
+                                <div class="col-md-9 ">
+                                    <select class="form-control form-filter" name="move_position" id="content-move-position">
+
+                                        <option value="-1" data-id="-1">选择位置</option>
+                                        <option value="0" data-id="0">置顶</option>
+
+                                        @foreach( $data->contents as $key => $content )
+                                            {{--@if($content->type == 1)--}}
+
+                                            <option value="{{ $content->id or '' }}" data-id="{{ $content->id or 0 }}">
+                                                {{ $content->time_point or '' }}:{{ $content->title or '' }} 之后
+                                            </option>
+
+                                            {{--@endif--}}
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-9 col-md-offset-2">
+                                <button type="button" class="btn btn-success" id="content-move-submit"><i class="fa fa-check"></i> 提交</button>
+                                <button type="button" class="btn btn-default" id="content-move-cancel">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET-->
+            </div>
+        </div>
+    </div>
+</div>
+

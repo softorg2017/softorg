@@ -1122,10 +1122,12 @@ class DocIndexRepository {
             {
                 $item = $this->modelItem->with([
                     'contents'=>function($query) {
-                        $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
-                        $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
-                        $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
-                        $query->orderBy('time_point','asc');
+//                        $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
+//                        $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
+//                        $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
+//                        $query->orderBy('time_point','asc');
+                        $query->orderBy('rank','asc');
+                        $query->orderBy('id','asc');
                     }
                 ])->find($item_id);
                 return view(env('TEMPLATE_DOC_FRONT').'entrance.item.item-edit-for-time_line')->with(['data'=>$item]);
@@ -1188,7 +1190,7 @@ class DocIndexRepository {
     }
 
 
-    // 【ITEM-Content】保存【目录类型】
+    // 【ITEM-Content】【目录类型】保存
     public function operate_item_content_save_for_menu_type($post_data)
     {
         $messages = [
@@ -1354,7 +1356,7 @@ class DocIndexRepository {
         }
         else return response_error([],"该内容不存在");
     }
-    // 【ITEM-Content】保存【时间点】
+    // 【ITEM-Content】【时间点】保存
     public function operate_item_content_save_for_time_line($post_data)
     {
         $messages = [
@@ -1400,6 +1402,9 @@ class DocIndexRepository {
                         $post_data["item_type"] = 18;
                         $post_data["owner_id"] = $me->id;
                         $post_data["creator_id"] = $me_admin->id;
+
+                        $content_brother = $this->modelItem->where(['item_id'=>$post_data["item_id"]])->orderBy('rank','desc')->first();
+                        if($content_brother) $post_data["rank"] = $content_brother->rank + 1;
                     }
                     else if('edit') // 编辑
                     {
@@ -1484,7 +1489,7 @@ class DocIndexRepository {
 
 
     // 【ITEM-Content】【目录类型】移动
-    public function operate_item_content_move($post_data)
+    public function operate_item_content_move_menu_type($post_data)
     {
         $messages = [
             'content_id.required' => 'content_id.required.',
@@ -1508,7 +1513,6 @@ class DocIndexRepository {
         $me = $this->me;
         $me_admin = $this->me_admin;
 
-//        $post_data["category"] = 11;
         $menu_id = $post_data["menu_id"];
         $position_id = $post_data["position_id"];
 
@@ -1675,6 +1679,132 @@ class DocIndexRepository {
                         $content->rank = 0;
                         $content->timestamps = false;
                         $content->save();
+                    }
+
+                    DB::commit();
+                    return response_success(['id'=>$content_id]);
+                }
+                catch (Exception $e)
+                {
+                    DB::rollback();
+                    $msg = '操作失败，请重试！';
+                    $msg = $e->getMessage();
+//                    exit($e->getMessage());
+                    return response_fail([], $msg);
+                }
+
+            }
+            else response_error([],"该内容不是你的，你不能操作！");
+
+        }
+        else return response_error([],"该内容不存在！");
+    }
+    // 【ITEM-Content】【时间点】移动
+    public function operate_item_content_move_time_line($post_data)
+    {
+        $messages = [
+            'content_id.required' => 'content_id.required.',
+            'position_id.required' => 'position_id.required.',
+//            'position_direction.required' => 'position_direction.required.',
+        ];
+        $v = Validator::make($post_data, [
+            'content_id' => 'required',
+            'position_id' => 'required',
+//            'position_direction' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $this->get_me();
+        $me = $this->me;
+        $me_admin = $this->me_admin;
+
+
+        $content_id = $post_data["content_id"];
+        if(!$content_id) return response_error();
+        $content = $this->modelItem->find($content_id);
+        if($content)
+        {
+            if($content->owner_id == $me->id)
+            {
+                $position_id = $post_data["position_id"];
+
+//                $my_younger_brother = $this->modelItem->where(['item_id'=>$position_content->item_id])
+//                    ->where(function ($query) use($position_content) {
+//                        $query->where('rank','<',$position_content->rank)->orWhere(function($query2) use($position_content) {
+//                            $query2->where('rank','=',$position_content->rank)->where('id','<',$position_content->id);
+//                        });
+//                    })
+//                    ->where('id','!=',$position_content->id)
+//                    ->orderBy('rank','desc')
+//                    ->orderBy('id','desc')
+//                    ->first();
+//                dd($my_younger_brother->rank.'->'.$my_younger_brother->time_point.'->'.$my_younger_brother->title);
+
+//                $my_older_brother = $this->modelItem->where(['item_id'=>$position_content->item_id])
+//                    ->where(function ($query) use($position_content) {
+//                        $query->where('rank','>',$position_content->rank)->orWhere(function($query2) use($position_content) {
+//                            $query2->where('rank','=',$position_content->rank)->where('id','>',$position_content->id);
+//                        });
+//                    })
+//                    ->where('id','!=',$position_content->id)
+//                    ->orderBy('rank','asc')
+//                    ->orderBy('id','asc')
+//                    ->first();
+//                dd($my_older_brother->rank.'->'.$my_older_brother->time_point.'->'.$my_older_brother->title);
+
+
+                DB::beginTransaction();
+                try
+                {
+                    if($position_id == 0)
+                    {
+                        $content->rank = 0;
+                        $content->timestamps = false;
+                        $content->save();
+
+                        $this->modelItem->timestamps = false;
+//                        $num = $this->modelItem->where(['item_id'=>$content->item_id])
+//                            ->where('id','!=',$content->id)
+//                            ->increment('rank');
+
+                        $my_brother_contents = $this->modelItem->where(['item_id'=>$content->item_id])
+                            ->where('id','!=',$content->id)
+                            ->orderBy('rank','asc')
+                            ->orderBy('id','asc')
+                            ->get();
+
+                        foreach($my_brother_contents as $key => $value)
+                        {
+                            $value->timestamps = false;
+                            $value->rank = $key + 1;
+                            $value->save();
+                        }
+
+                    }
+                    elseif($position_id != 0)
+                    {
+                        $position_content = $this->modelItem->find($position_id);
+                        if(!$position_content) return response_error([],"该位置不存在！");
+                        if($position_content->item_id != $content->item_id)  return response_error([],"不是同一个时间线！");
+
+                        $content->rank = $position_content->rank + 1;
+                        $content->timestamps = false;
+                        $content->save();
+
+                        $this->modelItem->timestamps = false;
+                        $num = $this->modelItem->where(['item_id'=>$content->item_id])
+                            ->where(function ($query) use($position_content) {
+                                $query->where('rank','>',$position_content->rank)->orWhere(function($query2) use($position_content) {
+                                    $query2->where('rank','=',$position_content->rank)->where('id','>',$position_content->id);
+                                });
+                            })
+                            ->where('id','!=',$content->id)
+                            ->where('id','!=',$position_content->id)
+                            ->increment('rank',2);
                     }
 
                     DB::commit();

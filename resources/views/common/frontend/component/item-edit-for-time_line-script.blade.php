@@ -243,6 +243,98 @@
     });
 
 
+
+
+
+
+
+    // 显示【移动】
+    $("#content-structure-list").on('click', ".this-content-move-show", function() {
+        var $that = $(this);
+        var $this_content = $that.parents('.this-content');
+        $('input[name=content-move-id]').val($this_content.attr('data-id'));
+        $('.content-move-title').html($this_content.find('.this-content-title').html());
+
+        $('#content-move-menu').find('option').prop('selected',null);
+        $('#content-move-menu').find('option[value=0]').prop("selected", true);
+
+//        $("#content-move-position").find('option').hide();
+//        $("#content-move-position").find('option[value=0]').show();
+//        $("#content-move-position").find('option[data-p-id=0]').show();
+//        $('#content-move-position').find('option').prop('selected',null);
+//        $('#content-move-position').find('option[value=0]').prop("selected", true);
+
+        $('#modal-move-body').modal({show:true, backdrop:false});
+//            $('.modal-backdrop').each(function() {
+//                $(this).attr('id', 'id_' + Math.random());
+//            });
+    });
+    // 【移动】取消
+    $("#modal-move-body").on('click', "#content-move-cancel", function() {
+        var $that = $(this);
+        $('input[name=content-move-id]').val(0);
+        $('.content-move-title').html('');
+
+        $('#modal-move-body').modal('hide');
+//            $("#modal-move-body").on("hidden.bs.modal", function () {
+//                $("body").addClass("modal-open");
+//            });
+    });
+    // 【移动】确认
+    $("#modal-move-body").on('click', "#content-move-submit", function() {
+
+        var $this_content_id = $('input[name=content-move-id]').val();
+
+        var $move_menu = $('#content-move-menu');
+        var $move_menu_id = $move_menu.find("option:selected").val();
+        var $move_menu_has_child = $move_menu.find("option:selected").attr('data-child');
+
+        var $move_position = $('#content-move-position');
+        var $move_position_val = $move_position.find("option:selected").val();
+        var $move_position_id = $move_position.find("option:selected").attr('data-id');
+        var $move_position_direction = $move_position.find("option:selected").attr('data-direction');
+
+//            layer.msg($move_menu_id + '-' + $move_position_id + '-' + $move_menu_has_child);
+
+        if($move_position_id == -1)
+        {
+            layer.msg("请先选择位置！");
+            return false;
+        }
+
+        if($move_menu_has_child == 1 && $move_position_id == 0)
+        {
+            layer.msg("请先选择位置！");
+            return false;
+        }
+
+        if($move_position_id == $this_content_id)
+        {
+            layer.msg("没有改变位置！");
+            return false;
+        }
+
+
+        $.post(
+            "/item/content-move-time_line",
+            {
+                _token: $('meta[name="_token"]').attr('content'),
+                content_id:$this_content_id,
+                menu_id:$move_menu_id,
+                position_id:$move_position_id,
+                position_direction:$move_position_direction
+            },
+            function(data){
+                if(!data.success) layer.msg(data.msg);
+                else location.reload();
+            },
+            'json'
+        );
+    });
+
+
+
+
     // 【重置】编辑
     function reset_form()
     {

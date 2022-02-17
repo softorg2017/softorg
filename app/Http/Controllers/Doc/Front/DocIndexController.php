@@ -219,10 +219,17 @@ class DocIndexController extends Controller
         if(request()->isMethod('get')) return $this->repo->view_item_content_edit();
         else if (request()->isMethod('post')) return $this->repo->operate_item_content_save_for_time_line(request()->all());
     }
+
+
     // 【ITEM-content】移动位置
-    public function operate_item_content_move()
+    public function operate_item_content_move_menu_type()
     {
-        return $this->repo->operate_item_content_move(request()->all());
+        return $this->repo->operate_item_content_move_menu_type(request()->all());
+    }
+    // 【ITEM-content】移动位置
+    public function operate_item_content_move_time_line()
+    {
+        return $this->repo->operate_item_content_move_time_line(request()->all());
     }
 
 

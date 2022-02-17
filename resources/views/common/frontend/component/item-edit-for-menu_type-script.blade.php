@@ -344,6 +344,9 @@
             );
         });
 
+
+
+
         $('.select2-move-menu').select2({
             ajax: {
                 url: "{{ url('/item/content-get-menu') }}",
@@ -375,6 +378,8 @@
 
 
     });
+
+
 
 
     // 【重置】编辑

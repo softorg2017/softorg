@@ -294,6 +294,8 @@ Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
         Route::post('/item/content-enable', $controller.'@operate_item_content_enable');
         Route::post('/item/content-disable', $controller.'@operate_item_content_disable');
         Route::post('/item/content-move', $controller.'@operate_item_content_move');
+        Route::post('/item/content-move-menu_type', $controller.'@operate_item_content_move_menu_type');
+        Route::post('/item/content-move-time_line', $controller.'@operate_item_content_move_time_line');
 
 
 
