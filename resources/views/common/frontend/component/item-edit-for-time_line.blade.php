@@ -22,7 +22,7 @@
                 <div class="input-group this-content" data-id='{{ $content->id }}' style="margin-top:4px; margin-left:{{ $content->level*40 }}px">
 
                     {{--排名--}}
-                    <span class="input-group-addon" title="">
+                    <span class="input-group-addon _none" title="">
                         {{--@if($content->type == 1)--}}
                         {{--<i class="fa fa-list-ul"></i>--}}
                         {{--@else--}}
@@ -30,7 +30,6 @@
                         {{--@endif--}}
                         <b>{{ $content->rank or '0' }}</b>
                         {{--<b>{{ $loop->iteration }}</b>--}}
-
                     </span>
 
                     {{--时间点--}}
@@ -313,3 +312,6 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="modal-hide-body">
+</div>

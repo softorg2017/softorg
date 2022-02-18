@@ -217,14 +217,16 @@ class RootIndexRepository {
     {
         $this->get_me();
 
-        $user = [];
         if($this->auth_check)
         {
             $me = $this->me;
             $me_id = $me->id;
-            view()->share('me',$me);
         }
-        else $user_id = 0;
+        else
+        {
+            $me = [];
+            $me_id = 0;
+        }
 
         $id = request('id',0);
         if(intval($id) !== 0 && !$id) view('doc.frontend.errors.404');
@@ -1840,12 +1842,78 @@ class RootIndexRepository {
         $mine = $this->modelItem->find($item_id);
         if($mine)
         {
+            if($mine->owner_id != $this->me->id)
+            {
+                $error['text'] = '不是你的内容，你不能操作！';
+                return view(env('TEMPLATE_ROOT_FRONT').'errors.404')->with(['error'=>$error]);
+            }
+
             if($mine->item_type == 11)
             {
                 $item = $this->modelItem->with([
-                    'contents'=>function($query) { $query->orderBy('rank','asc'); }
+                    'contents'=>function($query) {
+                        $query->select('id','is_published','item_active','rank','item_id','p_id','title')
+                            ->orderBy('rank','asc')->orderBy('id','asc');
+                    }
                 ])->find($item_id);
                 $item->contents_recursion = $this->get_recursion($item->contents,0);
+                $contents_recursion_menu = [];
+                foreach($item->contents_recursion as  $key => $content)
+                {
+                    // 如果是第一个，可以向前移动
+                    if($content->oldest)
+                    {
+                        $menu_before = [];
+                        $spacing = '';
+                        for ($i = 0; $i < $content->level; $i++)
+                        {
+//                            $spacing .= '·· &nbsp';
+                            $spacing .= '·· ';
+                        }
+                        $menu_before["id"] = $content->id;
+                        $menu_before["p_id"] = $content->p_id;
+                        $menu_before["value"] = $content->id.'-before';
+                        $menu_before["direction"] = 'before';
+                        $menu_before["title"] = $spacing.$content->title.' 之前';
+
+                        $contents_recursion_menu[] = $menu_before;
+                    }
+
+                    // 向后移动
+                    $menu_after = [];
+                    $spacing = '';
+                    for ($i = 0; $i < $content->level; $i++)
+                    {
+                        $spacing .= '·· ';
+                    }
+                    $menu_after["id"] = $content->id;
+                    $menu_after["p_id"] = $content->p_id;
+                    $menu_after["value"] = $content->id.'-after';
+                    $menu_after["direction"] = 'after';
+                    $menu_after["title"] = $spacing.$content->title.' 之后';
+
+                    $contents_recursion_menu[] = $menu_after;
+
+
+                    // 插入子节点
+//                    if(!$content->has_child)
+//                    {
+//                        $menu_append = [];
+//                        $spacing = '';
+//                        for ($i = 0; $i < $content->level; $i++)
+//                        {
+//                            $spacing .= '·· ';
+//                        }
+//                        $menu_append["id"] = $content->id;
+//                        $menu_append["p_id"] = $content->p_id;
+//                        $menu_append["value"] = $content->id.'-append';
+//                        $menu_append["title"] = $spacing.$content->title.'(插入子节点)';
+//
+//                        $contents_recursion_menu[] = $menu_append;
+//                    }
+                }
+                $item->contents_recursion_menu = $contents_recursion_menu;
+//                dd($item->contents_recursion_menu);
                 return view(env('TEMPLATE_ROOT_FRONT').'entrance.item.item-edit-for-menu_type')->with(['data'=>$item]);
             }
             else if($mine->item_type == 18)
@@ -3854,6 +3922,9 @@ class RootIndexRepository {
         else return false;
     }
 
+
+
+
     // 顺序排列
     function get_recursion($result, $parent_id=0, $level=0)
     {
@@ -3862,23 +3933,70 @@ class RootIndexRepository {
 
         foreach ($result as $k => $v)
         {
+//            for($i=0; $i < $level; $i++)
+//            {
+//                echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+//            }
+//            echo "第{$level}层-开始 <br>";
+
             if($v->p_id == $parent_id)
             {
+                $mine = $v;
                 $v->level = $level;
+                $v->oldest = 1;
 
                 foreach($list as $key=>$val)
                 {
                     if($val->id == $parent_id) $list[$key]->has_child = 1;
+                    if($val->p_id == $parent_id)
+                    {
+                        $list[$key]->has_brother = 1;
+                        $v->oldest = 0;
+                    }
                 }
 
                 /*将该类别的数据放入list中*/
                 $list[] = $v;
+                unset($result[$k]);
 
-                $this->get_recursion($result, $v->id, $level+1);
+//                for($i=0; $i < $level; $i++)
+//                {
+//                    echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+//                }
+//                echo "v -- ";
+//                var_dump(end($list)->toArray());
+//                echo "<br>";
+
+                $this->get_recursion($result, $mine->id, $level+1);
+
             }
+
+//            for($i=0; $i < $level; $i++)
+//            {
+//                echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+//            }
+//            echo "第{$level}层-结束 <br><br>";
         }
 
         return $list;
+    }
+
+    //
+    function get_recursion_level($item_id)
+    {
+        /*记录排序后的类别数组*/
+        static $level = 1;
+        static $list = array();
+
+        $item = $this->modelItem->find($item_id);
+        if($item->p_id != 0)
+        {
+            $list[] = $item;
+            $level += 1;
+            $this->get_recursion_level($item->p_id);
+        }
+
+        return $level;
     }
 
 

@@ -276,10 +276,12 @@
             $('#content-move-position').find('option').prop('selected',null);
             $('#content-move-position').find('option[value=0]').prop("selected", true);
 
-            $('#modal-move-body').modal({show:true, backdrop:false});
+//            $('#modal-move-body').modal({show:true, backdrop:false});
 //            $('.modal-backdrop').each(function() {
 //                $(this).attr('id', 'id_' + Math.random());
 //            });
+            $('#modal-move-body').modal('show');
+            $('.modal-backdrop').hide();
         });
         // 【移动】取消
         $("#modal-move-body").on('click', "#content-move-cancel", function() {

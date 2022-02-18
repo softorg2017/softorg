@@ -1054,6 +1054,12 @@ class DocIndexRepository {
         $mine = $this->modelItem->find($item_id);
         if($mine)
         {
+            if($mine->owner_id != $this->me->id)
+            {
+                $error['text'] = '不是你的内容，你不能操作！';
+                return view(env('TEMPLATE_DOC_FRONT').'errors.404')->with(['error'=>$error]);
+            }
+
             if($mine->item_type == 11)
             {
                 $item = $this->modelItem->with([

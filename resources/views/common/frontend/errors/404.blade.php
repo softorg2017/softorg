@@ -49,7 +49,7 @@
                 </div>
 
                 <div>
-                    <span id="time" style="color:#ff0018;" data-time="5">5</span> 秒钟自动跳到首页
+                    <span id="time" style="color:#ff0018;" data-time="25">25</span> 秒钟自动跳到首页
                 </div>
 
                 <p style="display:none;">
@@ -65,8 +65,8 @@
 
     <div class="main-body-section main-body-right-section section-wrapper pull-right _none">
 
-        {{--@include(env('TEMPLATE_ROOT_FRONT').'frontend.component.right-root')--}}
-        {{--@include(env('TEMPLATE_ROOT_FRONT').'frontend.component.right-me')--}}
+        {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')--}}
+        {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-me')--}}
 
     </div>
 

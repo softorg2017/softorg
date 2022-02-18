@@ -255,8 +255,8 @@
         $('input[name=content-move-id]').val($this_content.attr('data-id'));
         $('.content-move-title').html($this_content.find('.this-content-title').html());
 
-        $('#content-move-menu').find('option').prop('selected',null);
-        $('#content-move-menu').find('option[value=0]').prop("selected", true);
+        $('#content-move-position').find('option').prop('selected',null);
+        $('#content-move-position').find('option[value="-1"]').prop("selected", true);
 
 //        $("#content-move-position").find('option').hide();
 //        $("#content-move-position").find('option[value=0]').show();
@@ -264,10 +264,13 @@
 //        $('#content-move-position').find('option').prop('selected',null);
 //        $('#content-move-position').find('option[value=0]').prop("selected", true);
 
-        $('#modal-move-body').modal({show:true, backdrop:false});
-//            $('.modal-backdrop').each(function() {
-//                $(this).attr('id', 'id_' + Math.random());
-//            });
+
+//        $('#modal-move-body').modal({show:true, backdrop:'static'});
+//        $('.modal-backdrop').each(function() {
+//            $(this).attr('id', 'id_' + Math.random());
+//        });
+        $('#modal-move-body').modal('show');
+        $('.modal-backdrop').hide();
     });
     // 【移动】取消
     $("#modal-move-body").on('click', "#content-move-cancel", function() {
@@ -297,12 +300,6 @@
 //            layer.msg($move_menu_id + '-' + $move_position_id + '-' + $move_menu_has_child);
 
         if($move_position_id == -1)
-        {
-            layer.msg("请先选择位置！");
-            return false;
-        }
-
-        if($move_menu_has_child == 1 && $move_position_id == 0)
         {
             layer.msg("请先选择位置！");
             return false;

@@ -24,7 +24,7 @@
                 </h1>
 
                 <p>
-                    真遗憾，您访问的页面好像被劫持了。
+                    真遗憾，您访问的页面好像有误。
                 </p>
 
                 <h3 style="display:none;"><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
@@ -32,23 +32,24 @@
                 <h4 style="margin-top:32px;font-size:20px;font-weight:300;">
                     {{--<i class="fa fa-warning text-yellow" style="width:24px;margin-right:8px;"></i>--}}
                     {{--抱歉--}}
-                    {{ $error["text"] or '页面不存在或者参数有误！' }}
+                    <b>{{ $error["text"] or '页面不存在或者参数有误！' }}</b>
                 </h4>
-                <p>
-{{--                    {{ $error["text"] or '页面不存在或者参数有误！' }}--}}
-                </p>
+                {{--<p>--}}
+                    {{--{{ $error["text"] or '页面不存在或者参数有误！' }}--}}
+                {{--</p>--}}
 
                 <div style="margin-top:32px;margin-bottom:16px;">
                     <p>
                         您可以
                     </p>
+                    <br>
                     <a href="/" class="a"><i class="fa fa-home"></i> 返回首页</a>
                     <span>或</span>
                     <a href="javascript:location.reload();" class="a"><i class="fa fa-rotate-left"></i> 刷新重试</a>
                 </div>
 
                 <div>
-                    <span id="time" style="color:#ff0018;" data-time="15">15</span> 秒钟自动跳到首页
+                    <span id="time" style="color:#ff0018;" data-time="5">5</span> 秒钟自动跳到首页
                 </div>
 
                 <p style="display:none;">
@@ -61,9 +62,10 @@
 
     </div>
 
-    <div class="main-body-section main-body-right-section section-wrapper pull-right">
 
-        @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')
+    <div class="main-body-section main-body-right-section section-wrapper pull-right _none">
+
+        {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')--}}
         {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-me')--}}
 
     </div>
