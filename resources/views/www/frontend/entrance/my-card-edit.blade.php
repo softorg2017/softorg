@@ -12,13 +12,11 @@
 @section('wx_share_imgUrl')@endsection
 
 
+
+
 @section('sidebar')
-
     @include(env('TEMPLATE_ROOT_FRONT').'component.sidebar.sidebar-root')
-
 @endsection
-
-
 @section('header','')
 @section('description','')
 @section('content')
@@ -212,7 +210,7 @@
         </div>
     </div>
 
-    <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
+    <div class="main-body-section main-body-right-section section-wrapper hidden-xs">
 
         {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-root')--}}
         @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
@@ -230,7 +228,10 @@
 </style>
 @endsection
 
-@section('js')
+
+
+
+@section('script')
 <script>
     $(function() {
 

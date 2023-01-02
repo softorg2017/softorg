@@ -137,7 +137,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 /*
  * 前台
  */
-Route::group(['namespace' => 'Front', 'middleware' => 'wechat.share'], function () {
+Route::group(['namespace' => 'Front', 'middleware' => 'wx.share'], function () {
 
     Route::get('/', function () {
         dd('super');

@@ -25,7 +25,7 @@
 @section('content')
 <div class="container">
 
-    <div class="main-body-section main-body-left-section section-wrapper page-root">
+    <div class="main-body-section main-body-left-section content-section section-wrapper page-root">
 
         <div class="container-box pull-left margin-bottom-16px">
 
@@ -55,7 +55,7 @@
     </div>
 
 
-    <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
+    <div class="main-body-section main-body-right-section menu-section section-wrapper hidden-xs">
 
         <div class="fixed-to-top">
             @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')

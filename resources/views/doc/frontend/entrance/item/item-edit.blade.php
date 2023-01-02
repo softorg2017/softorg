@@ -10,22 +10,24 @@
 @section('meta_keywords')@endsection
 
 
+
+
 @section('header') {{ $item->title or '' }} @endsection
 @section('description','')
 @section('content')
 <div class="container">
 
+    {{--左侧--}}
     <div class="main-body-section main-body-left-section section-wrapper page-item">
         <div class="main-body-left-container bg-white">
 
-
             @include(env('TEMPLATE_COMMON_FRONT').'component.item-edit')
-
 
         </div>
     </div>
 
 
+    {{--右侧--}}
     <div class="main-body-section main-body-right-section section-wrapper">
         <div class="main-body-right-container fixed-to-top">
 
@@ -37,6 +39,7 @@
     </div>
 
 
+    {{--右侧--}}
     <div class="main-body-section main-body-right-section section-wrapper pull-right" style="clear:right;">
 
         {{--@if(!empty($user->ad))--}}

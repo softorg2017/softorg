@@ -1,10 +1,13 @@
 @extends(env('TEMPLATE_ROOT_FRONT').'layout.layout')
 
+
 @section('head_title','404 页面不存在或参数有误 - 如未轻博')
 @section('meta_title')@endsection
 @section('meta_author')@endsection
 @section('meta_description')@endsection
 @section('meta_keywords')@endsection
+
+
 
 
 @section('header','')
@@ -75,6 +78,8 @@
 @endsection
 
 
+
+
 @section('custom-style')
 <style>
     .a { padding:4px 8px; margin:4px 2px; border:1px solid #ccc; }
@@ -82,10 +87,12 @@
 @endsection
 
 
-@section('js')
+
+
+@section('custom-script')
 <script>
     $(function () {
-        setTimeout(ChangeTime, 1200);
+        setTimeout(ChangeTime, 1500);
     });
 
     function ChangeTime()

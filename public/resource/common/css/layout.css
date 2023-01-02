@@ -17,8 +17,17 @@
 .container { width:880px; padding-left:0; padding-right:0; }
 
 
-.main-body-left-section { position:relative; width:calc(100% - 240px); padding:0; padding-right:8px; float:left; }
-.main-body-right-section { position:relative; width:240px; padding:0; float:right; }
+.main-section { position:relative; width:calc(100% - 240px); padding:0; }
+.side-section { position:relative; width:240px; padding:0; }
+
+.main-body-left-section { position:relative; width:calc(100% - 240px); padding:0; padding-right:8px; float:left; clear:left; }
+.main-body-right-section { position:relative; width:240px; padding:0; float:right; clear:right; }
+
+.left-section { float:left; clear:left; }
+.right-section { float:right; clear:right; }
+
+.main-section.left-section { padding-right:8px; }
+.main-section.right-section { padding-left:8px; }
 
 
 .main-body-left-container { position:relative; width:100%; float:left; }
@@ -831,6 +840,7 @@
 .text-title-row { padding:0; line-height:1.6; font-size:16px; color:#444; }
 .text-title-row a { line-height:22px; color:#444; }
 .text-description-row { font-size:12px; color:#999; }
+.text-info-row { font-size:13px; color:#666; }
 
 
 

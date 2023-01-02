@@ -1,6 +1,6 @@
 @extends(env('TEMPLATE_ATOM_ADMIN').'layout.layout')
 
-@section('head_title','【a】原子系统')
+@section('head_title','原子系统')
 
 @section('header','')
 @section('description','')

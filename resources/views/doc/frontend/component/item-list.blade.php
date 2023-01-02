@@ -8,6 +8,7 @@
 
     <div class="item-container model-left-right image-right bg-grey-f5-">
 
+
         {{--头部--}}
         <figure class="item-header-block">
             <div class="text-box">
@@ -26,6 +27,7 @@
                 </div>
             </div>
         </figure>
+
 
         {{--主体--}}
         <figure class="item-body-block">
@@ -81,6 +83,7 @@
             </figure>
 
         </figure>
+
 
         {{--尾部--}}
         <figure class="item-footer-block">
@@ -174,9 +177,8 @@
             </div>
         </figure>
 
+
     </div>
-
-
 
 
 
@@ -319,7 +321,6 @@
         </figure>
 
     </div>
-
 
 
 
@@ -556,6 +557,7 @@
         </div>
 
     </div>
+
 
 </div>
 @endforeach

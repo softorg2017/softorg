@@ -1,14 +1,16 @@
 @extends(env('TEMPLATE_GPS_ADMIN').'layout.layout')
 
+
 @section('head_title','【G】导航')
+
+
+
 
 @section('header','导航')
 @section('description','导航')
 @section('breadcrumb')
     <li><a href="#"><i class="fa fa-home"></i>首页</a></li>
 @endsection
-
-
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -446,8 +448,6 @@
 </div>
 
 
-
-
 {{--Documents--}}
 <div class="row">
     <div class="col-md-12">
@@ -579,8 +579,6 @@
 </div>
 
 
-
-
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
@@ -621,8 +619,6 @@
         <!-- END PORTLET-->
     </div>
 </div>
-
-
 
 
 {{--Reading--}}
@@ -720,5 +716,3 @@
     </div>
 </div>
 @endsection
-
-

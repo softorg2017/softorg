@@ -8,6 +8,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    @if(in_array(env('APP_ENV'),['local','dev']))
+        <link rel="shortcut icon" type="image/ico" href="{{ url('favicon/l_favicon_atom.ico') }}">
+        <link rel="shortcut icon" type="image/png" href="{{ url('favicon/l_favicon_atom.jpg') }}">
+        <link rel="icon" sizes="16x16 32x32 64x64" href="{{ url('favicon/l_favicon_atom.ico') }}">
+        <link rel="icon" type="image/png" sizes="196x196" href="{{ url('favicon/l_favicon_atom.jpeg') }}">
+    @else
+        <link rel="shortcut icon" type="image/ico" href="{{ url('favicon/favicon_atom.ico') }}">
+        <link rel="shortcut icon" type="image/png" href="{{ url('favicon/favicon_atom.jpg') }}">
+        <link rel="icon" sizes="16x16 32x32 64x64" href="{{ url('favicon/favicon_atom.ico') }}">
+        <link rel="icon" type="image/png" sizes="196x196" href="{{ url('favicon/favicon_atom.jpeg') }}">
+    @endif
+
     <title>@yield('head_title')</title>
     <meta name="_token" content="{{ csrf_token() }}"/>
 

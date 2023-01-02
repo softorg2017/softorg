@@ -129,6 +129,24 @@ return [
 //            ],
         ],
 
+        'mysql_atom' => [
+            'driver' => 'mysql',
+            'host' => env('DB_ATOM_HOST', '127.0.0.1'),
+            'port' => env('DB_ATOM_PORT', '3306'),
+            'database' => env('DB_ATOM_DATABASE', ''),
+            'username' => env('DB_ATOM_USERNAME', ''),
+            'password' => env('DB_ATOM_PASSWORD', ''),
+            'unix_socket' => env('DB_ATOM_SOCKET', ''),
+            'prefix' => env('DB_ATOM_PREFIX', 'atom_'),
+            'charset' => 'utf8',
+            'collation' => 'utf8_general_ci',
+            'strict' => false,
+            'engine' => null,
+//            'options'   =>[
+//                PDO::ATTR_EMULATE_PREPARES => false,
+//            ],
+        ],
+
         'mysql_org' => [
             'driver' => 'mysql',
             'host' => env('DB_ORG_HOST', '127.0.0.1'),

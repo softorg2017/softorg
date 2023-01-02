@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
+    <div class="main-body-section main-body-right-section section-wrapper hidden-xs">
 
         @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
 

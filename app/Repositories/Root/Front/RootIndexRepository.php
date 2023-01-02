@@ -122,6 +122,7 @@ class RootIndexRepository {
                 $item->img_tags = get_html_img($item->content);
 
                 if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic))
+                if(!empty($item->cover_pic) && file_exists(storage_resource_path($item->cover_pic)))
                 {
                     $item->cover_picture = env('DOMAIN_CDN').'/'.$item->cover_pic;
                 }
@@ -129,6 +130,7 @@ class RootIndexRepository {
                 {
                     if(!empty($item->img_tags[0])) $item->cover_picture = $item->img_tags[2][0];
                 }
+//                dd($item->cover_picture);
             }
             $return['item_list'] = $item_list;
 
@@ -233,7 +235,7 @@ class RootIndexRepository {
 
 
         $item = $this->modelItem->with([
-            'user',
+            'owner','user',
             'pivot_item_relation'=>function($query) use($me_id) { $query->where('user_id',$me_id); }
         ])->find($id);
         if($item)
@@ -322,7 +324,7 @@ class RootIndexRepository {
         $head_title_postfix = ' - 如未轻博';
         $return['head_title'] = $head_title_prefix.$head_title_text.$head_title_postfix;
         $return['item'] = $item;
-        $return['user'] = $user;
+        $return['user'] = $item->owner;
 
         $view_blade = env('TEMPLATE_ROOT_FRONT').'entrance.item.item';
         return view($view_blade)->with($return);
@@ -3234,7 +3236,8 @@ class RootIndexRepository {
             $item->content_show = strip_tags($item->content);
             $item->img_tags = get_html_img($item->content);
 
-            if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic))
+//            if(!empty($item->cover_pic) && @getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic))
+            if(!empty($item->cover_pic) && file_exists(storage_resource_path($item->cover_pic)))
             {
                 $item->cover_picture = env('DOMAIN_CDN').'/'.$item->cover_pic;
             }

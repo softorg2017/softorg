@@ -15,23 +15,17 @@
 @section('wx_share_imgUrl'){{ url('/images/lookwit-black.png') }}@endsection
 
 
+
+
 @section('sidebar')
-
     {{--@include(env('TEMPLATE_ROOT_FRONT').'component.sidebar.sidebar-root')--}}
-
 @endsection
-
-
 @section('header','')
 @section('description','')
 @section('content')
-<div style="display:none;">
-    <input type="hidden" id="" value="{{ $encode or '' }}" readonly>
-</div>
-
 <div class="container">
 
-    <div class="main-body-section main-body-left-section section-wrapper page-root">
+    <div class="main-body-section main-section main-body-left-section section-wrapper page-root">
         <div class="container-box pull-left margin-bottom-16px">
 
 
@@ -72,15 +66,18 @@
         </div>
     </div>
 
-    <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
+    <div class="main-body-section side-section main-body-right-section section-wrapper hidden-xs">
 
+        <div class="fixed-to-top">
         {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-root')--}}
         @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
+        </div>
 
     </div>
 
 </div>
 @endsection
+
 
 
 
@@ -112,4 +109,3 @@
     });
 </script>
 @endsection
-

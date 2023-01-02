@@ -2,8 +2,8 @@
 namespace App\Repositories\Atom\Admin;
 
 use App\User;
-use App\Models\Doc\Doc_Item;
-use App\Models\Doc\Doc_Pivot_Item_Relation;
+use App\Models\Atom\Atom_Item;
+use App\Models\Atom\Atom_Pivot_Item_Relation;
 
 use App\Repositories\Common\CommonRepository;
 
@@ -227,7 +227,7 @@ class AtomAdminRepository {
     // 【select2】
     public function operate_item_select2_people($post_data)
     {
-        $query = Doc_Item::select(['id','name as text'])->where(['item_category'=>100,'item_type'=>11]);
+        $query = Atom_Item::select(['id','name as text'])->where(['item_category'=>100,'item_type'=>11]);
         if(!empty($post_data['keyword']))
         {
             $keyword = "%{$post_data['keyword']}%";
@@ -312,7 +312,7 @@ class AtomAdminRepository {
 //        if(!in_array($me->user_type,[0,1])) return view(env('TEMPLATE_ATOM_ADMIN').'errors.404');
 
         $id = $post_data["id"];
-        $mine = Doc_Item::with([
+        $mine = Atom_Item::with([
                 'owner',
                 'pivot_product_people'=>function ($query) { $query->where('relation_type',1); }
             ])->find($id);
@@ -445,7 +445,7 @@ class AtomAdminRepository {
 
         if($operate == 'create') // 添加 ( $id==0，添加一个内容 )
         {
-            $mine = new Doc_Item;
+            $mine = new Atom_Item;
             $post_data["item_category"] = 100;
             $post_data["owner_id"] = 100;
             $post_data["creator_id"] = $me_admin->id;
@@ -457,7 +457,7 @@ class AtomAdminRepository {
         }
         else if($operate == 'edit') // 编辑
         {
-            $mine = Doc_Item::find($operate_id);
+            $mine = Atom_Item::find($operate_id);
             if(!$mine) return response_error([],"该内容不存在，刷新页面重试！");
             if($me->id != $me_admin->id)
             {
@@ -610,7 +610,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::withTrashed()->find($id);
+        $item = Atom_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -641,7 +641,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::withTrashed()->find($id);
+        $item = Atom_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -738,7 +738,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::withTrashed()->find($id);
+        $item = Atom_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -787,7 +787,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::withTrashed()->find($id);
+        $item = Atom_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -879,7 +879,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::withTrashed()->find($id);
+        $item = Atom_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -933,7 +933,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::find($id);
+        $item = Atom_Item::find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -983,7 +983,7 @@ class AtomAdminRepository {
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
-        $item = Doc_Item::find($id);
+        $item = Atom_Item::find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
 
         $me = Auth::guard('atom')->user();
@@ -1027,7 +1027,7 @@ class AtomAdminRepository {
     public function get_item_list_datatable($post_data)
     {
         $me = Auth::guard("admin")->user();
-        $query = Doc_Item::select('*')
+        $query = Atom_Item::select('*')
             ->with('owner')
             ->where('owner_id','>=',1);
 
@@ -1077,7 +1077,7 @@ class AtomAdminRepository {
     public function get_item_list_for_all_datatable($post_data)
     {
         $me = Auth::guard("admin")->user();
-        $query = Doc_Item::select('*')->withTrashed()
+        $query = Atom_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
             ->where('owner_id','>=',1)
             ->where(['owner_id'=>100,'item_category'=>100])
@@ -1133,7 +1133,7 @@ class AtomAdminRepository {
     public function get_item_list_for_object_datatable($post_data)
     {
         $me = Auth::guard("admin")->user();
-        $query = Doc_Item::select('*')->withTrashed()
+        $query = Atom_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
             ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>1]);
 
@@ -1185,7 +1185,7 @@ class AtomAdminRepository {
     public function get_item_list_for_people_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
-        $query = Doc_Item::select('*')->withTrashed()
+        $query = Atom_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
             ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>11]);
 
@@ -1245,7 +1245,7 @@ class AtomAdminRepository {
     public function get_item_list_for_product_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
-        $query = Doc_Item::select('*')->withTrashed()
+        $query = Atom_Item::select('*')->withTrashed()
             ->with([
                 'owner',
                 'creator',
@@ -1301,7 +1301,7 @@ class AtomAdminRepository {
     public function get_item_list_for_event_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
-        $query = Doc_Item::select('*')->withTrashed()
+        $query = Atom_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
             ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>33]);
 
@@ -1353,7 +1353,7 @@ class AtomAdminRepository {
     public function get_item_list_for_conception_datatable($post_data)
     {
         $me = Auth::guard("atom")->user();
-        $query = Doc_Item::select('*')->withTrashed()
+        $query = Atom_Item::select('*')->withTrashed()
             ->with(['owner','creator'])
             ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>91]);
 
