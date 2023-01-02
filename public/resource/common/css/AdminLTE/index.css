@@ -1,3 +1,22 @@
+.tableArea .dataTables_wrapper {
+    position: relative;
+    clear: both;
+    zoom: 1;
+    overflow-x: auto;
+}
+.tableArea .row {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+.tableArea .col-sm-12,.tableArea .col-md-12,.tableArea .col-ls-12,.tableArea .col-sm-6,.tableArea .col-md-6,.tableArea .col-ls-6 {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .datatable-body * { font-size:12px; }
 .datatable-body .btn-xs { padding:1px 2px; }
 
@@ -16,8 +35,9 @@
 
 .datatable-body * {  }
 .datatable-body .form-control { padding:4px; }
-.datatable-body thead * { font-size:13px; text-align: center; }
-.datatable-body tbody * { font-size:13px; text-align: center; }
+.datatable-body thead * { font-size:12px; text-align: center; }
+.datatable-body tbody * { font-size:12px; text-align: center; }
+.datatable-body tbody a { font-size:12px; }
 .btn-group-xs>.btn, .btn-xs { padding:1px 2px; margin-left:2px; margin-right:2px; border-radius:2px; }
 table.dataTable thead > tr > th { padding:8px 4px; }
 table.dataTable .text-center { text-align:center; }
@@ -66,3 +86,8 @@ table.dataTable .text-right { text-align:right; }
 .dropdown-menu li a { cursor:pointer; }
 
 .form-horizontal .checkbox, .form-horizontal .radio { padding-top:2px; min-height:24px; }
+
+
+.navbar-nav>.notifications-menu>.dropdown-menu>li .menu, .navbar-nav>.messages-menu>.dropdown-menu>li .menu, .navbar-nav>.tasks-menu>.dropdown-menu>li .menu {
+    max-height: 320px;
+}

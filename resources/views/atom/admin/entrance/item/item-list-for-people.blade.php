@@ -201,7 +201,7 @@
                 "columns": [
                     {
                         "className": "font-12px",
-                        "width": "48px",
+                        "width": "40px",
                         "title": "ID",
                         "data": "id",
                         "orderable": true,
@@ -211,7 +211,7 @@
                     },
                     {
                         "className": "",
-                        "width": "64px",
+                        "width": "60px",
                         "title": "类型",
                         "data": "item_type",
                         'orderable': false,
@@ -247,7 +247,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "",
+                        "width": "120px",
                         "title": "国别",
                         "data": "nation",
                         "orderable": false,
@@ -257,7 +257,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "96px",
+                        "width": "120px",
                         "title": "出生时间",
                         "data": "birth_time",
                         "orderable": true,
@@ -267,7 +267,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "96px",
+                        "width": "120px",
                         "title": "逝世时间",
                         "data": "death_time",
                         "orderable": true,
@@ -343,7 +343,7 @@
                         }
                     },
                     {
-                        "width": "288px",
+                        "width": "240px",
                         "title": "操作",
                         "data": 'id',
                         "orderable": false,
