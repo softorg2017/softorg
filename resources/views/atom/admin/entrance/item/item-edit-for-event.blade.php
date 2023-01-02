@@ -1,9 +1,7 @@
 @extends(env('TEMPLATE_ATOM_ADMIN').'layout.layout')
 
 
-@section('head_title')
-    【a】{{ $title_text or '' }}
-@endsection
+@section('head_title'){{ $title_text or '' }}@endsection
 
 
 @section('header', '')
