@@ -20,13 +20,12 @@
 
                 <h3 class="box-title">内容列表</h3>
 
-                <div class="pull-right _none">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
-                        <i class="fa fa-times"></i>
-                    </button>
+                <div class="caption pull-right">
+                    <i class="icon-pin font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase"></span>
+                    <a href="{{ url('/admin/item/item-create?type=product') }}">
+                        <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加作品</button>
+                    </a>
                 </div>
 
             </div>
@@ -54,15 +53,6 @@
                 <table class='table table-striped table-bordered table-hover' id='datatable_ajax'>
                     <thead>
                         <tr role='row' class='heading'>
-                            <th>ID</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -164,7 +154,7 @@
             var dt = $('#datatable_ajax');
             var ajax_datatable = dt.DataTable({
 //                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
-                "aLengthMenu": [[20, 50, 100, 200], ["20", "50", "100", "200"]],
+                "aLengthMenu": [[50, 100, 200], ["50", "100", "200"]],
                 "processing": true,
                 "serverSide": true,
                 "searching": false,
@@ -201,6 +191,82 @@
                         "orderable": true,
                         render: function(data, type, row, meta) {
                             return data;
+                        }
+                    },
+                    {
+                        "width": "240px",
+                        "title": "操作",
+                        "data": 'id',
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+
+                            if(row.item_status == 1)
+                            {
+                                $html_able = '<a class="btn btn-xs btn-danger item-admin-disable-submit" data-id="'+data+'">封禁</a>';
+                            }
+                            else
+                            {
+                                $html_able = '<a class="btn btn-xs btn-success item-admin-enable-submit" data-id="'+data+'">解禁</a>';
+                            }
+
+                            if(row.is_me == 1 && row.active == 0)
+                            {
+                                $html_publish = '<a class="btn btn-xs bg-olive item-publish-submit" data-id="'+data+'">发布</a>';
+                            }
+                            else
+                            {
+                                $html_publish = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">发布</a>';
+                            }
+
+                            var html =
+                                $html_able+
+                                '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>'+
+                                $html_publish+
+                                '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'">删除</a>'+
+                                '<a class="btn btn-xs bg-navy item-delete-permanently-submit" data-id="'+data+'">永久删除</a>'+
+                                //                                    '<a class="btn btn-xs bg-primary item-detail-show" data-id="'+data+'">查看详情</a>'+
+                                //                                    '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
+                                //                                    '<a class="btn btn-xs bg-olive item-download-qr-code-submit" data-id="'+data+'">下载二维码</a>'+
+                                '';
+                            return html;
+
+                        }
+                    },
+                    {
+                        "width": "64px",
+                        "title": "状态",
+                        "data": "active",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+//                            return data;
+                            if(row.deleted_at != null)
+                            {
+                                return '<small class="btn-xs bg-black">已删除</small>';
+                            }
+
+                            if(row.item_status == 1)
+                            {
+                                if(data == 0)
+                                {
+                                    return '<small class="btn-xs bg-teal">待发布</small>';
+                                }
+                                else if(data == 1)
+                                {
+                                    return '<small class="btn-xs bg-olive">已发布</small>';
+//                                if(row.is_read == 0) return '<small class="btn-xs bg-olive">未读</small>';
+//                                else if(row.is_read == 1) return '<small class="btn-xs bg-primary">已读</small>';
+//                                else return "--";
+                                }
+                                else if(data == 9)
+                                {
+                                    return '<small class="btn-xs bg-purple">已完成</small>';
+                                }
+                                else return "有误";
+                            }
+                            else
+                            {
+                                return '<small class="btn-xs btn-danger">已封禁</small>';
+                            }
                         }
                     },
                     {
@@ -260,26 +326,6 @@
                     {
                         "className": "font-12px",
                         "width": "112px",
-                        "title": "创建时间",
-                        "data": 'created_at',
-                        "orderable": true,
-                        render: function(data, type, row, meta) {
-//                            return data;
-                            var $date = new Date(data*1000);
-                            var $year = $date.getFullYear();
-                            var $month = ('00'+($date.getMonth()+1)).slice(-2);
-                            var $day = ('00'+($date.getDate())).slice(-2);
-                            var $hour = ('00'+$date.getHours()).slice(-2);
-                            var $minute = ('00'+$date.getMinutes()).slice(-2);
-                            var $second = ('00'+$date.getSeconds()).slice(-2);
-//                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
-//                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
-                        }
-                    },
-                    {
-                        "className": "font-12px",
-                        "width": "112px",
                         "title": "修改时间",
                         "data": 'updated_at',
                         "orderable": true,
@@ -292,85 +338,12 @@
                             var $hour = ('00'+$date.getHours()).slice(-2);
                             var $minute = ('00'+$date.getMinutes()).slice(-2);
                             var $second = ('00'+$date.getSeconds()).slice(-2);
+
 //                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
+//                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
 //                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
-                        }
-                    },
-                    {
-                        "width": "64px",
-                        "title": "状态",
-                        "data": "active",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-//                            return data;
-                            if(row.deleted_at != null)
-                            {
-                                return '<small class="btn-xs bg-black">已删除</small>';
-                            }
 
-                            if(row.item_status == 1)
-                            {
-                                if(data == 0)
-                                {
-                                    return '<small class="btn-xs bg-teal">待发布</small>';
-                                }
-                                else if(data == 1)
-                                {
-                                    return '<small class="btn-xs bg-olive">已发布</small>';
-//                                if(row.is_read == 0) return '<small class="btn-xs bg-olive">未读</small>';
-//                                else if(row.is_read == 1) return '<small class="btn-xs bg-primary">已读</small>';
-//                                else return "--";
-                                }
-                                else if(data == 9)
-                                {
-                                    return '<small class="btn-xs bg-purple">已完成</small>';
-                                }
-                                else return "有误";
-                            }
-                            else
-                            {
-                                return '<small class="btn-xs btn-danger">已封禁</small>';
-                            }
-                        }
-                    },
-                    {
-                        "width": "240px",
-                        "title": "操作",
-                        "data": 'id',
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-
-                            if(row.item_status == 1)
-                            {
-                                $html_able = '<a class="btn btn-xs btn-danger item-admin-disable-submit" data-id="'+data+'">封禁</a>';
-                            }
-                            else
-                            {
-                                $html_able = '<a class="btn btn-xs btn-success item-admin-enable-submit" data-id="'+data+'">解禁</a>';
-                            }
-
-                            if(row.is_me == 1 && row.active == 0)
-                            {
-                                $html_publish = '<a class="btn btn-xs bg-olive item-publish-submit" data-id="'+data+'">发布</a>';
-                            }
-                            else
-                            {
-                                $html_publish = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">发布</a>';
-                            }
-
-                            var html =
-                                    $html_able+
-                                    '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>'+
-                                    $html_publish+
-                                    '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'">删除</a>'+
-                                    '<a class="btn btn-xs bg-navy item-delete-permanently-submit" data-id="'+data+'">永久删除</a>'+
-//                                    '<a class="btn btn-xs bg-primary item-detail-show" data-id="'+data+'">查看详情</a>'+
-//                                    '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
-//                                    '<a class="btn btn-xs bg-olive item-download-qr-code-submit" data-id="'+data+'">下载二维码</a>'+
-                                    '';
-                            return html;
-
+                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
                         }
                     }
                 ],

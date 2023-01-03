@@ -54,14 +54,6 @@
                 <table class='table table-striped table-bordered table-hover' id='datatable_ajax'>
                     <thead>
                         <tr role='row' class='heading'>
-                            <th>ID</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -232,7 +224,7 @@
                     },
                     {
                         "className": "",
-                        "width": "64px",
+                        "width": "60px",
                         "title": "发布者",
                         "data": "creator_id",
                         "orderable": false,
@@ -242,7 +234,7 @@
                     },
                     {
                         "className": "font-12px",
-                        "width": "112px",
+                        "width": "100px",
                         "title": "创建时间",
                         "data": 'created_at',
                         "orderable": true,
@@ -255,14 +247,17 @@
                             var $hour = ('00'+$date.getHours()).slice(-2);
                             var $minute = ('00'+$date.getMinutes()).slice(-2);
                             var $second = ('00'+$date.getSeconds()).slice(-2);
+
 //                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
+//                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
 //                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
+
+                            return $year+'-'+$month+'-'+$day;
                         }
                     },
                     {
                         "className": "font-12px",
-                        "width": "112px",
+                        "width": "120px",
                         "title": "修改时间",
                         "data": 'updated_at',
                         "orderable": true,
@@ -275,9 +270,12 @@
                             var $hour = ('00'+$date.getHours()).slice(-2);
                             var $minute = ('00'+$date.getMinutes()).slice(-2);
                             var $second = ('00'+$date.getSeconds()).slice(-2);
+
 //                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
+//                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
 //                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
+
+                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
                         }
                     },
                     {

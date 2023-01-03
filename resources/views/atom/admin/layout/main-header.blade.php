@@ -35,32 +35,32 @@
 
                             <li class="header">添加内容</li>
                             <li class="header _none">
-                                <a href="{{url('/admin/item/item-create')}}">
+                                <a href="{{ url('/admin/item/item-create') }}">
                                     <i class="fa fa-plus text-blue"></i> 添加内容
                                 </a>
                             </li>
                             <li class="header">
-                                <a href="{{url('/admin/item/item-create?type=object')}}">
+                                <a href="{{ url('/admin/item/item-create?type=object') }}">
                                     <i class="fa fa-plus text-blue"></i> 添加物
                                 </a>
                             </li>
                             <li class="header">
-                                <a href="{{url('/admin/item/item-create?type=people')}}">
+                                <a href="{{ url('/admin/item/item-create?type=people') }}">
                                     <i class="fa fa-plus text-blue"></i> 添加人
                                 </a>
                             </li>
                             <li class="header">
-                                <a href="{{url('/admin/item/item-create?type=product')}}">
+                                <a href="{{ url('/admin/item/item-create?type=product') }}">
                                     <i class="fa fa-plus text-blue"></i> 添加作品
                                 </a>
                             </li>
                             <li class="header">
-                                <a href="{{url('/admin/item/item-create?type=event')}}">
+                                <a href="{{ url('/admin/item/item-create?type=event') }}">
                                     <i class="fa fa-plus text-blue"></i> 添加事件
                                 </a>
                             </li>
                             <li class="header">
-                                <a href="{{url('/admin/item/item-create?type=conception')}}">
+                                <a href="{{ url('/admin/item/item-create?type=conception') }}">
                                     <i class="fa fa-plus text-blue"></i> 添加概念
                                 </a>
                             </li>
