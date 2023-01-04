@@ -336,7 +336,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "",
+                        "width": "200px",
                         "title": "职业",
                         "data": "major",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
@@ -358,7 +358,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "120px",
+                        "width": "200px",
                         "title": "国别",
                         "data": "nation",
                         "orderable": false,
