@@ -50,6 +50,7 @@
                     </div>
                 </div>
 
+                <div class="tableArea">
                 <table class='table table-striped table-bordered table-hover' id='datatable_ajax'>
                     <thead>
                         <tr role='row' class='heading'>
@@ -58,6 +59,7 @@
                     <tbody>
                     </tbody>
                 </table>
+                </div>
 
             </div>
 
@@ -79,6 +81,20 @@
 {{--修改-基本-信息--}}
 @include(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-set')
 @endsection
+
+
+
+
+@section('custom-style')
+    <style>
+        .tableArea table { min-width:1400px; }
+
+        .select2-container { height:100%; border-radius:0; float:left; }
+        .select2-container .select2-selection--single { border-radius:0; }
+    </style>
+@endsection
+
+
 
 
 @section('custom-script')
@@ -120,7 +136,7 @@
                 "columns": [
                     {
                         "className": "font-12px",
-                        "width": "48px",
+                        "width": "60px",
                         "title": "ID",
                         "data": "id",
                         "orderable": true,
@@ -129,7 +145,7 @@
                         }
                     },
                     {
-                        "width": "80px",
+                        "width": "100px",
                         "title": "操作",
                         "data": 'id',
                         "orderable": false,
@@ -194,7 +210,7 @@
                         }
                     },
                     {
-                        "width": "60px",
+                        "width": "80px",
                         "title": "状态",
                         "data": "item_status",
                         "orderable": false,
@@ -237,7 +253,7 @@
                     },
                     {
                         "className": "",
-                        "width": "48px",
+                        "width": "60px",
                         "title": "类型",
                         "data": "item_type",
                         'orderable': false,
@@ -253,7 +269,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "",
+                        "width": "360px",
                         "title": "名称",
                         "data": "name",
                         "orderable": false,
@@ -307,32 +323,12 @@
                     },
                     {
                         "className": "",
-                        "width": "60px",
+                        "width": "80px",
                         "title": "发布者",
                         "data": "creator_id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             return row.creator == null ? '未知' : '<a target="_blank" href="/user/'+row.creator.id+'">'+row.creator.username+'</a>';
-                        }
-                    },
-                    {
-                        "className": "font-12px",
-                        "width": "120px",
-                        "title": "创建时间",
-                        "data": 'created_at',
-                        "orderable": true,
-                        render: function(data, type, row, meta) {
-//                            return data;
-                            var $date = new Date(data*1000);
-                            var $year = $date.getFullYear();
-                            var $month = ('00'+($date.getMonth()+1)).slice(-2);
-                            var $day = ('00'+($date.getDate())).slice(-2);
-                            var $hour = ('00'+$date.getHours()).slice(-2);
-                            var $minute = ('00'+$date.getMinutes()).slice(-2);
-                            var $second = ('00'+$date.getSeconds()).slice(-2);
-//                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
-//                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
                         }
                     },
                     {
@@ -350,9 +346,12 @@
                             var $hour = ('00'+$date.getHours()).slice(-2);
                             var $minute = ('00'+$date.getMinutes()).slice(-2);
                             var $second = ('00'+$date.getSeconds()).slice(-2);
+
 //                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
+//                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
 //                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
+
+                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
                         }
                     }
                 ],

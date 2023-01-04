@@ -52,6 +52,7 @@
                     </div>
                 </div>
 
+                <div class="tableArea">
                 <table class='table table-striped table-bordered table-hover' id='datatable_ajax'>
                     <thead>
                         <tr role='row' class='heading'>
@@ -60,6 +61,7 @@
                     <tbody>
                     </tbody>
                 </table>
+                </div>
 
             </div>
 
@@ -78,78 +80,23 @@
 </div>
 
 
-<div class="modal fade" id="modal-body">
-    <div class="col-md-8 col-md-offset-2" id="edit-ctn" style="margin-top:64px;margin-bottom:64px;background:#fff;">
-
-        <div class="row">
-            <div class="col-md-12">
-                <!-- BEGIN PORTLET-->
-                <div class="box- box-info- form-container">
-
-                    <div class="box-header with-border" style="margin:16px 0;">
-                        <h3 class="box-title">内容详情</h3>
-                        <div class="box-tools pull-right">
-                        </div>
-                    </div>
-
-                    <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-modal">
-                        <div class="box-body">
-
-                            {{csrf_field()}}
-                            <input type="hidden" name="operate" value="work-order" readonly>
-                            <input type="hidden" name="id" value="0" readonly>
-
-                            {{--标题--}}
-                            <div class="form-group">
-                                <label class="control-label col-md-2">标题</label>
-                                <div class="col-md-8 ">
-                                    <div><b class="item-detail-title"></b></div>
-                                </div>
-                            </div>
-                            {{--内容--}}
-                            <div class="form-group">
-                                <label class="control-label col-md-2">内容</label>
-                                <div class="col-md-8 ">
-                                    <div class="item-detail-content"></div>
-                                </div>
-                            </div>
-                            {{--附件--}}
-                            <div class="form-group">
-                                <label class="control-label col-md-2">附件</label>
-                                <div class="col-md-8 ">
-                                    <div class="item-detail-attachment"></div>
-                                </div>
-                            </div>
-                            {{--说明--}}
-                            <div class="form-group _none">
-                                <label class="control-label col-md-2">说明</label>
-                                <div class="col-md-8 control-label" style="text-align:left;">
-                                    <span class="">这是一段说明。</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-
-                    <div class="box-footer">
-                        <div class="row _none">
-                            <div class="col-md-8 col-md-offset-2">
-                                <button type="button" class="btn btn-success" id="item-site-submit"><i class="fa fa-check"></i> 提交</button>
-                                <button type="button" class="btn btn-default modal-cancel" id="item-site-cancel">取消</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END PORTLET-->
-            </div>
-        </div>
-    </div>
-</div>
-
-
 {{--修改-基本-信息--}}
 @include(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-set')
 @endsection
+
+
+
+
+@section('custom-style')
+    <style>
+        .tableArea table { min-width:1400px; }
+
+        .select2-container { height:100%; border-radius:0; float:left; }
+        .select2-container .select2-selection--single { border-radius:0; }
+    </style>
+@endsection
+
+
 
 
 @section('custom-script')
@@ -192,8 +139,8 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
-                        "className": "font-12px",
-                        "width": "40px",
+                        "className": "",
+                        "width": "60px",
                         "title": "ID",
                         "data": "id",
                         "orderable": true,
@@ -202,9 +149,9 @@
                         }
                     },
                     {
-                        "width": "80px",
+                        "width": "100px",
                         "title": "操作",
-                        "data": 'id',
+                        "data": "id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
 
@@ -267,7 +214,7 @@
                         }
                     },
                     {
-                        "width": "60px",
+                        "width": "80px",
                         "title": "状态",
                         "data": "item_status",
                         "orderable": false,
@@ -326,7 +273,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "",
+                        "width": "240px",
                         "title": "名称",
                         "data": "name",
                         "orderable": false,
@@ -424,7 +371,7 @@
                     },
                     {
                         "className": "",
-                        "width": "64px",
+                        "width": "60px",
                         "title": "发布者",
                         "data": "creator_id",
                         "orderable": false,
@@ -434,7 +381,7 @@
                     },
                     {
                         "className": "font-12px",
-                        "width": "112px",
+                        "width": "120px",
                         "title": "修改时间",
                         "data": 'updated_at',
                         "orderable": true,
