@@ -7,7 +7,7 @@ use App\Models\Atom\Atom_Pivot_Item_Relation;
 
 use App\Repositories\Common\CommonRepository;
 
-use Response, Auth, Validator, DB, Exception;
+use Response, Auth, Validator, DB, Exception, Cache, Blade, Carbon;
 use QrCode, Excel;
 
 class AtomAdminRepository {
@@ -16,7 +16,29 @@ class AtomAdminRepository {
     private $repo;
     public function __construct()
     {
-//        $this->model = new User;
+//        $this->modelUser = new YH_User;
+        $this->modelItem = new Atom_Item;
+
+        $this->view_blade_404 = env('TEMPLATE_ATOM_ADMIN').'entrance.errors.404';
+
+        Blade::setEchoFormat('%s');
+        Blade::setEchoFormat('e(%s)');
+        Blade::setEchoFormat('nl2br(e(%s))');
+    }
+
+
+    // 登录情况
+    public function get_me()
+    {
+        if(Auth::guard("atom")->check())
+        {
+            $this->auth_check = 1;
+            $this->me = Auth::guard("atom")->user();
+            view()->share('me',$this->me);
+        }
+        else $this->auth_check = 0;
+
+        view()->share('auth_check',$this->auth_check);
     }
 
 
@@ -559,12 +581,12 @@ class AtomAdminRepository {
                 }
 
                 // 生成二维码
-                $qr_code_path = "resource/doc/unique/qr_code/";  // 保存目录
+                $qr_code_path = "resource/atom/unique/qr_code/";  // 保存目录
                 if(!file_exists(storage_path($qr_code_path)))
                     mkdir(storage_path($qr_code_path), 0777, true);
                 // qr_code 图片文件
                 $url = env('DOMAIN_WWW').'/item/'.$mine->id;  // 目标 URL
-                $filename = 'qr_code_doc_item_'.$mine->id.'.png';  // 目标 file
+                $filename = 'qr_code_atom_item_'.$mine->id.'.png';  // 目标 file
                 $qr_code = $qr_code_path.$filename;
                 QrCode::errorCorrection('H')->format('png')->size(640)->margin(0)->encoding('UTF-8')->generate($url,storage_path($qr_code));
 
@@ -889,7 +911,7 @@ class AtomAdminRepository {
         DB::beginTransaction();
         try
         {
-            $item->active = 1;
+            $item->is_published = 1;
             $item->published_at = time();
             $bool = $item->save();
             if(!$bool) throw new Exception("update--item--fail");
@@ -911,12 +933,12 @@ class AtomAdminRepository {
 
 
 
-    // 【ITEM】管理员封禁
-    public function operate_item_admin_disable($post_data)
+    // 【ITEM】禁用
+    public function operate_item_item_disable($post_data)
     {
         $messages = [
-            'operate.required' => '参数有误',
-            'id.required' => '请输入关键词ID',
+            'operate.required' => 'operate.required.',
+            'id.required' => 'id.required.',
         ];
         $v = Validator::make($post_data, [
             'operate' => 'required',
@@ -929,7 +951,7 @@ class AtomAdminRepository {
         }
 
         $operate = $post_data["operate"];
-        if($operate != 'item-admin-disable') return response_error([],"参数有误！");
+        if($operate != 'item-disable') return response_error([],"参数有误！");
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
@@ -961,12 +983,12 @@ class AtomAdminRepository {
         }
 
     }
-    // 【ITEM】管理员解禁
-    public function operate_item_admin_enable($post_data)
+    // 【ITEM】启用
+    public function operate_item_item_enable($post_data)
     {
         $messages = [
-            'operate.required' => '参数有误',
-            'id.required' => '请输入关键词ID',
+            'operate.required' => 'operate.required.',
+            'id.required' => 'id.required.',
         ];
         $v = Validator::make($post_data, [
             'operate' => 'required',
@@ -979,7 +1001,7 @@ class AtomAdminRepository {
         }
 
         $operate = $post_data["operate"];
-        if($operate != 'item-admin-enable') return response_error([],"参数有误！");
+        if($operate != 'item-enable') return response_error([],"参数有误！");
         $id = $post_data["id"];
         if(intval($id) !== 0 && !$id) return response_error([],"参数ID有误！");
 
@@ -1105,7 +1127,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("updated_at", "desc");
+        else $query->orderBy("id", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -1393,6 +1415,98 @@ class AtomAdminRepository {
 
 
 
+    // 【内容管理】【文本】修改-文本-类型
+    public function operate_item_text_set($post_data)
+    {
+        $messages = [
+            'operate.required' => 'operate.required.',
+            'item_id.required' => 'item_id.required.',
+        ];
+        $v = Validator::make($post_data, [
+            'operate' => 'required',
+            'item_id' => 'required',
+        ], $messages);
+        if ($v->fails())
+        {
+            $messages = $v->errors();
+            return response_error([],$messages->first());
+        }
+
+        $operate = $post_data["operate"];
+        if($operate != 'item-text-set') return response_error([],"参数[operate]有误！");
+        $id = $post_data["item_id"];
+        if(intval($id) !== 0 && !$id) return response_error([],"参数[ID]有误！");
+
+        $item = Atom_Item::withTrashed()->find($id);
+        if(!$item) return response_error([],"该【内容】不存在，刷新页面重试！");
+
+        $this->get_me();
+        $me = $this->me;
+//        if($item->owner_id != $me->id) return response_error([],"该内容不是你的，你不能操作！");
+
+        $operate_type = $post_data["operate_type"];
+        $column_key = $post_data["column_key"];
+        $column_value = $post_data["column_value"];
+
+        $before = $item->$column_key;
+
+
+        if(!in_array($me->user_type,[0,1,11,81,82,88])) return response_error([],"你没有操作权限！");
+
+
+        // 启动数据库事务
+        DB::beginTransaction();
+        try
+        {
+            $item->$column_key = $column_value;
+            $bool = $item->save();
+            if(!$bool) throw new Exception("item--update--fail");
+            else
+            {
+                // 需要记录(本人修改已发布 || 他人修改)
+                if($me->id == $item->creator_id && $item->is_published == 0 && false)
+                {
+                }
+                else
+                {
+//                    $record = new YH_Record;
+//
+//                    $record_data["record_object"] = 21;
+//                    $record_data["record_category"] = 11;
+//                    $record_data["record_type"] = 1;
+//                    $record_data["creator_id"] = $me->id;
+//                    $record_data["order_id"] = $id;
+//                    $record_data["operate_object"] = 71;
+//                    $record_data["operate_category"] = 1;
+//
+//                    if($operate_type == "add") $record_data["operate_type"] = 1;
+//                    else if($operate_type == "edit") $record_data["operate_type"] = 11;
+//
+//                    $record_data["column_name"] = $column_key;
+//                    $record_data["before"] = $before;
+//                    $record_data["after"] = $column_value;
+//
+//                    $bool_1 = $record->fill($record_data)->save();
+//                    if($bool_1)
+//                    {
+//                    }
+//                    else throw new Exception("insert--record--fail");
+                }
+            }
+
+            DB::commit();
+            return response_success([]);
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            $msg = '操作失败，请重试！';
+            $msg = $e->getMessage();
+//            exit($e->getMessage());
+            return response_fail([],$msg);
+        }
+
+    }
 
 
 }

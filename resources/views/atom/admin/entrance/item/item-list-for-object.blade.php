@@ -76,73 +76,8 @@
 </div>
 
 
-<div class="modal fade" id="modal-body">
-    <div class="col-md-8 col-md-offset-2" id="edit-ctn" style="margin-top:64px;margin-bottom:64px;background:#fff;">
-
-        <div class="row">
-            <div class="col-md-12">
-                <!-- BEGIN PORTLET-->
-                <div class="box- box-info- form-container">
-
-                    <div class="box-header with-border" style="margin:16px 0;">
-                        <h3 class="box-title">内容详情</h3>
-                        <div class="box-tools pull-right">
-                        </div>
-                    </div>
-
-                    <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-modal">
-                        <div class="box-body">
-
-                            {{csrf_field()}}
-                            <input type="hidden" name="operate" value="work-order" readonly>
-                            <input type="hidden" name="id" value="0" readonly>
-
-                            {{--标题--}}
-                            <div class="form-group">
-                                <label class="control-label col-md-2">标题</label>
-                                <div class="col-md-8 ">
-                                    <div><b class="item-detail-title"></b></div>
-                                </div>
-                            </div>
-                            {{--内容--}}
-                            <div class="form-group">
-                                <label class="control-label col-md-2">内容</label>
-                                <div class="col-md-8 ">
-                                    <div class="item-detail-content"></div>
-                                </div>
-                            </div>
-                            {{--附件--}}
-                            <div class="form-group">
-                                <label class="control-label col-md-2">附件</label>
-                                <div class="col-md-8 ">
-                                    <div class="item-detail-attachment"></div>
-                                </div>
-                            </div>
-                            {{--说明--}}
-                            <div class="form-group _none">
-                                <label class="control-label col-md-2">说明</label>
-                                <div class="col-md-8 control-label" style="text-align:left;">
-                                    <span class="">这是一段说明。</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-
-                    <div class="box-footer">
-                        <div class="row _none">
-                            <div class="col-md-8 col-md-offset-2">
-                                <button type="button" class="btn btn-success" id="item-site-submit"><i class="fa fa-check"></i> 提交</button>
-                                <button type="button" class="btn btn-default modal-cancel" id="item-site-cancel">取消</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END PORTLET-->
-            </div>
-        </div>
-    </div>
-</div>
+{{--修改-基本-信息--}}
+@include(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-set')
 @endsection
 
 
@@ -194,8 +129,115 @@
                         }
                     },
                     {
+                        "width": "80px",
+                        "title": "操作",
+                        "data": 'id',
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+
+                            var $html_edit = '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>';
+                            var $html_detail = '<a class="btn btn-xs bg-primary item-detail-show" data-id="'+data+'">查看详情</a>';
+                            var $html_delete = '';
+                            var $html_publish = '';
+                            var $html_able = '';
+
+                            // 是否删除
+                            if(row.deleted_at)
+                            {
+                                $html_delete = '<a class="btn btn-xs bg-olive item-restore-submit" data-id="'+data+'">恢复</a>';
+                                $html_delete = '<li><a class="btn btn-xs item-restore-submit" data-id="'+data+'">恢复</a></li>';
+                                $html_delete += '<li><a class="btn btn-xs item-delete-permanently-submit" data-id="'+data+'">永久删除</a></li>';
+                            }
+                            else
+                            {
+                                $html_delete = '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'">删除</a>';
+                                $html_delete = '<li><a class="btn btn-xs item-delete-submit" data-id="'+data+'">删除</a></li>';
+
+
+                                // 是否发布
+                                if(row.is_published == 0)
+                                {
+                                    $html_publish = '<li><a class="btn btn-xs item-publish-submit" data-id="'+data+'">发布</a></li>';
+                                }
+                                else
+                                {
+                                    // 是否启用
+                                    if(row.item_status == 1)
+                                    {
+                                        $html_able = '<li><a class="btn btn-xs item-disable-submit" data-id="'+data+'">禁用</a></li>';
+                                    }
+                                    else
+                                    {
+                                        $html_able = '<li><a class="btn btn-xs item-enable-submit" data-id="'+data+'">启用</a></li>';
+                                    }
+                                }
+                            }
+
+
+                            var $more_html =
+                                '<div class="btn-group">'+
+                                '<button type="button" class="btn btn-xs btn-success btn-group-body item-edit-link" data-id="'+data+'">编辑</button>'+
+                                '<button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="true">'+
+                                '<span class="caret"></span>'+
+                                '<span class="sr-only">Toggle Dropdown</span>'+
+                                '</button>'+
+                                '<ul class="dropdown-menu" role="menu">'+
+                                $html_publish+
+                                $html_able+
+                                $html_delete+
+                                '<li class="divider"></li>'+
+                                '<li><a href="#">Separate</a></li>'+
+                                '</ul>'+
+                                '</div>';
+
+                            return $more_html;
+                        }
+                    },
+                    {
+                        "width": "60px",
+                        "title": "状态",
+                        "data": "item_status",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            // 是否删除
+                            if(row.deleted_at != null)
+                            {
+                                return '<small class="btn-xs bg-black">已删除</small>';
+                            }
+
+                            // 是否发布
+                            if(row.is_published == 0)
+                            {
+                                return '<small class="btn-xs bg-teal">待发布</small>';
+                            }
+                            else if(row.is_published == 1)
+                            {
+
+                                // 是否启用
+                                if(row.item_status == 1)
+                                {
+                                    return '<small class="btn-xs bg-olive">启用</small>';
+
+                                    // 是否完成
+                                    if(row.is_completed == 1)
+                                    {
+                                        return '<small class="btn-xs bg-purple">已完成</small>';
+                                    }
+                                    else return "有误";
+                                }
+                                else
+                                {
+                                    return '<small class="btn-xs btn-danger">禁用</small>';
+                                }
+
+                            }
+                            else return "有误";
+
+                        }
+                    },
+                    {
                         "className": "",
-                        "width": "48px",
+                        "width": "50px",
                         "title": "类型",
                         "data": "item_type",
                         'orderable': false,
@@ -250,82 +292,6 @@
 //                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
 
                             return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
-                        }
-                    },
-                    {
-                        "width": "64px",
-                        "title": "状态",
-                        "data": "active",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-//                            return data;
-                            if(row.deleted_at != null)
-                            {
-                                return '<small class="btn-xs bg-black">已删除</small>';
-                            }
-
-                            if(row.item_status == 1)
-                            {
-                                if(data == 0)
-                                {
-                                    return '<small class="btn-xs bg-teal">待发布</small>';
-                                }
-                                else if(data == 1)
-                                {
-                                    return '<small class="btn-xs bg-olive">已发布</small>';
-//                                if(row.is_read == 0) return '<small class="btn-xs bg-olive">未读</small>';
-//                                else if(row.is_read == 1) return '<small class="btn-xs bg-primary">已读</small>';
-//                                else return "--";
-                                }
-                                else if(data == 9)
-                                {
-                                    return '<small class="btn-xs bg-purple">已完成</small>';
-                                }
-                                else return "有误";
-                            }
-                            else
-                            {
-                                return '<small class="btn-xs btn-danger">已封禁</small>';
-                            }
-                        }
-                    },
-                    {
-                        "width": "240px",
-                        "title": "操作",
-                        "data": 'id',
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-
-                            if(row.item_status == 1)
-                            {
-                                $html_able = '<a class="btn btn-xs btn-danger item-admin-disable-submit" data-id="'+data+'">封禁</a>';
-                            }
-                            else
-                            {
-                                $html_able = '<a class="btn btn-xs btn-success item-admin-enable-submit" data-id="'+data+'">解禁</a>';
-                            }
-
-                            if(row.is_me == 1 && row.active == 0)
-                            {
-                                $html_publish = '<a class="btn btn-xs bg-olive item-publish-submit" data-id="'+data+'">发布</a>';
-                            }
-                            else
-                            {
-                                $html_publish = '<a class="btn btn-xs btn-default disabled" data-id="'+data+'">发布</a>';
-                            }
-
-                            var html =
-                                    $html_able+
-                                    '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>'+
-                                    $html_publish+
-                                    '<a class="btn btn-xs bg-navy item-delete-submit" data-id="'+data+'">删除</a>'+
-                                    '<a class="btn btn-xs bg-navy item-delete-permanently-submit" data-id="'+data+'">永久删除</a>'+
-//                                    '<a class="btn btn-xs bg-primary item-detail-show" data-id="'+data+'">查看详情</a>'+
-//                                    '<a class="btn btn-xs bg-purple item-statistic-submit" data-id="'+data+'">流量统计</a>'+
-//                                    '<a class="btn btn-xs bg-olive item-download-qr-code-submit" data-id="'+data+'">下载二维码</a>'+
-                                    '';
-                            return html;
-
                         }
                     }
                 ],

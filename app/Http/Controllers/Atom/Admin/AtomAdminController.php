@@ -135,14 +135,33 @@ class AtomAdminController extends Controller
 
 
     // 【内容】禁用
-    public function operate_item_admin_disable()
+    public function operate_item_item_disable()
     {
-        return $this->repo->operate_item_admin_disable(request()->all());
+        return $this->repo->operate_item_item_disable(request()->all());
     }
     // 【内容】解禁
-    public function operate_item_admin_enable()
+    public function operate_item_item_enable()
     {
-        return $this->repo->operate_item_admin_enable(request()->all());
+        return $this->repo->operate_item_item_enable(request()->all());
+    }
+
+
+
+
+    // 【内容管理】修改-文本-信息
+    public function operate_item_text_set()
+    {
+        return $this->repo->operate_item_text_set(request()->all());
+    }
+    // 【内容管理】修改-时间-信息
+    public function operate_item_time_set()
+    {
+        return $this->repo->operate_item_time_set(request()->all());
+    }
+    // 【内容管理】修改-option-信息
+    public function operate_item_order_info_option_set()
+    {
+        return $this->repo->operate_item_option_set(request()->all());
     }
 
 

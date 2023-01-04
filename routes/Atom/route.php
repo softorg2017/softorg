@@ -34,6 +34,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::match(['get','post'], '/item/item-create', $controller.'@operate_item_item_create');
         Route::match(['get','post'], '/item/item-edit', $controller.'@operate_item_item_edit');
+        // 编辑-单条-信息
+        Route::post('/item/item-text-set', $controller.'@operate_item_text_set');
+        Route::post('/item/item-time-set', $controller.'@operate_item_time_set');
+        Route::post('/item/item-radio-set', $controller.'@operate_item_option_set');
+        Route::post('/item/item-select-set', $controller.'@operate_item_option_set');
+        Route::post('/item/item-select2-set', $controller.'@operate_item_option_set');
 
         Route::match(['get','post'], '/item/item-people-create', $controller.'@operate_item_people_create');
         Route::match(['get','post'], '/item/item-people-edit', $controller.'@operate_item_people_edit');
@@ -57,8 +63,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::match(['get','post'], '/item/item-delete-permanently', $controller.'@operate_item_item_delete_permanently');
         Route::match(['get','post'], '/item/item-publish', $controller.'@operate_item_item_publish');
 
-        Route::match(['get','post'], '/item/item-admin-disable', $controller.'@operate_item_admin_disable');
-        Route::match(['get','post'], '/item/item-admin-enable', $controller.'@operate_item_admin_enable');
+        Route::match(['get','post'], '/item/item-disable', $controller.'@operate_item_item_disable');
+        Route::match(['get','post'], '/item/item-enable', $controller.'@operate_item_item_enable');
 
 
     });

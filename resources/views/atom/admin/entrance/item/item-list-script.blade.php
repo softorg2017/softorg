@@ -195,62 +195,6 @@
             });
         });
 
-        // 内容【设置贴片广告】
-        $("#item-main-body").on('click', ".item-ad-set-submit", function() {
-            var that = $(this);
-            layer.msg('确定要"设置"么，原有广告将被替换？', {
-                time: 0
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    $.post(
-                        "{{ url('/admin/item/item-ad-set') }}",
-                        {
-                            _token: $('meta[name="_token"]').attr('content'),
-                            operate: "item-ad-set",
-                            id:that.attr('data-id')
-                        },
-                        function(data){
-                            layer.close(index);
-                            if(!data.success) layer.msg(data.msg);
-                            else
-                            {
-                                $('#datatable_ajax').DataTable().ajax.reload(null,false);
-                            }
-                        },
-                        'json'
-                    );
-                }
-            });
-        });
-
-        // 内容【取消贴片广告】
-        $("#item-main-body").on('click', ".item-ad-cancel-submit", function() {
-            var that = $(this);
-            layer.msg('确定要"取消"么？', {
-                time: 0
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    $.post(
-                        "{{ url('/admin/item/item-ad-cancel') }}",
-                        {
-                            _token: $('meta[name="_token"]').attr('content'),
-                            operate: "item-ad-cancel",
-                            id:that.attr('data-id')
-                        },
-                        function(data){
-                            layer.close(index);
-                            if(!data.success) layer.msg(data.msg);
-                            else
-                            {
-                                $('#datatable_ajax').DataTable().ajax.reload(null,false);
-                            }
-                        },
-                        'json'
-                    );
-                }
-            });
-        });
-
 
 
 
@@ -310,4 +254,95 @@
         });
 
     });
+
+
+
+
+    // 【修改-文本-text-属性】【显示】
+    $(".main-content").on('dblclick', ".modal-show-for-item-text-set", function() {
+        var $that = $(this);
+        $('.item-text-set-title').html($that.attr("data-id"));
+        $('.item-text-set-column-name').html($that.attr("data-name"));
+        $('input[name=item-text-set-order-id]').val($that.attr("data-id"));
+        $('input[name=item-text-set-column-key]').val($that.attr("data-key"));
+        $('input[name=item-text-set-operate-type]').val($that.attr('data-operate-type'));
+        if($that.attr('data-text-type') == "textarea")
+        {
+            $('input[name=item-text-set-column-value]').val('').hide();
+            $('textarea[name=item-textarea-set-column-value]').text($that.attr("data-value")).show();
+        }
+        else
+        {
+            $('textarea[name=item-textarea-set-column-value]').val('').hide();
+            $('input[name=item-text-set-column-value]').val($that.attr("data-value")).show();
+        }
+
+        $('#item-submit-for-item-text-set').attr('data-text-type',$that.attr('data-text-type'));
+
+        $('#modal-body-for-item-text-set').modal('show');
+    });
+    // 【修改-文本-text-属性】【取消】
+    $(".main-content").on('click', "#item-cancel-for-item-text-set", function() {
+        var that = $(this);
+        $('#modal-body-for-item-text-set').modal('hide').on("hidden.bs.modal", function () {
+            $("body").addClass("modal-open");
+        });
+        $('input[name=item-text-set-column-value]').val('');
+        $('textarea[name=item-textarea-set-column-value]').val('');
+    });
+    // 【修改-文本-text-属性】【提交】
+    $(".main-content").on('click', "#item-submit-for-item-text-set", function() {
+        var $that = $(this);
+        var $column_key = $('input[name="item-text-set-column-key"]').val();
+        if($that.attr('data-text-type') == "textarea")
+        {
+            var $column_value = $('textarea[name="item-textarea-set-column-value"]').val();
+        }
+        else
+        {
+            var $column_value = $('input[name="item-text-set-column-value"]').val();
+        }
+        layer.msg('确定"提交"么？', {
+            time: 0
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                $.post(
+                    "{{ url('/admin/item/item-text-set') }}",
+                    {
+                        _token: $('meta[name="_token"]').attr('content'),
+                        operate: $('input[name="item-text-set-operate"]').val(),
+                        item_id: $('input[name="item-text-set-order-id"]').val(),
+                        operate_type: $('input[name="item-text-set-operate-type"]').val(),
+                        column_key: $column_key,
+                        column_value: $column_value,
+                    },
+                    function(data){
+                        layer.close(index);
+                        if(!data.success) layer.msg(data.msg);
+//                            else location.reload();
+                        else
+                        {
+                            $('#modal-body-for-item-text-set').modal('hide').on("hidden.bs.modal", function () {
+                                $("body").addClass("modal-open");
+                            });
+
+                            $('input[name=item-text-set-column-value]').val('');
+                            $('textarea[name=item-textarea-set-column-value]').text('');
+
+//                                var $keyword_id = $("#set-rank-bulk-submit").attr("data-keyword-id");
+////                                TableDatatablesAjax_inner.init($keyword_id);
+
+                            $('#datatable_ajax').DataTable().ajax.reload();
+//                                $('#datatable_ajax_inner').DataTable().ajax.reload();
+                        }
+                    },
+                    'json'
+                );
+            }
+        });
+    });
+
+
+
+
 </script>

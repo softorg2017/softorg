@@ -22,7 +22,7 @@ class Atom_Item extends Model
         'link_url', 'cover_pic', 'attachment_name', 'attachment_src',
         'tag',
         'atom_category', 'major', 'nation', 'birth_time', 'death_time',
-        'time_point', 'time_type', 'start_time', 'end_time', 'address',
+        'time_point', 'time_type', 'start_time', 'ended_time', 'address',
         'visit_num', 'share_num', 'favor_num', 'collect_num', 'comment_num',
         'published_at'
     ];
