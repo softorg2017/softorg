@@ -148,7 +148,7 @@
 
 
 {{--修改-基本-信息--}}
-@include(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-set-script')
+@include(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-set')
 @endsection
 
 
