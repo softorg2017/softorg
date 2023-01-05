@@ -118,10 +118,7 @@
                         d.name = $('input[name="name"]').val();
                         d.title = $('input[name="title"]').val();
                         d.tag = $('input[name="tag"]').val();
-//                        d.nickname 	= $('input[name="nickname"]').val();
-//                        d.certificate_type_id = $('select[name="certificate_type_id"]').val();
 //                        d.certificate_state = $('select[name="certificate_state"]').val();
-//                        d.admin_name = $('input[name="admin_name"]').val();
 //
 //                        d.created_at_from = $('input[name="created_at_from"]').val();
 //                        d.created_at_to = $('input[name="created_at_to"]').val();
@@ -268,7 +265,7 @@
                         }
                     },
                     {
-                        "className": "text-left",
+                        "className": "c",
                         "width": "360px",
                         "title": "名称",
                         "data": "name",
@@ -278,7 +275,29 @@
                         }
                     },
                     {
-                        "className": "font-12px",
+                        "className": "text-left",
+                        "width": "120px",
+                        "title": "标签",
+                        "data": "tag",
+                        "orderable": false,
+                        "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
+                            if(row.is_completed != 1 && row.item_status != 97)
+                            {
+                                $(nTd).addClass('modal-show-for-item-text-set');
+                                $(nTd).attr('data-id',row.id).attr('data-name','标签');
+                                $(nTd).attr('data-key','tag').attr('data-value',data);
+                                $(nTd).attr('data-column-name','标签');
+                                $(nTd).attr('data-text-type','text');
+                                if(data) $(nTd).attr('data-operate-type','edit');
+                                else $(nTd).attr('data-operate-type','add');
+                            }
+                        },
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
+                        "className": "text-left",
                         "width": "120px",
                         "title": "开始时间",
                         "data": "birth_time",
@@ -300,7 +319,7 @@
                         }
                     },
                     {
-                        "className": "font-12px",
+                        "className": "text-left",
                         "width": "120px",
                         "title": "结束时间",
                         "data": "death_time",
@@ -333,7 +352,7 @@
                     },
                     {
                         "className": "font-12px",
-                        "width": "112px",
+                        "width": "120px",
                         "title": "修改时间",
                         "data": 'updated_at',
                         "orderable": true,

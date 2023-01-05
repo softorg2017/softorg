@@ -121,10 +121,7 @@
                         d.tag = $('input[name="tag"]').val();
                         d.major = $('input[name="major"]').val();
                         d.naiton = $('input[name="naiton"]').val();
-//                        d.nickname 	= $('input[name="nickname"]').val();
-//                        d.certificate_type_id = $('select[name="certificate_type_id"]').val();
 //                        d.certificate_state = $('select[name="certificate_state"]').val();
-//                        d.admin_name = $('input[name="admin_name"]').val();
 //
 //                        d.created_at_from = $('input[name="created_at_from"]').val();
 //                        d.created_at_to = $('input[name="created_at_to"]').val();
@@ -139,7 +136,7 @@
                 "columns": [
                     {
                         "className": "font-12px",
-                        "width": "40px",
+                        "width": "60px",
                         "title": "ID",
                         "data": "id",
                         "orderable": true,
@@ -148,7 +145,7 @@
                         }
                     },
                     {
-                        "width": "80px",
+                        "width": "100px",
                         "title": "操作",
                         "data": 'id',
                         "orderable": false,
@@ -213,7 +210,7 @@
                         }
                     },
                     {
-                        "width": "60px",
+                        "width": "80px",
                         "title": "状态",
                         "data": "item_status",
                         "orderable": false,
@@ -256,7 +253,7 @@
                     },
                     {
                         "className": "",
-                        "width": "48px",
+                        "width": "60px",
                         "title": "类型",
                         "data": "item_type",
                         'orderable': false,
@@ -272,12 +269,34 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "",
+                        "width": "360px",
                         "title": "名称",
                         "data": "name",
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
+                        }
+                    },
+                    {
+                        "className": "text-left",
+                        "width": "120px",
+                        "title": "标签",
+                        "data": "tag",
+                        "orderable": false,
+                        "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
+                            if(row.is_completed != 1 && row.item_status != 97)
+                            {
+                                $(nTd).addClass('modal-show-for-item-text-set');
+                                $(nTd).attr('data-id',row.id).attr('data-name','标签');
+                                $(nTd).attr('data-key','tag').attr('data-value',data);
+                                $(nTd).attr('data-column-name','标签');
+                                $(nTd).attr('data-text-type','text');
+                                if(data) $(nTd).attr('data-operate-type','edit');
+                                else $(nTd).attr('data-operate-type','add');
+                            }
+                        },
+                        render: function(data, type, row, meta) {
+                            return data;
                         }
                     },
                     {
