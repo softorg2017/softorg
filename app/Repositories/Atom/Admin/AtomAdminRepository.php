@@ -1179,7 +1179,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("updated_at", "desc");
+        else $query->orderBy("id", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -1239,7 +1239,7 @@ class AtomAdminRepository {
             else if($field == "death_time") $query->orderByRaw(DB::raw('cast(death_time as SIGNED) '.$order_dir));
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("updated_at", "desc");
+        else $query->orderBy("id", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -1295,7 +1295,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("updated_at", "desc");
+        else $query->orderBy("id", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -1347,7 +1347,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("updated_at", "desc");
+        else $query->orderBy("id", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -1399,7 +1399,7 @@ class AtomAdminRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("updated_at", "desc");
+        else $query->orderBy("id", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
