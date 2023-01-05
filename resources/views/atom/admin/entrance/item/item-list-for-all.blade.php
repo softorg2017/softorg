@@ -121,7 +121,7 @@
                         d.tag = $('input[name="tag"]').val();
                         d.major = $('input[name="major"]').val();
                         d.naiton = $('input[name="naiton"]').val();
-//                        d.certificate_state = $('select[name="certificate_state"]').val();
+                        d.select_classified = $('select[name="select-classified"]').val();
 //
 //                        d.created_at_from = $('input[name="created_at_from"]').val();
 //                        d.created_at_to = $('input[name="created_at_to"]').val();

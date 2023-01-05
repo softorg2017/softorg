@@ -110,7 +110,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/item/item-list-for-product') }}",
+                    'url': "{{ url('/admin/item/item-list-for-all?atom-type=product') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -118,7 +118,7 @@
                         d.name = $('input[name="name"]').val();
                         d.title = $('input[name="title"]').val();
                         d.tag = $('input[name="tag"]').val();
-//                        d.certificate_state = $('select[name="certificate_state"]').val();
+                        d.select_classified = $('select[name="select-classified"]').val();
 //
 //                        d.created_at_from = $('input[name="created_at_from"]').val();
 //                        d.created_at_to = $('input[name="created_at_to"]').val();

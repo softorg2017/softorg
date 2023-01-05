@@ -47,9 +47,9 @@ table.dataTable .text-right { text-align:right; }
 #item-content-body .select2-container--classic .select2-selection--single { border-radius:0; }
 
 .datatable-search-row { margin-bottom:16px; }
-.datatable-search-row .input-group input { width:144px; }
+.datatable-search-row .input-group input { width:120px; }
+.datatable-search-row .input-group select { width:120px; }
 .datatable-search-row .input-group button { width:72px; }
-.datatable-search-row .input-group select { width:96px; }
 .datatable-search-row .input-group .form-control:not(first-child) { border-right-width:1px; }
 .datatable-search-row .input-group .form-control:last-child { border-right-width:1px; }
 /*.datatable-search-row .input-group .form-control:not(:first-child):not(:last-child) { border-right-width:0; }*/

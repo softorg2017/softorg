@@ -1105,111 +1105,27 @@ class AtomAdminRepository {
             ->where(['owner_id'=>100,'item_category'=>100])
             ->where('item_type','!=',0);
 
-        if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
-        if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
-        if(!empty($post_data['tag'])) $query->where('tag', 'like', "%{$post_data['tag']}%");
-        if(!empty($post_data['major'])) $query->where('major', 'like', "%{$post_data['major']}%");
-        if(!empty($post_data['nation'])) $query->where('nation', 'like', "%{$post_data['nation']}%");
 
-        $total = $query->count();
-
-        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
-        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
-        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
-
-        if(isset($post_data['order']))
+        $atom_type  = isset($post_data['atom-type'])  ? $post_data['atom-type']  : "all";
+        if($atom_type == 'object') $query->where('item_type',1);
+        else if($atom_type == 'people')
         {
-            $columns = $post_data['columns'];
-            $order = $post_data['order'][0];
-            $order_column = $order['column'];
-            $order_dir = $order['dir'];
+            $query->where('item_type',11);
 
-            $field = $columns[$order_column]["data"];
-            $query->orderBy($field, $order_dir);
+            $query->addSelect(DB::raw('cast(birth_time as DECIMAL) as t'));
+            $query->addSelect(DB::raw('cast(birth_time as DATE) as tt'));
+            $query->addSelect(DB::raw('FROM_UNIXTIME(UNIX_TIMESTAMP(cast(birth_time as DATE))) as ttt'));
         }
-        else $query->orderBy("id", "desc");
-
-        if($limit == -1) $list = $query->get();
-        else $list = $query->skip($skip)->take($limit)->get();
-
-        foreach ($list as $k => $v)
+        else if($atom_type == 'product')
         {
-            $list[$k]->encode_id = encode($v->id);
-            $list[$k]->description = replace_blank($v->description);
+            $query->where('item_type',22);
+            $query ->with([
+                    'pivot_product_people'=>function ($query) { $query->where('relation_type',1); }
+                ]);
         }
-//        dd($list->toArray());
-        return datatable_response($list, $draw, $total);
-    }
+        else if($atom_type == 'event') $query->where('item_type',33);
+        else if($atom_type == 'conception') $query->where('item_type',91);
 
-
-    // 【内容】【活动】返回-列表-视图
-    public function view_item_list_for_object($post_data)
-    {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-object')
-            ->with([
-                'sidebar_item_list_active'=>'active',
-                'sidebar_item_list_for_object_active'=>'active'
-            ]);
-    }
-    // 【内容】【活动】返回-列表-数据
-    public function get_item_list_for_object_datatable($post_data)
-    {
-        $me = Auth::guard("admin")->user();
-        $query = Atom_Item::select('*')->withTrashed()
-            ->with(['owner','creator'])
-            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>1]);
-
-        if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
-        if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
-        if(!empty($post_data['tag'])) $query->where('tag', 'like', "%{$post_data['tag']}%");
-
-        $total = $query->count();
-
-        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
-        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
-        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
-
-        if(isset($post_data['order']))
-        {
-            $columns = $post_data['columns'];
-            $order = $post_data['order'][0];
-            $order_column = $order['column'];
-            $order_dir = $order['dir'];
-
-            $field = $columns[$order_column]["data"];
-            $query->orderBy($field, $order_dir);
-        }
-        else $query->orderBy("id", "desc");
-
-        if($limit == -1) $list = $query->get();
-        else $list = $query->skip($skip)->take($limit)->get();
-
-        foreach ($list as $k => $v)
-        {
-            $list[$k]->encode_id = encode($v->id);
-            $list[$k]->description = replace_blank($v->description);
-        }
-//        dd($list->toArray());
-        return datatable_response($list, $draw, $total);
-    }
-
-
-    // 【内容】【人】返回-列表-视图
-    public function view_item_list_for_people($post_data)
-    {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-people')
-            ->with([
-                'sidebar_item_list_people'=>'active',
-                'sidebar_item_list_for_people_active'=>'active'
-            ]);
-    }
-    // 【内容】【文章】返回-列表-数据
-    public function get_item_list_for_people_datatable($post_data)
-    {
-        $me = Auth::guard("atom")->user();
-        $query = Atom_Item::select('*')->withTrashed()
-            ->with(['owner','creator'])
-            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>11]);
 
         if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
         if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
@@ -1217,9 +1133,17 @@ class AtomAdminRepository {
         if(!empty($post_data['major'])) $query->where('major', 'like', "%{$post_data['major']}%");
         if(!empty($post_data['nation'])) $query->where('nation', 'like', "%{$post_data['nation']}%");
 
-        $query->addSelect(DB::raw('cast(birth_time as DECIMAL) as t'));
-        $query->addSelect(DB::raw('cast(birth_time as DATE) as tt'));
-        $query->addSelect(DB::raw('FROM_UNIXTIME(UNIX_TIMESTAMP(cast(birth_time as DATE))) as ttt'));
+        if(!empty($post_data['select_classified']))
+        {
+            $select_classified = $post_data['select_classified'];
+            if(!in_array($select_classified,['-1','0']))
+            {
+                $query->where(function ($query) use ($select_classified) {
+                    $query->where('tag', 'like', "%{$select_classified}%")
+                        ->orWhere('major', 'like', "%{$select_classified}%");
+                });
+            }
+        }
 
         $total = $query->count();
 
@@ -1254,7 +1178,27 @@ class AtomAdminRepository {
     }
 
 
-    // 【内容】【广告】返回-列表-视图
+    // 【内容】【物】返回-列表-视图
+    public function view_item_list_for_object($post_data)
+    {
+        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-object')
+            ->with([
+                'sidebar_item_list_active'=>'active',
+                'sidebar_item_list_for_object_active'=>'active'
+            ]);
+    }
+
+
+    // 【内容】【人】返回-列表-视图
+    public function view_item_list_for_people($post_data)
+    {
+        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-people')
+            ->with([
+                'sidebar_item_list_people'=>'active',
+                'sidebar_item_list_for_people_active'=>'active'
+            ]);
+    }
+    // 【内容】【作品】返回-列表-视图
     public function view_item_list_for_product($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-product')
@@ -1263,54 +1207,7 @@ class AtomAdminRepository {
                 'sidebar_item_list_for_product_active'=>'active'
             ]);
     }
-    // 【内容】【广告】返回-列表-数据
-    public function get_item_list_for_product_datatable($post_data)
-    {
-        $me = Auth::guard("atom")->user();
-        $query = Atom_Item::select('*')->withTrashed()
-            ->with([
-                'owner',
-                'creator',
-                'pivot_product_people'=>function ($query) { $query->where('relation_type',1); }
-            ])
-            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>22]);
-
-        if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
-        if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
-        if(!empty($post_data['tag'])) $query->where('tag', 'like', "%{$post_data['tag']}%");
-
-        $total = $query->count();
-
-        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
-        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
-        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
-
-        if(isset($post_data['order']))
-        {
-            $columns = $post_data['columns'];
-            $order = $post_data['order'][0];
-            $order_column = $order['column'];
-            $order_dir = $order['dir'];
-
-            $field = $columns[$order_column]["data"];
-            $query->orderBy($field, $order_dir);
-        }
-        else $query->orderBy("id", "desc");
-
-        if($limit == -1) $list = $query->get();
-        else $list = $query->skip($skip)->take($limit)->get();
-
-        foreach ($list as $k => $v)
-        {
-            $list[$k]->encode_id = encode($v->id);
-            $list[$k]->description = replace_blank($v->description);
-        }
-//        dd($list->toArray());
-        return datatable_response($list, $draw, $total);
-    }
-
-
-    // 【内容】【广告】返回-列表-视图
+    // 【内容】【事件】返回-列表-视图
     public function view_item_list_for_event($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-event')
@@ -1319,50 +1216,7 @@ class AtomAdminRepository {
                 'sidebar_item_list_for_event_active'=>'active'
             ]);
     }
-    // 【内容】【广告】返回-列表-数据
-    public function get_item_list_for_event_datatable($post_data)
-    {
-        $me = Auth::guard("atom")->user();
-        $query = Atom_Item::select('*')->withTrashed()
-            ->with(['owner','creator'])
-            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>33]);
-
-        if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
-        if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
-        if(!empty($post_data['tag'])) $query->where('tag', 'like', "%{$post_data['tag']}%");
-
-        $total = $query->count();
-
-        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
-        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
-        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
-
-        if(isset($post_data['order']))
-        {
-            $columns = $post_data['columns'];
-            $order = $post_data['order'][0];
-            $order_column = $order['column'];
-            $order_dir = $order['dir'];
-
-            $field = $columns[$order_column]["data"];
-            $query->orderBy($field, $order_dir);
-        }
-        else $query->orderBy("id", "desc");
-
-        if($limit == -1) $list = $query->get();
-        else $list = $query->skip($skip)->take($limit)->get();
-
-        foreach ($list as $k => $v)
-        {
-            $list[$k]->encode_id = encode($v->id);
-            $list[$k]->description = replace_blank($v->description);
-        }
-//        dd($list->toArray());
-        return datatable_response($list, $draw, $total);
-    }
-
-
-    // 【内容】【广告】返回-列表-视图
+    // 【内容】【概念】返回-列表-视图
     public function view_item_list_for_conception($post_data)
     {
         return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-conception')
@@ -1370,47 +1224,6 @@ class AtomAdminRepository {
                 'sidebar_item_active'=>'active',
                 'sidebar_item_list_for_conception_active'=>'active'
             ]);
-    }
-    // 【内容】【广告】返回-列表-数据
-    public function get_item_list_for_conception_datatable($post_data)
-    {
-        $me = Auth::guard("atom")->user();
-        $query = Atom_Item::select('*')->withTrashed()
-            ->with(['owner','creator'])
-            ->where(['owner_id'=>100,'item_category'=>100,'item_type'=>91]);
-
-        if(!empty($post_data['name'])) $query->where('name', 'like', "%{$post_data['name']}%");
-        if(!empty($post_data['title'])) $query->where('title', 'like', "%{$post_data['title']}%");
-        if(!empty($post_data['tag'])) $query->where('tag', 'like', "%{$post_data['tag']}%");
-
-        $total = $query->count();
-
-        $draw  = isset($post_data['draw'])  ? $post_data['draw']  : 1;
-        $skip  = isset($post_data['start'])  ? $post_data['start']  : 0;
-        $limit = isset($post_data['length']) ? $post_data['length'] : 20;
-
-        if(isset($post_data['order']))
-        {
-            $columns = $post_data['columns'];
-            $order = $post_data['order'][0];
-            $order_column = $order['column'];
-            $order_dir = $order['dir'];
-
-            $field = $columns[$order_column]["data"];
-            $query->orderBy($field, $order_dir);
-        }
-        else $query->orderBy("id", "desc");
-
-        if($limit == -1) $list = $query->get();
-        else $list = $query->skip($skip)->take($limit)->get();
-
-        foreach ($list as $k => $v)
-        {
-            $list[$k]->encode_id = encode($v->id);
-            $list[$k]->description = replace_blank($v->description);
-        }
-//        dd($list->toArray());
-        return datatable_response($list, $draw, $total);
     }
 
 

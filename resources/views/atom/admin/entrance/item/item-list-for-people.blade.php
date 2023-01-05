@@ -42,6 +42,20 @@
                         <input type="text" class="form-control form-filter item-search-keyup" name="major" placeholder="职业" />
                         <input type="text" class="form-control form-filter item-search-keyup" name="nation" placeholder="国别" />
 
+                        <select class="form-control form-filter select2-classified" name="select-classified">
+                            <option value ="-1">全部</option>
+                            <option value ="思想">思想</option>
+                            <option value ="哲学">哲学</option>
+                            <option value ="政治">政治</option>
+                            <option value ="经济">经济</option>
+                            <option value ="军事">军事</option>
+                            <option value ="教育">教育</option>
+                            <option value ="文学">文学</option>
+                            <option value ="作家">作家</option>
+                            <option value ="心理学">心理学</option>
+                            <option value ="社会学">社会学</option>
+                        </select>
+
                         <button type="button" class="form-control btn btn-flat btn-success filter-submit" id="filter-submit">
                             <i class="fa fa-search"></i> 搜索
                         </button>
@@ -87,6 +101,10 @@
 
 
 
+@section('custom-css')
+    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/select2/4.0.5/css/select2.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/select2-4.0.5.min.css') }}">
+@endsection
 @section('custom-style')
     <style>
         .tableArea table { min-width:1400px; }
@@ -99,6 +117,10 @@
 
 
 
+@section('custom-js')
+    {{--<script src="https://cdn.bootcss.com/select2/4.0.5/js/select2.min.js"></script>--}}
+    <script src="{{ asset('/resource/component/js/select2-4.0.5.min.js') }}"></script>
+@endsection
 @section('custom-script')
 <script>
     var TableDatatablesAjax = function () {
@@ -112,7 +134,7 @@
                 "serverSide": true,
                 "searching": false,
                 "ajax": {
-                    'url': "{{ url('/admin/item/item-list-for-people') }}",
+                    'url': "{{ url('/admin/item/item-list-for-all?atom-type=people') }}",
                     "type": 'POST',
                     "dataType" : 'json',
                     "data": function (d) {
@@ -122,7 +144,7 @@
                         d.tag = $('input[name="tag"]').val();
                         d.major = $('input[name="major"]').val();
                         d.nation = $('input[name="nation"]').val();
-//                        d.certificate_state = $('select[name="certificate_state"]').val();
+                        d.select_classified = $('select[name="select-classified"]').val();
 //
 //                        d.created_at_from = $('input[name="created_at_from"]').val();
 //                        d.created_at_to = $('input[name="created_at_to"]').val();
