@@ -41,32 +41,32 @@
             {{--内容管理--}}
             <li class="header">内容管理</li>
 
-            <li class="treeview {{ $sidebar_item_list_for_all_active or '' }} ">
+            <li class="treeview {{ $menu_active_of_item_list_for_all or '' }} ">
                 <a href="{{ url('/admin/item/item-list-for-all') }}">
                     <i class="fa fa-file-text text-green"></i><span>全部内容</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_object_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_object or '' }}">
                 <a href="{{ url('/admin/item/item-list-for-object') }}">
                     <i class="fa fa-file-text text-green"></i><span>物</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_people_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_people or '' }}">
                 <a href="{{ url('/admin/item/item-list-for-people') }}">
                     <i class="fa fa-file-text text-green"></i><span>人</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_product_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_product or '' }}">
                 <a href="{{ url('/admin/item/item-list-for-product') }}">
                     <i class="fa fa-file-text text-green"></i><span>作品</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_event_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_event or '' }}">
                 <a href="{{ url('/admin/item/item-list-for-event') }}">
                     <i class="fa fa-file-text text-green"></i><span>事件</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_conception_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_conception or '' }}">
                 <a href="{{ url('/admin/item/item-list-for-conception') }}">
                     <i class="fa fa-file-text text-green"></i><span>概念</span>
                 </a>

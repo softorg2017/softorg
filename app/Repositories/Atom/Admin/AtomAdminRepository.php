@@ -1040,10 +1040,9 @@ class AtomAdminRepository {
     // 【内容】返回-列表-视图
     public function view_item_list($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list')
-            ->with([
-                'sidebar_item_list_active'=>'active'
-            ]);
+        $return['menu_active_of_item_list'] = 'active';
+        $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list';
+        return view($view_blade)->with($return);
     }
     // 【内容】返回-列表-数据
     public function get_item_list_datatable($post_data)
@@ -1089,11 +1088,9 @@ class AtomAdminRepository {
     // 【内容】【全部】返回-列表-视图
     public function view_item_list_for_all($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-all')
-            ->with([
-                'sidebar_item_list_active'=>'active',
-                'sidebar_item_list_for_all_active'=>'active'
-            ]);
+        $return['menu_active_of_item_list_for_all'] = 'active';
+        $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-all';
+        return view($view_blade)->with($return);
     }
     // 【内容】【全部】返回-列表-数据
     public function get_item_list_for_all_datatable($post_data)
@@ -1181,49 +1178,37 @@ class AtomAdminRepository {
     // 【内容】【物】返回-列表-视图
     public function view_item_list_for_object($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-object')
-            ->with([
-                'sidebar_item_list_active'=>'active',
-                'sidebar_item_list_for_object_active'=>'active'
-            ]);
+        $return['menu_active_of_item_list_for_object'] = 'active';
+        $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-object';
+        return view($view_blade)->with($return);
     }
-
-
     // 【内容】【人】返回-列表-视图
     public function view_item_list_for_people($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-people')
-            ->with([
-                'sidebar_item_list_people'=>'active',
-                'sidebar_item_list_for_people_active'=>'active'
-            ]);
+        $return['menu_active_of_item_list_for_people'] = 'active';
+        $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-people';
+        return view($view_blade)->with($return);
     }
     // 【内容】【作品】返回-列表-视图
     public function view_item_list_for_product($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-product')
-            ->with([
-                'sidebar_item_list_active'=>'active',
-                'sidebar_item_list_for_product_active'=>'active'
-            ]);
+        $return['menu_active_of_item_list_for_product'] = 'active';
+        $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-product';
+        return view($view_blade)->with($return);
     }
     // 【内容】【事件】返回-列表-视图
     public function view_item_list_for_event($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-event')
-            ->with([
-                'sidebar_item_list_active'=>'active',
-                'sidebar_item_list_for_event_active'=>'active'
-            ]);
+        $return['menu_active_of_item_list_for_event'] = 'active';
+        $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-event';
+        return view($view_blade)->with($return);
     }
     // 【内容】【概念】返回-列表-视图
     public function view_item_list_for_conception($post_data)
     {
-        return view(env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-conception')
-            ->with([
-                'sidebar_item_active'=>'active',
-                'sidebar_item_list_for_conception_active'=>'active'
-            ]);
+        $return['menu_active_of_item_list_for_conception'] = 'active';
+        $view_blade = env('TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-conception';
+        return view($view_blade)->with($return);
     }
 
 
