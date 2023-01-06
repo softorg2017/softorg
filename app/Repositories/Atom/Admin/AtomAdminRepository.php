@@ -1168,7 +1168,7 @@ class AtomAdminRepository {
         foreach ($list as $k => $v)
         {
             $list[$k]->encode_id = encode($v->id);
-            $list[$k]->description = replace_blank($v->description);
+//            $list[$k]->description = replace_blank($v->description);
         }
 //        dd($list->toArray());
         return datatable_response($list, $draw, $total);
