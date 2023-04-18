@@ -84,7 +84,7 @@ table.dataTable .text-right { text-align:right; }
 .radio label { width:100%; height:100%; }
 
 .btn-group .btn-group-body { padding:1px 6px; margin-right:0; }
-.btn-group>.btn+.dropdown-toggle { padding:1px 6px; margin-left:-1px; }
+.btn-group>.btn+.dropdown-toggle { padding:1px 4px; margin-left:-1px; }
 
 .dropdown-menu li a { line-height:22px; cursor:pointer; }
 
