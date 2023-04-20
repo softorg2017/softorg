@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DOC_HOME').'layout.layout')
+@extends(env('LW_TEMPLATE_DOC_HOME').'layout.layout')
 
 
 @section('head_title','【d】添加管理员')
@@ -262,5 +262,5 @@
         TableDatatablesAjax.init();
     });
 </script>
-@include(env('TEMPLATE_DOC_HOME').'entrance.administrator.user-administrator-script')
+@include(env('LW_TEMPLATE_DOC_HOME').'entrance.administrator.user-administrator-script')
 @endsection

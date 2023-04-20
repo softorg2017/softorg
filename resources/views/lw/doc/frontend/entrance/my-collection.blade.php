@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DOC_FRONT').'layout.layout')
+@extends(env('LW_TEMPLATE_DOC_FRONT').'layout.layout')
 
 
 @section('head_title')
@@ -16,7 +16,7 @@
 
 
 @section('sidebar')
-    @include(env('TEMPLATE_DOC_FRONT').'component.sidebar.sidebar-root')
+    @include(env('LW_TEMPLATE_DOC_FRONT').'component.sidebar.sidebar-root')
 @endsection
 
 
@@ -36,8 +36,8 @@
             {{--@foreach($datas as $num => $item)--}}
                 {{--@include('frontend.component.topic')--}}
             {{--@endforeach--}}
-            {{--@include(env('TEMPLATE_DOC_DEFAULT').'frontend.component.item-list-for-relation',['item_list'=>$item_list])--}}
-            @include(env('TEMPLATE_DOC_FRONT').'component.item-list',['item_list'=>$item_list])
+            {{--@include(env('LW_TEMPLATE_DOC_DEFAULT').'frontend.component.item-list-for-relation',['item_list'=>$item_list])--}}
+            @include(env('LW_TEMPLATE_DOC_FRONT').'component.item-list',['item_list'=>$item_list])
             {{--@if(count($item_list))--}}
                 {{--{!! $item_list->links() !!}--}}
             {{--@endif--}}
@@ -50,9 +50,9 @@
     <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
 
         <div class="fixed-to-top">
-            @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')
+            @include(env('LW_TEMPLATE_DOC_FRONT').'component.right-side.right-root')
         </div>
-        {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-me')--}}
+        {{--@include(env('LW_TEMPLATE_DOC_FRONT').'component.right-me')--}}
 
     </div>
 

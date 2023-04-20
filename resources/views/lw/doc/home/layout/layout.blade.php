@@ -77,6 +77,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{--<link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/resource/component/css/swiper-4.2.2.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('/resource/component/js/layui-v2.6.8/css/layui.css') }}">
+
 
     <link rel="stylesheet" href="{{ asset('/resource/common/css/common.css') }}" media="all" />
     <link rel="stylesheet" href="{{ asset('/resource/common/css/AdminLTE/index.css') }}">
@@ -157,6 +159,9 @@ desired effect
 
 {{--<script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>--}}
 
+
+<script src="{{ asset('/resource/component/js/layui-v2.6.8/layui.js') }}"></script>
+
 {{--<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/layer-3.0.3.min.js') }}"></script>
 
@@ -186,7 +191,12 @@ desired effect
 <script src="{{ asset('/resource/component/js/swiper-4.2.2.min.js') }}"></script>
 
 
-<script src="{{ asset('/js/admin/index.js') }}"></script>
+{{--<script src="{{ asset('/laravel-u-editor/ueditor.config.js') }}"></script>--}}
+{{--<script src="{{ asset('/laravel-u-editor/ueditor.all.min.js') }}"></script>--}}
+{{--<script src="{{ asset('/laravel-u-editor/lang/zh-cn/zh-cn.js') }}"></script>--}}
+
+
+{{--<script src="{{ asset('/js/admin/index.js') }}"></script>--}}
 
 @yield('js')
 @yield('script')

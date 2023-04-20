@@ -1,11 +1,11 @@
-@extends(env('TEMPLATE_DOC_HOME').'layout.layout')
+@extends(env('LW_TEMPLATE_DOC_HOME').'layout.layout')
 
 
-@section('head_title','【d】我的管理员')
+@section('head_title','我的管理员')
 
 
 @section('header','')
-@section('description','我的管理员 - 轻博后台管理系统 - 如未科技')
+@section('description','我的管理员 - 轻博 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i>首页</a></li>
     {{--<li><a href="#"><i class="fa "></i>Here</a></li>--}}
@@ -326,5 +326,5 @@
         TableDatatablesAjax.init();
     });
 </script>
-@include(env('TEMPLATE_DOC_HOME').'entrance.administrator.user-administrator-script')
+@include(env('LW_TEMPLATE_DOC_HOME').'entrance.administrator.user-administrator-script')
 @endsection

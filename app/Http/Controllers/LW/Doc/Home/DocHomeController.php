@@ -49,6 +49,12 @@ class DocHomeController extends Controller
     }
 
 
+    // 【获取】
+    public function operate_item_item_get()
+    {
+        return $this->repo->operate_item_item_get(request()->all());
+    }
+
     // 【ITEM】【删除】
     public function operate_item_item_delete()
     {
@@ -128,7 +134,7 @@ class DocHomeController extends Controller
     public function view_item_list()
     {
         if(request()->isMethod('get')) return $this->repo->view_item_list(request()->all());
-        else if(request()->isMethod('post')) return $this->repo->get_item_list_datatable(request()->all());
+        else if(request()->isMethod('post')) return $this->repo->get_datatable_of_item_list(request()->all());
     }
 
     // 【内容】返回-全部内容-列表-视图

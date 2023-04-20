@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DOC_FRONT').'layout.layout')
+@extends(env('LW_TEMPLATE_DOC_FRONT').'layout.layout')
 
 
 @section('head_title','【轻博】我的信息 - 如未轻博')
@@ -16,7 +16,7 @@
 
 
 @section('sidebar')
-    @include(env('TEMPLATE_DOC_FRONT').'component.sidebar.sidebar-root')
+    @include(env('LW_TEMPLATE_DOC_FRONT').'component.sidebar.sidebar-root')
 @endsection
 @section('header','')
 @section('description','')
@@ -141,7 +141,7 @@
 
     <div class="main-body-section main-body-section main-body-right-section section-wrapper hidden-xs">
 
-        @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')
+        @include(env('LW_TEMPLATE_DOC_FRONT').'component.right-side.right-root')
 
     </div>
 

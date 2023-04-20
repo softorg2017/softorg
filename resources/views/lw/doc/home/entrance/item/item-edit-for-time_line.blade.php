@@ -2,7 +2,7 @@
 
 
 @section('head_title')
-    【管理时间线】{{ $data->title or '' }}
+    {{ $data->title or '' }} - 时间线 - 如未轻博
 @endsection
 
 
@@ -75,22 +75,31 @@
 </div>
 
 
-<div class="row">
-    <div class="col-md-12">
-        <!-- BEGIN PORTLET-->
+<div class="modal fade modal-main-body" id="modal-body-for-item-edit">
+    <div class="col-md-8 col-md-offset-2 margin-top-64px margin-bottom-64px bg-white">
+
+
         <div class="box box-info form-container">
 
             <div class="box-header with-border" style="margin:16px 0;">
-                <h3 class="box-title">添加/编辑内容</h3>
+                <h3 class="box-title" id="item-edit-title">添加/编辑内容</h3>
                 <div class="pull-right _none">
                     <button type="button" class="btn btn-success pull-right show-create-content"><i class="fa fa-plus"></i> 添加新内容</button>
                 </div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool _none" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool e-cancel-for-item-edit" data-widget="remove-">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
             </div>
 
+            <div class="box-body">
             <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-content">
-                <div class="box-body">
 
-                    {{csrf_field()}}
+                    {{ csrf_field() }}
                     <input type="hidden" name="operate" value="{{ $operate or 'create' }}" readonly>
                     <input type="hidden" name="category" value="18" readonly>
                     <input type="hidden" name="item_category" value="1" readonly>
@@ -189,28 +198,22 @@
                         </div>
                     </div>
 
-                </div>
             </form>
+            </div>
 
             <div class="box-footer">
                 <div class="row" style="margin:16px 0;">
                     <div class="col-md-8 col-md-offset-2">
                         <button type="button" class="btn btn-primary" id="edit-content-submit"><i class="fa fa-check"></i> 提交</button>
-                        <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
+                        <button type="button" class="btn btn-default e-cancel-for-item-edit">取消</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- END PORTLET-->
+
+
     </div>
 </div>
-
-
-<div class="modal fade" id="edit-modal">
-    <div class="col-md-8 col-md-offset-2" id="edit-ctn" style="margin-top:64px;margin-bottom:64px;padding-top:32px;background:#fff;"></div>
-</div>
-
-
 @endsection
 
 
@@ -244,71 +247,81 @@
         // 【添加】新内容
         $(".show-create-content").on('click', function() {
 
-            reset_form();
+            $('#modal-body-for-item-edit').off("show.bs.modal").on("show.bs.modal", function() {
 
-            $("#form-edit-content").find('input[name=rank]').val(0);
-            $("#form-edit-content").find('.active-disable').hide();
-            $("#form-edit-content").find('.active-none').show();
-            $('#form-edit-content').find('.cover_img_container').html('');
-            $('#form-edit-content').find('input[name=active][value="1"]').prop('checked',true);
+                form_reset_for_item_edit();
 
-            $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
+                $("#item-edit-title").text('添加新时间点');
+                $("#form-edit-content").find('input[name=rank]').val(0);
+                $("#form-edit-content").find('.active-disable').hide();
+                $("#form-edit-content").find('.active-none').show();
+                $('#form-edit-content').find('.cover_img_container').html('');
+                $('#form-edit-content').find('input[name=active][value="1"]').prop('checked',true);
 
+            }).modal({backdrop:'static'},'show');
+
+            // setTimeout(function(){
+            // }, 500);
         });
 
 
 
 
-
-        // 【编辑】该内容
+        // 【编辑】显示
         $("#content-structure-list").on('click', '.edit-this-content', function () {
             var input_group = $(this).parents('.input-group');
             var item_id = input_group.attr('data-id');
 
-            var result;
-            $.post(
-                "/home/item/content-get",
-                {
-                    _token: $('meta[name="_token"]').attr('content'),
-                    item_id:item_id
-                },
-                function(data){
-                    if(!data.success) layer.msg(data.msg);
-                    else
+            $('#modal-body-for-item-edit').off("show.bs.modal").on("show.bs.modal", function () {
+                var result;
+                $.post(
+                    "/home/item/content-get",
                     {
-                        $("#form-edit-content").find('input[name=operate]').val("edit");
-                        $("#form-edit-content").find('input[name=content_id]').val(data.data.id);
-                        $("#form-edit-content").find('input[name=time_point]').val(data.data.time_point);
-
-                        if(data.data.id == $("#form-edit-content").find('input[name=item_id]').val())
+                        _token: $('meta[name="_token"]').attr('content'),
+                        item_id:item_id
+                    },
+                    function(data){
+                        if(!data.success)
                         {
-                            console.log('封面');
-                            $("#form-edit-content").find('input[name=time_point]').val(0);
-                            $("#form-time-point-option").hide();
-                            $("#form-active-option").hide();
+                            layer.msg(data.msg);
                         }
                         else
                         {
-                            $("#form-time-point-option").show();
-                            $("#form-active-option").show();
-                        }
+                            $("#item-edit-title").text('编辑');
+                            $("#form-edit-content").find('input[name=operate]').val("edit");
+                            $("#form-edit-content").find('input[name=content_id]').val(data.data.id);
+                            $("#form-edit-content").find('input[name=time_point]').val(data.data.time_point);
 
-                        $("#form-edit-content").find('input[name=active]:checked').prop('checked','');
-                        var $active = data.data.active;
-                        $("#form-edit-content").find('.active-none').hide();
-                        $("#form-edit-content").find('.active-disable').show();
-                        if($active == 0) $("#form-edit-content").find('.active-none').show();
-                        $("#form-edit-content").find('input[name=active][value='+$active+']').prop('checked','checked');
+                            if(data.data.id == $("#form-edit-content").find('input[name=item_id]').val())
+                            {
+                                // console.log('封面');
+                                $("#form-edit-content").find('input[name=time_point]').val(0);
+                                $("#form-time-point-option").hide();
+                                $("#form-active-option").hide();
+                            }
+                            else
+                            {
+                                // console.log('内容');
+                                $("#form-time-point-option").show();
+                                $("#form-active-option").show();
+                            }
 
-                        $("#form-edit-content").find('input[name=title]').val(data.data.title);
-                        $("#form-edit-content").find('textarea[name=description]').val(data.data.description);
+                            $("#form-edit-content").find('input[name=active]:checked').prop('checked','');
+                            var $active = data.data.active;
+                            $("#form-edit-content").find('.active-none').hide();
+                            $("#form-edit-content").find('.active-disable').show();
+                            if($active == 0) $("#form-edit-content").find('.active-none').show();
+                            $("#form-edit-content").find('input[name=active][value='+$active+']').prop('checked','checked');
 
-                        var content = data.data.content;
-                        if(data.data.content == null) content = '';
-                        var ue = UE.getEditor('container');
-                        ue.setContent(content);
+                            $("#form-edit-content").find('input[name=title]').val(data.data.title);
+                            $("#form-edit-content").find('textarea[name=description]').val(data.data.description);
 
-                        $("#form-edit-content").find('.cover_img_container').html(data.data.cover_img);
+                            var content = data.data.content;
+                            if(data.data.content == null) content = '';
+                            var ue = UE.getEditor('container');
+                            ue.setContent(content);
+
+                            $("#form-edit-content").find('.cover_img_container').html(data.data.cover_img);
 
 //                        var type = data.data.type;
 //                        $("#form-edit-content").find('input[name=type]').prop('checked',null);
@@ -316,14 +329,28 @@
 //                        if(type == 1) $("#form-edit-content").find('.form-type').hide();
 //                        else $("#form-edit-content").find('.form-type').show();
 
-                        $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
+                            // $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
 
-                    }
-                },
-                'json'
-            );
+                        }
+                    },
+                    'json'
+                );
+            }).modal({backdrop:'static'},'show');
+            // setTimeout(function(){
+            // }, 500);
+
 
         });
+
+        // 【编辑】取消
+        $(".main-content").on('click', ".e-cancel-for-item-edit", function() {
+            var that = $(this);
+            form_reset_for_item_edit();
+            $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
+            }).modal('hide');
+        });
+
+
 
         // 【删除】
         $("#content-structure-list").on('click', '.delete-this-content', function () {
@@ -435,13 +462,14 @@
 
 
     // 【重置】编辑
-    function reset_form()
+    function form_reset_for_item_edit()
     {
 //        $("#form-edit-content").find('.form-type').show();
 
         $("#form-time-point-option").show();
         $("#form-active-option").show();
 
+        $("#item-edit-title").text('');
         $("#form-edit-content").find('input[name=operate]').val("create");
         $("#form-edit-content").find('input[name=id]').val("{{encode(0)}}");
         $("#form-edit-content").find('input[name=time_point]').val("");

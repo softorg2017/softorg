@@ -222,6 +222,11 @@ class DocIndexController extends Controller
 
 
     // 【ITEM-content】移动位置
+    public function operate_item_content_move()
+    {
+        return $this->repo->operate_item_content_move(request()->all());
+    }
+    // 【ITEM-content】移动位置
     public function operate_item_content_move_menu_type()
     {
         return $this->repo->operate_item_content_move_menu_type(request()->all());

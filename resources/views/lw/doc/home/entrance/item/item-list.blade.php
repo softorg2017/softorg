@@ -1,11 +1,11 @@
 @extends(env('LW_TEMPLATE_DOC_HOME').'layout.layout')
 
 
-@section('head_title','【d】全部内容')
+@section('head_title','全部内容')
 
 
 @section('header','')
-@section('description','全部内容 - 原子系统 - 如未科技')
+@section('description','全部内容 - 轻博 - 如未科技')
 @section('breadcrumb')
     <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i>首页</a></li>
     {{--<li><a href="#"><i class="fa "></i>Here</a></li>--}}
@@ -38,9 +38,9 @@
                 <div class="row col-md-12 datatable-search-row">
                     <div class="input-group">
 
-                        <input type="text" class="form-control form-filter item-search-keyup" name="name" placeholder="名称" />
-                        {{--<input type="text" class="form-control form-filter item-search-keyup" name="title" placeholder="标题" />--}}
-                        <input type="text" class="form-control form-filter item-search-keyup" name="tag" placeholder="标签" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="search-name" placeholder="名称" />
+                        {{--<input type="text" class="form-control form-filter item-search-keyup" name="search-title" placeholder="标题" />--}}
+                        <input type="text" class="form-control form-filter item-search-keyup" name="search-tag" placeholder="标签" />
 
                         <button type="button" class="form-control btn btn-flat btn-success filter-submit" id="filter-submit">
                             <i class="fa fa-search"></i> 搜索
@@ -52,22 +52,16 @@
                     </div>
                 </div>
 
+                <div class="tableArea">
                 <table class='table table-striped table-bordered table-hover' id='datatable_ajax'>
                     <thead>
                         <tr role='row' class='heading'>
-                            <th>ID</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
+                </div>
 
             </div>
 
@@ -86,6 +80,7 @@
 </div>
 
 
+{{--内容详情--}}
 <div class="modal fade" id="modal-body">
     <div class="col-md-8 col-md-offset-2" id="edit-ctn" style="margin-top:64px;margin-bottom:64px;background:#fff;">
 
@@ -153,9 +148,62 @@
         </div>
     </div>
 </div>
+
+
+{{--内容编辑--}}
+<div class="modal fade modal-main-body" id="modal-body-for-item-edit">
+    <div class="col-md-8 col-md-offset-2 margin-top-64px margin-bottom-64px bg-white">
+        <div class="box- box-info- form-container">
+
+            <div class="box-header with-border margin-top-16px">
+                <h3 class="box-title"></h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool _none" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool e-cancel-for-item-edit" data-widget="remove-">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="box-body form-box">
+            </div>
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <button type="button" class="btn btn-primary" id="e-submit-for-item-edit"><i class="fa fa-check"></i> 提交</button>
+                        <button type="button" class="btn btn-default e-cancel-for-item-edit">取消</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection
 
 
+
+
+@section('custom-css')
+@endsection
+@section('custom-style')
+    <style>
+        .tableArea table { min-width:1080px; }
+        .datatable-search-row .input-group .date-picker-btn { width:30px; }
+
+        .select2-container { height:100%; border-radius:0; float:left; }
+        .select2-container .select2-selection--single { border-radius:0; }
+    </style>
+@endsection
+
+
+
+
+@section('custom-js')
+@endsection
 @section('custom-script')
 <script>
     var TableDatatablesAjax = function () {
@@ -174,19 +222,9 @@
                     "dataType" : 'json',
                     "data": function (d) {
                         d._token = $('meta[name="_token"]').attr('content');
-                        d.name = $('input[name="name"]').val();
-                        d.title = $('input[name="title"]').val();
-                        d.tag = $('input[name="tag"]').val();
-//                        d.nickname 	= $('input[name="nickname"]').val();
-//                        d.certificate_type_id = $('select[name="certificate_type_id"]').val();
-//                        d.certificate_state = $('select[name="certificate_state"]').val();
-//                        d.admin_name = $('input[name="admin_name"]').val();
-//
-//                        d.created_at_from = $('input[name="created_at_from"]').val();
-//                        d.created_at_to = $('input[name="created_at_to"]').val();
-//                        d.updated_at_from = $('input[name="updated_at_from"]').val();
-//                        d.updated_at_to = $('input[name="updated_at_to"]').val();
-
+                        d.name = $('input[name="search-name"]').val();
+                        d.title = $('input[name="search-title"]').val();
+                        d.tag = $('input[name="search-tag"]').val();
                     },
                 },
                 "pagingType": "simple_numbers",
@@ -204,18 +242,8 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "",
-                        "title": "标题",
-                        "data": "title",
-                        "orderable": false,
-                        render: function(data, type, row, meta) {
-                            return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
-                        }
-                    },
-                    {
                         "className": "",
-                        "width": "96px",
+                        "width": "100px",
                         "title": "类型",
                         "data": "item_type",
                         'orderable': false,
@@ -251,8 +279,18 @@
                         }
                     },
                     {
+                        "className": "text-left",
+                        "width": "",
+                        "title": "标题",
+                        "data": "title",
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return '<a target="_blank" href="/item/'+row.id+'">'+data+'</a>';
+                        }
+                    },
+                    {
                         "className": "",
-                        "width": "64px",
+                        "width": "80px",
                         "title": "发布者",
                         "data": "owner_id",
                         "orderable": false,
@@ -262,7 +300,7 @@
                     },
                     {
                         "className": "font-12px",
-                        "width": "128px",
+                        "width": "120px",
                         "title": "创建时间",
                         "data": 'created_at',
                         "orderable": true,
@@ -275,14 +313,17 @@
                             var $hour = ('00'+$date.getHours()).slice(-2);
                             var $minute = ('00'+$date.getMinutes()).slice(-2);
                             var $second = ('00'+$date.getSeconds()).slice(-2);
-//                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
-//                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
+
+                            // return $year+'-'+$month+'-'+$day;
+                            // return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
+                            // return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
+
+                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
                         }
                     },
                     {
                         "className": "font-12px",
-                        "width": "128px",
+                        "width": "120px",
                         "title": "修改时间",
                         "data": 'updated_at',
                         "orderable": true,
@@ -295,13 +336,16 @@
                             var $hour = ('00'+$date.getHours()).slice(-2);
                             var $minute = ('00'+$date.getMinutes()).slice(-2);
                             var $second = ('00'+$date.getSeconds()).slice(-2);
-//                            return $year+'-'+$month+'-'+$day;
-                            return $year+'-'+$month+'-'+$day+'&nbsp;'+$hour+':'+$minute;
-//                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
+
+                            // return $year+'-'+$month+'-'+$day;
+                            // return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
+                            // return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute+':'+$second;
+
+                            return $year+'-'+$month+'-'+$day+'&nbsp;&nbsp;'+$hour+':'+$minute;
                         }
                     },
                     {
-                        "width": "64px",
+                        "width": "80px",
                         "title": "状态",
                         "data": "active",
                         "orderable": false,
@@ -338,7 +382,7 @@
                         }
                     },
                     {
-                        "width": "240px",
+                        "width": "200px",
                         "title": "操作",
                         "data": 'id',
                         "orderable": false,
@@ -372,7 +416,7 @@
                             }
 
                             var $edit_html = '';
-                            $edit_html = '<a class="btn btn-xs btn-primary item-edit-link" data-id="'+data+'">编辑</a>';
+                            $edit_html = '<a class="btn btn-xs btn-primary item-edit-show" data-id="'+data+'">编辑</a>';
 
                             if(row.deleted_at != null)
                             {
@@ -405,45 +449,7 @@
                     }
                 ],
                 "drawCallback": function (settings) {
-                    ajax_datatable.$('.tooltips').tooltip({placement: 'top', html: true});
-                    $("a.verify").click(function(event){
-                        event.preventDefault();
-                        var node = $(this);
-                        var tr = node.closest('tr');
-                        var nickname = tr.find('span.nickname').text();
-                        var cert_name = tr.find('span.certificate_type_name').text();
-                        var action = node.attr('data-action');
-                        var certificate_id = node.attr('data-id');
-                        var action_name = node.text();
 
-                        var tpl = "{{trans('labels.crc.verify_user_certificate_tpl')}}";
-                        layer.open({
-                            'title': '警告',
-                            content: tpl
-                                .replace('@action_name', action_name)
-                                .replace('@nickname', nickname)
-                                .replace('@certificate_type_name', cert_name),
-                            btn: ['Yes', 'No'],
-                            yes: function(index) {
-                                layer.close(index);
-                                $.post(
-                                    '/admin/medsci/certificate/user/verify',
-                                    {
-                                        action: action,
-                                        id: certificate_id,
-                                        _token: '{{csrf_token()}}'
-                                    },
-                                    function(json){
-                                        if(json['response_code'] == 'success') {
-                                            layer.msg('操作成功!', {time: 3500});
-                                            ajax_datatable.ajax.reload();
-                                        } else {
-                                            layer.alert(json['response_data'], {time: 10000});
-                                        }
-                                    }, 'json');
-                            }
-                        });
-                    });
                 },
                 "language": { url: '/common/dataTableI18n' },
             });

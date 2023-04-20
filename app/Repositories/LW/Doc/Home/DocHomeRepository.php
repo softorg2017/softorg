@@ -456,6 +456,47 @@ class DocHomeRepository {
 
     }
 
+
+
+    // 内容获取
+    public function operate_item_item_get($post_data)
+    {
+        $me = Auth::guard('doc')->user();
+        $me_admin = Auth::guard('doc_admin')->user();
+
+
+        $get_type  = isset($post_data['get-type'])  ? $post_data['get-type']  : '';
+
+        $item_id = $post_data["item_id"];
+        if(!$item_id) return response_error([],"该内容不存在，刷新页面试试！");
+
+        $item = Doc_Item::find($item_id);
+        if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+        else
+        {
+            if($item->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
+            else
+            {
+                if(@getimagesize(env('LW_DOMAIN_CDN').'/'.$item->cover_pic))
+                {
+                    $cover_url = url(env('LW_DOMAIN_CDN').'/'.$item->cover_pic);
+                    $item->cover_img = '<img src="'.$cover_url.'" alt="" />"';
+                }
+                else $item->cover_img = '';
+                if($get_type == 'html')
+                {
+                    $view_data['operate'] = 'edit';
+                    $view_data['operate_id'] = $item_id;
+                    $view_data['data'] = $item;
+
+                    $view_blade = env('LW_TEMPLATE_DOC_HOME').'component.item-edit-html';
+                    $return['html'] = view($view_blade)->with($view_data)->__toString();
+                    return response_success($return);
+                }
+                else return response_success($item);
+            }
+        }
+    }
     // 【ITEM】删除
     public function operate_item_item_delete($post_data)
     {
@@ -561,25 +602,24 @@ class DocHomeRepository {
     // 【内容】【全部】返回-列表-视图
     public function view_item_list($post_data)
     {
-        $sidebar_active = 'sidebar_item_list_active';
+        $menu_active = 'menu_active_of_item_list';
         $item_type = isset($post_data['item-type']) ? $post_data['item-type'] : '';
-        if($item_type == "article") $sidebar_active = 'sidebar_item_list_for_article_active';
-        else if($item_type == "activity") $sidebar_active = 'sidebar_item_list_for_activity_active';
-        else if($item_type == "menu_type") $sidebar_active = 'sidebar_item_list_for_menu_type_active';
-        else if($item_type == "time_line") $sidebar_active = 'sidebar_item_list_for_time_line_active';
-        else if($item_type == "debase") $sidebar_active = 'sidebar_item_list_for_debase_active';
-        else if($item_type == "vote") $sidebar_active = 'sidebar_item_list_for_vote_active';
-        else if($item_type == "ask") $sidebar_active = 'sidebar_item_list_for_ask_active';
-        else $sidebar_active = 'sidebar_item_list_active';
+        if($item_type == "article") $menu_active = 'menu_active_of_item_list_for_article';
+        else if($item_type == "activity") $menu_active = 'menu_active_of_item_list_for_activity';
+        else if($item_type == "menu_type") $menu_active = 'menu_active_of_item_list_for_menu_type';
+        else if($item_type == "time_line") $menu_active = 'menu_active_of_item_list_for_time_line';
+        else if($item_type == "debase") $menu_active = 'menu_active_of_item_list_for_debase';
+        else if($item_type == "vote") $menu_active = 'menu_active_of_item_list_for_vote';
+        else if($item_type == "ask") $menu_active = 'menu_active_of_item_list_for_ask';
+        else $menu_active = 'menu_active_of_item_list';
 
-        return view(env('LW_TEMPLATE_DOC_HOME').'entrance.item.item-list')
-            ->with([
-                'sidebar_item_list_active'=>'active',
-                $sidebar_active=>'active'
-            ]);
+        $view_return['emnu_active_of_item_list'] = 'active';
+        $view_return[$menu_active] = 'active';
+        $view_blade = env('LW_TEMPLATE_DOC_HOME').'entrance.item.item-list';
+        return view($view_blade)->with($view_return);
     }
     // 【内容】【全部】返回-列表-数据
-    public function get_item_list_datatable($post_data)
+    public function get_datatable_of_item_list($post_data)
     {
         $me = Auth::guard('doc')->user();
         $me_admin = Auth::guard('doc_admin')->user();
@@ -619,7 +659,7 @@ class DocHomeRepository {
             $field = $columns[$order_column]["data"];
             $query->orderBy($field, $order_dir);
         }
-        else $query->orderBy("updated_at", "desc");
+        else $query->orderBy("id", "desc");
 
         if($limit == -1) $list = $query->get();
         else $list = $query->skip($skip)->take($limit)->get();
@@ -635,14 +675,12 @@ class DocHomeRepository {
     // 【内容】【全部】返回-列表-视图
     public function view_item_list_for_all($post_data)
     {
-        return view(env('LW_TEMPLATE_DOC_HOME').'entrance.item.item-list-for-all')
-            ->with([
-                'sidebar_item_active'=>'active',
-                'sidebar_item_list_for_all_active'=>'active'
-            ]);
+        $view_return['menu_active_of_item_list_for_all'] = 'active';
+        $view_blade = env('LW_TEMPLATE_DOC_HOME').'entrance.item.item-list';
+        return view($view_blade)->with($view_return);
     }
     // 【内容】【全部】返回-列表-数据
-    public function get_item_list_for_all_datatable($post_data)
+    public function get_datatable_of_item_list_for_all($post_data)
     {
         $me = Auth::guard('doc')->user();
         $me_admin = Auth::guard('doc_admin')->user();
@@ -1079,9 +1117,9 @@ class DocHomeRepository {
         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
         else
         {
-            if(!empty($content->cover_pic))
+            if(@getimagesize(env('LW_DOMAIN_CDN').'/'.$content->cover_pic))
             {
-                $cover_url = url(env('DOMAIN_CDN').'/'.$content->cover_pic);
+                $cover_url = url(env('LW_DOMAIN_CDN').'/'.$content->cover_pic);
                 $content->cover_img = '<img src="'.$cover_url.'" alt="" />"';
             }
             else $content->cover_img = '';

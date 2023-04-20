@@ -58,6 +58,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 
         Route::match(['get','post'], '/item/item-create', $controller.'@operate_item_item_create');
         Route::match(['get','post'], '/item/item-edit', $controller.'@operate_item_item_edit');
+        Route::post('/item/item-get', $controller.'@operate_item_item_get');
         Route::post('/item/item-delete', $controller.'@operate_item_item_delete');
         Route::post('/item/item-restore', $controller.'@operate_item_item_restore');
         Route::post('/item/item-delete-permanently', $controller.'@operate_item_item_delete_permanently');

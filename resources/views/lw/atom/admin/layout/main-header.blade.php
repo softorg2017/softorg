@@ -170,10 +170,10 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            @if(!empty(Auth::guard('atom')->user()->portrait_img))
+                            @if(@getimagesize(Auth::guard('atom')->user()->portrait_img))
                                 <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('atom')->user()->portrait_img) }}" class="user-image" alt="User Image">
                             @else
-                                <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <img src="/resource/common/images/atom_P_240.png" class="user-image" alt="User Image">
                             @endif
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">{{ Auth::guard('atom')->user()->username }}</span>
@@ -181,10 +181,10 @@
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                @if(!empty(Auth::guard('atom')->user()->portrait_img))
+                                @if(@getimagesize(Auth::guard('atom')->user()->portrait_img))
                                     <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('atom')->user()->portrait_img) }}" class="img-circle" alt="User Image">
                                 @else
-                                    <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <img src="/resource/common/images/atom_P_240.png" class="img-circle" alt="User Image">
                                 @endif
 
                                 <p>

@@ -26,31 +26,33 @@
         // 【添加】新内容
         $(".show-create-content").on('click', function() {
 
-            reset_form();
+            $('#modal-body-for-item-edit').off("show.bs.modal").on("show.bs.modal", function() {
 
-            $("#form-edit-content").find('input[name=rank]').val(0);
-            $("#form-edit-content").find('.active-disable').hide();
-            $("#form-edit-content").find('.active-none').show();
-            $('#form-edit-content').find('.cover_img_container').html('');
-            $('#form-edit-content').find('input[name=item_active][value="0"]').prop('checked',true);
+                console.log(89);
+                form_reset_for_item_edit();
 
-            $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
+                $("#form-edit-content").find('input[name=rank]').val(0);
+                $("#form-edit-content").find('.active-disable').hide();
+                $("#form-edit-content").find('.active-none').show();
+                $('#form-edit-content').find('.cover_img_container').html('');
+                $('#form-edit-content').find('input[name=item_active][value="0"]').prop('checked',true);
+
+            }).modal({backdrop:'static'},'show');
+            // $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
 
         });
 
-
-
-
-        // 在该目录下添加内容
+        // 【添加】新内容-在该目录下
         $("#content-structure-list").on('click', '.create-follow-menu', function () {
             var input_group = $(this).parents('.input-group');
             var id = input_group.attr('data-id');
 
-            reset_form();
+            form_reset_for_item_edit();
 
             $('#menu').find('option[value='+id+']').prop('selected','selected');
 
-            $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
+            $('#modal-body-for-item-edit').off("show.bs.modal").on("show.bs.modal", function() {
+            }).modal({backdrop:'static'},'show');
         });
 
         // 【编辑】该内容
@@ -58,70 +60,85 @@
             var input_group = $(this).parents('.input-group');
             var item_id = input_group.attr('data-id');
 
-            var result;
-            $.post(
-                "/item/content-get",
-                {
-                    _token: $('meta[name="_token"]').attr('content'),
-                    item_id:item_id
-                },
-                function(data){
-                    if(!data.success) layer.msg(data.msg);
-                    else
-                    {
-                        $("#form-edit-content").find('input[name=operate]').val("edit");
-                        $("#form-edit-content").find('input[name=content_id]').val(data.data.id);
-                        $("#form-edit-content").find('input[name=rank]').val(data.data.rank);
+            $('#modal-body-for-item-edit').off("show.bs.modal").on("show.bs.modal", function () {
 
-                        if(data.data.id == $("#form-edit-content").find('input[name=item_id]').val())
-                        {
-                            console.log('封面');
-                            $("#form-edit-content").find('input[name=rank]').val(0);
-                            $("#form-menu-option").hide();
-                            $("#form-rank-option").hide();
-                            $("#form-active-option").hide();
-                        }
+                var result;
+                $.post(
+                    "/item/content-get",
+                    {
+                        _token: $('meta[name="_token"]').attr('content'),
+                        item_id:item_id
+                    },
+                    function(data){
+                        if(!data.success) layer.msg(data.msg);
                         else
                         {
-                            $("#form-menu-option").show();
-                            $("#form-rank-option").show();
-                            $("#form-active-option").show();
+                            $("#form-edit-content").find('input[name=operate]').val("edit");
+                            $("#form-edit-content").find('input[name=content_id]').val(data.data.id);
+                            $("#form-edit-content").find('input[name=rank]').val(data.data.rank);
+
+                            if(data.data.id == $("#form-edit-content").find('input[name=item_id]').val())
+                            {
+                                console.log('封面');
+                                $("#form-edit-content").find('input[name=rank]').val(0);
+                                $("#form-menu-option").hide();
+                                $("#form-rank-option").hide();
+                                $("#form-active-option").hide();
+                            }
+                            else
+                            {
+                                $("#form-menu-option").show();
+                                $("#form-rank-option").show();
+                                $("#form-active-option").show();
+                            }
+
+                            $("#form-edit-content").find('input[name=item_active]:checked').prop('checked','');
+                            $("#form-edit-content").find('.active-none').hide();
+                            $("#form-edit-content").find('.active-disable').show();
+                            var $item_active = data.data.item_active;
+                            if($item_active == 0) $("#form-edit-content").find('.active-none').show();
+                            $("#form-edit-content").find('input[name=item_active][value='+$item_active+']').prop('checked','checked');
+
+                            $("#form-edit-content").find('input[name=title]').val(data.data.title);
+                            $("#form-edit-content").find('textarea[name=description]').val(data.data.description);
+
+                            var content = data.data.content;
+                            if(data.data.content == null) content = '';
+                            var ue = UE.getEditor('container');
+                            ue.setContent(content);
+
+                            $("#form-edit-content").find('.cover_img_container').html(data.data.cover_img);
+
+    //                        var type = data.data.type;
+    //                        $("#form-edit-content").find('input[name=type]').prop('checked',null);
+    //                        $("#form-edit-content").find('input[name=type][value='+type+']').prop('checked',true);
+    //                        if(type == 1) $("#form-edit-content").find('.form-type').hide();
+    //                        else $("#form-edit-content").find('.form-type').show();
+
+                            $('#menu').find('option').prop('selected',null);
+                            $('#menu').find('option[value='+data.data.p_id+']').prop("selected", true);
+                            var selected_text = $('#menu').find('option[value='+data.data.p_id+']').text();
+                            $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
+
                         }
+                    },
+                    'json'
+                );
 
-                        $("#form-edit-content").find('input[name=item_active]:checked').prop('checked','');
-                        $("#form-edit-content").find('.active-none').hide();
-                        $("#form-edit-content").find('.active-disable').show();
-                        var $item_active = data.data.item_active;
-                        if($item_active == 0) $("#form-edit-content").find('.active-none').show();
-                        $("#form-edit-content").find('input[name=item_active][value='+$item_active+']').prop('checked','checked');
-
-                        $("#form-edit-content").find('input[name=title]').val(data.data.title);
-                        $("#form-edit-content").find('textarea[name=description]').val(data.data.description);
-
-                        var content = data.data.content;
-                        if(data.data.content == null) content = '';
-                        var ue = UE.getEditor('container');
-                        ue.setContent(content);
-
-                        $("#form-edit-content").find('.cover_img_container').html(data.data.cover_img);
-
-//                        var type = data.data.type;
-//                        $("#form-edit-content").find('input[name=type]').prop('checked',null);
-//                        $("#form-edit-content").find('input[name=type][value='+type+']').prop('checked',true);
-//                        if(type == 1) $("#form-edit-content").find('.form-type').hide();
-//                        else $("#form-edit-content").find('.form-type').show();
-
-                        $('#menu').find('option').prop('selected',null);
-                        $('#menu').find('option[value='+data.data.p_id+']').prop("selected", true);
-                        var selected_text = $('#menu').find('option[value='+data.data.p_id+']').text();
-                        $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
-
-                    }
-                },
-                'json'
-            );
+            }).modal({backdrop:'static'},'show');
 
         });
+
+        // 【编辑】取消
+        $(".main-content").on('click', ".e-cancel-for-item-edit", function() {
+            var that = $(this);
+            form_reset_for_item_edit();
+            $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
+            }).modal('hide');
+        });
+
+
+
 
         // 【删除】
         $("#content-structure-list").on('click', '.delete-this-content', function () {
@@ -276,26 +293,26 @@
             $('#content-move-position').find('option').prop('selected',null);
             $('#content-move-position').find('option[value=0]').prop("selected", true);
 
-//            $('#modal-move-body').modal({show:true, backdrop:false});
+//            $('#modal-body-for-item-move').modal({show:true, backdrop:false});
 //            $('.modal-backdrop').each(function() {
 //                $(this).attr('id', 'id_' + Math.random());
 //            });
-            $('#modal-move-body').modal('show');
-            $('.modal-backdrop').hide();
+            $('#modal-body-for-item-move').modal('show');
+            // $('.modal-backdrop').hide();
         });
         // 【移动】取消
-        $("#modal-move-body").on('click', "#content-move-cancel", function() {
+        $("#modal-body-for-item-move").on('click', "#content-move-cancel", function() {
             var $that = $(this);
             $('input[name=content-move-id]').val(0);
             $('.content-move-title').html('');
 
-            $('#modal-move-body').modal('hide');
-//            $("#modal-move-body").on("hidden.bs.modal", function () {
+            $('#modal-body-for-item-move').modal('hide');
+//            $("#modal-body-for-item-move").on("hidden.bs.modal", function () {
 //                $("body").addClass("modal-open");
 //            });
         });
         // 【移动】确认
-        $("#modal-move-body").on('click', "#content-move-submit", function() {
+        $("#modal-body-for-item-move").on('click', "#content-move-submit", function() {
 
             var $this_content_id = $('input[name=content-move-id]').val();
 
@@ -330,7 +347,7 @@
 
 
             $.post(
-                "/item/content-move",
+                "/item/content-move-menu_type",
                 {
                     _token: $('meta[name="_token"]').attr('content'),
                     content_id:$this_content_id,
@@ -385,7 +402,7 @@
 
 
     // 【重置】编辑
-    function reset_form()
+    function form_reset_for_item_edit()
     {
 //        $("#form-edit-content").find('.form-type').show();
 

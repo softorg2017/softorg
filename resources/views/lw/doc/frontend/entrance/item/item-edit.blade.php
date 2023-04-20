@@ -1,4 +1,4 @@
-@extends(env('TEMPLATE_DOC_FRONT').'layout.layout')
+@extends(env('LW_TEMPLATE_DOC_FRONT').'layout.layout')
 
 
 @section('head_title')
@@ -31,9 +31,9 @@
     <div class="main-body-section main-body-right-section section-wrapper">
         <div class="main-body-right-container fixed-to-top">
 
-            @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')
-            {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$item->owner])--}}
-            {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$user])--}}
+            @include(env('LW_TEMPLATE_DOC_FRONT').'component.right-side.right-root')
+            {{--@include(env('LW_TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$item->owner])--}}
+            {{--@include(env('LW_TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$user])--}}
 
         </div>
     </div>

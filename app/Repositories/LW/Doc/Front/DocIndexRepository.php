@@ -153,9 +153,9 @@ class DocIndexRepository {
             $item->content_show = strip_tags($item->content);
             $item->img_tags = get_html_img($item->content);
 
-            if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic))
+            if(@getimagesize(env('LW_DOMAIN_CDN').'/'.$item->cover_pic))
             {
-                $item->cover_picture = env('DOMAIN_CDN').'/'.$item->cover_pic;
+                $item->cover_picture = env('LW_DOMAIN_CDN').'/'.$item->cover_pic;
             }
             else
             {
@@ -215,11 +215,21 @@ class DocIndexRepository {
                 {
                     $parent_item = $item;
                     $parent_item->load([
-                        'contents'=>function($query) { $query->where(['is_published'=>1,'item_active'=>1])->orderBy('rank','asc'); }
+                        'contents'=>function($query) use($me_id) {
+                            $query->where(['is_published'=>1,'item_active'=>1])
+                                ->orWhere('owner_id', $me_id)
+                                ->orWhere('creator_id', $me_id)
+                                ->orderBy('rank','asc');
+                        }
                     ]);
                 }
                 else $parent_item = $this->modelItem->with([
-                    'contents'=>function($query) { $query->where(['is_published'=>1,'item_active'=>1])->orderBy('rank','asc'); }
+                    'contents'=>function($query) use($me_id) {
+                        $query->where(['is_published'=>1,'item_active'=>1])
+                            ->orWhere('owner_id', $me_id)
+                            ->orWhere('creator_id', $me_id)
+                            ->orderBy('rank','asc');
+                }
                 ])->find($item->item_id);
 
                 $contents_recursion = $this->get_recursion($parent_item->contents,0);
@@ -240,8 +250,10 @@ class DocIndexRepository {
                 {
                     $parent_item = $item;
                     $parent_item->load([
-                        'contents'=>function($query) {
-                            $query->where(['is_published'=>1,'item_active'=>1]);
+                        'contents'=>function($query) use($me_id) {
+                            $query->where(['is_published'=>1,'item_active'=>1])
+                                ->orWhere('owner_id', $me_id)
+                                ->orWhere('creator_id', $me_id);
 //                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
 //                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
 //                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
@@ -254,8 +266,10 @@ class DocIndexRepository {
                 else
                 {
                     $parent_item = $this->modelItem->with([
-                        'contents'=>function($query) {
-                            $query->where(['is_published'=>1,'item_active'=>1]);
+                        'contents'=>function($query) use($me_id) {
+                            $query->where(['is_published'=>1,'item_active'=>1])
+                                ->orWhere('owner_id', $me_id)
+                                ->orWhere('creator_id', $me_id);
 //                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as SIGNED) asc'));
 //                            $query->orderByRaw(DB::raw('cast(replace(trim(time_point)," ","") as DECIMAL) asc'));
 //                            $query->orderByRaw(DB::raw('replace(trim(time_point)," ","") asc'));
@@ -1851,9 +1865,9 @@ class DocIndexRepository {
         if($content->owner_id != $me->id) return response_error([],"该内容不是你的，您不能操作！");
         else
         {
-            if(!empty($content->cover_pic))
+            if(@getimagesize(env('LW_DOMAIN_CDN').'/'.$content->cover_pic))
             {
-                $cover_url = url(env('DOMAIN_CDN').'/'.$content->cover_pic);
+                $cover_url = url(env('LW_DOMAIN_CDN').'/'.$content->cover_pic);
                 $content->cover_img = '<img src="'.$cover_url.'" alt="" />"';
             }
             else $content->cover_img = '';
@@ -2128,9 +2142,9 @@ class DocIndexRepository {
             $item->content_show = strip_tags($item->content);
             $item->img_tags = get_html_img($item->content);
 
-            if(@getimagesize(env('DOMAIN_CDN').'/'.$item->cover_pic))
+            if(@getimagesize(env('LW_DOMAIN_CDN').'/'.$item->cover_pic))
             {
-                $item->cover_picture = env('DOMAIN_CDN').'/'.$item->cover_pic;
+                $item->cover_picture = env('LW_DOMAIN_CDN').'/'.$item->cover_pic;
             }
             else
             {

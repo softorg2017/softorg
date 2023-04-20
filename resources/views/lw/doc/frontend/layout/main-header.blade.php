@@ -153,14 +153,22 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="{{ url(env('DOMAIN_CDN').'/'.$me->portrait_img) }}" class="user-image" alt="User Image">
+                            @if(@getimagesize(env('LW_DOMAIN_CDN').'/'.$me->portrait_img))
+                                <img src="{{ url(env('LW_DOMAIN_CDN').'/'.$me->portrait_img) }}" class="user-image" alt="User Image">
+                            @else
+                                <img src="/resource/common/images/doc_P_240.png" class="user-image" alt="User Image">
+                            @endif
                             <span class="hidden-xs-"><span>{{ $me->username }}</span></span>
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="{{ url(env('DOMAIN_CDN').'/'.$me->portrait_img) }}" class="img-circle" alt="User Image">
+                                @if(@getimagesize(env('LW_DOMAIN_CDN').'/'.$me->portrait_img))
+                                    <img src="{{ url(env('LW_DOMAIN_CDN').'/'.$me->portrait_img) }}" class="user-image" alt="User Image">
+                                @else
+                                    <img src="/resource/common/images/doc_P_240.png" class="user-image" alt="User Image">
+                                @endif
                                 <p>
                                     {{ $me->username }}
                                     <small>Member since Nov. 2020</small>

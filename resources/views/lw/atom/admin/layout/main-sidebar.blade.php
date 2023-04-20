@@ -7,7 +7,7 @@
                 @if(@getimagesize(Auth::guard('atom_admin')->user()->portrait_img))
                     <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('atom_admin')->user()->portrait_img) }}" class="img-circle" alt="User Image" style="height:45px;">
                 @else
-                    <img src="/resource/common/images/atom_P.png" class="img-circle" alt="User Image">
+                    <img src="/resource/common/images/atom_P_240.png" class="img-circle" alt="User Image">
                 @endif
             </div>
             <div class="pull-left info">
@@ -27,7 +27,6 @@
               </span>
             </div>
         </form>
-
 
 
         <ul class="sidebar-menu tree"data-widget="tree">

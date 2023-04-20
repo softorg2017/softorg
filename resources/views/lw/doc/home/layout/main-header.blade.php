@@ -6,7 +6,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>D</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Doc</b></span>
+        <span class="logo-lg"><b>轻博</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -151,10 +151,10 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        @if(!empty(Auth::guard('doc')->user()->portrait_img))
+                        @if(@getimagesize(Auth::guard('doc')->user()->portrait_img))
                             <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('doc')->user()->portrait_img) }}" class="user-image" alt="User">
                         @else
-                            <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <img src="/resource/common/images/doc_P_240.png" class="user-image" alt="User Image">
                         @endif
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs">{{ Auth::guard('doc')->user()->username }}</span>
@@ -162,10 +162,10 @@
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            @if(!empty(Auth::guard('doc')->user()->portrait_img))
+                            @if(@getimagesize(Auth::guard('doc')->user()->portrait_img))
                                 <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('doc')->user()->portrait_img) }}" class="img-circle" alt="User">
                             @else
-                                <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="/resource/common/images/doc_P_240.png" class="img-circle" alt="User Image">
                             @endif
 
                             <p>

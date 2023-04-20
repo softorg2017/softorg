@@ -1,8 +1,8 @@
-@extends(env('TEMPLATE_DOC_FRONT').'layout.layout')
+@extends(env('LW_TEMPLATE_DOC_FRONT').'layout.layout')
 
 
 @section('head_title')
-    【轻博】【内容管理】 - 如未轻博
+    内容管理 - 如未轻博
 @endsection
 @section('meta_title')@endsection
 @section('meta_author')@endsection
@@ -27,9 +27,9 @@
     <div class="main-body-section main-body-right-section section-wrapper">
         <div class="main-body-right-container fixed-to-top">
 
-            @include(env('TEMPLATE_DOC_FRONT').'component.right-side.right-root')
-            {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$item->owner])--}}
-            {{--@include(env('TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$user])--}}
+            @include(env('LW_TEMPLATE_DOC_FRONT').'component.right-side.right-root')
+            {{--@include(env('LW_TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$item->owner])--}}
+            {{--@include(env('LW_TEMPLATE_DOC_FRONT').'component.right-user', ['data'=>$user])--}}
 
         </div>
     </div>

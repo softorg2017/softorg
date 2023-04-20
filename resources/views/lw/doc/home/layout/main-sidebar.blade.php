@@ -1,16 +1,13 @@
-{{--<!-- Left side column. contains the logo and sidebar -->--}}
 <aside class="main-sidebar">
-
-    {{--<!-- sidebar: style can be found in sidebar.less -->--}}
     <section class="sidebar">
 
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
+
+        <div class="user-panel _none">
             <div class="pull-left image">
-                @if(!empty(Auth::guard('doc_admin')->user()->portrait_img))
+                @if(@getimagesize(Auth::guard('doc_admin')->user()->portrait_img))
                     <img src="{{ url(env('DOMAIN_CDN').'/'.Auth::guard('doc_admin')->user()->portrait_img) }}" class="img-circle" alt="User Image" style="height:45px;">
                 @else
-                    <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="/resource/common/images/doc_P_240.png" class="img-circle" alt="User Image">
                 @endif
             </div>
             <div class="pull-left info">
@@ -20,7 +17,7 @@
             </div>
         </div>
 
-        <!-- search form (Optional) -->
+
         <form action="#" method="get" class="sidebar-form _none">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -30,9 +27,9 @@
               </span>
             </div>
         </form>
-        <!-- /.search form -->
 
-        <!-- Sidebar Menu -->
+
+
         <ul class="sidebar-menu">
 
             <!-- Optionally, you can add icons to the links -->
@@ -63,37 +60,37 @@
 
             <li class="header"><i class="fa fa-circle-o"></i> 内容管理</li>
 
-            <li class="treeview {{ $sidebar_item_list_for_all_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_all or '' }}">
                 <a href="{{url('/home/item/item-list-for-all')}}">
                     <i class="fa fa-list text-red"></i>
                     <span>全部内容</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_article_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_article or '' }}">
                 <a href="{{url('/home/item/item-list?item-type=article')}}">
                     <i class="fa fa-circle-o text-red"></i>
                     <span>文章</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_activity_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_activity or '' }}">
                 <a href="{{url('/home/item/item-list?item-type=activity')}}">
                     <i class="fa fa-circle-o text-red"></i>
                     <span>活动</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_menu_type_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_menu_type or '' }}">
                 <a href="{{url('/home/item/item-list?item-type=menu_type')}}">
                     <i class="fa fa-circle-o text-red"></i>
                     <span>书目</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_time_line_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_time_line or '' }}">
                 <a href="{{url('/home/item/item-list?item-type=time_line')}}">
                     <i class="fa fa-circle-o text-red"></i>
                     <span>时间线</span>
                 </a>
             </li>
-            <li class="treeview {{ $sidebar_item_list_for_debase_active or '' }}">
+            <li class="treeview {{ $menu_active_of_item_list_for_debase or '' }}">
                 <a href="{{url('/home/item/item-list?item-type=debase')}}">
                     <i class="fa fa-circle-o text-red"></i>
                     <span>辩题</span>
@@ -127,7 +124,7 @@
 
 
         </ul>
-        <!-- /.sidebar-menu -->
+
+
     </section>
-    {{--<!-- /.sidebar -->--}}
 </aside>

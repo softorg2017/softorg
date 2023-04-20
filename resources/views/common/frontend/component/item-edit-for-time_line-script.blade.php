@@ -26,15 +26,18 @@
         // 【添加】新内容
         $(".show-create-content").on('click', function() {
 
-            reset_form();
+            $('#modal-body-for-item-edit').off("show.bs.modal").on("show.bs.modal", function() {
 
-            $("#form-edit-content").find('input[name=rank]').val(0);
-            $("#form-edit-content").find('.active-disable').hide();
-            $("#form-edit-content").find('.active-none').show();
-            $('#form-edit-content').find('.cover_img_container').html('');
-            $('#form-edit-content').find('input[name=active][value="1"]').prop('checked',true);
+                reset_form();
 
-            $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
+                $("#form-edit-content").find('input[name=rank]').val(0);
+                $("#form-edit-content").find('.active-disable').hide();
+                $("#form-edit-content").find('.active-none').show();
+                $('#form-edit-content').find('.cover_img_container').html('');
+                $('#form-edit-content').find('input[name=active][value="1"]').prop('checked',true);
+
+            }).modal({backdrop:'static'},'show');
+            // $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
 
         });
 
@@ -47,65 +50,80 @@
             var input_group = $(this).parents('.input-group');
             var item_id = input_group.attr('data-id');
 
-            var result;
-            $.post(
-                "/item/content-get",
-                {
-                    _token: $('meta[name="_token"]').attr('content'),
-                    item_id:item_id
-                },
-                function(data){
-                    if(!data.success) layer.msg(data.msg);
-                    else
-                    {
-                        $("#form-edit-content").find('input[name=operate]').val("edit");
-                        $("#form-edit-content").find('input[name=content_id]').val(data.data.id);
-                        $("#form-edit-content").find('input[name=time_point]').val(data.data.time_point);
+            $('#modal-body-for-item-edit').off("show.bs.modal").on("show.bs.modal", function () {
 
-                        if(data.data.id == $("#form-edit-content").find('input[name=item_id]').val())
-                        {
-                            console.log('封面');
-                            $("#form-edit-content").find('input[name=time_point]').val(0);
-                            $("#form-time-point-option").hide();
-                            $("#form-active-option").hide();
-                        }
+                var result;
+                $.post(
+                    "/item/content-get",
+                    {
+                        _token: $('meta[name="_token"]').attr('content'),
+                        item_id:item_id
+                    },
+                    function(data){
+                        if(!data.success) layer.msg(data.msg);
                         else
                         {
-                            $("#form-time-point-option").show();
-                            $("#form-active-option").show();
+                            $("#form-edit-content").find('input[name=operate]').val("edit");
+                            $("#form-edit-content").find('input[name=content_id]').val(data.data.id);
+                            $("#form-edit-content").find('input[name=time_point]').val(data.data.time_point);
+
+                            if(data.data.id == $("#form-edit-content").find('input[name=item_id]').val())
+                            {
+                                console.log('封面');
+                                $("#form-edit-content").find('input[name=time_point]').val(0);
+                                $("#form-time-point-option").hide();
+                                $("#form-active-option").hide();
+                            }
+                            else
+                            {
+                                $("#form-time-point-option").show();
+                                $("#form-active-option").show();
+                            }
+
+                            $("#form-edit-content").find('input[name=active]:checked').prop('checked','');
+                            var $active = data.data.active;
+                            $("#form-edit-content").find('.active-none').hide();
+                            $("#form-edit-content").find('.active-disable').show();
+                            if($active == 0) $("#form-edit-content").find('.active-none').show();
+                            $("#form-edit-content").find('input[name=active][value='+$active+']').prop('checked','checked');
+
+                            $("#form-edit-content").find('input[name=title]').val(data.data.title);
+                            $("#form-edit-content").find('textarea[name=description]').val(data.data.description);
+
+                            var content = data.data.content;
+                            if(data.data.content == null) content = '';
+                            var ue = UE.getEditor('container');
+                            ue.setContent(content);
+
+                            $("#form-edit-content").find('.cover_img_container').html(data.data.cover_img);
+
+    //                        var type = data.data.type;
+    //                        $("#form-edit-content").find('input[name=type]').prop('checked',null);
+    //                        $("#form-edit-content").find('input[name=type][value='+type+']').prop('checked',true);
+    //                        if(type == 1) $("#form-edit-content").find('.form-type').hide();
+    //                        else $("#form-edit-content").find('.form-type').show();
+
+                            $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
+
                         }
+                    },
+                    'json'
+                );
 
-                        $("#form-edit-content").find('input[name=active]:checked').prop('checked','');
-                        var $active = data.data.active;
-                        $("#form-edit-content").find('.active-none').hide();
-                        $("#form-edit-content").find('.active-disable').show();
-                        if($active == 0) $("#form-edit-content").find('.active-none').show();
-                        $("#form-edit-content").find('input[name=active][value='+$active+']').prop('checked','checked');
-
-                        $("#form-edit-content").find('input[name=title]').val(data.data.title);
-                        $("#form-edit-content").find('textarea[name=description]').val(data.data.description);
-
-                        var content = data.data.content;
-                        if(data.data.content == null) content = '';
-                        var ue = UE.getEditor('container');
-                        ue.setContent(content);
-
-                        $("#form-edit-content").find('.cover_img_container').html(data.data.cover_img);
-
-//                        var type = data.data.type;
-//                        $("#form-edit-content").find('input[name=type]').prop('checked',null);
-//                        $("#form-edit-content").find('input[name=type][value='+type+']').prop('checked',true);
-//                        if(type == 1) $("#form-edit-content").find('.form-type').hide();
-//                        else $("#form-edit-content").find('.form-type').show();
-
-                        $("html, body").animate({ scrollTop: $("#form-edit-content").offset().top }, {duration: 500,easing: "swing"});
-
-                    }
-                },
-                'json'
-            );
+            }).modal({backdrop:'static'},'show');
 
         });
+
+        // 【编辑】取消
+        $(".main-content").on('click', ".e-cancel-for-item-edit", function() {
+            var that = $(this);
+            form_reset_for_item_edit();
+            $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
+            }).modal('hide');
+        });
+
+
+
 
         // 【删除】
         $("#content-structure-list").on('click', '.delete-this-content', function () {
@@ -133,7 +151,6 @@
             });
         });
 
-
         // 【发布】
         $("#content-structure-list").on('click', ".publish-this-content", function() {
             var $that = $(this);
@@ -159,7 +176,6 @@
                 }
             });
         });
-
 
         // 【启用】
         $("#content-structure-list").on('click', ".enable-this-content", function() {
@@ -265,26 +281,26 @@
 //        $('#content-move-position').find('option[value=0]').prop("selected", true);
 
 
-//        $('#modal-move-body').modal({show:true, backdrop:'static'});
+//        $('#modal-body-for-item-move').modal({show:true, backdrop:'static'});
 //        $('.modal-backdrop').each(function() {
 //            $(this).attr('id', 'id_' + Math.random());
 //        });
-        $('#modal-move-body').modal('show');
-        $('.modal-backdrop').hide();
+        $('#modal-body-for-item-move').modal('show');
+        // $('.modal-backdrop').hide();
     });
     // 【移动】取消
-    $("#modal-move-body").on('click', "#content-move-cancel", function() {
+    $("#modal-body-for-item-move").on('click', "#content-move-cancel", function() {
         var $that = $(this);
         $('input[name=content-move-id]').val(0);
         $('.content-move-title').html('');
 
-        $('#modal-move-body').modal('hide');
-//            $("#modal-move-body").on("hidden.bs.modal", function () {
+        $('#modal-body-for-item-move').modal('hide');
+//            $("#modal-body-for-item-move").on("hidden.bs.modal", function () {
 //                $("body").addClass("modal-open");
 //            });
     });
     // 【移动】确认
-    $("#modal-move-body").on('click', "#content-move-submit", function() {
+    $("#modal-body-for-item-move").on('click', "#content-move-submit", function() {
 
         var $this_content_id = $('input[name=content-move-id]').val();
 
