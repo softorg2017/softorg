@@ -2,7 +2,7 @@
 
 
     <div class="box-header with-border" style="margin:16px 0;">
-        <h3 class="box-title">时间点</h3>
+        <h3 class="box-title">内容结构</h3>
         <div class="pull-right">
             <button type="button" class="btn btn-success pull-right show-create-content"><i class="fa fa-plus"></i> 添加新内容</button>
         </div>

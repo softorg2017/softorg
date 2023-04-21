@@ -2,7 +2,7 @@
 
 
 @section('head_title')
-    内容管理 - 如未轻博
+    {{ $data->title or '' }} - 书目 - 如未轻博
 @endsection
 @section('meta_title')@endsection
 @section('meta_author')@endsection
@@ -12,7 +12,7 @@
 
 
 
-@section('header') {{ $item->title or '' }} @endsection
+@section('header') {{ $data->title or '' }} @endsection
 @section('description','')
 @section('content')
 <div class="container">
@@ -20,7 +20,6 @@
     <div class="main-body-section main-body-left-section section-wrapper page-item">
         <div class="main-body-left-container bg-white">
 
-{{--            @include(env('TEMPLATE_COMMON_FRONT').'component.menu_type')--}}
             @include(env('TEMPLATE_COMMON_FRONT').'component.item-edit-for-menu_type')
 
         </div>
