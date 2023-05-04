@@ -31,7 +31,7 @@
             </div>
 
 
-            <div class="box-body datatable-body item-main-body" id="item-main-body">
+            <div class="box-body datatable-body item-main-body" id="datatable-for-item-list">
 
                 <div class="row col-md-12 datatable-search-row">
                     <div class="input-group">
@@ -56,11 +56,17 @@
                             <option value ="社会学">社会学</option>
                         </select>
 
+                        <button type="button" class="form-control btn btn-flat bg-teal filter-empty">
+                            <i class="fa fa-remove"></i> 清空重选
+                        </button>
                         <button type="button" class="form-control btn btn-flat btn-success filter-submit" id="filter-submit">
                             <i class="fa fa-search"></i> 搜索
                         </button>
-                        <button type="button" class="form-control btn btn-flat btn-default filter-cancel">
-                            <i class="fa fa-circle-o-notch"></i> 重置
+                        <button type="button" class="form-control btn btn-flat btn-primary filter-refresh">
+                            <i class="fa fa-circle-o-notch"></i> 刷新
+                        </button>
+                        <button type="button" class="form-control btn btn-flat btn-warning filter-cancel">
+                            <i class="fa fa-undo"></i> 重置
                         </button>
 
                     </div>

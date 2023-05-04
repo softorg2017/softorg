@@ -2,11 +2,15 @@
     $(function() {
 
         // 【搜索】
-        $(".item-main-body").on('click', ".filter-submit", function() {
+        $("#datatable-for-item-list").on('click', ".filter-submit", function() {
             $('#datatable_ajax').DataTable().ajax.reload();
         });
+        // 【刷新】
+        $("#datatable-for-item-list").on('click', ".filter-refresh", function() {
+            $('#datatable_ajax').DataTable().ajax.reload(null,false);
+        });
         // 【重置】
-        $(".item-main-body").on('click', ".filter-cancel", function() {
+        $("#datatable-for-item-list").on('click', ".filter-cancel", function() {
             $('textarea.form-filter, input.form-filter, select.form-filter').each(function () {
                 $(this).val("");
             });
@@ -17,8 +21,19 @@
 
             $('#datatable_ajax').DataTable().ajax.reload();
         });
+        // 【清空重选】
+        $("#datatable-for-item-list").on('click', ".filter-empty", function() {
+            $("#datatable-for-item-list").find('textarea.form-filter, input.form-filter, select.form-filter').each(function () {
+                $(this).val("");
+            });
+            $(".select2-container").val(-1).trigger("change");
+
+//            $('select.form-filter').selectpicker('refresh');
+            $("#datatable-for-item-list").find('select.form-filter option').attr("selected",false);
+            $("#datatable-for-item-list").find('select.form-filter').find('option:eq(0)').attr('selected', true);
+        });
         // 【查询】回车
-        $(".item-main-body").on('keyup', ".item-search-keyup", function(event) {
+        $("#datatable-for-item-list").on('keyup', ".item-search-keyup", function(event) {
             if(event.keyCode ==13)
             {
                 $("#filter-submit").click();
@@ -29,20 +44,20 @@
 
 
         // 【下载二维码】
-        $("#item-main-body").on('click', ".item-download-qr-code-submit", function() {
+        $("#datatable-for-item-list").on('click', ".item-download-qr-code-submit", function() {
             var that = $(this);
             window.open("/download/qr-code?type=item&id="+that.attr('data-id'));
         });
 
         // 【数据分析】
-        $("#item-main-body").on('click', ".item-statistic-submit", function() {
+        $("#datatable-for-item-list").on('click', ".item-statistic-submit", function() {
             var that = $(this);
             window.open("/admin/statistic/statistic-item?id="+that.attr('data-id'));
 //            window.location.href = "/atom/statistic/statistic-item?id="+that.attr('data-id');
         });
 
         // 【编辑】
-        $("#item-main-body").on('click', ".item-edit-link", function() {
+        $("#datatable-for-item-list").on('click', ".item-edit-link", function() {
             var that = $(this);
             window.location.href = "/admin/item/item-edit?id="+that.attr('data-id');
         });
@@ -51,7 +66,7 @@
 
 
         // 内容【获取详情】
-        $("#item-main-body").on('click', ".item-detail-show", function() {
+        $("").on('click', ".item-detail-show", function() {
             var that = $(this);
             var $data = new Object();
             $.ajax({
@@ -87,7 +102,7 @@
         });
 
         // 内容【删除】
-        $("#item-main-body").on('click', ".item-delete-submit", function() {
+        $(".main-content").on('click', ".item-delete-submit", function() {
             var that = $(this);
             layer.msg('确定要"删除"么？', {
                 time: 0
@@ -114,7 +129,7 @@
         });
 
         // 内容【恢复】
-        $("#item-main-body").on('click', ".item-restore-submit", function() {
+        $(".main-content").on('click', ".item-restore-submit", function() {
             var that = $(this);
             layer.msg('确定要"恢复"么？', {
                 time: 0
@@ -141,7 +156,7 @@
         });
 
         // 内容【永久删除】
-        $("#item-main-body").on('click', ".item-delete-permanently-submit", function() {
+        $(".main-content").on('click', ".item-delete-permanently-submit", function() {
             var that = $(this);
             layer.msg('确定要"永久删除"么？', {
                 time: 0
@@ -168,7 +183,7 @@
         });
 
         // 内容【推送】
-        $("#item-main-body").on('click', ".item-publish-submit", function() {
+        $(".main-content").on('click', ".item-publish-submit", function() {
             var that = $(this);
             layer.msg('确定要"发布"么？', {
                 time: 0
@@ -199,7 +214,7 @@
 
 
         // 【启用】
-        $("#item-main-body").on('click', ".item-enable-submit", function() {
+        $(".main-content").on('click', ".item-enable-submit", function() {
             var that = $(this);
             layer.msg('确定"封禁"？', {
                 time: 0
@@ -226,7 +241,7 @@
             });
         });
         // 【禁用】
-        $("#item-main-body").on('click', ".item-disable-submit", function() {
+        $(".main-content").on('click', ".item-disable-submit", function() {
             var that = $(this);
             layer.msg('确定"解禁"？', {
                 time: 0

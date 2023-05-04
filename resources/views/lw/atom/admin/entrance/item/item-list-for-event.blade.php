@@ -31,7 +31,7 @@
             </div>
 
 
-            <div class="box-body datatable-body item-main-body" id="item-main-body">
+            <div class="box-body datatable-body item-main-body" id="datatable-for-item-list">
 
                 <div class="row col-md-12 datatable-search-row">
                     <div class="input-group">
