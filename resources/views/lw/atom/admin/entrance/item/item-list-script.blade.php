@@ -361,11 +361,7 @@
                         $('input[name=item-text-set-column-value]').val('');
                         $('textarea[name=item-textarea-set-column-value]').text('');
 
-//                                var $keyword_id = $("#set-rank-bulk-submit").attr("data-keyword-id");
-////                                TableDatatablesAjax_inner.init($keyword_id);
-
-                        $('#datatable_ajax').DataTable().ajax.reload();
-//                                $('#datatable_ajax_inner').DataTable().ajax.reload();
+                        $('#datatable_ajax').DataTable().ajax.reload(null,false);
                     }
                 },
                 'json'
