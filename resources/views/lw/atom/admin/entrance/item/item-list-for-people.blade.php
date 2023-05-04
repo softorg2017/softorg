@@ -292,7 +292,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "180px",
+                        "width": "160px",
                         "title": "名称",
                         "data": "name",
                         "orderable": false,
@@ -380,7 +380,7 @@
                     },
                     {
                         "title": "出生时间",
-                        "className": "text-left",
+                        "className": "text-left-",
                         "width": "100px",
                         "data": "birth_time",
                         "orderable": true,
@@ -402,7 +402,7 @@
                     },
                     {
                         "title": "逝世时间",
-                        "className": "text-left",
+                        "className": "text-left-",
                         "width": "100px",
                         "data": "death_time",
                         "orderable": true,
@@ -425,7 +425,7 @@
                     {
                         "title": "描述",
                         "className": "text-left",
-                        "width": "",
+                        "width": "240px",
                         "data": "sub_desc",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
