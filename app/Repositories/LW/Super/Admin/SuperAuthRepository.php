@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Super\Admin;
+namespace App\Repositories\LWSuper\Admin;
 
 use App\User;
 use App\Models\Doc\Doc_Item;

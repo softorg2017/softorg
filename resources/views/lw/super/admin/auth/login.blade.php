@@ -1,4 +1,4 @@
-@extends('super.admin.layout.auth')
+@extends('lw.super.admin.layout.auth')
 
 @section('title','登陆')
 

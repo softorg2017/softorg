@@ -107,7 +107,7 @@
 @endsection
 @section('custom-style')
     <style>
-        .tableArea table { min-width:1360px; }
+        .tableArea table { min-width:1400px; }
 
         .select2-container { height:100%; border-radius:0; float:left; }
         .select2-container .select2-selection--single { border-radius:0; }
@@ -158,9 +158,9 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
+                        "title": "ID",
                         "className": "",
                         "width": "40px",
-                        "title": "ID",
                         "data": "id",
                         "orderable": true,
                         render: function(data, type, row, meta) {
@@ -168,8 +168,8 @@
                         }
                     },
                     {
-                        "width": "80px",
                         "title": "操作",
+                        "width": "80px",
                         "data": "id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
@@ -233,7 +233,7 @@
                         }
                     },
                     {
-                        "width": "80px",
+                        "width": "70px",
                         "title": "状态",
                         "data": "item_status",
                         "orderable": false,
@@ -276,7 +276,7 @@
                     },
                     {
                         "className": "",
-                        "width": "40px",
+                        "width": "50px",
                         "title": "类型",
                         "data": "item_type",
                         'orderable': false,
@@ -292,7 +292,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "240px",
+                        "width": "180px",
                         "title": "名称",
                         "data": "name",
                         "orderable": false,
@@ -335,9 +335,9 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "200px",
                         "title": "职业",
+                        "className": "text-left",
+                        "width": "160px",
                         "data": "major",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -357,9 +357,9 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "200px",
                         "title": "国别",
+                        "className": "text-left",
+                        "width": "120px",
                         "data": "nation",
                         "orderable": false,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
@@ -379,9 +379,9 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "120px",
                         "title": "出生时间",
+                        "className": "text-left",
+                        "width": "100px",
                         "data": "birth_time",
                         "orderable": true,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
@@ -401,9 +401,9 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "120px",
                         "title": "逝世时间",
+                        "className": "text-left",
+                        "width": "100px",
                         "data": "death_time",
                         "orderable": true,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
@@ -423,9 +423,31 @@
                         }
                     },
                     {
+                        "title": "描述",
+                        "className": "text-left",
+                        "width": "",
+                        "data": "description",
+                        "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
+                            if(row.is_completed != 1 && row.item_status != 97)
+                            {
+                                $(nTd).addClass('modal-show-for-item-text-set');
+                                $(nTd).attr('data-id',row.id).attr('data-name','职业');
+                                $(nTd).attr('data-key','major').attr('data-value',data);
+                                $(nTd).attr('data-column-name','职业');
+                                $(nTd).attr('data-text-type','text');
+                                if(data) $(nTd).attr('data-operate-type','edit');
+                                else $(nTd).attr('data-operate-type','add');
+                            }
+                        },
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
+                        "title": "发布者",
                         "className": "",
                         "width": "60px",
-                        "title": "发布者",
                         "data": "creator_id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
@@ -433,9 +455,9 @@
                         }
                     },
                     {
-                        "className": "font-12px",
-                        "width": "120px",
                         "title": "修改时间",
+                        "className": "",
+                        "width": "120px",
                         "data": 'updated_at',
                         "orderable": true,
                         render: function(data, type, row, meta) {

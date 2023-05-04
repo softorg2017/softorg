@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 
-use App\Repositories\Super\Admin\SuperAuthRepository;
+use App\Repositories\LW\Super\Admin\SuperAuthRepository;
 
 use Response, Auth, Validator, DB, Exception;
 
@@ -20,7 +20,7 @@ class SuperAuthController extends Controller
     private $repo;
     public function __construct()
     {
-        $this->repo = new SuperAuthRepository;
+//        $this->repo = new SuperAuthRepository;
 
         if(explode('.',request()->route()->getAction()['domain'])[0] == 'test')
         {
@@ -37,7 +37,7 @@ class SuperAuthController extends Controller
     {
         if(request()->isMethod('get'))
         {
-            return view('super.admin.auth.login');
+            return view('lw.super.admin.auth.login');
         }
         else if(request()->isMethod('post'))
         {
