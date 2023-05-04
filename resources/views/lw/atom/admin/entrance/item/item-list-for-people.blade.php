@@ -434,7 +434,7 @@
                                 $(nTd).attr('data-id',row.id).attr('data-name','描述');
                                 $(nTd).attr('data-key','sub_desc').attr('data-value',data);
                                 $(nTd).attr('data-column-name','描述');
-                                $(nTd).attr('data-text-type','text');
+                                $(nTd).attr('data-text-type','textarea');
                                 if(data) $(nTd).attr('data-operate-type','edit');
                                 else $(nTd).attr('data-operate-type','add');
                             }
