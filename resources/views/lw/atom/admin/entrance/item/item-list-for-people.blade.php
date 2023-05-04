@@ -426,14 +426,14 @@
                         "title": "描述",
                         "className": "text-left",
                         "width": "",
-                        "data": "description",
+                        "data": "sub_desc",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
                             {
                                 $(nTd).addClass('modal-show-for-item-text-set');
-                                $(nTd).attr('data-id',row.id).attr('data-name','职业');
-                                $(nTd).attr('data-key','major').attr('data-value',data);
-                                $(nTd).attr('data-column-name','职业');
+                                $(nTd).attr('data-id',row.id).attr('data-name','描述');
+                                $(nTd).attr('data-key','sub_desc').attr('data-value',data);
+                                $(nTd).attr('data-column-name','描述');
                                 $(nTd).attr('data-text-type','text');
                                 if(data) $(nTd).attr('data-operate-type','edit');
                                 else $(nTd).attr('data-operate-type','add');
