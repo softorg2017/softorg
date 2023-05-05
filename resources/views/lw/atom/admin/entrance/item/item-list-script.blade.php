@@ -283,20 +283,20 @@
             $('input[name=item-text-set-operate-type]').val($that.attr('data-operate-type'));
             if($that.attr('data-text-type') == "textarea")
             {
-                $('input[name=item-text-set-column-value]').val('').hide();
-                $('textarea[name=item-textarea-set-column-value]').text($that.attr("data-value")).show();
+                $('input[name="item-text-set-column-value"]').val('').hide();
+                $('textarea[name="item-textarea-set-column-value"]').val($that.attr("data-value")).show();
                 setTimeout(function() {
-                    $('input[name=item-textarea-set-column-value]').focus();
-                    $('input[name=item-textarea-set-column-value]')[0].setSelectionRange(-1, -1);
+                    $('textarea[name="item-textarea-set-column-value"]').focus();
+                    $('textarea[name="item-textarea-set-column-value"]')[0].setSelectionRange(-1, -1);
                 }, 200);
             }
             else
             {
-                $('textarea[name=item-textarea-set-column-value]').val('').hide();
-                $('input[name=item-text-set-column-value]').val($that.attr("data-value")).show();
+                $('textarea[name="item-textarea-set-column-value"]').val('').hide();
+                $('input[name="item-text-set-column-value"]').val($that.attr("data-value")).show();
                 setTimeout(function() {
-                    $('input[name=item-text-set-column-value]').focus();
-                    $('input[name=item-text-set-column-value]')[0].setSelectionRange(-1, -1);
+                    $('input[name="item-text-set-column-value"]').focus();
+                    $('input[name="item-text-set-column-value"]')[0].setSelectionRange(-1, -1);
                 }, 200);
             }
 
@@ -310,8 +310,8 @@
             $('#modal-body-for-item-text-set').modal('hide').on("hidden.bs.modal", function () {
                 $("body").addClass("modal-open");
             });
-            $('input[name=item-text-set-column-value]').val('');
-            $('textarea[name=item-textarea-set-column-value]')[0].val('');
+            $('input[name="item-text-set-column-value"]').val('');
+            $('textarea[name="item-textarea-set-column-value"]').val('');
         });
         // 【修改-文本-text-属性】【提交】
         $(".main-content").on('click', "#item-submit-for-item-text-set", function() {
@@ -358,8 +358,8 @@
                             $("body").addClass("modal-open");
                         });
 
-                        $('input[name=item-text-set-column-value]').val('');
-                        $('textarea[name=item-textarea-set-column-value]').text('');
+                        $('input[name="item-text-set-column-value"]').val('');
+                        $('textarea[name="item-textarea-set-column-value"]').val('');
 
                         $('#datatable_ajax').DataTable().ajax.reload(null,false);
                     }

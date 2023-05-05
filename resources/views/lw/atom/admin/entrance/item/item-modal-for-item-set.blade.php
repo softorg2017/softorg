@@ -93,8 +93,8 @@
                     <div class="form-group">
                         <label class="control-label col-md-2 item-text-set-column-name"></label>
                         <div class="col-md-8 ">
-                            <input type="text" class="form-control" name="item-text-set-column-value" autocomplete="off" placeholder="" value="">
-                            <textarea class="form-control" name="item-textarea-set-column-value" rows="6" cols="100%"></textarea>
+                            <input type="text" class="form-control" name="item-text-set-column-value" id="item-text-set-column-value" autocomplete="off" placeholder="" value="">
+                            <textarea class="form-control" name="item-textarea-set-column-value" id="item-textarea-set-column-value" rows="6" cols="100%"></textarea>
                         </div>
                     </div>
 
