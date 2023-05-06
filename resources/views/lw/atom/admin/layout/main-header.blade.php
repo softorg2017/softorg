@@ -33,6 +33,35 @@
                                 </a>
                             </li>
 
+
+                            <li class="header">添加内容</li>
+                            <li class="header">
+                                <a href="javascript:void(0);" class="item-create-show" data-type="object">
+                                    <i class="fa fa-plus text-green"></i> 添加物
+                                </a>
+                            </li>
+                            <li class="header">
+                                <a href="javascript:void(0);" class="item-create-show" data-type="people">
+                                    <i class="fa fa-plus text-green"></i> 添加人
+                                </a>
+                            </li>
+                            <li class="header">
+                                <a href="javascript:void(0);" class="item-create-show" data-type="product">
+                                    <i class="fa fa-plus text-green"></i> 添加作品
+                                </a>
+                            </li>
+                            <li class="header">
+                                <a href="javascript:void(0);" class="item-create-show" data-type="event">
+                                    <i class="fa fa-plus text-green"></i> 添加事件
+                                </a>
+                            </li>
+                            <li class="header">
+                                <a href="javascript:void(0);" class="item-create-show" data-type="conception">
+                                    <i class="fa fa-plus text-green"></i> 添加概念
+                                </a>
+                            </li>
+
+
                             <li class="header">添加内容</li>
                             <li class="header _none">
                                 <a href="{{ url('/admin/item/item-create') }}">

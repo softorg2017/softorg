@@ -23,7 +23,8 @@
                 <div class="caption pull-right">
                     <i class="icon-pin font-blue"></i>
                     <span class="caption-subject font-blue sbold uppercase"></span>
-                    <a href="{{ url('/admin/item/item-create?type=people') }}">
+                    {{--<a href="{{ url('/admin/item/item-create?type=people') }}">--}}
+                    <a href="javascript:void(0);" class="item-create-show" data-type="people">
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加人</button>
                     </a>
                 </div>
@@ -98,6 +99,10 @@
         </div>
     </div>
 </div>
+
+
+{{--添加&编辑--}}
+@include(env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-edit')
 
 
 {{--修改-基本-信息--}}
@@ -221,7 +226,7 @@
 
                             var $more_html =
                                 '<div class="btn-group">'+
-                                '<button type="button" class="btn btn-xs btn-success btn-group-body item-edit-link" data-id="'+data+'">编辑</button>'+
+                                '<button type="button" class="btn btn-xs btn-success btn-group-body item-edit-show" data-id="'+data+'">编辑</button>'+
                                 '<button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="true">'+
                                 '<span class="caret"></span>'+
                                 '<span class="sr-only">Toggle Dropdown</span>'+
@@ -482,45 +487,7 @@
                     }
                 ],
                 "drawCallback": function (settings) {
-                    ajax_datatable.$('.tooltips').tooltip({placement: 'top', html: true});
-                    $("a.verify").click(function(event){
-                        event.preventDefault();
-                        var node = $(this);
-                        var tr = node.closest('tr');
-                        var nickname = tr.find('span.nickname').text();
-                        var cert_name = tr.find('span.certificate_type_name').text();
-                        var action = node.attr('data-action');
-                        var certificate_id = node.attr('data-id');
-                        var action_name = node.text();
 
-                        var tpl = "{{trans('labels.crc.verify_user_certificate_tpl')}}";
-                        layer.open({
-                            'title': '警告',
-                            content: tpl
-                                .replace('@action_name', action_name)
-                                .replace('@nickname', nickname)
-                                .replace('@certificate_type_name', cert_name),
-                            btn: ['Yes', 'No'],
-                            yes: function(index) {
-                                layer.close(index);
-                                $.post(
-                                    '/admin/medsci/certificate/user/verify',
-                                    {
-                                        action: action,
-                                        id: certificate_id,
-                                        _token: '{{csrf_token()}}'
-                                    },
-                                    function(json){
-                                        if(json['response_code'] == 'success') {
-                                            layer.msg('操作成功!', {time: 3500});
-                                            ajax_datatable.ajax.reload();
-                                        } else {
-                                            layer.alert(json['response_data'], {time: 10000});
-                                        }
-                                    }, 'json');
-                            }
-                        });
-                    });
                 },
                 "language": { url: '/common/dataTableI18n' },
             });

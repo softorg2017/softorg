@@ -79,7 +79,8 @@
             <div class="col-md-12 col-md-offset-2-">
                 <button type="button" class="btn btn-success show-create-content"><i class="fa fa-plus"></i> 添加新内容</button>
                 <a href="{{ url('/item/'.$data->id) }}" target="_blank"><button type="button" class="btn btn-primary">预览</button></a>
-                <button type="button" onclick="history.go(-1);" class="btn btn-default">返回</button>
+                {{--<button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>--}}
+                <button type="button" class="btn btn-default e-cancel-for-item-edit">取消</button>
             </div>
         </div>
     </div>

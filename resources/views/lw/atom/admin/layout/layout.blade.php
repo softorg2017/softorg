@@ -33,7 +33,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Ionicons -->
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">--}}
-    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/resource/component/css/ionicons-2.0.1.min.css') }}">
 
     <!-- Theme style -->
@@ -62,20 +61,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="{{ asset('/AdminLTE/plugins/datatables/dataTables.bootstrap.css') }}">
 
-    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-fileinput-4.4.8.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/resource/component/css/fileinput-only.css') }}">
 
-    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">--}}
-    {{--<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-datetimepicker-4.17.47.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-datepicker-1.9.0.min.css') }}">
 
-    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-switch-3.3.4.min.css') }}">
 
-    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/resource/component/css/swiper-4.2.2.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/select2-4.0.5.min.css') }}">
 
 
     <link rel="stylesheet" href="{{ asset('/resource/common/css/common.css') }}">
@@ -108,7 +104,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<div class="wrapper root-body">
 
 
     {{--main-header--}}
@@ -152,41 +148,35 @@ desired effect
 {{--<script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>--}}
 <script src="{{ asset('/AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
 
-{{--<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/jquery-ui-1.12.1.min.js') }}"></script>
 
 {{--<script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>--}}
 
-{{--<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/layer-3.0.3.min.js') }}"></script>
 
-{{--<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/fileinput-4.4.8.min.js') }}"></script>
 <script src="{{ asset('/resource/component/js/fileinput-only.js') }}"></script>
 
-{{--<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/jquery.form-4.2.2.min.js') }}"></script>
 
-{{--<script src="https://cdn.bootcss.com/moment.js/2.19.0/moment.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/moment-2.19.0.min.js') }}"></script>
 <script src="{{ asset('/resource/component/js/moment-2.19.0-locale-zh-cn.js') }}"></script>
 <script src="{{ asset('/resource/component/js/moment-2.19.0-locale-ko.js') }}"></script>
 
-{{--<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>--}}
-{{--<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/bootstrap-datetimepicker-4.17.47.min.js') }}"></script>
 <script src="{{ asset('/resource/component/js/bootstrap-datetimepicker.zh-CN.js') }}" charset="UTF-8"></script>
 <script src="{{ asset('/resource/component/js/bootstrap-datepicker-1.9.0.min.js') }}"></script>
 <script src="{{ asset('/resource/component/js/bootstrap-datepicker-1.9.0.zh-CN.min.js') }}"></script>
 
-{{--<script src="https://cdn.bootcss.com/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/bootstrap-switch-3.3.4.min.js') }}"></script>
 
-{{--<script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>--}}
 <script src="{{ asset('/resource/component/js/swiper-4.2.2.min.js') }}"></script>
 
+<script src="{{ asset('/resource/component/js/select2-4.0.5.min.js') }}"></script>
 
-<script src="{{ asset('/resource/custom/www/admin/js/index.js') }}"></script>
+
+@include(env('LW_TEMPLATE_ATOM_ADMIN').'layout.layout-script')
+
 
 @yield('js')
 @yield('script')

@@ -24,13 +24,13 @@
                 </div>
             </div>
 
-            <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-item">
             <div class="box-body">
+            <form action="" method="post" class="form-horizontal form-bordered" id="form-edit-item">
 
                 {{ csrf_field() }}
                 <input type="hidden" name="operate" value="{{ $operate or '' }}" readonly>
                 <input type="hidden" name="operate_id" value="{{ $operate_id or 0 }}" readonly>
-                <input type="hidden" name="icategory" value="{{ $category or 'people' }}" readonly>
+                <input type="hidden" name="category" value="{{ $category or 'people' }}" readonly>
                 <input type="hidden" name="type" value="{{ $type or 'item' }}" readonly>
 
 
@@ -241,8 +241,8 @@
                     </div>
                 @endif
 
-            </div>
             </form>
+            </div>
 
             <div class="box-footer">
                 <div class="row">

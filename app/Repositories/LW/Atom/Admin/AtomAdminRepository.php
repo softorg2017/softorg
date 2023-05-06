@@ -615,8 +615,8 @@ class AtomAdminRepository {
     public function operate_item_item_get($post_data)
     {
         $messages = [
-            'operate.required' => '参数有误',
-            'id.required' => '请输入关键词ID',
+            'operate.required' => 'operate.required.',
+            'id.required' => 'id.required.',
         ];
         $v = Validator::make($post_data, [
             'operate' => 'required',
@@ -635,6 +635,15 @@ class AtomAdminRepository {
 
         $item = Atom_Item::withTrashed()->find($id);
         if(!$item) return response_error([],"该内容不存在，刷新页面重试！");
+        else
+        {
+            if(@getimagesize(env('LW_DOMAIN_CDN').'/'.$item->cover_pic))
+            {
+                $cover_url = url(env('LW_DOMAIN_CDN').'/'.$item->cover_pic);
+                $item->cover_img = '<img src="'.$cover_url.'" alt="" />"';
+            }
+            else $item->cover_img = '';
+        }
 
         $me = Auth::guard('atom')->user();
         if($item->owner_id != $me->id) return response_error([],"你没有操作权限！");

@@ -28,7 +28,7 @@
 
             $('#modal-body-for-item-edit').off("show.bs.modal").on("show.bs.modal", function() {
 
-                reset_form();
+                form_reset_for_item_edit();
 
                 $("#form-edit-content").find('input[name=rank]').val(0);
                 $("#form-edit-content").find('.active-disable').hide();
@@ -117,7 +117,9 @@
         // 【编辑】取消
         $(".main-content").on('click', ".e-cancel-for-item-edit", function() {
             var that = $(this);
+
             form_reset_for_item_edit();
+
             $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
             }).modal('hide');
         });
@@ -261,9 +263,6 @@
 
 
 
-
-
-
     // 显示【移动】
     $("#content-structure-list").on('click', ".this-content-move-show", function() {
         var $that = $(this);
@@ -349,7 +348,7 @@
 
 
     // 【重置】编辑
-    function reset_form()
+    function form_reset_for_item_edit()
     {
 //        $("#form-edit-content").find('.form-type').show();
 
@@ -375,4 +374,5 @@
         $('#form-edit-content').find('input[name=active][value="1"]').prop('checked',true);
 
     }
+
 </script>

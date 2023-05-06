@@ -186,7 +186,8 @@
                 <div class="row" style="margin:16px 0;">
                     <div class="col-md-12 col-md-offset-2-">
                         <button type="button" class="btn btn-primary" id="edit-content-submit"><i class="fa fa-check"></i> 提交</button>
-                        <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
+                        {{--<button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>--}}
+                        <button type="button" class="btn btn-default e-cancel-for-item-edit">取消</button>
                     </div>
                 </div>
             </div>

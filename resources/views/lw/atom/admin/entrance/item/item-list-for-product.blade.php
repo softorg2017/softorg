@@ -21,9 +21,8 @@
                 <h3 class="box-title">内容列表</h3>
 
                 <div class="caption pull-right">
-                    <i class="icon-pin font-blue"></i>
-                    <span class="caption-subject font-blue sbold uppercase"></span>
-                    <a href="{{ url('/admin/item/item-create?type=product') }}">
+                    {{--<a href="{{ url('/admin/item/item-create?type=product') }}">--}}
+                    <a href="javascript:void(0);" class="item-create-show" data-type="product">
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加作品</button>
                     </a>
                 </div>
@@ -83,15 +82,13 @@
         </div>
     </div>
 </div>
-
-
-{{--修改-基本-信息--}}
-@include(env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-set')
 @endsection
 
 
 
 
+@section('custom-css')
+@endsection
 @section('custom-style')
     <style>
         .tableArea table { min-width:1400px; }
@@ -104,6 +101,8 @@
 
 
 
+@section('custom-js')
+@endsection
 @section('custom-script')
 <script>
     var TableDatatablesAjax = function () {
@@ -273,7 +272,7 @@
                     },
                     {
                         "className": "text-left",
-                        "width": "360px",
+                        "width": "240px",
                         "title": "名称",
                         "data": "name",
                         "orderable": false,
@@ -292,7 +291,7 @@
 //                            console.log(data);
                             $.each(data,function( key, val ) {
 //                                console.log( key, val, this );
-                                html += '<a target="_blank" href="/item?id='+this.id+'">'+this.name+'</a><br>';
+                                html += '<a target="_blank" href="/item?id='+this.id+'">'+this.name+'</a> ';
                             });
                             return html;
 //                            return row.people == null ? '未知' :
@@ -322,8 +321,30 @@
                         }
                     },
                     {
+                        "title": "描述",
+                        "className": "text-left",
+                        "width": "240px",
+                        "data": "sub_desc",
+                        "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
+                            if(row.is_completed != 1 && row.item_status != 97)
+                            {
+                                $(nTd).addClass('modal-show-for-item-text-set');
+                                $(nTd).attr('data-id',row.id).attr('data-name','描述');
+                                $(nTd).attr('data-key','sub_desc').attr('data-value',data);
+                                $(nTd).attr('data-column-name','描述');
+                                $(nTd).attr('data-text-type','textarea');
+                                if(data) $(nTd).attr('data-operate-type','edit');
+                                else $(nTd).attr('data-operate-type','add');
+                            }
+                        },
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
                         "className": "",
-                        "width": "80px",
+                        "width": "60px",
                         "title": "发布者",
                         "data": "creator_id",
                         "orderable": false,

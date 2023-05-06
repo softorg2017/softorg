@@ -21,9 +21,8 @@
                 <h3 class="box-title">内容列表</h3>
 
                 <div class="caption pull-right">
-                    <i class="icon-pin font-blue"></i>
-                    <span class="caption-subject font-blue sbold uppercase"></span>
-                    <a href="{{ url('/admin/item/item-create?type=event') }}">
+                    {{--<a href="{{ url('/admin/item/item-create?type=event') }}">--}}
+                    <a href="javascript:void(0);" class="item-create-show" data-type="event">
                         <button type="button" onclick="" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加事件</button>
                     </a>
                 </div>
@@ -76,6 +75,10 @@
         </div>
     </div>
 </div>
+
+
+{{--添加&编辑--}}
+@include(env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-edit')
 
 
 {{--修改-基本-信息--}}

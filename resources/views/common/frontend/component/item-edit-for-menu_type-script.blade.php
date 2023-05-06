@@ -132,7 +132,9 @@
         // 【编辑】取消
         $(".main-content").on('click', ".e-cancel-for-item-edit", function() {
             var that = $(this);
-            form_reset_for_item_edit();
+
+            // form_reset_for_item_edit();
+
             $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
             }).modal('hide');
         });
