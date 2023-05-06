@@ -59,7 +59,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{--<![endif]-->--}}
     {{--<link href="https://cdn.bootcss.com/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css" rel="stylesheet">--}}
 
+
     <link rel="stylesheet" href="{{ asset('/AdminLTE/plugins/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/jquery.dataTables-1.13.1.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/fixedColumns.dataTables.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('/resource/component/css/bootstrap-fileinput-4.4.8.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/resource/component/css/fileinput-only.css') }}">
@@ -103,7 +106,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
 <div class="wrapper root-body">
 
 
@@ -142,6 +145,8 @@ desired effect
 
 <script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/jquery.dataTables-1.13.1.min.js') }}"></script>
+<script src="{{ asset('/resource/component/js/dataTables.fixedColumns.min.js') }}"></script>
 
 {{--<script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>--}}
 {{--<script src="{{ asset('/resource/component/js/icheck-1.0.2.min.js') }}"></script>--}}

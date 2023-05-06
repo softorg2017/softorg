@@ -149,19 +149,20 @@
                 "orderCellsTop": true,
                 "columns": [
                     {
-                        "className": "font-12px",
-                        "width": "60px",
                         "title": "ID",
                         "data": "id",
+                        "className": "",
+                        "width": "60px",
                         "orderable": true,
                         render: function(data, type, row, meta) {
                             return data;
                         }
                     },
                     {
-                        "width": "80px",
                         "title": "操作",
                         "data": 'id',
+                        "className": "",
+                        "width": "80px",
                         "orderable": false,
                         render: function(data, type, row, meta) {
 
@@ -224,9 +225,10 @@
                         }
                     },
                     {
-                        "width": "80px",
                         "title": "状态",
                         "data": "item_status",
+                        "className": "",
+                        "width": "80px",
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             // 是否删除
@@ -266,10 +268,10 @@
                         }
                     },
                     {
-                        "className": "",
-                        "width": "60px",
                         "title": "类型",
                         "data": "item_type",
+                        "className": "",
+                        "width": "60px",
                         'orderable': false,
                         render: function(data, type, row, meta) {
                             if(data == 0) return 'item';
@@ -282,10 +284,10 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "",
                         "title": "标题",
                         "data": "name",
+                        "className": "text-left",
+                        "width": "160px",
                         "orderable": false,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -304,10 +306,10 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "120px",
                         "title": "标签",
                         "data": "tag",
+                        "className": "text-left",
+                        "width": "120px",
                         "orderable": false,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -326,20 +328,42 @@
                         }
                     },
                     {
-                        "className": "",
-                        "width": "60px",
+                        "title": "描述",
+                        "data": "sub_desc",
+                        "className": "text-left",
+                        "width": "",
+                        "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
+                            if(row.is_completed != 1 && row.item_status != 97)
+                            {
+                                $(nTd).addClass('modal-show-for-item-text-set');
+                                $(nTd).attr('data-id',row.id).attr('data-name','描述');
+                                $(nTd).attr('data-key','sub_desc').attr('data-value',data);
+                                $(nTd).attr('data-column-name','描述');
+                                $(nTd).attr('data-text-type','textarea');
+                                if(data) $(nTd).attr('data-operate-type','edit');
+                                else $(nTd).attr('data-operate-type','add');
+                            }
+                        },
+                        "orderable": false,
+                        render: function(data, type, row, meta) {
+                            return data;
+                        }
+                    },
+                    {
                         "title": "发布者",
                         "data": "creator_id",
+                        "className": "",
+                        "width": "60px",
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             return row.creator == null ? '未知' : '<a target="_blank" href="/user/'+row.creator.id+'">'+row.creator.username+'</a>';
                         }
                     },
                     {
-                        "className": "font-12px",
-                        "width": "100px",
                         "title": "创建时间",
                         "data": 'created_at',
+                        "className": "",
+                        "width": "100px",
                         "orderable": true,
                         render: function(data, type, row, meta) {
 //                            return data;

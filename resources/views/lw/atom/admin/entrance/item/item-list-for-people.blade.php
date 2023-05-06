@@ -167,12 +167,15 @@
                 "pagingType": "simple_numbers",
                 "order": [],
                 "orderCellsTop": true,
+                // "autoWidth": true,
+                "scrollX": true,
+//                "scrollY": true,
                 "columns": [
                     {
                         "title": "ID",
-                        "className": "",
-                        "width": "40px",
                         "data": "id",
+                        "className": "",
+                        "width": "50px",
                         "orderable": true,
                         render: function(data, type, row, meta) {
                             return data;
@@ -180,8 +183,9 @@
                     },
                     {
                         "title": "操作",
-                        "width": "80px",
                         "data": "id",
+                        "className": "",
+                        "width": "80px",
                         "orderable": false,
                         render: function(data, type, row, meta) {
 
@@ -244,9 +248,10 @@
                         }
                     },
                     {
-                        "width": "70px",
                         "title": "状态",
                         "data": "item_status",
+                        "className": "",
+                        "width": "60px",
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             // 是否删除
@@ -286,10 +291,10 @@
                         }
                     },
                     {
-                        "className": "",
-                        "width": "50px",
                         "title": "类型",
                         "data": "item_type",
+                        "className": "",
+                        "width": "60px",
                         'orderable': false,
                         render: function(data, type, row, meta) {
                             if(data == 0) return 'item';
@@ -302,10 +307,10 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "160px",
                         "title": "名称",
                         "data": "name",
+                        "className": "text-left",
+                        "width": "160px",
                         "orderable": false,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -324,10 +329,10 @@
                         }
                     },
                     {
-                        "className": "text-left",
-                        "width": "120px",
                         "title": "标签",
                         "data": "tag",
+                        "className": "text-left",
+                        "width": "120px",
                         "orderable": false,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -347,9 +352,9 @@
                     },
                     {
                         "title": "职业",
+                        "data": "major",
                         "className": "text-left",
                         "width": "160px",
-                        "data": "major",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
                             {
@@ -369,9 +374,9 @@
                     },
                     {
                         "title": "国别",
+                        "data": "nation",
                         "className": "text-left",
                         "width": "120px",
-                        "data": "nation",
                         "orderable": false,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -391,9 +396,9 @@
                     },
                     {
                         "title": "出生时间",
+                        "data": "birth_time",
                         "className": "text-left-",
                         "width": "100px",
-                        "data": "birth_time",
                         "orderable": true,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -413,9 +418,9 @@
                     },
                     {
                         "title": "逝世时间",
+                        "data": "death_time",
                         "className": "text-left-",
                         "width": "100px",
-                        "data": "death_time",
                         "orderable": true,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -435,9 +440,9 @@
                     },
                     {
                         "title": "描述",
-                        "className": "text-left",
-                        "width": "240px",
                         "data": "sub_desc",
+                        "className": "text-left",
+                        "width": "",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
                             {
@@ -457,9 +462,9 @@
                     },
                     {
                         "title": "发布者",
+                        "data": "creator_id",
                         "className": "",
                         "width": "60px",
-                        "data": "creator_id",
                         "orderable": false,
                         render: function(data, type, row, meta) {
                             return row.creator == null ? '未知' : '<a target="_blank" href="/user/'+row.creator.id+'">'+row.creator.username+'</a>';
@@ -467,9 +472,9 @@
                     },
                     {
                         "title": "修改时间",
+                        "data": 'updated_at',
                         "className": "",
                         "width": "120px",
-                        "data": 'updated_at',
                         "orderable": true,
                         render: function(data, type, row, meta) {
 //                            return data;

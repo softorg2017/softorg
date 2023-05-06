@@ -9,7 +9,7 @@
 .datatable-body .btn-xs { padding:1px 2px; }
 
 
-th, td { white-space: nowrap; }
+th { white-space:nowrap; }
 
 table.dataTable thead th,
 table.dataTable thead td,
@@ -17,7 +17,7 @@ table.dataTable tfoot th,
 table.dataTable tfoot td { text-align:center; }
 
 table.dataTable tbody th,
-table.dataTable tbody td { padding:10px 4px; }
+table.dataTable tbody td { padding:8px 4px; }
 
 table.dataTable thead > tr > th { padding-left:0; }
 table.dataTable thead > tr > th.text-left { padding-left:4px; }
