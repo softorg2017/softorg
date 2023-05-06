@@ -74,6 +74,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="{{ asset('/resource/component/css/swiper-4.2.2.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('/resource/component/css/lightcase-2.5.0.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('/resource/component/css/select2-4.0.5.min.css') }}">
 
 
@@ -157,7 +159,8 @@ desired effect
 
 {{--<script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>--}}
 
-<script src="{{ asset('/resource/component/js/layer-3.0.3.min.js') }}"></script>
+{{--<script src="{{ asset('/resource/component/js/layer-3.0.3.min.js') }}"></script>--}}
+<script src="{{ asset('/resource/component/js/layer-3.5.1/layer.js') }}"></script>
 
 <script src="{{ asset('/resource/component/js/fileinput-4.4.8.min.js') }}"></script>
 <script src="{{ asset('/resource/component/js/fileinput-only.js') }}"></script>
@@ -178,6 +181,8 @@ desired effect
 <script src="{{ asset('/resource/component/js/swiper-4.2.2.min.js') }}"></script>
 
 <script src="{{ asset('/resource/component/js/select2-4.0.5.min.js') }}"></script>
+
+<script src="{{ asset('/resource/component/js/echarts-5.4.1.min.js') }}"></script>
 
 
 @include(env('LW_TEMPLATE_ATOM_ADMIN').'layout.layout-script')

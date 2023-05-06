@@ -118,7 +118,7 @@
 @endsection
 @section('custom-style')
     <style>
-        .tableArea table { min-width:1400px; }
+        .tableArea table { min-width:1360px; }
 
         .select2-container { height:100%; border-radius:0; float:left; }
         .select2-container .select2-selection--single { border-radius:0; }
@@ -170,6 +170,7 @@
                 // "autoWidth": true,
                 "scrollX": true,
 //                "scrollY": true,
+                "showRefresh": true,
                 "columns": [
                     {
                         "title": "ID",
@@ -457,7 +458,9 @@
                         },
                         "orderable": false,
                         render: function(data, type, row, meta) {
-                            return data;
+                            // return data;
+                            if(data) return data.replace(/\n/g,"<br/>");
+                            else return data;
                         }
                     },
                     {

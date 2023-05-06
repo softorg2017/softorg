@@ -147,6 +147,10 @@
                 "pagingType": "simple_numbers",
                 "order": [],
                 "orderCellsTop": true,
+                // "autoWidth": true,
+                "scrollX": true,
+//                "scrollY": true,
+                "showRefresh": true,
                 "columns": [
                     {
                         "title": "ID",
@@ -333,6 +337,7 @@
                         "className": "text-left",
                         "width": "",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
+                            console.log(data);
                             if(row.is_completed != 1 && row.item_status != 97)
                             {
                                 $(nTd).addClass('modal-show-for-item-text-set');
@@ -346,7 +351,9 @@
                         },
                         "orderable": false,
                         render: function(data, type, row, meta) {
-                            return data;
+                            // return data;
+                            if(data) return data.replace(/\n/g,"<br/>");
+                            else return data;
                         }
                     },
                     {
