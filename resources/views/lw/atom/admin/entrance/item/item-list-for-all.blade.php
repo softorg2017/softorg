@@ -107,7 +107,7 @@
 
 @section('custom-style')
     <style>
-        .tableArea table { min-width:1360px; }
+        .tableArea table { min-width:1400px; }
 
         .select2-container { height:100%; border-radius:0; float:left; }
         .select2-container .select2-selection--single { border-radius:0; }
@@ -148,8 +148,9 @@
                 "order": [],
                 "orderCellsTop": true,
                 // "autoWidth": true,
-                "scrollX": true,
-//                "scrollY": true,
+                // "scrollX": true,
+                // "scrollY": true,
+                "scrollCollapse": true,
                 "showRefresh": true,
                 "columns": [
                     {
@@ -414,45 +415,7 @@
                     }
                 ],
                 "drawCallback": function (settings) {
-                    ajax_datatable.$('.tooltips').tooltip({placement: 'top', html: true});
-                    $("a.verify").click(function(event){
-                        event.preventDefault();
-                        var node = $(this);
-                        var tr = node.closest('tr');
-                        var nickname = tr.find('span.nickname').text();
-                        var cert_name = tr.find('span.certificate_type_name').text();
-                        var action = node.attr('data-action');
-                        var certificate_id = node.attr('data-id');
-                        var action_name = node.text();
 
-                        var tpl = "{{trans('labels.crc.verify_user_certificate_tpl')}}";
-                        layer.open({
-                            'title': '警告',
-                            content: tpl
-                                .replace('@action_name', action_name)
-                                .replace('@nickname', nickname)
-                                .replace('@certificate_type_name', cert_name),
-                            btn: ['Yes', 'No'],
-                            yes: function(index) {
-                                layer.close(index);
-                                $.post(
-                                    '/admin/medsci/certificate/user/verify',
-                                    {
-                                        action: action,
-                                        id: certificate_id,
-                                        _token: '{{csrf_token()}}'
-                                    },
-                                    function(json){
-                                        if(json['response_code'] == 'success') {
-                                            layer.msg('操作成功!', {time: 3500});
-                                            ajax_datatable.ajax.reload();
-                                        } else {
-                                            layer.alert(json['response_data'], {time: 10000});
-                                        }
-                                    }, 'json');
-                            }
-                        });
-                    });
                 },
                 "language": { url: '/common/dataTableI18n' },
             });

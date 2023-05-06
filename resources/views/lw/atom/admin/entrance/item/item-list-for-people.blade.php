@@ -118,7 +118,7 @@
 @endsection
 @section('custom-style')
     <style>
-        .tableArea table { min-width:1360px; }
+        .tableArea table { min-width:1400px; }
 
         .select2-container { height:100%; border-radius:0; float:left; }
         .select2-container .select2-selection--single { border-radius:0; }
@@ -168,8 +168,9 @@
                 "order": [],
                 "orderCellsTop": true,
                 // "autoWidth": true,
-                "scrollX": true,
-//                "scrollY": true,
+                // "scrollX": true,
+                // "scrollY": true,
+                "scrollCollapse": true,
                 "showRefresh": true,
                 "columns": [
                     {
