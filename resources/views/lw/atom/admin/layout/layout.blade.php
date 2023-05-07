@@ -109,7 +109,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
-<div class="wrapper root-body">
+<div class="wrapper body-root" id="body-root" data-page-type="{{ $page_type or 'page' }}">
 
 
     {{--main-header--}}

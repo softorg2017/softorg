@@ -40,9 +40,9 @@
                 <div class="row col-md-12 datatable-search-row">
                     <div class="input-group">
 
-                        <input type="text" class="form-control form-filter item-search-keyup" name="name" placeholder="名称" />
-                        {{--<input type="text" class="form-control form-filter item-search-keyup" name="title" placeholder="标题" />--}}
-                        <input type="text" class="form-control form-filter item-search-keyup" name="tag" placeholder="标签" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="search-name" placeholder="名称" />
+                        {{--<input type="text" class="form-control form-filter item-search-keyup" name="search-title" placeholder="标题" />--}}
+                        <input type="text" class="form-control form-filter item-search-keyup" name="search-tag" placeholder="标签" />
 
                         <select class="form-control form-filter" name="item-type" style="width:88px;">
                             <option value ="-1">全部</option>
@@ -135,11 +135,11 @@
                     "dataType" : 'json',
                     "data": function (d) {
                         d._token = $('meta[name="_token"]').attr('content');
-                        d.name = $('input[name="name"]').val();
-                        d.title = $('input[name="title"]').val();
-                        d.tag = $('input[name="tag"]').val();
-                        d.major = $('input[name="major"]').val();
-                        d.naiton = $('input[name="naiton"]').val();
+                        d.name = $('input[name="search-name"]').val();
+                        d.title = $('input[name="search-title"]').val();
+                        d.tag = $('input[name="search-tag"]').val();
+                        d.major = $('input[name="search-major"]').val();
+                        d.naiton = $('input[name="search-naiton"]').val();
                         d.select_classified = $('select[name="select-classified"]').val();
                         d.type = $('select[name="item-type"]').val();
                     },
@@ -212,7 +212,7 @@
 
                             var $more_html =
                                 '<div class="btn-group">'+
-                                '<button type="button" class="btn btn-xs btn-success btn-group-body item-edit-link" data-id="'+data+'">编辑</button>'+
+                                '<button type="button" class="btn btn-xs btn-success btn-group-body item-edit-show" data-id="'+data+'">编辑</button>'+
                                 '<button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="true">'+
                                 '<span class="caret"></span>'+
                                 '<span class="sr-only">Toggle Dropdown</span>'+
@@ -338,7 +338,6 @@
                         "className": "text-left",
                         "width": "",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
-                            console.log(data);
                             if(row.is_completed != 1 && row.item_status != 97)
                             {
                                 $(nTd).addClass('modal-show-for-item-text-set');

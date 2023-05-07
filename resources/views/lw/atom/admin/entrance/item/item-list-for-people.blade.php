@@ -37,11 +37,11 @@
                 <div class="row col-md-12 datatable-search-row">
                     <div class="input-group">
 
-                        <input type="text" class="form-control form-filter item-search-keyup" name="name" placeholder="名称" />
-                        {{--<input type="text" class="form-control form-filter item-search-keyup" name="title" placeholder="标题" />--}}
-                        <input type="text" class="form-control form-filter item-search-keyup" name="tag" placeholder="标签" />
-                        <input type="text" class="form-control form-filter item-search-keyup" name="major" placeholder="职业" />
-                        <input type="text" class="form-control form-filter item-search-keyup" name="nation" placeholder="国别" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="search-name" placeholder="名称" />
+                        {{--<input type="text" class="form-control form-filter item-search-keyup" name="search-title" placeholder="标题" />--}}
+                        <input type="text" class="form-control form-filter item-search-keyup" name="search-tag" placeholder="标签" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="search-major" placeholder="职业" />
+                        <input type="text" class="form-control form-filter item-search-keyup" name="search-nation" placeholder="国别" />
 
                         <select class="form-control form-filter select2-classified" name="select-classified">
                             <option value ="-1">全部</option>
@@ -150,11 +150,11 @@
                     "dataType" : 'json',
                     "data": function (d) {
                         d._token = $('meta[name="_token"]').attr('content');
-                        d.name = $('input[name="name"]').val();
-                        d.title = $('input[name="title"]').val();
-                        d.tag = $('input[name="tag"]').val();
-                        d.major = $('input[name="major"]').val();
-                        d.nation = $('input[name="nation"]').val();
+                        d.name = $('input[name="search-name"]').val();
+                        d.title = $('input[name="search-title"]').val();
+                        d.tag = $('input[name="search-tag"]').val();
+                        d.major = $('input[name="search-major"]').val();
+                        d.nation = $('input[name="search-nation"]').val();
                         d.select_classified = $('select[name="select-classified"]').val();
 //
 //                        d.created_at_from = $('input[name="created_at_from"]').val();

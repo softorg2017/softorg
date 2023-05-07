@@ -50,6 +50,7 @@ class AtomAdminRepository {
 
         $view_blade = env('LW_TEMPLATE_ATOM_ADMIN').'index';
         $view_return['menu_active_of_index'] = 'active menu-open';
+        $view_return['page_type'] = 'index';
         return view($view_blade)->with($view_return);
     }
 
@@ -1098,6 +1099,7 @@ class AtomAdminRepository {
     // 【内容】【全部】返回-列表-视图
     public function view_item_list_for_all($post_data)
     {
+        $return['page_type'] = 'list';
         $return['menu_active_of_item_list_for_all'] = 'active';
         $view_blade = env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-all';
         return view($view_blade)->with($return);
@@ -1199,6 +1201,7 @@ class AtomAdminRepository {
     // 【内容】【物】返回-列表-视图
     public function view_item_list_for_object($post_data)
     {
+        $return['page_type'] = 'list';
         $return['menu_active_of_item_list_for_object'] = 'active';
         $view_blade = env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-object';
         return view($view_blade)->with($return);
@@ -1206,6 +1209,7 @@ class AtomAdminRepository {
     // 【内容】【人】返回-列表-视图
     public function view_item_list_for_people($post_data)
     {
+        $return['page_type'] = 'list';
         $return['menu_active_of_item_list_for_people'] = 'active';
         $view_blade = env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-people';
         return view($view_blade)->with($return);
@@ -1213,6 +1217,7 @@ class AtomAdminRepository {
     // 【内容】【作品】返回-列表-视图
     public function view_item_list_for_product($post_data)
     {
+        $return['page_type'] = 'list';
         $return['menu_active_of_item_list_for_product'] = 'active';
         $view_blade = env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-product';
         return view($view_blade)->with($return);
@@ -1220,6 +1225,7 @@ class AtomAdminRepository {
     // 【内容】【事件】返回-列表-视图
     public function view_item_list_for_event($post_data)
     {
+        $return['page_type'] = 'list';
         $return['menu_active_of_item_list_for_event'] = 'active';
         $view_blade = env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-event';
         return view($view_blade)->with($return);
@@ -1227,6 +1233,7 @@ class AtomAdminRepository {
     // 【内容】【概念】返回-列表-视图
     public function view_item_list_for_conception($post_data)
     {
+        $return['page_type'] = 'list';
         $return['menu_active_of_item_list_for_conception'] = 'active';
         $view_blade = env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-list-for-conception';
         return view($view_blade)->with($return);

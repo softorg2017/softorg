@@ -49,6 +49,13 @@
                             <textarea class="form-control" name="description" rows="3" placeholder="描述">{!! $data->description or '' !!}</textarea>
                         </div>
                     </div>
+                    {{--关键描述--}}
+                    <div class="form-group">
+                        <label class="control-label col-md-2">关键描述</label>
+                        <div class="col-md-8 ">
+                            <textarea class="form-control" name="sub_desc" rows="3" placeholder="关键描述">{!! $data->sub_desc or '' !!}</textarea>
+                        </div>
+                    </div>
 
                     {{--职位--}}
                     <div class="form-group item-option option-people">

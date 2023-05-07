@@ -75,14 +75,15 @@
                         }
                         else
                         {
+                            $('.box-title').html('编辑内容');
                             $("#form-edit-item").find('input[name=operate]').val("edit");
                             $("#form-edit-item").find('input[name=operate_id]').val(data.data.id);
-                            $("#form-edit-item").find('input[name=rank]').val(data.data.rank);
 
 
                             $("#form-edit-item").find('input[name=name]').val(data.data.name);
                             $("#form-edit-item").find('input[name=title]').val(data.data.title);
                             $("#form-edit-item").find('textarea[name=description]').val(data.data.description);
+                            $("#form-edit-item").find('textarea[name=sub_desc]').val(data.data.sub_desc);
                             $("#form-edit-item").find('input[name=tag]').val(data.data.tag);
                             $("#form-edit-item").find('input[name=major]').val(data.data.major);
                             $("#form-edit-item").find('input[name=nation]').val(data.data.nation);
@@ -121,6 +122,11 @@
 
         // 【编辑】提交
         $("body").off('click','#edit-item-submit').on('click', "#edit-item-submit", function() {
+
+            var $page_type = $("#body-root").attr('data-page-type');
+            var $operate = $("#form-edit-item").find('input[name=operate]').val();
+            console.log($page_type);
+
             var options = {
                 url: "{{ url('/admin/item/item-edit') }}",
                 type: "post",
@@ -134,7 +140,12 @@
                     else
                     {
                         layer.msg(data.msg);
-                        location.reload();
+                        // location.reload();
+                        if($page_type == 'list') $('#datatable_ajax').DataTable().ajax.reload(null,false);
+
+                        form_reset_for_item_edit();
+                        $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
+                        }).modal('hide');
                     }
                 }
             };
