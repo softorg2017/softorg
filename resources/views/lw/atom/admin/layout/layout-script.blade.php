@@ -144,8 +144,8 @@
 
                         form_reset_for_item_edit();
 
-                        // $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
-                        // }).modal('hide');
+                        $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
+                        }).modal('hide');
                     }
                 }
             };
