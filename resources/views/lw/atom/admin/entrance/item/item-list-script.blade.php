@@ -527,36 +527,6 @@
 
 
     });
-
-
-    // 【重置】编辑
-    function form_reset_for_item_edit()
-    {
-//        $("#form-edit-content").find('.form-type').show();
-
-        $("#form-menu-option").show();
-        $("#form-rank-option").show();
-        $("#form-active-option").show();
-
-        $("#form-edit-item").find('input[name=operate]').val("create");
-        $("#form-edit-item").find('input[name=id]').val("{{ encode(0) }}");
-        $("#form-edit-item").find('input[name=rank]').val(0);
-        $("#form-edit-item").find('input[name=title]').val("");
-        $("#form-edit-item").find('textarea[name=description]').val("");
-
-        var ue = UE.getEditor('container');
-        ue.setContent("");
-
-        $("#form-edit-item").find('input[name=type]').prop('checked',null);
-        $("#form-edit-item").find('input[name=type][value="1"]').prop('checked',true);
-
-        $('#menu').find('option').prop('selected',null);
-        $('#menu').find('option[value=0]').prop("selected", true);
-
-        $("#form-edit-item").find('.active-disable').hide();
-        $("#form-edit-item").find('.active-none').show();
-        $('#form-edit-item').find('input[name=item_active][value="0"]').prop('checked',true);
-
-    }
+    s
 
 </script>

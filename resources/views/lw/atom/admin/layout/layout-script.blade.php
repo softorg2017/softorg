@@ -125,7 +125,6 @@
 
             var $page_type = $("#body-root").attr('data-page-type');
             var $operate = $("#form-edit-item").find('input[name=operate]').val();
-            console.log($page_type);
 
             var options = {
                 url: "{{ url('/admin/item/item-edit') }}",
@@ -144,8 +143,9 @@
                         if($page_type == 'list') $('#datatable_ajax').DataTable().ajax.reload(null,false);
 
                         form_reset_for_item_edit();
-                        $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
-                        }).modal('hide');
+
+                        // $('#modal-body-for-item-edit').on("hidden.bs.modal", function () {
+                        // }).modal('hide');
                     }
                 }
             };
