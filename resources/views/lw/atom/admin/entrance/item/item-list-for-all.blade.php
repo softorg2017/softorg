@@ -124,8 +124,7 @@
 
             var dt = $('#datatable_ajax');
             var ajax_datatable = dt.DataTable({
-//                "aLengthMenu": [[20, 50, 200, 500, -1], ["20", "50", "200", "500", "全部"]],
-                "aLengthMenu": [[50, 100, 200], ["50", "100", "200"]],
+                "aLengthMenu": [[100, 200, 200, -1], ["100", "200", "200", "全部"]],
                 "processing": true,
                 "serverSide": true,
                 "searching": false,
@@ -292,7 +291,7 @@
                         "title": "标题",
                         "data": "name",
                         "className": "text-left",
-                        "width": "160px",
+                        "width": "200px",
                         "orderable": false,
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
@@ -333,17 +332,17 @@
                         }
                     },
                     {
-                        "title": "描述",
-                        "data": "sub_desc",
+                        "title": "关键词",
+                        "data": "keywords",
                         "className": "text-left",
                         "width": "",
                         "fnCreatedCell": function (nTd, data, row, iRow, iCol) {
                             if(row.is_completed != 1 && row.item_status != 97)
                             {
                                 $(nTd).addClass('modal-show-for-item-text-set');
-                                $(nTd).attr('data-id',row.id).attr('data-name','描述');
-                                $(nTd).attr('data-key','sub_desc').attr('data-value',data);
-                                $(nTd).attr('data-column-name','描述');
+                                $(nTd).attr('data-id',row.id).attr('data-name','关键词');
+                                $(nTd).attr('data-key','keywords').attr('data-value',data);
+                                $(nTd).attr('data-column-name','关键词');
                                 $(nTd).attr('data-text-type','textarea');
                                 if(data) $(nTd).attr('data-operate-type','edit');
                                 else $(nTd).attr('data-operate-type','add');

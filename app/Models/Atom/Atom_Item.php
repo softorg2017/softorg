@@ -20,7 +20,7 @@ class Atom_Item extends Model
         'item_id', 'menu_id',
         'name', 'title', 'subtitle', 'description', 'sub_desc', 'content', 'custom', 'custom2', 'custom3',
         'link_url', 'cover_pic', 'attachment_name', 'attachment_src',
-        'tag',
+        'tag', 'keywords',
         'atom_category', 'major', 'nation', 'birth_time', 'death_time',
         'time_point', 'time_type', 'start_time', 'ended_time', 'address',
         'visit_num', 'share_num', 'favor_num', 'collect_num', 'comment_num',
