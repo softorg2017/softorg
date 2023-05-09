@@ -83,7 +83,7 @@
                             $("#form-edit-item").find('input[name=name]').val(data.data.name);
                             $("#form-edit-item").find('input[name=title]').val(data.data.title);
                             $("#form-edit-item").find('textarea[name=description]').val(data.data.description);
-                            $("#form-edit-item").find('textarea[name=sub_desc]').val(data.data.sub_desc);
+                            $("#form-edit-item").find('textarea[name=keywords]').val(data.data.keywords);
                             $("#form-edit-item").find('input[name=tag]').val(data.data.tag);
                             $("#form-edit-item").find('input[name=major]').val(data.data.major);
                             $("#form-edit-item").find('input[name=nation]').val(data.data.nation);

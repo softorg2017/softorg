@@ -51,9 +51,9 @@
                     </div>
                     {{--关键描述--}}
                     <div class="form-group">
-                        <label class="control-label col-md-2">关键描述</label>
+                        <label class="control-label col-md-2">关键词</label>
                         <div class="col-md-8 ">
-                            <textarea class="form-control" name="sub_desc" rows="3" placeholder="关键描述">{!! $data->sub_desc or '' !!}</textarea>
+                            <textarea class="form-control" name="keywords" rows="3" placeholder="关键词">{!! $data->keywords or '' !!}</textarea>
                         </div>
                     </div>
 
