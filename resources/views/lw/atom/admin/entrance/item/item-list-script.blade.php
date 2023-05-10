@@ -456,77 +456,60 @@
             //     }
             // });
 
-            $.post(
-                "{{ url('/admin/item/item-text-set') }}",
-                {
-                    _token: $('meta[name="_token"]').attr('content'),
-                    operate: $('input[name="item-text-set-operate"]').val(),
-                    item_id: $('input[name="item-text-set-item-id"]').val(),
-                    operate_type: $('input[name="item-text-set-operate-type"]').val(),
-                    column_key: $column_key,
-                    column_value: $column_value,
-                },
-                function(data){
-
-                    // layer.close(index);
-
-                    if(!data.success)
-                    {
-                        layer.msg(data.msg);
-//                            else location.reload();
-                    }
-                    else
-                    {
-                        $('#modal-body-for-item-text-set').modal('hide').on("hidden.bs.modal", function () {
-                            $("body").addClass("modal-open");
+                var $index = layer.load(1, {
+                    shade: [0.3, '#fff'],
+                    content: '<span class="loadtip">正在发布</span>',
+                    success: function (layer) {
+                        layer.find('.layui-layer-content').css({
+                            'padding-top': '40px',
+                            'width': '100px',
                         });
-
-                        $('input[name="item-text-set-column-value"]').val('');
-                        $('textarea[name="item-textarea-set-column-value"]').val('');
-
-                        $('#datatable_ajax').DataTable().ajax.reload(null,false);
+                        layer.find('.loadtip').css({
+                            'font-size':'20px',
+                            'margin-left':'-18px'
+                        });
                     }
-                },
-                'json'
-            );
+                });
 
-        });
+                $.post(
+                    "{{ url('/admin/item/item-text-set') }}",
+                    {
+                        _token: $('meta[name="_token"]').attr('content'),
+                        operate: $('input[name="item-text-set-operate"]').val(),
+                        item_id: $('input[name="item-text-set-item-id"]').val(),
+                        operate_type: $('input[name="item-text-set-operate-type"]').val(),
+                        column_key: $column_key,
+                        column_value: $column_value,
+                    },
+                    function(data){
 
+                        // layer.close(index);
+                        layer.closeAll('loading');
 
-
-        // $(".main-content").on('select2', "#select2-people", function() {
-        $('.main-content #select2-people').select2({
-            ajax: {
-                url: "/admin/item/select2_people",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        keyword: params.term, // search term
-                        page: params.page
-                    };
-                },
-                processResults: function (data, params) {
-
-                    params.page = params.page || 1;
-//                    console.log(data);
-                    return {
-                        results: data,
-                        pagination: {
-                            more: (params.page * 30) < data.total_count
+                        if(!data.success)
+                        {
+                            layer.msg(data.msg);
+    //                            else location.reload();
                         }
-                    };
-                },
-                cache: true
-            },
-            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-            minimumInputLength: 0,
-            theme: 'classic'
-        });
+                        else
+                        {
+                            $('#modal-body-for-item-text-set').modal('hide').on("hidden.bs.modal", function () {
+                                $("body").addClass("modal-open");
+                            });
 
+                            $('input[name="item-text-set-column-value"]').val('');
+                            $('textarea[name="item-textarea-set-column-value"]').val('');
+
+                            $('#datatable_ajax').DataTable().ajax.reload(null,false);
+                        }
+                    },
+                    'json'
+                );
+
+        });
 
 
     });
-    s
+
 
 </script>

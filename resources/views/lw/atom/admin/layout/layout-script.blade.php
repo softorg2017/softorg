@@ -36,12 +36,18 @@
                 $("#form-edit-item").find('input[name=type]').val($type);
 
                 $('.item-option').hide();
-                if($type == 'people') $('.option-people').show();
+                if($type == 'people')
+                {
+                    $('.option-people').show();
+                }
                 else if($type == 'product')
                 {
                     $('.option-product').show();
                 }
-                else if($type == 'event') $('.envet').show();
+                else if($type == 'event')
+                {
+                    $('.envet').show();
+                }
 
                 $("#form-edit-item").find('.active-disable').hide();
                 $("#form-edit-item").find('.active-none').show();
@@ -98,6 +104,22 @@
                             $("#form-edit-item").find('.cover_img_container').html(data.data.cover_img);
 
 
+                            var $type = data.data.item_type;
+                            $('.item-option').hide();
+                            if($type == 11)
+                            {
+                                $('.option-people').show();
+                            }
+                            else if($type == 22)
+                            {
+                                $('.option-product').show();
+                            }
+                            else if($type == 33)
+                            {
+                                $('.option-event').show();
+                            }
+
+
                             $('#menu').find('option').prop('selected',null);
                             $('#menu').find('option[value='+data.data.p_id+']').prop("selected", true);
                             var selected_text = $('#menu').find('option[value='+data.data.p_id+']').text();
@@ -126,12 +148,30 @@
             var $page_type = $("#body-root").attr('data-page-type');
             var $operate = $("#form-edit-item").find('input[name=operate]').val();
 
+            var $index = layer.load(1, {
+                shade: [0.3, '#fff'],
+                content: '<span class="loadtip">正在发布</span>',
+                success: function (layer) {
+                    layer.find('.layui-layer-content').css({
+                        'padding-top': '40px',
+                        'width': '100px',
+                    });
+                    layer.find('.loadtip').css({
+                        'font-size':'20px',
+                        'margin-left':'-18px'
+                    });
+                }
+            });
+
             var options = {
                 url: "{{ url('/admin/item/item-edit') }}",
                 type: "post",
                 dataType: "json",
                 // target: "#div2",
                 success: function (data) {
+
+                    layer.closeAll('loading');
+
                     if(!data.success)
                     {
                         layer.msg(data.msg);
@@ -155,8 +195,7 @@
 
 
 
-        // $(".main-content").on('select2', "#select2-people", function() {
-        $('#select2-people').select2({
+        $('.main-content #select2-people').select2({
             ajax: {
                 url: "/admin/item/select2_people",
                 dataType: 'json',
@@ -204,6 +243,11 @@
         $("#form-edit-item").find('input[name=title]').val('');
         $("#form-edit-item").find('input[name=tag]').val('');
         $("#form-edit-item").find('textarea[name=description]').val('');
+        $("#form-edit-item").find('textarea[name=keywords]').val('');
+        $("#form-edit-item").find('input[name=major]').val('');
+        $("#form-edit-item").find('input[name=nation]').val('');
+        $("#form-edit-item").find('input[name=birth_time]').val('');
+        $("#form-edit-item").find('input[name=death_time]').val('');
 
         var ue = UE.getEditor('container');
         ue.setContent("");
