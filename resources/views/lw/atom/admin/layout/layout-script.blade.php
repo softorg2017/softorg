@@ -98,7 +98,7 @@
 
                             var content = data.data.content;
                             if(data.data.content == null) content = '';
-                            var ue = UE.getEditor('container');
+                            var ue = UE.getEditor('uEditor-container');
                             ue.setContent(content);
 
                             $("#form-edit-item").find('.cover_img_container').html(data.data.cover_img);
@@ -249,7 +249,7 @@
         $("#form-edit-item").find('input[name=birth_time]').val('');
         $("#form-edit-item").find('input[name=death_time]').val('');
 
-        var ue = UE.getEditor('container');
+        var ue = UE.getEditor('uEditor-container');
         ue.setContent("");
 
         $("#form-edit-item").find('input[name=type]').prop('checked',null);
