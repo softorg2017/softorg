@@ -54,9 +54,6 @@
                         </select>
 
 
-                        <button type="button" class="form-control btn btn-flat bg-teal filter-empty">
-                            <i class="fa fa-remove"></i> 清空重选
-                        </button>
                         <button type="button" class="form-control btn btn-flat btn-success filter-submit" id="filter-submit">
                             <i class="fa fa-search"></i> 搜索
                         </button>
@@ -65,6 +62,9 @@
                         </button>
                         <button type="button" class="form-control btn btn-flat btn-warning filter-cancel">
                             <i class="fa fa-undo"></i> 重置
+                        </button>
+                        <button type="button" class="form-control btn btn-flat bg-teal filter-empty">
+                            <i class="fa fa-remove"></i> 清空重选
                         </button>
 
                     </div>
