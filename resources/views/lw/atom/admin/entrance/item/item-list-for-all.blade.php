@@ -96,10 +96,6 @@
         </div>
     </div>
 </div>
-
-
-{{--详细-信息--}}
-@include(env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-set')
 @endsection
 
 

@@ -82,14 +82,6 @@
         </div>
     </div>
 </div>
-
-
-{{--添加&编辑--}}
-@include(env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-edit')
-
-
-{{--修改-基本-信息--}}
-@include(env('LW_TEMPLATE_ATOM_ADMIN').'entrance.item.item-modal-for-item-set')
 @endsection
 
 
