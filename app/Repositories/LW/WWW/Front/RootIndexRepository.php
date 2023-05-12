@@ -866,7 +866,7 @@ class RootIndexRepository {
             'user_id.exists' => '参数有误',
         ];
         $v = Validator::make($post_data, [
-            'user_id' => 'required|numeric|exists:user,id'
+            'user_id' => 'required|numeric|exists:lw_user,id'
         ], $messages);
         if ($v->fails())
         {
@@ -959,7 +959,7 @@ class RootIndexRepository {
             'user_id.exists' => '参数有误',
         ];
         $v = Validator::make($post_data, [
-            'user_id' => 'required|numeric|exists:user,id'
+            'user_id' => 'required|numeric|exists:lw_user,id'
         ], $messages);
         if ($v->fails())
         {

@@ -69,8 +69,8 @@
     <div class="main-body-section side-section main-body-right-section section-wrapper hidden-xs">
 
         <div class="fixed-to-top">
-        {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-root')--}}
-        @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
+            {{--@include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-root')--}}
+            @include(env('TEMPLATE_ROOT_FRONT').'component.right-side.right-me')
         </div>
 
     </div>
