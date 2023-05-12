@@ -2,7 +2,7 @@
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 margin-top-32px margin-bottom-64px bg-white">
 
 
-        <div class="box box-info- form-container">
+        <div class="box- box-info- form-container">
 
 
             <div class="box-header with-border margin-top-16px margin-bottom-16px">
@@ -234,7 +234,7 @@
 
 
             <div class="box-footer">
-                <div class="row margin-top-16px margin-bottom-16px">
+                <div class="row margin-top-16px- margin-bottom-16px-">
                     <div class="col-md-8 col-md-offset-2">
                         <button type="button" class="btn btn-primary" id="edit-item-submit"><i class="fa fa-check"></i> 提交</button>
                         <button type="button" class="btn btn-default e-cancel-for-item-edit">取消</button>

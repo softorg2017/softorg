@@ -32,7 +32,7 @@
 
                 form_reset_for_item_edit();
 
-                $('.box-title').html('添加新内容');
+                $('#modal-body-for-item-edit .box-title').html('添加新内容');
                 $("#form-edit-item").find('input[name=type]').val($type);
 
                 $('.item-option').hide();
@@ -81,7 +81,7 @@
                         }
                         else
                         {
-                            $('.box-title').html('编辑内容');
+                            $('#modal-body-for-item-edit .box-title').html('编辑内容');
                             $("#form-edit-item").find('input[name=operate]').val("edit");
                             $("#form-edit-item").find('input[name=operate_id]').val(data.data.id);
 
