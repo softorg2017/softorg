@@ -1,11 +1,11 @@
 <?php
-namespace App\Http\Controllers\Root;
+namespace App\Http\Controllers\LW\WWW;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Repositories\Root\WeixinRepository;
+use App\Repositories\LW\WWW\WeixinRepository;
 
 class WeixinController extends Controller
 {

@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Root;
+namespace App\Repositories\LW\WWW;
 
 use App\User;
 use App\UserExt;
