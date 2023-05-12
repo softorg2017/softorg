@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Repositories\Root\Front\RootIndexRepository;
+use App\Repositories\lw\WWW\Front\RootIndexRepository;
 
 use Response, Auth, Validator, DB, Exception, Cache;
 use QrCode, Excel;

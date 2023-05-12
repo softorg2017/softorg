@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Root\Front;
+namespace App\Repositories\LW\WWW\Front;
 
 use App\Http\Middleware\WwwMiddleware;
 
