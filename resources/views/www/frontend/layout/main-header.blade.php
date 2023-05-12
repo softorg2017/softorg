@@ -137,7 +137,7 @@
                                         </a>
                                     </div>
                                     <div class="col-xs-6 text-center">
-                                        <a href="{{ url('/my-cards') }}">
+                                        <a href="{{ url('/my-cards-case') }}">
                                             <i class="fa fa-list-alt text-red"></i> 名片夹
                                         </a>
                                     </div>
